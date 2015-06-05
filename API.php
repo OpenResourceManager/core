@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: melon
@@ -6,6 +7,10 @@
  * Time: 12:46 PM
  */
 
-class API {
+if ($data_sent = ($_GET['update'] | $_POST['update'])) {
+
+    echo json_encode($data_sent);
+
+} else {
 
 }
