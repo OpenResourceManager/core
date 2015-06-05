@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: melon
@@ -6,7 +7,23 @@
  * Time: 1:43 PM
  */
 
-class API {
+include_once dirname(dirname(__FILE__)) . '/ud2sql/helpers/MySQLHelper.php';
+include_once dirname(dirname(__FILE__)) . '/ud2sql/app/Config.php';
+
+class API
+{
+    function unauthorized()
+    {
+        header('HTTP/1.1 403 Not Found');
+        echo "<h1>403 Forbidden</h1>";
+        echo "You are not authorized to access this page.";
+        exit();
+    }
+
+    function checkAPIKey($key)
+    {
+
+    }
 
     public function updateRecord($data)
     {
