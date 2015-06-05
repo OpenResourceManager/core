@@ -1,0 +1,3 @@
+[submodule "lib/ud2sql"]
+	path = lib/ud2sql
+	url = git@gitlab.sage.edu:network-services/UniData-2-SQL-Bridge.git
