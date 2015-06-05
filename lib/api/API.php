@@ -22,6 +22,8 @@ class API
 
     function checkAPIKey($key)
     {
+        $mySQLHelper = new MySQLHelper();
+        $mysqli = $mySQLHelper->getMySQLi(Config::getSQLConf());
 
     }
 
