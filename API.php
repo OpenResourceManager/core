@@ -12,5 +12,6 @@ if ($data_sent = ($_GET['update'] | $_POST['update'])) {
     echo json_encode($data_sent);
 
 } else {
-
+    echo 'Hello';
 }
+
