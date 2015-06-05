@@ -7,7 +7,7 @@
  * Time: 12:46 PM
  */
 
-if ($data_sent = ($_GET['update'] | $_POST['update'])) {
+if ($data_sent = ($_GET['update'] || $_POST['update'])) {
     echo json_encode($data_sent);
 } else {
     header('HTTP/1.0 404 Not Found');
