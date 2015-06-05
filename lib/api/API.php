@@ -24,7 +24,7 @@ class API
     {
         $mySQLHelper = new MySQLHelper();
         $mysqli = $mySQLHelper->getMySQLi(Config::getSQLConf());
-
+        return $mySQLHelper->simpleSelect($mysqli, Config::getSQLConf()['db_api_key_table'], 'key', $key)->fetch_assoc();
     }
 
     public function updateRecord($data)
