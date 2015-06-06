@@ -43,8 +43,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
             echo json_encode(array(
                 'application' => $apiKey['app'],
                 'success' => true,
-                'result' => array(),
-                'methods' => array(
+                'result' => array(
                     'get' => array(
                         '/id/:id',
                         '/id_num/:id_num',
@@ -52,7 +51,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                         '/:limit'
                     ),
                     'post' => array()
-                )
+                ),
             ));
         });
     });
@@ -74,8 +73,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
             echo json_encode(array(
                 'application' => $apiKey['app'],
                 'success' => true,
-                'result' => array(),
-                'methods' => array(
+                'result' => array(
                     'get' => array(
                         '/id/:id',
                         '/datatel_code/:datatel_code',
@@ -104,8 +102,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
             echo json_encode(array(
                 'application' => $apiKey['app'],
                 'success' => true,
-                'result' => array(),
-                'methods' => array(
+                'result' => array(
                     'get' => array(
                         '/id/:id',
                         '/datatel_code/:datatel_code',
@@ -134,8 +131,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
             echo json_encode(array(
                 'application' => $apiKey['app'],
                 'success' => true,
-                'result' => array(),
-                'methods' => array(
+                'result' => array(
                     'get' => array(
                         '/id/:id',
                         '/datatel_code/:datatel_code',
