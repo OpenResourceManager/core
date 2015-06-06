@@ -394,6 +394,47 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
             }
         });
 
+        /**
+         * @api {get} /role/:limit Get X Amount of Records
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Roles
+         * @apiParam {Int} limit The max amount of records to return, 0 returns all of them.
+         *
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Array} result An array of role record objects.
+         * @apiSuccessExample Success-Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": [
+         *             {
+         *                  "id": "1",
+         *                  "datatel_name": "STUDENT",
+         *                  "common_name": "Student"
+         *              },
+         *              {
+         *                  "id": "2",
+         *                  "datatel_name": "EMPLOYEE",
+         *                  "common_name": "Employee"
+         *              }
+         *          ]
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} RolesNotFound The was no roles found.
+         * @apiErrorExample Error-Response:
+         *      HTTP/1.1 404 Not Found
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "RolesNotFound"
+         *      }
+         */
+
         $slim->get('/:limit', function ($limit) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
             if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_role_table'], $limit)->fetch_all(MYSQLI_ASSOC)) {
                 echo json_encode(array(
@@ -403,7 +444,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 ));
             } else {
                 header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'RoleNotFound'));
+                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'RolesNotFound'));
             }
         });
         $slim->get('/', function () use ($api, $apiKey) {
@@ -520,6 +561,49 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
             }
         });
 
+        /**
+         * @api {get} /building/:limit Get X Amount of Records
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Buildings
+         * @apiParam {Int} limit The max amount of records to return, 0 returns all of them.
+         *
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Array} result An array of building record objects.
+         * @apiSuccessExample Success-Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": [
+         *             {
+         *                  "id": "1",
+         *                  "campus": "1",
+         *                  "datatel_name": "37-1",
+         *                  "common_name": "37 First Street"
+         *              },
+         *              {
+         *                  "id": "2",
+         *                  "campus": "1",
+         *                  "datatel_name": "90-1",
+         *                  "common_name": "90 1st Street"
+         *              }
+         *          ]
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} BuildingsNotFound The was no buildings found.
+         * @apiErrorExample Error-Response:
+         *      HTTP/1.1 404 Not Found
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "BuildingsNotFound"
+         *      }
+         */
+
         $slim->get('/:limit', function ($limit) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
             if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_building_table'], $limit)->fetch_all(MYSQLI_ASSOC)) {
                 echo json_encode(array(
@@ -529,7 +613,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 ));
             } else {
                 header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'BuildingNotFound'));
+                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'BuildingsNotFound'));
             }
         });
         $slim->get('/', function () use ($api, $apiKey) {
@@ -644,6 +728,47 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
             }
         });
 
+        /**
+         * @api {get} /campus/:limit Get X Amount of Records
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Campuses
+         * @apiParam {Int} limit The max amount of records to return, 0 returns all of them.
+         *
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Array} result An array of campus record objects.
+         * @apiSuccessExample Success-Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": [
+         *             {
+         *                  "id": "1",
+         *                  "datatel_name": "TRY",
+         *                  "common_name": "Russell Sage College"
+         *              },
+         *              {
+         *                  "id": "2",
+         *                  "datatel_name": "ALB",
+         *                  "common_name": "Sage College of Albany"
+         *              }
+         *          ]
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} CampusesNotFound The was no campuses found.
+         * @apiErrorExample Error-Response:
+         *      HTTP/1.1 404 Not Found
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "CampusesNotFound"
+         *      }
+         */
+
         $slim->get('/:limit', function ($limit) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
             if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_campus_table'], $limit)->fetch_all(MYSQLI_ASSOC)) {
                 echo json_encode(array(
@@ -653,7 +778,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 ));
             } else {
                 header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'CampusNotFound'));
+                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'CampusesNotFound'));
             }
 
         });
