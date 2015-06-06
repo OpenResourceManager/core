@@ -30,9 +30,10 @@ if (isset($_POST['X-Authorization']) && $apiKey = $api->checkAPIKey($_POST['X-Au
     } elseif ($_POST['action'] === 'read') { // If we want to read
 
     } elseif ($_POST['action'] === 'write' && !$canWrite) { // If we want to write and can NOT write
-        header('HTTP/1.1 401 Not Found');
+        header('HTTP/1.1 401 Forbidden');
         echo json_encode(array('success' => false, 'message' => 'Insufficient privileges to write.'));
     } else { // Either action was not supplied or an invalid one was
+        header('HTTP/1.1 404 Not Found');
         echo json_encode(array('success' => false, 'message' => 'Action not defined.'));
     }
     exit();
