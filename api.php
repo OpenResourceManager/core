@@ -18,7 +18,7 @@ if (isset($_POST['X-Authorization']) && $access = $api->checkAPIKey($_POST['X-Au
 
     echo json_encode(array(
         'authorized' => true,
-        'access' => boolval($access['write'])
+        'can_write' => $access['write']
         ));
 
 } else {
