@@ -118,7 +118,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError UserNotFound The id of the User was not found.
+         * @apiError {String} UserNotFound The id of the User was not found.
          * @apiErrorExample Error-Response:
          *      HTTP/1.1 404 Not Found
          *      {
@@ -178,7 +178,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError UserNotFound The id of the User was not found.
+         * @apiError {String} UserNotFound The id of the User was not found.
          * @apiErrorExample Error-Response:
          *      HTTP/1.1 404 Not Found
          *      {
@@ -258,7 +258,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError UserNotFound The id of the User was not found.
+         * @apiError {String} UsersNotFound The id of the User was not found.
          * @apiErrorExample Error-Response:
          *      HTTP/1.1 404 Not Found
          *      {
