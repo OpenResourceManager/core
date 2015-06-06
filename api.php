@@ -10,8 +10,12 @@
 
 $api = new API();
 
-if ($api->checkAPIKey($_POST['X-Authorization'])) {
+if ($_POST['X-Authorization']) {
+    if ($api->checkAPIKey($_POST['X-Authorization'])) {
 
+    } else {
+        $api->unauthorized();
+    }
 } else {
     $api->unauthorized();
 }
