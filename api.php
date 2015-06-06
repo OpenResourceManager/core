@@ -10,6 +10,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+include_once dirname(__FILE__) . '/lib/api/API.php';
+
 $api = new API();
 
 if ($_POST['X-Authorization']) {
