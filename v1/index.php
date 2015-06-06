@@ -23,7 +23,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
     $slim->group('/user', function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper) {
 
         /**
-         * @api {get} /user/id/:id Get User by ID
+         * @api {get} /user/id/:id Get By ID
          * @apiVersion 1.0.0
          * @apiHeader {string} X-Authorization Users unique access-key.
          * @apiGroup User
@@ -82,7 +82,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         /**
-         * @api {get} /user/idnum/:idnum Get User by Sage ID
+         * @api {get} /user/idnum/:idnum Get By Sage ID
          * @apiVersion 1.0.0
          * @apiHeader {string} X-Authorization Users unique access-key.
          * @apiGroup User
@@ -142,7 +142,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         /**
-         * @api {get} /user/username/:username Get User by Sage Username
+         * @api {get} /user/username/:username Get By Sage Username
          * @apiVersion 1.0.0
          * @apiHeader {string} X-Authorization Users unique access-key.
          * @apiGroup User
@@ -202,7 +202,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         /**
-         * @api {get} /user/:limit Get X Amount of User Records
+         * @api {get} /user/:limit Get X Amount of Records
          * @apiVersion 1.0.0
          * @apiHeader {string} X-Authorization Users unique access-key.
          * @apiGroup User
