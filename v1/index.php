@@ -23,7 +23,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
     $slim->group('/user', function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper) {
 
         /**
-         * @api {get} /user/id/:id Get By ID
+         * @api {get} /user/id/:id Get by ID
          * @apiVersion 1.0.0
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Users
@@ -82,7 +82,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         /**
-         * @api {get} /user/idnum/:idnum Get By Sage ID
+         * @api {get} /user/idnum/:idnum Get by Sage ID
          * @apiVersion 1.0.0
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Users
@@ -142,7 +142,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         /**
-         * @api {get} /user/username/:username Get By Sage Username
+         * @api {get} /user/username/:username Get by Sage Username
          * @apiVersion 1.0.0
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Users
@@ -301,7 +301,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
     $slim->group(('/role'), function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper) {
 
         /**
-         * @api {get} /role/id/:id Get By ID
+         * @api {get} /role/id/:id Get by ID
          * @apiVersion 1.0.0
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Roles
@@ -425,7 +425,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
     $slim->group(('/building'), function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper) {
 
         /**
-         * @api {get} /building/id/:id Get By ID
+         * @api {get} /building/id/:id Get by ID
          * @apiVersion 1.0.0
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Buildings
