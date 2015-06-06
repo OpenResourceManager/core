@@ -7,6 +7,10 @@
  * Time: 12:46 PM
  */
 
+/**
+ * APIDOC stuff here
+ */
+
 // Display errors
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -23,13 +27,14 @@ if (isset($_POST['X-Authorization']) && $apiKey = $api->checkAPIKey($_POST['X-Au
     // Define API action sets
     if ($_POST['action'] === 'write' && $canWrite) { // If we want to write and can write
 
-    } elseif ($_POST['action'] === 'write' && !$canWrite) { // If we want to write and can NOT write
-
     } elseif ($_POST['action'] === 'read') { // If we want to read
 
+    } elseif ($_POST['action'] === 'write' && !$canWrite) { // If we want to write and can NOT write
+        echo json_encode(array('success' => false, 'message' => 'Insufficient privileges to write.'));
     } else { // Either action was not supplied or an invalid one was
-        Die(json_encode(array('success' => false, 'message' => 'Action not defined.')));
+        echo json_encode(array('success' => false, 'message' => 'Action not defined.'));
     }
+    exit();
 } else {
     // Throw a 401 unauthorized, since the app is not authorized
     $api->unauthorized();
