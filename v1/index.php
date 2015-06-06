@@ -54,10 +54,10 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          */
         $slim->post('/idnum/:idnum', function ($idnum) use ($api, $apiKey, $mysqli, $MySQLiHelper, $slim) {
             if ($apiKey['write'] == 1) {
-               /* $output = $api->updateRecordSageID($idnum, json_decode(json_encode($slim->request->post())), $mysqli, $MySQLiHelper);
+                $data = $slim->request->post();
+                $output = $api->updateRecordSageID($idnum, $data, $mysqli, $MySQLiHelper);
                 $output['application'] = $apiKey['app'];
-                echo json_encode($output);*/
-                echo json_encode($slim->request->post());
+                echo json_encode($output);
             } else {
                 header('HTTP/1.1 401 Forbidden');
                 echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'ForbiddenToWrite'));
