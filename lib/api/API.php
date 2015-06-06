@@ -27,7 +27,16 @@ class API
      */
     function checkAPIKey($key = '')
     {
-        echo json_encode(Config::getSQLConf());
+        $conf = Config::getSQLConf();
+        $helper = new MySQLHelper();
+        $mysqli = $helper->getMySQLi($conf);
+        $select = $helper->simpleSelect($mysqli, $conf['db_api_key_table'], 'key', $mysqli->real_escape_string($key));
+        if (!$select) {
+            Die($mysqli->errno . ' - ' . $mysqli->error);
+        } else {
+            return $select->fetch_assoc();
+        }
+
     }
 
     public function updateRecord($data)
