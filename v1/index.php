@@ -66,7 +66,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         $slim->get('/:limit', function ($limit) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_user_table'], $limit)->fetch_all()) {
+            if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_user_table'], $limit)->fetch_all(MYSQLI_ASSOC)) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -124,7 +124,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         $slim->get('/:limit', function ($limit) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_role_table'], $limit)->fetch_all()) {
+            if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_role_table'], $limit)->fetch_all(MYSQLI_ASSOC)) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -180,7 +180,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         $slim->get('/:limit', function ($limit) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_building_table'], $limit)->fetch_all()) {
+            if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_building_table'], $limit)->fetch_all(MYSQLI_ASSOC)) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -236,7 +236,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         $slim->get('/:limit', function ($limit) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_campus_table'], $limit)->fetch_all()) {
+            if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_campus_table'], $limit)->fetch_all(MYSQLI_ASSOC)) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
