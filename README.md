@@ -34,6 +34,6 @@ Check out the [API documentation](https://databridge.sage.edu/docs/).
   - [ ] Update user by ID
   - [ ] Update user by ID_Number
   - [ ] Update user by username
-- [ ] Documentation
-  - [ ] Write inline documentation.
-  - [ ] Use [APIDOC](http://apidocjs.com/) to generate the docs.
+- [X] Documentation
+  - [X] Write inline documentation.
+  - [X] Use [APIDOC](http://apidocjs.com/) to generate the docs.
