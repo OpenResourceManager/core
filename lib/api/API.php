@@ -30,7 +30,7 @@ class API
         $conf = Config::getSQLConf();
         $helper = new MySQLHelper();
         $mysqli = $helper->getMySQLi($conf);
-        $select = $helper->simpleSelect($mysqli, $conf['db_api_key_table'], 'key', $mysqli->real_escape_string($key));
+        $select = $helper->simpleSelect($mysqli, $conf['db_api_key_table'], 'key', $key);
         if (!$select) {
             Die($mysqli->errno . ' - ' . $mysqli->error);
         } else {
