@@ -16,7 +16,7 @@ class API
     function unauthorized()
     {
         header('HTTP/1.1 401 Not Found');
-        echo "<h1>403 Forbidden</h1>";
+        echo "<h1>401 Forbidden</h1>";
         Die("You are not authorized to access this page.");
     }
 
