@@ -7,6 +7,8 @@
  */
 require dirname(dirname(__FILE__)) . 'vendor/autoload.php';
 
+echo 'hello';
+
 $app = new \Slim\Slim(array(
     'debug' => true
 ));
