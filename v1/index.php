@@ -35,7 +35,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 ));
             } else {
                 header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('success' => false, 'message' => 'Not Found'));
+                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'message' => 'Not Found'));
             }
         });
 
@@ -48,7 +48,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 ));
             } else {
                 header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('success' => false, 'message' => 'Not Found'));
+                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'message' => 'Not Found'));
             }
         });
 
@@ -61,7 +61,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 ));
             } else {
                 header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('success' => false, 'message' => 'Not Found'));
+                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'message' => 'Not Found'));
             }
         });
 
@@ -74,7 +74,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 ));
             } else {
                 header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('success' => false, 'message' => 'Not Found'));
+                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'message' => 'Not Found'));
             }
         });
 
@@ -106,7 +106,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 ));
             } else {
                 header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('success' => false, 'message' => 'Not Found'));
+                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'message' => 'Not Found'));
             }
         });
 
@@ -119,7 +119,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 ));
             } else {
                 header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('success' => false, 'message' => 'Not Found'));
+                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'message' => 'Not Found'));
             }
         });
 
@@ -132,7 +132,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 ));
             } else {
                 header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('success' => false, 'message' => 'Not Found'));
+                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'message' => 'Not Found'));
             }
         });
         $slim->get('/', function () use ($api, $apiKey) {
@@ -162,7 +162,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 ));
             } else {
                 header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('success' => false, 'message' => 'Not Found'));
+                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'message' => 'Not Found'));
             }
         });
 
@@ -175,7 +175,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 ));
             } else {
                 header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('success' => false, 'message' => 'Not Found'));
+                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'message' => 'Not Found'));
             }
         });
 
@@ -188,7 +188,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 ));
             } else {
                 header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('success' => false, 'message' => 'Not Found'));
+                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'message' => 'Not Found'));
             }
         });
         $slim->get('/', function () use ($api, $apiKey) {
@@ -218,7 +218,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 ));
             } else {
                 header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('success' => false, 'message' => 'Not Found'));
+                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'message' => 'Not Found'));
             }
         });
 
@@ -231,7 +231,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 ));
             } else {
                 header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('success' => false, 'message' => 'Not Found'));
+                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'message' => 'Not Found'));
             }
         });
 
@@ -244,7 +244,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 ));
             } else {
                 header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('success' => false, 'message' => 'Not Found'));
+                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'message' => 'Not Found'));
             }
 
         });
