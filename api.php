@@ -20,7 +20,16 @@ if (isset($_POST['X-Authorization']) && $apiKey = $api->checkAPIKey($_POST['X-Au
     $canWrite = ($apiKey['write'] === 1) ? true : false;
     // Unset the api key variable
     unset($apiKey);
+    // Define API action sets
+    if ($_POST['action'] === 'write' && $canWrite) { // If we want to write and can write
 
+    } elseif ($_POST['action'] === 'write' && !$canWrite) { // If we want to write and can NOT write
+
+    } elseif ($_POST['action'] === 'read') { // If we want to read
+
+    } else { // Either action was not supplied or an invalid one was
+        Die(json_encode(array('success' => false, 'message' => 'Action not defined.')));
+    }
 } else {
     // Throw a 401 unauthorized, since the app is not authorized
     $api->unauthorized();
