@@ -348,7 +348,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         /**
-         * @api {get} /role/code/:code Get Datatel Code
+         * @api {get} /role/code/:code Get by Datatel Code
          * @apiVersion 1.0.0
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Roles
@@ -473,10 +473,10 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         /**
-         * @api {get} /building/code/:code Get Datatel Code
+         * @api {get} /building/code/:code Get by Datatel Code
          * @apiVersion 1.0.0
          * @apiHeader {String} X-Authorization The application's unique access-key.
-         * @apiGroup Roles
+         * @apiGroup Buildings
          * @apiParam {String} Datatel code that corresponds with that building.
          *
          * @apiSuccess {String} application The name of the application that is accessing the API.
