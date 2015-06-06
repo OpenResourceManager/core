@@ -23,10 +23,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
     $slim->group('/user', function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper) {
 
         /**
-         * @api {get} /user/id/:id ID
+         * @api {get} /user/id/:id Get User by ID
          * @apiVersion 1.0.0
          * @apiHeader {string} X-Authorization Users unique access-key.
-         * @apiName Get User by ID
          * @apiGroup User
          * @apiParam {Int} id Users's unique API ID.
          *
@@ -60,7 +59,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError UserNotFound The id of the User was not found.
+         * @apiError {String} UserNotFound The id of the User was not found.
          * @apiErrorExample Error-Response:
          *      HTTP/1.1 404 Not Found
          *      {
@@ -83,10 +82,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         /**
-         * @api {get} /user/idnum/:idnum IDNUM
+         * @api {get} /user/idnum/:idnum Get User by Sage ID
          * @apiVersion 1.0.0
          * @apiHeader {string} X-Authorization Users unique access-key.
-         * @apiName Get User by Sage ID
          * @apiGroup User
          * @apiParam {Int} idnum Users's unique Sage ID.
          *
@@ -144,10 +142,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         /**
-         * @api {get} /user/username/:username Username
+         * @api {get} /user/username/:username Get User by Sage Username
          * @apiVersion 1.0.0
          * @apiHeader {string} X-Authorization Users unique access-key.
-         * @apiName Get User by Sage Username
          * @apiGroup User
          * @apiParam {String} username Users's unique Sage username.
          *
@@ -205,10 +202,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         /**
-         * @api {get} /user/:limit Limit
+         * @api {get} /user/:limit Get X Amount of User Records
          * @apiVersion 1.0.0
          * @apiHeader {string} X-Authorization Users unique access-key.
-         * @apiName Get X User Records
          * @apiGroup User
          * @apiParam {Int} limit The max amount of users to return, 0 form all users.
          *
