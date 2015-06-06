@@ -7,5 +7,3 @@
  */
 
 # Nothing to see, move along
-
-echo 'nothing';
