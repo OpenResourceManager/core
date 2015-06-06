@@ -71,7 +71,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
 
         });
         $slim->get('/', function () use ($api, $apiKey) {
-            return json_encode(array(
+            echo json_encode(array(
                 'application' => $apiKey['app'],
                 'success' => true,
                 'result' => array(),
@@ -101,7 +101,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
 
         });
         $slim->get('/', function () use ($api, $apiKey) {
-            return json_encode(array(
+            echo json_encode(array(
                 'application' => $apiKey['app'],
                 'success' => true,
                 'result' => array(),
@@ -131,7 +131,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
 
         });
         $slim->get('/', function () use ($api, $apiKey) {
-            return json_encode(array(
+            echo json_encode(array(
                 'application' => $apiKey['app'],
                 'success' => true,
                 'result' => array(),
