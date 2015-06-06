@@ -58,7 +58,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 $result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'id_num', $idnum);
                 $output = $api->updateRecordSageID($idnum, $data, $mysqli, $MySQLiHelper, $result);
                 $output['application'] = $apiKey['app'];
-                echo json_encode($output);
+               // echo json_encode($output);
             } else {
                 header('HTTP/1.1 401 Forbidden');
                 echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'ForbiddenToWrite'));
