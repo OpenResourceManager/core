@@ -36,7 +36,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
     });
 
-    $slim->group(('/building' || '/role' || 'campus'), function () use ($slim, $api) {
+    $slim->group(('/building'), function () use ($slim, $api) {
 
         $slim->get('/id/:id', function ($id) use ($slim, $api) {
             echo $slim->root();
