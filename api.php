@@ -16,7 +16,10 @@ $api = new API();
 
 if (isset($_POST['X-Authorization']) && $access = $api->checkAPIKey($_POST['X-Authorization'])) {
 
-    echo json_encode(array('authorized' => true));
+    echo json_encode(array(
+        'authorized' => true,
+        'access' => boolval($access['write'])
+        ));
 
 } else {
     $api->unauthorized();
