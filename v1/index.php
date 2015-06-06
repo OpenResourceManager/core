@@ -53,7 +53,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "room": "302",
          *              "has_photo_id": "1",
          *              "photo_id_url": "http://idmanager.sage.edu/pics/accepted/0999998.jpg",
-         *              "photo_id_filename": "999998.jpg
+         *              "photo_id_filename": "999998.jpg"
          *           }
          *     }
          *
@@ -112,7 +112,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "room": "302",
          *              "has_photo_id": "1",
          *              "photo_id_url": "http://idmanager.sage.edu/pics/accepted/0999998.jpg",
-         *              "photo_id_filename": "999998.jpg
+         *              "photo_id_filename": "999998.jpg"
          *           }
          *     }
          *
@@ -172,7 +172,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "room": "302",
          *              "has_photo_id": "1",
          *              "photo_id_url": "http://idmanager.sage.edu/pics/accepted/0999998.jpg",
-         *              "photo_id_filename": "999998.jpg
+         *              "photo_id_filename": "999998.jpg"
          *           }
          *     }
          *
@@ -233,7 +233,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "room": "302",
          *              "has_photo_id": "1",
          *              "photo_id_url": "http://idmanager.sage.edu/pics/accepted/0999998.jpg",
-         *              "photo_id_filename": "999998.jpg
+         *              "photo_id_filename": "999998.jpg"
          *           },
          *           {
          *              "id": "2",
@@ -251,7 +251,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "room": "301",
          *              "has_photo_id": "1",
          *              "photo_id_url": "http://idmanager.sage.edu/pics/accepted/0999997.jpg",
-         *              "photo_id_filename": "999997.jpg
+         *              "photo_id_filename": "999997.jpg"
          *           }
          *         ]
          *     }
