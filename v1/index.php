@@ -66,17 +66,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         $slim->get('/:limit', function ($limit) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if (is_int($limit)) {
-                if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_user_table'], $limit)->fetch_all()) {
-                    echo json_encode(array(
-                        'application' => $apiKey['app'],
-                        'success' => true,
-                        'result' => $result,
-                    ));
-                } else {
-                    header('HTTP/1.1 404 Not Found');
-                    echo json_encode(array('success' => false, 'message' => 'Not Found'));
-                }
+            if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_user_table'], $limit)->fetch_all()) {
+                echo json_encode(array(
+                    'application' => $apiKey['app'],
+                    'success' => true,
+                    'result' => $result,
+                ));
             } else {
                 header('HTTP/1.1 404 Not Found');
                 echo json_encode(array('success' => false, 'message' => 'Not Found'));
@@ -129,17 +124,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         $slim->get('/:limit', function ($limit) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if (is_int($limit)) {
-                if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_role_table'], $limit)->fetch_all()) {
-                    echo json_encode(array(
-                        'application' => $apiKey['app'],
-                        'success' => true,
-                        'result' => $result,
-                    ));
-                } else {
-                    header('HTTP/1.1 404 Not Found');
-                    echo json_encode(array('success' => false, 'message' => 'Not Found'));
-                }
+            if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_role_table'], $limit)->fetch_all()) {
+                echo json_encode(array(
+                    'application' => $apiKey['app'],
+                    'success' => true,
+                    'result' => $result,
+                ));
             } else {
                 header('HTTP/1.1 404 Not Found');
                 echo json_encode(array('success' => false, 'message' => 'Not Found'));
@@ -190,17 +180,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         $slim->get('/:limit', function ($limit) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if (is_int($limit)) {
-                if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_building_table'], $limit)->fetch_all()) {
-                    echo json_encode(array(
-                        'application' => $apiKey['app'],
-                        'success' => true,
-                        'result' => $result,
-                    ));
-                } else {
-                    header('HTTP/1.1 404 Not Found');
-                    echo json_encode(array('success' => false, 'message' => 'Not Found'));
-                }
+            if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_building_table'], $limit)->fetch_all()) {
+                echo json_encode(array(
+                    'application' => $apiKey['app'],
+                    'success' => true,
+                    'result' => $result,
+                ));
             } else {
                 header('HTTP/1.1 404 Not Found');
                 echo json_encode(array('success' => false, 'message' => 'Not Found'));
@@ -251,21 +236,17 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         $slim->get('/:limit', function ($limit) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if (is_int($limit)) {
-                if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_campus_table'], $limit)->fetch_all()) {
-                    echo json_encode(array(
-                        'application' => $apiKey['app'],
-                        'success' => true,
-                        'result' => $result,
-                    ));
-                } else {
-                    header('HTTP/1.1 404 Not Found');
-                    echo json_encode(array('success' => false, 'message' => 'Not Found'));
-                }
+            if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_campus_table'], $limit)->fetch_all()) {
+                echo json_encode(array(
+                    'application' => $apiKey['app'],
+                    'success' => true,
+                    'result' => $result,
+                ));
             } else {
                 header('HTTP/1.1 404 Not Found');
                 echo json_encode(array('success' => false, 'message' => 'Not Found'));
             }
+
         });
         $slim->get('/', function () use ($api, $apiKey) {
             echo json_encode(array(
