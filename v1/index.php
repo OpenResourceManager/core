@@ -34,15 +34,49 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         $slim->get('/username/:username', function ($username) use ($api) {
 
         });
+
+        $slim->get('/:limit', function ($limit) use ($api) {
+
+        });
+    });
+
+    $slim->group(('/role'), function () use ($slim, $api) {
+
+        $slim->get('/id/:id', function ($id) use ($api) {
+
+        });
+
+        $slim->get('/:limit', function ($limit) use ($api) {
+
+        });
     });
 
     $slim->group(('/building'), function () use ($slim, $api) {
 
-        $slim->get('/id/:id', function ($id) use ($slim, $api) {
-            echo $slim->root();
+        $slim->get('/id/:id', function ($id) use ($api) {
+
         });
 
         $slim->get('/datatel_code/:datatel_code', function ($datatel_code) use ($api) {
+
+        });
+
+        $slim->get('/:limit', function ($limit) use ($api) {
+
+        });
+    });
+
+    $slim->group(('/campus'), function () use ($slim, $api) {
+
+        $slim->get('/id/:id', function ($id) use ($api) {
+
+        });
+
+        $slim->get('/datatel_code/:datatel_code', function ($datatel_code) use ($api) {
+
+        });
+
+        $slim->get('/:limit', function ($limit) use ($api) {
 
         });
     });
