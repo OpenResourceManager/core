@@ -8,8 +8,9 @@
  */
 
 /**
+ * @apiVersion 1.0.0
  * @api {post} :X-Authorization X-Authorization API Key
- * @apiGroup X-Authorization
+ * @apiGroup API Authorization
  * @apiDescription The API key required to access this API.
  */
 
