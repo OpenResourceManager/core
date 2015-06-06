@@ -1,0 +1,7 @@
+{
+  "name": "Universal User Data API",
+  "version": "1.0.0",
+  "description": "Central API to access user data in a secure manor.",
+  "title": "UUD API",
+  "url" : "https://databridge.sage.edu/api/v1"
+}
