@@ -16,8 +16,8 @@ The API key also has a boolean value that determines if the application can writ
   - [X] Get user by ID
   - [X] Get user by ID_Number
   - [X] Get user by username
-  - [ ] Get buiding by ID
-  - [ ] Get building by datatel code
+  - [X] Get buiding by ID
+  - [X] Get building by datatel code
   - [ ] Get role by id
   - [ ] Get role by datatel code
   - [ ] Get campus by ID

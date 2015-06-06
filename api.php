@@ -88,10 +88,32 @@ if (isset($_POST['X-Authorization']) && $apiKey = $api->checkAPIKey($_POST['X-Au
                 case 'building' :
                     switch ($_POST['filter']) {
                         case 'id' :
-                            echo json_encode(array('success' => false, 'result' => $result));
+                            if (isset($_POST['filter_value'])) {
+                                $result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_building_table'], 'id', $_POST['filter_value'])->fetch_assoc();
+                                if ($result) {
+                                    echo json_encode(array('success' => true, 'result' => $result));
+                                } else {
+                                    header('HTTP/1.1 404 Not Found');
+                                    echo json_encode(array('success' => false, 'message' => 'Subject not found.'));
+                                }
+                            } else {
+                                header('HTTP/1.1 404 Not Found');
+                                echo json_encode(array('success' => false, 'message' => 'Filter Value not supplied.'));
+                            }
                             break;
                         case 'datatel_code' :
-                            echo json_encode(array('success' => false, 'result' => $result));
+                            if (isset($_POST['filter_value'])) {
+                                $result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_building_table'], 'datatel_name', $_POST['filter_value'])->fetch_assoc();
+                                if ($result) {
+                                    echo json_encode(array('success' => true, 'result' => $result));
+                                } else {
+                                    header('HTTP/1.1 404 Not Found');
+                                    echo json_encode(array('success' => false, 'message' => 'Subject not found.'));
+                                }
+                            } else {
+                                header('HTTP/1.1 404 Not Found');
+                                echo json_encode(array('success' => false, 'message' => 'Filter Value not supplied.'));
+                            }
                             break;
                         default: // The filter is invalid or none was supplied
                             header('HTTP/1.1 404 Not Found');
