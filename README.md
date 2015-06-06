@@ -13,9 +13,9 @@ The API key also has a boolean value that determines if the application can writ
   - [X] Create boolean for write access.
   - [ ] Lock down web directories/permissions.
 - [ ] API R/O calls
-  - [ ] Get user by ID
-  - [ ] Get user by ID_Number
-  - [ ] Get user by username
+  - [X] Get user by ID
+  - [X] Get user by ID_Number
+  - [X] Get user by username
   - [ ] Get buiding by ID
   - [ ] Get building by datatel code
   - [ ] Get role by id
