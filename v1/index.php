@@ -22,6 +22,47 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
 
     $slim->group('/user', function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper) {
 
+
+        /**
+         * @api {post} /user/idnum/:idnum Post to User
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Users
+         * @apiParam {Int} idnum Users's unique Sage ID number.
+         *
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {String} result The action that was performed. This may be update or create.
+         * @apiSuccessExample Success-Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": "create"
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} ForbiddenToWrite The application does not have write access to the API.
+         * @apiErrorExample Error-Response:
+         *      HTTP/1.1 404 Not Found
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "ForbiddenToWrite"
+         *      }
+         */
+        $slim->post('/idnum/ :idnum', function ($idnum) use ($api, $apiKey, $mysqli, $MySQLiHelper, $slim) {
+            if ($apiKey['write'] === 1) {
+                $output = $api->updateRecordSageID($idnum, $slim->request->post(), $mysqli, $MySQLiHelper);
+                $output['application'] = $apiKey['app'];
+                echo json_encode($output);
+            } else {
+                header('HTTP/1.1 401 Forbidden');
+                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'ForbiddenToWrite'));
+            }
+        });
+
         /**
          * @api {get} /user/id/:id Get by ID
          * @apiVersion 1.0.0

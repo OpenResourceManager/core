@@ -16,7 +16,7 @@ class API
     function unauthorized()
     {
         // Set the header
-        header('HTTP/1.1 401 Not Found');
+        header('HTTP/1.1 401 Forbidden');
         // some beautifuler HTML
         echo "<h1>401 Forbidden</h1>";
         // Kill the script and send the app/user a message
@@ -42,9 +42,19 @@ class API
         return ($select) ? $select->fetch_assoc() : false;
     }
 
-    public function updateRecord($data)
+    /**
+     * @param string $idnum
+     * @param array $data
+     * @param mysqli $mysqli
+     * @param MySQLHelper $helper
+     * @return array
+     */
+    public function updateRecordSageID($idnum = '', $data = array(), mysqli $mysqli, MySQLHelper $helper)
     {
-
+        if ($record = $helper->simpleSelect($mysqli, Config::getSQLConf()['db_users_table'], 'id_num', $idnum)) {
+            return array('result' => 'update', 'success' => $helper->simpleUpdate($mysqli, Config::getSQLConf()['db_users_table'], $data, 'id_num', $idnum));
+        } else {
+            return array('result' => 'create', 'success' => $helper->simpleInsert($mysqli, Config::getSQLConf()['db_users_table'], $data));
+        }
     }
-
 }
