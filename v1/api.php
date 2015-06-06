@@ -8,7 +8,7 @@
  */
 
 /**
- * @api {post} /:X-Authorization
+ * @api {post} :X-Authorization X-Authorization API Key
  * @apiGroup X-Authorization
  * @apiDescription The API key required to access this API.
  */
