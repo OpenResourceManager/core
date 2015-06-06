@@ -80,6 +80,15 @@ if (isset($_POST['X-Authorization']) && $apiKey = $api->checkAPIKey($_POST['X-Au
                                 echo json_encode(array('success' => false, 'message' => 'Filter Value not supplied.'));
                             }
                             break;
+                        case 'all' :
+                            $result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_user_table'])->fetch_all();
+                            if ($result) {
+                                echo json_encode(array('success' => true, 'result' => $result));
+                            } else {
+                                header('HTTP/1.1 404 Not Found');
+                                echo json_encode(array('success' => false, 'message' => 'Subject not found.'));
+                            }
+                            break;
                         default: // The filter is invalid or none was supplied
                             header('HTTP/1.1 404 Not Found');
                             echo json_encode(array('success' => false, 'message' => 'Subject not defined.'));
@@ -159,6 +168,15 @@ if (isset($_POST['X-Authorization']) && $apiKey = $api->checkAPIKey($_POST['X-Au
                                 echo json_encode(array('success' => false, 'message' => 'Filter Value not supplied.'));
                             }
                             break;
+                        case 'all' :
+                            $result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_role_table'])->fetch_all();
+                            if ($result) {
+                                echo json_encode(array('success' => true, 'result' => $result));
+                            } else {
+                                header('HTTP/1.1 404 Not Found');
+                                echo json_encode(array('success' => false, 'message' => 'Subject not found.'));
+                            }
+                            break;
                         default: // The filter is invalid or none was supplied
                             header('HTTP/1.1 404 Not Found');
                             echo json_encode(array('success' => false, 'message' => 'Subject not defined.'));
@@ -192,6 +210,15 @@ if (isset($_POST['X-Authorization']) && $apiKey = $api->checkAPIKey($_POST['X-Au
                             } else {
                                 header('HTTP/1.1 404 Not Found');
                                 echo json_encode(array('success' => false, 'message' => 'Filter Value not supplied.'));
+                            }
+                            break;
+                        case 'all' :
+                            $result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_campus_table'])->fetch_all();
+                            if ($result) {
+                                echo json_encode(array('success' => true, 'result' => $result));
+                            } else {
+                                header('HTTP/1.1 404 Not Found');
+                                echo json_encode(array('success' => false, 'message' => 'Subject not found.'));
                             }
                             break;
                         default: // The filter is invalid or none was supplied
