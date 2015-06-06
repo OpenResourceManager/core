@@ -27,8 +27,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
     $slim->group('/user', function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper) {
 
         $slim->get('/id/:id', function ($id) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            $result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'id', $id)->fetch_assoc();
-            if ($result) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'id', $id)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -41,8 +40,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         $slim->get('/id_num/:id_num', function ($id_num) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            $result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'id_num', $id_num)->fetch_assoc();
-            if ($result) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'id_num', $id_num)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -55,8 +53,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         $slim->get('/username/:username', function ($username) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            $result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'username', $username)->fetch_assoc();
-            if ($result) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'username', $username)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -96,8 +93,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
     $slim->group(('/role'), function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper) {
 
         $slim->get('/id/:id', function ($id) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            $result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_role_table'], 'id', $id)->fetch_assoc();
-            if ($result) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_role_table'], 'id', $id)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -110,8 +106,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         $slim->get('/datatel_code/:datatel_code', function ($datatel_code) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            $result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_role_table'], 'datatel_code', $datatel_code)->fetch_assoc();
-            if ($result) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_role_table'], 'datatel_code', $datatel_code)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -145,8 +140,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
     $slim->group(('/building'), function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper) {
 
         $slim->get('/id/:id', function ($id) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            $result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_building_table'], 'id', $id)->fetch_assoc();
-            if ($result) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_building_table'], 'id', $id)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -159,8 +153,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         $slim->get('/datatel_code/:datatel_code', function ($datatel_code) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            $result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_building_table'], 'datatel_code', $datatel_code)->fetch_assoc();
-            if ($result) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_building_table'], 'datatel_code', $datatel_code)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -194,8 +187,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
     $slim->group(('/campus'), function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper) {
 
         $slim->get('/id/:id', function ($id) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            $result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_campus_table'], 'id', $id)->fetch_assoc();
-            if ($result) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_campus_table'], 'id', $id)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -208,8 +200,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         $slim->get('/datatel_code/:datatel_code', function ($datatel_code) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            $result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_campus_table'], 'datatel_code', $datatel_code)->fetch_assoc();
-            if ($result) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_campus_table'], 'datatel_code', $datatel_code)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
