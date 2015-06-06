@@ -550,6 +550,40 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
 
     $slim->group(('/campus'), function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper) {
 
+        /**
+         * @api {get} /campus/id/:id Get by ID
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Campuses
+         * @apiParam {Int} id Campus' unique API ID.
+         *
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Object} result The campus record object.
+         * @apiSuccessExample Success-Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": {
+         *              "id": "1",
+         *              "datatel_name": "TRY",
+         *              "common_name": "Russell Sage College"
+         *           }
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} BuildingNotFound The id of the campus was not found.
+         * @apiErrorExample Error-Response:
+         *      HTTP/1.1 404 Not Found
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "CampusNotFound"
+         *      }
+         */
+
         $slim->get('/id/:id', function ($id) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
             if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_campus_table'], 'id', $id)->fetch_assoc()) {
                 echo json_encode(array(
@@ -562,6 +596,40 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'CampusNotFound'));
             }
         });
+
+        /**
+         * @api {get} /campus/code/:code Get by Datatel Code
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Campuses
+         * @apiParam {String} Datatel code that corresponds with that campus.
+         *
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Object} result The campus record object.
+         * @apiSuccessExample Success-Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": {
+         *              "id": "1",
+         *              "datatel_name": "TRY",
+         *              "common_name": "Russell Sage College"
+         *           }
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} BuildingNotFound The Datatel code of the campus was not found.
+         * @apiErrorExample Error-Response:
+         *      HTTP/1.1 404 Not Found
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "CampusNotFound"
+         *      }
+         */
 
         $slim->get('/code/:code', function ($code) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
             if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_campus_table'], 'datatel_name', $code)->fetch_assoc()) {
