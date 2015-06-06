@@ -25,7 +25,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         /**
          * @api {get} /user/id/:id Get By ID
          * @apiVersion 1.0.0
-         * @apiHeader {string} X-Authorization Users unique access-key.
+         * @apiHeader {String} X-Authorization Users unique access-key.
          * @apiGroup User
          * @apiParam {Int} id Users's unique API ID.
          *
@@ -59,7 +59,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} UserNotFound The id of the User was not found.
+         * @apiError {String} UserNotFound The id of the user was not found.
          * @apiErrorExample Error-Response:
          *      HTTP/1.1 404 Not Found
          *      {
@@ -84,7 +84,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         /**
          * @api {get} /user/idnum/:idnum Get By Sage ID
          * @apiVersion 1.0.0
-         * @apiHeader {string} X-Authorization Users unique access-key.
+         * @apiHeader {String} X-Authorization Users unique access-key.
          * @apiGroup User
          * @apiParam {Int} idnum Users's unique Sage ID.
          *
@@ -118,7 +118,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} UserNotFound The id of the User was not found.
+         * @apiError {String} UserNotFound The id of the user was not found.
          * @apiErrorExample Error-Response:
          *      HTTP/1.1 404 Not Found
          *      {
@@ -144,7 +144,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         /**
          * @api {get} /user/username/:username Get By Sage Username
          * @apiVersion 1.0.0
-         * @apiHeader {string} X-Authorization Users unique access-key.
+         * @apiHeader {String} X-Authorization Users unique access-key.
          * @apiGroup User
          * @apiParam {String} username Users's unique Sage username.
          *
@@ -178,7 +178,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} UserNotFound The id of the User was not found.
+         * @apiError {String} UserNotFound The id of the user was not found.
          * @apiErrorExample Error-Response:
          *      HTTP/1.1 404 Not Found
          *      {
@@ -204,7 +204,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         /**
          * @api {get} /user/:limit Get X Amount of Records
          * @apiVersion 1.0.0
-         * @apiHeader {string} X-Authorization Users unique access-key.
+         * @apiHeader {String} X-Authorization Users unique access-key.
          * @apiGroup User
          * @apiParam {Int} limit The max amount of users to return, 0 form all users.
          *
@@ -258,7 +258,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} UsersNotFound The id of the User was not found.
+         * @apiError {String} UsersNotFound The id of the user was not found.
          * @apiErrorExample Error-Response:
          *      HTTP/1.1 404 Not Found
          *      {
@@ -300,6 +300,40 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
 
     $slim->group(('/role'), function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper) {
 
+        /**
+         * @api {get} /role/id/:id Get By ID
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization Users unique access-key.
+         * @apiGroup Role
+         * @apiParam {Int} id Role's unique API ID.
+         *
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Object} result The role record object.
+         * @apiSuccessExample Success-Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": {
+         *              "id": "1",
+         *              "datatel_name": "STUDENT",
+         *              "common_name": "Student"
+         *           }
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} RoleNotFound The id of the role was not found.
+         * @apiErrorExample Error-Response:
+         *      HTTP/1.1 404 Not Found
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "RoleNotFound"
+         *      }
+         */
+
         $slim->get('/id/:id', function ($id) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
             if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_role_table'], 'id', $id)->fetch_assoc()) {
                 echo json_encode(array(
@@ -312,6 +346,40 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'RoleNotFound'));
             }
         });
+
+        /**
+         * @api {get} /role/code/:code Get Datatel Code
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization Users unique access-key.
+         * @apiGroup Role
+         * @apiParam {String} Datatel code that corresponds with that role.
+         *
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Object} result The role record object.
+         * @apiSuccessExample Success-Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": {
+         *              "id": "1",
+         *              "datatel_name": "STUDENT",
+         *              "common_name": "Student"
+         *           }
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} RoleNotFound The id of the role was not found.
+         * @apiErrorExample Error-Response:
+         *      HTTP/1.1 404 Not Found
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "RoleNotFound"
+         *      }
+         */
 
         $slim->get('/code/:code', function ($code) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
             if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_role_table'], 'datatel_name', $code)->fetch_assoc()) {
