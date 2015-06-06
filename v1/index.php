@@ -5,7 +5,9 @@
  * Date: 6/6/15
  * Time: 10:40 AM
  */
-require dirname(dirname(__FILE__)) . 'vendor/autoload.php';
+require dirname(dirname(__FILE__)) . '/vendor/autoload.php';
+
+
 
 echo 'hello';
 
