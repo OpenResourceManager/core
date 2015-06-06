@@ -8,7 +8,9 @@
  */
 
 /**
- * APIDOC stuff here
+ * @api {post} /:X-Authorization
+ * @apiGroup X-Authorization
+ * @apiDescription The API key required to access this API.
  */
 
 // Display errors
