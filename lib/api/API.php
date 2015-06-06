@@ -12,6 +12,7 @@ include_once dirname(dirname(__FILE__)) . '/ud2sql/app/Config.php';
 
 class API
 {
+
     function unauthorized()
     {
         header('HTTP/1.1 403 Not Found');
@@ -19,11 +20,17 @@ class API
         Die("You are not authorized to access this page.");
     }
 
-    function checkAPIKey($key)
+
+    /**
+     * @param string $key
+     * @return bool
+     */
+    function checkAPIKey($key = '')
     {
         $mySQLHelper = new MySQLHelper();
         $mysqli = $mySQLHelper->getMySQLi(Config::getSQLConf());
-        return $mySQLHelper->simpleSelect($mysqli, Config::getSQLConf()['db_api_key_table'], 'key', $key);
+        $result = $mySQLHelper->simpleSelect($mysqli, Config::getSQLConf()['db_api_key_table'], 'key', $key)->fetch_assoc();
+        return ($result) ? true : false;
     }
 
     public function updateRecord($data)
