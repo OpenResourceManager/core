@@ -14,12 +14,10 @@ include_once dirname(__FILE__) . '/lib/api/API.php';
 
 $api = new API();
 
-if (isset($_POST['X-Authorization'])) {
-    if ($api->checkAPIKey($_POST['X-Authorization'])) {
+if (isset($_POST['X-Authorization']) && $access = $api->checkAPIKey($_POST['X-Authorization'])) {
 
-    } else {
-        $api->unauthorized();
-    }
+    echo json_encode(array('authorized' => true));
+
 } else {
     $api->unauthorized();
 }
