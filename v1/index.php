@@ -11,7 +11,7 @@ require dirname(dirname(__FILE__)) . '/vendor/autoload.php';
 $app = new \Slim\Slim(array(
     'debug' => true
 ));
-$app->get('/v1/:name', function ($name) {
+$app->get('/hello/:name', function ($name) {
     echo "Hello, " . $name;
 });
 $app->run();
