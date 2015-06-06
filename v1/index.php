@@ -54,7 +54,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          */
         $slim->post('/idnum/:idnum', function ($idnum) use ($api, $apiKey, $mysqli, $MySQLiHelper, $slim) {
             if ($apiKey['write'] == 1) {
-                $output = $api->updateRecordSageID($idnum, $slim->request->post(), $mysqli, $MySQLiHelper);
+                $output = $api->updateRecordSageID($idnum, json_decode(json_encode($slim->request->post())), $mysqli, $MySQLiHelper);
                 $output['application'] = $apiKey['app'];
                 echo json_encode($output);
             } else {
