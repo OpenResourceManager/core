@@ -7,5 +7,10 @@
   "header": {
     "title": "Introduction",
     "filename": "header.md"
-  }
+  },
+  "order ": [
+    "Users",
+    "Buildings",
+    "Roles"
+  ]
 }

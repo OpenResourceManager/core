@@ -25,8 +25,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         /**
          * @api {get} /user/id/:id Get By ID
          * @apiVersion 1.0.0
-         * @apiHeader {String} X-Authorization Users unique access-key.
-         * @apiGroup User
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Users
          * @apiParam {Int} id Users's unique API ID.
          *
          * @apiSuccess {String} application The name of the application that is accessing the API.
@@ -84,8 +84,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         /**
          * @api {get} /user/idnum/:idnum Get By Sage ID
          * @apiVersion 1.0.0
-         * @apiHeader {String} X-Authorization Users unique access-key.
-         * @apiGroup User
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Users
          * @apiParam {Int} idnum Users's unique Sage ID.
          *
          * @apiSuccess {String} application The name of the application that is accessing the API.
@@ -144,8 +144,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         /**
          * @api {get} /user/username/:username Get By Sage Username
          * @apiVersion 1.0.0
-         * @apiHeader {String} X-Authorization Users unique access-key.
-         * @apiGroup User
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Users
          * @apiParam {String} username Users's unique Sage username.
          *
          * @apiSuccess {String} application The name of the application that is accessing the API.
@@ -204,8 +204,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         /**
          * @api {get} /user/:limit Get X Amount of Records
          * @apiVersion 1.0.0
-         * @apiHeader {String} X-Authorization Users unique access-key.
-         * @apiGroup User
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Users
          * @apiParam {Int} limit The max amount of users to return, 0 form all users.
          *
          * @apiSuccess {String} application The name of the application that is accessing the API.
@@ -303,8 +303,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         /**
          * @api {get} /role/id/:id Get By ID
          * @apiVersion 1.0.0
-         * @apiHeader {String} X-Authorization Users unique access-key.
-         * @apiGroup Role
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Roles
          * @apiParam {Int} id Role's unique API ID.
          *
          * @apiSuccess {String} application The name of the application that is accessing the API.
@@ -350,8 +350,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         /**
          * @api {get} /role/code/:code Get Datatel Code
          * @apiVersion 1.0.0
-         * @apiHeader {String} X-Authorization Users unique access-key.
-         * @apiGroup Role
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Roles
          * @apiParam {String} Datatel code that corresponds with that role.
          *
          * @apiSuccess {String} application The name of the application that is accessing the API.
@@ -371,7 +371,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} RoleNotFound The id of the role was not found.
+         * @apiError {String} RoleNotFound The Datatel code of the role was not found.
          * @apiErrorExample Error-Response:
          *      HTTP/1.1 404 Not Found
          *      {
@@ -424,6 +424,41 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
 
     $slim->group(('/building'), function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper) {
 
+        /**
+         * @api {get} /building/id/:id Get By ID
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Buildings
+         * @apiParam {Int} id Buildings's unique API ID.
+         *
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Object} result The building record object.
+         * @apiSuccessExample Success-Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": {
+         *              "id": "1",
+         *              "campus": "1",
+         *              "datatel_name": "37-1",
+         *              "common_name": "37 First Street"
+         *           }
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} BuildingNotFound The id of the building was not found.
+         * @apiErrorExample Error-Response:
+         *      HTTP/1.1 404 Not Found
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "BuildingNotFound"
+         *      }
+         */
+
         $slim->get('/id/:id', function ($id) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
             if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_building_table'], 'id', $id)->fetch_assoc()) {
                 echo json_encode(array(
@@ -436,6 +471,41 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'BuildingNotFound'));
             }
         });
+
+        /**
+         * @api {get} /building/code/:code Get Datatel Code
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Roles
+         * @apiParam {String} Datatel code that corresponds with that building.
+         *
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Object} result The building record object.
+         * @apiSuccessExample Success-Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": {
+         *              "id": "1",
+         *              "campus": "1",
+         *              "datatel_name": "37-1",
+         *              "common_name": "37 First Street"
+         *           }
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} BuildingNotFound The Datatel code of the building was not found.
+         * @apiErrorExample Error-Response:
+         *      HTTP/1.1 404 Not Found
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "BuildingNotFound"
+         *      }
+         */
 
         $slim->get('/code/:code', function ($code) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
             if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_building_table'], 'datatel_name', $code)->fetch_assoc()) {
