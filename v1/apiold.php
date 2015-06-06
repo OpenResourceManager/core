@@ -7,12 +7,6 @@
  * Time: 12:46 PM
  */
 
-/**
- * @apiVersion 1.0.0
- * @api {post} :X-Authorization X-Authorization API Key
- * @apiGroup API Authorization
- * @apiDescription The API key required to access this API.
- */
 
 // Display errors
 error_reporting(E_ALL);
