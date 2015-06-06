@@ -116,7 +116,7 @@ if (isset($_POST['X-Authorization']) && $apiKey = $api->checkAPIKey($_POST['X-Au
                             }
                             break;
                         case 'all' :
-                            $result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_building_table'])->fetch_assoc();
+                            $result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_building_table'])->fetch_all();
                             if ($result) {
                                 echo json_encode(array('success' => true, 'result' => $result));
                             } else {
