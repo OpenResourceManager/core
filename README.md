@@ -12,7 +12,7 @@ The API key also has a boolean value that determines if the application can writ
   - [X] Implement API key authorization.
   - [X] Create boolean for write access.
   - [ ] Lock down web directories/permissions.
-- [ ] API R/O calls
+- [X] API R/O calls
   - [X] Get user by ID
   - [X] Get user by ID_Number
   - [X] Get user by username
@@ -20,8 +20,8 @@ The API key also has a boolean value that determines if the application can writ
   - [X] Get building by datatel code
   - [X] Get role by id
   - [X] Get role by datatel code
-  - [ ] Get campus by ID
-  - [ ] Get campus by datatel code
+  - [X] Get campus by ID
+  - [X] Get campus by datatel code
 - [ ] API Write calls
   - [ ] Update user by ID
   - [ ] Update user by ID_Number
