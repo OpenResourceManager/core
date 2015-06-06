@@ -27,10 +27,11 @@ class API
      */
     function checkAPIKey($key = '')
     {
+        echo $key . ' ' . Config::getSQLConf()['db_api_key_table'];
         $mySQLHelper = new MySQLHelper();
         $mysqli = $mySQLHelper->getMySQLi(Config::getSQLConf());
         $result = $mySQLHelper->simpleSelect($mysqli, Config::getSQLConf()['db_api_key_table'], 'key', $key)->fetch_assoc();
-        echo $key . ' ' . Config::getSQLConf()['db_api_key_table'];
+
         echo $result['key'];
         return ($result) ? true : false;
     }
