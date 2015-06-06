@@ -49,9 +49,9 @@ class API
      * @param MySQLHelper $helper
      * @return array
      */
-    public function updateRecordSageID($idnum, $data, mysqli $mysqli, MySQLHelper $helper)
+    public function updateRecordSageID($idnum = '', $data = array(), mysqli $mysqli, MySQLHelper $helper)
     {
-        if ($helper->simpleSelect($mysqli, Config::getSQLConf()['db_users_table'], 'id_num', $idnum)) {
+        if ($record = $helper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'id_num', $idnum)) {
             return array('result' => 'update', 'success' => $helper->simpleUpdate($mysqli, Config::getSQLConf()['db_users_table'], $data, 'id_num', $idnum));
         } else {
             return array('result' => 'create', 'success' => $helper->simpleInsert($mysqli, Config::getSQLConf()['db_users_table'], $data));
