@@ -134,6 +134,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The user record object.
+         * @apiSampleRequest https://databridge.sage.edu/v1/user/id/:id
+         * @apiSuccessExample Usage Curl:
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/id/:id
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -193,6 +196,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The user record object.
+         * @apiSampleRequest https://databridge.sage.edu/v1/user/idnum/:idnum
+         * @apiSuccessExample Usage Curl:
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/idnum/:idnum
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -253,6 +259,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The user record object.
+         * @apiSampleRequest https://databridge.sage.edu/v1/user/username/:username
+         * @apiSuccessExample Usage Curl:
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/username/:username
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -313,6 +322,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Array} result An array of user record objects.
+         * @apiSampleRequest https://databridge.sage.edu/v1/user/:limit
+         * @apiSuccessExample Usage Curl:
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/:limit
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -392,6 +404,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
+         * @apiSampleRequest https://databridge.sage.edu/v1/user/
          * * @apiSuccessExample Usage Curl:
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/
          * @apiSuccessExample Success Response:
@@ -444,6 +457,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The role record object.
+         * @apiSampleRequest https://databridge.sage.edu/v1/role/id/:id
+         * @apiSuccessExample Usage Curl:
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/role/id/:id
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -491,6 +507,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The role record object.
+         * @apiSampleRequest https://databridge.sage.edu/v1/role/code/:code
+         * @apiSuccessExample Usage Curl:
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/role/code/:code
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -538,6 +557,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Array} result An array of role record objects.
+         * @apiSampleRequest https://databridge.sage.edu/v1/role/:limit
+         * @apiSuccessExample Usage Curl:
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/role/:limit
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -591,6 +613,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
+         * @apiSampleRequest https://databridge.sage.edu/v1/role/
          * @apiSuccessExample Usage Curl:
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/role/
          * @apiSuccessExample Success Response:
@@ -637,6 +660,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The building record object.
+         * @apiSampleRequest https://databridge.sage.edu/v1/building/id/:id
+         * @apiSuccessExample Usage Curl:
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/building/id/:id
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -685,6 +711,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The building record object.
+         * @apiSampleRequest https://databridge.sage.edu/v1/building/code/:code
+         * @apiSuccessExample Usage Curl:
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/building/code/:code
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -733,6 +762,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Array} result An array of building record objects.
+         * @apiSampleRequest https://databridge.sage.edu/v1/building/:limit
+         * @apiSuccessExample Usage Curl:
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/building/:limit
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -788,6 +820,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
+         * @apiSampleRequest https://databridge.sage.edu/v1/building/
          * @apiSuccessExample Usage Curl:
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/building/
          * @apiSuccessExample Success Response:
@@ -834,6 +867,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The campus record object.
+         * @apiSampleRequest https://databridge.sage.edu/v1/campus/id/:id
+         * @apiSuccessExample Usage Curl:
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/campus/id/:id
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -881,6 +917,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The campus record object.
+         * @apiSampleRequest https://databridge.sage.edu/v1/campus/code/:code
+         * @apiSuccessExample Usage Curl:
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/campus/code/:code
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -928,6 +967,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Array} result An array of campus record objects.
+         * @apiSampleRequest https://databridge.sage.edu/v1/campus/:limit
+         * @apiSuccessExample Usage Curl:
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/campus/:limit
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -982,6 +1024,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
+         * @apiSampleRequest https://databridge.sage.edu/v1/campus/
          * @apiSuccessExample Usage Curl:
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/campus/
          * @apiSuccessExample Success Response:
