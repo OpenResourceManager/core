@@ -42,6 +42,13 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      response = Unirest.get "https://databridge.sage.edu/v1/user/idnum/:idnum",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
          *      parameters:{ :email2 => "lukeskywalker@gmail.com", :username => "skywal" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/user/idnum/:idnum");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      curl_setopt($ch, CURLOPT_POST, true);
+         *      curl_setopt($curl, CURLOPT_POSTFIELDS, array("email2" => "lukeskywalker@gmail.com", "username" => "skywal");
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -150,6 +157,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/user/id/:id",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/user/id/:id");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -216,6 +228,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/user/idnum/:idnum",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/user/idnum/:idnum");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -283,6 +300,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/user/username/:username",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/user/username/:username");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -353,6 +375,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/user/:limit",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/user/:limit");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -439,6 +466,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/user/",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/user/");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -496,6 +528,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/role/id/:id",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/role/id/:id");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -550,6 +587,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/role/code/:code",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/role/code/:code");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -607,6 +649,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/role/:limit",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/role/:limit");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -667,6 +714,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/role/",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/role/");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -718,6 +770,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/building/id/:id",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/building/id/:id");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -773,6 +830,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/building/code/:code",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/building/code/:code");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -831,6 +893,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/building/:limit",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/building/:limit");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -893,6 +960,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/building/",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/building/");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -944,6 +1016,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/campus/id/:id",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/campus/id/:id");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -998,6 +1075,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/campus/code/:code",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/campus/code/:code");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1055,6 +1137,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/campus/:limit",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/campus/:limit");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1116,6 +1203,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/campus/",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/campus/");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
