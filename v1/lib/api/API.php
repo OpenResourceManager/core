@@ -16,9 +16,9 @@ class API
     function unauthorized()
     {
         // Set the header
-        header('HTTP/1.1 401 Forbidden');
+        header('HTTP/1.1 401 Unauthorized');
         // some beautifuler HTML
-        echo "<h1>401 Forbidden</h1>";
+        echo "<h1>401 Unauthorized</h1>";
         // Kill the script and send the app/user a message
         Die("You are not authorized to access this page.");
     }
@@ -43,18 +43,19 @@ class API
     }
 
     /**
-     * @param string $idnum
      * @param array $data
-     * @param mysqli $mysqli
-     * @param MySQLHelper $helper
-     * @return array
+     * @param array $userAttrs
+     * @return bool
      */
-    public function updateRecordSageID($idnum = '', $data = array(), mysqli $mysqli, MySQLHelper $helper, $exists)
+    function checkPostDataValues($data = array(), $userAttrs = array())
     {
-        if ($exists) {
-            return array('result' => 'update', 'success' => $helper->simpleUpdate($mysqli, Config::getSQLConf()['db_users_table'], $data, 'id_num', $idnum));
-        } else {
-            return array('result' => 'create', 'success' => $helper->simpleInsert($mysqli, Config::getSQLConf()['db_users_table'], $data));
+        foreach ($userAttrs as $key => $value) {
+            if ($value == true) {
+                if (!isset($data[$key]) || empty($data[$key])) {
+                    return false;
+                }
+            }
         }
+        return true;
     }
 }

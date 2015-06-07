@@ -32,7 +32,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
-         * @apiSuccess {String} result The action that was performed. This may be update or create.
+         * @apiSuccess {String} result The action that was performed. This may be `update` or `create`.
          * @apiSuccessExample Success-Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -45,29 +45,66 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiError {Boolean} success Tells the application if the request was successful.
          * @apiError {String} ForbiddenToWrite The application does not have write access to the API.
          * @apiErrorExample Error-Response:
-         *      HTTP/1.1 404 Not Found
+         *      HTTP/1.1 403 Forbidden
          *      {
          *          "application": "Awesome Application",
          *          "success": false,
          *          "error": "ForbiddenToWrite"
          *      }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} InsufficientPostData The application did not provide the required data.
+         * @apiErrorExample Error-Response:
+         *      HTTP/1.1 400 Bad Request
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "InsufficientPostData",
+         *      }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} FailedToWrite The application does have write access, but the commit failed. This is due to an error on the server.
+         * @apiErrorExample Error-Response:
+         *      HTTP/1.1 500 Server Error
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "FailedToWrite"
+         *      }
          */
         $slim->post('/idnum/:idnum', function ($idnum) use ($api, $apiKey, $mysqli, $MySQLiHelper, $slim) {
             if ($apiKey['write'] == 1) {
                 $data = json_decode(json_encode($slim->request->post()), true);
-                $exists = ($MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'id_num', $idnum)->fetch_assoc()) ? true : false;
-                if ($exists) {
-                    if ($MySQLiHelper->simpleUpdate($mysqli, Config::getSQLConf()['db_user_table'], $data, 'id_num', $idnum)) {
-                        echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'update'));
+                if (!empty($data)) {
+                    $exists = ($MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'id_num', $idnum)->fetch_assoc()) ? true : false;
+                    if ($exists) {
+                        if ($MySQLiHelper->simpleUpdate($mysqli, Config::getSQLConf()['db_user_table'], $data, 'id_num', $idnum)) {
+                            echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'update'));
+                        } else {
+                            header('HTTP/1.1 500 Server Error');
+                            echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite'));
+                        }
                     } else {
-                        header('HTTP/1.1 500 Server Error');
-                        echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToUpdate'));
+                        if ($api->checkPostDataValues($data, Config::getUserAttributes())) {
+                            if ($MySQLiHelper->simpleInsert($mysqli, Config::getSQLConf()['db_user_table'], $data)) {
+                                echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'create'));
+                            } else {
+                                header('HTTP/1.1 500 Server Error');
+                                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite'));
+                            }
+                        } else {
+                            header('HTTP/1.1 400 Bad Request');
+                            echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getUserAttributes()));
+                        }
                     }
                 } else {
-
+                    header('HTTP/1.1 400 Bad Request');
+                    echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getUserAttributes()));
                 }
             } else {
-                header('HTTP/1.1 401 Forbidden');
+                header('HTTP/1.1 403 Forbidden');
                 echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'ForbiddenToWrite'));
             }
         });
