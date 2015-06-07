@@ -33,12 +33,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {String} result The action that was performed. This may be `update` or `create`.
+         * @apiSuccessExample Usage Curl:
+         *      curl -H "X-Authorization: <Your-API-Key>" --data "email2=lukeskywalker@gmail.com" --url https://databridge.sage.edu/v1/user/idnum/:idnum
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
          *          "application": "Awesome Application",
          *          "success": true,
-         *          "result": "create"
+         *          "result": "update"
          *     }
          *
          * @apiError {String} application The name of the application that is accessing the API.
@@ -405,7 +407,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
          * @apiSampleRequest https://databridge.sage.edu/v1/user/
-         * * @apiSuccessExample Usage Curl:
+         * @apiSuccessExample Usage Curl:
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
