@@ -555,7 +555,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *                   "\/:limit"
          *                 ],
          *                 "post": [
-         *                      "\/"
+         *                      "\/id_num\/:id_num"
          *                 ]
          *           }
          *     }
