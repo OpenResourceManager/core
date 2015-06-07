@@ -29,7 +29,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Users
          * @apiParam {Int} idnum Users's unique Sage ID number.
-         *
+         * @apiDescription Using a Sage ID number as part of the url parameter, an application can create new user records or update existing records.
+         * If the Sage ID in the URL does not exist in the database, the rest of the data sent in the POST request will be treated as a new user entry.
+         * If the Sage ID in the URL does exist in the database, the data sent in the POST request will replace the data in that users record.
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {String} result The action that was performed. This may be `update` or `create`.
@@ -132,7 +134,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Users
          * @apiParam {Int} id Users's unique API ID.
-         *
+         * @apiDescription This method allows an application to view a user's record using the database index `ID` number.
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The user record object.
@@ -194,7 +196,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Users
          * @apiParam {Int} idnum Users's unique Sage ID.
-         *
+         * @apiDescription This method allows an application to view a user's record using the user's Sage ID.
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The user record object.
@@ -257,7 +259,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Users
          * @apiParam {String} username Users's unique Sage username.
-         *
+         * @apiDescription This method allows an application to view a user's record using the user's username.
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The user record object.
@@ -320,6 +322,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Users
          * @apiParam {Int} limit The max amount of users to return, 0 form all users.
+         * @apiDescription This method allows an application to view multiple records.
+         * The `limit` parameter is the max amount of user records that will be returned.
+         * To get all records set the limit to `0`.
          *
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
