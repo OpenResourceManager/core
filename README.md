@@ -12,10 +12,10 @@ Check out the [API documentation](https://databridge.sage.edu/docs/).
 
 ## ToDo:
 
-- [ ] Security
+- [X] Security
   - [X] Implement API key authorization.
   - [X] Create boolean for write access.
-  - [ ] Lock down web directories/permissions.
+  - [X] Lock down web directories/permissions.
 - [X] API R/O calls
   - [X] Get user by ID
   - [X] Get user by ID_Number
@@ -31,9 +31,14 @@ Check out the [API documentation](https://databridge.sage.edu/docs/).
   - [X] Get campus by datatel code
   - [X] Get all campuses
 - [ ] API Write calls
-  - [ ] Update user by ID
-  - [ ] Update user by ID_Number
-  - [ ] Update user by username
+  - [X] Update user by ID_Number
+  - [X] Create user by ID_Number
+  - [ ] Update Building by DatatelCode
+  - [ ] Create Building by DatatelCode
+  - [ ] Update Role by DatatelCode
+  - [ ] Create Role by DatatelCode
+  - [ ] Update Campus by DatatelCode
+  - [ ] Create Campus by DatatelCode
 - [X] Documentation
   - [X] Write inline documentation.
   - [X] Use [APIDOC](http://apidocjs.com/) to generate the docs.
