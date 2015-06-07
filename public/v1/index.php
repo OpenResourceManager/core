@@ -51,6 +51,13 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl_setopt($curl, CURLOPT_POSTFIELDS, array("email2" => "lukeskywalker@gmail.com", "username" => "skywal");
          *      $result = curl_exec($ch);
          *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $uri = https://databridge.sage.edu/v1/user/idnum/:idnum
+         *      $body = @{ email2 = "lukeskywalker@gmail.com", username = "skywal" }
+         *      $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method Post -Body $body
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -164,6 +171,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/id/:id -Headers $headers
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -235,6 +247,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/idnum/:idnum -Headers $headers
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -307,6 +324,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/username/:username -Headers $headers
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -382,6 +404,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/:limit -Headers $headers
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -473,6 +500,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/ -Headers $headers
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -535,6 +567,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/role/id/:id -Headers $headers
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -594,6 +631,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/role/code/:code -Headers $headers
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -656,6 +698,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/role/:limit -Headers $headers
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -721,6 +768,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/role/ -Headers $headers
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -777,6 +829,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/building/id/:id -Headers $headers
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -837,6 +894,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/building/code/:code -Headers $headers
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -900,6 +962,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/building/:limit -Headers $headers
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -967,6 +1034,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/building/ -Headers $headers
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1023,6 +1095,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/campus/id/:id -Headers $headers
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1082,6 +1159,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/campus/code/:code -Headers $headers
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1144,6 +1226,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/campus/:limit -Headers $headers
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1210,6 +1297,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/campus/ -Headers $headers
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
