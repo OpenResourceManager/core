@@ -61,6 +61,20 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "application": "Awesome Application",
          *          "success": false,
          *          "error": "InsufficientPostData",
+         *          "required": {
+         *              "id_num": true,
+         *              "username": true,
+         *              "name_first": true,
+         *              "name_middle": false,
+         *              "name_last": true,
+         *              "email": true,
+         *              "email2": false,
+         *              "dorm": false,
+         *              "role": true,
+         *              "active": true,
+         *              "phone": false,
+         *              "room": false
+         *          }
          *      }
          *
          * @apiError {String} application The name of the application that is accessing the API.
