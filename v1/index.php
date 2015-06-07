@@ -383,6 +383,34 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
             }
         });
 
+        /**
+         * @api {get} /user/ Get Available Methods
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Users
+         *
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Object} result The methods that are available
+         * @apiSuccessExample Success-Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": {
+         *                get": [
+         *                   "\/id\/:id",
+         *                   "\/id_num\/:id_num",
+         *                   "\/username\/:username",
+         *                   "\/:limit"
+         *                 ],
+         *                 "post": [
+         *                      "\/"
+         *                 ]
+         *           }
+         *     }
+         */
+
         $slim->get('/', function () use ($api, $apiKey) {
             echo json_encode(array(
                 'application' => $apiKey['app'],
@@ -551,6 +579,32 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'RolesNotFound'));
             }
         });
+
+        /**
+         * @api {get} /role/ Get Available Methods
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Roles
+         *
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Object} result The methods that are available
+         * @apiSuccessExample Success-Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": {
+         *                get": [
+         *                  "\/id\/:id",
+         *                  "\/datatel_code\/:datatel_code",
+         *                  "\/:limit"
+         *                 ],
+         *                 "post": [ ]
+         *           }
+         *     }
+         */
+
         $slim->get('/', function () use ($api, $apiKey) {
             echo json_encode(array(
                 'application' => $apiKey['app'],
@@ -737,10 +791,10 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "success": true,
          *          "result": {
          *                get": [
-         *                       "\/id\/:id",
-         *                       "\/datatel_code\/:datatel_code",
-         *                       "\/:limit"
-         *                       ],
+         *                  "\/id\/:id",
+         *                  "\/datatel_code\/:datatel_code",
+         *                  "\/:limit"
+         *                 ],
          *                 "post": [ ]
          *           }
          *     }
@@ -929,10 +983,10 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "success": true,
          *          "result": {
          *                get": [
-         *                       "\/id\/:id",
-         *                       "\/datatel_code\/:datatel_code",
-         *                       "\/:limit"
-         *                       ],
+         *                  "\/id\/:id",
+         *                  "\/datatel_code\/:datatel_code",
+         *                  "\/:limit"
+         *                 ],
          *                 "post": [ ]
          *           }
          *     }
