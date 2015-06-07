@@ -48,7 +48,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      $ch = curl_init("https://databridge.sage.edu/v1/user/idnum/:idnum");
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      curl_setopt($ch, CURLOPT_POST, true);
-         *      curl_setopt($curl, CURLOPT_POSTFIELDS, array("email2" => "lukeskywalker@gmail.com", "username" => "skywal");
+         *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("email2" => "lukeskywalker@gmail.com", "username" => "skywal");
          *      $result = curl_exec($ch);
          *      curl_close($ch);
          * @apiExample {powershell} PowerShell
@@ -58,6 +58,13 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      $uri = https://databridge.sage.edu/v1/user/idnum/:idnum
          *      $body = @{ email2 = "lukeskywalker@gmail.com", username = "skywal" }
          *      $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method Post -Body $body
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/idnum/:idnum")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .body("{\"email2\":\"lukeskywalker@gmail.com\", \"username\":\"skywal\"}")
+         *      .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -176,6 +183,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
          *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/id/:id -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/id/:id")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -252,6 +265,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
          *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/idnum/:idnum -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/idnum/:idnum")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -329,6 +348,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
          *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/username/:username -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/username/:username")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -409,6 +434,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
          *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/:limit -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/:limit")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -505,6 +536,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
          *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/ -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -572,6 +609,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
          *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/role/id/:id -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/role/id/:id")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -636,6 +679,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
          *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/role/code/:code -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/role/code/:code")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -703,6 +752,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
          *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/role/:limit -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/role/:limit")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -773,6 +828,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
          *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/role/ -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/role/")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -834,6 +895,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
          *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/building/id/:id -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/building/id/:id")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -899,6 +966,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
          *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/building/code/:code -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/building/code/:code")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -967,6 +1040,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
          *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/building/:limit -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/building/:limit")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1039,6 +1118,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
          *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/building/ -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/building/")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1100,6 +1185,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
          *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/campus/id/:id -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/campus/id/:id")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1164,6 +1255,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
          *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/campus/code/:code -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/campus/code/:code")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1231,6 +1328,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
          *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/campus/:limit -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/campus/:limit")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1302,6 +1405,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
          *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/campus/ -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/campus/")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
