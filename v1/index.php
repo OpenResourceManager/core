@@ -392,7 +392,6 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
-         * @apiSampleRequest https://databridge.sage.edu/v1/user/
          * * @apiSuccessExample Usage Curl:
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/
          * @apiSuccessExample Success Response:
@@ -592,7 +591,6 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
-         * @apiSampleRequest https://databridge.sage.edu/v1/role/
          * @apiSuccessExample Usage Curl:
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/role/
          * @apiSuccessExample Success Response:
@@ -790,7 +788,6 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
-         * @apiSampleRequest https://databridge.sage.edu/v1/building/
          * @apiSuccessExample Usage Curl:
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/building/
          * @apiSuccessExample Success Response:
@@ -985,7 +982,6 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
-         * @apiSampleRequest https://databridge.sage.edu/v1/campus/
          * @apiSuccessExample Usage Curl:
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/campus/
          * @apiSuccessExample Success Response:
