@@ -842,7 +842,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "result": {
          *                "get": [
          *                  "\/id\/:id",
-         *                  "\/datatel_code\/:datatel_code",
+         *                  "\/code\/:code",
          *                  "\/:limit"
          *                 ],
          *                 "post": [ ]
@@ -857,7 +857,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 'result' => array(
                     'get' => array(
                         '/id/:id',
-                        '/datatel_code/:datatel_code',
+                        '/code/:code',
                         '/:limit'
                     ),
                     'post' => array()
@@ -1132,7 +1132,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "result": {
          *               "get": [
          *                  "\/id\/:id",
-         *                  "\/datatel_code\/:datatel_code",
+         *                  "\/code\/:code",
          *                  "\/:limit"
          *                 ],
          *                 "post": [ ]
@@ -1147,7 +1147,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 'result' => array(
                     'get' => array(
                         '/id/:id',
-                        '/datatel_code/:datatel_code',
+                        '/code/:code',
                         '/:limit'
                     ),
                     'post' => array()
@@ -1419,7 +1419,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "result": {
          *                "get": [
          *                  "\/id\/:id",
-         *                  "\/datatel_code\/:datatel_code",
+         *                  "\/code\/:code",
          *                  "\/:limit"
          *                 ],
          *                 "post": [ ]
@@ -1434,7 +1434,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 'result' => array(
                     'get' => array(
                         '/id/:id',
-                        '/datatel_code/:datatel_code',
+                        '/code/:code',
                         '/:limit'
                     ),
                     'post' => array()
