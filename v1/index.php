@@ -33,7 +33,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {String} result The action that was performed. This may be `update` or `create`.
-         * @apiSuccessExample Success-Response:
+         * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
          *          "application": "Awesome Application",
@@ -44,7 +44,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
          * @apiError {String} ForbiddenToWrite The application does not have write access to the API.
-         * @apiErrorExample Error-Response:
+         * @apiErrorExample Error Response:
          *      HTTP/1.1 403 Forbidden
          *      {
          *          "application": "Awesome Application",
@@ -81,7 +81,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
          * @apiError {String} FailedToWrite The application does have write access, but the commit failed. This is due to an error on the server.
-         * @apiErrorExample Error-Response:
+         * @apiErrorExample Error Response:
          *      HTTP/1.1 500 Server Error
          *      {
          *          "application": "Awesome Application",
@@ -134,7 +134,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The user record object.
-         * @apiSuccessExample Success-Response:
+         * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
          *          "application": "Awesome Application",
@@ -162,7 +162,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
          * @apiError {String} UserNotFound The id of the user was not found.
-         * @apiErrorExample Error-Response:
+         * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
@@ -193,7 +193,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The user record object.
-         * @apiSuccessExample Success-Response:
+         * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
          *          "application": "Awesome Application",
@@ -221,7 +221,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
          * @apiError {String} UserNotFound The id of the user was not found.
-         * @apiErrorExample Error-Response:
+         * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
@@ -253,7 +253,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The user record object.
-         * @apiSuccessExample Success-Response:
+         * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
          *          "application": "Awesome Application",
@@ -281,7 +281,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
          * @apiError {String} UserNotFound The id of the user was not found.
-         * @apiErrorExample Error-Response:
+         * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
@@ -313,7 +313,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Array} result An array of user record objects.
-         * @apiSuccessExample Success-Response:
+         * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
          *          "application": "Awesome Application",
@@ -361,7 +361,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
          * @apiError {String} UsersNotFound The id of the user was not found.
-         * @apiErrorExample Error-Response:
+         * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
@@ -392,7 +392,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
-         * @apiSuccessExample Success-Response:
+         * * @apiSuccessExample Usage Curl:
+         *      curl -h "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/
+         * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
          *          "application": "Awesome Application",
@@ -442,7 +444,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The role record object.
-         * @apiSuccessExample Success-Response:
+         * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
          *          "application": "Awesome Application",
@@ -457,7 +459,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
          * @apiError {String} RoleNotFound The id of the role was not found.
-         * @apiErrorExample Error-Response:
+         * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
@@ -489,7 +491,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The role record object.
-         * @apiSuccessExample Success-Response:
+         * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
          *          "application": "Awesome Application",
@@ -504,7 +506,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
          * @apiError {String} RoleNotFound The Datatel code of the role was not found.
-         * @apiErrorExample Error-Response:
+         * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
@@ -536,7 +538,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Array} result An array of role record objects.
-         * @apiSuccessExample Success-Response:
+         * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
          *          "application": "Awesome Application",
@@ -558,7 +560,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
          * @apiError {String} RolesNotFound The was no roles found.
-         * @apiErrorExample Error-Response:
+         * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
@@ -589,7 +591,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
-         * @apiSuccessExample Success-Response:
+         * @apiSuccessExample Usage Curl:
+         *      curl -h "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/role/
+         * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
          *          "application": "Awesome Application",
@@ -633,7 +637,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The building record object.
-         * @apiSuccessExample Success-Response:
+         * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
          *          "application": "Awesome Application",
@@ -681,7 +685,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The building record object.
-         * @apiSuccessExample Success-Response:
+         * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
          *          "application": "Awesome Application",
@@ -697,7 +701,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
          * @apiError {String} BuildingNotFound The Datatel code of the building was not found.
-         * @apiErrorExample Error-Response:
+         * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
@@ -729,7 +733,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Array} result An array of building record objects.
-         * @apiSuccessExample Success-Response:
+         * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
          *          "application": "Awesome Application",
@@ -753,7 +757,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
          * @apiError {String} BuildingsNotFound The was no buildings found.
-         * @apiErrorExample Error-Response:
+         * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
@@ -784,7 +788,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
-         * @apiSuccessExample Success-Response:
+         * @apiSuccessExample Usage Curl:
+         *      curl -h "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/building/
+         * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
          *          "application": "Awesome Application",
@@ -828,7 +834,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The campus record object.
-         * @apiSuccessExample Success-Response:
+         * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
          *          "application": "Awesome Application",
@@ -843,7 +849,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
          * @apiError {String} BuildingNotFound The id of the campus was not found.
-         * @apiErrorExample Error-Response:
+         * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
@@ -875,7 +881,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The campus record object.
-         * @apiSuccessExample Success-Response:
+         * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
          *          "application": "Awesome Application",
@@ -890,7 +896,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
          * @apiError {String} BuildingNotFound The Datatel code of the campus was not found.
-         * @apiErrorExample Error-Response:
+         * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
@@ -922,7 +928,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Array} result An array of campus record objects.
-         * @apiSuccessExample Success-Response:
+         * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
          *          "application": "Awesome Application",
@@ -944,7 +950,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
          * @apiError {String} CampusesNotFound The was no campuses found.
-         * @apiErrorExample Error-Response:
+         * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
@@ -976,7 +982,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
-         * @apiSuccessExample Success-Response:
+         * @apiSuccessExample Usage Curl:
+         *      curl -h "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/campus/
+         * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
          *          "application": "Awesome Application",
