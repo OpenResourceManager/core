@@ -5,10 +5,10 @@
  * Date: 6/6/15
  * Time: 10:40 AM
  */
-require dirname(dirname(__FILE__)) . '/vendor/autoload.php';
-include_once dirname(__FILE__) . '/lib/api/API.php';
-include_once dirname(__FILE__) . '/lib/ud2sql/helpers/MySQLHelper.php';
-include_once dirname(__FILE__) . '/lib/ud2sql/app/Config.php';
+require dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
+include_once dirname(dirname(dirname(__FILE__))) . '/lib/api/API.php';
+include_once dirname(dirname(dirname(__FILE__))) . '/lib/ud2sql/helpers/MySQLHelper.php';
+include_once dirname(dirname(dirname(__FILE__))) . '/lib/ud2sql/app/Config.php';
 
 // Init a slim object
 $slim = new \Slim\Slim();
