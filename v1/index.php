@@ -394,7 +394,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {Object} result The methods that are available
          * @apiSampleRequest https://databridge.sage.edu/v1/user/
          * * @apiSuccessExample Usage Curl:
-         *      curl -h "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -594,7 +594,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {Object} result The methods that are available
          * @apiSampleRequest https://databridge.sage.edu/v1/role/
          * @apiSuccessExample Usage Curl:
-         *      curl -h "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/role/
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/role/
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -792,7 +792,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {Object} result The methods that are available
          * @apiSampleRequest https://databridge.sage.edu/v1/building/
          * @apiSuccessExample Usage Curl:
-         *      curl -h "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/building/
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/building/
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -987,7 +987,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {Object} result The methods that are available
          * @apiSampleRequest https://databridge.sage.edu/v1/campus/
          * @apiSuccessExample Usage Curl:
-         *      curl -h "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/campus/
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/campus/
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
