@@ -39,7 +39,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl -H "X-Authorization: <Your-API-Key>" --data "email2=lukeskywalker@gmail.com&username=skywal" --url https://databridge.sage.edu/v1/user/idnum/:idnum
          * @apiExample {ruby} Ruby
          *      # This code snippets use an open-source library. http://unirest.io/ruby
-         *      response = Unirest.get "https://databridge.sage.edu/v1/user/idnum/:idnum", headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }, parameters:{ :email2 => "lukeskywalker@gmail.com", :username => "skywal" }.to_json
+         *      response = Unirest.get "https://databridge.sage.edu/v1/user/idnum/:idnum",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
+         *      parameters:{ :email2 => "lukeskywalker@gmail.com", :username => "skywal" }.to_json
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -146,7 +148,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/id/:id
          * @apiExample {ruby} Ruby
          *      # This code snippets use an open-source library. http://unirest.io/ruby
-         *      response = Unirest.get "https://databridge.sage.edu/v1/user/id/:id", headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         *      response = Unirest.get "https://databridge.sage.edu/v1/user/id/:id",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -211,7 +214,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/idnum/:idnum
          * @apiExample {ruby} Ruby
          *      # This code snippets use an open-source library. http://unirest.io/ruby
-         *      response = Unirest.get "https://databridge.sage.edu/v1/user/idnum/:idnum", headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         *      response = Unirest.get "https://databridge.sage.edu/v1/user/idnum/:idnum",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -277,7 +281,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/username/:username
          * @apiExample {ruby} Ruby
          *      # This code snippets use an open-source library. http://unirest.io/ruby
-         *      response = Unirest.get "https://databridge.sage.edu/v1/user/username/:username", headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         *      response = Unirest.get "https://databridge.sage.edu/v1/user/username/:username",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -346,7 +351,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/:limit
          * @apiExample {ruby} Ruby
          *      # This code snippets use an open-source library. http://unirest.io/ruby
-         *      response = Unirest.get "https://databridge.sage.edu/v1/user/:limit", headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         *      response = Unirest.get "https://databridge.sage.edu/v1/user/:limit",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -431,7 +437,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/
          * @apiExample {ruby} Ruby
          *      # This code snippets use an open-source library. http://unirest.io/ruby
-         *      response = Unirest.get "https://databridge.sage.edu/v1/user/", headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         *      response = Unirest.get "https://databridge.sage.edu/v1/user/",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -483,8 +490,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The role record object.
          * @apiSampleRequest https://databridge.sage.edu/v1/role/id/:id
-         * @apiExample {curl} Usage Curl
+         * @apiExample {curl} Curl
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/role/id/:id
+         * @apiExample {ruby} Ruby
+         *      # This code snippets use an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/role/id/:id",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -533,8 +544,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The role record object.
          * @apiSampleRequest https://databridge.sage.edu/v1/role/code/:code
-         * @apiExample {curl} Usage Curl
+         * @apiExample {curl} Curl
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/role/code/:code
+         * @apiExample {ruby} Ruby
+         *      # This code snippets use an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/role/code/:code",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -586,8 +601,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Array} result An array of role record objects.
          * @apiSampleRequest https://databridge.sage.edu/v1/role/:limit
-         * @apiExample {curl} Usage Curl
+         * @apiExample {curl} Curl
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/role/:limit
+         * @apiExample {ruby} Ruby
+         *      # This code snippets use an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/role/:limit",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -642,8 +661,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
          * @apiSampleRequest https://databridge.sage.edu/v1/role/
-         * @apiExample {curl} Usage Curl
+         * @apiExample {curl} Curl
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/role/
+         * @apiExample {ruby} Ruby
+         *      # This code snippets use an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/role/",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -689,8 +712,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The building record object.
          * @apiSampleRequest https://databridge.sage.edu/v1/building/id/:id
-         * @apiExample {curl} Usage Curl
+         * @apiExample {curl} Curl
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/building/id/:id
+         * @apiExample {ruby} Ruby
+         *      # This code snippets use an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/building/id/:id",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -740,8 +767,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The building record object.
          * @apiSampleRequest https://databridge.sage.edu/v1/building/code/:code
-         * @apiExample {curl} Usage Curl
+         * @apiExample {curl} Curl
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/building/code/:code
+         * @apiExample {ruby} Ruby
+         *      # This code snippets use an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/building/code/:code",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -794,8 +825,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Array} result An array of building record objects.
          * @apiSampleRequest https://databridge.sage.edu/v1/building/:limit
-         * @apiExample {curl} Usage Curl
+         * @apiExample {curl} Curl
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/building/:limit
+         * @apiExample {ruby} Ruby
+         *      # This code snippets use an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/building/:limit",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -852,8 +887,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
          * @apiSampleRequest https://databridge.sage.edu/v1/building/
-         * @apiExample {curl} Usage Curl
+         * @apiExample {curl} Curl
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/building/
+         * @apiExample {ruby} Ruby
+         *      # This code snippets use an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/building/",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -899,8 +938,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The campus record object.
          * @apiSampleRequest https://databridge.sage.edu/v1/campus/id/:id
-         * @apiExample {curl} Usage Curl
+         * @apiExample {curl} Curl
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/campus/id/:id
+         * @apiExample {ruby} Ruby
+         *      # This code snippets use an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/campus/id/:id",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -951,6 +994,10 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSampleRequest https://databridge.sage.edu/v1/campus/code/:code
          * @apiExample {curl} Usage Curl
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/campus/code/:code
+         * @apiExample {ruby} Ruby
+         *      # This code snippets use an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/campus/code/:code",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1004,6 +1051,10 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSampleRequest https://databridge.sage.edu/v1/campus/:limit
          * @apiExample {curl} Usage Curl
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/campus/:limit
+         * @apiExample {ruby} Ruby
+         *      # This code snippets use an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/campus/:limit",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1061,6 +1112,10 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSampleRequest https://databridge.sage.edu/v1/campus/
          * @apiExample {curl} Usage Curl
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/campus/
+         * @apiExample {ruby} Ruby
+         *      # This code snippets use an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/campus/",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
