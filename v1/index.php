@@ -36,7 +36,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {String} result The action that was performed. This may be `update` or `create`.
          * @apiExample {curl} Curl
-         *      curl -H "X-Authorization: <Your-API-Key>" --data "email2=lukeskywalker@gmail.com&username=skywal" --url https://databridge.sage.edu/v1/user/idnum/:idnum
+         *      curl -H "X-Authorization: <Your-API-Key>" \
+         *      --data "email2=lukeskywalker@gmail.com&username=skywal" \
+         *      --url https://databridge.sage.edu/v1/user/idnum/:idnum
          * @apiExample {ruby} Ruby
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/user/idnum/:idnum",
