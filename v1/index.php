@@ -398,7 +398,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "application": "Awesome Application",
          *          "success": true,
          *          "result": {
-         *                get": [
+         *                "get": [
          *                   "\/id\/:id",
          *                   "\/id_num\/:id_num",
          *                   "\/username\/:username",
@@ -595,7 +595,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "application": "Awesome Application",
          *          "success": true,
          *          "result": {
-         *                get": [
+         *                "get": [
          *                  "\/id\/:id",
          *                  "\/datatel_code\/:datatel_code",
          *                  "\/:limit"
@@ -790,7 +790,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "application": "Awesome Application",
          *          "success": true,
          *          "result": {
-         *                get": [
+         *               "get": [
          *                  "\/id\/:id",
          *                  "\/datatel_code\/:datatel_code",
          *                  "\/:limit"
@@ -982,7 +982,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "application": "Awesome Application",
          *          "success": true,
          *          "result": {
-         *                get": [
+         *                "get": [
          *                  "\/id\/:id",
          *                  "\/datatel_code\/:datatel_code",
          *                  "\/:limit"
