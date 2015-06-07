@@ -407,7 +407,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiVersion 1.0.0
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Users
-         *
+         * @apiDescription This method lists the methods available under `/user/`
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
@@ -460,7 +460,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Roles
          * @apiParam {Int} id Role's unique API ID.
-         *
+         * @apiDescription This method allows an application to view a role record using the database index `ID` number.
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The role record object.
@@ -510,7 +510,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Roles
          * @apiParam {String} Datatel code that corresponds with that role.
-         *
+         * @apiDescription This method allows an application to view a role record using appropriate `Datatel_Code`.
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The role record object.
@@ -560,6 +560,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Roles
          * @apiParam {Int} limit The max amount of records to return, 0 returns all of them.
+         * @apiDescription This method allows an application to view multiple records.
+         * The `limit` parameter is the max amount of user records that will be returned.
+         * To get all records set the limit to `0`.
          *
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
@@ -616,7 +619,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiVersion 1.0.0
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Roles
-         *
+         * @apiDescription This method lists the methods available under `/role/`
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
@@ -663,7 +666,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Buildings
          * @apiParam {Int} id Buildings's unique API ID.
-         *
+         * @apiDescription This method allows an application to view a building record using the database index `ID` number.
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The building record object.
@@ -714,7 +717,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Buildings
          * @apiParam {String} Datatel code that corresponds with that building.
-         *
+         * @apiDescription This method allows an application to view a building record using appropriate `Datatel_Code`.
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The building record object.
@@ -765,6 +768,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Buildings
          * @apiParam {Int} limit The max amount of records to return, 0 returns all of them.
+         * @apiDescription This method allows an application to view multiple records.
+         * The `limit` parameter is the max amount of user records that will be returned.
+         * To get all records set the limit to `0`.
          *
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
@@ -823,7 +829,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiVersion 1.0.0
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Buildings
-         *
+         * @apiDescription This method lists the methods available under `/building/`
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
@@ -870,7 +876,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Campuses
          * @apiParam {Int} id Campus' unique API ID.
-         *
+         * @apiDescription This method allows an application to view a campus record using the database index `ID` number.
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The campus record object.
@@ -920,7 +926,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Campuses
          * @apiParam {String} Datatel code that corresponds with that campus.
-         *
+         * @apiDescription This method allows an application to view a campus record using appropriate `Datatel_Code`.
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The campus record object.
@@ -970,6 +976,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Campuses
          * @apiParam {Int} limit The max amount of records to return, 0 returns all of them.
+         * @apiDescription This method allows an application to view multiple records.
+         * The `limit` parameter is the max amount of user records that will be returned.
+         * To get all records set the limit to `0`.
          *
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
@@ -1027,7 +1036,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiVersion 1.0.0
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Campuses
-         *
+         * @apiDescription This method lists the methods available under `/campus/`
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
