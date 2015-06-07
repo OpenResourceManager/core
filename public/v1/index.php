@@ -65,6 +65,18 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      .header("Accept", "application/json")
          *      .body("{\"email2\":\"lukeskywalker@gmail.com\", \"username\":\"skywal\"}")
          *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/user/",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          },
+         *          params={
+         *              "email2": "lukeskywalker@gmail.com",
+         *              "username": "skywal"
+         *          }
+         *      )
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -189,6 +201,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
          *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/user/id/:id",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -271,6 +291,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
          *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/user/idnum/:idnum",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -354,6 +382,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
          *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/user/username/:username",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -440,6 +476,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
          *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/user/:limit",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -542,6 +586,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
          *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/user/",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -615,6 +667,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
          *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/role/id/:id",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -685,6 +745,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
          *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/role/code/:code",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -758,6 +826,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
          *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/role/:limit",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -834,6 +910,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
          *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/role/",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -901,6 +985,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
          *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/building/id/:id",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -972,6 +1064,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
          *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/building/code/:code",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1046,6 +1146,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
          *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/building/:limit",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1124,6 +1232,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
          *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/building/",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1191,6 +1307,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
          *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/campus/id/:id",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1261,6 +1385,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
          *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/campus/code/:code",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1334,6 +1466,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
          *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/campus/:limit",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1411,6 +1551,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
          *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/campus/",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
