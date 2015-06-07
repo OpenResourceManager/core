@@ -56,7 +56,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiError {Boolean} success Tells the application if the request was successful.
          * @apiError {String} InsufficientPostData The application did not provide the required data.
          * @apiError {Array} required User attributes and a boolean value that signifies if they are required or not.
-         * @apiErrorExample Error-Response:
+         * @apiErrorExample Error Response:
          *      HTTP/1.1 400 Bad Request
          *      {
          *          "application": "Awesome Application",
