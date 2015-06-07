@@ -992,7 +992,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The campus record object.
          * @apiSampleRequest https://databridge.sage.edu/v1/campus/code/:code
-         * @apiExample {curl} Usage Curl
+         * @apiExample {curl} Curl
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/campus/code/:code
          * @apiExample {ruby} Ruby
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
@@ -1049,7 +1049,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Array} result An array of campus record objects.
          * @apiSampleRequest https://databridge.sage.edu/v1/campus/:limit
-         * @apiExample {curl} Usage Curl
+         * @apiExample {curl} Curl
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/campus/:limit
          * @apiExample {ruby} Ruby
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
@@ -1110,7 +1110,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The methods that are available
          * @apiSampleRequest https://databridge.sage.edu/v1/campus/
-         * @apiExample {curl} Usage Curl
+         * @apiExample {curl} Curl
          *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/campus/
          * @apiExample {ruby} Ruby
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
