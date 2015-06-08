@@ -1698,6 +1698,153 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
     $slim->group(('/campus'), function () use ($slim, $api, $apiKey, $MySQLiHelper) {
 
         /**
+         * @api {post} /campus/code/:code Post to Building
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Campuses
+         * @apiParam {String} Object's unique Datatel code.
+         * @apiDescription Using a Datatel code as part of the url parameter, an application can create new campus record or update existing records.
+         * If the Datatel code in the URL does not exist in the database, the rest of the data sent in the POST request will be treated as a new entry.
+         * If the Datatel code in the URL does exist in the database, the data sent in the POST request will replace the data in that record.
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {String} result The action that was performed. This may be `update` or `create`.
+         * @apiExample {curl} Curl
+         *      curl -H "X-Authorization: <Your-API-Key>" \
+         *      --data "name=Sage College of Albany" \
+         *      --url https://databridge.sage.edu/v1/campus/code/:code
+         * @apiExample {ruby} Ruby
+         *      # This code snippet uses an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/campus/code/:code",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
+         *      parameters:{ :name => "Sage College of Albany"}.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/campus/code/:code");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      curl_setopt($ch, CURLOPT_POST, true);
+         *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("name" => "Sage College of Albany");
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $uri = https://databridge.sage.edu/v1/campus/code/:code
+         *      $body = @{ email2 = "Sage College of Albany" }
+         *      $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method Post -Body $body
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/campus/code/:code")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .body("{\"name\":\"Sage College of Albany\"}")
+         *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.post("https://databridge.sage.edu/v1/campus/code/:code",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          },
+         *          params={
+         *              "name": "Sage College of Albany"
+         *          }
+         *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.post("https://databridge.sage.edu/v1/campus/code/:code")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .field("name", "Sage College of Albany")
+         *       .asString();
+         * @apiSuccessExample Success Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": "update"
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} ForbiddenToWrite The application does not have write access to the API.
+         * @apiErrorExample Error Response:
+         *      HTTP/1.1 403 Forbidden
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "ForbiddenToWrite"
+         *      }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} InsufficientPostData The application did not provide the required data.
+         * @apiError {Array} required User attributes and a boolean value that signifies if they are required or not.
+         * @apiErrorExample Error Response:
+         *      HTTP/1.1 400 Bad Request
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "InsufficientPostData",
+         *          "required": {
+         *              "code": true,
+         *              "name": true,
+         *          }
+         *      }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} FailedToWrite The application does have write access, but the commit failed. This is due to an error on the server.
+         * @apiErrorExample Error Response:
+         *      HTTP/1.1 500 Server Error
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "FailedToWrite"
+         *      }
+         */
+
+        $slim->post('/code/:code', function ($code) use ($api, $apiKey, $MySQLiHelper, $slim) {
+            // Create a mysqli object
+            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
+            if ($apiKey['write'] == 1) {
+                $data = json_decode(json_encode($slim->request->post()), true);
+                if (!empty($data)) {
+                    $exists = ($MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_campus_table'], 'code', $code)->fetch_assoc()) ? true : false;
+                    if ($exists) {
+                        // Protect the ID value
+                        if (isset($data['id'])) unset($data['id']);
+                        if ($MySQLiHelper->simpleUpdate($mysqli, Config::getSQLConf()['db_campus_table'], $data, 'code', $code)) {
+                            echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'update'));
+                        } else {
+                            header('HTTP/1.1 500 Server Error');
+                            echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite'));
+                        }
+                    } else {
+                        if ($api->checkPostDataValues($data, Config::getCampusAttributes())) {
+                            if ($MySQLiHelper->simpleInsert($mysqli, Config::getSQLConf()['db_campus_table'], $data)) {
+                                echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'create'));
+                            } else {
+                                header('HTTP/1.1 500 Server Error');
+                                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite'));
+                            }
+                        } else {
+                            header('HTTP/1.1 400 Bad Request');
+                            echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getCampusAttributes()));
+                        }
+                    }
+                } else {
+                    header('HTTP/1.1 400 Bad Request');
+                    echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getCampusAttributes()));
+                }
+            } else {
+                header('HTTP/1.1 403 Forbidden');
+                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'ForbiddenToWrite'));
+            }
+            $mysqli->close();
+        });
+
+        /**
          * @api {get} /campus/id/:id Get by ID
          * @apiVersion 1.0.0
          * @apiHeader {String} X-Authorization The application's unique access-key.
