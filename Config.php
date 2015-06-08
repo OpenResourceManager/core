@@ -30,23 +30,6 @@ class Config
     /**
      * @return array
      */
-    public static function getLDAPConf()
-    {
-        return array(
-            'ldap_user' => 'ud2sql',
-            'ldap_bind_dn' => 'CN=ud2sql,OU=Users_TSC,DC=SAGE,DC=EDU',
-            'ldap_pass' => 'tU9ZyhjDb77HBHVu',
-            'ldap_hosts' => array(
-                '5.254.254.222',
-                '5.17.254.222',
-                '5.254.254.223'
-            ),
-        );
-    }
-
-    /**
-     * @return array
-     */
     public static function getUserAttributes()
     {
         return array(
