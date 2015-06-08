@@ -697,7 +697,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @api {post} /role/code/:code Post to Role
          * @apiVersion 1.0.0
          * @apiHeader {String} X-Authorization The application's unique access-key.
-         * @apiGroup Users
+         * @apiGroup Roles
          * @apiParam {String} Object's unique Datatel code.
          * @apiDescription Using a Datatel code as part of the url parameter, an application can create new role record or update existing records.
          * If the Datatel code in the URL does not exist in the database, the rest of the data sent in the POST request will be treated as a new entry.
