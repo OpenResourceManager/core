@@ -683,7 +683,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                         '/:limit'
                     ),
                     'post' => array(
-                        '/'
+                        '/sageid/:sageid'
                     )
                 ),
             ));
@@ -1169,7 +1169,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *                  "\/code\/:code",
          *                  "\/:limit"
          *                 ],
-         *                 "post": [ ]
+         *               "post": [
+         *                  "\/code\/:code"
+         *                 ]
          *           }
          *     }
          */
@@ -1184,7 +1186,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                         '/code/:code',
                         '/:limit'
                     ),
-                    'post' => array()
+                    'post' => array(
+                        '/code/:code'
+                    )
                 )
             ));
         });
@@ -1674,7 +1678,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *                  "\/code\/:code",
          *                  "\/:limit"
          *                 ],
-         *                 "post": [ ]
+         *               "post": [
+         *                  "\/code\/:code"
+         *                 ]
          *           }
          *     }
          */
@@ -1689,7 +1695,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                         '/code/:code',
                         '/:limit'
                     ),
-                    'post' => array()
+                    'post' => array(
+                        '/code/:code'
+                    )
                 )
             ));
         });
@@ -2172,7 +2180,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *                  "\/code\/:code",
          *                  "\/:limit"
          *                 ],
-         *                 "post": [ ]
+         *               "post": [
+         *                  "\/code\/:code"
+         *                 ]
          *           }
          *     }
          */
@@ -2187,7 +2197,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                         '/code/:code',
                         '/:limit'
                     ),
-                    'post' => array()
+                    'post' => array(
+                        '/code/:code'
+                    )
                 )
             ));
         });
