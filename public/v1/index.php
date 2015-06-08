@@ -151,6 +151,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 if (!empty($data)) {
                     $exists = ($MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'sageid', $sageid)->fetch_assoc()) ? true : false;
                     if ($exists) {
+                        // Unset protected values
+                        unset($data['sageid']);
+                        unset($data['id']);
                         if ($MySQLiHelper->simpleUpdate($mysqli, Config::getSQLConf()['db_user_table'], $data, 'sageid', $sageid)) {
                             echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'update'));
                         } else {
@@ -688,6 +691,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
     });
 
     $slim->group(('/role'), function () use ($slim, $api, $apiKey, $MySQLiHelper) {
+
+
 
         /**
          * @api {get} /role/id/:id Get by ID
