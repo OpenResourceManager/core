@@ -26,11 +26,11 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
 
 
         /**
-         * @api {post} /user/idnum/:idnum Post to User
+         * @api {post} /user/sageid/:sageid Post to User
          * @apiVersion 1.0.0
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Users
-         * @apiParam {Int} idnum Users's unique Sage ID number.
+         * @apiParam {Int} sageid Users's unique Sage ID number.
          * @apiDescription Using a Sage ID number as part of the url parameter, an application can create new user records or update existing records.
          * If the Sage ID in the URL does not exist in the database, the rest of the data sent in the POST request will be treated as a new user entry.
          * If the Sage ID in the URL does exist in the database, the data sent in the POST request will replace the data in that users record.
@@ -40,14 +40,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          * @apiExample {curl} Curl
          *      curl -H "X-Authorization: <Your-API-Key>" \
          *      --data "email2=lukeskywalker@gmail.com&username=skywal" \
-         *      --url https://databridge.sage.edu/v1/user/idnum/:idnum
+         *      --url https://databridge.sage.edu/v1/user/sageid/:sageid
          * @apiExample {ruby} Ruby
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
-         *      response = Unirest.get "https://databridge.sage.edu/v1/user/idnum/:idnum",
+         *      response = Unirest.get "https://databridge.sage.edu/v1/user/sageid/:sageid",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
          *      parameters:{ :email2 => "lukeskywalker@gmail.com", :username => "skywal" }.to_json
          * @apiExample {php} PHP
-         *      $ch = curl_init("https://databridge.sage.edu/v1/user/idnum/:idnum");
+         *      $ch = curl_init("https://databridge.sage.edu/v1/user/sageid/:sageid");
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      curl_setopt($ch, CURLOPT_POST, true);
          *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("email2" => "lukeskywalker@gmail.com", "username" => "skywal");
@@ -57,12 +57,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      # PowerShell v3 and above
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
-         *      $uri = https://databridge.sage.edu/v1/user/idnum/:idnum
+         *      $uri = https://databridge.sage.edu/v1/user/sageid/:sageid
          *      $body = @{ email2 = "lukeskywalker@gmail.com", username = "skywal" }
          *      $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method Post -Body $body
          * @apiExample {java} Java
          *      # This code snippet uses an open-source library. http://unirest.io/java
-         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/idnum/:idnum")
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/sageid/:sageid")
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
          *      .body("{\"email2\":\"lukeskywalker@gmail.com\", \"username\":\"skywal\"}")
@@ -117,7 +117,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "success": false,
          *          "error": "InsufficientPostData",
          *          "required": {
-         *              "id_num": true,
+         *              "sageid": true,
          *              "username": true,
          *              "name_first": true,
          *              "name_middle": false,
@@ -143,15 +143,15 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "error": "FailedToWrite"
          *      }
          */
-        $slim->post('/idnum/:idnum', function ($idnum) use ($api, $apiKey, $MySQLiHelper, $slim) {
+        $slim->post('/sageid/:sageid', function ($sageid) use ($api, $apiKey, $MySQLiHelper, $slim) {
             // Create a mysqli object
             $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
             if ($apiKey['write'] == 1) {
                 $data = json_decode(json_encode($slim->request->post()), true);
                 if (!empty($data)) {
-                    $exists = ($MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'id_num', $idnum)->fetch_assoc()) ? true : false;
+                    $exists = ($MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'sageid', $sageid)->fetch_assoc()) ? true : false;
                     if ($exists) {
-                        if ($MySQLiHelper->simpleUpdate($mysqli, Config::getSQLConf()['db_user_table'], $data, 'id_num', $idnum)) {
+                        if ($MySQLiHelper->simpleUpdate($mysqli, Config::getSQLConf()['db_user_table'], $data, 'sageid', $sageid)) {
                             echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'update'));
                         } else {
                             header('HTTP/1.1 500 Server Error');
@@ -235,7 +235,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "success": true,
          *          "result": {
          *              "id": "1",
-         *              "id_num": "999998",
+         *              "sageid": "999998",
          *              "username": "buildb3",
          *              "name_first": "Bob",
          *              "name_middle": "T.",
@@ -281,24 +281,24 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         /**
-         * @api {get} /user/idnum/:idnum Get by Sage ID
+         * @api {get} /user/sageid/:sageid Get by Sage ID
          * @apiVersion 1.0.0
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Users
-         * @apiParam {Int} idnum Users's unique Sage ID.
+         * @apiParam {Int} sageid Users's unique Sage ID.
          * @apiDescription This method allows an application to view a user's record using the user's Sage ID.
          * @apiSuccess {String} application The name of the application that is accessing the API.
          * @apiSuccess {Boolean} success Tells the application if the request was successful.
          * @apiSuccess {Object} result The user record object.
-         * @apiSampleRequest https://databridge.sage.edu/v1/user/idnum/:idnum
+         * @apiSampleRequest https://databridge.sage.edu/v1/user/sageid/:sageid
          * @apiExample {curl} Curl
-         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/idnum/:idnum
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/sageid/:sageid
          * @apiExample {ruby} Ruby
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
-         *      response = Unirest.get "https://databridge.sage.edu/v1/user/idnum/:idnum",
+         *      response = Unirest.get "https://databridge.sage.edu/v1/user/sageid/:sageid",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
-         *      $ch = curl_init("https://databridge.sage.edu/v1/user/idnum/:idnum");
+         *      $ch = curl_init("https://databridge.sage.edu/v1/user/sageid/:sageid");
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -306,16 +306,16 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      # PowerShell v3 and above
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
-         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/idnum/:idnum -Headers $headers
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/sageid/:sageid -Headers $headers
          * @apiExample {java} Java
          *      # This code snippet uses an open-source library. http://unirest.io/java
-         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/idnum/:idnum")
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/sageid/:sageid")
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
          *      .asString();
          * @apiExample {python} Python
          *      # This code snippet uses an open-source library http://unirest.io/python
-         *      response = unirest.get("https://databridge.sage.edu/v1/user/idnum/:idnum",
+         *      response = unirest.get("https://databridge.sage.edu/v1/user/sageid/:sageid",
          *          headers={
          *              "X-Authorization": "<Your-API-Key>",
          *              "Accept": "application/json"
@@ -323,7 +323,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      )
          * @apiExample {.net} .NET
          *      // This code snippet uses an open-source library http://unirest.io/net
-         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/user/idnum/:idnum")
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/user/sageid/:sageid")
          *       .header("X-Authorization", "<Your-API-Key>")
          *       .header("Accept", "application/json")
          *       .asString();
@@ -334,7 +334,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "success": true,
          *          "result": {
          *              "id": "1",
-         *              "id_num": "999998",
+         *              "sageid": "999998",
          *              "username": "buildb3",
          *              "name_first": "Bob",
          *              "name_middle": "T.",
@@ -364,10 +364,10 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/idnum/:idnum', function ($idnum) use ($api, $apiKey, $MySQLiHelper) {
+        $slim->get('/sageid/:sageid', function ($sageid) use ($api, $apiKey, $MySQLiHelper) {
             // Create a mysqli object
             $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'id_num', $idnum)->fetch_assoc()) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'sageid', $sageid)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -434,7 +434,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "success": true,
          *          "result": {
          *              "id": "1",
-         *              "id_num": "999998",
+         *              "sageid": "999998",
          *              "username": "buildb3",
          *              "name_first": "Bob",
          *              "name_middle": "T.",
@@ -538,7 +538,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "result": [
          *            {
          *              "id": "1",
-         *              "id_num": "999998",
+         *              "sageid": "999998",
          *              "username": "buildb3",
          *              "name_first": "Bob",
          *              "name_middle": "T.",
@@ -556,7 +556,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *           },
          *           {
          *              "id": "2",
-         *              "id_num": "999997",
+         *              "sageid": "999997",
          *              "username": "dorae",
          *              "name_first": "Dora",
          *              "name_middle": "T.",
@@ -657,12 +657,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "result": {
          *                "get": [
          *                   "\/id\/:id",
-         *                   "\/id_num\/:id_num",
+         *                   "\/sageid\/:sageid",
          *                   "\/username\/:username",
          *                   "\/:limit"
          *                 ],
          *                 "post": [
-         *                      "\/id_num\/:id_num"
+         *                      "\/sageid\/:sageid"
          *                 ]
          *           }
          *     }
@@ -675,7 +675,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 'result' => array(
                     'get' => array(
                         '/id/:id',
-                        '/id_num/:id_num',
+                        '/sageid/:sageid',
                         '/username/:username',
                         '/:limit'
                     ),
