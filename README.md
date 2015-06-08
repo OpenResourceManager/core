@@ -30,15 +30,15 @@ Check out the [API documentation](https://databridge.sage.edu/docs/).
   - [X] Get campus by ID
   - [X] Get campus by datatel code
   - [X] Get all campuses
-- [ ] API Write calls
+- [X] API Write calls
   - [X] Update user by ID_Number
   - [X] Create user by ID_Number
-  - [ ] Update Building by DatatelCode
-  - [ ] Create Building by DatatelCode
-  - [ ] Update Role by DatatelCode
-  - [ ] Create Role by DatatelCode
-  - [ ] Update Campus by DatatelCode
-  - [ ] Create Campus by DatatelCode
+  - [X] Update Building by DatatelCode
+  - [X] Create Building by DatatelCode
+  - [X] Update Role by DatatelCode
+  - [X] Create Role by DatatelCode
+  - [X] Update Campus by DatatelCode
+  - [X] Create Campus by DatatelCode
 - [X] Documentation
   - [X] Write inline documentation.
   - [X] Use [APIDOC](http://apidocjs.com/) to generate the docs.

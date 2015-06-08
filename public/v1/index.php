@@ -1698,7 +1698,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
     $slim->group(('/campus'), function () use ($slim, $api, $apiKey, $MySQLiHelper) {
 
         /**
-         * @api {post} /campus/code/:code Post to Building
+         * @api {post} /campus/code/:code Post to Campus
          * @apiVersion 1.0.0
          * @apiHeader {String} X-Authorization The application's unique access-key.
          * @apiGroup Campuses
