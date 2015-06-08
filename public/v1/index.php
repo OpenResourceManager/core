@@ -79,6 +79,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "username": "skywal"
          *          }
          *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.post("https://databridge.sage.edu/v1/user/")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .field("email2", "lukeskywalker@gmail.com")
+         *       .field("username", "skywal")
+         *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -214,6 +222,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "Accept": "application/json"
          *          }
          *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/user/id/:id")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -307,6 +321,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "Accept": "application/json"
          *          }
          *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/user/idnum/:idnum")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -401,6 +421,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "Accept": "application/json"
          *          }
          *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/user/username/:username")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -498,6 +524,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "Accept": "application/json"
          *          }
          *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/user/:limit")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -611,6 +643,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "Accept": "application/json"
          *          }
          *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/user/")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -692,6 +730,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "Accept": "application/json"
          *          }
          *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/role/id/:id")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -773,6 +817,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "Accept": "application/json"
          *          }
          *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/role/code/:code")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -857,6 +907,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "Accept": "application/json"
          *          }
          *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/role/:limit")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -944,6 +1000,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "Accept": "application/json"
          *          }
          *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/role/")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1019,6 +1081,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "Accept": "application/json"
          *          }
          *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/building/id/:id")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1101,6 +1169,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "Accept": "application/json"
          *          }
          *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/building/code/:code")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1186,6 +1260,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "Accept": "application/json"
          *          }
          *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/building/:limit")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1275,6 +1355,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "Accept": "application/json"
          *          }
          *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/building/")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1350,6 +1436,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "Accept": "application/json"
          *          }
          *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/campus/id/:id")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1431,6 +1523,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "Accept": "application/json"
          *          }
          *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/campus/code/:code")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1515,6 +1613,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "Accept": "application/json"
          *          }
          *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/campus/:limit")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
@@ -1602,6 +1706,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *              "Accept": "application/json"
          *          }
          *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/campus/")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
          *     {
