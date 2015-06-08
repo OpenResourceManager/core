@@ -7,20 +7,24 @@
  */
 require dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
 include_once dirname(dirname(dirname(__FILE__))) . '/lib/api/API.php';
-include_once dirname(dirname(dirname(__FILE__))) . '/lib/api/Config.php';
 include_once dirname(dirname(dirname(__FILE__))) . '/lib/aah/MySQLHelper.php';
+include_once dirname(dirname(dirname(__FILE__))) . '/Config.php';
 
+
+// Create a MySQL config array
+$sqlConf = Config::getSQLConf();
 // Init a slim object
 $slim = new \Slim\Slim();
+// Init a MySQLi helper class
+$MySQLiHelper = new MySQLHelper();
+// Create a mysqli object
+$mysqli = $MySQLiHelper->getMySQLi($sqlConf['db_user'], $sqlConf['db_pass'], $sqlConf['db_name'], $sqlConf['db_host']);
 // Init an API object
 $api = new API();
 // Check the API authorization
-if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIKey($slim->request->headers->get('X-Authorization'))) {
+if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIKey($mysqli, $MySQLiHelper, $slim->request->headers->get('X-Authorization'), $sqlConf['db_api_key_table'])) {
 
-    $MySQLiHelper = new MySQLHelper();
-    $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf());
-
-    $slim->group('/user', function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper) {
+    $slim->group('/user', function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper, $sqlConf) {
 
 
         /**
@@ -133,13 +137,13 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "error": "FailedToWrite"
          *      }
          */
-        $slim->post('/idnum/:idnum', function ($idnum) use ($api, $apiKey, $mysqli, $MySQLiHelper, $slim) {
+        $slim->post('/idnum/:idnum', function ($idnum) use ($api, $apiKey, $mysqli, $MySQLiHelper, $slim, $sqlConf) {
             if ($apiKey['write'] == 1) {
                 $data = json_decode(json_encode($slim->request->post()), true);
                 if (!empty($data)) {
-                    $exists = ($MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'id_num', $idnum)->fetch_assoc()) ? true : false;
+                    $exists = ($MySQLiHelper->simpleSelect($mysqli, $sqlConf['db_user_table'], 'id_num', $idnum)->fetch_assoc()) ? true : false;
                     if ($exists) {
-                        if ($MySQLiHelper->simpleUpdate($mysqli, Config::getSQLConf()['db_user_table'], $data, 'id_num', $idnum)) {
+                        if ($MySQLiHelper->simpleUpdate($mysqli, $sqlConf['db_user_table'], $data, 'id_num', $idnum)) {
                             echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'update'));
                         } else {
                             header('HTTP/1.1 500 Server Error');
@@ -147,7 +151,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                         }
                     } else {
                         if ($api->checkPostDataValues($data, Config::getUserAttributes())) {
-                            if ($MySQLiHelper->simpleInsert($mysqli, Config::getSQLConf()['db_user_table'], $data)) {
+                            if ($MySQLiHelper->simpleInsert($mysqli, $sqlConf['db_user_table'], $data)) {
                                 echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'create'));
                             } else {
                                 header('HTTP/1.1 500 Server Error');
@@ -245,8 +249,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "error": "UserNotFound"
          *      }
          */
-        $slim->get('/id/:id', function ($id) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'id', $id)->fetch_assoc()) {
+        $slim->get('/id/:id', function ($id) use ($api, $apiKey, $mysqli, $MySQLiHelper, $sqlConf) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, $sqlConf['db_user_table'], 'id', $id)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -336,8 +340,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/idnum/:idnum', function ($idnum) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'id_num', $idnum)->fetch_assoc()) {
+        $slim->get('/idnum/:idnum', function ($idnum) use ($api, $apiKey, $mysqli, $MySQLiHelper, $sqlConf) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, $sqlConf['db_user_table'], 'id_num', $idnum)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -427,8 +431,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/username/:username', function ($username) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'username', $username)->fetch_assoc()) {
+        $slim->get('/username/:username', function ($username) use ($api, $apiKey, $mysqli, $MySQLiHelper, $sqlConf) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, $sqlConf['db_user_table'], 'username', $username)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -541,8 +545,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/:limit', function ($limit) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_user_table'], $limit)->fetch_all(MYSQLI_ASSOC)) {
+        $slim->get('/:limit', function ($limit) use ($api, $apiKey, $mysqli, $MySQLiHelper, $sqlConf) {
+            if ($result = $MySQLiHelper->selectAllFrom($mysqli, $sqlConf['db_user_table'], $limit)->fetch_all(MYSQLI_ASSOC)) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -632,7 +636,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
     });
 
-    $slim->group(('/role'), function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper) {
+    $slim->group(('/role'), function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper, $sqlConf) {
 
         /**
          * @api {get} /role/id/:id Get by ID
@@ -699,8 +703,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/id/:id', function ($id) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_role_table'], 'id', $id)->fetch_assoc()) {
+        $slim->get('/id/:id', function ($id) use ($api, $apiKey, $mysqli, $MySQLiHelper, $sqlConf) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, $sqlConf['db_role_table'], 'id', $id)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -777,8 +781,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/code/:code', function ($code) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_role_table'], 'datatel_name', $code)->fetch_assoc()) {
+        $slim->get('/code/:code', function ($code) use ($api, $apiKey, $mysqli, $MySQLiHelper, $sqlConf) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, $sqlConf['db_role_table'], 'datatel_name', $code)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -865,8 +869,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/:limit', function ($limit) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_role_table'], $limit)->fetch_all(MYSQLI_ASSOC)) {
+        $slim->get('/:limit', function ($limit) use ($api, $apiKey, $mysqli, $MySQLiHelper, $sqlConf) {
+            if ($result = $MySQLiHelper->selectAllFrom($mysqli, $sqlConf['db_role_table'], $limit)->fetch_all(MYSQLI_ASSOC)) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -950,7 +954,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
     });
 
-    $slim->group(('/building'), function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper) {
+    $slim->group(('/building'), function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper, $sqlConf) {
 
         /**
          * @api {get} /building/id/:id Get by ID
@@ -1018,8 +1022,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/id/:id', function ($id) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_building_table'], 'id', $id)->fetch_assoc()) {
+        $slim->get('/id/:id', function ($id) use ($api, $apiKey, $mysqli, $MySQLiHelper, $sqlConf) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, $sqlConf['db_building_table'], 'id', $id)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -1097,8 +1101,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/code/:code', function ($code) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_building_table'], 'datatel_name', $code)->fetch_assoc()) {
+        $slim->get('/code/:code', function ($code) use ($api, $apiKey, $mysqli, $MySQLiHelper, $sqlConf) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, $sqlConf['db_building_table'], 'datatel_name', $code)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -1187,8 +1191,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/:limit', function ($limit) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_building_table'], $limit)->fetch_all(MYSQLI_ASSOC)) {
+        $slim->get('/:limit', function ($limit) use ($api, $apiKey, $mysqli, $MySQLiHelper, $sqlConf) {
+            if ($result = $MySQLiHelper->selectAllFrom($mysqli, $sqlConf['db_building_table'], $limit)->fetch_all(MYSQLI_ASSOC)) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -1272,7 +1276,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
     });
 
-    $slim->group(('/campus'), function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper) {
+    $slim->group(('/campus'), function () use ($slim, $api, $apiKey, $mysqli, $MySQLiHelper, $sqlConf) {
 
         /**
          * @api {get} /campus/id/:id Get by ID
@@ -1339,8 +1343,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/id/:id', function ($id) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_campus_table'], 'id', $id)->fetch_assoc()) {
+        $slim->get('/id/:id', function ($id) use ($api, $apiKey, $mysqli, $MySQLiHelper, $sqlConf) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, $sqlConf['db_campus_table'], 'id', $id)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -1417,8 +1421,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/code/:code', function ($code) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_campus_table'], 'datatel_name', $code)->fetch_assoc()) {
+        $slim->get('/code/:code', function ($code) use ($api, $apiKey, $mysqli, $MySQLiHelper, $sqlConf) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, $sqlConf['db_campus_table'], 'datatel_name', $code)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -1505,8 +1509,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/:limit', function ($limit) use ($api, $apiKey, $mysqli, $MySQLiHelper) {
-            if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_campus_table'], $limit)->fetch_all(MYSQLI_ASSOC)) {
+        $slim->get('/:limit', function ($limit) use ($api, $apiKey, $mysqli, $MySQLiHelper, $sqlConf) {
+            if ($result = $MySQLiHelper->selectAllFrom($mysqli, $sqlConf['db_campus_table'], $limit)->fetch_all(MYSQLI_ASSOC)) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -1591,8 +1595,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
     });
     $slim->run();
-    $mysqli->close();
 } else {
     // Throw a 401 unauthorized, since the app is not authorized
     $api->unauthorized();
 }
+
+$mysqli->close();

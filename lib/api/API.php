@@ -7,12 +7,12 @@
  * Time: 1:43 PM
  */
 
-include_once dirname(dirname(__FILE__)) . '/MelonHelpers/MySQLHelper.php';
-include_once 'Config.php';
-
 class API
 {
 
+    /**
+     * @return void
+     */
     function unauthorized()
     {
         // Set the header
@@ -25,17 +25,15 @@ class API
 
 
     /**
+     * @param mysqli $mysqli
+     * @param MySQLHelper $MySQLiHelper
      * @param string $key
      * @return array|bool
      */
-    function checkAPIKey($key = '')
+    function checkAPIKey(mysqli $mysqli, MySQLHelper $MySQLiHelper, $key = '', $apiKeyTableName = '')
     {
-        // Init a helper class
-        $helper = new MySQLHelper();
-        // Create a mysqli object
-        $mysqli = $helper->getMySQLi(Config::getSQLConf());
         // Select for that api key
-        $select = $helper->simpleSelect($mysqli, Config::getSQLConf()['db_api_key_table'], "key", $key);
+        $select = $MySQLiHelper->simpleSelect($mysqli, $apiKeyTableName, "key", $key);
         // Close the mysqli link
         $mysqli->close();
         // Return the api key record or false
