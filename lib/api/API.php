@@ -7,8 +7,8 @@
  * Time: 1:43 PM
  */
 
-include_once dirname(dirname(__FILE__)) . '/ud2sql/helpers/MySQLHelper.php';
-include_once dirname(dirname(__FILE__)) . '/ud2sql/app/Config.php';
+include_once dirname(dirname(__FILE__)) . '/MelonHelpers/MySQLHelper.php';
+include_once 'Config.php';
 
 class API
 {

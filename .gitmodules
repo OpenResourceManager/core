@@ -1,3 +1,3 @@
-[submodule "lib/ud2sql"]
-	path = lib/ud2sql
-	url = git@gitlab.sage.edu:network-services/UniData-2-SQL-Bridge.git
+[submodule "lib/aah"]
+	path = lib/aah
+	url = git@gitlab.sage.edu:markea/AlexsAwesomeHelpers.git

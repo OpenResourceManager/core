@@ -7,8 +7,8 @@
  */
 require dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
 include_once dirname(dirname(dirname(__FILE__))) . '/lib/api/API.php';
-include_once dirname(dirname(dirname(__FILE__))) . '/lib/ud2sql/helpers/MySQLHelper.php';
-include_once dirname(dirname(dirname(__FILE__))) . '/lib/ud2sql/app/Config.php';
+include_once dirname(dirname(dirname(__FILE__))) . '/lib/api/Config.php';
+include_once dirname(dirname(dirname(__FILE__))) . '/lib/aah/MySQLHelper.php';
 
 // Init a slim object
 $slim = new \Slim\Slim();
