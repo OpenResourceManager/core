@@ -15,8 +15,8 @@ class Config
     public static function getSQLConf()
     {
         return array(
-            'db_name' => 'ud2sql',
-            'db_user' => 'ud2sql',
+            'db_name' => 'universal_user_data',
+            'db_user' => 'uudapi',
             'db_pass' => '7KH73KZWqaftwjZ6',
             'db_host' => 'localhost',
             'db_user_table' => 'user_info',

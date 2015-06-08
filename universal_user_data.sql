@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 05, 2015 at 05:49 PM
+-- Generation Time: Jun 08, 2015 at 11:18 AM
 -- Server version: 1.0.19
 -- PHP Version: 5.4.39-0+deb7u2
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `ud2sql`
+-- Database: `universal_user_data`
 --
 
 -- --------------------------------------------------------
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `api_keys` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `key` text NOT NULL,
+  `key` varchar(255) NOT NULL,
   `app` varchar(255) NOT NULL,
   `write` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
@@ -176,7 +176,7 @@ INSERT INTO `role_info` (`id`, `datatel_name`, `common_name`) VALUES
 
 CREATE TABLE IF NOT EXISTS `user_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_num` varchar(255) NOT NULL,
+  `id_num` int(7) NOT NULL,
   `username` varchar(255) NOT NULL,
   `name_first` varchar(255) NOT NULL,
   `name_middle` varchar(255) DEFAULT NULL,
