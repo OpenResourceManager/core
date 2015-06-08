@@ -40,7 +40,7 @@ class Config
             'name_last' => true,
             'email' => true,
             'email2' => false,
-            'dorm' => false,
+            'building' => false,
             'role' => true,
             'active' => true,
             'phone' => false,

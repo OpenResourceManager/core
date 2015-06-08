@@ -183,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `user_info` (
   `name_last` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `email2` varchar(255) DEFAULT NULL,
-  `dorm` int(11) DEFAULT NULL,
+  `building` int(11) DEFAULT NULL,
   `role` int(11) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '0',
   `phone` int(10) DEFAULT NULL,
