@@ -33,7 +33,7 @@ class Config
     public static function getUserAttributes()
     {
         return array(
-            'id_num' => true,
+            'sageid' => true,
             'username' => true,
             'name_first' => true,
             'name_middle' => false,
@@ -44,7 +44,32 @@ class Config
             'role' => true,
             'active' => true,
             'phone' => false,
-            'room' => false,
+            'room' => false
+        );
+    }
+
+    public static function getRoleAttributes()
+    {
+        return array(
+            'code' => true,
+            'name' => true
+        );
+    }
+
+    public static function getCampusAttributes()
+    {
+        return array(
+            'code' => true,
+            'name' => true
+        );
+    }
+
+    public static function getBuildingAttributes()
+    {
+        return array(
+            'code' => true,
+            'campus' => true,
+            'name' => true
         );
     }
 

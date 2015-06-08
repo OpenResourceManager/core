@@ -69,7 +69,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      .asString();
          * @apiExample {python} Python
          *      # This code snippet uses an open-source library http://unirest.io/python
-         *      response = unirest.get("https://databridge.sage.edu/v1/user/",
+         *      response = unirest.post("https://databridge.sage.edu/v1/user/sageid/:sageid",
          *          headers={
          *              "X-Authorization": "<Your-API-Key>",
          *              "Accept": "application/json"
@@ -81,7 +81,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      )
          * @apiExample {.net} .NET
          *      // This code snippet uses an open-source library http://unirest.io/net
-         *       Task<HttpResponse<MyClass>> response = Unirest.post("https://databridge.sage.edu/v1/user/")
+         *       Task<HttpResponse<MyClass>> response = Unirest.post("https://databridge.sage.edu/v1/user/sageid/:sageid")
          *       .header("X-Authorization", "<Your-API-Key>")
          *       .header("Accept", "application/json")
          *       .field("email2", "lukeskywalker@gmail.com")
@@ -152,8 +152,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                     $exists = ($MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'sageid', $sageid)->fetch_assoc()) ? true : false;
                     if ($exists) {
                         // Unset protected values
-                        unset($data['sageid']);
-                        unset($data['id']);
+                        if (isset($data['sageid'])) unset($data['sageid']);
+                        if (isset($data['id'])) unset($data['id']);
                         if ($MySQLiHelper->simpleUpdate($mysqli, Config::getSQLConf()['db_user_table'], $data, 'sageid', $sageid)) {
                             echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'update'));
                         } else {
@@ -693,6 +693,153 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
     $slim->group(('/role'), function () use ($slim, $api, $apiKey, $MySQLiHelper) {
 
 
+        /**
+         * @api {post} /role/code/:code Post to Role
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Users
+         * @apiParam {String} Object's unique Datatel code.
+         * @apiDescription Using a Datatel code as part of the url parameter, an application can create new role record or update existing records.
+         * If the Datatel code in the URL does not exist in the database, the rest of the data sent in the POST request will be treated as a new entry.
+         * If the Datatel code in the URL does exist in the database, the data sent in the POST request will replace the data in that record.
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {String} result The action that was performed. This may be `update` or `create`.
+         * @apiExample {curl} Curl
+         *      curl -H "X-Authorization: <Your-API-Key>" \
+         *      --data "name=Alumni" \
+         *      --url https://databridge.sage.edu/v1/role/code/:code
+         * @apiExample {ruby} Ruby
+         *      # This code snippet uses an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/role/code/:code",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
+         *      parameters:{ :name => "Alumni"}.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/role/code/:code");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      curl_setopt($ch, CURLOPT_POST, true);
+         *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("name" => "Alumni");
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $uri = https://databridge.sage.edu/v1/role/code/:code
+         *      $body = @{ email2 = "Alumni" }
+         *      $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method Post -Body $body
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/role/code/:code")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .body("{\"name\":\"Alumni\"}")
+         *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.post("https://databridge.sage.edu/v1/role/code/:code",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          },
+         *          params={
+         *              "name": "Alumni"
+         *          }
+         *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.post("https://databridge.sage.edu/v1/role/code/:code")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .field("name", "Alumni")
+         *       .asString();
+         * @apiSuccessExample Success Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": "update"
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} ForbiddenToWrite The application does not have write access to the API.
+         * @apiErrorExample Error Response:
+         *      HTTP/1.1 403 Forbidden
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "ForbiddenToWrite"
+         *      }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} InsufficientPostData The application did not provide the required data.
+         * @apiError {Array} required User attributes and a boolean value that signifies if they are required or not.
+         * @apiErrorExample Error Response:
+         *      HTTP/1.1 400 Bad Request
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "InsufficientPostData",
+         *          "required": {
+         *              "code": true,
+         *              "name": true,
+         *          }
+         *      }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} FailedToWrite The application does have write access, but the commit failed. This is due to an error on the server.
+         * @apiErrorExample Error Response:
+         *      HTTP/1.1 500 Server Error
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "FailedToWrite"
+         *      }
+         */
+
+        $slim->post('/code/:code', function ($code) use ($api, $apiKey, $MySQLiHelper, $slim) {
+            // Create a mysqli object
+            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
+            if ($apiKey['write'] == 1) {
+                $data = json_decode(json_encode($slim->request->post()), true);
+                if (!empty($data)) {
+                    $exists = ($MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_role_table'], 'code', $code)->fetch_assoc()) ? true : false;
+                    if ($exists) {
+                        // Protect the ID value
+                        if (isset($data['id'])) unset($data['id']);
+                        if ($MySQLiHelper->simpleUpdate($mysqli, Config::getSQLConf()['db_role_table'], $data, 'code', $code)) {
+                            echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'update'));
+                        } else {
+                            header('HTTP/1.1 500 Server Error');
+                            echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite'));
+                        }
+                    } else {
+                        if ($api->checkPostDataValues($data, Config::getRoleAttributes())) {
+                            if ($MySQLiHelper->simpleInsert($mysqli, Config::getSQLConf()['db_role_table'], $data)) {
+                                echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'create'));
+                            } else {
+                                header('HTTP/1.1 500 Server Error');
+                                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite'));
+                            }
+                        } else {
+                            header('HTTP/1.1 400 Bad Request');
+                            echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getRoleAttributes()));
+                        }
+                    }
+                } else {
+                    header('HTTP/1.1 400 Bad Request');
+                    echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getRoleAttributes()));
+                }
+            } else {
+                header('HTTP/1.1 403 Forbidden');
+                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'ForbiddenToWrite'));
+            }
+            $mysqli->close();
+        });
+
 
         /**
          * @api {get} /role/id/:id Get by ID
@@ -748,8 +895,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "success": true,
          *          "result": {
          *              "id": "1",
-         *              "datatel_name": "STUDENT",
-         *              "common_name": "Student"
+         *              "code": "STUDENT",
+         *              "name": "Student"
          *           }
          *     }
          *
@@ -835,8 +982,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "success": true,
          *          "result": {
          *              "id": "1",
-         *              "datatel_name": "STUDENT",
-         *              "common_name": "Student"
+         *              "code": "STUDENT",
+         *              "name": "Student"
          *           }
          *     }
          *
@@ -855,7 +1002,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         $slim->get('/code/:code', function ($code) use ($api, $apiKey, $MySQLiHelper) {
             // Create a mysqli object
             $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_role_table'], 'datatel_name', $code)->fetch_assoc()) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_role_table'], 'code', $code)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -926,13 +1073,13 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "result": [
          *             {
          *                  "id": "1",
-         *                  "datatel_name": "STUDENT",
-         *                  "common_name": "Student"
+         *                  "code": "STUDENT",
+         *                  "name": "Student"
          *              },
          *              {
          *                  "id": "2",
-         *                  "datatel_name": "EMPLOYEE",
-         *                  "common_name": "Employee"
+         *                  "code": "EMPLOYEE",
+         *                  "name": "Employee"
          *              }
          *          ]
          *     }
@@ -1100,8 +1247,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "result": {
          *              "id": "1",
          *              "campus": "1",
-         *              "datatel_name": "37-1",
-         *              "common_name": "37 First Street"
+         *              "code": "37-1",
+         *              "name": "37 First Street"
          *           }
          *     }
          *
@@ -1188,8 +1335,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "result": {
          *              "id": "1",
          *              "campus": "1",
-         *              "datatel_name": "37-1",
-         *              "common_name": "37 First Street"
+         *              "code": "37-1",
+         *              "name": "37 First Street"
          *           }
          *     }
          *
@@ -1208,7 +1355,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         $slim->get('/code/:code', function ($code) use ($api, $apiKey, $MySQLiHelper) {
             // Create a mysqli object
             $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_building_table'], 'datatel_name', $code)->fetch_assoc()) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_building_table'], 'code', $code)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -1280,14 +1427,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *             {
          *                  "id": "1",
          *                  "campus": "1",
-         *                  "datatel_name": "37-1",
-         *                  "common_name": "37 First Street"
+         *                  "code": "37-1",
+         *                  "name": "37 First Street"
          *              },
          *              {
          *                  "id": "2",
          *                  "campus": "1",
-         *                  "datatel_name": "90-1",
-         *                  "common_name": "90 1st Street"
+         *                  "code": "90-1",
+         *                  "name": "90 1st Street"
          *              }
          *          ]
          *     }
@@ -1454,8 +1601,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "success": true,
          *          "result": {
          *              "id": "1",
-         *              "datatel_name": "TRY",
-         *              "common_name": "Russell Sage College"
+         *              "code": "TRY",
+         *              "name": "Russell Sage College"
          *           }
          *     }
          *
@@ -1541,8 +1688,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "success": true,
          *          "result": {
          *              "id": "1",
-         *              "datatel_name": "TRY",
-         *              "common_name": "Russell Sage College"
+         *              "code": "TRY",
+         *              "name": "Russell Sage College"
          *           }
          *     }
          *
@@ -1561,7 +1708,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         $slim->get('/code/:code', function ($code) use ($api, $apiKey, $MySQLiHelper) {
             // Create a mysqli object
             $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_campus_table'], 'datatel_name', $code)->fetch_assoc()) {
+            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_campus_table'], 'code', $code)->fetch_assoc()) {
                 echo json_encode(array(
                     'application' => $apiKey['app'],
                     'success' => true,
@@ -1632,13 +1779,13 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *          "result": [
          *             {
          *                  "id": "1",
-         *                  "datatel_name": "TRY",
-         *                  "common_name": "Russell Sage College"
+         *                  "code": "TRY",
+         *                  "name": "Russell Sage College"
          *              },
          *              {
          *                  "id": "2",
-         *                  "datatel_name": "ALB",
-         *                  "common_name": "Sage College of Albany"
+         *                  "code": "ALB",
+         *                  "name": "Sage College of Albany"
          *              }
          *          ]
          *     }
