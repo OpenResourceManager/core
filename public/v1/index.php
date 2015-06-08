@@ -814,7 +814,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                             echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'update'));
                         } else {
                             header('HTTP/1.1 500 Server Error');
-                            echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite'));
+                            $details = '';
+                            if ($mysqli->error) $details = $mysqli->error;
+                            echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite', 'details' => $details));
                         }
                     } else {
                         if ($api->checkPostDataValues($data, Config::getRoleAttributes())) {
