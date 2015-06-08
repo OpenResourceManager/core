@@ -11,8 +11,10 @@ include_once dirname(dirname(dirname(__FILE__))) . '/lib/aah/MySQLHelper.php';
 include_once dirname(dirname(dirname(__FILE__))) . '/Config.php';
 
 
+// Create a Config object
+$conf = new Config();
 // Create a MySQL config array
-$sqlConf = Config::getSQLConf();
+$sqlConf = $conf->getSQLConf();
 // Init a slim object
 $slim = new \Slim\Slim();
 // Init a MySQLi helper class
