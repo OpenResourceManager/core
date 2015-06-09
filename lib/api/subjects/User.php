@@ -6,7 +6,12 @@
  * Date: 6/8/15
  * Time: 8:09 PM
  */
+
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
 include_once dirname(dirname(dirname(dirname(__FILE__)))) . '/Config.php';
+
 
 class User
 {
