@@ -25,18 +25,23 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
     $slim->group('/user', function () use ($slim, $api, $apiKey, $MySQLiHelper) {
 
         $UserMethods = new User();
-        $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
 
-        $slim->post('/sageid/:sageid', function ($sageid) use ($api, $apiKey, $MySQLiHelper, $slim, $UserMethods, $mysqli) {
+        $slim->post('/sageid/:sageid', function ($sageid) use ($api, $apiKey, $MySQLiHelper, $slim, $UserMethods) {
+            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
             echo json_encode($UserMethods->postUser($api, $apiKey, $MySQLiHelper, $mysqli, json_decode(json_encode($slim->request->post()), true), $sageid));
+            $mysqli->close();
         });
 
-        $slim->get('/id/:id', function ($id) use ($api, $apiKey, $MySQLiHelper, $UserMethods, $mysqli) {
+        $slim->get('/id/:id', function ($id) use ($api, $apiKey, $MySQLiHelper, $UserMethods) {
+            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
             echo json_encode($UserMethods->getByID($apiKey, $MySQLiHelper, $mysqli, $id));
+            $mysqli->close();
         });
 
-        $slim->get('/sageid/:sageid', function ($sageid) use ($api, $apiKey, $MySQLiHelper, $UserMethods, $mysqli) {
+        $slim->get('/sageid/:sageid', function ($sageid) use ($api, $apiKey, $MySQLiHelper, $UserMethods) {
+            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
             echo json_encode($UserMethods->getBySageID($apiKey, $MySQLiHelper, $mysqli, $sageid));
+            $mysqli->close();
         });
 
         /**
@@ -672,7 +677,6 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 header('HTTP/1.1 404 Not Found');
                 echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'RoleNotFound'));
             }
-            $mysqli->close();
         });
 
         /**
