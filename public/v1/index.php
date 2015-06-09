@@ -22,9 +22,10 @@ $api = new API();
 // Check the API authorization
 if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIKey($mysqli, $MySQLiHelper, $slim->request->headers->get('X-Authorization'), Config::getSQLConf()['db_api_key_table'])) {
 
-    $slim->group('/user', function () use ($slim, $api, $apiKey, $MySQLiHelper, $mysqli) {
+    $slim->group('/user', function () use ($slim, $api, $apiKey, $MySQLiHelper) {
 
         $UserMethods = new User();
+        $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
 
         $slim->post('/sageid/:sageid', function ($sageid) use ($api, $apiKey, $MySQLiHelper, $slim, $UserMethods, $mysqli) {
             echo json_encode($UserMethods->postUser($api, $apiKey, $MySQLiHelper, $mysqli, json_decode(json_encode($slim->request->post()), true), $sageid));
@@ -343,6 +344,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 ),
             ));
         });
+
+        $mysqli->close();
     });
 
     $slim->group(('/role'), function () use ($slim, $api, $apiKey, $MySQLiHelper) {
