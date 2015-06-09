@@ -343,8 +343,6 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                 ),
             ));
         });
-
-        $mysqli->close();
     });
 
     $slim->group(('/role'), function () use ($slim, $api, $apiKey, $MySQLiHelper) {
