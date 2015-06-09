@@ -686,6 +686,10 @@ class User
      *     }
      */
 
+    /**
+     * @param array $apiKey
+     * @return array
+     */
     public function getRoot(array $apiKey)
     {
         return array(
