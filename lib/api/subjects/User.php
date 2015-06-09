@@ -10,6 +10,7 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
+require dirname(dirname(dirname(dirname(__FILE__)))) . '/vendor/autoload.php';
 include_once dirname(dirname(dirname(dirname(__FILE__)))) . '/Config.php';
 
 
