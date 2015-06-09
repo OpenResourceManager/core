@@ -141,10 +141,8 @@ class User
      * @param string $sageid
      * @return array
      */
-    public function postUser(API $api, array $apiKey, MySQLHelper $MySQLiHelper, array $data, $sageid = '')
+    public function postUser(API $api, array $apiKey, MySQLHelper $MySQLiHelper, mysqli $mysqli, array $data, $sageid = '')
     {
-        // Create a mysqli object
-        $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
         if ($apiKey['write'] == 1) {
             if (!empty($data)) {
                 $exists = ($MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'sageid', $sageid)->fetch_assoc()) ? true : false;
@@ -153,36 +151,29 @@ class User
                     if (isset($data['sageid'])) unset($data['sageid']);
                     if (isset($data['id'])) unset($data['id']);
                     if ($MySQLiHelper->simpleUpdate($mysqli, Config::getSQLConf()['db_user_table'], $data, 'sageid', $sageid)) {
-                        $mysqli->close();
                         return array('application' => $apiKey['app'], 'success' => true, 'result' => 'update');
                     } else {
-                        $mysqli->close();
                         header('HTTP/1.1 500 Server Error');
                         return array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite');
                     }
                 } else {
                     if ($api->checkPostDataValues($data, Config::getUserAttributes())) {
                         if ($MySQLiHelper->simpleInsert($mysqli, Config::getSQLConf()['db_user_table'], $data)) {
-                            $mysqli->close();
                             return array('application' => $apiKey['app'], 'success' => true, 'result' => 'create');
                         } else {
-                            $mysqli->close();
                             header('HTTP/1.1 500 Server Error');
                             return array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite');
                         }
                     } else {
-                        $mysqli->close();
                         header('HTTP/1.1 400 Bad Request');
                         return array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getUserAttributes());
                     }
                 }
             } else {
-                $mysqli->close();
                 header('HTTP/1.1 400 Bad Request');
                 return array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getUserAttributes());
             }
         } else {
-            $mysqli->close();
             header('HTTP/1.1 403 Forbidden');
             return array('application' => $apiKey['app'], 'success' => false, 'error' => 'ForbiddenToWrite');
         }
@@ -278,15 +269,105 @@ class User
      * @param int $id
      * @return array
      */
-    public function getByID(array $apiKey, MySQLHelper $MySQLiHelper, $id = 0)
+    public function getByID(array $apiKey, MySQLHelper $MySQLiHelper, mysqli $mysqli, $id = 0)
     {
-        // Create a mysqli object
-        $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
         if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'id', $id)->fetch_assoc()) {
-            $mysqli->close();
             return array('application' => $apiKey['app'], 'success' => true, 'result' => $result);
         } else {
-            $mysqli->close();
+            header('HTTP/1.1 404 Not Found');
+            return array('application' => $apiKey['app'], 'success' => false, 'error' => 'UserNotFound');
+        }
+    }
+
+    /**
+     * @api {get} /user/sageid/:sageid Get by Sage ID
+     * @apiVersion 1.0.0
+     * @apiHeader {String} X-Authorization The application's unique access-key.
+     * @apiGroup Users
+     * @apiParam {Int} sageid Users's unique Sage ID.
+     * @apiDescription This method allows an application to view a user's record using the user's Sage ID.
+     * @apiSuccess {String} application The name of the application that is accessing the API.
+     * @apiSuccess {Boolean} success Tells the application if the request was successful.
+     * @apiSuccess {Object} result The user record object.
+     * @apiSampleRequest https://databridge.sage.edu/v1/user/sageid/:sageid
+     * @apiExample {curl} Curl
+     *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/sageid/:sageid
+     * @apiExample {ruby} Ruby
+     *      # This code snippet uses an open-source library. http://unirest.io/ruby
+     *      response = Unirest.get "https://databridge.sage.edu/v1/user/sageid/:sageid",
+     *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+     * @apiExample {php} PHP
+     *      $ch = curl_init("https://databridge.sage.edu/v1/user/sageid/:sageid");
+     *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+     *      $result = curl_exec($ch);
+     *      curl_close($ch);
+     * @apiExample {powershell} PowerShell
+     *      # PowerShell v3 and above
+     *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+     *      $headers.Add("X-Authorization", '<Your-API-Key>')
+     *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/sageid/:sageid -Headers $headers
+     * @apiExample {java} Java
+     *      # This code snippet uses an open-source library. http://unirest.io/java
+     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/sageid/:sageid")
+     *      .header("X-Authorization", "<Your-API-Key>")
+     *      .header("Accept", "application/json")
+     *      .asString();
+     * @apiExample {python} Python
+     *      # This code snippet uses an open-source library http://unirest.io/python
+     *      response = unirest.get("https://databridge.sage.edu/v1/user/sageid/:sageid",
+     *          headers={
+     *              "X-Authorization": "<Your-API-Key>",
+     *              "Accept": "application/json"
+     *          }
+     *      )
+     * @apiExample {.net} .NET
+     *      // This code snippet uses an open-source library http://unirest.io/net
+     *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/user/sageid/:sageid")
+     *       .header("X-Authorization", "<Your-API-Key>")
+     *       .header("Accept", "application/json")
+     *       .asString();
+     * @apiSuccessExample Success Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *          "application": "Awesome Application",
+     *          "success": true,
+     *          "result": {
+     *              "id": "1",
+     *              "sageid": "999998",
+     *              "username": "buildb3",
+     *              "name_first": "Bob",
+     *              "name_middle": "T.",
+     *              "name_last": "Builder",
+     *              "email": "buildb3@sage.edu",
+     *              "email2": "bob@gmail.com",
+     *              "building": "5",
+     *              "role": "1",
+     *              "active": "1",
+     *              "phone": "5182444777",
+     *              "room": "302",
+     *              "has_photo_id": "1",
+     *              "photo_id_url": "http://idmanager.sage.edu/pics/accepted/0999998.jpg",
+     *              "photo_id_filename": "999998.jpg"
+     *           }
+     *     }
+     *
+     * @apiError {String} application The name of the application that is accessing the API.
+     * @apiError {Boolean} success Tells the application if the request was successful.
+     * @apiError {String} UserNotFound The id of the user was not found.
+     * @apiErrorExample Error Response:
+     *      HTTP/1.1 404 Not Found
+     *      {
+     *          "application": "Awesome Application",
+     *          "success": false,
+     *          "error": "UserNotFound"
+     *      }
+     */
+
+    public function getBySageID(array $apiKey, MySQLHelper $MySQLiHelper, mysqli $mysqli, $sageid = '')
+    {
+        if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'sageid', $sageid)->fetch_assoc()) {
+            return array('application' => $apiKey['app'], 'success' => true, 'result' => $result);
+        } else {
             header('HTTP/1.1 404 Not Found');
             return array('application' => $apiKey['app'], 'success' => false, 'error' => 'UserNotFound');
         }

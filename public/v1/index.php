@@ -21,118 +21,21 @@ $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getS
 $api = new API();
 // Check the API authorization
 if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIKey($mysqli, $MySQLiHelper, $slim->request->headers->get('X-Authorization'), Config::getSQLConf()['db_api_key_table'])) {
-    $mysqli->close();
 
-    $slim->group('/user', function () use ($slim, $api, $apiKey, $MySQLiHelper) {
+    $slim->group('/user', function () use ($slim, $api, $apiKey, $MySQLiHelper, $mysqli) {
 
         $UserMethods = new User();
 
-        $slim->post('/sageid/:sageid', function ($sageid) use ($api, $apiKey, $MySQLiHelper, $slim, $UserMethods) {
-            echo json_encode($UserMethods->postUser($api, $apiKey, $MySQLiHelper, json_decode(json_encode($slim->request->post()), true), $sageid));
+        $slim->post('/sageid/:sageid', function ($sageid) use ($api, $apiKey, $MySQLiHelper, $slim, $UserMethods, $mysqli) {
+            echo json_encode($UserMethods->postUser($api, $apiKey, $MySQLiHelper, $mysqli, json_decode(json_encode($slim->request->post()), true), $sageid));
         });
 
-        $slim->get('/id/:id', function ($id) use ($api, $apiKey, $MySQLiHelper, $UserMethods) {
+        $slim->get('/id/:id', function ($id) use ($api, $apiKey, $MySQLiHelper, $UserMethods, $mysqli) {
             echo json_encode($UserMethods->getByID($apiKey, $MySQLiHelper, $id));
         });
 
-        /**
-         * @api {get} /user/sageid/:sageid Get by Sage ID
-         * @apiVersion 1.0.0
-         * @apiHeader {String} X-Authorization The application's unique access-key.
-         * @apiGroup Users
-         * @apiParam {Int} sageid Users's unique Sage ID.
-         * @apiDescription This method allows an application to view a user's record using the user's Sage ID.
-         * @apiSuccess {String} application The name of the application that is accessing the API.
-         * @apiSuccess {Boolean} success Tells the application if the request was successful.
-         * @apiSuccess {Object} result The user record object.
-         * @apiSampleRequest https://databridge.sage.edu/v1/user/sageid/:sageid
-         * @apiExample {curl} Curl
-         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/sageid/:sageid
-         * @apiExample {ruby} Ruby
-         *      # This code snippet uses an open-source library. http://unirest.io/ruby
-         *      response = Unirest.get "https://databridge.sage.edu/v1/user/sageid/:sageid",
-         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
-         * @apiExample {php} PHP
-         *      $ch = curl_init("https://databridge.sage.edu/v1/user/sageid/:sageid");
-         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
-         *      $result = curl_exec($ch);
-         *      curl_close($ch);
-         * @apiExample {powershell} PowerShell
-         *      # PowerShell v3 and above
-         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
-         *      $headers.Add("X-Authorization", '<Your-API-Key>')
-         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/sageid/:sageid -Headers $headers
-         * @apiExample {java} Java
-         *      # This code snippet uses an open-source library. http://unirest.io/java
-         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/sageid/:sageid")
-         *      .header("X-Authorization", "<Your-API-Key>")
-         *      .header("Accept", "application/json")
-         *      .asString();
-         * @apiExample {python} Python
-         *      # This code snippet uses an open-source library http://unirest.io/python
-         *      response = unirest.get("https://databridge.sage.edu/v1/user/sageid/:sageid",
-         *          headers={
-         *              "X-Authorization": "<Your-API-Key>",
-         *              "Accept": "application/json"
-         *          }
-         *      )
-         * @apiExample {.net} .NET
-         *      // This code snippet uses an open-source library http://unirest.io/net
-         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/user/sageid/:sageid")
-         *       .header("X-Authorization", "<Your-API-Key>")
-         *       .header("Accept", "application/json")
-         *       .asString();
-         * @apiSuccessExample Success Response:
-         *     HTTP/1.1 200 OK
-         *     {
-         *          "application": "Awesome Application",
-         *          "success": true,
-         *          "result": {
-         *              "id": "1",
-         *              "sageid": "999998",
-         *              "username": "buildb3",
-         *              "name_first": "Bob",
-         *              "name_middle": "T.",
-         *              "name_last": "Builder",
-         *              "email": "buildb3@sage.edu",
-         *              "email2": "bob@gmail.com",
-         *              "building": "5",
-         *              "role": "1",
-         *              "active": "1",
-         *              "phone": "5182444777",
-         *              "room": "302",
-         *              "has_photo_id": "1",
-         *              "photo_id_url": "http://idmanager.sage.edu/pics/accepted/0999998.jpg",
-         *              "photo_id_filename": "999998.jpg"
-         *           }
-         *     }
-         *
-         * @apiError {String} application The name of the application that is accessing the API.
-         * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} UserNotFound The id of the user was not found.
-         * @apiErrorExample Error Response:
-         *      HTTP/1.1 404 Not Found
-         *      {
-         *          "application": "Awesome Application",
-         *          "success": false,
-         *          "error": "UserNotFound"
-         *      }
-         */
-
-        $slim->get('/sageid/:sageid', function ($sageid) use ($api, $apiKey, $MySQLiHelper) {
-            // Create a mysqli object
-            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'sageid', $sageid)->fetch_assoc()) {
-                echo json_encode(array(
-                    'application' => $apiKey['app'],
-                    'success' => true,
-                    'result' => $result,
-                ));
-            } else {
-                header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'UserNotFound'));
-            }
-            $mysqli->close();
+        $slim->get('/sageid/:sageid', function ($sageid) use ($api, $apiKey, $MySQLiHelper, $UserMethods, $mysqli) {
+            echo json_encode($UserMethods->getBySageID($apiKey, $MySQLiHelper, $mysqli, $sageid));
         });
 
         /**
@@ -1959,7 +1862,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
     });
     $slim->run();
+    $mysqli->close();
 } else {
+    $mysqli->close();
     // Throw a 401 unauthorized, since the app is not authorized
     $api->unauthorized();
 }
