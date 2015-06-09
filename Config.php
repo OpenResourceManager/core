@@ -73,4 +73,14 @@ class Config
         );
     }
 
+    public static function getDepartmentAttributes()
+    {
+
+    }
+
+    public static function getAcademicProgramsAttributes()
+    {
+
+    }
+
 }
