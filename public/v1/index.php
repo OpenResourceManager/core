@@ -7,10 +7,9 @@
  */
 require dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
 include_once dirname(dirname(dirname(__FILE__))) . '/lib/api/API.php';
-include_once dirname(dirname(dirname(__FILE__))) . '/lib/api/subjects/User.php';
 include_once dirname(dirname(dirname(__FILE__))) . '/lib/aah/MySQLHelper.php';
 include_once dirname(dirname(dirname(__FILE__))) . '/Config.php';
-include_once
+include_once dirname(dirname(dirname(__FILE__))) . '/lib/api/subjects/User.php';
 
 // Init a slim object
 $slim = new \Slim\Slim();
@@ -29,9 +28,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         $UserMethods = new User();
 
         $slim->post('/sageid/:sageid', function ($sageid) use ($api, $apiKey, $MySQLiHelper, $slim, $UserMethods) {
-            echo json_encode($UserMethods->postUser($api, $apiKey, $MySQLiHelper, $slim, $sageid));
+            echo json_encode($UserMethods->postUser($api, $apiKey, $MySQLiHelper, json_decode(json_encode($slim->request->post()), true), $sageid));
         });
-
 
         $slim->get('/id/:id', function ($id) use ($api, $apiKey, $MySQLiHelper, $UserMethods) {
             echo json_encode($UserMethods->getByID($apiKey, $MySQLiHelper, $id));
@@ -568,7 +566,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
                             echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'update'));
                         } else {
                             header('HTTP/1.1 500 Server Error');
-                            echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite'));
+                            $details = '';
+                            if ($mysqli->error) $details = $mysqli->error;
+                            echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite', 'details' => $details));
                         }
                     } else {
                         if ($api->checkPostDataValues($data, Config::getRoleAttributes())) {

@@ -140,16 +140,15 @@ class User
      * @param API $api
      * @param array $apiKey
      * @param MySQLHelper $MySQLiHelper
-     * @param \Slim\Slim $slim
+     * @param array $data
      * @param string $sageid
      * @return array
      */
-    public function postUser(API $api, array $apiKey, MySQLHelper $MySQLiHelper, \Slim\Slim $slim, $sageid = '')
+    public function postUser(API $api, array $apiKey, MySQLHelper $MySQLiHelper, array $data, $sageid = '')
     {
         // Create a mysqli object
         $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
         if ($apiKey['write'] == 1) {
-            $data = json_decode(json_encode($slim->request->post()), true);
             if (!empty($data)) {
                 $exists = ($MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'sageid', $sageid)->fetch_assoc()) ? true : false;
                 if ($exists) {
@@ -157,33 +156,39 @@ class User
                     if (isset($data['sageid'])) unset($data['sageid']);
                     if (isset($data['id'])) unset($data['id']);
                     if ($MySQLiHelper->simpleUpdate($mysqli, Config::getSQLConf()['db_user_table'], $data, 'sageid', $sageid)) {
+                        $mysqli->close();
                         return array('application' => $apiKey['app'], 'success' => true, 'result' => 'update');
                     } else {
+                        $mysqli->close();
                         header('HTTP/1.1 500 Server Error');
                         return array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite');
                     }
                 } else {
                     if ($api->checkPostDataValues($data, Config::getUserAttributes())) {
                         if ($MySQLiHelper->simpleInsert($mysqli, Config::getSQLConf()['db_user_table'], $data)) {
+                            $mysqli->close();
                             return array('application' => $apiKey['app'], 'success' => true, 'result' => 'create');
                         } else {
+                            $mysqli->close();
                             header('HTTP/1.1 500 Server Error');
                             return array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite');
                         }
                     } else {
+                        $mysqli->close();
                         header('HTTP/1.1 400 Bad Request');
                         return array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getUserAttributes());
                     }
                 }
             } else {
+                $mysqli->close();
                 header('HTTP/1.1 400 Bad Request');
                 return array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getUserAttributes());
             }
         } else {
+            $mysqli->close();
             header('HTTP/1.1 403 Forbidden');
             return array('application' => $apiKey['app'], 'success' => false, 'error' => 'ForbiddenToWrite');
         }
-        $mysqli->close();
     }
 
     /**
