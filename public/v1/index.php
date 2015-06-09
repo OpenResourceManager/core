@@ -27,21 +27,15 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         $UserMethods = new User();
 
         $slim->post('/sageid/:sageid', function ($sageid) use ($api, $apiKey, $MySQLiHelper, $slim, $UserMethods) {
-            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            echo json_encode($UserMethods->postUser($api, $apiKey, $MySQLiHelper, $mysqli, json_decode(json_encode($slim->request->post()), true), $sageid));
-            $mysqli->close();
+            echo json_encode($UserMethods->postUser($api, $apiKey, $MySQLiHelper, json_decode(json_encode($slim->request->post()), true), $sageid));
         });
 
         $slim->get('/id/:id', function ($id) use ($api, $apiKey, $MySQLiHelper, $UserMethods) {
-            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            echo json_encode($UserMethods->getByID($apiKey, $MySQLiHelper, $mysqli, $id));
-            $mysqli->close();
+            echo json_encode($UserMethods->getByID($apiKey, $MySQLiHelper, $id));
         });
 
         $slim->get('/sageid/:sageid', function ($sageid) use ($api, $apiKey, $MySQLiHelper, $UserMethods) {
-            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            echo json_encode($UserMethods->getBySageID($apiKey, $MySQLiHelper, $mysqli, $sageid));
-            $mysqli->close();
+            echo json_encode($UserMethods->getBySageID($apiKey, $MySQLiHelper, $sageid));
         });
 
         /**

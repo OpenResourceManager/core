@@ -141,30 +141,36 @@ class User
      * @param string $sageid
      * @return array
      */
-    public function postUser(API $api, array $apiKey, MySQLHelper $MySQLiHelper, mysqli $mysqli, array $data, $sageid = '')
+    public function postUser(API $api, array $apiKey, MySQLHelper $MySQLiHelper, array $data, $sageid = '')
     {
         if ($apiKey['write'] == 1) {
             if (!empty($data)) {
+                $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
                 $exists = ($MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'sageid', $sageid)->fetch_assoc()) ? true : false;
                 if ($exists) {
                     // Unset protected values
                     if (isset($data['sageid'])) unset($data['sageid']);
                     if (isset($data['id'])) unset($data['id']);
                     if ($MySQLiHelper->simpleUpdate($mysqli, Config::getSQLConf()['db_user_table'], $data, 'sageid', $sageid)) {
+                        $mysqli->close();
                         return array('application' => $apiKey['app'], 'success' => true, 'result' => 'update');
                     } else {
+                        $mysqli->close();
                         header('HTTP/1.1 500 Server Error');
                         return array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite');
                     }
                 } else {
                     if ($api->checkPostDataValues($data, Config::getUserAttributes())) {
                         if ($MySQLiHelper->simpleInsert($mysqli, Config::getSQLConf()['db_user_table'], $data)) {
+                            $mysqli->close();
                             return array('application' => $apiKey['app'], 'success' => true, 'result' => 'create');
                         } else {
+                            $mysqli->close();
                             header('HTTP/1.1 500 Server Error');
                             return array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite');
                         }
                     } else {
+                        $mysqli->close();
                         header('HTTP/1.1 400 Bad Request');
                         return array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getUserAttributes());
                     }
@@ -269,11 +275,14 @@ class User
      * @param int $id
      * @return array
      */
-    public function getByID(array $apiKey, MySQLHelper $MySQLiHelper, mysqli $mysqli, $id = 0)
+    public function getByID(array $apiKey, MySQLHelper $MySQLiHelper, $id = 0)
     {
+        $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
         if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'id', $id)->fetch_assoc()) {
+            $mysqli->close();
             return array('application' => $apiKey['app'], 'success' => true, 'result' => $result);
         } else {
+            $mysqli->close();
             header('HTTP/1.1 404 Not Found');
             return array('application' => $apiKey['app'], 'success' => false, 'error' => 'UserNotFound');
         }
@@ -363,11 +372,14 @@ class User
      *      }
      */
 
-    public function getBySageID(array $apiKey, MySQLHelper $MySQLiHelper, mysqli $mysqli, $sageid = '')
+    public function getBySageID(array $apiKey, MySQLHelper $MySQLiHelper, $sageid = '')
     {
+        $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
         if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'sageid', $sageid)->fetch_assoc()) {
+            $mysqli->close();
             return array('application' => $apiKey['app'], 'success' => true, 'result' => $result);
         } else {
+            $mysqli->close();
             header('HTTP/1.1 404 Not Found');
             return array('application' => $apiKey['app'], 'success' => false, 'error' => 'UserNotFound');
         }
