@@ -21,7 +21,7 @@ $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getS
 $api = new API();
 // Check the API authorization
 if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIKey($mysqli, $MySQLiHelper, $slim->request->headers->get('X-Authorization'), Config::getSQLConf()['db_api_key_table'])) {
-   // $mysqli->close();
+    $mysqli->close();
 
     $slim->group('/user', function () use ($slim, $api, $apiKey, $MySQLiHelper) {
 
