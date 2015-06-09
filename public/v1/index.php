@@ -31,7 +31,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         });
 
         $slim->get('/id/:id', function ($id) use ($api, $apiKey, $MySQLiHelper, $UserMethods, $mysqli) {
-            echo json_encode($UserMethods->getByID($apiKey, $MySQLiHelper, $id));
+            echo json_encode($UserMethods->getByID($apiKey, $MySQLiHelper, $mysqli, $id));
         });
 
         $slim->get('/sageid/:sageid', function ($sageid) use ($api, $apiKey, $MySQLiHelper, $UserMethods, $mysqli) {
