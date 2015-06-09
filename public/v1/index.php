@@ -29,12 +29,12 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
         $UserMethods = new User();
 
         $slim->post('/sageid/:sageid', function ($sageid) use ($api, $apiKey, $MySQLiHelper, $slim, $UserMethods) {
-            $UserMethods->postUser($api, $apiKey, $MySQLiHelper, $slim, $sageid);
+            echo json_encode($UserMethods->postUser($api, $apiKey, $MySQLiHelper, $slim, $sageid));
         });
 
 
         $slim->get('/id/:id', function ($id) use ($api, $apiKey, $MySQLiHelper, $UserMethods) {
-            $UserMethods->getByID($apiKey, $MySQLiHelper, $id);
+            echo json_encode($UserMethods->getByID($apiKey, $MySQLiHelper, $id));
         });
 
         /**

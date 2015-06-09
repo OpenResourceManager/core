@@ -136,6 +136,7 @@ class User
      * @param MySQLHelper $MySQLiHelper
      * @param \Slim\Slim $slim
      * @param string $sageid
+     * @return array
      */
     public function postUser(API $api, array $apiKey, MySQLHelper $MySQLiHelper, \Slim\Slim $slim, $sageid = '')
     {
@@ -150,31 +151,31 @@ class User
                     if (isset($data['sageid'])) unset($data['sageid']);
                     if (isset($data['id'])) unset($data['id']);
                     if ($MySQLiHelper->simpleUpdate($mysqli, Config::getSQLConf()['db_user_table'], $data, 'sageid', $sageid)) {
-                        echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'update'));
+                        return array('application' => $apiKey['app'], 'success' => true, 'result' => 'update');
                     } else {
                         header('HTTP/1.1 500 Server Error');
-                        echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite'));
+                        return array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite');
                     }
                 } else {
                     if ($api->checkPostDataValues($data, Config::getUserAttributes())) {
                         if ($MySQLiHelper->simpleInsert($mysqli, Config::getSQLConf()['db_user_table'], $data)) {
-                            echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'create'));
+                            return array('application' => $apiKey['app'], 'success' => true, 'result' => 'create');
                         } else {
                             header('HTTP/1.1 500 Server Error');
-                            echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite'));
+                            return array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite');
                         }
                     } else {
                         header('HTTP/1.1 400 Bad Request');
-                        echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getUserAttributes()));
+                        return array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getUserAttributes());
                     }
                 }
             } else {
                 header('HTTP/1.1 400 Bad Request');
-                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getUserAttributes()));
+                return array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getUserAttributes());
             }
         } else {
             header('HTTP/1.1 403 Forbidden');
-            echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'ForbiddenToWrite'));
+            return array('application' => $apiKey['app'], 'success' => false, 'error' => 'ForbiddenToWrite');
         }
         $mysqli->close();
     }
@@ -267,22 +268,20 @@ class User
      * @param array $apiKey
      * @param MySQLHelper $MySQLiHelper
      * @param int $id
+     * @return array
      */
     public function getByID(array $apiKey, MySQLHelper $MySQLiHelper, $id = 0)
     {
         // Create a mysqli object
         $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
         if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_user_table'], 'id', $id)->fetch_assoc()) {
-            echo json_encode(array(
-                'application' => $apiKey['app'],
-                'success' => true,
-                'result' => $result,
-            ));
+            $mysqli->close();
+            return array('application' => $apiKey['app'], 'success' => true, 'result' => $result);
         } else {
+            $mysqli->close();
             header('HTTP/1.1 404 Not Found');
-            echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'UserNotFound'));
+            return array('application' => $apiKey['app'], 'success' => false, 'error' => 'UserNotFound');
         }
-        $mysqli->close();
     }
 
 }
