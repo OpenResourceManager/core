@@ -327,7 +327,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          */
 
         $slim->get('/sageid/:sageid', function ($sageid) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
-            echo json_encode($Controller->getBy($apiKey, $MySQLiHelper, $table, 'sageid', $sageid));
+            echo json_encode($Controller->getBy($apiKey, $MySQLiHelper, $sqlConf, $table,  'sageid', $sageid));
         });
 
 
@@ -416,7 +416,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          */
 
         $slim->get('/username/:username', function ($username) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
-            echo json_encode($Controller->getBy($apiKey, $MySQLiHelper, $table, 'username', $username));
+            echo json_encode($Controller->getBy($apiKey, $MySQLiHelper, $sqlConf, $table,  'username', $username));
         });
 
         /**
