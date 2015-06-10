@@ -30,6 +30,14 @@ class Config
     /**
      * @return array
      */
+    public static function getProtectedAttributes()
+    {
+        return array('id', 'sageid', 'code');
+    }
+
+    /**
+     * @return array
+     */
     public static function getUserAttributes()
     {
         return array(
@@ -48,6 +56,9 @@ class Config
         );
     }
 
+    /**
+     * @return array
+     */
     public static function getRoleAttributes()
     {
         return array(
@@ -56,6 +67,9 @@ class Config
         );
     }
 
+    /**
+     * @return array
+     */
     public static function getCampusAttributes()
     {
         return array(
@@ -64,6 +78,9 @@ class Config
         );
     }
 
+    /**
+     * @return array
+     */
     public static function getBuildingAttributes()
     {
         return array(
@@ -75,12 +92,21 @@ class Config
 
     public static function getDepartmentAttributes()
     {
+        return array(
+            'code' => true,
+            'name' => true,
+            'acedemic' => true
+        );
 
     }
 
     public static function getAcademicProgramsAttributes()
     {
-
+        return array(
+            'code' => true,
+            'name' => true,
+            'department' => false
+        );
     }
 
 }

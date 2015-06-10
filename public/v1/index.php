@@ -6,65 +6,609 @@
  * Time: 10:40 AM
  */
 require dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
-include_once dirname(dirname(dirname(__FILE__))) . '/lib/api/API.php';
+include_once dirname(dirname(dirname(__FILE__))) . '/lib/api/Controller.php';
 include_once dirname(dirname(dirname(__FILE__))) . '/lib/aah/MySQLHelper.php';
 include_once dirname(dirname(dirname(__FILE__))) . '/Config.php';
-include_once dirname(dirname(dirname(__FILE__))) . '/lib/api/subjects/User.php';
 
 // Init a slim object
 $slim = new \Slim\Slim();
 // Init a MySQLi helper class
 $MySQLiHelper = new MySQLHelper();
+// Get Mysql Config
+$sqlConf = Config::getSQLConf();
 // Create a mysqli object
-$mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-// Init an API object
-$api = new API();
+$mysqli = $MySQLiHelper->getMySQLi($sqlConf['db_user'], $sqlConf['db_pass'], $sqlConf['db_name'], $sqlConf['db_host']);
+// New Controller object
+$Controller = new Controller();
 // Check the API authorization
-if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIKey($mysqli, $MySQLiHelper, $slim->request->headers->get('X-Authorization'), Config::getSQLConf()['db_api_key_table'])) {
+if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->checkAPIKey($mysqli, $MySQLiHelper, $slim->request->headers->get('X-Authorization'), Config::getSQLConf()['db_api_key_table'])) {
 
-    $slim->group('/user', function () use ($slim, $api, $apiKey, $MySQLiHelper) {
+    $slim->group('/user', function () use ($slim, $Controller, $apiKey, $MySQLiHelper, $sqlConf) {
 
-        $UserMethods = new User();
+        $table = $sqlConf['db_user_table'];
+        $attrs = Config::getUserAttributes();
 
-        $slim->post('/sageid/:sageid', function ($sageid) use ($api, $apiKey, $MySQLiHelper, $slim, $UserMethods) {
-            echo json_encode($UserMethods->postUser($api, $apiKey, $MySQLiHelper, json_decode(json_encode($slim->request->post()), true), $sageid));
+        /**
+         * @api {post} /user/sageid/:sageid Post to User
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Users
+         * @apiParam {Int} sageid Users's unique Sage ID number.
+         * @apiDescription Using a Sage ID number as part of the url parameter, an application can create new user records or update existing records.
+         * If the Sage ID in the URL does not exist in the database, the rest of the data sent in the POST request will be treated as a new user entry.
+         * If the Sage ID in the URL does exist in the database, the data sent in the POST request will replace the data in that users record.
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {String} result The action that was performed. This may be `update` or `create`.
+         * @apiExample {curl} Curl
+         *      curl -H "X-Authorization: <Your-API-Key>" \
+         *      --data "email2=lukeskywalker@gmail.com&username=skywal" \
+         *      --url https://databridge.sage.edu/v1/user/sageid/:sageid
+         * @apiExample {ruby} Ruby
+         *      # This code snippet uses an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/user/sageid/:sageid",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
+         *      parameters:{ :email2 => "lukeskywalker@gmail.com", :username => "skywal" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/user/sageid/:sageid");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      curl_setopt($ch, CURLOPT_POST, true);
+         *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("email2" => "lukeskywalker@gmail.com", "username" => "skywal");
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $uri = https://databridge.sage.edu/v1/user/sageid/:sageid
+         *      $body = @{ email2 = "lukeskywalker@gmail.com", username = "skywal" }
+         *      $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method Post -Body $body
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/sageid/:sageid")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .body("{\"email2\":\"lukeskywalker@gmail.com\", \"username\":\"skywal\"}")
+         *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.post("https://databridge.sage.edu/v1/user/sageid/:sageid",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          },
+         *          params={
+         *              "email2": "lukeskywalker@gmail.com",
+         *              "username": "skywal"
+         *          }
+         *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.post("https://databridge.sage.edu/v1/user/sageid/:sageid")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .field("email2", "lukeskywalker@gmail.com")
+         *       .field("username", "skywal")
+         *       .asString();
+         * @apiSuccessExample Success Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": "update"
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} ForbiddenToWrite The application does not have write access to the API.
+         * @apiErrorExample Error Response:
+         *      HTTP/1.1 403 Forbidden
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "ForbiddenToWrite"
+         *      }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} InsufficientPostData The application did not provide the required data.
+         * @apiError {Array} required User attributes and a boolean value that signifies if they are required or not.
+         * @apiErrorExample Error Response:
+         *      HTTP/1.1 400 Bad Request
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "InsufficientPostData",
+         *          "required": {
+         *              "sageid": true,
+         *              "username": true,
+         *              "name_first": true,
+         *              "name_middle": false,
+         *              "name_last": true,
+         *              "email": true,
+         *              "email2": false,
+         *              "building": false,
+         *              "role": true,
+         *              "active": true,
+         *              "phone": false,
+         *              "room": false
+         *          }
+         *      }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} FailedToWrite The application does have write access, but the commit failed. This is due to an error on the server.
+         * @apiErrorExample Error Response:
+         *      HTTP/1.1 500 Server Error
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "FailedToWrite"
+         *      }
+         */
+
+        $slim->post('/sageid/:sageid', function ($sageid) use ($Controller, $apiKey, $MySQLiHelper, $slim, $sqlConf, $table, $attrs) {
+            echo json_encode($Controller->postToBy($Controller, $apiKey, $MySQLiHelper, $sqlConf, $table, 'sageid', $sageid, json_decode(json_encode($slim->request->post())), $attrs));
         });
 
-        $slim->get('/id/:id', function ($id) use ($apiKey, $MySQLiHelper, $UserMethods) {
-            echo json_encode($UserMethods->getByID($apiKey, $MySQLiHelper, $id));
+        /**
+         * @api {get} /user/id/:id Get by ID
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Users
+         * @apiParam {Int} id Users's unique API ID.
+         * @apiDescription This method allows an application to view a user's record using the database index `ID` number.
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Object} result The user record object.
+         * @apiSampleRequest https://databridge.sage.edu/v1/user/id/:id
+         * @apiExample {curl} Curl
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/id/:id
+         * @apiExample {ruby} Ruby
+         *      # This code snippet uses an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/user/id/:id",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/user/id/:id");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/id/:id -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/id/:id")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/user/id/:id",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/user/id/:id")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
+         * @apiSuccessExample Success Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": {
+         *              "id": "1",
+         *              "sageid": "999998",
+         *              "username": "buildb3",
+         *              "name_first": "Bob",
+         *              "name_middle": "T.",
+         *              "name_last": "Builder",
+         *              "email": "buildb3@sage.edu",
+         *              "email2": "bob@gmail.com",
+         *              "building": "5",
+         *              "role": "1",
+         *              "active": "1",
+         *              "phone": "5182444777",
+         *              "room": "302",
+         *              "has_photo_id": "1",
+         *              "photo_id_url": "http://idmanager.sage.edu/pics/accepted/0999998.jpg",
+         *              "photo_id_filename": "999998.jpg"
+         *           }
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} NotFound The id of the user was not found.
+         * @apiErrorExample Error Response:
+         *      HTTP/1.1 404 Not Found
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "NotFound"
+         *      }
+         */
+
+        $slim->get('/id/:id', function ($id) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
+            echo json_encode($Controller->getBy($apiKey, $MySQLiHelper, $sqlConf, $table, 'id', $id));
         });
 
-        $slim->get('/sageid/:sageid', function ($sageid) use ($apiKey, $MySQLiHelper, $UserMethods) {
-            echo json_encode($UserMethods->getBySageID($apiKey, $MySQLiHelper, $sageid));
+        /**
+         * @api {get} /user/sageid/:sageid Get by Sage ID
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Users
+         * @apiParam {Int} sageid Users's unique Sage ID.
+         * @apiDescription This method allows an application to view a user's record using the user's Sage ID.
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Object} result The user record object.
+         * @apiSampleRequest https://databridge.sage.edu/v1/user/sageid/:sageid
+         * @apiExample {curl} Curl
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/sageid/:sageid
+         * @apiExample {ruby} Ruby
+         *      # This code snippet uses an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/user/sageid/:sageid",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/user/sageid/:sageid");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/sageid/:sageid -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/sageid/:sageid")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/user/sageid/:sageid",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/user/sageid/:sageid")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
+         * @apiSuccessExample Success Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": {
+         *              "id": "1",
+         *              "sageid": "999998",
+         *              "username": "buildb3",
+         *              "name_first": "Bob",
+         *              "name_middle": "T.",
+         *              "name_last": "Builder",
+         *              "email": "buildb3@sage.edu",
+         *              "email2": "bob@gmail.com",
+         *              "building": "5",
+         *              "role": "1",
+         *              "active": "1",
+         *              "phone": "5182444777",
+         *              "room": "302",
+         *              "has_photo_id": "1",
+         *              "photo_id_url": "http://idmanager.sage.edu/pics/accepted/0999998.jpg",
+         *              "photo_id_filename": "999998.jpg"
+         *           }
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} NotFound The id of the user was not found.
+         * @apiErrorExample Error Response:
+         *      HTTP/1.1 404 Not Found
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "NotFound"
+         *      }
+         */
+
+        $slim->get('/sageid/:sageid', function ($sageid) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
+            echo json_encode($Controller->getBy($apiKey, $MySQLiHelper, $table, 'sageid', $sageid));
         });
 
 
-        $slim->get('/username/:username', function ($username) use ($apiKey, $MySQLiHelper, $UserMethods) {
-            echo json_encode($UserMethods->getByUsername($apiKey, $MySQLiHelper, $username));
+        /**
+         * @api {get} /user/username/:username Get by Sage Username
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Users
+         * @apiParam {String} username Users's unique Sage username.
+         * @apiDescription This method allows an application to view a user's record using the user's username.
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Object} result The user record object.
+         * @apiSampleRequest https://databridge.sage.edu/v1/user/username/:username
+         * @apiExample {curl} Curl
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/username/:username
+         * @apiExample {ruby} Ruby
+         *      # This code snippet uses an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/user/username/:username",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/user/username/:username");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/username/:username -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/username/:username")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/user/username/:username",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/user/username/:username")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
+         * @apiSuccessExample Success Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": {
+         *              "id": "1",
+         *              "sageid": "999998",
+         *              "username": "buildb3",
+         *              "name_first": "Bob",
+         *              "name_middle": "T.",
+         *              "name_last": "Builder",
+         *              "email": "buildb3@sage.edu",
+         *              "email2": "bob@gmail.com",
+         *              "building": "5",
+         *              "role": "1",
+         *              "active": "1",
+         *              "phone": "5182444777",
+         *              "room": "302",
+         *              "has_photo_id": "1",
+         *              "photo_id_url": "http://idmanager.sage.edu/pics/accepted/0999998.jpg",
+         *              "photo_id_filename": "999998.jpg"
+         *           }
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} NotFound The id of the user was not found.
+         * @apiErrorExample Error Response:
+         *      HTTP/1.1 404 Not Found
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "NotFound"
+         *      }
+         */
+
+        $slim->get('/username/:username', function ($username) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
+            echo json_encode($Controller->getBy($apiKey, $MySQLiHelper, $table, 'username', $username));
         });
 
+        /**
+         * @api {get} /user/:limit Get X Amount of Records
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Users
+         * @apiParam {Int} limit The max amount of users to return, 0 form all users.
+         * @apiDescription This method allows an application to view multiple records.
+         * The `limit` parameter is the max amount of user records that will be returned.
+         * To get all records set the limit to `0`.
+         *
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Array} result An array of user record objects.
+         * @apiSampleRequest https://databridge.sage.edu/v1/user/:limit
+         * @apiExample {curl} Curl
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/:limit
+         * @apiExample {ruby} Ruby
+         *      # This code snippet uses an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/user/:limit",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/user/:limit");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/:limit -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/:limit")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/user/:limit",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/user/:limit")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
+         * @apiSuccessExample Success Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": [
+         *            {
+         *              "id": "1",
+         *              "sageid": "999998",
+         *              "username": "buildb3",
+         *              "name_first": "Bob",
+         *              "name_middle": "T.",
+         *              "name_last": "Builder",
+         *              "email": "buildb3@sage.edu",
+         *              "email2": "bob@gmail.com",
+         *              "building": "5",
+         *              "role": "1",
+         *              "active": "1",
+         *              "phone": "5182444777",
+         *              "room": "302",
+         *              "has_photo_id": "1",
+         *              "photo_id_url": "http://idmanager.sage.edu/pics/accepted/0999998.jpg",
+         *              "photo_id_filename": "999998.jpg"
+         *           },
+         *           {
+         *              "id": "2",
+         *              "sageid": "999997",
+         *              "username": "dorae",
+         *              "name_first": "Dora",
+         *              "name_middle": "T.",
+         *              "name_last": "Explorer",
+         *              "email": "dorae@sage.edu",
+         *              "email2": "dora@gmail.com",
+         *              "building": "5",
+         *              "role": "1",
+         *              "active": "1",
+         *              "phone": "5182444779",
+         *              "room": "301",
+         *              "has_photo_id": "1",
+         *              "photo_id_url": "http://idmanager.sage.edu/pics/accepted/0999997.jpg",
+         *              "photo_id_filename": "999997.jpg"
+         *           }
+         *         ]
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} NotFound The id of the user was not found.
+         * @apiErrorExample Error Response:
+         *      HTTP/1.1 404 Not Found
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "NotFound"
+         *      }
+         */
 
-        $slim->get('/:limit', function ($limit) use ($apiKey, $MySQLiHelper, $UserMethods) {
-            echo json_encode($UserMethods->getByUsername($apiKey, $MySQLiHelper, $UserMethods, $limit));
+        $slim->get('/:limit', function ($limit) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
+            echo json_encode($Controller->getMultiple($apiKey, $MySQLiHelper, $sqlConf, $table, $limit));
         });
+
+        /**
+         * @api {get} /user/ Get Available Methods
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Users
+         * @apiDescription This method lists the methods available under `/user/`
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Object} result The methods that are available
+         * @apiSampleRequest https://databridge.sage.edu/v1/user/
+         * @apiExample {curl} Curl
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/
+         * @apiExample {ruby} Ruby
+         *      # This code snippet uses an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/user/",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/user/");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/ -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/user/",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/user/")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
+         * @apiSuccessExample Success Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": {
+         *                "get": [
+         *                   "\/id\/:id",
+         *                   "\/sageid\/:sageid",
+         *                   "\/username\/:username",
+         *                   "\/:limit"
+         *                 ],
+         *                 "post": [
+         *                      "\/sageid\/:sageid"
+         *                 ]
+         *           }
+         *     }
+         */
 
         /**
          * Start informational responses
          */
-        $slim->get('/', function () use ($apiKey, $UserMethods) {
-            echo json_encode($UserMethods->getRoot($apiKey));
+        $slim->get('/', function () use ($apiKey, $Controller, $attrs) {
+            echo json_encode($Controller->getRoot($apiKey, $attrs));
         });
 
-        $slim->get('/id/', function () use ($apiKey, $UserMethods) {
-            echo json_encode($UserMethods->getRoot($apiKey));
+        $slim->get('/id/', function () use ($apiKey, $Controller, $attrs) {
+            echo json_encode($Controller->getRoot($apiKey, $attrs));
         });
 
-        $slim->get('/sageid/', function () use ($apiKey, $UserMethods) {
-            echo json_encode($UserMethods->getRoot($apiKey));
+        $slim->get('/sageid/', function () use ($apiKey, $Controller, $attrs) {
+            echo json_encode($Controller->getRoot($apiKey, $attrs));
         });
 
-        $slim->get('/username/', function () use ($apiKey, $UserMethods) {
-            echo json_encode($UserMethods->getRoot($apiKey));
+        $slim->get('/username/', function () use ($apiKey, $Controller, $attrs) {
+            echo json_encode($Controller->getRoot($apiKey, $attrs));
         });
 
         /**
@@ -73,8 +617,10 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
 
     });
 
-    $slim->group(('/role'), function () use ($slim, $api, $apiKey, $MySQLiHelper) {
+    $slim->group(('/role'), function () use ($slim, $Controller, $apiKey, $MySQLiHelper, $sqlConf) {
 
+        $table = $sqlConf['db_role_table'];
+        $attrs = Config::getRoleAttributes();
 
         /**
          * @api {post} /role/code/:code Post to Role
@@ -183,46 +729,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->post('/code/:code', function ($code) use ($api, $apiKey, $MySQLiHelper, $slim) {
-            // Create a mysqli object
-            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            if ($apiKey['write'] == 1) {
-                $data = json_decode(json_encode($slim->request->post()), true);
-                if (!empty($data)) {
-                    $exists = ($MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_role_table'], 'code', $code)->fetch_assoc()) ? true : false;
-                    if ($exists) {
-                        // Protect the ID value
-                        if (isset($data['id'])) unset($data['id']);
-                        if ($MySQLiHelper->simpleUpdate($mysqli, Config::getSQLConf()['db_role_table'], $data, 'code', $code)) {
-                            echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'update'));
-                        } else {
-                            header('HTTP/1.1 500 Server Error');
-                            $details = '';
-                            if ($mysqli->error) $details = $mysqli->error;
-                            echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite', 'details' => $details));
-                        }
-                    } else {
-                        if ($api->checkPostDataValues($data, Config::getRoleAttributes())) {
-                            if ($MySQLiHelper->simpleInsert($mysqli, Config::getSQLConf()['db_role_table'], $data)) {
-                                echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'create'));
-                            } else {
-                                header('HTTP/1.1 500 Server Error');
-                                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite'));
-                            }
-                        } else {
-                            header('HTTP/1.1 400 Bad Request');
-                            echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getRoleAttributes()));
-                        }
-                    }
-                } else {
-                    header('HTTP/1.1 400 Bad Request');
-                    echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getRoleAttributes()));
-                }
-            } else {
-                header('HTTP/1.1 403 Forbidden');
-                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'ForbiddenToWrite'));
-            }
-            $mysqli->close();
+        $slim->post('/code/:code', function ($code) use ($Controller, $apiKey, $MySQLiHelper, $slim, $sqlConf, $table, $attrs) {
+            echo json_encode($Controller->postToBy($Controller, $apiKey, $MySQLiHelper, $sqlConf, $table, 'code', $code, json_decode(json_encode($slim->request->post())), $attrs));
         });
 
 
@@ -297,20 +805,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/id/:id', function ($id) use ($api, $apiKey, $MySQLiHelper) {
-            // Create a mysqli object
-            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_role_table'], 'id', $id)->fetch_assoc()) {
-                echo json_encode(array(
-                    'application' => $apiKey['app'],
-                    'success' => true,
-                    'result' => $result,
-                ));
-            } else {
-                header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'RoleNotFound'));
-            }
-            $mysqli->close();
+        $slim->get('/id/:id', function ($id) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
+            echo json_encode($Controller->getBy($apiKey, $MySQLiHelper, $sqlConf, $table, 'id', $id));
         });
 
         /**
@@ -384,19 +880,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/code/:code', function ($code) use ($api, $apiKey, $MySQLiHelper) {
-            // Create a mysqli object
-            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_role_table'], 'code', $code)->fetch_assoc()) {
-                echo json_encode(array(
-                    'application' => $apiKey['app'],
-                    'success' => true,
-                    'result' => $result,
-                ));
-            } else {
-                header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'RoleNotFound'));
-            }
+        $slim->get('/code/:code', function ($code) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
+            echo json_encode($Controller->getBy($apiKey, $MySQLiHelper, $sqlConf, $table, 'code', $code));
         });
 
         /**
@@ -480,20 +965,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/:limit', function ($limit) use ($api, $apiKey, $MySQLiHelper) {
-            // Create a mysqli object
-            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_role_table'], $limit)->fetch_all(MYSQLI_ASSOC)) {
-                echo json_encode(array(
-                    'application' => $apiKey['app'],
-                    'success' => true,
-                    'result' => $result,
-                ));
-            } else {
-                header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'RolesNotFound'));
-            }
-            $mysqli->close();
+        $slim->get('/:limit', function ($limit) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
+            echo json_encode($Controller->getMultiple($apiKey, $MySQLiHelper, $sqlConf, $table, $limit));
         });
 
         /**
@@ -560,26 +1033,30 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *     }
          */
 
-        $slim->get('/', function () use ($api, $apiKey) {
-            echo json_encode(array(
-                'application' => $apiKey['app'],
-                'success' => true,
-                'result' => array(
-                    'get' => array(
-                        '/id/:id',
-                        '/code/:code',
-                        '/:limit'
-                    ),
-                    'post' => array(
-                        '/code/:code'
-                    )
-                )
-            ));
+        /**
+         * Start informational responses
+         */
+        $slim->get('/', function () use ($apiKey, $Controller, $attrs) {
+            echo json_encode($Controller->getRoot($apiKey, $attrs));
         });
+
+        $slim->get('/id/', function () use ($apiKey, $Controller, $attrs) {
+            echo json_encode($Controller->getRoot($apiKey, $attrs));
+        });
+
+        $slim->get('/code/', function () use ($apiKey, $Controller, $attrs) {
+            echo json_encode($Controller->getRoot($apiKey, $attrs));
+        });
+
+        /**
+         * End informational responses
+         */
     });
 
-    $slim->group(('/building'), function () use ($slim, $api, $apiKey, $MySQLiHelper) {
+    $slim->group(('/building'), function () use ($slim, $Controller, $apiKey, $MySQLiHelper, $sqlConf, $Controller) {
 
+        $table = $sqlConf['db_building_table'];
+        $attrs = Config::getBuildingAttributes();
 
         /**
          * @api {post} /building/code/:code Post to Building
@@ -689,44 +1166,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->post('/code/:code', function ($code) use ($api, $apiKey, $MySQLiHelper, $slim) {
-            // Create a mysqli object
-            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            if ($apiKey['write'] == 1) {
-                $data = json_decode(json_encode($slim->request->post()), true);
-                if (!empty($data)) {
-                    $exists = ($MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_building_table'], 'code', $code)->fetch_assoc()) ? true : false;
-                    if ($exists) {
-                        // Protect the ID value
-                        if (isset($data['id'])) unset($data['id']);
-                        if ($MySQLiHelper->simpleUpdate($mysqli, Config::getSQLConf()['db_building_table'], $data, 'code', $code)) {
-                            echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'update'));
-                        } else {
-                            header('HTTP/1.1 500 Server Error');
-                            echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite'));
-                        }
-                    } else {
-                        if ($api->checkPostDataValues($data, Config::getBuildingAttributes())) {
-                            if ($MySQLiHelper->simpleInsert($mysqli, Config::getSQLConf()['db_building_table'], $data)) {
-                                echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'create'));
-                            } else {
-                                header('HTTP/1.1 500 Server Error');
-                                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite'));
-                            }
-                        } else {
-                            header('HTTP/1.1 400 Bad Request');
-                            echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getBuildingAttributes()));
-                        }
-                    }
-                } else {
-                    header('HTTP/1.1 400 Bad Request');
-                    echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getBuildingAttributes()));
-                }
-            } else {
-                header('HTTP/1.1 403 Forbidden');
-                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'ForbiddenToWrite'));
-            }
-            $mysqli->close();
+        $slim->post('/code/:code', function ($code) use ($Controller, $apiKey, $MySQLiHelper, $slim, $sqlConf, $table, $attrs) {
+            echo json_encode($Controller->postToBy($Controller, $apiKey, $MySQLiHelper, $sqlConf, $table, 'code', $code, json_decode(json_encode($slim->request->post())), $attrs));
         });
 
 
@@ -802,20 +1243,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/id/:id', function ($id) use ($api, $apiKey, $MySQLiHelper) {
-            // Create a mysqli object
-            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_building_table'], 'id', $id)->fetch_assoc()) {
-                echo json_encode(array(
-                    'application' => $apiKey['app'],
-                    'success' => true,
-                    'result' => $result,
-                ));
-            } else {
-                header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'BuildingNotFound'));
-            }
-            $mysqli->close();
+        $slim->get('/id/:id', function ($id) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
+            echo json_encode($Controller->getBy($apiKey, $MySQLiHelper, $sqlConf, $table, 'id', $id));
         });
 
         /**
@@ -890,20 +1319,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/code/:code', function ($code) use ($api, $apiKey, $MySQLiHelper) {
-            // Create a mysqli object
-            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_building_table'], 'code', $code)->fetch_assoc()) {
-                echo json_encode(array(
-                    'application' => $apiKey['app'],
-                    'success' => true,
-                    'result' => $result,
-                ));
-            } else {
-                header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'BuildingNotFound'));
-            }
-            $mysqli->close();
+        $slim->get('/code/:code', function ($code) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
+            echo json_encode($Controller->getBy($apiKey, $MySQLiHelper, $sqlConf, $table, 'code', $code));
         });
 
         /**
@@ -989,20 +1406,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/:limit', function ($limit) use ($api, $apiKey, $MySQLiHelper) {
-            // Create a mysqli object
-            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_building_table'], $limit)->fetch_all(MYSQLI_ASSOC)) {
-                echo json_encode(array(
-                    'application' => $apiKey['app'],
-                    'success' => true,
-                    'result' => $result,
-                ));
-            } else {
-                header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'BuildingsNotFound'));
-            }
-            $mysqli->close();
+        $slim->get('/:limit', function ($limit) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
+            echo json_encode($Controller->getMultiple($apiKey, $MySQLiHelper, $sqlConf, $table, $limit));
         });
 
         /**
@@ -1069,25 +1474,30 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *     }
          */
 
-        $slim->get('/', function () use ($api, $apiKey) {
-            echo json_encode(array(
-                'application' => $apiKey['app'],
-                'success' => true,
-                'result' => array(
-                    'get' => array(
-                        '/id/:id',
-                        '/code/:code',
-                        '/:limit'
-                    ),
-                    'post' => array(
-                        '/code/:code'
-                    )
-                )
-            ));
+        /**
+         * Start informational responses
+         */
+        $slim->get('/', function () use ($apiKey, $Controller, $attrs) {
+            echo json_encode($Controller->getRoot($apiKey, $attrs));
         });
+
+        $slim->get('/id/', function () use ($apiKey, $Controller, $attrs) {
+            echo json_encode($Controller->getRoot($apiKey, $attrs));
+        });
+
+        $slim->get('/code/', function () use ($apiKey, $Controller, $attrs) {
+            echo json_encode($Controller->getRoot($apiKey, $attrs));
+        });
+
+        /**
+         * End informational responses
+         */
     });
 
-    $slim->group(('/campus'), function () use ($slim, $api, $apiKey, $MySQLiHelper) {
+    $slim->group(('/campus'), function () use ($slim, $Controller, $apiKey, $MySQLiHelper, $sqlConf) {
+
+        $table = $sqlConf['db_campus_table'];
+        $attrs = Config::getCampusAttributes();
 
         /**
          * @api {post} /campus/code/:code Post to Campus
@@ -1196,44 +1606,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->post('/code/:code', function ($code) use ($api, $apiKey, $MySQLiHelper, $slim) {
-            // Create a mysqli object
-            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            if ($apiKey['write'] == 1) {
-                $data = json_decode(json_encode($slim->request->post()), true);
-                if (!empty($data)) {
-                    $exists = ($MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_campus_table'], 'code', $code)->fetch_assoc()) ? true : false;
-                    if ($exists) {
-                        // Protect the ID value
-                        if (isset($data['id'])) unset($data['id']);
-                        if ($MySQLiHelper->simpleUpdate($mysqli, Config::getSQLConf()['db_campus_table'], $data, 'code', $code)) {
-                            echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'update'));
-                        } else {
-                            header('HTTP/1.1 500 Server Error');
-                            echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite'));
-                        }
-                    } else {
-                        if ($api->checkPostDataValues($data, Config::getCampusAttributes())) {
-                            if ($MySQLiHelper->simpleInsert($mysqli, Config::getSQLConf()['db_campus_table'], $data)) {
-                                echo json_encode(array('application' => $apiKey['app'], 'success' => true, 'result' => 'create'));
-                            } else {
-                                header('HTTP/1.1 500 Server Error');
-                                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'FailedToWrite'));
-                            }
-                        } else {
-                            header('HTTP/1.1 400 Bad Request');
-                            echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getCampusAttributes()));
-                        }
-                    }
-                } else {
-                    header('HTTP/1.1 400 Bad Request');
-                    echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'InsufficientPostData', 'required' => Config::getCampusAttributes()));
-                }
-            } else {
-                header('HTTP/1.1 403 Forbidden');
-                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'ForbiddenToWrite'));
-            }
-            $mysqli->close();
+        $slim->post('/code/:code', function ($code) use ($Controller, $apiKey, $MySQLiHelper, $slim, $sqlConf, $table, $attrs) {
+            echo json_encode($Controller->postToBy($Controller, $apiKey, $MySQLiHelper, $sqlConf, $table, 'code', $code, json_decode(json_encode($slim->request->post())), $attrs));
         });
 
         /**
@@ -1307,20 +1681,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/id/:id', function ($id) use ($api, $apiKey, $MySQLiHelper) {
-            // Create a mysqli object
-            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_campus_table'], 'id', $id)->fetch_assoc()) {
-                echo json_encode(array(
-                    'application' => $apiKey['app'],
-                    'success' => true,
-                    'result' => $result,
-                ));
-            } else {
-                header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'CampusNotFound'));
-            }
-            $mysqli->close();
+        $slim->get('/id/:id', function ($id) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
+            echo json_encode($Controller->getBy($apiKey, $MySQLiHelper, $sqlConf, $table, 'id', $id));
         });
 
         /**
@@ -1394,20 +1756,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/code/:code', function ($code) use ($api, $apiKey, $MySQLiHelper) {
-            // Create a mysqli object
-            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            if ($result = $MySQLiHelper->simpleSelect($mysqli, Config::getSQLConf()['db_campus_table'], 'code', $code)->fetch_assoc()) {
-                echo json_encode(array(
-                    'application' => $apiKey['app'],
-                    'success' => true,
-                    'result' => $result,
-                ));
-            } else {
-                header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'CampusNotFound'));
-            }
-            $mysqli->close();
+        $slim->get('/code/:code', function ($code) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
+            echo json_encode($Controller->getBy($apiKey, $MySQLiHelper, $sqlConf, $table, 'code', $code));
         });
 
         /**
@@ -1491,20 +1841,8 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *      }
          */
 
-        $slim->get('/:limit', function ($limit) use ($api, $apiKey, $MySQLiHelper) {
-            // Create a mysqli object
-            $mysqli = $MySQLiHelper->getMySQLi(Config::getSQLConf()['db_user'], Config::getSQLConf()['db_pass'], Config::getSQLConf()['db_name'], Config::getSQLConf()['db_host']);
-            if ($result = $MySQLiHelper->selectAllFrom($mysqli, Config::getSQLConf()['db_campus_table'], $limit)->fetch_all(MYSQLI_ASSOC)) {
-                echo json_encode(array(
-                    'application' => $apiKey['app'],
-                    'success' => true,
-                    'result' => $result,
-                ));
-            } else {
-                header('HTTP/1.1 404 Not Found');
-                echo json_encode(array('application' => $apiKey['app'], 'success' => false, 'error' => 'CampusesNotFound'));
-            }
-            $mysqli->close();
+        $slim->get('/:limit', function ($limit) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
+            echo json_encode($Controller->getMultiple($apiKey, $MySQLiHelper, $sqlConf, $table, $limit));
         });
 
         /**
@@ -1571,27 +1909,29 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $api->checkAPIK
          *     }
          */
 
-        $slim->get('/', function () use ($api, $apiKey) {
-            echo json_encode(array(
-                'application' => $apiKey['app'],
-                'success' => true,
-                'result' => array(
-                    'get' => array(
-                        '/id/:id',
-                        '/code/:code',
-                        '/:limit'
-                    ),
-                    'post' => array(
-                        '/code/:code'
-                    )
-                )
-            ));
+        /**
+         * Start informational responses
+         */
+        $slim->get('/', function () use ($apiKey, $Controller, $attrs) {
+            echo json_encode($Controller->getRoot($apiKey, $attrs));
         });
+
+        $slim->get('/id/', function () use ($apiKey, $Controller, $attrs) {
+            echo json_encode($Controller->getRoot($apiKey, $attrs));
+        });
+
+        $slim->get('/code/', function () use ($apiKey, $Controller, $attrs) {
+            echo json_encode($Controller->getRoot($apiKey, $attrs));
+        });
+
+        /**
+         * End informational responses
+         */
     });
     $slim->run();
     $mysqli->close();
 } else {
     $mysqli->close();
     // Throw a 401 unauthorized, since the app is not authorized
-    $api->unauthorized();
+    $Controller->unauthorized();
 }
