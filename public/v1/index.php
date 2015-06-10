@@ -5,6 +5,9 @@
  * Date: 6/6/15
  * Time: 10:40 AM
  */
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
 require dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
 include_once dirname(dirname(dirname(__FILE__))) . '/lib/api/Controller.php';
 include_once dirname(dirname(dirname(__FILE__))) . '/lib/aah/MySQLHelper.php';
