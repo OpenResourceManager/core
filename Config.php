@@ -23,6 +23,8 @@ class Config
             'db_building_table' => 'building_info',
             'db_role_table' => 'role_info',
             'db_campus_table' => 'campus_info',
+            'db_program_table' => 'program_info',
+            'db_department_table' => 'department_info',
             'db_api_key_table' => 'api_keys',
         );
     }

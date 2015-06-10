@@ -1931,6 +1931,443 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          * End informational responses
          */
     });
+
+
+    $slim->group(('/program'), function () use ($slim, $Controller, $apiKey, $MySQLiHelper, $sqlConf) {
+
+        $table = $sqlConf['db_program_table'];
+        $attrs = Config::getAcademicProgramsAttributes();
+
+        /**
+         * @api {post} /program/code/:code Post to Program by code
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Programs
+         * @apiParam {String} Object's unique Datatel code.
+         * @apiDescription Using a Datatel code as part of the url parameter, an application can create new program record or update existing records.
+         * If the Datatel code in the URL does not exist in the database, the rest of the data sent in the POST request will be treated as a new entry.
+         * If the Datatel code in the URL does exist in the database, the data sent in the POST request will replace the data in that record.
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {String} result The action that was performed. This may be `update` or `create`.
+         * @apiExample {curl} Curl
+         *      curl -H "X-Authorization: <Your-API-Key>" \
+         *      --data "name=Sage College of Albany" \
+         *      --url https://databridge.sage.edu/v1/program/code/:code
+         * @apiExample {ruby} Ruby
+         *      # This code snippet uses an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/program/code/:code",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
+         *      parameters:{ :name => "Sage College of Albany"}.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/program/code/:code");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      curl_setopt($ch, CURLOPT_POST, true);
+         *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("name" => "Sage College of Albany");
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $uri = https://databridge.sage.edu/v1/program/code/:code
+         *      $body = @{ email2 = "Sage College of Albany" }
+         *      $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method Post -Body $body
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/program/code/:code")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .body("{\"name\":\"Sage College of Albany\"}")
+         *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.post("https://databridge.sage.edu/v1/program/code/:code",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          },
+         *          params={
+         *              "name": "Sage College of Albany"
+         *          }
+         *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.post("https://databridge.sage.edu/v1/program/code/:code")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .field("name", "Sage College of Albany")
+         *       .asString();
+         * @apiSuccessExample Success Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": "update"
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} ForbiddenToWrite The application does not have write access to the API.
+         * @apiErrorExample Error Response:
+         *      HTTP/1.1 403 Forbidden
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "ForbiddenToWrite"
+         *      }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} InsufficientPostData The application did not provide the required data.
+         * @apiError {Array} required User attributes and a boolean value that signifies if they are required or not.
+         * @apiErrorExample Error Response:
+         *      HTTP/1.1 400 Bad Request
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "InsufficientPostData",
+         *          "required": {
+         *              "code": true,
+         *              "name": true,
+         *          }
+         *      }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} FailedToWrite The application does have write access, but the commit failed. This is due to an error on the server.
+         * @apiErrorExample Error Response:
+         *      HTTP/1.1 500 Server Error
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "FailedToWrite"
+         *      }
+         */
+
+        $slim->post('/code/:code', function ($code) use ($Controller, $apiKey, $MySQLiHelper, $slim, $sqlConf, $table, $attrs) {
+            echo json_encode($Controller->postToBy($Controller, $apiKey, $MySQLiHelper, $sqlConf, $table, 'code', $code, json_decode(json_encode($slim->request->post()), true), $attrs));
+        });
+
+        /**
+         * @api {get} /program/id/:id Get by ID
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Programs
+         * @apiParam {Int} id Program unique API ID.
+         * @apiDescription This method allows an application to view a program record using the database index `ID` number.
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Object} result The program record object.
+         * @apiSampleRequest https://databridge.sage.edu/v1/program/id/:id
+         * @apiExample {curl} Curl
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/program/id/:id
+         * @apiExample {ruby} Ruby
+         *      # This code snippet uses an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/program/id/:id",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/program/id/:id");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/program/id/:id -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/program/id/:id")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/program/id/:id",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/program/id/:id")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
+         * @apiSuccessExample Success Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": {
+         *              "id": "1",
+         *              "code": "TRY",
+         *              "name": "Russell Sage College"
+         *           }
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} BuildingNotFound The id of the program was not found.
+         * @apiErrorExample Error Response:
+         *      HTTP/1.1 404 Not Found
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "CampusNotFound"
+         *      }
+         */
+
+        $slim->get('/id/:id', function ($id) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
+            echo json_encode($Controller->getBy($apiKey, $MySQLiHelper, $sqlConf, $table, 'id', $id));
+        });
+
+        /**
+         * @api {get} /program/code/:code Get by Datatel Code
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Programs
+         * @apiParam {String} Datatel code that corresponds with that program.
+         * @apiDescription This method allows an application to view a program record using appropriate `Datatel_Code`.
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Object} result The program record object.
+         * @apiSampleRequest https://databridge.sage.edu/v1/program/code/:code
+         * @apiExample {curl} Curl
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/program/code/:code
+         * @apiExample {ruby} Ruby
+         *      # This code snippet uses an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/program/code/:code",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/program/code/:code");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/program/code/:code -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/program/code/:code")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/program/code/:code",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/program/code/:code")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
+         * @apiSuccessExample Success Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": {
+         *              "id": "1",
+         *              "code": "TRY",
+         *              "name": "Russell Sage College"
+         *           }
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} BuildingNotFound The Datatel code of the program was not found.
+         * @apiErrorExample Error Response:
+         *      HTTP/1.1 404 Not Found
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "CampusNotFound"
+         *      }
+         */
+
+        $slim->get('/code/:code', function ($code) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
+            echo json_encode($Controller->getBy($apiKey, $MySQLiHelper, $sqlConf, $table, 'code', $code));
+        });
+
+        /**
+         * @api {get} /program/:limit Get X Amount of Records
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Programs
+         * @apiParam {Int} limit The max amount of records to return, 0 returns all of them.
+         * @apiDescription This method allows an application to view multiple records.
+         * The `limit` parameter is the max amount of user records that will be returned.
+         * To get all records set the limit to `0`.
+         *
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Array} result An array of program record objects.
+         * @apiSampleRequest https://databridge.sage.edu/v1/program/:limit
+         * @apiExample {curl} Curl
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/program/:limit
+         * @apiExample {ruby} Ruby
+         *      # This code snippet uses an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/program/:limit",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/program/:limit");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/program/:limit -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/program/:limit")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/program/:limit",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/program/:limit")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
+         * @apiSuccessExample Success Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": [
+         *             {
+         *                  "id": "1",
+         *                  "code": "TRY",
+         *                  "name": "Russell Sage College"
+         *              },
+         *              {
+         *                  "id": "2",
+         *                  "code": "ALB",
+         *                  "name": "Sage College of Albany"
+         *              }
+         *          ]
+         *     }
+         *
+         * @apiError {String} application The name of the application that is accessing the API.
+         * @apiError {Boolean} success Tells the application if the request was successful.
+         * @apiError {String} CampusesNotFound The was no campuses found.
+         * @apiErrorExample Error Response:
+         *      HTTP/1.1 404 Not Found
+         *      {
+         *          "application": "Awesome Application",
+         *          "success": false,
+         *          "error": "CampusesNotFound"
+         *      }
+         */
+
+        $slim->get('/:limit', function ($limit) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
+            echo json_encode($Controller->getMultiple($apiKey, $MySQLiHelper, $sqlConf, $table, $limit));
+        });
+
+        /**
+         * @api {get} /program/ Get Available Methods
+         * @apiVersion 1.0.0
+         * @apiHeader {String} X-Authorization The application's unique access-key.
+         * @apiGroup Programs
+         * @apiDescription This method lists the methods available under `/program/`
+         * @apiSuccess {String} application The name of the application that is accessing the API.
+         * @apiSuccess {Boolean} success Tells the application if the request was successful.
+         * @apiSuccess {Object} result The methods that are available
+         * @apiSampleRequest https://databridge.sage.edu/v1/program/
+         * @apiExample {curl} Curl
+         *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/program/
+         * @apiExample {ruby} Ruby
+         *      # This code snippet uses an open-source library. http://unirest.io/ruby
+         *      response = Unirest.get "https://databridge.sage.edu/v1/program/",
+         *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+         * @apiExample {php} PHP
+         *      $ch = curl_init("https://databridge.sage.edu/v1/program/");
+         *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      $result = curl_exec($ch);
+         *      curl_close($ch);
+         * @apiExample {powershell} PowerShell
+         *      # PowerShell v3 and above
+         *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+         *      $headers.Add("X-Authorization", '<Your-API-Key>')
+         *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/program/ -Headers $headers
+         * @apiExample {java} Java
+         *      # This code snippet uses an open-source library. http://unirest.io/java
+         *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/program/")
+         *      .header("X-Authorization", "<Your-API-Key>")
+         *      .header("Accept", "application/json")
+         *      .asString();
+         * @apiExample {python} Python
+         *      # This code snippet uses an open-source library http://unirest.io/python
+         *      response = unirest.get("https://databridge.sage.edu/v1/program/",
+         *          headers={
+         *              "X-Authorization": "<Your-API-Key>",
+         *              "Accept": "application/json"
+         *          }
+         *      )
+         * @apiExample {.net} .NET
+         *      // This code snippet uses an open-source library http://unirest.io/net
+         *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/program/")
+         *       .header("X-Authorization", "<Your-API-Key>")
+         *       .header("Accept", "application/json")
+         *       .asString();
+         * @apiSuccessExample Success Response:
+         *     HTTP/1.1 200 OK
+         *     {
+         *          "application": "Awesome Application",
+         *          "success": true,
+         *          "result": {
+         *                "get": [
+         *                  "\/id\/:id",
+         *                  "\/code\/:code",
+         *                  "\/:limit"
+         *                 ],
+         *               "post": [
+         *                  "\/code\/:code"
+         *                 ]
+         *           }
+         *     }
+         */
+
+        /**
+         * Start informational responses
+         */
+        $slim->get('/', function () use ($apiKey, $Controller, $attrs) {
+            echo json_encode($Controller->getRoot($apiKey, $attrs));
+        });
+
+        $slim->get('/id/', function () use ($apiKey, $Controller, $attrs) {
+            echo json_encode($Controller->getRoot($apiKey, $attrs));
+        });
+
+        $slim->get('/code/', function () use ($apiKey, $Controller, $attrs) {
+            echo json_encode($Controller->getRoot($apiKey, $attrs));
+        });
+
+        /**
+         * End informational responses
+         */
+    });
+
     $slim->run();
 } else {
     // Throw a 401 unauthorized, since the app is not authorized
