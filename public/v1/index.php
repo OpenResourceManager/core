@@ -151,7 +151,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          */
 
         $slim->post('/sageid/:sageid', function ($sageid) use ($Controller, $apiKey, $MySQLiHelper, $slim, $sqlConf, $table, $attrs) {
-            echo json_encode($Controller->postToBy($Controller, $apiKey, $MySQLiHelper, $sqlConf, $table, 'sageid', $sageid, json_decode(json_encode($slim->request->post())), $attrs));
+            echo json_encode($Controller->postToBy($Controller, $apiKey, $MySQLiHelper, $sqlConf, $table, 'sageid', $sageid, json_decode(json_encode($slim->request->post()), true), $attrs));
         });
 
         /**
@@ -733,7 +733,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          */
 
         $slim->post('/code/:code', function ($code) use ($Controller, $apiKey, $MySQLiHelper, $slim, $sqlConf, $table, $attrs) {
-            echo json_encode($Controller->postToBy($Controller, $apiKey, $MySQLiHelper, $sqlConf, $table, 'code', $code, json_decode(json_encode($slim->request->post())), $attrs));
+            echo json_encode($Controller->postToBy($Controller, $apiKey, $MySQLiHelper, $sqlConf, $table, 'code', $code, json_decode(json_encode($slim->request->post()), true), $attrs));
         });
 
 
@@ -1170,7 +1170,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          */
 
         $slim->post('/code/:code', function ($code) use ($Controller, $apiKey, $MySQLiHelper, $slim, $sqlConf, $table, $attrs) {
-            echo json_encode($Controller->postToBy($Controller, $apiKey, $MySQLiHelper, $sqlConf, $table, 'code', $code, json_decode(json_encode($slim->request->post())), $attrs));
+            echo json_encode($Controller->postToBy($Controller, $apiKey, $MySQLiHelper, $sqlConf, $table, 'code', $code, json_decode(json_encode($slim->request->post()), true), $attrs));
         });
 
 
@@ -1610,7 +1610,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          */
 
         $slim->post('/code/:code', function ($code) use ($Controller, $apiKey, $MySQLiHelper, $slim, $sqlConf, $table, $attrs) {
-            echo json_encode($Controller->postToBy($Controller, $apiKey, $MySQLiHelper, $sqlConf, $table, 'code', $code, json_decode(json_encode($slim->request->post())), $attrs));
+            echo json_encode($Controller->postToBy($Controller, $apiKey, $MySQLiHelper, $sqlConf, $table, 'code', $code, json_decode(json_encode($slim->request->post()), true), $attrs));
         });
 
         /**
