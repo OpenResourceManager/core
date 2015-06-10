@@ -5,8 +5,8 @@
  * Date: 6/6/15
  * Time: 10:40 AM
  */
-//error_reporting(E_ALL);
-//ini_set("display_errors", 1);
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 
 require dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
 include_once dirname(dirname(dirname(__FILE__))) . '/lib/api/Controller.php';
@@ -327,7 +327,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          */
 
         $slim->get('/sageid/:sageid', function ($sageid) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
-            echo json_encode($Controller->getBy($apiKey, $MySQLiHelper, $sqlConf, $table,  'sageid', $sageid));
+            echo json_encode($Controller->getBy($apiKey, $MySQLiHelper, $sqlConf, $table, 'sageid', $sageid));
         });
 
 
@@ -416,7 +416,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          */
 
         $slim->get('/username/:username', function ($username) use ($apiKey, $MySQLiHelper, $Controller, $sqlConf, $table) {
-            echo json_encode($Controller->getBy($apiKey, $MySQLiHelper, $sqlConf, $table,  'username', $username));
+            echo json_encode($Controller->getBy($apiKey, $MySQLiHelper, $sqlConf, $table, 'username', $username));
         });
 
         /**
@@ -1932,9 +1932,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          */
     });
     $slim->run();
-    $mysqli->close();
 } else {
-    $mysqli->close();
     // Throw a 401 unauthorized, since the app is not authorized
     $Controller->unauthorized();
 }
