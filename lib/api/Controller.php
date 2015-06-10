@@ -29,7 +29,7 @@ class Controller
      * @param array $sqlConfig
      * @param string $table
      * @param string $by
-     * @param $value
+     * @param $byValue
      * @return array
      */
     public function getBy(array $apiKey, MySQLHelper $MySQLiHelper, array $sqlConfig, $table = '', $by = '', $byValue)
@@ -140,6 +140,7 @@ class Controller
      * @param mysqli $mysqli
      * @param MySQLHelper $MySQLiHelper
      * @param string $key
+     * @param string $apiKeyTableName
      * @return array|bool
      */
     function checkAPIKey(mysqli $mysqli, MySQLHelper $MySQLiHelper, $key = '', $apiKeyTableName = '')
