@@ -798,13 +798,13 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} RoleNotFound The id of the role was not found.
+         * @apiError {String} NotFound The id of the role was not found.
          * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
          *          "success": false,
-         *          "error": "RoleNotFound"
+         *          "error": "NotFound"
          *      }
          */
 
@@ -873,13 +873,13 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} RoleNotFound The Datatel code of the role was not found.
+         * @apiError {String} NotFound The Datatel code of the role was not found.
          * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
          *          "success": false,
-         *          "error": "RoleNotFound"
+         *          "error": "NotFound"
          *      }
          */
 
@@ -958,13 +958,13 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} RolesNotFound The was no roles found.
+         * @apiError {String} NotFound The was no roles found.
          * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
          *          "success": false,
-         *          "error": "RolesNotFound"
+         *          "error": "NotFound"
          *      }
          */
 
@@ -1236,13 +1236,13 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} BuildingNotFound The id of the building was not found.
+         * @apiError {String} NotFound The id of the building was not found.
          * @apiErrorExample Error-Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
          *          "success": false,
-         *          "error": "BuildingNotFound"
+         *          "error": "NotFound"
          *      }
          */
 
@@ -1312,13 +1312,13 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} BuildingNotFound The Datatel code of the building was not found.
+         * @apiError {String} NotFound The Datatel code of the building was not found.
          * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
          *          "success": false,
-         *          "error": "BuildingNotFound"
+         *          "error": "NotFound"
          *      }
          */
 
@@ -1399,13 +1399,13 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} BuildingsNotFound The was no buildings found.
+         * @apiError {String} NotFound The was no buildings found.
          * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
          *          "success": false,
-         *          "error": "BuildingsNotFound"
+         *          "error": "NotFound"
          *      }
          */
 
@@ -1674,13 +1674,13 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} BuildingNotFound The id of the campus was not found.
+         * @apiError {String} NotFound The id of the campus was not found.
          * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
          *          "success": false,
-         *          "error": "CampusNotFound"
+         *          "error": "NotFound"
          *      }
          */
 
@@ -1749,13 +1749,13 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} BuildingNotFound The Datatel code of the campus was not found.
+         * @apiError {String} NotFound The Datatel code of the campus was not found.
          * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
          *          "success": false,
-         *          "error": "CampusNotFound"
+         *          "error": "NotFound"
          *      }
          */
 
@@ -1834,13 +1834,13 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} CampusesNotFound The was no campuses found.
+         * @apiError {String} NotFound The was no campuses found.
          * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
          *          "success": false,
-         *          "error": "CampusesNotFound"
+         *          "error": "NotFound"
          *      }
          */
 
@@ -1952,18 +1952,18 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          * @apiSuccess {String} result The action that was performed. This may be `update` or `create`.
          * @apiExample {curl} Curl
          *      curl -H "X-Authorization: <Your-API-Key>" \
-         *      --data "name=Sage College of Albany" \
+         *      --data "name=INDIVIDUAL STUDIES" \
          *      --url https://databridge.sage.edu/v1/program/code/:code
          * @apiExample {ruby} Ruby
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/program/code/:code",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
-         *      parameters:{ :name => "Sage College of Albany"}.to_json
+         *      parameters:{ :name => "INDIVIDUAL STUDIES"}.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/program/code/:code");
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      curl_setopt($ch, CURLOPT_POST, true);
-         *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("name" => "Sage College of Albany");
+         *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("name" => "INDIVIDUAL STUDIES");
          *      $result = curl_exec($ch);
          *      curl_close($ch);
          * @apiExample {powershell} PowerShell
@@ -1971,14 +1971,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
          *      $uri = https://databridge.sage.edu/v1/program/code/:code
-         *      $body = @{ email2 = "Sage College of Albany" }
+         *      $body = @{ email2 = "INDIVIDUAL STUDIES" }
          *      $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method Post -Body $body
          * @apiExample {java} Java
          *      # This code snippet uses an open-source library. http://unirest.io/java
          *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/program/code/:code")
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
-         *      .body("{\"name\":\"Sage College of Albany\"}")
+         *      .body("{\"name\":\"INDIVIDUAL STUDIES\"}")
          *      .asString();
          * @apiExample {python} Python
          *      # This code snippet uses an open-source library http://unirest.io/python
@@ -1988,7 +1988,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *              "Accept": "application/json"
          *          },
          *          params={
-         *              "name": "Sage College of Albany"
+         *              "name": "INDIVIDUAL STUDIES"
          *          }
          *      )
          * @apiExample {.net} .NET
@@ -1996,7 +1996,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *       Task<HttpResponse<MyClass>> response = Unirest.post("https://databridge.sage.edu/v1/program/code/:code")
          *       .header("X-Authorization", "<Your-API-Key>")
          *       .header("Accept", "application/json")
-         *       .field("name", "Sage College of Albany")
+         *       .field("name", "INDIVIDUAL STUDIES")
          *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
@@ -2102,21 +2102,22 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *          "application": "Awesome Application",
          *          "success": true,
          *          "result": {
-         *              "id": "1",
-         *              "code": "TRY",
-         *              "name": "Russell Sage College"
+         *                  "id": "1",
+         *                  "code": "CE.NONMATRIC",
+         *                  "name": "CONTINUING EDUCATION NONMATRIC",
+         *                  "department": "1"
          *           }
          *     }
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} BuildingNotFound The id of the program was not found.
+         * @apiError {String} NotFound The id of the program was not found.
          * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
          *          "success": false,
-         *          "error": "CampusNotFound"
+         *          "error": "NotFound"
          *      }
          */
 
@@ -2177,21 +2178,22 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *          "application": "Awesome Application",
          *          "success": true,
          *          "result": {
-         *              "id": "1",
-         *              "code": "TRY",
-         *              "name": "Russell Sage College"
+         *                  "id": "1",
+         *                  "code": "CE.NONMATRIC",
+         *                  "name": "CONTINUING EDUCATION NONMATRIC",
+         *                  "department": "1"
          *           }
          *     }
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} BuildingNotFound The Datatel code of the program was not found.
+         * @apiError {String} NotFound The Datatel code of the program was not found.
          * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
          *          "success": false,
-         *          "error": "CampusNotFound"
+         *          "error": "NotFound"
          *      }
          */
 
@@ -2257,26 +2259,28 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *          "result": [
          *             {
          *                  "id": "1",
-         *                  "code": "TRY",
-         *                  "name": "Russell Sage College"
+         *                  "code": "CE.NONMATRIC",
+         *                  "name": "CONTINUING EDUCATION NONMATRIC",
+         *                  "department": "1"
          *              },
          *              {
          *                  "id": "2",
-         *                  "code": "ALB",
-         *                  "name": "Sage College of Albany"
+         *                  "code": "JCA.AA.INS",
+         *                  "name": "INDIVIDUAL STUDIES",
+         *                  "department": "2"
          *              }
          *          ]
          *     }
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} CampusesNotFound The was no campuses found.
+         * @apiError {String} NotFound The was no campuses found.
          * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
          *          "success": false,
-         *          "error": "CampusesNotFound"
+         *          "error": "NotFound"
          *      }
          */
 
@@ -2387,18 +2391,18 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          * @apiSuccess {String} result The action that was performed. This may be `update` or `create`.
          * @apiExample {curl} Curl
          *      curl -H "X-Authorization: <Your-API-Key>" \
-         *      --data "name=Sage College of Albany" \
+         *      --data "name=Education" \
          *      --url https://databridge.sage.edu/v1/department/code/:code
          * @apiExample {ruby} Ruby
          *      # This code snippet uses an open-source library. http://unirest.io/ruby
          *      response = Unirest.get "https://databridge.sage.edu/v1/department/code/:code",
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
-         *      parameters:{ :name => "Sage College of Albany"}.to_json
+         *      parameters:{ :name => "Education"}.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/department/code/:code");
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      curl_setopt($ch, CURLOPT_POST, true);
-         *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("name" => "Sage College of Albany");
+         *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("name" => "Education");
          *      $result = curl_exec($ch);
          *      curl_close($ch);
          * @apiExample {powershell} PowerShell
@@ -2406,14 +2410,14 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
          *      $headers.Add("X-Authorization", '<Your-API-Key>')
          *      $uri = https://databridge.sage.edu/v1/department/code/:code
-         *      $body = @{ email2 = "Sage College of Albany" }
+         *      $body = @{ email2 = "Education" }
          *      $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method Post -Body $body
          * @apiExample {java} Java
          *      # This code snippet uses an open-source library. http://unirest.io/java
          *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/department/code/:code")
          *      .header("X-Authorization", "<Your-API-Key>")
          *      .header("Accept", "application/json")
-         *      .body("{\"name\":\"Sage College of Albany\"}")
+         *      .body("{\"name\":\"Education\"}")
          *      .asString();
          * @apiExample {python} Python
          *      # This code snippet uses an open-source library http://unirest.io/python
@@ -2423,7 +2427,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *              "Accept": "application/json"
          *          },
          *          params={
-         *              "name": "Sage College of Albany"
+         *              "name": "Education"
          *          }
          *      )
          * @apiExample {.net} .NET
@@ -2431,7 +2435,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *       Task<HttpResponse<MyClass>> response = Unirest.post("https://databridge.sage.edu/v1/department/code/:code")
          *       .header("X-Authorization", "<Your-API-Key>")
          *       .header("Accept", "application/json")
-         *       .field("name", "Sage College of Albany")
+         *       .field("name", "Education")
          *       .asString();
          * @apiSuccessExample Success Response:
          *     HTTP/1.1 200 OK
@@ -2465,6 +2469,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *          "required": {
          *              "code": true,
          *              "name": true,
+         *              "academic" : false
          *          }
          *      }
          *
@@ -2537,21 +2542,22 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *          "application": "Awesome Application",
          *          "success": true,
          *          "result": {
-         *              "id": "1",
-         *              "code": "TRY",
-         *              "name": "Russell Sage College"
+         *              "id": "30",
+         *              "code": "EDU",
+         *              "name": "Education",
+         *              "academic": "1"
          *           }
          *     }
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} BuildingNotFound The id of the department was not found.
+         * @apiError {String} NotFound The id of the department was not found.
          * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
          *          "success": false,
-         *          "error": "CampusNotFound"
+         *          "error": "NotFound"
          *      }
          */
 
@@ -2613,20 +2619,21 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *          "success": true,
          *          "result": {
          *              "id": "1",
-         *              "code": "TRY",
-         *              "name": "Russell Sage College"
+         *              "code": "CEU",
+         *              "name": "Continuing Education",
+         *              "academic": "1"
          *           }
          *     }
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} BuildingNotFound The Datatel code of the department was not found.
+         * @apiError {String} NotFound The Datatel code of the department was not found.
          * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
          *          "success": false,
-         *          "error": "CampusNotFound"
+         *          "error": "NotFound"
          *      }
          */
 
@@ -2692,26 +2699,28 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *          "result": [
          *             {
          *                  "id": "1",
-         *                  "code": "TRY",
-         *                  "name": "Russell Sage College"
+         *                  "code": "CEU",
+         *                  "name": "Continuing Education",
+         *                  "academic": "1"
          *              },
          *              {
          *                  "id": "2",
-         *                  "code": "ALB",
-         *                  "name": "Sage College of Albany"
+         *                  "code": "HUM",
+         *                  "name": "Humanities",
+         *                  "academic": "1"
          *              }
          *          ]
          *     }
          *
          * @apiError {String} application The name of the application that is accessing the API.
          * @apiError {Boolean} success Tells the application if the request was successful.
-         * @apiError {String} CampusesNotFound The was no campuses found.
+         * @apiError {String} NotFound The was no campuses found.
          * @apiErrorExample Error Response:
          *      HTTP/1.1 404 Not Found
          *      {
          *          "application": "Awesome Application",
          *          "success": false,
-         *          "error": "CampusesNotFound"
+         *          "error": "NotFound"
          *      }
          */
 
