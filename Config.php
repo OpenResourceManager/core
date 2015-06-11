@@ -97,7 +97,7 @@ class Config
         return array(
             'code' => true,
             'name' => true,
-            'acedemic' => true
+            'academic' => true
         );
 
     }
