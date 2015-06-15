@@ -55,8 +55,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/user/sageid/:sageid");
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_POST, true);
-         *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("email2" => "lukeskywalker@gmail.com", "username" => "skywal");
+         *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("email2" => "lukeskywalker@gmail.com", "username" => "skywal"));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
          * @apiExample {powershell} PowerShell
@@ -173,6 +174,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/user/id/:id");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -261,6 +263,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/user/sageid/:sageid");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -350,6 +353,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/user/username/:username");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -441,6 +445,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/user/:limit");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -548,6 +553,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/user/");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -649,8 +655,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/role/code/:code");
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_POST, true);
-         *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("name" => "Alumni");
+         *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("name" => "Alumni"));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
          * @apiExample {powershell} PowerShell
@@ -756,6 +763,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/role/id/:id");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -831,6 +839,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/role/code/:code");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -909,6 +918,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/role/:limit");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -990,6 +1000,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/role/");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -1085,8 +1096,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/building/code/:code");
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_POST, true);
-         *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("name" => "Ackerman");
+         *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("name" => "Ackerman"));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
          * @apiExample {powershell} PowerShell
@@ -1193,6 +1205,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/building/id/:id");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -1269,6 +1282,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/building/code/:code");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -1348,6 +1362,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/building/:limit");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -1431,6 +1446,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/building/");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -1526,8 +1542,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/campus/code/:code");
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_POST, true);
-         *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("name" => "Sage College of Albany");
+         *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("name" => "Sage College of Albany"));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
          * @apiExample {powershell} PowerShell
@@ -1632,6 +1649,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/campus/id/:id");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -1707,6 +1725,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/campus/code/:code");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -1785,6 +1804,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/campus/:limit");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -1866,6 +1886,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/campus/");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -1961,6 +1982,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      parameters:{ :name => "INDIVIDUAL STUDIES"}.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/program/code/:code");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      curl_setopt($ch, CURLOPT_POST, true);
          *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("name" => "INDIVIDUAL STUDIES");
@@ -2068,6 +2090,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/program/id/:id");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -2144,6 +2167,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/program/code/:code");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -2223,6 +2247,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/program/:limit");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -2306,6 +2331,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/program/");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -2401,8 +2427,9 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/department/code/:code");
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_POST, true);
-         *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("name" => "Education");
+         *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("name" => "Education"));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
          * @apiExample {powershell} PowerShell
@@ -2508,6 +2535,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/department/id/:id");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -2584,6 +2612,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/department/code/:code");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -2663,6 +2692,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/department/:limit");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
@@ -2746,6 +2776,7 @@ if ($slim->request->headers->get('X-Authorization') && $apiKey = $Controller->ch
          *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
          * @apiExample {php} PHP
          *      $ch = curl_init("https://databridge.sage.edu/v1/department/");
+         *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
          *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
          *      $result = curl_exec($ch);
          *      curl_close($ch);
