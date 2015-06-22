@@ -26,6 +26,9 @@ class Config
             'db_program_table' => 'program_info',
             'db_department_table' => 'department_info',
             'db_api_key_table' => 'api_keys',
+            'db_user_dept' => 'user_departments',
+            'db_user_prog' => 'user_programs',
+            'db_user_role' => 'user_roles'
         );
     }
 
