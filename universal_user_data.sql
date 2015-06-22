@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 11, 2015 at 01:16 PM
+-- Generation Time: Jun 22, 2015 at 10:47 AM
 -- Server version: 1.0.19
 -- PHP Version: 5.4.39-0+deb7u2
 
@@ -695,10 +695,10 @@ INSERT INTO `role_info` (`id`, `code`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_info`
+-- Table structure for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `user_info` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sageid` int(7) NOT NULL,
   `username` varchar(255) NOT NULL,
@@ -706,19 +706,52 @@ CREATE TABLE IF NOT EXISTS `user_info` (
   `name_middle` varchar(255) DEFAULT NULL,
   `name_last` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `email2` varchar(255) DEFAULT NULL,
   `building` int(11) DEFAULT NULL,
-  `role` int(11) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '0',
-  `phone` int(10) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
   `room` int(3) DEFAULT NULL,
-  `program` int(11) DEFAULT NULL,
-  `department` int(11) DEFAULT NULL,
-  `has_photo_id` tinyint(1) DEFAULT '0',
-  `photo_id_url` varchar(255) DEFAULT NULL,
-  `photo_id_filename` varchar(255) DEFAULT NULL,
+  `floor` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_departments`
+--
+
+CREATE TABLE IF NOT EXISTS `user_departments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user` int(11) NOT NULL,
+  `department` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_programs`
+--
+
+CREATE TABLE IF NOT EXISTS `user_programs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user` int(11) NOT NULL,
+  `program` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_roles`
+--
+
+CREATE TABLE IF NOT EXISTS `user_roles` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `user` int(11) NOT NULL,
+  `role` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
