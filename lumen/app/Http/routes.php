@@ -12,21 +12,5 @@
 */
 
 $app->get('/', function () use ($app) {
-    return $app->welcome();
-});
-
-$app->group(['prefix' => 'api'], function () use ($app) {
-
-    $app->get('/', function () use ($app) {
-        return $app->welcome();
-    });
-
-    $app->group(['prefix' => 'v1'], function () use ($app) {
-
-        $app->get('/', function () use ($app) {
-            return $app->welcome();
-        });
-
-    });
-
+    return 'Hell World';
 });
