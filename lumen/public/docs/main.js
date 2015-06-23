@@ -1,12 +1,12 @@
 require.config({
     paths: {
-        bootstrap: './vendor/bootstrap.min.js',
-        diffMatchPatch: './vendor/diff_match_patch.min.js',
-        handlebars: './vendor/handlebars.min.js',
+        bootstrap: './vendor/bootstrap.min',
+        diffMatchPatch: './vendor/diff_match_patch.min',
+        handlebars: './vendor/handlebars.min',
         handlebarsExtended: './utils/handlebars_helper',
-        jquery: './vendor/jquery.min.js',
+        jquery: './vendor/jquery.min',
         locales: './locales/locale',
-        lodash: './vendor/lodash.min.js',
+        lodash: './vendor/lodash.min',
         pathToRegexp: './vendor/path-to-regexp/index',
         prettify: './vendor/prettify/prettify',
         utilsSampleRequest: './utils/send_sample_request',

@@ -6,7 +6,7 @@
   "url": "https://databridge.sage.edu/v1",
   "header": {
     "title": "Introduction",
-    "filename": "public/docs/header.md"
+    "filename": "lumen/public/docs/header.md"
   },
   "order ": [
     "Users",
