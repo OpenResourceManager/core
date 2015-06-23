@@ -4,7 +4,7 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
-    public function hello()
+    public static function hello()
     {
         return 'Hello';
     }
