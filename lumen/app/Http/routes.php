@@ -23,9 +23,7 @@ $app->group(['prefix' => 'api'], function () use ($app) {
 
     $app->group(['prefix' => 'api/v1'], function () use ($app) {
 
-        $app->get('/', function () use ($app) {
-            return $app->welcome();
-        });
+        $app->get('/', ['uses' => 'Controller@hello']);
 
     });
 
