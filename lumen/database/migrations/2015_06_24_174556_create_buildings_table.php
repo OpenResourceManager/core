@@ -18,6 +18,9 @@ class CreateBuildingsTable extends Migration
             $table->string('code');
             $table->string('name');
             $table->timestamps();
+        });
+
+        Schema::table('buildings', function($table) {
             $table->foreign('campus')->references('id')->on('campuses');
         });
     }

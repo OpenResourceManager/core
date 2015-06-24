@@ -18,6 +18,9 @@ class CreateProgramsTable extends Migration
             $table->string('code');
             $table->string('name');
             $table->timestamps();
+        });
+
+        Schema::table('programs', function ($table) {
             $table->foreign('department')->references('id')->on('departments');
         });
     }
