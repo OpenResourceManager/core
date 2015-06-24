@@ -70,11 +70,11 @@ class CreateTables extends Migration
     public function down()
     {
         Schema::table('buildings', function (Blueprint $table) {
-            $table->dropForeign('buildings_department_id_foreign');
+            $table->dropForeign('buildings_department_foreign');
         });
 
         Schema::table('programs', function (Blueprint $table) {
-            $table->dropForeign('programs_campus_id_foreign');
+            $table->dropForeign('programs_campus_foreign');
         });
 
         Schema::drop('users');
