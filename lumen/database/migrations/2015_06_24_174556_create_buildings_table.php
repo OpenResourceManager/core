@@ -18,8 +18,7 @@ class CreateBuildingsTable extends Migration
             $table->string('code');
             $table->string('name');
             $table->timestamps();
-
-            $table->foreign('campus')->references('id')->on('campuses');
+           // $table->foreign('campus')->references('id')->on('campuses');
         });
     }
 
