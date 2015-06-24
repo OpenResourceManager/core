@@ -18,7 +18,7 @@ class CreateProgramsTable extends Migration
             $table->string('code');
             $table->string('name');
             $table->timestamps();
-           // $table->foreign('department')->references('id')->on('departments');
+            $table->foreign('department')->references('id')->on('departments');
         });
     }
 
