@@ -11,8 +11,6 @@
 |
 */
 
-use App\Http\Controllers\Controller;
-
 $app->get('/', function () use ($app) {
     return $app->welcome();
 });
@@ -25,7 +23,9 @@ $app->group(['prefix' => 'api'], function () use ($app) {
 
     $app->group(['prefix' => 'api/v1'], function () use ($app) {
 
-        return Controller::hello();
+        $app->get('/', function () use ($app) {
+            return $app->welcome();
+        });
 
     });
 
