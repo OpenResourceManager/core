@@ -14,6 +14,10 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 class UserController extends BaseController
 {
 
+    /**
+     * @param int $limit
+     * @return string
+     */
     public function getUsers($limit = 0)
     {
         if ($limit > 0) {
@@ -23,9 +27,40 @@ class UserController extends BaseController
         }
     }
 
-    public function getUser($id)
+    /**
+     * @param $id
+     * @return string
+     */
+    public function getById($id)
     {
+        if ($user = User::where('id', $id)->get()) {
+            return json_encode($user);
+        } else {
+            return json_encode(
+                array(
+                    "success" => false,
+                    "error" => "NotFound"
+                )
+            );
+        }
+    }
 
+    /**
+     * @param $sageid
+     * @return string
+     */
+    public function getBySageID($sageid)
+    {
+        if ($user = User::where('sageid', $sageid)->get()) {
+            return json_encode($user);
+        } else {
+            return json_encode(
+                array(
+                    "success" => false,
+                    "error" => "NotFound"
+                )
+            );
+        }
     }
 
 
