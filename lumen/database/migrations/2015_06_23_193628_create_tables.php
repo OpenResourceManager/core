@@ -60,6 +60,35 @@ class CreateTables extends Migration
             $table->timestamps();
             $table->foreign('department')->references('id')->on('departments');
         });
+
+        Schema::create('emails', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('user');
+            $table->string('email')->unique();
+            $table->timestamps();
+            $table->foreign('user')->references('id')->on('users');
+        });
+
+        Schema::create('phones', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('user');
+            $table->string('number', 11)->unique();
+            $table->string('ext', 5)->nullable();
+            $table->timestamps();
+            $table->foreign('user')->references('id')->on('users');
+        });
+
+        Schema::create('rooms', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('user');
+            $table->unsignedInteger('building');
+            $table->integer('number', 4);
+            $table->string('name')->nullable();
+            $table->timestamps();
+            $table->foreign('user')->references('id')->on('users');
+            $table->foreign('building')->references('id')->on('buildings');
+        });
+
     }
 
     /**
@@ -77,11 +106,27 @@ class CreateTables extends Migration
             $table->dropForeign('programs_department_foreign');
         });
 
+        Schema::table('emails', function (Blueprint $table) {
+            $table->dropForeign('emails_users_foreign');
+        });
+
+        Schema::table('phones', function (Blueprint $table) {
+            $table->dropForeign('phones_users_foreign');
+        });
+
+        Schema::table('rooms', function (Blueprint $table) {
+            $table->dropForeign('rooms_users_foreign');
+            $table->dropForeign('rooms_buildings_foreign');
+        });
+
         Schema::drop('users');
         Schema::drop('roles');
         Schema::drop('campuses');
         Schema::drop('buildings');
         Schema::drop('departments');
         Schema::drop('programs');
+        Schema::drop('emails');
+        Schema::drop('phones');
+        Schema::drop('rooms');
     }
 }

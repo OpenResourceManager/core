@@ -95,3 +95,15 @@ $app->group(['prefix' => 'v1/department'], function () use ($app) {
     $app->get('/{limit}', 'App\Http\Controllers\DepartmentController@get');
 
 });
+
+$app->group(['prefix' => 'v1/email'], function () use ($app) {
+
+});
+
+$app->group(['prefix' => 'v1/phone'], function () use ($app) {
+
+});
+
+$app->group(['prefix' => 'v1/room'], function () use ($app) {
+
+});
