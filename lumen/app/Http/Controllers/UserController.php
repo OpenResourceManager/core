@@ -33,7 +33,8 @@ class UserController extends BaseController
      */
     public function getById($id)
     {
-        if ($user = User::where('id', $id)->get()) {
+        $user = User::where('id', $id)->get();
+        if ($user && !is_null($user) && !empty($user)) {
             return json_encode($user);
         } else {
             return json_encode(
@@ -51,7 +52,8 @@ class UserController extends BaseController
      */
     public function getBySageID($sageid)
     {
-        if ($user = User::where('sageid', $sageid)->get()) {
+        $user = User::where('sageid', $sageid)->get();
+        if ($user && !is_null($user) && !empty($user)) {
             return json_encode($user);
         } else {
             return json_encode(
