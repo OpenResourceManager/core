@@ -32,9 +32,9 @@ class UserController extends BaseController
      */
     public function getById($id)
     {
-        $user = User::where('id', $id)->get();
-        if ($user && !is_null($user) && !empty($user) && sizeof($user) > 0) {
-            return json_encode($user);
+        $obj = User::where('id', $id)->get();
+        if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+            return json_encode($obj);
         } else {
             return json_encode(
                 array(
@@ -51,9 +51,9 @@ class UserController extends BaseController
      */
     public function getBySageID($sageid)
     {
-        $user = User::where('sageid', $sageid)->get();
-        if ($user && !is_null($user) && !empty($user) && sizeof($user) > 0) {
-            return json_encode($user);
+        $obj = User::where('sageid', $sageid)->get();
+        if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+            return json_encode($obj);
         } else {
             return json_encode(
                 array(

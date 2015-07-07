@@ -25,4 +25,42 @@ class ProgramController extends BaseController
         }
     }
 
+    /**
+     * @param $id
+     * @return string
+     */
+    public function getById($id)
+    {
+        $obj = Program::where('id', $id)->get();
+        if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+            return json_encode($obj);
+        } else {
+            return json_encode(
+                array(
+                    "success" => false,
+                    "error" => "NotFound"
+                )
+            );
+        }
+    }
+
+    /**
+     * @param $code
+     * @return string
+     */
+    public function getByCodeID($code)
+    {
+        $obj = Program::where('code', $code)->get();
+        if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+            return json_encode($obj);
+        } else {
+            return json_encode(
+                array(
+                    "success" => false,
+                    "error" => "NotFound"
+                )
+            );
+        }
+    }
+
 }
