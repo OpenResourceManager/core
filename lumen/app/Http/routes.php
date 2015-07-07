@@ -24,13 +24,13 @@ $app->group(['prefix' => 'v1'], function () use ($app) {
 
     $app->group(['prefix' => 'user'], function () use ($app) {
 
-        $app->get('/', function () use ($app) {
-            return $app->welcome();
-        });
-        $app->post('/', 'App\Http\Controllers\UserController@postUser');
-
         $app->get('id/{id}', 'App\Http\Controllers\UserController@getByID');
         $app->get('sageid/{sageid}', 'App\Http\Controllers\UserController@getBySageID');
+
+        $app->get('/', 'App\Http\Controllers\UserController@getUsers');
+        $app->get('/{limit}', 'App\Http\Controllers\UserController@getUsers');
+
+        $app->post('/', 'App\Http\Controllers\UserController@postUser');
 
     });
 

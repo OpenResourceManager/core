@@ -14,6 +14,19 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 class UserController extends BaseController
 {
 
+    public function getUsers($limit = 0)
+    {
+        if ($limit > 0) {
+            return json_encode(User::all()->take($limit));
+        } else {
+            return json_encode(User::all());
+        }
+    }
+
+    public function getUser($id)
+    {
+
+    }
 
 
 }
