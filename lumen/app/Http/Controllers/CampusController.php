@@ -50,7 +50,7 @@ class CampusController extends BaseController
      * @param $code
      * @return string
      */
-    public function getByCodeID($code)
+    public function getByCode($code)
     {
         $obj = Campus::where('code', $code)->get();
         if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
