@@ -24,13 +24,13 @@ $app->group(['prefix' => 'v1'], function () use ($app) {
 
     $app->group(['prefix' => 'user'], function () use ($app) {
 
+        $app->post('/', 'App\Http\Controllers\UserController@postUser');
+
         $app->get('id/{id}', 'App\Http\Controllers\UserController@getByID');
         $app->get('sageid/{sageid}', 'App\Http\Controllers\UserController@getBySageID');
 
         $app->get('/', 'App\Http\Controllers\UserController@get');
         $app->get('/{limit}', 'App\Http\Controllers\UserController@get');
-
-        $app->post('/', 'App\Http\Controllers\UserController@postUser');
 
     });
 
@@ -52,6 +52,7 @@ $app->group(['prefix' => 'v1'], function () use ($app) {
 
         $app->get('id/{id}', 'App\Http\Controllers\BuildingController@getByID');
         $app->get('code/{code}', 'App\Http\Controllers\BuildingController@getByCode');
+        $app->get('campus/{campusId}', 'App\Http\Controllers\BuildingController@getByCampus');
 
         $app->get('/', 'App\Http\Controllers\BuildingController@get');
         $app->get('/{limit}', 'App\Http\Controllers\BuildingController@get');
@@ -76,6 +77,7 @@ $app->group(['prefix' => 'v1'], function () use ($app) {
 
         $app->get('id/{id}', 'App\Http\Controllers\ProgramController@getByID');
         $app->get('code/{code}', 'App\Http\Controllers\ProgramController@getByCode');
+        $app->get('department/{departmentId}', 'App\Http\Controllers\ProgramController@getByDepartment');
 
         $app->get('/', 'App\Http\Controllers\ProgramController@get');
         $app->get('/{limit}', 'App\Http\Controllers\ProgramController@get');

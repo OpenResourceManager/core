@@ -12,7 +12,6 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 
 class UserController extends BaseController
 {
-
     /**
      * @param int $limit
      * @return string
@@ -63,6 +62,4 @@ class UserController extends BaseController
             );
         }
     }
-
-
 }

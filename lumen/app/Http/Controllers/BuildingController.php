@@ -63,4 +63,23 @@ class BuildingController extends BaseController
         }
     }
 
+    /**
+     * @param $campusId
+     * @return string
+     */
+    public function getByCampus($campusId)
+    {
+        $obj = Building::where('campus', $campusId)->get();
+        if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+            return json_encode($obj);
+        } else {
+            return json_encode(
+                array(
+                    "success" => false,
+                    "error" => "NotFound"
+                )
+            );
+        }
+    }
+
 }

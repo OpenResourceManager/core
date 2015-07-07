@@ -63,4 +63,23 @@ class ProgramController extends BaseController
         }
     }
 
+    /**
+     * @param $depId
+     * @return string
+     */
+    public function getByDepartment($departmentId)
+    {
+        $obj = Program::where('department', $departmentId)->get();
+        if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+            return json_encode($obj);
+        } else {
+            return json_encode(
+                array(
+                    "success" => false,
+                    "error" => "NotFound"
+                )
+            );
+        }
+    }
+
 }
