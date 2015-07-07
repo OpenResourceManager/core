@@ -22,7 +22,7 @@ $app->group(['prefix' => 'v1'], function () use ($app) {
     });
 
 
-    $app->group(['prefix' => 'user'], function () use ($app) {
+    $app->group(['prefix' => 'v1/user'], function () use ($app) {
 
         $app->post('/', 'App\Http\Controllers\UserController@postUser');
 
@@ -34,7 +34,7 @@ $app->group(['prefix' => 'v1'], function () use ($app) {
 
     });
 
-    $app->group(['prefix' => 'role'], function () use ($app) {
+    $app->group(['prefix' => 'v1/role'], function () use ($app) {
 
         $app->post('/', 'App\Http\Controllers\RoleController@postRole');
 
@@ -46,7 +46,7 @@ $app->group(['prefix' => 'v1'], function () use ($app) {
 
     });
 
-    $app->group(['prefix' => 'building'], function () use ($app) {
+    $app->group(['prefix' => 'v1/building'], function () use ($app) {
 
         $app->post('/', 'App\Http\Controllers\BuildingController@postBuilding');
 
@@ -59,7 +59,7 @@ $app->group(['prefix' => 'v1'], function () use ($app) {
 
     });
 
-    $app->group(['prefix' => 'campus'], function () use ($app) {
+    $app->group(['prefix' => 'v1/campus'], function () use ($app) {
 
         $app->post('/', 'App\Http\Controllers\CampusController@postCampus');
 
@@ -71,7 +71,7 @@ $app->group(['prefix' => 'v1'], function () use ($app) {
 
     });
 
-    $app->group(['prefix' => 'program'], function () use ($app) {
+    $app->group(['prefix' => 'v1/program'], function () use ($app) {
 
         $app->post('/', 'App\Http\Controllers\ProgramController@postProgram');
 
@@ -84,7 +84,7 @@ $app->group(['prefix' => 'v1'], function () use ($app) {
 
     });
 
-    $app->group(['prefix' => 'department'], function () use ($app) {
+    $app->group(['prefix' => 'v1/department'], function () use ($app) {
 
         $app->post('/', 'App\Http\Controllers\DepartmentController@postDepartment');
 
