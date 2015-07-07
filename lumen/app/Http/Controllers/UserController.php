@@ -1,12 +1,11 @@
-<?php
+<?php namespace App\Http\Controllers;
+
 /**
  * Created by PhpStorm.
  * User: melon
  * Date: 6/24/15
  * Time: 1:25 PM
  */
-
-namespace App\Http\Controllers;
 
 use App\User;
 use Laravel\Lumen\Routing\Controller as BaseController;
@@ -18,7 +17,7 @@ class UserController extends BaseController
      * @param int $limit
      * @return string
      */
-    public function getUsers($limit = 0)
+    public function get($limit = 0)
     {
         if ($limit > 0) {
             return json_encode(User::all()->take($limit));
