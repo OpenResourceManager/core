@@ -109,16 +109,16 @@ class CreateTables extends Migration
         });
 
         Schema::table('emails', function (Blueprint $table) {
-            $table->dropForeign('emails_users_foreign');
+            $table->dropForeign('emails_user_foreign');
         });
 
         Schema::table('phones', function (Blueprint $table) {
-            $table->dropForeign('phones_users_foreign');
+            $table->dropForeign('phones_user_foreign');
         });
 
         Schema::table('rooms', function (Blueprint $table) {
-            $table->dropForeign('rooms_users_foreign');
-            $table->dropForeign('rooms_buildings_foreign');
+            $table->dropForeign('rooms_user_foreign');
+            $table->dropForeign('rooms_building_foreign');
         });
 
         Schema::drop('users');
