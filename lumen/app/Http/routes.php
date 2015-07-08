@@ -106,7 +106,7 @@ $app->group(['prefix' => 'v1/email'], function () use ($app) {
     $app->get('id/{id}', 'App\Http\Controllers\EmailController@getByID');
     $app->get('user/{id}', 'App\Http\Controllers\EmailController@getByUser');
 
-    $app->get('/', 'App\Http\Controller\EmailController@get');
+    $app->get('/', 'App\Http\Controllers\EmailController@get');
     $app->get('/{limit}', 'App\Http\Controllers\EmailController@get');
 
 });
