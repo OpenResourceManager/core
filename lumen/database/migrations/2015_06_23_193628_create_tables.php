@@ -82,9 +82,9 @@ class CreateTables extends Migration
             $table->increments('id');
             $table->unsignedInteger('user');
             $table->unsignedInteger('building');
-            $table->integer('floor', 3)->nullable();
+            $table->unsignedInteger('floor', 3)->nullable();
             $table->string('floor_name')->nullable();
-            $table->integer('number', 4);
+            $table->unsignedInteger('number', 4);
             $table->string('room_name')->nullable();
             $table->timestamps();
             $table->foreign('user')->references('id')->on('users');
