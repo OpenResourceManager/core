@@ -91,20 +91,34 @@ class UserController extends BaseController
             ));
         }
 
-        $user = new User();
+        $sageid = intval($request->input('sageid'));
+
+        $user = User::findOrNew(['sageid' => $sageid]);
+
+        $updated = false;
         foreach ($request->input() as $key => $value) {
+            if ($user->$key != $value) $updated = true;
             $user->$key = $value;
         }
+
         if ($user->save()) {
-            return json_encode(array(
-                'success' => true,
-                'message' => 'create'
-            ));
+            if ($updated) {
+                return json_encode(array(
+                    'success' => true,
+                    'message' => 'update'
+                ));
+            } else {
+                return json_encode(array(
+                    'success' => true,
+                    'message' => 'create'
+                ));
+            }
         } else {
             return json_encode(array(
                 'success' => false,
                 'message' => $user->errors()->all()
             ));
         }
+
     }
 }
