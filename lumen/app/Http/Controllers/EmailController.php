@@ -7,8 +7,6 @@
  * Time: 3:46 PM
  */
 
-ini_set('error_reporting', E_ALL);
-
 use App\Email;
 use Laravel\Lumen\Routing\Controller as BaseController;
 

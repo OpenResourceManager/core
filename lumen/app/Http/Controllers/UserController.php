@@ -7,6 +7,9 @@
  * Time: 1:25 PM
  */
 
+use App\Email;
+use App\Phone;
+use App\Room;
 use App\User;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
@@ -33,6 +36,9 @@ class UserController extends BaseController
     {
         $obj = User::where('id', $id)->get();
         if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+            $obj->email = Email::where('user', $obj->id)->get();
+            $obj->phone = Phone::where('user', $obj->id)->get();
+            $obj->room = Room::where('user', $obj->id)->get();
             return json_encode($obj);
         } else {
             return json_encode(
@@ -52,6 +58,9 @@ class UserController extends BaseController
     {
         $obj = User::where('sageid', $sageid)->get();
         if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+            $obj->email = Email::where('user', $obj->id)->get();
+            $obj->phone = Phone::where('user', $obj->id)->get();
+            $obj->room = Room::where('user', $obj->id)->get();
             return json_encode($obj);
         } else {
             return json_encode(
