@@ -11,6 +11,7 @@ use App\Email;
 use App\Phone;
 use App\Room;
 use App\User;
+use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class UserController extends BaseController
@@ -70,5 +71,22 @@ class UserController extends BaseController
                 )
             );
         }
+    }
+
+    public function post(Request $request)
+    {
+        $this->validate($request, [
+            'sageid' => 'required|unique:users|max:7|min:6',
+            'active' => 'required',
+            'name_first' => 'required|min:1',
+            'name_last' => 'required|min:1',
+            'username' => 'required|unique:users|max:11|min:3'
+        ]);
+
+        $user = new User();
+        foreach ($request->input() as $key => $value) {
+            $user->$key = $value;
+        }
+        $user->save();
     }
 }
