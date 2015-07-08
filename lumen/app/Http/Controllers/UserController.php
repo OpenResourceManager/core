@@ -100,9 +100,8 @@ class UserController extends BaseController
             if (isset($user->$key)) {
                 if ($user->$key != $value) $updated = true;
             }
+            $user->$key = $value;
         }
-
-        $user->fill($request->input());
 
         if ($user->save()) {
             if ($updated) {
