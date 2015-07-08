@@ -16,6 +16,18 @@ class PhoneTableSeeder extends Seeder
     {
         Model::unguard();
 
-    }
+        $phones = array(
+            array(1, '15182445765', '4765'),
+            array(1, '15182442000', '4765'),
+            array(1, '15187032319', null)
+        );
 
+        foreach ($phones as $phoneArr) {
+            $phone = new Phone();
+            $phone->user = $phoneArr[0];
+            $phone->number = $phoneArr[1];
+            $phone->ext = $phoneArr[2];
+            $phone->save();
+        }
+    }
 }

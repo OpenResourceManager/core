@@ -16,6 +16,19 @@ class RoomTableSeeder extends Seeder
     {
         Model::unguard();
 
-    }
+        $rooms = array(
+            array(1, 17, 0, 'Basement', 1, 'Network Office')
+        );
 
+        foreach ($rooms as $roomArr) {
+            $room = new Room();
+            $room->user = $roomArr[0];
+            $room->building = $roomArr[1];
+            $room->floor = $roomArr[2];
+            $room->floor_name = $roomArr[3];
+            $room->room = $roomArr[4];
+            $room->room_name = $roomArr[5];
+            $room->save();
+        }
+    }
 }
