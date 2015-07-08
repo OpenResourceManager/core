@@ -93,28 +93,36 @@ class UserController extends BaseController
         }
 
         if (User::where('sageid', $request->input('sageid'))->get()->first()) {
-            $user = User::where('sageid', $request->input('sageid'))->get()->first();
-            $task = 'update';
+            if (User::where('sageid', $request->input('sageid'))->update($request->input())) {
+                return json_encode(array(
+                    'success' => true,
+                    'message' => 'update'
+                ));
+            } else {
+                return json_encode(array(
+                    'success' => false,
+                    'message' => 'Could not update'
+                ));
+            }
+
         } else {
             $user = new User();
-            $task = 'create';
-        }
 
-        foreach ($request->input() as $key => $value) {
-            $user->$key = $value;
-        }
+            foreach ($request->input() as $key => $value) {
+                $user->$key = $value;
+            }
 
-        if ($user->save()) {
-            return json_encode(array(
-                'success' => true,
-                'message' => $task
-            ));
-        } else {
-            return json_encode(array(
-                'success' => false,
-                'message' => $user->errors()->all()
-            ));
+            if ($user->save()) {
+                return json_encode(array(
+                    'success' => true,
+                    'message' => 'create'
+                ));
+            } else {
+                return json_encode(array(
+                    'success' => false,
+                    'message' => $user->errors()->all()
+                ));
+            }
         }
-
     }
 }
