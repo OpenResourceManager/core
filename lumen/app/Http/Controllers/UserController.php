@@ -12,6 +12,7 @@ use App\Phone;
 use App\Room;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class UserController extends BaseController
@@ -45,7 +46,7 @@ class UserController extends BaseController
             return json_encode(
                 array(
                     "success" => false,
-                    "error" => "NotFound"
+                    "message" => "NotFound"
                 )
             );
         }
@@ -67,7 +68,7 @@ class UserController extends BaseController
             return json_encode(
                 array(
                     "success" => false,
-                    "error" => "NotFound"
+                    "message" => "NotFound"
                 )
             );
         }
@@ -75,18 +76,35 @@ class UserController extends BaseController
 
     public function post(Request $request)
     {
-        $this->validate($request, [
-            'sageid' => 'required|unique:users|max:7|min:6',
-            'active' => 'required',
+        $validator = Validator::make($request->all(), [
+            'sageid' => 'required|max:7|min:6',
+            'active' => 'required|max:1|min:1',
             'name_first' => 'required|min:1',
             'name_last' => 'required|min:1',
-            'username' => 'required|unique:users|max:11|min:3'
+            'username' => 'required|max:11|min:3'
         ]);
+
+        if ($validator->fails()) {
+            return json_encode(array(
+                'success' => false,
+                'message' => $validator->errors()->all()
+            ));
+        }
 
         $user = new User();
         foreach ($request->input() as $key => $value) {
             $user->$key = $value;
         }
-        $user->save();
+        if ($user->save()) {
+            return json_encode(array(
+                'success' => true,
+                'message' => 'create'
+            ));
+        } else {
+            return json_encode(array(
+                'success' => false,
+                'message' => $user->errors()->all()
+            ));
+        }
     }
 }
