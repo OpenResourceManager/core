@@ -19,7 +19,9 @@ class EmailTableSeeder extends Seeder
         $emails = array(
             1 => 'markea@sage.edu',
             1 => 'markea125@gmail.com',
-            1 => 'markea@almyz125.com'
+            1 => 'markea@almyz125.com',
+            2 => 'starna@sage.edu',
+            3 => 'harrij8@sage.edu'
         );
 
         foreach ($emails as $user => $email_address) {

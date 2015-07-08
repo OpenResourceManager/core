@@ -17,16 +17,23 @@ class UserTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $user = new User();
+        $users = array(
+            array(970620, true, 'Alex', 'L', 'Markessinis', 'markea'),
+            array(970621, true, 'Adam', null, 'Starnes', 'starna'),
+            array(970623, true, 'John', null, 'Harris', 'harrij8')
+        );
 
-        $user->sageid = 970620;
-        $user->active = true;
-        $user->name_first = 'Alex';
-        $user->name_middle = 'L';
-        $user->name_last = 'Markessinis';
-        $user->username = 'markea';
 
-        $user->save();
+        foreach ($users as $userArr) {
+            $user = new User();
+            $user->sageid = $userArr[0];
+            $user->active = $userArr[1];
+            $user->name_first = $userArr[2];
+            $user->name_middle = $userArr[3];
+            $user->name_last = $userArr[4];
+            $user->username = $userArr[5];
+            $user->save();
+        }
 
     }
 

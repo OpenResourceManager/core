@@ -17,7 +17,9 @@ class RoomTableSeeder extends Seeder
         Model::unguard();
 
         $rooms = array(
-            array(1, 17, 0, 'Basement', 1, 'Network Office')
+            array(1, 17, 0, 'Basement', 1, 'Network Office'),
+            array(2, 17, 0, 'Basement', 1, 'Network Office'),
+            array(3, 17, 0, 'Basement', 1, 'Network Office')
         );
 
         foreach ($rooms as $roomArr) {

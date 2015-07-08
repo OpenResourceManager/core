@@ -18,8 +18,9 @@ class PhoneTableSeeder extends Seeder
 
         $phones = array(
             array(1, '15182445765', '4765'),
-            array(1, '15182442000', '4765'),
-            array(1, '15187032319', null)
+            array(1, '15187032319', null),
+            array(2, '15182442355', '2355'),
+            array(3, '15182444582', '4582'),
         );
 
         foreach ($phones as $phoneArr) {
