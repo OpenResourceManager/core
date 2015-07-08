@@ -36,9 +36,9 @@ class UserController extends BaseController
     {
         $obj = User::where('id', $id)->get()->first();
         if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-            $obj->email = Email::where('user', $obj->id)->get('email');
-            $obj->phone = Phone::where('user', $obj->id)->get('number', 'ext');
-            $obj->room = Room::where('user', $obj->id)->get('building', 'floor_number', 'floor_name', 'room_number', 'room_name');
+            $obj->email = Email::where('user', $obj->id)->get(array('email'));
+            $obj->phone = Phone::where('user', $obj->id)->get(array('number', 'ext'));
+            $obj->room = Room::where('user', $obj->id)->get(array('building', 'floor_number', 'floor_name', 'room_number', 'room_name'));
             return json_encode($obj);
         } else {
             return json_encode(
@@ -58,9 +58,9 @@ class UserController extends BaseController
     {
         $obj = User::where('sageid', $sageid)->get()->first();
         if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-            $obj->email = Email::where('user', $obj->id)->get('email');
-            $obj->phone = Phone::where('user', $obj->id)->get('number', 'ext');
-            $obj->room = Room::where('user', $obj->id)->get('building', 'floor_number', 'floor_name', 'room_number', 'room_name');
+            $obj->email = Email::where('user', $obj->id)->get(array('email'));
+            $obj->phone = Phone::where('user', $obj->id)->get(array('number', 'ext'));
+            $obj->room = Room::where('user', $obj->id)->get(array('building', 'floor_number', 'floor_name', 'room_number', 'room_name'));
             return json_encode($obj);
         } else {
             return json_encode(
