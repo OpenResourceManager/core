@@ -94,10 +94,10 @@ class UserController extends BaseController
 
         if (User::where('sageid', $request->input('sageid'))->get()->first()) {
             $user = User::where('sageid', $request->input('sageid'))->get()->first();
-            $updated = true;
+            $task = 'update';
         } else {
             $user = new User();
-            $updated = false;
+            $task = 'create';
         }
 
         foreach ($request->input() as $key => $value) {
@@ -105,17 +105,10 @@ class UserController extends BaseController
         }
 
         if ($user->save()) {
-            if ($updated) {
-                return json_encode(array(
-                    'success' => true,
-                    'message' => 'update'
-                ));
-            } else {
-                return json_encode(array(
-                    'success' => true,
-                    'message' => 'create'
-                ));
-            }
+            return json_encode(array(
+                'success' => true,
+                'message' => $task
+            ));
         } else {
             return json_encode(array(
                 'success' => false,
