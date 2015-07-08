@@ -17,17 +17,17 @@ class EmailTableSeeder extends Seeder
         Model::unguard();
 
         $emails = array(
-            1 => 'markea@sage.edu',
-            1 => 'markea125@gmail.com',
-            1 => 'markea@almyz125.com',
-            2 => 'starna@sage.edu',
-            3 => 'harrij8@sage.edu'
+            array(1, 'markea@sage.edu'),
+            array(1, 'markea125@gmail.com'),
+            array(1, 'markea@almyz125.com'),
+            array(2, 'starna@sage.edu'),
+            array(3, 'harrij8@sage.edu')
         );
 
-        foreach ($emails as $user => $email_address) {
+        foreach ($emails as $emailArr) {
             $email = new Email();
-            $email->user = $user;
-            $email->email = $email_address;
+            $email->user = $emailArr[0];
+            $email->email = $emailArr[1];
             $email->save();
         }
 
