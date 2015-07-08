@@ -24,7 +24,7 @@ $app->group(['prefix' => 'v1'], function () use ($app) {
 
 $app->group(['prefix' => 'v1/user'], function () use ($app) {
 
-    $app->post('/', 'App\Http\Controllers\UserController@postUser');
+    $app->post('/', 'App\Http\Controllers\UserController@post');
 
     $app->get('id/{id}', 'App\Http\Controllers\UserController@getByID');
     $app->get('sageid/{sageid}', 'App\Http\Controllers\UserController@getBySageID');
@@ -36,7 +36,7 @@ $app->group(['prefix' => 'v1/user'], function () use ($app) {
 
 $app->group(['prefix' => 'v1/role'], function () use ($app) {
 
-    $app->post('/', 'App\Http\Controllers\RoleController@postRole');
+    $app->post('/', 'App\Http\Controllers\RoleController@post');
 
     $app->get('id/{id}', 'App\Http\Controllers\RoleController@getByID');
     $app->get('code/{code}', 'App\Http\Controllers\RoleController@getByCode');
@@ -48,7 +48,7 @@ $app->group(['prefix' => 'v1/role'], function () use ($app) {
 
 $app->group(['prefix' => 'v1/building'], function () use ($app) {
 
-    $app->post('/', 'App\Http\Controllers\BuildingController@postBuilding');
+    $app->post('/', 'App\Http\Controllers\BuildingController@post');
 
     $app->get('id/{id}', 'App\Http\Controllers\BuildingController@getByID');
     $app->get('code/{code}', 'App\Http\Controllers\BuildingController@getByCode');
@@ -61,7 +61,7 @@ $app->group(['prefix' => 'v1/building'], function () use ($app) {
 
 $app->group(['prefix' => 'v1/campus'], function () use ($app) {
 
-    $app->post('/', 'App\Http\Controllers\CampusController@postCampus');
+    $app->post('/', 'App\Http\Controllers\CampusController@post');
 
     $app->get('id/{id}', 'App\Http\Controllers\CampusController@getByID');
     $app->get('code/{code}', 'App\Http\Controllers\CampusController@getByCode');
@@ -73,7 +73,7 @@ $app->group(['prefix' => 'v1/campus'], function () use ($app) {
 
 $app->group(['prefix' => 'v1/program'], function () use ($app) {
 
-    $app->post('/', 'App\Http\Controllers\ProgramController@postProgram');
+    $app->post('/', 'App\Http\Controllers\ProgramController@post');
 
     $app->get('id/{id}', 'App\Http\Controllers\ProgramController@getByID');
     $app->get('code/{code}', 'App\Http\Controllers\ProgramController@getByCode');
@@ -86,7 +86,7 @@ $app->group(['prefix' => 'v1/program'], function () use ($app) {
 
 $app->group(['prefix' => 'v1/department'], function () use ($app) {
 
-    $app->post('/', 'App\Http\Controllers\DepartmentController@postDepartment');
+    $app->post('/', 'App\Http\Controllers\DepartmentController@post');
 
     $app->get('id/{id}', 'App\Http\Controllers\DepartmentController@getByID');
     $app->get('code/{code}', 'App\Http\Controllers\DepartmentController@getByCode');
@@ -98,7 +98,7 @@ $app->group(['prefix' => 'v1/department'], function () use ($app) {
 
 $app->group(['prefix' => 'v1/email'], function () use ($app) {
 
-    $app->post('/', 'App\Http\Controllers\EmailController@postDepartment');
+    $app->post('/', 'App\Http\Controllers\EmailController@post');
 
     $app->get('id/{id}', 'App\Http\Controllers\EmailController@getByID');
     $app->get('user/{id}', 'App\Http\Controllers\EmailController@getByUser');
@@ -110,7 +110,7 @@ $app->group(['prefix' => 'v1/email'], function () use ($app) {
 
 $app->group(['prefix' => 'v1/phone'], function () use ($app) {
 
-    $app->post('/', 'App\Http\Controllers\PhoneController@postDepartment');
+    $app->post('/', 'App\Http\Controllers\PhoneController@post');
 
     $app->get('id/{id}', 'App\Http\Controllers\PhoneController@getByID');
 
@@ -121,7 +121,7 @@ $app->group(['prefix' => 'v1/phone'], function () use ($app) {
 
 $app->group(['prefix' => 'v1/room'], function () use ($app) {
 
-    $app->post('/', 'App\Http\Controllers\RoomController@postDepartment');
+    $app->post('/', 'App\Http\Controllers\RoomController@post');
 
     $app->get('id/{id}', 'App\Http\Controllers\RoomController@getByID');
 
