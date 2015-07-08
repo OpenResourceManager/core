@@ -97,7 +97,9 @@ class UserController extends BaseController
 
         $updated = false;
         foreach ($request->input() as $key => $value) {
-            if ($user->$key != $value) $updated = true;
+            if (isset($user->$key)) {
+                if ($user->$key != $value) $updated = true;
+            }
         }
 
         $user->fill($request->input());
