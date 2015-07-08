@@ -100,6 +100,9 @@ $app->group(['prefix' => 'v1/email'], function () use ($app) {
 
     $app->post('/', 'App\Http\Controllers\EmailController@postDepartment');
 
+    $app->get('id/{id}', 'App\Http\Controllers\EmailController@getByID');
+    $app->get('user/{id}', 'App\Http\Controllers\EmailController@getByUser');
+
     $app->get('/', 'App\Http\Controller\EmailController@get');
     $app->get('/{limit}', 'App\Http\Controllers\EmailController@get');
 
@@ -109,6 +112,8 @@ $app->group(['prefix' => 'v1/phone'], function () use ($app) {
 
     $app->post('/', 'App\Http\Controllers\PhoneController@postDepartment');
 
+    $app->get('id/{id}', 'App\Http\Controllers\PhoneController@getByID');
+
     $app->get('/', 'App\Http\Controllers\PhoneController@get');
     $app->get('/{limit}', 'App\Http\Controllers\PhoneController@get');
 
@@ -117,6 +122,8 @@ $app->group(['prefix' => 'v1/phone'], function () use ($app) {
 $app->group(['prefix' => 'v1/room'], function () use ($app) {
 
     $app->post('/', 'App\Http\Controllers\RoomController@postDepartment');
+
+    $app->get('id/{id}', 'App\Http\Controllers\RoomController@getByID');
 
     $app->get('/', 'App\Http\Controllers\RoomController@get');
     $app->get('/{limit}', 'App\Http\Controllers\RoomController@get');
