@@ -76,6 +76,7 @@ class UserController extends BaseController
 
     public function post(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'sageid' => 'required|max:7|min:6',
             'active' => 'required|max:1|min:1',
@@ -91,15 +92,15 @@ class UserController extends BaseController
             ));
         }
 
-        $sageid = intval($request->input('sageid'));
+        if (User::where('sageid', $request->input('sageid'))->get()->first()) {
+            $user = User::where('sageid', $request->input('sageid'))->get()->first();
+            $updated = true;
+        } else {
+            $user = new User();
+            $updated = false;
+        }
 
-        $user = User::findOrNew(['sageid' => $sageid]);
-
-        $updated = false;
         foreach ($request->input() as $key => $value) {
-            if (isset($user->$key)) {
-                if ($user->$key != $value) $updated = true;
-            }
             $user->$key = $value;
         }
 
