@@ -12,7 +12,7 @@ use App\Phone;
 use App\Room;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class UserController extends BaseController
