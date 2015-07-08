@@ -98,12 +98,27 @@ $app->group(['prefix' => 'v1/department'], function () use ($app) {
 
 $app->group(['prefix' => 'v1/email'], function () use ($app) {
 
+    $app->post('/', 'App\Http\Controllers\EmailController@postDepartment');
+
+    $app->get('/', 'App\Http\Controller\EmailController@get');
+    $app->get('/{limit}', 'App\Http\Controllers\EmailController@get');
+
 });
 
 $app->group(['prefix' => 'v1/phone'], function () use ($app) {
 
+    $app->post('/', 'App\Http\Controllers\PhoneController@postDepartment');
+
+    $app->get('/', 'App\Http\Controllers\PhoneController@get');
+    $app->get('/{limit}', 'App\Http\Controllers\PhoneController@get');
+
 });
 
 $app->group(['prefix' => 'v1/room'], function () use ($app) {
+
+    $app->post('/', 'App\Http\Controllers\RoomController@postDepartment');
+
+    $app->get('/', 'App\Http\Controllers\RoomController@get');
+    $app->get('/{limit}', 'App\Http\Controllers\RoomController@get');
 
 });

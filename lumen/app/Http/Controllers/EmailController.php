@@ -12,5 +12,17 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 
 class EmailController extends BaseController
 {
+    /**
+     * @param int $limit
+     * @return string
+     */
+    public function get($limit = 0)
+    {
+        if ($limit > 0) {
+            return json_encode(Email::all()->take($limit));
+        } else {
+            return json_encode(Email::all());
+        }
+    }
 
 }
