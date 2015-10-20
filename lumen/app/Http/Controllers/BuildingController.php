@@ -116,13 +116,13 @@ class BuildingController extends BaseController
             }
 
         } else {
-            $building = new Building();
+            $model = new Building();
 
             foreach ($request->input() as $key => $value) {
-                $building->$key = $value;
+                $model->$key = $value;
             }
 
-            if ($building->save()) {
+            if ($model->save()) {
                 return json_encode(array(
                     'success' => true,
                     'message' => 'create'
@@ -130,7 +130,7 @@ class BuildingController extends BaseController
             } else {
                 return json_encode(array(
                     'success' => false,
-                    'message' => $building->errors()->all()
+                    'message' => $model->errors()->all()
                 ));
             }
         }
