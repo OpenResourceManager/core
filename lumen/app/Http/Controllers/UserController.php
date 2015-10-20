@@ -86,10 +86,10 @@ class UserController extends BaseController
         ]);
 
         if ($validator->fails()) {
-            return json_encode(array(
+            die(json_encode(array(
                 'success' => false,
                 'message' => $validator->errors()->all()
-            ));
+            )));
         }
 
         if (User::where('sageid', $request->input('sageid'))->get()->first()) {
