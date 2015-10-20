@@ -110,13 +110,13 @@ class UserController extends BaseController
             }
 
         } else {
-            $user = new User();
+            $model = new User();
 
             foreach ($request->input() as $key => $value) {
-                $user->$key = $value;
+                $model->$key = $value;
             }
 
-            if ($user->save()) {
+            if ($model->save()) {
                 return json_encode(array(
                     'success' => true,
                     'message' => 'create'
@@ -124,7 +124,7 @@ class UserController extends BaseController
             } else {
                 return json_encode(array(
                     'success' => false,
-                    'message' => $user->errors()->all()
+                    'message' => $model->errors()->all()
                 ));
             }
         }
