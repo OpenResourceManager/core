@@ -8,9 +8,9 @@
  */
 
 use App\Building;
-use Laravel\Lumen\Routing\Controller as BaseController;
+use Controller;
 
-class BuildingController extends BaseController
+class BuildingController extends Controller
 {
     /**
      * @param int $limit
@@ -18,10 +18,38 @@ class BuildingController extends BaseController
      */
     public function get($limit = 0)
     {
-        if ($limit > 0) {
-            return json_encode(Building::all()->take($limit));
+        if (Request::header('X-Authorization')) {
+            $key = $this->getAPIKey(Request::header('X-Authorization'));
+            if($key) {
+                if ($key->get) {
+                    if ($limit > 0) {
+                        return json_encode(Building::all()->take($limit));
+                    } else {
+                        return json_encode(Building::all());
+                    }
+                } else {
+                    return json_encode(
+                        array(
+                            "success" => false,
+                            "error" => "X-Authorization: Insufficient pillages"
+                        )
+                    );
+                }
+            } else {
+                return json_encode(
+                    array(
+                        "success" => false,
+                        "error" => "X-Authorization: API Key is not valid"
+                    )
+                );
+            }
         } else {
-            return json_encode(Building::all());
+            return json_encode(
+                array(
+                    "success" => false,
+                    "error" => "Header Option Not Found: 'X-Authorization'"
+                )
+            );
         }
     }
 
