@@ -17,6 +17,7 @@ class CreateTables extends Migration
             $table->string('name_first');
             $table->string('name_middle')->nullable();
             $table->string('name_last');
+            $table->string('name_phonetic')->nullable();
             $table->string('username')->unique();
             $table->timestamps();
         });

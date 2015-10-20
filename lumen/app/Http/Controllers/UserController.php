@@ -85,7 +85,9 @@ class UserController extends BaseController
             'sageid' => 'integer|required|max:7|min:6|unique:users',
             'active' => 'boolean|required|max:5|min:1',
             'name_first' => 'string|required|min:1',
+            'name_middle' => 'string',
             'name_last' => 'string|required|min:1',
+            'name_phonetic' => 'string',
             'username' => 'string|required|max:11|min:3|unique:users'
         ]);
 
