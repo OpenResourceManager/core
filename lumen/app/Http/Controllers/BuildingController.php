@@ -9,7 +9,7 @@
 
 use App\Building;
 use Laravel\Lumen\Routing\Controller as BaseController;
-use Illuminate\Http\Request as Request;
+use Illuminate\Http\Request;
 use App\APIKey;
 
 class BuildingController extends BaseController
@@ -23,11 +23,11 @@ class BuildingController extends BaseController
      * @param int $limit
      * @return string
      */
-    public function get($limit = 0)
+    public function get(Request $request, $limit = 0)
     {
-        if (Request::header('X-Authorization')) {
-            $key = $this->getAPIKey(Request::header('X-Authorization'));
-            if($key) {
+        if ($request->header('X-Authorization')) {
+            $key = $this->getAPIKey($request->header('X-Authorization'));
+            if ($key) {
                 if ($key->get) {
                     if ($limit > 0) {
                         return json_encode(Building::all()->take($limit));
