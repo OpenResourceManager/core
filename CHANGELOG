@@ -1,0 +1,23 @@
+### v1.1.0 ###
+* Rebuild using Lumen framwork
+* Post/Get users
+* Post/Get campus
+* Post/Get building
+* Post/Get department
+* Post/Get program
+* Post/Get role
+* Post/Get phones
+* Post/Get emails
+* Post/Get rooms
+* No API key app auth (yet)
+* URL Structure is more straight forward
+
+### v1.0.0 ###
+* SLIM framework based
+* Post/Get users
+* Post/Get campus
+* Post/Get building
+* Post/Get department
+* Post/Get program
+* Post/Get role
+* API key app auth
