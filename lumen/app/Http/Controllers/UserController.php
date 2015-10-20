@@ -74,6 +74,10 @@ class UserController extends BaseController
         }
     }
 
+    /**
+     * @param Request $request
+     * @return string
+     */
     public function post(Request $request)
     {
 
