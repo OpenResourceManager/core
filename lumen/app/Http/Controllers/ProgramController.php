@@ -103,8 +103,8 @@ class ProgramController extends BaseController
             ));
         }
 
-        if (Email::where('code', $request->input('code'))->get()->first()) {
-            if (Email::where('code', $request->input('code'))->update($request->input())) {
+        if (Program::where('code', $request->input('code'))->get()->first()) {
+            if (Program::where('code', $request->input('code'))->update($request->input())) {
                 return json_encode(array(
                     'success' => true,
                     'message' => 'update'
