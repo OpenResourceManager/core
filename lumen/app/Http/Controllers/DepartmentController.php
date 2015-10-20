@@ -64,4 +64,58 @@ class DepartmentController extends BaseController
             );
         }
     }
+
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function post(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'academic' => 'boolean|required|max:5|min:1',
+            'code' => 'string|required|max:10|min:3|unique:departments',
+            'name' => 'string|required|max:30|min:3'
+        ]);
+
+        if ($validator->fails()) {
+            return json_encode(array(
+                'success' => false,
+                'message' => $validator->errors()->all()
+            ));
+        }
+
+        if (Department::where('code', $request->input('code'))->get()->first()) {
+            if (Department::where('code', $request->input('code'))->update($request->input())) {
+                return json_encode(array(
+                    'success' => true,
+                    'message' => 'update'
+                ));
+            } else {
+                return json_encode(array(
+                    'success' => false,
+                    'message' => 'Could not update'
+                ));
+            }
+
+        } else {
+            $model = new Department();
+
+            foreach ($request->input() as $key => $value) {
+                $model->$key = $value;
+            }
+
+            if ($model->save()) {
+                return json_encode(array(
+                    'success' => true,
+                    'message' => 'create'
+                ));
+            } else {
+                return json_encode(array(
+                    'success' => false,
+                    'message' => $model->errors()->all()
+                ));
+            }
+        }
+    }
 }

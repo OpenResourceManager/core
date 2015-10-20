@@ -82,11 +82,11 @@ class UserController extends BaseController
     {
 
         $validator = Validator::make($request->all(), [
-            'sageid' => 'required|max:7|min:6|unique:users',
-            'active' => 'required|max:1|min:1',
-            'name_first' => 'required|min:1',
-            'name_last' => 'required|min:1',
-            'username' => 'required|max:11|min:3|unique:users'
+            'sageid' => 'integer|required|max:7|min:6|unique:users',
+            'active' => 'boolean|required|max:5|min:1',
+            'name_first' => 'string|required|min:1',
+            'name_last' => 'string|required|min:1',
+            'username' => 'string|required|max:11|min:3|unique:users'
         ]);
 
         if ($validator->fails()) {

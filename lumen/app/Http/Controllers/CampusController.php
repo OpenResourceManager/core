@@ -73,8 +73,8 @@ class CampusController extends BaseController
     {
 
         $validator = Validator::make($request->all(), [
-            'code' => 'required|max:10|min:3|unique:campuses',
-            'name' => 'required|max:30|min:3'
+            'code' => 'string|required|max:10|min:3|unique:campuses',
+            'name' => 'string|required|max:30|min:3'
         ]);
 
         if ($validator->fails()) {
