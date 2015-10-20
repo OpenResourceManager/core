@@ -8,10 +8,17 @@
  */
 
 use App\Building;
-use Controller;
+use Laravel\Lumen\Routing\Controller as BaseController;
+use Illuminate\Http\Request as Request;
+use App\APIKey;
 
-class BuildingController extends Controller
+class BuildingController extends BaseController
 {
+    public function getAPIKey($key = '')
+    {
+        return APIKey::where('key', $key)->get()->first();
+    }
+
     /**
      * @param int $limit
      * @return string
