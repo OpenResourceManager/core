@@ -64,4 +64,58 @@ class RoleController extends BaseController
         }
     }
 
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function post(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'code' => 'string|required|max:50|min:3|unique:programs',
+            'name' => 'string|required|max:50|min:3|unique:programs',
+
+        ]);
+
+        if ($validator->fails()) {
+            return json_encode(array(
+                'success' => false,
+                'message' => $validator->errors()->all()
+            ));
+        }
+
+        if (Role::where('code', $request->input('code'))->get()->first()) {
+            if (Role::where('code', $request->input('code'))->update($request->input())) {
+                return json_encode(array(
+                    'success' => true,
+                    'message' => 'update'
+                ));
+            } else {
+                return json_encode(array(
+                    'success' => false,
+                    'message' => 'Could not update'
+                ));
+            }
+
+        } else {
+            $model = new Role();
+
+            foreach ($request->input() as $key => $value) {
+                $model->$key = $value;
+            }
+
+            if ($model->save()) {
+                return json_encode(array(
+                    'success' => true,
+                    'message' => 'create'
+                ));
+            } else {
+                return json_encode(array(
+                    'success' => false,
+                    'message' => $model->errors()->all()
+                ));
+            }
+        }
+    }
+
 }
