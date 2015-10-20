@@ -93,6 +93,17 @@ class CreateTables extends Migration
             $table->foreign('building')->references('id')->on('buildings');
         });
 
+        Schema::create('apikeys', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('app_name')->unique();
+            $table->string('key')->unique();
+            $table->boolean('get');
+            $table->boolean('post');
+            $table->boolean('put');
+            $table->boolean('delete');
+            $table->timestamps();
+        });
+
     }
 
     /**
