@@ -14,11 +14,6 @@ use App\APIKey;
 
 class BuildingController extends BaseController
 {
-    public function getAPIKey($key = '')
-    {
-        return APIKey::where('key', $key)->get()->first();
-    }
-
     /**
      * @param int $limit
      * @return string
@@ -26,7 +21,7 @@ class BuildingController extends BaseController
     public function get(Request $request, $limit = 0)
     {
         if ($request->header('X-Authorization')) {
-            $key = $this->getAPIKey($request->header('X-Authorization'));
+            $key = APIKey::getAPIKey($request->header('X-Authorization'));
             if ($key) {
                 if ($key->get) {
                     if ($limit > 0) {

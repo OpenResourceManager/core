@@ -9,6 +9,8 @@
 
 use App\Email;
 use Laravel\Lumen\Routing\Controller as BaseController;
+use Illuminate\Http\Request;
+use App\APIKey;
 
 class EmailController extends BaseController
 {
@@ -16,12 +18,40 @@ class EmailController extends BaseController
      * @param int $limit
      * @return string
      */
-    public function get($limit = 0)
+    public function get(Request $request, $limit = 0)
     {
-        if ($limit > 0) {
-            return json_encode(Email::all()->take($limit));
+        if ($request->header('X-Authorization')) {
+            $key = APIKey::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                if ($key->get) {
+                    if ($limit > 0) {
+                        return json_encode(Email::all()->take($limit));
+                    } else {
+                        return json_encode(Email::all());
+                    }
+                } else {
+                    return json_encode(
+                        array(
+                            "success" => false,
+                            "error" => "X-Authorization: Insufficient pillages"
+                        )
+                    );
+                }
+            } else {
+                return json_encode(
+                    array(
+                        "success" => false,
+                        "error" => "X-Authorization: API Key is not valid"
+                    )
+                );
+            }
         } else {
-            return json_encode(Email::all());
+            return json_encode(
+                array(
+                    "success" => false,
+                    "error" => "Header Option Not Found: 'X-Authorization'"
+                )
+            );
         }
     }
 

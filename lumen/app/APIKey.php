@@ -13,4 +13,13 @@ use Illuminate\Database\Eloquent\Model;
 class APIKey extends Model
 {
     protected $table = 'apikeys';
+
+    /**
+     * @param string $key
+     * @return mixed
+     */
+    public static function getAPIKey($key = '')
+    {
+        return APIKey::where('key', $key)->get()->first();
+    }
 }
