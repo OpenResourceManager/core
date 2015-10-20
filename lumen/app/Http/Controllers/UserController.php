@@ -84,6 +84,7 @@ class UserController extends BaseController
         $validator = Validator::make($request->all(), [
             'sageid' => 'integer|required|max:7|min:6|unique:users',
             'active' => 'boolean|required|max:5|min:1',
+            'name_prefix' => 'string',
             'name_first' => 'string|required|min:1',
             'name_middle' => 'string',
             'name_last' => 'string|required|min:1',

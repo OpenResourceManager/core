@@ -14,6 +14,7 @@ class CreateTables extends Migration
             $table->increments('id');
             $table->integer('sageid')->unique();
             $table->boolean('active');
+            $table->boolean('name_prefix')->nullable();
             $table->string('name_first');
             $table->string('name_middle')->nullable();
             $table->string('name_last');
