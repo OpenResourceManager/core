@@ -90,7 +90,7 @@ class BuildingController extends BaseController
     {
 
         $validator = Validator::make($request->all(), [
-            'campus' => 'integer|required|max:1|min:1',
+            'campus' => 'integer|required|max:11|min:1',
             'code' => 'string|required|max:10|min:3|unique:buildings',
             'name' => 'string|required|max:30|min:3'
         ]);
