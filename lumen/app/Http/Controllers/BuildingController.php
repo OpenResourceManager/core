@@ -82,4 +82,57 @@ class BuildingController extends BaseController
         }
     }
 
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function post(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'campus' => 'required|max:1|min:1',
+            'code' => 'required|max:10|min:3|unique:buildings',
+            'name' => 'required|max:30|min:3'
+        ]);
+
+        if ($validator->fails()) {
+            return json_encode(array(
+                'success' => false,
+                'message' => $validator->errors()->all()
+            ));
+        }
+
+        if (Building::where('code', $request->input('code'))->get()->first()) {
+            if (Building::where('code', $request->input('code'))->update($request->input())) {
+                return json_encode(array(
+                    'success' => true,
+                    'message' => 'update'
+                ));
+            } else {
+                return json_encode(array(
+                    'success' => false,
+                    'message' => 'Could not update'
+                ));
+            }
+
+        } else {
+            $building = new Building();
+
+            foreach ($request->input() as $key => $value) {
+                $building->$key = $value;
+            }
+
+            if ($building->save()) {
+                return json_encode(array(
+                    'success' => true,
+                    'message' => 'create'
+                ));
+            } else {
+                return json_encode(array(
+                    'success' => false,
+                    'message' => $building->errors()->all()
+                ));
+            }
+        }
+    }
 }
