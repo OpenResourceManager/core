@@ -9,36 +9,3 @@ The API key also has a boolean value that determines if the application can writ
 ## API Docs
 
 Check out the [API documentation](https://databridge.sage.edu/docs/).
-
-## ToDo:
-
-- [X] Security
-  - [X] Implement API key authorization.
-  - [X] Create boolean for write access.
-  - [X] Lock down web directories/permissions.
-- [X] API R/O calls
-  - [X] Get user by ID
-  - [X] Get user by ID_Number
-  - [X] Get user by username
-  - [X] Get all users
-  - [X] Get buiding by ID
-  - [X] Get building by datatel code
-  - [X] Get all buildings
-  - [X] Get role by id
-  - [X] Get role by datatel code
-  - [X] Get all roles
-  - [X] Get campus by ID
-  - [X] Get campus by datatel code
-  - [X] Get all campuses
-- [X] API Write calls
-  - [X] Update user by ID_Number
-  - [X] Create user by ID_Number
-  - [X] Update Building by DatatelCode
-  - [X] Create Building by DatatelCode
-  - [X] Update Role by DatatelCode
-  - [X] Create Role by DatatelCode
-  - [X] Update Campus by DatatelCode
-  - [X] Create Campus by DatatelCode
-- [X] Documentation
-  - [X] Write inline documentation.
-  - [X] Use [APIDOC](http://apidocjs.com/) to generate the docs.
