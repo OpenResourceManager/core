@@ -97,10 +97,10 @@ class CreateTables extends Migration
             $table->increments('id');
             $table->string('app_name')->unique();
             $table->string('key')->unique();
-            $table->boolean('get');
-            $table->boolean('post');
-            $table->boolean('put');
-            $table->boolean('delete');
+            $table->boolean('can_get');
+            $table->boolean('can_post');
+            $table->boolean('can_put');
+            $table->boolean('can_delete');
             $table->timestamps();
         });
 

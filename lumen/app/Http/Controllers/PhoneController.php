@@ -20,38 +20,11 @@ class PhoneController extends BaseController
      */
     public function get(Request $request, $limit = 0)
     {
-        if ($request->header('X-Authorization')) {
-            $key = APIKey::getAPIKey($request->header('X-Authorization'));
-            if ($key) {
-                if ($key->get) {
-                    if ($limit > 0) {
-                        return json_encode(Phone::all()->take($limit));
-                    } else {
-                        return json_encode(Phone::all());
-                    }
-                } else {
-                    return json_encode(
-                        array(
-                            "success" => false,
-                            "error" => "X-Authorization: Insufficient pillages"
-                        )
-                    );
-                }
-            } else {
-                return json_encode(
-                    array(
-                        "success" => false,
-                        "error" => "X-Authorization: API Key is not valid"
-                    )
-                );
-            }
+        $result = APIKey::testAPIKey($request, 'get');
+        if ($result[0]) {
+            return $limit > 0 ? json_encode(Phone::all()->take($limit)) : json_encode(Phone::all());
         } else {
-            return json_encode(
-                array(
-                    "success" => false,
-                    "error" => "Header Option Not Found: 'X-Authorization'"
-                )
-            );
+            return json_encode($result[1]);
         }
     }
 
