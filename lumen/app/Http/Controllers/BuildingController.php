@@ -71,21 +71,60 @@ class BuildingController extends BaseController
      * @apiSuccess {Boolean} success Tells the application if the request was successful.
      * @apiSuccess {Objects} result The objects that have been returned.
      *
-     * @apiSuccessExample Success Response:
+     * @apiSuccessExample {json} Success: Objects
      *     HTTP/1.1 200 OK
      *     {
-     *          "success": true,
-     *          "result": {
-     *               "get": [
-     *                  "\/id\/:id",
-     *                  "\/code\/:code",
-     *                  "\/:limit"
-     *                 ],
-     *               "post": [
-     *                  "\/code\/:code"
-     *                 ]
+     *         "success": true,
+     *         "result": [
+     *           {
+     *             "id": "1",
+     *             "campus": "1",
+     *             "code": "37-1",
+     *             "name": "37 First Street",
+     *             "created_at": "2015-10-21 13:29:11",
+     *             "updated_at": "2015-10-21 13:29:11"
+     *           },
+     *           {
+     *              "id": "2",
+     *              "campus": "1",
+     *              "code": "90-1",
+     *              "name": "90 1st Street",
+     *              "created_at": "2015-10-21 13:29:11",
+     *              "updated_at": "2015-10-21 13:29:11"
      *           }
+     *         ]
      *     }
+     *
+     * @apiError (Error 4xx/5xx) {Boolean} success Tells the application if the request was successful.
+     * @apiError (Error 4xx/5xx) {String} error An error message from the server.
+     *
+     * @apiErrorExample {json} Error: Not Privileged
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: Insufficient privileges."
+     *      }
+     *
+     * @apiErrorExample {json} Error: Invalid API Key
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: API Key is not valid."
+     *      }
+     *
+     * @apiErrorExample {json} Error: Method not found
+     *      HTTP/1.1 400 Bad Request
+     *      {
+     *          "success": false,
+     *          "error": "Method not found."
+     *      }
+     *
+     * @apiErrorExample {json} Error: Missing Header Option
+     *      HTTP/1.1 400 Bad Request
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: Header Option Not Found."
+     *      }
      */
 
     /**
