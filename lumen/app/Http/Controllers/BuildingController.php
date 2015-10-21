@@ -36,16 +36,16 @@ class BuildingController extends BaseController
      */
     public function getById(Request $request, $id)
     {
-        $obj = Building::where('id', $id)->get();
-        if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-            return json_encode($obj);
+        $result = APIKey::testAPIKey($request, 'get');
+        if ($result[0]) {
+            $obj = Building::where('id', $id)->get();
+            if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+                return json_encode($obj);
+            } else {
+                return json_encode(array("success" => false, "error" => "NotFound"));
+            }
         } else {
-            return json_encode(
-                array(
-                    "success" => false,
-                    "error" => "NotFound"
-                )
-            );
+            return json_encode($result[1]);
         }
     }
 
@@ -56,16 +56,16 @@ class BuildingController extends BaseController
      */
     public function getByCode(Request $request, $code)
     {
-        $obj = Building::where('code', $code)->get();
-        if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-            return json_encode($obj);
+        $result = APIKey::testAPIKey($request, 'get');
+        if ($result[0]) {
+            $obj = Building::where('code', $code)->get();
+            if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+                return json_encode($obj);
+            } else {
+                return json_encode(array("success" => false, "error" => "NotFound"));
+            }
         } else {
-            return json_encode(
-                array(
-                    "success" => false,
-                    "error" => "NotFound"
-                )
-            );
+            return json_encode($result[1]);
         }
     }
 
@@ -76,16 +76,16 @@ class BuildingController extends BaseController
      */
     public function getByCampus(Request $request, $campusId)
     {
-        $obj = Building::where('campus', $campusId)->get();
-        if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-            return json_encode($obj);
+        $result = APIKey::testAPIKey($request, 'get');
+        if ($result[0]) {
+            $obj = Building::where('campus', $campusId)->get();
+            if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+                return json_encode($obj);
+            } else {
+                return json_encode(array("success" => false, "error" => "NotFound"));
+            }
         } else {
-            return json_encode(
-                array(
-                    "success" => false,
-                    "error" => "NotFound"
-                )
-            );
+            return json_encode($result[1]);
         }
     }
 
