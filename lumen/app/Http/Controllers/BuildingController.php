@@ -95,51 +95,50 @@ class BuildingController extends BaseController
      */
     public function post(Request $request)
     {
-
-        $validator = Validator::make($request->all(), [
-            'campus' => 'integer|required|max:11|min:1',
-            'code' => 'string|required|max:10|min:3|unique:buildings',
-            'name' => 'string|required|max:30|min:3'
-        ]);
-
-        if ($validator->fails()) {
-            return json_encode(array(
-                'success' => false,
-                'message' => $validator->errors()->all()
-            ));
-        }
-
-        if (Building::where('code', $request->input('code'))->get()->first()) {
-            if (Building::where('code', $request->input('code'))->update($request->input())) {
-                return json_encode(array(
-                    'success' => true,
-                    'message' => 'update'
-                ));
-            } else {
+        $result = APIKey::testAPIKey($request, 'post');
+        if ($result[0]) {
+            $validator = Validator::make($request->all(), [
+                'campus' => 'integer|required|max:11|min:1',
+                'code' => 'string|required|max:10|min:3|unique:buildings',
+                'name' => 'string|required|max:30|min:3'
+            ]);
+            if ($validator->fails()) {
                 return json_encode(array(
                     'success' => false,
-                    'message' => 'Could not update'
+                    'message' => $validator->errors()->all()
                 ));
             }
-
+            if (Building::where('code', $request->input('code'))->get()->first()) {
+                if (Building::where('code', $request->input('code'))->update($request->input())) {
+                    return json_encode(array(
+                        'success' => true,
+                        'message' => 'update'
+                    ));
+                } else {
+                    return json_encode(array(
+                        'success' => false,
+                        'message' => 'Could not update'
+                    ));
+                }
+            } else {
+                $model = new Building();
+                foreach ($request->input() as $key => $value) {
+                    $model->$key = $value;
+                }
+                if ($model->save()) {
+                    return json_encode(array(
+                        'success' => true,
+                        'message' => 'create'
+                    ));
+                } else {
+                    return json_encode(array(
+                        'success' => false,
+                        'message' => $model->errors()->all()
+                    ));
+                }
+            }
         } else {
-            $model = new Building();
-
-            foreach ($request->input() as $key => $value) {
-                $model->$key = $value;
-            }
-
-            if ($model->save()) {
-                return json_encode(array(
-                    'success' => true,
-                    'message' => 'create'
-                ));
-            } else {
-                return json_encode(array(
-                    'success' => false,
-                    'message' => $model->errors()->all()
-                ));
-            }
+            return json_encode($result[1]);
         }
     }
 }
