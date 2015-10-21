@@ -24,7 +24,7 @@ class EmailController extends BaseController
     {
         $result = APIKey::testAPIKey($request, 'get');
         if ($result[0]) {
-            return $limit > 0 ? json_encode(Email::all()->take($limit)) : json_encode(Email::all());
+            return $limit > 0 ? json_encode(array("success" => true, 'result' => Email::all()->take($limit))) : json_encode(array("success" => true, 'result' => Email::all()));
         } else {
             return json_encode($result[1]);
         }

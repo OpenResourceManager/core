@@ -15,6 +15,79 @@ use Illuminate\Http\Request;
 
 class BuildingController extends BaseController
 {
+
+    /**
+     * @api {get} /building/ Get all Buildings
+     * @apiVersion 1.1.1
+     * @apiHeader {String} X-Authorization The application's unique access-key.
+     * @apiGroup Buildings
+     * @apiDescription This method returns all building objects.
+     *
+     * @apiSampleRequest https://databridge.sage.edu/v1/building/
+     * @apiExample {curl} Curl
+     *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/building/
+     *
+     * @apiExample {ruby} Ruby
+     *      # This code snippet uses an open-source library. http://unirest.io/ruby
+     *      response = Unirest.get "https://databridge.sage.edu/v1/building/",
+     *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+     *
+     * @apiExample {php} PHP
+     *      $ch = curl_init("https://databridge.sage.edu/v1/building/");
+     *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+     *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+     *      $result = curl_exec($ch);
+     *      curl_close($ch);
+     *
+     * @apiExample {powershell} PowerShell
+     *      # PowerShell v3 and above
+     *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+     *      $headers.Add("X-Authorization", '<Your-API-Key>')
+     *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/building/ -Headers $headers
+     *
+     * @apiExample {java} Java
+     *      # This code snippet uses an open-source library. http://unirest.io/java
+     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/building/")
+     *      .header("X-Authorization", "<Your-API-Key>")
+     *      .header("Accept", "application/json")
+     *      .asString();
+     *
+     * @apiExample {python} Python
+     *      # This code snippet uses an open-source library http://unirest.io/python
+     *      response = unirest.get("https://databridge.sage.edu/v1/building/",
+     *          headers={
+     *              "X-Authorization": "<Your-API-Key>",
+     *              "Accept": "application/json"
+     *          }
+     *      )
+     *
+     * @apiExample {.net} .NET
+     *      // This code snippet uses an open-source library http://unirest.io/net
+     *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/building/")
+     *       .header("X-Authorization", "<Your-API-Key>")
+     *       .header("Accept", "application/json")
+     *       .asString();
+     *
+     * @apiSuccess {Boolean} success Tells the application if the request was successful.
+     * @apiSuccess {Objects} result The objects that have been returned.
+     *
+     * @apiSuccessExample Success Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *          "success": true,
+     *          "result": {
+     *               "get": [
+     *                  "\/id\/:id",
+     *                  "\/code\/:code",
+     *                  "\/:limit"
+     *                 ],
+     *               "post": [
+     *                  "\/code\/:code"
+     *                 ]
+     *           }
+     *     }
+     */
+
     /**
      * @param Request $request
      * @param int $limit
@@ -24,7 +97,7 @@ class BuildingController extends BaseController
     {
         $result = APIKey::testAPIKey($request, 'get');
         if ($result[0]) {
-            return $limit > 0 ? json_encode(Building::all()->take($limit)) : json_encode(Building::all());
+            return $limit > 0 ? json_encode(array("success" => true, 'result' => Building::all()->take($limit))) : json_encode(array("success" => true, 'result' => Building::all()));
         } else {
             return json_encode($result[1]);
         }
@@ -91,7 +164,7 @@ class BuildingController extends BaseController
     }
 
     /**
-     * @api {post} /building Post to Building
+     * @api {post} /building/ Post to Building
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Buildings
