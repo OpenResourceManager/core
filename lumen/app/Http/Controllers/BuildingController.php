@@ -181,10 +181,8 @@ class BuildingController extends BaseController
      *          "result": "update"
      *     }
      *
-     * @apiError (Error 4xx) {Boolean} success Tells the application if the request was successful.
-     * @apiError (Error 4xx) {String} error An error message from the server.
-     * @apiError (Error 5xx) {Boolean} success Tells the application if the request was successful.
-     * @apiError (Error 5xx) {String} error An error message from the server.
+     * @apiError (Error 4xx/5xx) {Boolean} success Tells the application if the request was successful.
+     * @apiError (Error 4xx/5xx) {String} error An error message from the server.
      *
      * @apiErrorExample {json} Error: Not Privileged
      *      HTTP/1.1 403 Forbidden
