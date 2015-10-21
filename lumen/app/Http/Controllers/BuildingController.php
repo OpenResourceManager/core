@@ -91,6 +91,126 @@ class BuildingController extends BaseController
     }
 
     /**
+     * @api {post} /building Post to Building
+     * @apiVersion 1.1.1
+     * @apiHeader {String} X-Authorization The application's unique access-key.
+     * @apiGroup Buildings
+     * @apiDescription An application can create new building record or update existing records.
+     * If the Datatel code does not exist in the database, the rest of the data sent in the POST request will be treated as a new entry.
+     * If the Datatel code does exist in the database, the data sent in the POST request will replace the data in that record.
+     * @apiSuccess {Boolean} success Tells the application if the request was successful.
+     * @apiSuccess {String} result The action that was performed. This may be `update` or `create`.
+     * @apiExample {curl} Curl
+     *      curl -H "X-Authorization: <Your-API-Key>" \
+     *      --data "name=Ackerman" \
+     *      --data "code=ACK" \
+     *      --url https://databridge.sage.edu/v1/building
+     * @apiExample {ruby} Ruby
+     *      # This code snippet uses an open-source library. http://unirest.io/ruby
+     *      response = Unirest.get "https://databridge.sage.edu/v1/building",
+     *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
+     *      parameters:{ :name => "Ackerman", :code => "ACK"}.to_json
+     * @apiExample {php} PHP
+     *      $ch = curl_init("https://databridge.sage.edu/v1/building");
+     *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+     *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+     *      curl_setopt($ch, CURLOPT_POST, true);
+     *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("name" => "Ackerman", "code" => "ACK"));
+     *      $result = curl_exec($ch);
+     *      curl_close($ch);
+     * @apiExample {powershell} PowerShell
+     *      # PowerShell v3 and above
+     *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+     *      $headers.Add("X-Authorization", '<Your-API-Key>')
+     *      $uri = https://databridge.sage.edu/v1/building
+     *      $body = @{ name = "Ackerman", code = "ACK" }
+     *      $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method Post -Body $body
+     * @apiExample {java} Java
+     *      # This code snippet uses an open-source library. http://unirest.io/java
+     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/building")
+     *      .header("X-Authorization", "<Your-API-Key>")
+     *      .header("Accept", "application/json")
+     *      .body("{\"name\":\"Ackerman\", \"code\":\"ACK\"}")
+     *      .asString();
+     * @apiExample {python} Python
+     *      # This code snippet uses an open-source library http://unirest.io/python
+     *      response = unirest.post("https://databridge.sage.edu/v1/building",
+     *          headers={
+     *              "X-Authorization": "<Your-API-Key>",
+     *              "Accept": "application/json"
+     *          },
+     *          params={
+     *              "name": "Ackerman",
+     *              "code": "ACK"
+     *          }
+     *      )
+     * @apiExample {.net} .NET
+     *      // This code snippet uses an open-source library http://unirest.io/net
+     *       Task<HttpResponse<MyClass>> response = Unirest.post("https://databridge.sage.edu/v1/building")
+     *       .header("X-Authorization", "<Your-API-Key>")
+     *       .header("Accept", "application/json")
+     *       .field("name", "Ackerman")
+     *       .field("code", "ACK")
+     *       .asString();
+     * @apiSuccessExample Success Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *          "success": true,
+     *          "result": "create"
+     *     }
+     * @apiSuccessExample Success Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *          "success": true,
+     *          "result": "update"
+     *     }
+     * @apiError {Boolean} success Tells the application if the request was successful.
+     * @apiError {String} error The application does not access to perform that action.
+     * @apiErrorExample Error Response:
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: Insufficient pillages"
+     *      }
+     *
+     * @apiError {Boolean} success Tells the application if the request was successful.
+     * @apiError {String} error The api key that was provided is not valid.
+     * @apiErrorExample Error Response:
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: API Key is not valid"
+     *      }
+     *
+     * @apiError {Boolean} success Tells the application if the request was successful.
+     * @apiError {String} error The application requested a method that is not supported.
+     * @apiErrorExample Error Response:
+     *      HTTP/1.1 400 Bad Request
+     *      {
+     *          "success": false,
+     *          "error": "Method not found"
+     *      }
+     *
+     * @apiError {Boolean} success Tells the application if the request was successful.
+     * @apiError {String} error No API key was provided with the request.
+     * @apiErrorExample Error Response:
+     *      HTTP/1.1 400 Bad Request
+     *      {
+     *          "success": false,
+     *          "error": "Header Option Not Found: 'X-Authorization'"
+     *      }
+     *
+     * @apiError {Boolean} success Tells the application if the request was successful.
+     * @apiError {String} FailedToWrite The application does have access, but the commit failed. This is due to an error on the server.
+     * @apiErrorExample Error Response:
+     *      HTTP/1.1 500 Server Error
+     *      {
+     *          "success": false,
+     *          "error": "Could not update"
+     *      }
+     */
+
+    /**
      * @param Request $request
      * @return string
      */
