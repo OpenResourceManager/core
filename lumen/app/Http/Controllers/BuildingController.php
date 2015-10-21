@@ -19,7 +19,8 @@ class BuildingController extends MainController
      */
     public function getBuilding(Request $request, $limit = 0)
     {
-        self::get($request, $limit, new Building());
+        $model = new Building();
+        self::get($request, $limit, $model);
     }
 
     /**
