@@ -30,10 +30,11 @@ class BuildingController extends BaseController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return string
      */
-    public function getById($id)
+    public function getById(Request $request, $id)
     {
         $obj = Building::where('id', $id)->get();
         if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
@@ -49,10 +50,11 @@ class BuildingController extends BaseController
     }
 
     /**
+     * @param Request $request
      * @param $code
      * @return string
      */
-    public function getByCode($code)
+    public function getByCode(Request $request, $code)
     {
         $obj = Building::where('code', $code)->get();
         if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
@@ -68,10 +70,11 @@ class BuildingController extends BaseController
     }
 
     /**
+     * @param Request $request
      * @param $campusId
      * @return string
      */
-    public function getByCampus($campusId)
+    public function getByCampus(Request $request, $campusId)
     {
         $obj = Building::where('campus', $campusId)->get();
         if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
