@@ -99,7 +99,7 @@ class BuildingController extends BaseController
      * If the Informer code does not exist in the database, the rest of the data sent in the POST request will be treated as a new entry.
      * If the Informer code does exist in the database, the data sent in the POST request will replace the data in that record.
      *
-     * @apiParam {Number} campus The numeric id of a campus.
+     * @apiParam {Integer} campus The numeric id of a campus.
      * @apiParam {String} name The name of the building.
      * @apiParam {String} code The code assigned by Informer.
      * @apiSuccess {Boolean} success Tells the application if the request was successful.
@@ -186,39 +186,39 @@ class BuildingController extends BaseController
      * @apiError (Error 5xx) {Boolean} success Tells the application if the request was successful.
      * @apiError (Error 5xx) {String} error An error message from the server.
      *
-     * @apiErrorExample {json} Error Response:
+     * @apiErrorExample {json} Error: Not Privileged
      *      HTTP/1.1 403 Forbidden
      *      {
      *          "success": false,
-     *          "error": "X-Authorization: Insufficient pillages"
+     *          "error": "X-Authorization: Insufficient privileges."
      *      }
      *
-     * @apiErrorExample {json} Error Response:
+     * @apiErrorExample {json} Error: Invalid API Key
      *      HTTP/1.1 403 Forbidden
      *      {
      *          "success": false,
-     *          "error": "X-Authorization: API Key is not valid"
+     *          "error": "X-Authorization: API Key is not valid."
      *      }
      *
-     * @apiErrorExample {json} Error Response:
+     * @apiErrorExample {json} Error: Method not found
      *      HTTP/1.1 400 Bad Request
      *      {
      *          "success": false,
-     *          "error": "Method not found"
+     *          "error": "Method not found."
      *      }
      *
-     * @apiErrorExample {json} Error Response:
+     * @apiErrorExample {json} Error: Missing Header Option
      *      HTTP/1.1 400 Bad Request
      *      {
      *          "success": false,
-     *          "error": "Header Option Not Found: 'X-Authorization'"
+     *          "error": "X-Authorization: Header Option Not Found."
      *      }
      *
-     * @apiErrorExample {json} Error Response:
+     * @apiErrorExample {json} Error: Server Error
      *      HTTP/1.1 500 Server Error
      *      {
      *          "success": false,
-     *          "error": "Could not update"
+     *          "error": "Could not update."
      *      }
      */
 

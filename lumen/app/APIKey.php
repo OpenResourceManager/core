@@ -35,25 +35,25 @@ class APIKey extends Model
             if ($key) {
                 switch ($method) {
                     case 'get' :
-                        return $key->can_get ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient pillages"));
+                        return $key->can_get ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
                     case 'post' :
-                        return $key->can_post ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient pillages"));
+                        return $key->can_post ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
-                    case 'put':
-                        return $key->can_put ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient pillages"));
-                        break;
-                    case 'delete':
-                        return $key->can_delete ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient pillages"));
-                        break;
+                    /* case 'put':
+                         return $key->can_put ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges"));
+                         break;
+                     case 'delete':
+                         return $key->can_delete ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges"));
+                         break; */
                     default :
-                        return array(false, array("success" => false, "error" => "Method not found"));
+                        return array(false, array("success" => false, "error" => "Method not found."));
                 }
             } else {
-                return array(false, array("success" => false, "error" => "X-Authorization: API Key is not valid"));
+                return array(false, array("success" => false, "error" => "X-Authorization: API Key is not valid."));
             }
         } else {
-            return array(false, array("success" => false, "error" => "Header Option Not Found: 'X-Authorization'"));
+            return array(false, array("success" => false, "error" => "X-Authorization: Header Option Not Found."));
         }
     }
 }
