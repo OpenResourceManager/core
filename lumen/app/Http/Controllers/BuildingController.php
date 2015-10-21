@@ -56,19 +56,48 @@ class BuildingController extends BaseController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return string
      */
-    public function getById($id)
+    public function getById(Request $request, $id)
     {
-        $obj = Building::where('id', $id)->get();
-        if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-            return json_encode($obj);
+        if ($request->header('X-Authorization')) {
+            $key = APIKey::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                if ($key->get) {
+                    $obj = Building::where('id', $id)->get();
+                    if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+                        return json_encode($obj);
+                    } else {
+                        return json_encode(
+                            array(
+                                "success" => false,
+                                "error" => "NotFound"
+                            )
+                        );
+                    }
+                } else {
+                    return json_encode(
+                        array(
+                            "success" => false,
+                            "error" => "X-Authorization: Insufficient pillages"
+                        )
+                    );
+                }
+            } else {
+                return json_encode(
+                    array(
+                        "success" => false,
+                        "error" => "X-Authorization: API Key is not valid"
+                    )
+                );
+            }
         } else {
             return json_encode(
                 array(
                     "success" => false,
-                    "error" => "NotFound"
+                    "error" => "Header Option Not Found: 'X-Authorization'"
                 )
             );
         }
@@ -78,16 +107,44 @@ class BuildingController extends BaseController
      * @param $code
      * @return string
      */
-    public function getByCode($code)
+    public function getByCode(Request $request, $code)
     {
-        $obj = Building::where('code', $code)->get();
-        if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-            return json_encode($obj);
+        if ($request->header('X-Authorization')) {
+            $key = APIKey::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                if ($key->get) {
+                    $obj = Building::where('code', $code)->get();
+                    if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+                        return json_encode($obj);
+                    } else {
+                        return json_encode(
+                            array(
+                                "success" => false,
+                                "error" => "NotFound"
+                            )
+                        );
+                    }
+                } else {
+                    return json_encode(
+                        array(
+                            "success" => false,
+                            "error" => "X-Authorization: Insufficient pillages"
+                        )
+                    );
+                }
+            } else {
+                return json_encode(
+                    array(
+                        "success" => false,
+                        "error" => "X-Authorization: API Key is not valid"
+                    )
+                );
+            }
         } else {
             return json_encode(
                 array(
                     "success" => false,
-                    "error" => "NotFound"
+                    "error" => "Header Option Not Found: 'X-Authorization'"
                 )
             );
         }
@@ -97,16 +154,44 @@ class BuildingController extends BaseController
      * @param $campusId
      * @return string
      */
-    public function getByCampus($campusId)
+    public function getByCampus(Request $request, $campusId)
     {
-        $obj = Building::where('campus', $campusId)->get();
-        if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-            return json_encode($obj);
+        if ($request->header('X-Authorization')) {
+            $key = APIKey::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                if ($key->get) {
+                    $obj = Building::where('campus', $campusId)->get();
+                    if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+                        return json_encode($obj);
+                    } else {
+                        return json_encode(
+                            array(
+                                "success" => false,
+                                "error" => "NotFound"
+                            )
+                        );
+                    }
+                } else {
+                    return json_encode(
+                        array(
+                            "success" => false,
+                            "error" => "X-Authorization: Insufficient pillages"
+                        )
+                    );
+                }
+            } else {
+                return json_encode(
+                    array(
+                        "success" => false,
+                        "error" => "X-Authorization: API Key is not valid"
+                    )
+                );
+            }
         } else {
             return json_encode(
                 array(
                     "success" => false,
-                    "error" => "NotFound"
+                    "error" => "Header Option Not Found: 'X-Authorization'"
                 )
             );
         }
@@ -118,51 +203,79 @@ class BuildingController extends BaseController
      */
     public function post(Request $request)
     {
+        if ($request->header('X-Authorization')) {
+            $key = APIKey::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                if ($key->post) {
 
-        $validator = Validator::make($request->all(), [
-            'campus' => 'integer|required|max:11|min:1',
-            'code' => 'string|required|max:10|min:3|unique:buildings',
-            'name' => 'string|required|max:30|min:3'
-        ]);
+                    $validator = Validator::make($request->all(), [
+                        'campus' => 'integer|required|max:11|min:1',
+                        'code' => 'string|required|max:10|min:3|unique:buildings',
+                        'name' => 'string|required|max:30|min:3'
+                    ]);
 
-        if ($validator->fails()) {
-            return json_encode(array(
-                'success' => false,
-                'message' => $validator->errors()->all()
-            ));
-        }
+                    if ($validator->fails()) {
+                        return json_encode(array(
+                            'success' => false,
+                            'message' => $validator->errors()->all()
+                        ));
+                    }
 
-        if (Building::where('code', $request->input('code'))->get()->first()) {
-            if (Building::where('code', $request->input('code'))->update($request->input())) {
-                return json_encode(array(
-                    'success' => true,
-                    'message' => 'update'
-                ));
+                    if (Building::where('code', $request->input('code'))->get()->first()) {
+                        if (Building::where('code', $request->input('code'))->update($request->input())) {
+                            return json_encode(array(
+                                'success' => true,
+                                'message' => 'update'
+                            ));
+                        } else {
+                            return json_encode(array(
+                                'success' => false,
+                                'message' => 'Could not update'
+                            ));
+                        }
+
+                    } else {
+                        $model = new Building();
+
+                        foreach ($request->input() as $key => $value) {
+                            $model->$key = $value;
+                        }
+
+                        if ($model->save()) {
+                            return json_encode(array(
+                                'success' => true,
+                                'message' => 'create'
+                            ));
+                        } else {
+                            return json_encode(array(
+                                'success' => false,
+                                'message' => $model->errors()->all()
+                            ));
+                        }
+                    }
+                } else {
+                    return json_encode(
+                        array(
+                            "success" => false,
+                            "error" => "X-Authorization: Insufficient pillages"
+                        )
+                    );
+                }
             } else {
-                return json_encode(array(
-                    'success' => false,
-                    'message' => 'Could not update'
-                ));
+                return json_encode(
+                    array(
+                        "success" => false,
+                        "error" => "X-Authorization: API Key is not valid"
+                    )
+                );
             }
-
         } else {
-            $model = new Building();
-
-            foreach ($request->input() as $key => $value) {
-                $model->$key = $value;
-            }
-
-            if ($model->save()) {
-                return json_encode(array(
-                    'success' => true,
-                    'message' => 'create'
-                ));
-            } else {
-                return json_encode(array(
-                    'success' => false,
-                    'message' => $model->errors()->all()
-                ));
-            }
+            return json_encode(
+                array(
+                    "success" => false,
+                    "error" => "Header Option Not Found: 'X-Authorization'"
+                )
+            );
         }
     }
 }
