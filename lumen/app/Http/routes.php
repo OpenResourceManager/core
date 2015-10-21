@@ -58,7 +58,7 @@ $app->group(['prefix' => 'v1/building'], function () use ($app) {
     $app->get('campus/{campusId}', 'App\Http\Controllers\BuildingController@getByCampus');
 
     $app->get('/', 'App\Http\Controllers\BuildingController@getBuilding');
-    $app->get('/{limit}', 'App\Http\Controllers\BuildingController@getBuilding');
+    $app->get('/{limit}', 'App\Http\Controllers\BuildingController@get');
 
 });
 
