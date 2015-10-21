@@ -70,6 +70,11 @@ class BuildingController extends BaseController
      *
      * @apiSuccess {Boolean} success Tells the application if the request was successful.
      * @apiSuccess {Objects} result The objects that have been returned.
+     * @apiSuccess {Integer} id The numeric id of the object.
+     * @apiSuccess {Integer} campus The numeric id of the corresponding campus.
+     * @apiSuccess {String} code The code assigned to the building by Informer.
+     * @apiSuccess {Timestamp} created_at The date and time that the object was created.
+     * @apiSuccess {Timestamp} updated_at The date and time that the object was updated.
      *
      * @apiSuccessExample {json} Success: Objects
      *     HTTP/1.1 200 OK
