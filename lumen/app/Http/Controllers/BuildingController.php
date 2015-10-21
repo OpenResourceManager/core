@@ -103,39 +103,20 @@ class BuildingController extends BaseController
                 'name' => 'string|required|max:30|min:3'
             ]);
             if ($validator->fails()) {
-                return json_encode(array(
-                    'success' => false,
-                    'message' => $validator->errors()->all()
-                ));
+                return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
             if (Building::where('code', $request->input('code'))->get()->first()) {
                 if (Building::where('code', $request->input('code'))->update($request->input())) {
-                    return json_encode(array(
-                        'success' => true,
-                        'message' => 'update'
-                    ));
+                    return json_encode(array('success' => true, 'message' => 'update'));
                 } else {
-                    return json_encode(array(
-                        'success' => false,
-                        'message' => 'Could not update'
-                    ));
+                    return json_encode(array('success' => false, 'message' => 'Could not update'));
                 }
             } else {
                 $model = new Building();
                 foreach ($request->input() as $key => $value) {
                     $model->$key = $value;
                 }
-                if ($model->save()) {
-                    return json_encode(array(
-                        'success' => true,
-                        'message' => 'create'
-                    ));
-                } else {
-                    return json_encode(array(
-                        'success' => false,
-                        'message' => $model->errors()->all()
-                    ));
-                }
+                return $model->save() ? json_encode(array('success' => true, 'message' => 'create')) : json_encode(array('success' => false, 'message' => $model->errors()->all()));
             }
         } else {
             return json_encode($result[1]);
