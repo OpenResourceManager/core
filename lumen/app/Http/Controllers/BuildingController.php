@@ -167,14 +167,14 @@ class BuildingController extends BaseController
      *       .field("code", "ACK")
      *       .asString();
      *
-     * @apiSuccessExample {json} Success Create Response:
+     * @apiSuccessExample {json} Success: Create
      *     HTTP/1.1 200 OK
      *     {
      *          "success": true,
      *          "result": "create"
      *     }
      *
-     * @apiSuccessExample {json} Success Update Response:
+     * @apiSuccessExample {json} Success: Update
      *     HTTP/1.1 200 OK
      *     {
      *          "success": true,
