@@ -7,23 +7,25 @@
  * Time: 1:42 PM
  */
 
-
 use App\Campus;
+use App\APIKey;
+use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
+use Illuminate\Http\Request;
 
 class CampusController extends BaseController
 {
-
     /**
      * @param int $limit
      * @return string
      */
-    public function get($limit = 0)
+    public function get(Request $request, $limit = 0)
     {
-        if ($limit > 0) {
-            return json_encode(Campus::all()->take($limit));
+        $result = APIKey::testAPIKey($request, 'get');
+        if ($result[0]) {
+            return $limit > 0 ? json_encode(Campus::all()->take($limit)) : json_encode(Campus::all());
         } else {
-            return json_encode(Campus::all());
+            return json_encode($result[1]);
         }
     }
 
@@ -31,18 +33,18 @@ class CampusController extends BaseController
      * @param $id
      * @return string
      */
-    public function getById($id)
+    public function getById(Request $request, $id)
     {
-        $obj = Campus::where('id', $id)->get();
-        if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-            return json_encode($obj);
+        $result = APIKey::testAPIKey($request, 'get');
+        if ($result[0]) {
+            $obj = Campus::where('id', $id)->get();
+            if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+                return json_encode($obj);
+            } else {
+                return json_encode(array("success" => false, "error" => "NotFound"));
+            }
         } else {
-            return json_encode(
-                array(
-                    "success" => false,
-                    "error" => "NotFound"
-                )
-            );
+            return json_encode($result[1]);
         }
     }
 
@@ -50,18 +52,18 @@ class CampusController extends BaseController
      * @param $code
      * @return string
      */
-    public function getByCode($code)
+    public function getByCode(Request $request, $code)
     {
-        $obj = Campus::where('code', $code)->get();
-        if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-            return json_encode($obj);
+        $result = APIKey::testAPIKey($request, 'get');
+        if ($result[0]) {
+            $obj = Campus::where('code', $code)->get();
+            if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+                return json_encode($obj);
+            } else {
+                return json_encode(array("success" => false, "error" => "NotFound"));
+            }
         } else {
-            return json_encode(
-                array(
-                    "success" => false,
-                    "error" => "NotFound"
-                )
-            );
+            return json_encode($result[1]);
         }
     }
 
@@ -71,51 +73,31 @@ class CampusController extends BaseController
      */
     public function post(Request $request)
     {
-
-        $validator = Validator::make($request->all(), [
-            'code' => 'string|required|max:10|min:3|unique:campuses',
-            'name' => 'string|required|max:30|min:3'
-        ]);
-
-        if ($validator->fails()) {
-            return json_encode(array(
-                'success' => false,
-                'message' => $validator->errors()->all()
-            ));
-        }
-
-        if (Campus::where('code', $request->input('code'))->get()->first()) {
-            if (Campus::where('code', $request->input('code'))->update($request->input())) {
-                return json_encode(array(
-                    'success' => true,
-                    'message' => 'update'
-                ));
-            } else {
-                return json_encode(array(
-                    'success' => false,
-                    'message' => 'Could not update'
-                ));
+        $result = APIKey::testAPIKey($request, 'post');
+        if ($result[0]) {
+            $validator = Validator::make($request->all(), [
+                'code' => 'string|required|max:10|min:3|unique:campuses',
+                'name' => 'string|required|max:30|min:3'
+            ]);
+            if ($validator->fails()) {
+                return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
-
+            if (Campus::where('code', $request->input('code'))->get()->first()) {
+                if (Campus::where('code', $request->input('code'))->update($request->input())) {
+                    return json_encode(array('success' => true, 'message' => 'update'));
+                } else {
+                    return json_encode(array('success' => false, 'message' => 'Could not update'));
+                }
+            } else {
+                $model = new Campus();
+                foreach ($request->input() as $key => $value) {
+                    $model->$key = $value;
+                }
+                $save = $model->save() ? true : false;
+                return json_encode(array('success' => $save, 'message' => $save ? 'create' : $model->errors()->all()));
+            }
         } else {
-            $model = new Campus();
-
-            foreach ($request->input() as $key => $value) {
-                $model->$key = $value;
-            }
-
-            if ($model->save()) {
-                return json_encode(array(
-                    'success' => true,
-                    'message' => 'create'
-                ));
-            } else {
-                return json_encode(array(
-                    'success' => false,
-                    'message' => $model->errors()->all()
-                ));
-            }
+            return json_encode($result[1]);
         }
     }
-
 }

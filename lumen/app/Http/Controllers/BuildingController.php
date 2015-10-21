@@ -8,77 +8,85 @@
  */
 
 use App\Building;
+use App\APIKey;
+use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
+use Illuminate\Http\Request;
 
 class BuildingController extends BaseController
 {
     /**
+     * @param Request $request
      * @param int $limit
      * @return string
      */
-    public function get($limit = 0)
+    public function get(Request $request, $limit = 0)
     {
-        if ($limit > 0) {
-            return json_encode(Building::all()->take($limit));
+        $result = APIKey::testAPIKey($request, 'get');
+        if ($result[0]) {
+            return $limit > 0 ? json_encode(Building::all()->take($limit)) : json_encode(Building::all());
         } else {
-            return json_encode(Building::all());
+            return json_encode($result[1]);
         }
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return string
      */
-    public function getById($id)
+    public function getById(Request $request, $id)
     {
-        $obj = Building::where('id', $id)->get();
-        if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-            return json_encode($obj);
+        $result = APIKey::testAPIKey($request, 'get');
+        if ($result[0]) {
+            $obj = Building::where('id', $id)->get();
+            if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+                return json_encode($obj);
+            } else {
+                return json_encode(array("success" => false, "error" => "NotFound"));
+            }
         } else {
-            return json_encode(
-                array(
-                    "success" => false,
-                    "error" => "NotFound"
-                )
-            );
+            return json_encode($result[1]);
         }
     }
 
     /**
+     * @param Request $request
      * @param $code
      * @return string
      */
-    public function getByCode($code)
+    public function getByCode(Request $request, $code)
     {
-        $obj = Building::where('code', $code)->get();
-        if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-            return json_encode($obj);
+        $result = APIKey::testAPIKey($request, 'get');
+        if ($result[0]) {
+            $obj = Building::where('code', $code)->get();
+            if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+                return json_encode($obj);
+            } else {
+                return json_encode(array("success" => false, "error" => "NotFound"));
+            }
         } else {
-            return json_encode(
-                array(
-                    "success" => false,
-                    "error" => "NotFound"
-                )
-            );
+            return json_encode($result[1]);
         }
     }
 
     /**
+     * @param Request $request
      * @param $campusId
      * @return string
      */
-    public function getByCampus($campusId)
+    public function getByCampus(Request $request, $campusId)
     {
-        $obj = Building::where('campus', $campusId)->get();
-        if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-            return json_encode($obj);
+        $result = APIKey::testAPIKey($request, 'get');
+        if ($result[0]) {
+            $obj = Building::where('campus', $campusId)->get();
+            if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+                return json_encode($obj);
+            } else {
+                return json_encode(array("success" => false, "error" => "NotFound"));
+            }
         } else {
-            return json_encode(
-                array(
-                    "success" => false,
-                    "error" => "NotFound"
-                )
-            );
+            return json_encode($result[1]);
         }
     }
 
@@ -88,51 +96,32 @@ class BuildingController extends BaseController
      */
     public function post(Request $request)
     {
-
-        $validator = Validator::make($request->all(), [
-            'campus' => 'integer|required|max:11|min:1',
-            'code' => 'string|required|max:10|min:3|unique:buildings',
-            'name' => 'string|required|max:30|min:3'
-        ]);
-
-        if ($validator->fails()) {
-            return json_encode(array(
-                'success' => false,
-                'message' => $validator->errors()->all()
-            ));
-        }
-
-        if (Building::where('code', $request->input('code'))->get()->first()) {
-            if (Building::where('code', $request->input('code'))->update($request->input())) {
-                return json_encode(array(
-                    'success' => true,
-                    'message' => 'update'
-                ));
-            } else {
-                return json_encode(array(
-                    'success' => false,
-                    'message' => 'Could not update'
-                ));
+        $result = APIKey::testAPIKey($request, 'post');
+        if ($result[0]) {
+            $validator = Validator::make($request->all(), [
+                'campus' => 'integer|required|max:11|min:1',
+                'code' => 'string|required|max:10|min:3|unique:buildings',
+                'name' => 'string|required|max:30|min:3'
+            ]);
+            if ($validator->fails()) {
+                return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
-
+            if (Building::where('code', $request->input('code'))->get()->first()) {
+                if (Building::where('code', $request->input('code'))->update($request->input())) {
+                    return json_encode(array('success' => true, 'message' => 'update'));
+                } else {
+                    return json_encode(array('success' => false, 'message' => 'Could not update'));
+                }
+            } else {
+                $model = new Building();
+                foreach ($request->input() as $key => $value) {
+                    $model->$key = $value;
+                }
+                $save = $model->save() ? true : false;
+                return json_encode(array('success' => $save, 'message' => $save ? 'create' : $model->errors()->all()));
+            }
         } else {
-            $model = new Building();
-
-            foreach ($request->input() as $key => $value) {
-                $model->$key = $value;
-            }
-
-            if ($model->save()) {
-                return json_encode(array(
-                    'success' => true,
-                    'message' => 'create'
-                ));
-            } else {
-                return json_encode(array(
-                    'success' => false,
-                    'message' => $model->errors()->all()
-                ));
-            }
+            return json_encode($result[1]);
         }
     }
 }

@@ -1,0 +1,59 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: melon
+ * Date: 10/20/15
+ * Time: 3:15 PM
+ */
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class APIKey extends Model
+{
+    protected $table = 'apikeys';
+
+    /**
+     * @param string $key
+     * @return mixed
+     */
+    public static function getAPIKey($key = '')
+    {
+        return APIKey::where('key', $key)->get()->first();
+    }
+
+    /**
+     * @param $request
+     * @param $method
+     * @return array
+     */
+    public static function testAPIKey($request, $method)
+    {
+        if ($request->header('X-Authorization')) {
+            $key = self::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                switch ($method) {
+                    case 'get' :
+                        return $key->can_get ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient pillages"));
+                        break;
+                    case 'post' :
+                        return $key->can_post ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient pillages"));
+                        break;
+                    case 'put':
+                        return $key->can_put ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient pillages"));
+                        break;
+                    case 'delete':
+                        return $key->can_delete ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient pillages"));
+                        break;
+                    default :
+                        return array(false, array("success" => false, "error" => "Method not found"));
+                }
+            } else {
+                return array(false, array("success" => false, "error" => "X-Authorization: API Key is not valid"));
+            }
+        } else {
+            return array(false, array("success" => false, "error" => "Header Option Not Found: 'X-Authorization'"));
+        }
+    }
+}
