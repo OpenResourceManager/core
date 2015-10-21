@@ -99,5 +99,4 @@ class CampusController extends BaseController
             return json_encode($result[1]);
         }
     }
-
 }
