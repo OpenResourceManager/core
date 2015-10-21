@@ -9,9 +9,10 @@
 
 use App\Campus;
 use App\Department;
+use App\APIKey;
+use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use App\APIKey;
 
 class DepartmentController extends BaseController
 {

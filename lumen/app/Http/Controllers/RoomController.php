@@ -8,9 +8,10 @@
  */
 
 use App\Room;
+use App\APIKey;
+use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use App\APIKey;
 
 class RoomController extends BaseController
 {
