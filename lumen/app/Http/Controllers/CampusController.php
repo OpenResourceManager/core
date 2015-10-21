@@ -92,11 +92,7 @@ class CampusController extends BaseController
                 foreach ($request->input() as $key => $value) {
                     $model->$key = $value;
                 }
-                if ($model->save()) {
-                    return json_encode(array('success' => true, 'message' => 'create'));
-                } else {
-                    return json_encode(array('success' => false, 'message' => $model->errors()->all()));
-                }
+                return $model->save() ? json_encode(array('success' => true, 'message' => 'create')) : json_encode(array('success' => false, 'message' => $model->errors()->all()));
             }
         } else {
             return json_encode($result[1]);
