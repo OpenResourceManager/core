@@ -15,6 +15,7 @@ use App\APIKey;
 class EmailController extends BaseController
 {
     /**
+     * @param Request $request
      * @param int $limit
      * @return string
      */
@@ -29,40 +30,43 @@ class EmailController extends BaseController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return string
      */
-    public function getById($id)
+    public function getById(Request $request, $id)
     {
-        $obj = Email::where('id', $id)->get();
-        if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-            return json_encode($obj);
+        $result = APIKey::testAPIKey($request, 'get');
+        if ($result[0]) {
+            $obj = Email::where('id', $id)->get();
+            if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+                return json_encode($obj);
+            } else {
+                return json_encode(array("success" => false, "error" => "NotFound"));
+            }
         } else {
-            return json_encode(
-                array(
-                    "success" => false,
-                    "error" => "NotFound"
-                )
-            );
+            return json_encode($result[1]);
         }
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return string
      */
-    public function getByUser($id)
+    public function getByUser(Request $request, $id)
     {
-        $obj = Email::where('user', $id)->get();
-        if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-            return json_encode($obj);
+        $result = APIKey::testAPIKey($request, 'get');
+        if ($result[0]) {
+            $obj = Email::where('user', $id)->get();
+            if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+                return json_encode($obj);
+            } else {
+                return json_encode(
+                    array("success" => false, "error" => "NotFound"));
+            }
         } else {
-            return json_encode(
-                array(
-                    "success" => false,
-                    "error" => "NotFound"
-                )
-            );
+            return json_encode($result[1]);
         }
     }
 
@@ -72,50 +76,31 @@ class EmailController extends BaseController
      */
     public function post(Request $request)
     {
-
-        $validator = Validator::make($request->all(), [
-            'user' => 'integer|required|max:11|min:1',
-            'email' => 'email|required|max:60|min:7|unique:emails',
-        ]);
-
-        if ($validator->fails()) {
-            return json_encode(array(
-                'success' => false,
-                'message' => $validator->errors()->all()
-            ));
-        }
-
-        if (Email::where('email', $request->input('email'))->get()->first()) {
-            if (Email::where('email', $request->input('email'))->update($request->input())) {
-                return json_encode(array(
-                    'success' => true,
-                    'message' => 'update'
-                ));
-            } else {
-                return json_encode(array(
-                    'success' => false,
-                    'message' => 'Could not update'
-                ));
+        $result = APIKey::testAPIKey($request, 'post');
+        if ($result[0]) {
+            $validator = Validator::make($request->all(), [
+                'user' => 'integer|required|max:11|min:1',
+                'email' => 'email|required|max:60|min:7|unique:emails',
+            ]);
+            if ($validator->fails()) {
+                return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
-
+            if (Email::where('email', $request->input('email'))->get()->first()) {
+                if (Email::where('email', $request->input('email'))->update($request->input())) {
+                    return json_encode(array('success' => true, 'message' => 'update'));
+                } else {
+                    return json_encode(array('success' => false, 'message' => 'Could not update'));
+                }
+            } else {
+                $model = new Email();
+                foreach ($request->input() as $key => $value) {
+                    $model->$key = $value;
+                }
+                $save = $model->save() ? true : false;
+                return json_encode(array('success' => $save, 'message' => $save ? 'create' : $model->errors()->all()));
+            }
         } else {
-            $model = new Email();
-
-            foreach ($request->input() as $key => $value) {
-                $model->$key = $value;
-            }
-
-            if ($model->save()) {
-                return json_encode(array(
-                    'success' => true,
-                    'message' => 'create'
-                ));
-            } else {
-                return json_encode(array(
-                    'success' => false,
-                    'message' => $model->errors()->all()
-                ));
-            }
+            return json_encode($result[1]);
         }
     }
 }
