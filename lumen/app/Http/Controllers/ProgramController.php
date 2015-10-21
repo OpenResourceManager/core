@@ -107,15 +107,9 @@ class ProgramController extends BaseController
             }
             if (Program::where('code', $request->input('code'))->get()->first()) {
                 if (Program::where('code', $request->input('code'))->update($request->input())) {
-                    return json_encode(array(
-                        'success' => true,
-                        'message' => 'update'
-                    ));
+                    return json_encode(array('success' => true, 'message' => 'update'));
                 } else {
-                    return json_encode(array(
-                        'success' => false,
-                        'message' => 'Could not update'
-                    ));
+                    return json_encode(array('success' => false, 'message' => 'Could not update'));
                 }
             } else {
                 $model = new Program();
