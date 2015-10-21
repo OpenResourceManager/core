@@ -27,10 +27,10 @@ class APIKeyTableSeeder extends Seeder
             $model = new APIKey();
             $model->app_name = $key[0];
             $model->key = $key[1];
-            $model->get = $key[2];
-            $model->post = $key[3];
-            $model->put = $key[4];
-            $model->delete = $key[5];
+            $model->can_get = $key[2];
+            $model->can_post = $key[3];
+            $model->can_put = $key[4];
+            $model->can_delete = $key[5];
             $model->save();
         }
 

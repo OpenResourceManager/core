@@ -143,5 +143,6 @@ class CreateTables extends Migration
         Schema::drop('emails');
         Schema::drop('phones');
         Schema::drop('rooms');
+        Schema::drop('apikeys');
     }
 }
