@@ -8,6 +8,7 @@
  */
 
 use App\Building;
+use App\Http\Controllers\MainController;
 use Illuminate\Http\Request;
 
 class BuildingController extends MainController
