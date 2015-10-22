@@ -70,8 +70,8 @@ class BuildingController extends BaseController
      *
      * @apiSuccess {Boolean} success Tells the application if the request was successful.
      * @apiSuccess {Objects} result The objects that have been returned.
-     * @apiSuccess {Number} id The numeric id of the object.
-     * @apiSuccess {Number} campus The numeric id of the corresponding campus.
+     * @apiSuccess {Integer} id The numeric id of the object.
+     * @apiSuccess {Integer} campus The numeric id of the corresponding campus.
      * @apiSuccess {String} code The code assigned to the building by Informer.
      * @apiSuccess {Timestamp} created_at The date and time that the object was created.
      * @apiSuccess {Timestamp} updated_at The date and time that the object was updated.
@@ -138,7 +138,7 @@ class BuildingController extends BaseController
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Buildings
      * @apiDescription This method returns all building objects.
-     * @apiParam {Number} limit The max number of objects returned.
+     * @apiParam {Integer} limit The max number of objects returned.
      *
      * @apiSampleRequest https://databridge.sage.edu/v1/building/
      * @apiExample {curl} Curl
@@ -187,8 +187,8 @@ class BuildingController extends BaseController
      *
      * @apiSuccess {Boolean} success Tells the application if the request was successful.
      * @apiSuccess {Objects} result The objects that have been returned.
-     * @apiSuccess {Number} id The numeric id of the object.
-     * @apiSuccess {Number} campus The numeric id of the corresponding campus.
+     * @apiSuccess {Integer} id The numeric id of the object.
+     * @apiSuccess {Integer} campus The numeric id of the corresponding campus.
      * @apiSuccess {String} code The code assigned to the building by Informer.
      * @apiSuccess {Timestamp} created_at The date and time that the object was created.
      * @apiSuccess {Timestamp} updated_at The date and time that the object was updated.
@@ -333,7 +333,7 @@ class BuildingController extends BaseController
      * If the Informer code does not exist in the database, the rest of the data sent in the POST request will be treated as a new entry.
      * If the Informer code does exist in the database, the data sent in the POST request will replace the data in that record.
      *
-     * @apiParam {Number} campus The numeric id of a campus.
+     * @apiParam {Integer} campus The numeric id of a campus.
      * @apiParam {String} name The name of the building.
      * @apiParam {String} code The code assigned by Informer.
      * @apiSuccess {Boolean} success Tells the application if the request was successful.
