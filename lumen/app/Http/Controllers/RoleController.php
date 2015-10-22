@@ -25,7 +25,7 @@ class RoleController extends BaseController
     {
         $result = APIKey::testAPIKey($request, 'get');
         if ($result[0]) {
-            return $limit > 0 ? json_encode(Role::all()->take($limit)) : json_encode(Role::all());
+            return $limit > 0 ? json_encode(array("success" => true, 'result' => Role::all()->take($limit))) : json_encode(array("success" => true, 'result' => Role::all()));
         } else {
             return json_encode($result[1]);
         }
