@@ -146,7 +146,7 @@ class BuildingController extends BaseController
      *
      * @apiExample {ruby} Ruby
      *      # This code snippet uses an open-source library. http://unirest.io/ruby
-     *      response = Unirest.get "https://databridge.sage.edu/v1/building/",
+     *      response = Unirest.get "https://databridge.sage.edu/v1/building/2/",
      *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
      *
      * @apiExample {php} PHP
