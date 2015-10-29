@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 class CampusController extends BaseController
 {
     /**
-     * @api {get} /campus/ Get all Campus
+     * @api {get} /campus/ Get all Campuses
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Campus
@@ -130,7 +130,7 @@ class CampusController extends BaseController
      */
 
     /**
-     * @api {get} /campus/:limit Get X amount of Campus
+     * @api {get} /campus/:limit Get X amount of Campuses
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Campus
