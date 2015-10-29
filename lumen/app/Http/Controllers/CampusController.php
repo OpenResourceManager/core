@@ -506,10 +506,10 @@ class CampusController extends BaseController
     }
 
     /**
-     * @api {post} /campus/ Post to Building
+     * @api {post} /campus/ Post to Campus
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
-     * @apiGroup Building
+     * @apiGroup Campus
      * @apiDescription An application can create new campus record or update existing records.
      * If the Informer code does not exist in the database, the rest of the data sent in the POST request will be treated as a new entry.
      * If the Informer code does exist in the database, the data sent in the POST request will replace the data in that record.
