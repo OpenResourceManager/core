@@ -252,6 +252,114 @@ class CampusController extends BaseController
     }
 
     /**
+     * @api {get} /campus/id/:id Get Campus by ID
+     * @apiVersion 1.1.1
+     * @apiHeader {String} X-Authorization The application's unique access-key.
+     * @apiGroup Campus
+     * @apiDescription This method returns an object with the specified ID.
+     * @apiParam {Integer} id The id of a specific object.
+     *
+     * @apiSampleRequest https://databridge.sage.edu/v1/campus/id/:id
+     * @apiExample {curl} Curl
+     *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/campus/id/2/
+     *
+     * @apiExample {ruby} Ruby
+     *      # This code snippet uses an open-source library. http://unirest.io/ruby
+     *      response = Unirest.get "https://databridge.sage.edu/v1/campus/id/2/",
+     *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
+     *
+     * @apiExample {php} PHP
+     *      $ch = curl_init("https://databridge.sage.edu/v1/campus/id/2/");
+     *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+     *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+     *      $result = curl_exec($ch);
+     *      curl_close($ch);
+     *
+     * @apiExample {powershell} PowerShell
+     *      # PowerShell v3 and above
+     *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+     *      $headers.Add("X-Authorization", '<Your-API-Key>')
+     *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/campus/id/2/ -Headers $headers
+     *
+     * @apiExample {java} Java
+     *      # This code snippet uses an open-source library. http://unirest.io/java
+     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/campus/id/2/")
+     *      .header("X-Authorization", "<Your-API-Key>")
+     *      .header("Accept", "application/json")
+     *      .asString();
+     *
+     * @apiExample {python} Python
+     *      # This code snippet uses an open-source library http://unirest.io/python
+     *      response = unirest.get("https://databridge.sage.edu/v1/campus/id/2/",
+     *          headers={
+     *              "X-Authorization": "<Your-API-Key>",
+     *              "Accept": "application/json"
+     *          }
+     *      )
+     *
+     * @apiExample {.net} .NET
+     *      // This code snippet uses an open-source library http://unirest.io/net
+     *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/campus/id/2/")
+     *       .header("X-Authorization", "<Your-API-Key>")
+     *       .header("Accept", "application/json")
+     *       .asString();
+     *
+     * @apiSuccess {Boolean} success Tells the application if the request was successful.
+     * @apiSuccess {Object} result The object that has been returned.
+     * @apiSuccess {Integer} id The numeric id of the object.
+     * @apiSuccess {Integer} campus The numeric id of the corresponding campus.
+     * @apiSuccess {String} code The code assigned to the campus by Informer.
+     * @apiSuccess {String} name The common name associated with the campus.
+     * @apiSuccess {Timestamp} created_at The date and time that the object was created.
+     * @apiSuccess {Timestamp} updated_at The date and time that the object was updated.
+     *
+     * @apiSuccessExample {json} Success: Objects
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "success": true,
+     *         "result":
+     *           {
+     *              "id": "2",
+     *              "code": "ALB",
+     *              "name": "Sage College of Albany",
+     *              "created_at": "2015-10-21 13:29:11",
+     *              "updated_at": "2015-10-21 13:29:11"
+     *           }
+     *     }
+     *
+     * @apiError (Error 4xx/5xx) {Boolean} success Tells the application if the request was successful.
+     * @apiError (Error 4xx/5xx) {String} error An error message from the server.
+     *
+     * @apiErrorExample {json} Error: Not Privileged
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: Insufficient privileges."
+     *      }
+     *
+     * @apiErrorExample {json} Error: Invalid API Key
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: API Key is not valid."
+     *      }
+     *
+     * @apiErrorExample {json} Error: Method not found
+     *      HTTP/1.1 400 Bad Request
+     *      {
+     *          "success": false,
+     *          "error": "Method not found."
+     *      }
+     *
+     * @apiErrorExample {json} Error: Missing Header Option
+     *      HTTP/1.1 400 Bad Request
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: Header Option Not Found."
+     *      }
+     */
+
+    /**
      * @param $id
      * @return string
      */
