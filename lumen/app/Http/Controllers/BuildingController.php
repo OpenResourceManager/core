@@ -20,7 +20,7 @@ class BuildingController extends BaseController
      * @api {get} /building/ Get all Buildings
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
-     * @apiGroup Buildings
+     * @apiGroup Building
      * @apiDescription This method returns all building objects.
      *
      * @apiSampleRequest https://databridge.sage.edu/v1/building/
@@ -73,6 +73,7 @@ class BuildingController extends BaseController
      * @apiSuccess {Integer} id The numeric id of the object.
      * @apiSuccess {Integer} campus The numeric id of the corresponding campus.
      * @apiSuccess {String} code The code assigned to the building by Informer.
+     * @apiSuccess {String} name The common name associated with the building.
      * @apiSuccess {Timestamp} created_at The date and time that the object was created.
      * @apiSuccess {Timestamp} updated_at The date and time that the object was updated.
      *
@@ -136,7 +137,7 @@ class BuildingController extends BaseController
      * @api {get} /building/:limit Get X amount of Buildings
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
-     * @apiGroup Buildings
+     * @apiGroup Building
      * @apiDescription This method returns objects up to the limit specified.
      * @apiParam {Integer} limit The max number of objects returned.
      *
@@ -190,6 +191,7 @@ class BuildingController extends BaseController
      * @apiSuccess {Integer} id The numeric id of the object.
      * @apiSuccess {Integer} campus The numeric id of the corresponding campus.
      * @apiSuccess {String} code The code assigned to the building by Informer.
+     * @apiSuccess {String} name The common name associated with the building.
      * @apiSuccess {Timestamp} created_at The date and time that the object was created.
      * @apiSuccess {Timestamp} updated_at The date and time that the object was updated.
      *
@@ -268,7 +270,7 @@ class BuildingController extends BaseController
      * @api {get} /building/id/:id Get Building by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
-     * @apiGroup Buildings
+     * @apiGroup Building
      * @apiDescription This method returns an object with the specified ID.
      * @apiParam {Integer} id The id of a specific object.
      *
@@ -322,6 +324,7 @@ class BuildingController extends BaseController
      * @apiSuccess {Integer} id The numeric id of the object.
      * @apiSuccess {Integer} campus The numeric id of the corresponding campus.
      * @apiSuccess {String} code The code assigned to the building by Informer.
+     * @apiSuccess {String} name The common name associated with the building.
      * @apiSuccess {Timestamp} created_at The date and time that the object was created.
      * @apiSuccess {Timestamp} updated_at The date and time that the object was updated.
      *
@@ -396,7 +399,7 @@ class BuildingController extends BaseController
      * @api {get} /building/code/:code Get Building by Informer Code
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
-     * @apiGroup Buildings
+     * @apiGroup Building
      * @apiDescription This method returns an object with the specified Informer Code.
      * @apiParam {String} code The code assigned to an object by Informer.
      *
@@ -450,6 +453,7 @@ class BuildingController extends BaseController
      * @apiSuccess {Integer} id The numeric id of the object.
      * @apiSuccess {Integer} campus The numeric id of the corresponding campus.
      * @apiSuccess {String} code The code assigned to the building by Informer.
+     * @apiSuccess {String} name The common name associated with the building.
      * @apiSuccess {Timestamp} created_at The date and time that the object was created.
      * @apiSuccess {Timestamp} updated_at The date and time that the object was updated.
      *
@@ -524,7 +528,7 @@ class BuildingController extends BaseController
      * @api {get} /building/campus/:campus Get Buildings by Campus ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
-     * @apiGroup Buildings
+     * @apiGroup Building
      * @apiDescription This method returns objects with the specified Campus ID.
      * @apiParam {Integer} campus The ID of a Campus.
      *
@@ -578,6 +582,7 @@ class BuildingController extends BaseController
      * @apiSuccess {Integer} id The numeric id of the object.
      * @apiSuccess {Integer} campus The numeric id of the corresponding campus.
      * @apiSuccess {String} code The code assigned to the building by Informer.
+     * @apiSuccess {String} name The common name associated with the building.
      * @apiSuccess {Timestamp} created_at The date and time that the object was created.
      * @apiSuccess {Timestamp} updated_at The date and time that the object was updated.
      *
@@ -652,7 +657,7 @@ class BuildingController extends BaseController
      * @api {post} /building/ Post to Building
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
-     * @apiGroup Buildings
+     * @apiGroup Building
      * @apiDescription An application can create new building record or update existing records.
      * If the Informer code does not exist in the database, the rest of the data sent in the POST request will be treated as a new entry.
      * If the Informer code does exist in the database, the data sent in the POST request will replace the data in that record.
