@@ -564,22 +564,22 @@ class EmailController extends BaseController
      *
      * @apiExample {curl} Curl
      *      curl -H "X-Authorization: <Your-API-Key>" \
-     *      --data "id=3" \
-     *      --data "email=NFF" \
+     *      --data "user=3" \
+     *      --data "email=skywal@sage.edu" \
      *      --url https://databridge.sage.edu/v1/email
      *
      * @apiExample {ruby} Ruby
      *      # This code snippet uses an open-source library. http://unirest.io/ruby
      *      response = Unirest.get "https://databridge.sage.edu/v1/email",
      *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
-     *      parameters:{ :id => 3, :email => "NFF"}.to_json
+     *      parameters:{ :user => 3, :email => "skywal@sage.edu"}.to_json
      *
      * @apiExample {php} PHP
      *      $ch = curl_init("https://databridge.sage.edu/v1/email");
      *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
      *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
      *      curl_setopt($ch, CURLOPT_POST, true);
-     *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("id" => 3, "email" => "NFF"));
+     *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("user" => 3, "email" => "skywal@sage.edu"));
      *      $result = curl_exec($ch);
      *      curl_close($ch);
      *
@@ -588,7 +588,7 @@ class EmailController extends BaseController
      *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
      *      $headers.Add("X-Authorization", '<Your-API-Key>')
      *      $uri = https://databridge.sage.edu/v1/email
-     *      $body = @{ id = "3", email = "NFF" }
+     *      $body = @{ user = "3", email = "skywal@sage.edu" }
      *      $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method Post -Body $body
      *
      * @apiExample {java} Java
@@ -596,7 +596,7 @@ class EmailController extends BaseController
      *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/email")
      *      .header("X-Authorization", "<Your-API-Key>")
      *      .header("Accept", "application/json")
-     *      .body("{ \"id\":\"3\", \"email\":\"NFF\"}")
+     *      .body("{ \"user\":\"3\", \"email\":\"skywal@sage.edu\"}")
      *      .asString();
      *
      * @apiExample {python} Python
@@ -607,8 +607,8 @@ class EmailController extends BaseController
      *              "Accept": "application/json"
      *          },
      *          params={
-     *              "id": 3,
-     *              "email": "NFF"
+     *              "user": 3,
+     *              "email": "skywal@sage.edu"
      *          }
      *      )
      *
@@ -617,8 +617,8 @@ class EmailController extends BaseController
      *       Task<HttpResponse<MyClass>> response = Unirest.post("https://databridge.sage.edu/v1/email")
      *       .header("X-Authorization", "<Your-API-Key>")
      *       .header("Accept", "application/json")
-     *       .field("id", "3")
-     *       .field("email", "NFF")
+     *       .field("user", "3")
+     *       .field("email", "skywal@sage.edu")
      *       .asString();
      *
      * @apiSuccessExample {json} Success: Create
