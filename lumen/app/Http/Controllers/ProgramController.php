@@ -532,7 +532,7 @@ class ProgramController extends BaseController
     }
 
     /**
-     * @api {get} /program/department/:department Get Buildings by Department ID
+     * @api {get} /program/department/:department Get Programs by Department ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Program
