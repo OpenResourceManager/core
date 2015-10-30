@@ -541,6 +541,136 @@ class DepartmentController extends BaseController
     }
 
     /**
+     * @api {post} /department/ Post to Department
+     * @apiVersion 1.1.1
+     * @apiHeader {String} X-Authorization The application's unique access-key.
+     * @apiGroup Department
+     * @apiDescription An application can create new department record or update existing records.
+     * If the Informer code does not exist in the database, the rest of the data sent in the POST request will be treated as a new entry.
+     * If the Informer code does exist in the database, the data sent in the POST request will replace the data in that record.
+     *
+     * @apiParam {Boolean} academic Signifies if the department is an academic department.
+     * @apiParam {String} name The name of the department.
+     * @apiParam {String} code The code assigned by Informer.
+     * @apiSuccess {Boolean} success Tells the application if the request was successful.
+     * @apiSuccess {String} result The action that was performed. This may be `update` or `create`.
+     *
+     * @apiExample {curl} Curl
+     *      curl -H "X-Authorization: <Your-API-Key>" \
+     *      --data "academic=true" \
+     *      --data "name=Humanities" \
+     *      --data "code=HUM" \
+     *      --url https://databridge.sage.edu/v1/department
+     *
+     * @apiExample {ruby} Ruby
+     *      # This code snippet uses an open-source library. http://unirest.io/ruby
+     *      response = Unirest.get "https://databridge.sage.edu/v1/department",
+     *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
+     *      parameters:{ :academic => true, :name => "Humanities", :code => "HUM"}.to_json
+     *
+     * @apiExample {php} PHP
+     *      $ch = curl_init("https://databridge.sage.edu/v1/department");
+     *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+     *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+     *      curl_setopt($ch, CURLOPT_POST, true);
+     *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("academic" => true, "name" => "Humanities", "code" => "HUM"));
+     *      $result = curl_exec($ch);
+     *      curl_close($ch);
+     *
+     * @apiExample {powershell} PowerShell
+     *      # PowerShell v3 and above
+     *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+     *      $headers.Add("X-Authorization", '<Your-API-Key>')
+     *      $uri = https://databridge.sage.edu/v1/department
+     *      $body = @{ academic = $true, name = "Humanities", code = "HUM" }
+     *      $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method Post -Body $body
+     *
+     * @apiExample {java} Java
+     *      # This code snippet uses an open-source library. http://unirest.io/java
+     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/department")
+     *      .header("X-Authorization", "<Your-API-Key>")
+     *      .header("Accept", "application/json")
+     *      .body("{\"academic\":true, \"name\":\"Humanities\", \"code\":\"HUM\"}")
+     *      .asString();
+     *
+     * @apiExample {python} Python
+     *      # This code snippet uses an open-source library http://unirest.io/python
+     *      response = unirest.post("https://databridge.sage.edu/v1/department",
+     *          headers={
+     *              "X-Authorization": "<Your-API-Key>",
+     *              "Accept": "application/json"
+     *          },
+     *          params={
+     *              "academic" : true,
+     *              "name": "Humanities",
+     *              "code": "HUM"
+     *          }
+     *      )
+     *
+     * @apiExample {.net} .NET
+     *      // This code snippet uses an open-source library http://unirest.io/net
+     *       Task<HttpResponse<MyClass>> response = Unirest.post("https://databridge.sage.edu/v1/department")
+     *       .header("X-Authorization", "<Your-API-Key>")
+     *       .header("Accept", "application/json")
+     *       .field("academic", true)
+     *       .field("name", "Humanities")
+     *       .field("code", "HUM")
+     *       .asString();
+     *
+     * @apiSuccessExample {json} Success: Create
+     *     HTTP/1.1 200 OK
+     *     {
+     *          "success": true,
+     *          "result": "create"
+     *     }
+     *
+     * @apiSuccessExample {json} Success: Update
+     *     HTTP/1.1 200 OK
+     *     {
+     *          "success": true,
+     *          "result": "update"
+     *     }
+     *
+     * @apiError (Error 4xx/5xx) {Boolean} success Tells the application if the request was successful.
+     * @apiError (Error 4xx/5xx) {String} error An error message from the server.
+     *
+     * @apiErrorExample {json} Error: Not Privileged
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: Insufficient privileges."
+     *      }
+     *
+     * @apiErrorExample {json} Error: Invalid API Key
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: API Key is not valid."
+     *      }
+     *
+     * @apiErrorExample {json} Error: Method not found
+     *      HTTP/1.1 400 Bad Request
+     *      {
+     *          "success": false,
+     *          "error": "Method not found."
+     *      }
+     *
+     * @apiErrorExample {json} Error: Missing Header Option
+     *      HTTP/1.1 400 Bad Request
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: Header Option Not Found."
+     *      }
+     *
+     * @apiErrorExample {json} Error: Server Error
+     *      HTTP/1.1 500 Server Error
+     *      {
+     *          "success": false,
+     *          "error": "Could not update."
+     *      }
+     */
+
+    /**
      * @param Request $request
      * @return string
      */
