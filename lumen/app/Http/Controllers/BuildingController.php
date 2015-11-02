@@ -953,10 +953,12 @@ class BuildingController extends BaseController
             }
             if (Building::where('id', $request->input('id'))->get()->first()) {
                 if (Building::where('id', $request->input('id'))->delete()) {
+                    $rooms = null;
                     if (Room::where('building', $request->input('id'))) {
                         Room::where('building', $request->input('id'))->delete();
+                        $rooms = Room::onlyTrashed()->where('building', $request->input('id'))->get();
                     }
-                    return json_encode(array('success' => true, 'message' => 'delete', 'children' => array('room' => Room::onlyTrashed()->where('building', $request->input('id')))));
+                    return json_encode(array('success' => true, 'message' => 'delete', 'children' => array('room' => $rooms)));
                 } else {
                     return json_encode(array('success' => false, 'message' => 'Could not delete.'));
                 }
