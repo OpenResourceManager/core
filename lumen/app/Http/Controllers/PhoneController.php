@@ -428,6 +428,7 @@ class PhoneController extends BaseController
      *
      * @apiExample {curl} Curl
      *      curl -H "X-Authorization: <Your-API-Key>" \
+     *      -X "POST" \
      *      --data "user=1" \
      *      --data "number=15182445765" \
      *      --data "code=HUM" \
@@ -435,7 +436,7 @@ class PhoneController extends BaseController
      *
      * @apiExample {ruby} Ruby
      *      # This code snippet uses an open-source library. http://unirest.io/ruby
-     *      response = Unirest.get "https://databridge.sage.edu/v1/phone",
+     *      response = Unirest.post "https://databridge.sage.edu/v1/phone",
      *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
      *      parameters:{ :user => 1, :number => "15182445765", :ext => "4765"}.to_json
      *
@@ -458,7 +459,7 @@ class PhoneController extends BaseController
      *
      * @apiExample {java} Java
      *      # This code snippet uses an open-source library. http://unirest.io/java
-     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/phone")
+     *      HttpResponse <String> response = Unirest.post("https://databridge.sage.edu/v1/phone")
      *      .header("X-Authorization", "<Your-API-Key>")
      *      .header("Accept", "application/json")
      *      .body("{\"user\":1, \"number\":\"15182445765\", \"ext\":\"4765\"}")

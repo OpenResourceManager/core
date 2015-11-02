@@ -675,6 +675,7 @@ class UserController extends BaseController
      *
      * @apiExample {curl} Curl
      *      curl -H "X-Authorization: <Your-API-Key>" \
+     *      -X "POST" \
      *      --data "sageid=0979659" \
      *      --data "active=1" \
      *      --data "name_prefix=MR." \
@@ -685,7 +686,7 @@ class UserController extends BaseController
      *
      * @apiExample {ruby} Ruby
      *      # This code snippet uses an open-source library. http://unirest.io/ruby
-     *      response = Unirest.get "https://databridge.sage.edu/v1/user",
+     *      response = Unirest.post "https://databridge.sage.edu/v1/user",
      *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
      *      parameters:{ :sageid => "0979659", :active => true, :name_prefix => "MR.", :name_first => "Luke", :name_last => "Skywalker", :username => "skywal"}.to_json
      *
@@ -708,7 +709,7 @@ class UserController extends BaseController
      *
      * @apiExample {java} Java
      *      # This code snippet uses an open-source library. http://unirest.io/java
-     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user")
+     *      HttpResponse <String> response = Unirest.post("https://databridge.sage.edu/v1/user")
      *      .header("X-Authorization", "<Your-API-Key>")
      *      .header("Accept", "application/json")
      *      .body("{\"sageid\":\"0979659\", \"active\":1, \"name_prefix\":\"MR.\", \"name_first\":\"Luke\", \"name_last\":\"Skywalker\", \"username\":\"skywal\"}")

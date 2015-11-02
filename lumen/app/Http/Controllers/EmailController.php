@@ -564,13 +564,14 @@ class EmailController extends BaseController
      *
      * @apiExample {curl} Curl
      *      curl -H "X-Authorization: <Your-API-Key>" \
+     *      -X "POST" \
      *      --data "user=3" \
      *      --data "email=skywal@sage.edu" \
      *      --url https://databridge.sage.edu/v1/email
      *
      * @apiExample {ruby} Ruby
      *      # This code snippet uses an open-source library. http://unirest.io/ruby
-     *      response = Unirest.get "https://databridge.sage.edu/v1/email",
+     *      response = Unirest.post "https://databridge.sage.edu/v1/email",
      *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
      *      parameters:{ :user => 3, :email => "skywal@sage.edu"}.to_json
      *
@@ -593,7 +594,7 @@ class EmailController extends BaseController
      *
      * @apiExample {java} Java
      *      # This code snippet uses an open-source library. http://unirest.io/java
-     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/email")
+     *      HttpResponse <String> response = Unirest.post("https://databridge.sage.edu/v1/email")
      *      .header("X-Authorization", "<Your-API-Key>")
      *      .header("Accept", "application/json")
      *      .body("{ \"user\":\"3\", \"email\":\"skywal@sage.edu\"}")

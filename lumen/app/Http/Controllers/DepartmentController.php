@@ -557,6 +557,7 @@ class DepartmentController extends BaseController
      *
      * @apiExample {curl} Curl
      *      curl -H "X-Authorization: <Your-API-Key>" \
+     *      -X "POST" \
      *      --data "academic=true" \
      *      --data "name=Humanities" \
      *      --data "code=HUM" \
@@ -564,7 +565,7 @@ class DepartmentController extends BaseController
      *
      * @apiExample {ruby} Ruby
      *      # This code snippet uses an open-source library. http://unirest.io/ruby
-     *      response = Unirest.get "https://databridge.sage.edu/v1/department",
+     *      response = Unirest.post "https://databridge.sage.edu/v1/department",
      *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
      *      parameters:{ :academic => true, :name => "Humanities", :code => "HUM"}.to_json
      *
@@ -587,7 +588,7 @@ class DepartmentController extends BaseController
      *
      * @apiExample {java} Java
      *      # This code snippet uses an open-source library. http://unirest.io/java
-     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/department")
+     *      HttpResponse <String> response = Unirest.post("https://databridge.sage.edu/v1/department")
      *      .header("X-Authorization", "<Your-API-Key>")
      *      .header("Accept", "application/json")
      *      .body("{\"academic\":true, \"name\":\"Humanities\", \"code\":\"HUM\"}")

@@ -439,6 +439,7 @@ class RoomController extends BaseController
      *
      * @apiExample {curl} Curl
      *      curl -H "X-Authorization: <Your-API-Key>" \
+     *      -X "POST" \
      *      --data "user=1" \
      *      --data "building=3" \
      *      --data "floor_number=2" \
@@ -449,7 +450,7 @@ class RoomController extends BaseController
      *
      * @apiExample {ruby} Ruby
      *      # This code snippet uses an open-source library. http://unirest.io/ruby
-     *      response = Unirest.get "https://databridge.sage.edu/v1/room",
+     *      response = Unirest.post "https://databridge.sage.edu/v1/room",
      *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
      *      parameters:{ :user => 1, :building => 3, :floor_number => 2, :floor_name => "Second Floor", :room_number => 205, :room_name => "West Wing 205"}.to_json
      *
@@ -472,7 +473,7 @@ class RoomController extends BaseController
      *
      * @apiExample {java} Java
      *      # This code snippet uses an open-source library. http://unirest.io/java
-     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/room")
+     *      HttpResponse <String> response = Unirest.post("https://databridge.sage.edu/v1/room")
      *      .header("X-Authorization", "<Your-API-Key>")
      *      .header("Accept", "application/json")
      *      .body("{\"user\":1, \"building\":3, \"floor_number\":2, \"floor_name\":\"Second Floor\", \"room_number\":205, \"room_name\":\"West Wing 205\"}")

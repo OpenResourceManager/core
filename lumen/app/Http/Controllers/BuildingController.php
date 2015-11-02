@@ -672,13 +672,14 @@ class BuildingController extends BaseController
      * @apiExample {curl} Curl
      *      curl -H "X-Authorization: <Your-API-Key>" \
      *      --data "campus=1" \
+     *      -X "POST" \
      *      --data "name=Ackerman" \
      *      --data "code=ACK" \
      *      --url https://databridge.sage.edu/v1/building
      *
      * @apiExample {ruby} Ruby
      *      # This code snippet uses an open-source library. http://unirest.io/ruby
-     *      response = Unirest.get "https://databridge.sage.edu/v1/building",
+     *      response = Unirest.post "https://databridge.sage.edu/v1/building",
      *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
      *      parameters:{ :campus => 1, :name => "Ackerman", :code => "ACK"}.to_json
      *
@@ -701,7 +702,7 @@ class BuildingController extends BaseController
      *
      * @apiExample {java} Java
      *      # This code snippet uses an open-source library. http://unirest.io/java
-     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/building")
+     *      HttpResponse <String> response = Unirest.post("https://databridge.sage.edu/v1/building")
      *      .header("X-Authorization", "<Your-API-Key>")
      *      .header("Accept", "application/json")
      *      .body("{\"campus\":1, \"name\":\"Ackerman\", \"code\":\"ACK\"}")
@@ -832,12 +833,13 @@ class BuildingController extends BaseController
      *
      * @apiExample {curl} Curl
      *      curl -H "X-Authorization: <Your-API-Key>" \
+     *      -X "DELETE" \
      *      --data "id=1" \
      *      --url https://databridge.sage.edu/v1/building
      *
      * @apiExample {ruby} Ruby
      *      # This code snippet uses an open-source library. http://unirest.io/ruby
-     *      response = Unirest.get "https://databridge.sage.edu/v1/building",
+     *      response = Unirest.delete "https://databridge.sage.edu/v1/building",
      *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
      *      parameters:{ :id => 1}.to_json
      *
@@ -845,7 +847,7 @@ class BuildingController extends BaseController
      *      $ch = curl_init("https://databridge.sage.edu/v1/building");
      *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
      *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-     *      curl_setopt($ch, CURLOPT_POST, true);
+     *      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
      *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("id" => 1));
      *      $result = curl_exec($ch);
      *      curl_close($ch);
@@ -856,11 +858,11 @@ class BuildingController extends BaseController
      *      $headers.Add("X-Authorization", '<Your-API-Key>')
      *      $uri = https://databridge.sage.edu/v1/building
      *      $body = @{ id = 1 }
-     *      $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method Post -Body $body
+     *      $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method Delete -Body $body
      *
      * @apiExample {java} Java
      *      # This code snippet uses an open-source library. http://unirest.io/java
-     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/building")
+     *      HttpResponse <String> response = Unirest.delete("https://databridge.sage.edu/v1/building")
      *      .header("X-Authorization", "<Your-API-Key>")
      *      .header("Accept", "application/json")
      *      .body("{\"id\":1}")
@@ -868,7 +870,7 @@ class BuildingController extends BaseController
      *
      * @apiExample {python} Python
      *      # This code snippet uses an open-source library http://unirest.io/python
-     *      response = unirest.post("https://databridge.sage.edu/v1/building",
+     *      response = unirest.delete("https://databridge.sage.edu/v1/building",
      *          headers={
      *              "X-Authorization": "<Your-API-Key>",
      *              "Accept": "application/json"
@@ -880,7 +882,7 @@ class BuildingController extends BaseController
      *
      * @apiExample {.net} .NET
      *      // This code snippet uses an open-source library http://unirest.io/net
-     *       Task<HttpResponse<MyClass>> response = Unirest.post("https://databridge.sage.edu/v1/building")
+     *       Task<HttpResponse<MyClass>> response = Unirest.delete("https://databridge.sage.edu/v1/building")
      *       .header("X-Authorization", "<Your-API-Key>")
      *       .header("Accept", "application/json")
      *       .field("id", 1)
@@ -890,14 +892,7 @@ class BuildingController extends BaseController
      *     HTTP/1.1 200 OK
      *     {
      *          "success": true,
-     *          "result": "create"
-     *     }
-     *
-     * @apiSuccessExample {json} Success: Update
-     *     HTTP/1.1 200 OK
-     *     {
-     *          "success": true,
-     *          "result": "update"
+     *          "result": "delete"
      *     }
      *
      * @apiError (Error 4xx/5xx) {Boolean} success Tells the application if the request was successful.
@@ -917,11 +912,11 @@ class BuildingController extends BaseController
      *          "error": "X-Authorization: API Key is not valid."
      *      }
      *
-     * @apiErrorExample {json} Error: Method not found
+     * @apiErrorExample {json} Error: Object not found
      *      HTTP/1.1 400 Bad Request
      *      {
      *          "success": false,
-     *          "error": "Method not found."
+     *          "error": "Object not found."
      *      }
      *
      * @apiErrorExample {json} Error: Missing Header Option
@@ -935,7 +930,7 @@ class BuildingController extends BaseController
      *      HTTP/1.1 500 Server Error
      *      {
      *          "success": false,
-     *          "error": "Could not update."
+     *          "error": "Could not delete."
      *      }
      */
 

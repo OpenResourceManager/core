@@ -544,13 +544,14 @@ class RoleController extends BaseController
      *
      * @apiExample {curl} Curl
      *      curl -H "X-Authorization: <Your-API-Key>" \
+     *      -X "POST" \
      *      --data "name=Student Worker" \
      *      --data "code=STUDENTWORKER" \
      *      --url https://databridge.sage.edu/v1/role
      *
      * @apiExample {ruby} Ruby
      *      # This code snippet uses an open-source library. http://unirest.io/ruby
-     *      response = Unirest.get "https://databridge.sage.edu/v1/role",
+     *      response = Unirest.post "https://databridge.sage.edu/v1/role",
      *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
      *      parameters:{ :name => "Student Worker", :code => "STUDENTWORKER"}.to_json
      *
@@ -573,7 +574,7 @@ class RoleController extends BaseController
      *
      * @apiExample {java} Java
      *      # This code snippet uses an open-source library. http://unirest.io/java
-     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/role")
+     *      HttpResponse <String> response = Unirest.post("https://databridge.sage.edu/v1/role")
      *      .header("X-Authorization", "<Your-API-Key>")
      *      .header("Accept", "application/json")
      *      .body("{\"name\":\"Student Worker\", \"code\":\"STUDENTWORKER\"}")
