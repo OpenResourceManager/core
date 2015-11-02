@@ -9,6 +9,7 @@
 
 use App\Building;
 use App\APIKey;
+use App\Room;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
@@ -812,6 +813,154 @@ class BuildingController extends BaseController
                 }
                 $save = $model->save() ? true : false;
                 return json_encode(array('success' => $save, 'message' => $save ? 'create' : $model->errors()->all()));
+            }
+        } else {
+            return json_encode($result[1]);
+        }
+    }
+
+    /**
+     * @api {delete} /building/ Delete a Building
+     * @apiVersion 1.1.1
+     * @apiHeader {String} X-Authorization The application's unique access-key.
+     * @apiGroup Building
+     * @apiDescription Delete a building record. This also deletes any room records that are in that building.
+     *
+     * @apiParam {Integer} id The numeric API id of the building.
+     * @apiSuccess {Boolean} success Tells the application if the request was successful.
+     * @apiSuccess {String} result The action that was performed. This may be `update` or `create`.
+     *
+     * @apiExample {curl} Curl
+     *      curl -H "X-Authorization: <Your-API-Key>" \
+     *      --data "id=1" \
+     *      --url https://databridge.sage.edu/v1/building
+     *
+     * @apiExample {ruby} Ruby
+     *      # This code snippet uses an open-source library. http://unirest.io/ruby
+     *      response = Unirest.get "https://databridge.sage.edu/v1/building",
+     *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
+     *      parameters:{ :id => 1}.to_json
+     *
+     * @apiExample {php} PHP
+     *      $ch = curl_init("https://databridge.sage.edu/v1/building");
+     *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+     *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+     *      curl_setopt($ch, CURLOPT_POST, true);
+     *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("id" => 1));
+     *      $result = curl_exec($ch);
+     *      curl_close($ch);
+     *
+     * @apiExample {powershell} PowerShell
+     *      # PowerShell v3 and above
+     *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+     *      $headers.Add("X-Authorization", '<Your-API-Key>')
+     *      $uri = https://databridge.sage.edu/v1/building
+     *      $body = @{ id = 1 }
+     *      $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method Post -Body $body
+     *
+     * @apiExample {java} Java
+     *      # This code snippet uses an open-source library. http://unirest.io/java
+     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/building")
+     *      .header("X-Authorization", "<Your-API-Key>")
+     *      .header("Accept", "application/json")
+     *      .body("{\"id\":1}")
+     *      .asString();
+     *
+     * @apiExample {python} Python
+     *      # This code snippet uses an open-source library http://unirest.io/python
+     *      response = unirest.post("https://databridge.sage.edu/v1/building",
+     *          headers={
+     *              "X-Authorization": "<Your-API-Key>",
+     *              "Accept": "application/json"
+     *          },
+     *          params={
+     *              "id" : 1
+     *          }
+     *      )
+     *
+     * @apiExample {.net} .NET
+     *      // This code snippet uses an open-source library http://unirest.io/net
+     *       Task<HttpResponse<MyClass>> response = Unirest.post("https://databridge.sage.edu/v1/building")
+     *       .header("X-Authorization", "<Your-API-Key>")
+     *       .header("Accept", "application/json")
+     *       .field("id", 1)
+     *       .asString();
+     *
+     * @apiSuccessExample {json} Success: Create
+     *     HTTP/1.1 200 OK
+     *     {
+     *          "success": true,
+     *          "result": "create"
+     *     }
+     *
+     * @apiSuccessExample {json} Success: Update
+     *     HTTP/1.1 200 OK
+     *     {
+     *          "success": true,
+     *          "result": "update"
+     *     }
+     *
+     * @apiError (Error 4xx/5xx) {Boolean} success Tells the application if the request was successful.
+     * @apiError (Error 4xx/5xx) {String} error An error message from the server.
+     *
+     * @apiErrorExample {json} Error: Not Privileged
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: Insufficient privileges."
+     *      }
+     *
+     * @apiErrorExample {json} Error: Invalid API Key
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: API Key is not valid."
+     *      }
+     *
+     * @apiErrorExample {json} Error: Method not found
+     *      HTTP/1.1 400 Bad Request
+     *      {
+     *          "success": false,
+     *          "error": "Method not found."
+     *      }
+     *
+     * @apiErrorExample {json} Error: Missing Header Option
+     *      HTTP/1.1 400 Bad Request
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: Header Option Not Found."
+     *      }
+     *
+     * @apiErrorExample {json} Error: Server Error
+     *      HTTP/1.1 500 Server Error
+     *      {
+     *          "success": false,
+     *          "error": "Could not update."
+     *      }
+     */
+
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function del(Request $request)
+    {
+        $result = APIKey::testAPIKey($request, 'delete');
+        if ($result[0]) {
+            $validator = Validator::make($request->all(), [
+                'id' => 'integer|required|max:11|min:1',
+            ]);
+            if ($validator->fails()) {
+                return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
+            }
+            if (Building::where('id', $request->input('id'))->get()->first()) {
+                if (Building::where('id', $request->input('id'))->delete() && Room::where('building', $request->input('id'))->delete()) {
+                    return json_encode(array('success' => true, 'message' => 'delete'));
+                } else {
+                    return json_encode(array('success' => false, 'message' => 'Could not delete.'));
+                }
+            } else {
+                return json_encode(array('success' => false, 'message' => 'Object not found.'));
             }
         } else {
             return json_encode($result[1]);

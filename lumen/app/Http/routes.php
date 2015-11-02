@@ -53,6 +53,8 @@ $app->group(['prefix' => 'v1/building'], function () use ($app) {
 
     $app->post('/', 'App\Http\Controllers\BuildingController@post');
 
+    $app->delete('/', 'App\Http\Controllers\BuildingController@del');
+
     $app->get('id/{id}', 'App\Http\Controllers\BuildingController@getByID');
     $app->get('code/{code}', 'App\Http\Controllers\BuildingController@getByCode');
     $app->get('campus/{campusId}', 'App\Http\Controllers\BuildingController@getByCampus');
