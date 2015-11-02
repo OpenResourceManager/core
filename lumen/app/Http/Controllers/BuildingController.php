@@ -956,7 +956,7 @@ class BuildingController extends BaseController
                     if (Room::where('building', $request->input('id'))) {
                         Room::where('building', $request->input('id'))->delete();
                     }
-                    return json_encode(array('success' => true, 'message' => 'delete', 'children' => array('room' => Room::onlyTrashed()->where('building', $request->input('id'))->get())));
+                    return json_encode(array('success' => true, 'message' => 'delete', 'children' => array('room' => Room::onlyTrashed()->where('building', $request->input('id')))));
                 } else {
                     return json_encode(array('success' => false, 'message' => 'Could not delete.'));
                 }
