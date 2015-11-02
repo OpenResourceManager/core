@@ -888,11 +888,14 @@ class BuildingController extends BaseController
      *       .field("id", 1)
      *       .asString();
      *
-     * @apiSuccessExample {json} Success: Delete
+     * @apiSuccessExample {json} Success: Delete no Children
      *     HTTP/1.1 200 OK
      *     {
-     *          "success": true,
-     *          "result": "delete"
+     *      "success": true,
+     *      "message": "delete",
+     *      "children": {
+     *          "room": {}
+     *       }
      *     }
      *
      * @apiError (Error 4xx/5xx) {Boolean} success Tells the application if the request was successful.
@@ -953,7 +956,7 @@ class BuildingController extends BaseController
                     if (Room::where('building', $request->input('id'))) {
                         Room::where('building', $request->input('id'))->delete();
                     }
-                    return json_encode(array('success' => true, 'message' => 'delete', 'children' => array('room' => Room::where('building', $request->input('id')))));
+                    return json_encode(array('success' => true, 'message' => 'delete', 'children' => array('room' => Room::onlyTrashed()->where('building', $request->input('id'))-get())));
                 } else {
                     return json_encode(array('success' => false, 'message' => 'Could not delete.'));
                 }
