@@ -829,7 +829,7 @@ class BuildingController extends BaseController
      *
      * @apiParam {Integer} id The numeric API id of the building.
      * @apiSuccess {Boolean} success Tells the application if the request was successful.
-     * @apiSuccess {String} result The action that was performed. This may be `update` or `create`.
+     * @apiSuccess {String} result The action that was performed, this should be `delete`.
      *
      * @apiExample {curl} Curl
      *      curl -H "X-Authorization: <Your-API-Key>" \
@@ -888,7 +888,7 @@ class BuildingController extends BaseController
      *       .field("id", 1)
      *       .asString();
      *
-     * @apiSuccessExample {json} Success: Create
+     * @apiSuccessExample {json} Success: Delete
      *     HTTP/1.1 200 OK
      *     {
      *          "success": true,
