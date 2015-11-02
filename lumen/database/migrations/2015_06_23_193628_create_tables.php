@@ -21,6 +21,7 @@ class CreateTables extends Migration
             $table->string('name_phonetic')->nullable();
             $table->string('username')->unique();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('roles', function (Blueprint $table) {
@@ -28,6 +29,7 @@ class CreateTables extends Migration
             $table->string('code');
             $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('campuses', function (Blueprint $table) {
@@ -35,6 +37,7 @@ class CreateTables extends Migration
             $table->string('code');
             $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('buildings', function (Blueprint $table) {
@@ -43,6 +46,7 @@ class CreateTables extends Migration
             $table->string('code');
             $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('campus')->references('id')->on('campuses');
         });
 
@@ -60,6 +64,7 @@ class CreateTables extends Migration
             $table->string('code');
             $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('department')->references('id')->on('departments');
         });
 
@@ -68,6 +73,7 @@ class CreateTables extends Migration
             $table->unsignedInteger('user');
             $table->string('email')->unique();
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('user')->references('id')->on('users');
         });
 
@@ -77,6 +83,7 @@ class CreateTables extends Migration
             $table->string('number', 11)->unique();
             $table->string('ext', 5)->nullable();
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('user')->references('id')->on('users');
         });
 
@@ -89,6 +96,7 @@ class CreateTables extends Migration
             $table->unsignedInteger('room_number');
             $table->string('room_name')->nullable();
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('user')->references('id')->on('users');
             $table->foreign('building')->references('id')->on('buildings');
         });
@@ -102,6 +110,7 @@ class CreateTables extends Migration
             $table->boolean('can_put');
             $table->boolean('can_delete');
             $table->timestamps();
+            $table->softDeletes();
         });
 
     }

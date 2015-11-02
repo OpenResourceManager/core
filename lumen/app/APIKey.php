@@ -9,10 +9,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class APIKey extends Model
 {
+    use SoftDeletes;
     protected $table = 'apikeys';
+    protected $dates = ['deleted_at'];
 
     /**
      * @param string $key
@@ -42,10 +45,10 @@ class APIKey extends Model
                         break;
                     /* case 'put':
                          return $key->can_put ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges"));
-                         break;
-                     case 'delete':
-                         return $key->can_delete ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges"));
                          break; */
+                    case 'delete':
+                        return $key->can_delete ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges"));
+                        break;
                     default :
                         return array(false, array("success" => false, "error" => "Method not found."));
                 }
