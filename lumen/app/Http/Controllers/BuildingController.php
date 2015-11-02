@@ -949,7 +949,7 @@ class BuildingController extends BaseController
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
             if (Building::where('id', $request->input('id'))->get()->first()) {
-                if (Building::where('id', $request->input('id'))->delete() && Room::where('building', $request->input('id'))->delete()) {
+                if (Building::where('id', $request->input('id'))->delete()) {
                     return json_encode(array('success' => true, 'message' => 'delete'));
                 } else {
                     return json_encode(array('success' => false, 'message' => 'Could not delete.'));
