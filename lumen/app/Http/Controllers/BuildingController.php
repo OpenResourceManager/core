@@ -943,7 +943,7 @@ class BuildingController extends BaseController
         $result = APIKey::testAPIKey($request, 'delete');
         if ($result[0]) {
             $validator = Validator::make($request->all(), [
-                'id' => 'integer|required|max:11|min:1',
+                'id' => 'integer|required',
             ]);
             if ($validator->fails()) {
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
