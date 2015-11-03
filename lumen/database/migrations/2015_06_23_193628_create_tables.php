@@ -47,7 +47,7 @@ class CreateTables extends Migration
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('campus')->references('id')->on('campuses');
+            $table->foreign('campus')->references('id')->on('campuses')->onDelete('cascade');
         });
 
         Schema::create('departments', function (Blueprint $table) {
@@ -65,7 +65,7 @@ class CreateTables extends Migration
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('department')->references('id')->on('departments');
+            $table->foreign('department')->references('id')->on('departments')->onDelete('cascade');
         });
 
         Schema::create('emails', function (Blueprint $table) {
@@ -74,7 +74,7 @@ class CreateTables extends Migration
             $table->string('email')->unique();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('user')->references('id')->on('users');
+            $table->foreign('user')->references('id')->on('users')->onDelete('cascade');
         });
 
         Schema::create('phones', function (Blueprint $table) {
@@ -84,7 +84,7 @@ class CreateTables extends Migration
             $table->string('ext', 5)->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('user')->references('id')->on('users');
+            $table->foreign('user')->references('id')->on('users')->onDelete('cascade');
         });
 
         Schema::create('rooms', function (Blueprint $table) {
@@ -98,7 +98,7 @@ class CreateTables extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user')->references('id')->on('users');
-            $table->foreign('building')->references('id')->on('buildings');
+            $table->foreign('building')->references('id')->on('buildings')->onDelete('cascade');
         });
 
         Schema::create('apikeys', function (Blueprint $table) {

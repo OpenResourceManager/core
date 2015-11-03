@@ -68,6 +68,8 @@ $app->group(['prefix' => 'v1/campus'], function () use ($app) {
 
     $app->post('/', 'App\Http\Controllers\CampusController@post');
 
+    $app->delete('/', 'App\Http\Controllers\CampusController@del');
+
     $app->get('id/{id}', 'App\Http\Controllers\CampusController@getByID');
     $app->get('code/{code}', 'App\Http\Controllers\CampusController@getByCode');
 
