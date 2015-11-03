@@ -892,45 +892,14 @@ class BuildingController extends BaseController
      *     HTTP/1.1 200 OK
      *     {
      *      "success": true,
-     *      "message": "delete",
-     *      "children": {
-     *          "room": []
-     *       }
+     *      "message": "delete"
      *     }
      *
      * @apiSuccessExample {json} Success: Delete with Children
      *     HTTP/1.1 200 OK
      *     {
      *      "success": true,
-     *      "message": "delete",
-     *      "children": {
-     *          "room": [
-     *            {
-     *              "id": "1",
-     *              "user": "1",
-     *              "building": "17",
-     *              "floor_number": "0",
-     *              "floor_name": "Basement",
-     *              "room_number": "1",
-     *              "room_name": "Network Office",
-     *              "created_at": "2015-11-02 20:40:44",
-     *              "updated_at": "2015-11-02 20:41:05",
-     *              "deleted_at": "2015-11-02 20:41:05"
-     *            },
-     *            {
-     *              "id": "2",
-     *              "user": "2",
-     *              "building": "17",
-     *              "floor_number": "0",
-     *              "floor_name": "Basement",
-     *              "room_number": "1",
-     *              "room_name": "Network Office",
-     *              "created_at": "2015-11-02 20:40:44",
-     *              "updated_at": "2015-11-02 20:41:05",
-     *              "deleted_at": "2015-11-02 20:41:05"
-     *            }
-     *          ]
-     *       }
+     *      "message": "delete"
      *     }
      *
      * @apiError (Error 4xx/5xx) {Boolean} success Tells the application if the request was successful.
@@ -988,12 +957,7 @@ class BuildingController extends BaseController
             }
             if (Building::where('id', $request->input('id'))->get()->first()) {
                 if (Building::where('id', $request->input('id'))->delete()) {
-                    $rooms = null;
-                    if (Room::where('building', $request->input('id'))) {
-                        Room::where('building', $request->input('id'))->delete();
-                        $rooms = Room::onlyTrashed()->where('building', $request->input('id'))->get();
-                    }
-                    return json_encode(array('success' => true, 'message' => 'delete', 'children' => array('room' => $rooms)));
+                    return json_encode(array('success' => true, 'message' => 'delete'));
                 } else {
                     return json_encode(array('success' => false, 'message' => 'Could not delete.'));
                 }
