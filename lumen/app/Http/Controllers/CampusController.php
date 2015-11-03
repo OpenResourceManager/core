@@ -736,14 +736,7 @@ class CampusController extends BaseController
      *       .field("id", 1)
      *       .asString();
      *
-     * @apiSuccessExample {json} Success: Delete no Children
-     *     HTTP/1.1 200 OK
-     *     {
-     *      "success": true,
-     *      "message": "delete"
-     *     }
-     *
-     * @apiSuccessExample {json} Success: Delete with Children
+     * @apiSuccessExample {json} Success: Delete
      *     HTTP/1.1 200 OK
      *     {
      *      "success": true,
