@@ -16,20 +16,15 @@ class Campus extends Model
     protected $table = 'campuses';
     protected $dates = ['deleted_at'];
 
-    public function buildings()
-    {
-        return $this->has_many('Building');
-    }
-
     public function delete()
     {
-        $this->buildings()->delete();
+        Building::where('campus', $this->id)->delete();
         return parent::delete();
     }
 
     public function forceDelete()
     {
-        $this->buildings()->withTrashed()->forceDelete();
+        Building::where('campus', $this->id)->withTrashed()->forceDelete();
         return parent::forceDelete();
     }
 }

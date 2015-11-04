@@ -16,20 +16,15 @@ class Building extends Model
     protected $table = 'buildings';
     protected $dates = ['deleted_at'];
 
-    public function rooms()
-    {
-        return $this->has_many('Room');
-    }
-
     public function delete()
     {
-        $this->rooms()->delete();
+        Room::where('building', $this->id)->delete();
         return parent::delete();
     }
 
     public function forceDelete()
     {
-        $this->rooms()->withTrashed()->forceDelete();
+        Room::where('building', $this->id)->withTrashed()->forceDelete();
         return parent::forceDelete();
     }
 }
