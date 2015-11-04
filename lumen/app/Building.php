@@ -8,6 +8,7 @@
  */
 
 use App\Room;
+use Log;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -27,6 +28,7 @@ class Building extends Model
         parent::boot();
 
         static::deleted(function ($building) {
+            Log:notice('the delete event has fucking fired');
             $building->rooms()->delete();
         });
     }
