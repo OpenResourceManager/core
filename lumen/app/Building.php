@@ -18,7 +18,7 @@ class Building extends Model
 
     public function delete()
     {
-        $rooms = Room::where('building', self::getAttribute('id'))->get();
+        $rooms = Room::where('building', $this->getAttribute('id'))->get();
         foreach ($rooms as $room) {
             $room->delete();
         }
@@ -27,7 +27,7 @@ class Building extends Model
 
     public function forceDelete()
     {
-        $rooms = Room::where('building', self::getAttribute('id'))->withTrashed()->get();
+        $rooms = Room::where('building', $this->getAttribute('id'))->withTrashed()->get();
         foreach ($rooms as $room) {
             $room->forceDelete();
         }
