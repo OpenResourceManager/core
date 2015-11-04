@@ -12,7 +12,7 @@ use App\Building;
 use App\Room;
 use App\APIKey;
 use Illuminate\Support\Facades\Validator;
-use Laravel\Lumen\Routing\Controller as BaseController;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 
 class CampusController extends BaseController

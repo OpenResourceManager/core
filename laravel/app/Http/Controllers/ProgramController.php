@@ -10,7 +10,7 @@
 use App\Program;
 use App\APIKey;
 use Illuminate\Support\Facades\Validator;
-use Laravel\Lumen\Routing\Controller as BaseController;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 
 class ProgramController extends BaseController

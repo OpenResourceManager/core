@@ -11,7 +11,7 @@ use App\Building;
 use App\APIKey;
 use App\Room;
 use Illuminate\Support\Facades\Validator;
-use Laravel\Lumen\Routing\Controller as BaseController;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 
 class BuildingController extends BaseController
