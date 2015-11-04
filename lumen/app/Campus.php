@@ -16,14 +16,20 @@ class Campus extends Model
     protected $table = 'campuses';
     protected $dates = ['deleted_at'];
 
-    public static function boot()
+    public function buildings()
     {
-        parent::boot();
+        return $this->has_many('Building');
+    }
 
-        Campus::deleting(function ($campus) {
-            foreach ($campus->buildings as $building) {
-                $building->delete();
-            }
-        });
+    public function delete()
+    {
+        $this->buildings()->delete();
+        return parent::delete();
+    }
+
+    public function forceDelete()
+    {
+        $this->buildings()->withTrashed()->forceDelete();
+        return parent::forceDelete();
     }
 }
