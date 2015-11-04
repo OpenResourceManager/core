@@ -16,10 +16,14 @@ class Building extends Model
     protected $table = 'buildings';
     protected $dates = ['deleted_at'];
 
-    public function delete()
+    public static function boot()
     {
-        $deleted_rooms = array('room' => Room::where('building', $this->id)->delete());
-        parent::delete();
-        return $deleted_rooms;
+        parent::boot();
+
+        Building::deleting(function ($building) {
+            foreach ($building->rooms as $room) {
+                $room->delete();
+            }
+        });
     }
 }
