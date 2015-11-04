@@ -18,13 +18,13 @@ class Campus extends Model
 
     public function delete()
     {
-        Building::where('campus', $this->id)->delete();
+        Building::where('campus', self::getAttribute('id'))->delete();
         return parent::delete();
     }
 
     public function forceDelete()
     {
-        Building::where('campus', $this->id)->withTrashed()->forceDelete();
+        Building::where('campus', self::getAttribute('id'))->withTrashed()->forceDelete();
         return parent::forceDelete();
     }
 }
