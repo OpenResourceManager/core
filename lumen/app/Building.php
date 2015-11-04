@@ -7,6 +7,7 @@
  * Time: 10:30 AM
  */
 
+use App\Room;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -25,7 +26,7 @@ class Building extends Model
     {
         parent::boot();
 
-        static::deleting(function ($building) {
+        static::deleted(function ($building) {
             $building->rooms()->delete();
         });
     }
