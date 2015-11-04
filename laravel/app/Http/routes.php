@@ -18,9 +18,3 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-$app->group(['prefix' => 'v1'], function () use ($app) {
-
-    $app->get('/', function () use ($app) {
-        return $app->welcome();
-    });
-});
