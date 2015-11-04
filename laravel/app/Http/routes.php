@@ -18,3 +18,51 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['prefix' => 'v1'], function () {
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+    Route::group(['prefix' => 'user'], function () {
+
+    });
+
+    Route::group(['prefix' => 'role'], function () {
+
+    });
+
+    Route::group(['prefix' => 'building'], function () {
+
+    });
+
+    Route::group(['prefix' => 'campus'], function () {
+
+    });
+
+    Route::group(['prefix' => 'program'], function () {
+
+    });
+
+    Route::group(['prefix' => 'department'], function () {
+
+    });
+
+    Route::group(['prefix' => 'email'], function () {
+
+    });
+
+    Route::group(['prefix' => 'phone'], function () {
+
+    });
+
+    Route::group(['prefix' => 'room'], function () {
+
+    });
+
+    Route::group(['prefix' => 'course'], function () {
+
+    });
+
+});
+
