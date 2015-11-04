@@ -18,7 +18,8 @@ class Building extends Model
 
     public function delete()
     {
-        return array('room' => Room::where('building', $this->id)->delete());
+        $deleted_rooms = array('room' => Room::where('building', $this->id)->delete());
+        parent::delete();
+        return $deleted_rooms;
     }
-
 }

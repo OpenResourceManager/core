@@ -18,6 +18,8 @@ class Campus extends Model
 
     public function delete()
     {
-        return array('building' => Building::where('campus', $this->id)->delete());
+        $deleted_buildings = array('building' => Building::where('campus', $this->id)->delete());
+        parent::delete();
+        return $deleted_buildings;
     }
 }
