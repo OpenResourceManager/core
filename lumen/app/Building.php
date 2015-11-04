@@ -27,6 +27,8 @@ class Building extends Model
     {
         parent::boot();
 
+        Log:notice('This is a log.');
+
         static::deleted(function ($building) {
             Log:notice('the delete event has fucking fired');
             $building->rooms()->delete();
