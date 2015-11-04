@@ -21,7 +21,7 @@ Route::get('/', function () {
 Route::group(['prefix' => 'v1'], function () {
 
     Route::get('/', function () {
-        return view('welcome');
+        return url('docs');;
     });
 
     Route::group(['prefix' => 'user'], function () {
