@@ -18,13 +18,19 @@ class Building extends Model
 
     public function delete()
     {
-        Room::where('building', self::getAttribute('id'))->delete();
+        $rooms = Room::where('building', self::getAttribute('id'))->get();
+        foreach ($rooms as $room) {
+            $room->delete();
+        }
         return parent::delete();
     }
 
     public function forceDelete()
     {
-        Room::where('building', self::getAttribute('id'))->withTrashed()->forceDelete();
+        $rooms = Room::where('building', self::getAttribute('id'))->withTrashed()->get();
+        foreach ($rooms as $room) {
+            $room->forceDelete();
+        }
         return parent::forceDelete();
     }
 }
