@@ -10,7 +10,7 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Building extends Model
+class Building extends Eloquent
 {
     use SoftDeletes;
     protected $table = 'buildings';
@@ -25,7 +25,7 @@ class Building extends Model
     {
         parent::boot();
 
-        static::deleted(function ($building) {
+        static::deleting(function ($building) {
             $building->rooms()->delete();
         });
     }
