@@ -26,6 +26,14 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::group(['prefix' => 'user'], function () {
 
+        Route::post('/', 'UserController@post');
+
+        Route::get('id/{id}', 'UserController@getByID');
+        Route::get('sageid/{sageid}', 'UserController@getBySageID');
+
+        Route::get('/', 'UserController@get');
+        Route::get('/{limit}', 'UserController@get');
+
     });
 
     Route::group(['prefix' => 'role'], function () {
