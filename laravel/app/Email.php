@@ -3,16 +3,16 @@
 /**
  * Created by PhpStorm.
  * User: melon
- * Date: 6/23/15
- * Time: 3:57 PM
+ * Date: 7/7/15
+ * Time: 3:29 PM
  */
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Model
+class Email extends Model
 {
     use SoftDeletes;
-    protected $table = 'users';
+    protected $table = 'emails';
     protected $dates = ['deleted_at'];
 }
