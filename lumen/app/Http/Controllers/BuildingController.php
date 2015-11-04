@@ -892,7 +892,35 @@ class BuildingController extends BaseController
      *     HTTP/1.1 200 OK
      *     {
      *      "success": true,
-     *      "message": "delete"
+     *      "message": "delete",
+     *      "children": {
+     *          "room": [
+     *            {
+     *              "id": "1",
+     *              "user": "1",
+     *              "building": "17",
+     *              "floor_number": "0",
+     *              "floor_name": "Basement",
+     *              "room_number": "1",
+     *              "room_name": "Network Office",
+     *              "created_at": "2015-11-02 20:40:44",
+     *              "updated_at": "2015-11-02 20:41:05",
+     *              "deleted_at": "2015-11-02 20:41:05"
+     *            },
+     *            {
+     *              "id": "2",
+     *              "user": "2",
+     *              "building": "17",
+     *              "floor_number": "0",
+     *              "floor_name": "Basement",
+     *              "room_number": "1",
+     *              "room_name": "Network Office",
+     *              "created_at": "2015-11-02 20:40:44",
+     *              "updated_at": "2015-11-02 20:41:05",
+     *              "deleted_at": "2015-11-02 20:41:05"
+     *            }
+     *          ]
+     *       }
      *     }
      *
      * @apiError (Error 4xx/5xx) {Boolean} success Tells the application if the request was successful.
@@ -949,8 +977,8 @@ class BuildingController extends BaseController
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
             if (Building::where('id', $request->input('id'))->get()->first()) {
-                if (Building::where('id', $request->input('id'))->delete()) {
-                    return json_encode(array('success' => true, 'message' => 'delete'));
+                if ($children = Building::where('id', $request->input('id'))->delete()) {
+                    return json_encode(array('success' => true, 'message' => 'delete', 'children' => $children));
                 } else {
                     return json_encode(array('success' => false, 'message' => 'Could not delete.'));
                 }

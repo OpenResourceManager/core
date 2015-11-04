@@ -15,4 +15,10 @@ class Building extends Model
     use SoftDeletes;
     protected $table = 'buildings';
     protected $dates = ['deleted_at'];
+
+    public function delete()
+    {
+        return array('room' => Room::where('building', $this->id)->delete());
+    }
+
 }
