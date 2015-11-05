@@ -976,8 +976,9 @@ class BuildingController extends BaseController
             if ($validator->fails()) {
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
-            if (Building::where('id', $request->input('id'))->get()->first()) {
-                if ($children = Building::where('id', $request->input('id'))->delete()) {
+            if ($building = Building::find($request->input('id'))) {
+                $children = $building->rooms();
+                if ($building->delete()) {
                     return json_encode(array('success' => true, 'message' => 'delete', 'children' => $children));
                 } else {
                     return json_encode(array('success' => false, 'message' => 'Could not delete.'));
