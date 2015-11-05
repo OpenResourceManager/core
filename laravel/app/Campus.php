@@ -27,7 +27,10 @@ class Campus extends Model
     {
         $rooms = array();
         $buildings = $this->buildings()->get();
-        return $buildings;
+        foreach($buildings as $building) {
+            echo json_encode($building->rooms()->get());
+        }
+        return '';
     }
 
 }
