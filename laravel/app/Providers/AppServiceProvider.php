@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Building;
 use App\Campus;
 use App\Department;
+use App\Program;
 use App\Room;
 use App\User;
 use Illuminate\Support\ServiceProvider;
@@ -37,9 +38,18 @@ class AppServiceProvider extends ServiceProvider
             $user->rooms()->delete();
         });
 
+        Program::deleting(function ($program) {
+            $program->courses()->delete();
+        });
+
         Department::deleting(function ($department) {
+            foreach ($department->courses() as $course) {
+                $course->delete();
+            }
             $department->programs()->delete();
         });
+
+
     }
 
     /**
