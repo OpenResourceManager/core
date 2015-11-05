@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 
-class CoursesController extends BaseController
+class CourseController extends BaseController
 {
 
     /**
