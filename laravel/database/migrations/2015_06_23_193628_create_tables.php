@@ -56,6 +56,7 @@ class CreateTables extends Migration
             $table->string('code');
             $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('programs', function (Blueprint $table) {
