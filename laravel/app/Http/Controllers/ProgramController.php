@@ -17,7 +17,7 @@ class ProgramController extends BaseController
 {
 
     /**
-     * @api {get} /program/ Get all Programs
+     * @api {get} /program/ Get: All
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Program
@@ -142,7 +142,7 @@ class ProgramController extends BaseController
      */
 
     /**
-     * @api {get} /program/:limit Get X amount of Programs
+     * @api {get} /program/:limit Get: X amount
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Program
@@ -274,7 +274,7 @@ class ProgramController extends BaseController
     }
 
     /**
-     * @api {get} /program/id/:id Get Program by ID
+     * @api {get} /program/id/:id Get: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Program
@@ -403,7 +403,7 @@ class ProgramController extends BaseController
     }
 
     /**
-     * @api {get} /program/code/:code Get Program by Informer Code
+     * @api {get} /program/code/:code Get: by Code
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Program
@@ -532,7 +532,7 @@ class ProgramController extends BaseController
     }
 
     /**
-     * @api {get} /program/department/:department Get Programs by Department ID
+     * @api {get} /program/department/:department Get: by Department ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Program

@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 class PhoneController extends BaseController
 {
     /**
-     * @api {get} /phone/ Get all Phones
+     * @api {get} /phone/ Get: All
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Phone
@@ -149,7 +149,7 @@ class PhoneController extends BaseController
      */
 
     /**
-     * @api {get} /phone/:limit Get X amount of Phones
+     * @api {get} /phone/:limit Get: X amount
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Phone
@@ -282,7 +282,7 @@ class PhoneController extends BaseController
     }
 
     /**
-     * @api {get} /phone/id/:id Get Phone by ID
+     * @api {get} /phone/id/:id Get: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Phone

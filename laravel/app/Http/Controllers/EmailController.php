@@ -17,7 +17,7 @@ class EmailController extends BaseController
 {
 
     /**
-     * @api {get} /email/ Get all Emails
+     * @api {get} /email/ Get: All
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Email
@@ -153,7 +153,7 @@ class EmailController extends BaseController
      */
 
     /**
-     * @api {get} /email/:limit Get X amount of Emails
+     * @api {get} /email/:limit Get: X amount
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Email
@@ -290,7 +290,7 @@ class EmailController extends BaseController
     }
 
     /**
-     * @api {get} /email/id/:id Get Email by Email ID
+     * @api {get} /email/id/:id Get: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Email
@@ -419,7 +419,7 @@ class EmailController extends BaseController
     }
 
     /**
-     * @api {get} /email/user/:user Get Email by User's API ID
+     * @api {get} /email/user/:user Get: User ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Email

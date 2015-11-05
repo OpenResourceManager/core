@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 class RoomController extends BaseController
 {
     /**
-     * @api {get} /room/ Get all Rooms
+     * @api {get} /room/ Get: All
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Room
@@ -142,7 +142,7 @@ class RoomController extends BaseController
      */
 
     /**
-     * @api {get} /room/:limit Get X amount of Rooms
+     * @api {get} /room/:limit Get: X amount
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Room
@@ -284,7 +284,7 @@ class RoomController extends BaseController
     }
 
     /**
-     * @api {get} /room/id/:id Get Room by ID
+     * @api {get} /room/id/:id Get: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Room

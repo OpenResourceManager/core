@@ -20,7 +20,7 @@ class UserController extends BaseController
 {
 
     /**
-     * @api {get} /user/ Get all Users
+     * @api {get} /user/ Get: All
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup User
@@ -152,7 +152,7 @@ class UserController extends BaseController
      */
 
     /**
-     * @api {get} /user/:limit Get X amount of Users
+     * @api {get} /user/:limit Get: X amount
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup User
@@ -300,7 +300,7 @@ class UserController extends BaseController
     }
 
     /**
-     * @api {get} /user/id/:id Get User by id
+     * @api {get} /user/id/:id Get: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup User
@@ -477,7 +477,7 @@ class UserController extends BaseController
     }
 
     /**
-     * @api {get} /user/sageid/:sageid Get User by sageid
+     * @api {get} /user/sageid/:sageid Get: by SageID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup User

@@ -17,7 +17,7 @@ class RoleController extends BaseController
 {
 
     /**
-     * @api {get} /role/ Get all Roles
+     * @api {get} /role/ Get: All
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Role
@@ -145,7 +145,7 @@ class RoleController extends BaseController
      */
 
     /**
-     * @api {get} /role/:limit Get X amount of Roles
+     * @api {get} /role/:limit Get: X amount
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Role
@@ -275,7 +275,7 @@ class RoleController extends BaseController
     }
 
     /**
-     * @api {get} /role/id/:id Get Role by ID
+     * @api {get} /role/id/:id Get: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Role
@@ -402,7 +402,7 @@ class RoleController extends BaseController
     }
 
     /**
-     * @api {get} /role/code/:code Get Role by Informer Code
+     * @api {get} /role/code/:code Get: by Code
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Role
