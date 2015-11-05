@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call('EmailTableSeeder');
         $this->call('PhoneTableSeeder');
         $this->call('RoomTableSeeder');
+        $this->call('CourseTableSeeder');
         $this->call('APIKeyTableSeeder');
 
         Model::reguard();
