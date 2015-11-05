@@ -26,8 +26,7 @@ class Campus extends Model
     public function rooms()
     {
         $rooms = array();
-        $buildings = $this->hasMany('App\Building');
-        echo json_encode($buildings);
+        $buildings = $this->buildings()->get();
         foreach ($buildings as $building) {
             $rooms = array_merge($building->rooms(), $rooms);
         }
