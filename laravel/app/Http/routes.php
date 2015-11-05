@@ -37,6 +37,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'role'], function () {
         Route::post('/', 'RoleController@post');
 
+        Route::delete('/', 'RoleController@del');
+
         Route::get('id/{id}', 'RoleController@getByID');
         Route::get('code/{code}', 'RoleController@getByCode');
 
