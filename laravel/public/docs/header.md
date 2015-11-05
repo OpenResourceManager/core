@@ -1,5 +1,18 @@
 # Introduction
 
 ## About
-Access to this API gives one the ability to view information on users, buildings, user roles, and campuses.
-Responses to API requests are returned in JSON. You will need an API access-key to retrieve information from this API.
+Access to this API gives you the ability to view:
+
+* [Users](/docs/#api-User)
+* [Emails](/docs/#api-Email)
+* [Phones](/docs/#api-Phone)
+* [Roles](/docs/#api-Role)
+* [Departments](/docs/#api-Department)
+* [Programs](/docs/#api-Program)
+* [Courses](/docs/#api-Course)
+* [Communities]()
+* [Rooms](/docs/#api-Room)
+* [Buildings](/docs/#api-Building)
+* [Campuses](/docs/#api-Campus)
+
+Responses to API requests are returned in JSON. You will need an API access-key to use this API.
