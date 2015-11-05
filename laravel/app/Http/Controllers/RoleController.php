@@ -529,7 +529,7 @@ class RoleController extends BaseController
     }
 
     /**
-     * @api {post} /role/ Post to Role
+     * @api {post} /role/ Post: Create or Update
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Role
@@ -691,7 +691,7 @@ class RoleController extends BaseController
     }
 
     /**
-     * @api {delete} /role/ Delete a Role
+     * @api {delete} /role/ Delete: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Role

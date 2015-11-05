@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 class DepartmentController extends BaseController
 {
     /**
-     * @api {get} /department/ Get all Departments
+     * @api {get} /department/ Get: All
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Department
@@ -150,7 +150,7 @@ class DepartmentController extends BaseController
      */
 
     /**
-     * @api {get} /department/:limit Get X amount of Departments
+     * @api {get} /department/:limit Get: X amount
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Department
@@ -283,7 +283,7 @@ class DepartmentController extends BaseController
     }
 
     /**
-     * @api {get} /department/id/:id Get Department by ID
+     * @api {get} /department/id/:id Get: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Department
@@ -412,7 +412,7 @@ class DepartmentController extends BaseController
     }
 
     /**
-     * @api {get} /department/code/:code Get Department by Code
+     * @api {get} /department/code/:code Get: by Code
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Department
@@ -541,7 +541,7 @@ class DepartmentController extends BaseController
     }
 
     /**
-     * @api {post} /department/ Post to Department
+     * @api {post} /department/ Post: Create or Update
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Department
@@ -707,7 +707,7 @@ class DepartmentController extends BaseController
     }
 
     /**
-     * @api {delete} /department/ Delete a Department
+     * @api {delete} /department/ Delete: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Department

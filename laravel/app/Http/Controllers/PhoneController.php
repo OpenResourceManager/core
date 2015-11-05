@@ -412,7 +412,7 @@ class PhoneController extends BaseController
     }
 
     /**
-     * @api {post} /phone/ Post to Phone
+     * @api {post} /phone/ Post: Create or Update
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Phone
@@ -578,7 +578,7 @@ class PhoneController extends BaseController
     }
 
     /**
-     * @api {delete} /phone/ Delete a Phone
+     * @api {delete} /phone/ Delete: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Phone

@@ -549,7 +549,7 @@ class EmailController extends BaseController
     }
 
     /**
-     * @api {post} /email/ Post to Email
+     * @api {post} /email/ Post: Create or Update
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Email
@@ -710,7 +710,7 @@ class EmailController extends BaseController
     }
 
     /**
-     * @api {delete} /email/ Delete a Email
+     * @api {delete} /email/ Delete: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Email

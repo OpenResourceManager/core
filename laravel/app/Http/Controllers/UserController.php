@@ -653,7 +653,7 @@ class UserController extends BaseController
     }
 
     /**
-     * @api {post} /user/ Post to User
+     * @api {post} /user/ Post: Create or Update
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup User
@@ -839,7 +839,7 @@ class UserController extends BaseController
     }
 
     /**
-     * @api {delete} /user/ Delete a User
+     * @api {delete} /user/ Delete: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup User

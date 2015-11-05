@@ -420,7 +420,7 @@ class RoomController extends BaseController
 
 
     /**
-     * @api {post} /room/ Post to Room
+     * @api {post} /room/ Post: Create or Update
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Room
@@ -602,7 +602,7 @@ class RoomController extends BaseController
     }
 
     /**
-     * @api {delete} /room/ Delete a Room
+     * @api {delete} /room/ Delete: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Room

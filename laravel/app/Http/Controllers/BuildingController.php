@@ -18,7 +18,7 @@ class BuildingController extends BaseController
 {
 
     /**
-     * @api {get} /building/ Get all Buildings
+     * @api {get} /building/ Get: All
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Building
@@ -135,7 +135,7 @@ class BuildingController extends BaseController
      */
 
     /**
-     * @api {get} /building/:limit Get X amount of Buildings
+     * @api {get} /building/:limit Get: X amount
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Building
@@ -268,7 +268,7 @@ class BuildingController extends BaseController
     }
 
     /**
-     * @api {get} /building/id/:id Get Building by ID
+     * @api {get} /building/id/:id Get: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Building
@@ -397,7 +397,7 @@ class BuildingController extends BaseController
     }
 
     /**
-     * @api {get} /building/code/:code Get Building by Informer Code
+     * @api {get} /building/code/:code Get: by Code
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Building
@@ -526,7 +526,7 @@ class BuildingController extends BaseController
     }
 
     /**
-     * @api {get} /building/campus/:campus Get Buildings by Campus ID
+     * @api {get} /building/campus/:campus Get: by Campus ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Building
@@ -655,7 +655,7 @@ class BuildingController extends BaseController
     }
 
     /**
-     * @api {post} /building/ Post to Building
+     * @api {post} /building/ Post: Create or Update
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Building
@@ -821,7 +821,7 @@ class BuildingController extends BaseController
     }
 
     /**
-     * @api {delete} /building/ Delete a Building
+     * @api {delete} /building/ Delete: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Building

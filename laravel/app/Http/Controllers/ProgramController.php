@@ -661,7 +661,7 @@ class ProgramController extends BaseController
     }
 
     /**
-     * @api {post} /program/ Post to Program
+     * @api {post} /program/ Post: Create or Update
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Program
@@ -828,7 +828,7 @@ class ProgramController extends BaseController
     }
 
     /**
-     * @api {delete} /program/ Delete a Program
+     * @api {delete} /program/ Delete: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Program

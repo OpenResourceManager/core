@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 class CampusController extends BaseController
 {
     /**
-     * @api {get} /campus/ Get all Campuses
+     * @api {get} /campus/ Get: All
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Campus
@@ -132,7 +132,7 @@ class CampusController extends BaseController
      */
 
     /**
-     * @api {get} /campus/:limit Get X amount of Campuses
+     * @api {get} /campus/:limit Get: X amount
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Campus
@@ -254,7 +254,7 @@ class CampusController extends BaseController
     }
 
     /**
-     * @api {get} /campus/id/:id Get Campus by ID
+     * @api {get} /campus/id/:id Get: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Campus
@@ -381,7 +381,7 @@ class CampusController extends BaseController
     }
 
     /**
-     * @api {get} /campus/code/:code Get Campus by Informer Code
+     * @api {get} /campus/code/:code Get: by Code
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Campus
@@ -508,7 +508,7 @@ class CampusController extends BaseController
     }
 
     /**
-     * @api {post} /campus/ Post to Campus
+     * @api {post} /campus/ Post: Create or Update
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Campus
@@ -669,7 +669,7 @@ class CampusController extends BaseController
     }
 
     /**
-     * @api {delete} /campus/ Delete a Campus
+     * @api {delete} /campus/ Delete: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
      * @apiGroup Campus
