@@ -536,7 +536,7 @@ class EmailController extends BaseController
     {
         $result = APIKey::testAPIKey($request, 'get');
         if ($result[0]) {
-            $obj = Email::where('user', $id)->get();
+            $obj = Email::where('user_id', $id)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
                 return json_encode($obj);
             } else {

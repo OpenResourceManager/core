@@ -649,7 +649,7 @@ class ProgramController extends BaseController
     {
         $result = APIKey::testAPIKey($request, 'get');
         if ($result[0]) {
-            $obj = Program::where('department', $departmentId)->get();
+            $obj = Program::where('department_id', $departmentId)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
                 return json_encode($obj);
             } else {

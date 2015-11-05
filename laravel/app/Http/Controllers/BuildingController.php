@@ -643,7 +643,7 @@ class BuildingController extends BaseController
     {
         $result = APIKey::testAPIKey($request, 'get');
         if ($result[0]) {
-            $obj = Building::where('campus', $campusId)->get();
+            $obj = Building::where('campus_id', $campusId)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
                 return json_encode($obj);
             } else {
@@ -977,9 +977,8 @@ class BuildingController extends BaseController
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
             if ($building = Building::find($request->input('id'))) {
-                $children = $building->rooms();
                 if ($building->delete()) {
-                    return json_encode(array('success' => true, 'message' => 'delete', 'children' => $children));
+                    return json_encode(array('success' => true, 'message' => 'delete'));
                 } else {
                     return json_encode(array('success' => false, 'message' => 'Could not delete.'));
                 }
