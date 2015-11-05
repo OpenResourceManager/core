@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Campus extends Model
 {
     use SoftDeletes;
-    const UPDATED_AT = 'campuses.updated_at';
     protected $table = 'campuses';
     protected $dates = ['deleted_at'];
 
@@ -26,7 +25,7 @@ class Campus extends Model
 
     public function rooms()
     {
-        return $this->hasManyThrough('App\Room', 'App\Building');
+        return $this->hasManyThrough('App\Room', 'App\Building', 'campus_id', 'building_id');
     }
 
 }
