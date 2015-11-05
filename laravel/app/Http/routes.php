@@ -72,6 +72,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'program'], function () {
         Route::post('/', 'ProgramController@post');
 
+        Route::delete('/', 'ProgramController@del');
+
         Route::get('id/{id}', 'ProgramController@getByID');
         Route::get('code/{code}', 'ProgramController@getByCode');
         Route::get('department/{departmentId}', 'ProgramController@getByDepartment');
