@@ -135,7 +135,15 @@ Route::group(['prefix' => 'v1'], function () {
     });
 
     Route::group(['prefix' => 'course'], function () {
+        Route::post('/', 'CourseController@post');
 
+        Route::delete('/', 'CourseController@del');
+
+        Route::get('id/{id}', 'CourseController@getByID');
+        Route::get('code/{code}', 'CourseController@getByCode');
+
+        Route::get('/', 'CourseController@get');
+        Route::get('/{limit}', 'CourseController@get');
     });
 
 });
