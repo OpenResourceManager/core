@@ -42,7 +42,7 @@ class CreateTables extends Migration
 
         Schema::create('buildings', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('campus');
+            $table->unsignedInteger('campus_id');
             $table->string('code');
             $table->string('name');
             $table->timestamps();
@@ -61,7 +61,7 @@ class CreateTables extends Migration
 
         Schema::create('programs', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('department');
+            $table->unsignedInteger('department_id');
             $table->string('code');
             $table->string('name');
             $table->timestamps();
@@ -71,7 +71,7 @@ class CreateTables extends Migration
 
         Schema::create('emails', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user');
+            $table->unsignedInteger('user_id');
             $table->string('email')->unique();
             $table->timestamps();
             $table->softDeletes();
@@ -80,7 +80,7 @@ class CreateTables extends Migration
 
         Schema::create('phones', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user');
+            $table->unsignedInteger('user_id');
             $table->string('number', 11)->unique();
             $table->string('ext', 5)->nullable();
             $table->timestamps();
@@ -90,15 +90,15 @@ class CreateTables extends Migration
 
         Schema::create('rooms', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user');
-            $table->unsignedInteger('building');
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('building_id');
             $table->unsignedInteger('floor_number')->nullable();
             $table->string('floor_name')->nullable();
             $table->unsignedInteger('room_number');
             $table->string('room_name')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('user')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
         });
 
