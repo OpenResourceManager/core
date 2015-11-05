@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Building;
 use App\Campus;
 use App\Room;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
 
         // set deleting event for campus. Should delete all children buildings.
         Campus::deleting(function ($campus) {
-            $campus->rooms()->delete();
+            echo json_encode($campus->rooms());
             $campus->buildings()->delete();
         });
     }
