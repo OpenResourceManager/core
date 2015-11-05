@@ -124,24 +124,24 @@ class CreateTables extends Migration
     public function down()
     {
         Schema::table('buildings', function (Blueprint $table) {
-            $table->dropForeign('buildings_campus_foreign');
+            $table->dropForeign('buildings_campus_id_foreign');
         });
 
         Schema::table('programs', function (Blueprint $table) {
-            $table->dropForeign('programs_department_foreign');
+            $table->dropForeign('programs_department_id_foreign');
         });
 
         Schema::table('emails', function (Blueprint $table) {
-            $table->dropForeign('emails_user_foreign');
+            $table->dropForeign('emails_user_id_foreign');
         });
 
         Schema::table('phones', function (Blueprint $table) {
-            $table->dropForeign('phones_user_foreign');
+            $table->dropForeign('phones_user_id_foreign');
         });
 
         Schema::table('rooms', function (Blueprint $table) {
-            $table->dropForeign('rooms_user_foreign');
-            $table->dropForeign('rooms_building_foreign');
+            $table->dropForeign('rooms_use_idr_foreign');
+            $table->dropForeign('rooms_building_id_foreign');
         });
 
         Schema::drop('users');
