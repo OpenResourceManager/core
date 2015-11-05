@@ -15,4 +15,9 @@ class Program extends Model
     use SoftDeletes;
     protected $table = 'programs';
     protected $dates = ['deleted_at'];
+
+    public function courses()
+    {
+        return $this->hasMany('App\Course');
+    }
 }

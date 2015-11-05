@@ -21,4 +21,15 @@ class Department extends Model
     {
         return $this->hasMany('App\Program');
     }
+
+    public function courses()
+    {
+        $courses = array();
+        foreach ($this->programs()->get() as $program) {
+            foreach ($program->courses()->get() as $course) {
+                $courses[] = $course;
+            }
+        }
+        return $courses;
+    }
 }
