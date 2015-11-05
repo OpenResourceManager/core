@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Room extends Model
 {
     use SoftDeletes;
+    const UPDATED_AT = 'rooms.updated_at';
     protected $table = 'rooms';
     protected $dates = ['deleted_at'];
 }
