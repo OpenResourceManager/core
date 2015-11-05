@@ -122,6 +122,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'room'], function () {
         Route::post('/', 'RoomController@post');
 
+        Route::delete('/', 'RoomController@del');
+
         Route::get('id/{id}', 'RoomController@getByID');
 
         Route::get('/', 'RoomController@get');
