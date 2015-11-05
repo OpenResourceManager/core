@@ -26,7 +26,7 @@ class Campus extends Model
     {
         parent::boot();
 
-        static::deleted(function ($campus) {
+        static::deleting(function ($campus) {
             $campus->buildings()->delete();
         });
     }
