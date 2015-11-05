@@ -707,10 +707,10 @@ class DepartmentController extends BaseController
     }
 
     /**
-     * @api {delete} /department/ Delete a Building
+     * @api {delete} /department/ Delete a Department
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
-     * @apiGroup Building
+     * @apiGroup Department
      * @apiDescription Delete a department record. This also deletes any program records that may be a child of the department.
      *
      * @apiParam {Integer} id The numeric API id of the department.
