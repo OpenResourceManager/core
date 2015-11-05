@@ -107,6 +107,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'phone'], function () {
         Route::post('/', 'PhoneController@post');
 
+        Route::delete('/', 'PhoneController@del');
+
         Route::get('id/{id}', 'PhoneController@getByID');
 
         Route::get('/', 'PhoneController@get');
