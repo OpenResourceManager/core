@@ -21,13 +21,4 @@ class Campus extends Model
     {
         return $this->hasMany('Building');
     }
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($campus) {
-            $campus->buildings()->delete();
-        });
-    }
 }

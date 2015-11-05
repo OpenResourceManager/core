@@ -21,14 +21,5 @@ class Building extends Model
     {
         return $this->hasMany('Room');
     }
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($building) {
-            $building->rooms()->delete();
-        });
-    }
 }
 
