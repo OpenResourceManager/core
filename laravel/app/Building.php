@@ -19,7 +19,7 @@ class Building extends Model
 
     public function rooms()
     {
-        return $this->hasMany('Room');
+        return Building::hasMany('Room');
     }
 }
 
