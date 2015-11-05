@@ -27,6 +27,10 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'user'], function () {
         Route::post('/', 'UserController@post');
 
+        Route::delete('/', 'UserController@del');
+
+        Route::delete('/', 'UserController@del');
+
         Route::get('id/{id}', 'UserController@getByID');
         Route::get('sageid/{sageid}', 'UserController@getBySageID');
 
