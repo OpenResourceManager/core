@@ -69,6 +69,16 @@ class CreateTables extends Migration
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
         });
 
+        Schema::create('courses', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('program_id');
+            $table->string('code');
+            $table->string('name');
+            $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
+        });
+
         Schema::create('emails', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
@@ -131,6 +141,10 @@ class CreateTables extends Migration
             $table->dropForeign('programs_department_id_foreign');
         });
 
+        Schema::table('courses', function (Blueprint $table) {
+            $table->dropForeign('phones_program_id_foreign');
+        });
+
         Schema::table('emails', function (Blueprint $table) {
             $table->dropForeign('emails_user_id_foreign');
         });
@@ -153,6 +167,7 @@ class CreateTables extends Migration
         Schema::drop('emails');
         Schema::drop('phones');
         Schema::drop('rooms');
+        Schema::drop('courses');
         Schema::drop('apikeys');
     }
 }
