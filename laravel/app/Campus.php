@@ -19,6 +19,6 @@ class Campus extends Model
 
     public function buildings()
     {
-        return Campus::hasMany('Building');
+        return Campus::hasMany('App\Building');
     }
 }
