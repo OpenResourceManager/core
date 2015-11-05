@@ -26,7 +26,7 @@ class EmailTableSeeder extends Seeder
 
         foreach ($emails as $emailArr) {
             $email = new Email();
-            $email->user = $emailArr[0];
+            $email->user_id = $emailArr[0];
             $email->email = $emailArr[1];
             $email->save();
         }

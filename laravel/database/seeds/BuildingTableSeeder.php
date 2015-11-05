@@ -94,7 +94,7 @@ class BuildingTableSeeder extends Seeder
         foreach ($buildings as $buildingArr) {
             $building = new Building();
 
-            $building->campus = $buildingArr[0];
+            $building->campus_id = $buildingArr[0];
             $building->code = $buildingArr[1];
             $building->name = $buildingArr[2];
 

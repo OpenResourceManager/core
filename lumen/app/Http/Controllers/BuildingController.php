@@ -643,7 +643,7 @@ class BuildingController extends BaseController
     {
         $result = APIKey::testAPIKey($request, 'get');
         if ($result[0]) {
-            $obj = Building::where('campus', $campusId)->get();
+            $obj = Building::where('campus_id', $campusId)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
                 return json_encode($obj);
             } else {
@@ -794,7 +794,7 @@ class BuildingController extends BaseController
         $result = APIKey::testAPIKey($request, 'post');
         if ($result[0]) {
             $validator = Validator::make($request->all(), [
-                'campus' => 'integer|required|max:11|min:1',
+                'campus_id' => 'integer|required|max:11|min:1',
                 'code' => 'string|required|max:10|min:3|unique:buildings',
                 'name' => 'string|required|max:30|min:3'
             ]);

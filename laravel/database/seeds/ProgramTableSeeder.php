@@ -463,7 +463,7 @@ class ProgramTableSeeder extends Seeder
             $program = new Program();
             $program->code = $programArr[0];
             $program->name = $programArr[1];
-            $program->department = $programArr[2];
+            $program->department_id = $programArr[2];
             $program->save();
         }
 

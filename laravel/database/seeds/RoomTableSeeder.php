@@ -24,8 +24,8 @@ class RoomTableSeeder extends Seeder
 
         foreach ($rooms as $roomArr) {
             $room = new Room();
-            $room->user = $roomArr[0];
-            $room->building = $roomArr[1];
+            $room->user_id = $roomArr[0];
+            $room->building_id = $roomArr[1];
             $room->floor_number = $roomArr[2];
             $room->floor_name = $roomArr[3];
             $room->room_number = $roomArr[4];

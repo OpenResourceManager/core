@@ -25,7 +25,7 @@ class PhoneTableSeeder extends Seeder
 
         foreach ($phones as $phoneArr) {
             $phone = new Phone();
-            $phone->user = $phoneArr[0];
+            $phone->user_id = $phoneArr[0];
             $phone->number = $phoneArr[1];
             $phone->ext = $phoneArr[2];
             $phone->save();

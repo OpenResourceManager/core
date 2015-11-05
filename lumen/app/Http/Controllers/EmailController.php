@@ -536,7 +536,7 @@ class EmailController extends BaseController
     {
         $result = APIKey::testAPIKey($request, 'get');
         if ($result[0]) {
-            $obj = Email::where('user', $id)->get();
+            $obj = Email::where('user_id', $id)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
                 return json_encode($obj);
             } else {
@@ -684,7 +684,7 @@ class EmailController extends BaseController
         $result = APIKey::testAPIKey($request, 'post');
         if ($result[0]) {
             $validator = Validator::make($request->all(), [
-                'user' => 'integer|required|max:11|min:1',
+                'user_id' => 'integer|required|max:11|min:1',
                 'email' => 'email|required|max:60|min:7|unique:emails',
             ]);
             if ($validator->fails()) {
