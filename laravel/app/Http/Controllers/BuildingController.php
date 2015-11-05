@@ -671,8 +671,8 @@ class BuildingController extends BaseController
      *
      * @apiExample {curl} Curl
      *      curl -H "X-Authorization: <Your-API-Key>" \
-     *      --data "campus=1" \
      *      -X "POST" \
+     *      --data "campus=1" \
      *      --data "name=Ackerman" \
      *      --data "code=ACK" \
      *      --url https://databridge.sage.edu/v1/building
