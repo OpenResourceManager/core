@@ -25,7 +25,12 @@ class Campus extends Model
 
     public function rooms()
     {
-        return $this->buildings()->hasMany('App\Room');
+        $rooms = array();
+        $buildings = $this->buildings();
+        foreach ($buildings as $building) {
+            $rooms = array_merge($building->rooms(), $rooms);
+        }
+        return $rooms;
     }
 
 }
