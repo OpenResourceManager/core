@@ -8,6 +8,7 @@
  */
 
 use App\Building;
+use App\Room;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -20,5 +21,16 @@ class Campus extends Model
     public function buildings()
     {
         return $this->hasMany('App\Building');
+    }
+
+    public function rooms()
+    {
+        $rooms = array();
+        foreach ($this->hasMany('App\Building') as $building) {
+            foreach ($building->rooms() as $room) {
+                $rooms[] = $room;
+            }
+        }
+        return $rooms;
     }
 }
