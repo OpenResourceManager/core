@@ -83,6 +83,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'department'], function () {
         Route::post('/', 'DepartmentController@post');
 
+        Route::delete('/', 'DepartmentController@del');
+
         Route::get('id/{id}', 'DepartmentController@getByID');
         Route::get('code/{code}', 'DepartmentController@getByCode');
 
