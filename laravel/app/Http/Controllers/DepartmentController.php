@@ -705,4 +705,146 @@ class DepartmentController extends BaseController
             return json_encode($result[1]);
         }
     }
+
+    /**
+     * @api {delete} /department/ Delete a Building
+     * @apiVersion 1.1.1
+     * @apiHeader {String} X-Authorization The application's unique access-key.
+     * @apiGroup Building
+     * @apiDescription Delete a department record. This also deletes any program records that may be a child of the department.
+     *
+     * @apiParam {Integer} id The numeric API id of the department.
+     * @apiSuccess {Boolean} success Tells the application if the request was successful.
+     * @apiSuccess {String} result The action that was performed, this should be `delete`.
+     *
+     * @apiExample {curl} Curl
+     *      curl -H "X-Authorization: <Your-API-Key>" \
+     *      -X "DELETE" \
+     *      --data "id=1" \
+     *      --url https://databridge.sage.edu/v1/department
+     *
+     * @apiExample {ruby} Ruby
+     *      # This code snippet uses an open-source library. http://unirest.io/ruby
+     *      response = Unirest.delete "https://databridge.sage.edu/v1/department",
+     *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
+     *      parameters:{ :id => 1}.to_json
+     *
+     * @apiExample {php} PHP
+     *      $ch = curl_init("https://databridge.sage.edu/v1/department");
+     *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
+     *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+     *      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+     *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("id" => 1));
+     *      $result = curl_exec($ch);
+     *      curl_close($ch);
+     *
+     * @apiExample {powershell} PowerShell
+     *      # PowerShell v3 and above
+     *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+     *      $headers.Add("X-Authorization", '<Your-API-Key>')
+     *      $uri = https://databridge.sage.edu/v1/department
+     *      $body = @{ id = 1 }
+     *      $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method Delete -Body $body
+     *
+     * @apiExample {java} Java
+     *      # This code snippet uses an open-source library. http://unirest.io/java
+     *      HttpResponse <String> response = Unirest.delete("https://databridge.sage.edu/v1/department")
+     *      .header("X-Authorization", "<Your-API-Key>")
+     *      .header("Accept", "application/json")
+     *      .body("{\"id\":1}")
+     *      .asString();
+     *
+     * @apiExample {python} Python
+     *      # This code snippet uses an open-source library http://unirest.io/python
+     *      response = unirest.delete("https://databridge.sage.edu/v1/department",
+     *          headers={
+     *              "X-Authorization": "<Your-API-Key>",
+     *              "Accept": "application/json"
+     *          },
+     *          params={
+     *              "id" : 1
+     *          }
+     *      )
+     *
+     * @apiExample {.net} .NET
+     *      // This code snippet uses an open-source library http://unirest.io/net
+     *       Task<HttpResponse<MyClass>> response = Unirest.delete("https://databridge.sage.edu/v1/department")
+     *       .header("X-Authorization", "<Your-API-Key>")
+     *       .header("Accept", "application/json")
+     *       .field("id", 1)
+     *       .asString();
+     *
+     * @apiSuccessExample {json} Success: Delete
+     *     HTTP/1.1 200 OK
+     *     {
+     *      "success": true,
+     *      "message": "delete"
+     *     }
+     *
+     * @apiError (Error 4xx/5xx) {Boolean} success Tells the application if the request was successful.
+     * @apiError (Error 4xx/5xx) {String} error An error message from the server.
+     *
+     * @apiErrorExample {json} Error: Not Privileged
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: Insufficient privileges."
+     *      }
+     *
+     * @apiErrorExample {json} Error: Invalid API Key
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: API Key is not valid."
+     *      }
+     *
+     * @apiErrorExample {json} Error: Object not found
+     *      HTTP/1.1 400 Bad Request
+     *      {
+     *          "success": false,
+     *          "error": "Object not found."
+     *      }
+     *
+     * @apiErrorExample {json} Error: Missing Header Option
+     *      HTTP/1.1 400 Bad Request
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: Header Option Not Found."
+     *      }
+     *
+     * @apiErrorExample {json} Error: Server Error
+     *      HTTP/1.1 500 Server Error
+     *      {
+     *          "success": false,
+     *          "error": "Could not delete."
+     *      }
+     */
+
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function del(Request $request)
+    {
+        $result = APIKey::testAPIKey($request, 'delete');
+        if ($result[0]) {
+            $validator = Validator::make($request->all(), [
+                'id' => 'integer|required',
+            ]);
+            if ($validator->fails()) {
+                return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
+            }
+            if ($model = Department::find($request->input('id'))) {
+                if ($model->delete()) {
+                    return json_encode(array('success' => true, 'message' => 'delete'));
+                } else {
+                    return json_encode(array('success' => false, 'message' => 'Could not delete.'));
+                }
+            } else {
+                return json_encode(array('success' => false, 'message' => 'Object not found.'));
+            }
+        } else {
+            return json_encode($result[1]);
+        }
+    }
 }

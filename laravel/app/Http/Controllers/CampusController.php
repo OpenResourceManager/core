@@ -796,8 +796,8 @@ class CampusController extends BaseController
             if ($validator->fails()) {
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
-            if ($campus = Campus::find($request->input('id'))) {
-                if ($campus->delete()) {
+            if ($model = Campus::find($request->input('id'))) {
+                if ($model->delete()) {
                     return json_encode(array('success' => true, 'message' => 'delete'));
                 } else {
                     return json_encode(array('success' => false, 'message' => 'Could not delete.'));
