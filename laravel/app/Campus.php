@@ -26,9 +26,10 @@ class Campus extends Model
     public function rooms()
     {
         $rooms = array();
-        $buildings = $this->buildings()->get();
-        foreach ($buildings as $building) {
-            $rooms = array_merge(json_decode(json_encode($building->rooms()->get()), true), $rooms);
+        foreach ($this->buildings()->get() as $building) {
+            foreach ($building->rooms()->get() as $room) {
+                $rooms[] = $room;
+            }
         }
         return $rooms;
     }
