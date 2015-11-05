@@ -25,12 +25,7 @@ class Campus extends Model
 
     public function rooms()
     {
-        $rooms = array();
-        foreach ($this->hasMany('App\Building') as $building) {
-            foreach ($building->rooms() as $room) {
-                $rooms[] = $room;
-            }
-        }
-        return $rooms;
+        return $this->hasManyThrough('App\Room', 'App\Building');
     }
+
 }
