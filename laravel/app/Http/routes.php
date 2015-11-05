@@ -95,6 +95,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'email'], function () {
         Route::post('/', 'EmailController@post');
 
+        Route::delete('/', 'EmailController@del');
+
         Route::get('id/{id}', 'EmailController@getByID');
         Route::get('user/{id}', 'EmailController@getByUser');
 
