@@ -26,7 +26,7 @@ class Campus extends Model
     public function rooms()
     {
         $rooms = array();
-        $buildings = self::buildings();
+        $buildings = $this->hasMany('App\Building');
         echo json_encode($buildings);
         foreach ($buildings as $building) {
             $rooms = array_merge($building->rooms(), $rooms);
