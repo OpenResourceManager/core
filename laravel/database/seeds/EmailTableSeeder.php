@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Email;
+use App\Model\Email;
 
 /**
  * Created by PhpStorm.

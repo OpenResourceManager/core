@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespace = 'App\Http\Controllers';
 
     /**
-     * Define your route model bindings, pattern filters, etc.
+     * Define your route Model bindings, pattern filters, etc.
      *
      * @param  \Illuminate\Routing\Router  $router
      * @return void

@@ -7,8 +7,8 @@
  * Time: 3:46 PM
  */
 
-use App\Email;
-use App\APIKey;
+use App\Model\Email;
+use App\Model\APIKey;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;

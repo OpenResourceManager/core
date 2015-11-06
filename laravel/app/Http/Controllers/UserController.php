@@ -7,11 +7,11 @@
  * Time: 1:25 PM
  */
 
-use App\Email;
-use App\Phone;
-use App\Room;
-use App\User;
-use App\APIKey;
+use App\Model\Email;
+use App\Model\Phone;
+use App\Model\Room;
+use App\Model\User;
+use App\Model\APIKey;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller as BaseController;

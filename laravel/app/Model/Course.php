@@ -1,12 +1,11 @@
-<?php
+<?php namespace App\Model;
+
 /**
  * Created by PhpStorm.
  * User: melon
  * Date: 11/5/15
  * Time: 12:31 PM
  */
-
-namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

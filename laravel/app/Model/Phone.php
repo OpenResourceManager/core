@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace App\Model;
 
 /**
  * Created by PhpStorm.
@@ -10,9 +10,9 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Email extends Model
+class Phone extends Model
 {
     use SoftDeletes;
-    protected $table = 'emails';
+    protected $table = 'phones';
     protected $dates = ['deleted_at'];
 }

@@ -1,20 +1,18 @@
-<?php
+<?php namespace App\Model;
+
 /**
  * Created by PhpStorm.
  * User: melon
- * Date: 11/5/15
- * Time: 8:25 PM
+ * Date: 7/7/15
+ * Time: 3:44 PM
  */
-
-namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Community extends Model
+class Room extends Model
 {
     use SoftDeletes;
-    protected $table = 'communities';
+    protected $table = 'rooms';
     protected $dates = ['deleted_at'];
-
 }

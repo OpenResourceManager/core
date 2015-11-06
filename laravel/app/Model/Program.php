@@ -1,25 +1,24 @@
-<?php namespace App;
+<?php namespace App\Model;
 
 /**
  * Created by PhpStorm.
  * User: melon
  * Date: 7/7/15
- * Time: 10:30 AM
+ * Time: 10:34 AM
  */
 
-use App\Room;
+use App\Model\Course;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Building extends Model
+class Program extends Model
 {
     use SoftDeletes;
-    protected $table = 'buildings';
+    protected $table = 'programs';
     protected $dates = ['deleted_at'];
 
-    public function rooms()
+    public function courses()
     {
-        return $this->hasMany('App\Room');
+        return $this->hasMany('App\Model\Course');
     }
 }
-

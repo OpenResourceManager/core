@@ -7,8 +7,8 @@
  * Time: 1:01 PM
  */
 
-use App\APIKey;
-use App\Course;
+use App\Model\APIKey;
+use App\Model\Course;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
