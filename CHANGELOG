@@ -1,5 +1,15 @@
+### v1.1.1 ###
+* Migrated from Lumen to Laravel
+* Complete documentation rewrite
+* Added Community Model
+* Added Course Model
+* Delete method for all models
+* API Key Authentication
+* Soft Deletions
+* Cascading deletions based on foreign keys
+
 ### v1.1.0 ###
-* Rebuild using Lumen framwork
+* Rebuild using Lumen framework
 * Post/Get users
 * Post/Get campus
 * Post/Get building
