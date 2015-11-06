@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call('PhoneTableSeeder');
         $this->call('RoomTableSeeder');
         $this->call('CourseTableSeeder');
+        $this->call('CommunityTableSeeder');
         $this->call('APIKeyTableSeeder');
 
         Model::reguard();

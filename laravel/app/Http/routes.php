@@ -146,5 +146,17 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/{limit}', 'CourseController@get');
     });
 
+    Route::group(['prefix' => 'community'], function () {
+        Route::post('/', 'CommunityController@post');
+
+        Route::delete('/', 'CommunityController@del');
+
+        Route::get('id/{id}', 'CommunityController@getByID');
+        Route::get('code/{code}', 'CommunityController@getByCode');
+
+        Route::get('/', 'CommunityController@get');
+        Route::get('/{limit}', 'CommunityController@get');
+    });
+
 });
 
