@@ -112,6 +112,14 @@ class CreateTables extends Migration
             $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
         });
 
+        Schema::create('communities', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('code');
+            $table->string('name');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
         Schema::create('apikeys', function (Blueprint $table) {
             $table->increments('id');
             $table->string('app_name')->unique();
@@ -161,6 +169,7 @@ class CreateTables extends Migration
         Schema::drop('users');
         Schema::drop('roles');
         Schema::drop('campuses');
+        Schema::drop('communities');
         Schema::drop('buildings');
         Schema::drop('departments');
         Schema::drop('programs');
