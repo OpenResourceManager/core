@@ -8,7 +8,7 @@
  */
 
 use App\Model\Department;
-use App\Model\APIKey;
+use App\Model\Record\APIKey;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;

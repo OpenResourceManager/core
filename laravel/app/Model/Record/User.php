@@ -1,4 +1,4 @@
-<?php namespace App\Model;
+<?php namespace App\Model\Record;
 
 /**
  * Created by PhpStorm.
@@ -7,9 +7,9 @@
  * Time: 3:57 PM
  */
 
-use App\Model\Room;
-use App\Model\Email;
-use App\Model\Phone;
+use App\Model\Record\Room;
+use App\Model\Record\Email;
+use App\Model\Record\Phone;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -21,16 +21,16 @@ class User extends Model
 
     public function rooms()
     {
-        return $this->hasMany('App\Model\Room');
+        return $this->hasMany('App\Model\Record\Room');
     }
 
     public function emails()
     {
-        return $this->hasMany('App\Model\Email');
+        return $this->hasMany('App\Model\Record\Email');
     }
 
     public function phones()
     {
-        return $this->hasMany('App\Model\Phone');
+        return $this->hasMany('App\Model\Record\Phone');
     }
 }

@@ -6,7 +6,7 @@ use App\Model\Building;
 use App\Model\Campus;
 use App\Model\Department;
 use App\Model\Program;
-use App\Model\User;
+use App\Model\Record\User;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Room;
+use App\Model\Record\Room;
 
 /**
  * Created by PhpStorm.
