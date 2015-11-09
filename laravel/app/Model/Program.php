@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace App\Model;
 
 /**
  * Created by PhpStorm.
@@ -7,6 +7,7 @@
  * Time: 10:34 AM
  */
 
+use App\Model\Course;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -18,6 +19,6 @@ class Program extends Model
 
     public function courses()
     {
-        return $this->hasMany('App\Course');
+        return $this->hasMany('App\Model\Course');
     }
 }

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Phone;
+use App\Model\Record\Phone;
 
 /**
  * Created by PhpStorm.

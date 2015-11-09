@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace App\Model;
 
 /**
  * Created by PhpStorm.

@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace App\Model;
 
 /**
  * Created by PhpStorm.
@@ -7,7 +7,7 @@
  * Time: 10:30 AM
  */
 
-use App\Room;
+use App\Model\Record\Room;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -19,7 +19,7 @@ class Building extends Model
 
     public function rooms()
     {
-        return $this->hasMany('App\Room');
+        return $this->hasMany('App\Model\Record\Room');
     }
 }
 

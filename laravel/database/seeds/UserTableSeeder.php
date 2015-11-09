@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\User;
+use App\Model\Record\User;
 
 /**
  * Created by PhpStorm.

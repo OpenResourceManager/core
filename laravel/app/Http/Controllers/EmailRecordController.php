@@ -3,40 +3,37 @@
 /**
  * Created by PhpStorm.
  * User: melon
- * Date: 6/24/15
- * Time: 1:25 PM
+ * Date: 7/7/15
+ * Time: 3:46 PM
  */
 
-use App\Email;
-use App\Phone;
-use App\Room;
-use App\User;
-use App\APIKey;
-use Illuminate\Http\Request;
+use App\Model\Record\Email;
+use App\Model\Record\APIKey;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Http\Request;
 
-class UserController extends BaseController
+class EmailRecordController extends BaseController
 {
 
     /**
-     * @api {get} /user/ Get: All
+     * @api {get} /email/ Get: All
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
-     * @apiGroup User
-     * @apiDescription This method returns all user objects.
+     * @apiGroup Email
+     * @apiDescription This method returns all email objects.
      *
-     * @apiSampleRequest https://databridge.sage.edu/v1/user/
+     * @apiSampleRequest https://databridge.sage.edu/v1/email/
      * @apiExample {curl} Curl
-     *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/
+     *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/email/
      *
      * @apiExample {ruby} Ruby
      *      # This code snippet uses an open-source library. http://unirest.io/ruby
-     *      response = Unirest.get "https://databridge.sage.edu/v1/user/",
+     *      response = Unirest.get "https://databridge.sage.edu/v1/email/",
      *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
      *
      * @apiExample {php} PHP
-     *      $ch = curl_init("https://databridge.sage.edu/v1/user/");
+     *      $ch = curl_init("https://databridge.sage.edu/v1/email/");
      *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
      *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
      *      $result = curl_exec($ch);
@@ -46,18 +43,18 @@ class UserController extends BaseController
      *      # PowerShell v3 and above
      *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
      *      $headers.Add("X-Authorization", '<Your-API-Key>')
-     *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/ -Headers $headers
+     *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/email/ -Headers $headers
      *
      * @apiExample {java} Java
      *      # This code snippet uses an open-source library. http://unirest.io/java
-     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/")
+     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/email/")
      *      .header("X-Authorization", "<Your-API-Key>")
      *      .header("Accept", "application/json")
      *      .asString();
      *
      * @apiExample {python} Python
      *      # This code snippet uses an open-source library http://unirest.io/python
-     *      response = unirest.get("https://databridge.sage.edu/v1/user/",
+     *      response = unirest.get("https://databridge.sage.edu/v1/email/",
      *          headers={
      *              "X-Authorization": "<Your-API-Key>",
      *              "Accept": "application/json"
@@ -66,7 +63,7 @@ class UserController extends BaseController
      *
      * @apiExample {.net} .NET
      *      // This code snippet uses an open-source library http://unirest.io/net
-     *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/user/")
+     *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/email/")
      *       .header("X-Authorization", "<Your-API-Key>")
      *       .header("Accept", "application/json")
      *       .asString();
@@ -74,14 +71,8 @@ class UserController extends BaseController
      * @apiSuccess {Boolean} success Tells the application if the request was successful.
      * @apiSuccess {Objects} result The objects that have been returned.
      * @apiSuccess {Integer} id The numeric id of the object.
-     * @apiSuccess {String} sageid The sageid assigned to the user.
-     * @apiSuccess {Boolean} active Boolean value that signifies if a user is active.
-     * @apiSuccess {String} name_prefix A prefix for the user's name.
-     * @apiSuccess {String} name_first The user's first name.
-     * @apiSuccess {String} name_middle The user's middle name or middle initial.
-     * @apiSuccess {String} name_last The user's last name.
-     * @apiSuccess {String} name_phonetic The user's phonetic name.
-     * @apiSuccess {String} username The username assigned to the user.
+     * @apiSuccess {Integer} user The id assigned to the user associated with that email.
+     * @apiSuccess {String} email The email address.
      * @apiSuccess {Timestamp} created_at The date and time that the object was created.
      * @apiSuccess {Timestamp} updated_at The date and time that the object was updated.
      *
@@ -89,34 +80,44 @@ class UserController extends BaseController
      *     HTTP/1.1 200 OK
      *     {
      *         "success": true,
-     *         "result": [
-     *           {
-     *               "id": "1",
-     *               "sageid": "970620",
-     *               "active": "1",
-     *               "name_prefix": "Mr.",
-     *               "name_first": "Alex",
-     *               "name_middle": "L",
-     *               "name_last": "Markessinis",
-     *               "name_phonetic": null,
-     *               "username": "markea",
-     *               "created_at": "2015-10-21 13:29:11",
-     *               "updated_at": "2015-10-21 13:29:11",
-     *           },
-     *           {
-     *               "id": "2",
-     *               "sageid": "970621",
-     *               "active": "1",
-     *               "name_prefix": "Mr.",
-     *               "name_first": "Adam",
-     *               "name_middle": null,
-     *               "name_last": "Starnes",
-     *               "name_phonetic": null,
-     *               "username": "starna",
-     *               "created_at": "2015-10-21 13:29:11",
-     *               "updated_at": "2015-10-21 13:29:11",
-     *           }
-     *         ]
+     *         "result":
+     *          [
+     *            {
+     *              "id": "1",
+     *              "user": "1",
+     *              "email": "markea@sage.edu",
+     *              "created_at": "2015-10-21 13:29:11",
+     *              "updated_at": "2015-10-21 13:29:11"
+     *            },
+     *            {
+     *              "id": "2",
+     *              "user": "1",
+     *              "email": "markea@gmail.com",
+     *              "created_at": "2015-10-21 13:29:11",
+     *              "updated_at": "2015-10-21 13:29:11"
+     *            },
+     *            {
+     *              "id": "3",
+     *              "user": "1",
+     *              "email": "markea@yahoo.com",
+     *              "created_at": "2015-10-21 13:29:11",
+     *              "updated_at": "2015-10-21 13:29:11"
+     *            },
+     *            {
+     *              "id": "4",
+     *              "user": "2",
+     *              "email": "starna@sage.edu",
+     *              "created_at": "2015-10-21 13:29:11",
+     *              "updated_at": "2015-10-21 13:29:11"
+     *            },
+     *            {
+     *              "id": "5",
+     *              "user": "3",
+     *              "email": "harrij8@sage.edu",
+     *              "created_at": "2015-10-21 13:29:11",
+     *              "updated_at": "2015-10-21 13:29:11"
+     *            },
+     *          ]
      *     }
      *
      * @apiError (Error 4xx/5xx) {Boolean} success Tells the application if the request was successful.
@@ -152,24 +153,24 @@ class UserController extends BaseController
      */
 
     /**
-     * @api {get} /user/:limit Get: X amount
+     * @api {get} /email/:limit Get: X amount
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
-     * @apiGroup User
+     * @apiGroup Email
      * @apiDescription This method returns objects up to the limit specified.
      * @apiParam {Integer} limit The max number of objects returned.
      *
-     * @apiSampleRequest https://databridge.sage.edu/v1/user/
+     * @apiSampleRequest https://databridge.sage.edu/v1/email/
      * @apiExample {curl} Curl
-     *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/2/
+     *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/email/3/
      *
      * @apiExample {ruby} Ruby
      *      # This code snippet uses an open-source library. http://unirest.io/ruby
-     *      response = Unirest.get "https://databridge.sage.edu/v1/user/2/",
+     *      response = Unirest.get "https://databridge.sage.edu/v1/email/3/",
      *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
      *
      * @apiExample {php} PHP
-     *      $ch = curl_init("https://databridge.sage.edu/v1/user/2/");
+     *      $ch = curl_init("https://databridge.sage.edu/v1/email/3/");
      *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
      *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
      *      $result = curl_exec($ch);
@@ -179,18 +180,18 @@ class UserController extends BaseController
      *      # PowerShell v3 and above
      *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
      *      $headers.Add("X-Authorization", '<Your-API-Key>')
-     *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/2/ -Headers $headers
+     *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/email/3/ -Headers $headers
      *
      * @apiExample {java} Java
      *      # This code snippet uses an open-source library. http://unirest.io/java
-     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/2/")
+     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/email/3/")
      *      .header("X-Authorization", "<Your-API-Key>")
      *      .header("Accept", "application/json")
      *      .asString();
      *
      * @apiExample {python} Python
      *      # This code snippet uses an open-source library http://unirest.io/python
-     *      response = unirest.get("https://databridge.sage.edu/v1/user/2/",
+     *      response = unirest.get("https://databridge.sage.edu/v1/email/3/",
      *          headers={
      *              "X-Authorization": "<Your-API-Key>",
      *              "Accept": "application/json"
@@ -199,7 +200,7 @@ class UserController extends BaseController
      *
      * @apiExample {.net} .NET
      *      // This code snippet uses an open-source library http://unirest.io/net
-     *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/user/2/")
+     *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/email/3/")
      *       .header("X-Authorization", "<Your-API-Key>")
      *       .header("Accept", "application/json")
      *       .asString();
@@ -207,14 +208,8 @@ class UserController extends BaseController
      * @apiSuccess {Boolean} success Tells the application if the request was successful.
      * @apiSuccess {Objects} result The objects that have been returned.
      * @apiSuccess {Integer} id The numeric id of the object.
-     * @apiSuccess {String} sageid The sageid assigned to the user.
-     * @apiSuccess {Boolean} active Boolean value that signifies if a user is active.
-     * @apiSuccess {String} name_prefix A prefix for the user's name.
-     * @apiSuccess {String} name_first The user's first name.
-     * @apiSuccess {String} name_middle The user's middle name or middle initial.
-     * @apiSuccess {String} name_last The user's last name.
-     * @apiSuccess {String} name_phonetic The user's phonetic name.
-     * @apiSuccess {String} username The username assigned to the user.
+     * @apiSuccess {Integer} user The id assigned to the user associated with that email.
+     * @apiSuccess {String} email The email address.
      * @apiSuccess {Timestamp} created_at The date and time that the object was created.
      * @apiSuccess {Timestamp} updated_at The date and time that the object was updated.
      *
@@ -223,32 +218,27 @@ class UserController extends BaseController
      *     {
      *         "success": true,
      *         "result": [
-     *           {
-     *               "id": "1",
-     *               "sageid": "970620",
-     *               "active": "1",
-     *               "name_prefix": "Mr.",
-     *               "name_first": "Alex",
-     *               "name_middle": "L",
-     *               "name_last": "Markessinis",
-     *               "name_phonetic": null,
-     *               "username": "markea",
-     *               "created_at": "2015-10-21 13:29:11",
-     *               "updated_at": "2015-10-21 13:29:11",
-     *           },
-     *           {
-     *               "id": "2",
-     *               "sageid": "970621",
-     *               "active": "1",
-     *               "name_prefix": "Mr.",
-     *               "name_first": "Adam",
-     *               "name_middle": null,
-     *               "name_last": "Starnes",
-     *               "name_phonetic": null,
-     *               "username": "starna",
-     *               "created_at": "2015-10-21 13:29:11",
-     *               "updated_at": "2015-10-21 13:29:11",
-     *           }
+     *            {
+     *              "id": "1",
+     *              "user": "1",
+     *              "email": "markea@sage.edu",
+     *              "created_at": "2015-10-21 13:29:11",
+     *              "updated_at": "2015-10-21 13:29:11"
+     *            },
+     *            {
+     *              "id": "2",
+     *              "user": "1",
+     *              "email": "markea@gmail.com",
+     *              "created_at": "2015-10-21 13:29:11",
+     *              "updated_at": "2015-10-21 13:29:11"
+     *            },
+     *            {
+     *              "id": "3",
+     *              "user": "1",
+     *              "email": "markea@yahoo.com",
+     *              "created_at": "2015-10-21 13:29:11",
+     *              "updated_at": "2015-10-21 13:29:11"
+     *            }
      *         ]
      *     }
      *
@@ -293,31 +283,31 @@ class UserController extends BaseController
     {
         $result = APIKey::testAPIKey($request, 'get');
         if ($result[0]) {
-            return $limit > 0 ? json_encode(array("success" => true, 'result' => User::all()->take($limit))) : json_encode(array("success" => true, 'result' => User::all()));
+            return $limit > 0 ? json_encode(array("success" => true, 'result' => Email::all()->take($limit))) : json_encode(array("success" => true, 'result' => Email::all()));
         } else {
             return json_encode($result[1]);
         }
     }
 
     /**
-     * @api {get} /user/id/:id Get: by ID
+     * @api {get} /email/id/:id Get: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
-     * @apiGroup User
-     * @apiDescription This method returns an object with a specified id.
-     * @apiParam {Integer} id The id assigned to the target user.
+     * @apiGroup Email
+     * @apiDescription This method returns an object with the specified API email id.
+     * @apiParam {Integer} id The API id of an email.
      *
-     * @apiSampleRequest https://databridge.sage.edu/v1/user/id/:id
+     * @apiSampleRequest https://databridge.sage.edu/v1/email/id/:id
      * @apiExample {curl} Curl
-     *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/id/1/
+     *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/email/id/4/
      *
      * @apiExample {ruby} Ruby
      *      # This code snippet uses an open-source library. http://unirest.io/ruby
-     *      response = Unirest.get "https://databridge.sage.edu/v1/user/id/1/",
+     *      response = Unirest.get "https://databridge.sage.edu/v1/email/id/4/",
      *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
      *
      * @apiExample {php} PHP
-     *      $ch = curl_init("https://databridge.sage.edu/v1/user/id/1/");
+     *      $ch = curl_init("https://databridge.sage.edu/v1/email/id/4/");
      *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
      *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
      *      $result = curl_exec($ch);
@@ -327,18 +317,18 @@ class UserController extends BaseController
      *      # PowerShell v3 and above
      *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
      *      $headers.Add("X-Authorization", '<Your-API-Key>')
-     *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/id/1/ -Headers $headers
+     *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/email/id/4/ -Headers $headers
      *
      * @apiExample {java} Java
      *      # This code snippet uses an open-source library. http://unirest.io/java
-     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/id/1/")
+     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/email/id/4/")
      *      .header("X-Authorization", "<Your-API-Key>")
      *      .header("Accept", "application/json")
      *      .asString();
      *
      * @apiExample {python} Python
      *      # This code snippet uses an open-source library http://unirest.io/python
-     *      response = unirest.get("https://databridge.sage.edu/v1/user/id/1/",
+     *      response = unirest.get("https://databridge.sage.edu/v1/email/id/4/",
      *          headers={
      *              "X-Authorization": "<Your-API-Key>",
      *              "Accept": "application/json"
@@ -347,7 +337,7 @@ class UserController extends BaseController
      *
      * @apiExample {.net} .NET
      *      // This code snippet uses an open-source library http://unirest.io/net
-     *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/user/id/1/")
+     *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/email/id/4/")
      *       .header("X-Authorization", "<Your-API-Key>")
      *       .header("Accept", "application/json")
      *       .asString();
@@ -355,70 +345,26 @@ class UserController extends BaseController
      * @apiSuccess {Boolean} success Tells the application if the request was successful.
      * @apiSuccess {Object} result The object that has been returned.
      * @apiSuccess {Integer} id The numeric id of the object.
-     * @apiSuccess {String} sageid The sageid assigned to the user.
-     * @apiSuccess {Boolean} active Boolean value that signifies if a user is active.
-     * @apiSuccess {String} name_prefix A prefix for the user's name.
-     * @apiSuccess {String} name_first The user's first name.
-     * @apiSuccess {String} name_middle The user's middle name or middle initial.
-     * @apiSuccess {String} name_last The user's last name.
-     * @apiSuccess {String} name_phonetic The user's phonetic name.
-     * @apiSuccess {String} username The username assigned to the user.
+     * @apiSuccess {Integer} user The numeric id of the corresponding user.
+     * @apiSuccess {String} email The email address for that record.
      * @apiSuccess {Timestamp} created_at The date and time that the object was created.
      * @apiSuccess {Timestamp} updated_at The date and time that the object was updated.
-     * @apiSuccess {Array} email An array of emails associated with the user.
-     * @apiSuccess {Array} phone An array of phone records associated with the user.
-     * @apiSuccess {Array} room An array of rooms associated with the user.
-     * @apiSuccess {Array} program An array of programs associated with the user.
-     * @apiSuccess {Array} role An array of roles associated with the user.
      *
      * @apiSuccessExample {json} Success: Objects
      *     HTTP/1.1 200 OK
      *     {
      *         "success": true,
      *         "result":
-     *             {
-     *               "id": "1",
-     *               "sageid": "970620",
-     *               "active": "1",
-     *               "name_prefix": "Mr.",
-     *               "name_first": "Alex",
-     *               "name_middle": "L",
-     *               "name_last": "Markessinis",
-     *               "name_phonetic": null,
-     *               "username": "markea",
-     *               "created_at": "2015-10-21 13:29:11",
-     *               "updated_at": "2015-10-21 13:29:11",
-     *               "email": [
-     *                  {
-     *                      "email": "markea@sage.edu"
-     *                  },
-     *                  {
-     *                      "email": "markea@gmail.com"
-     *                  },
-     *                  {
-     *                      "email": "markea@yahoo.com"
-     *                  }
-     *               ],
-     *               "phone": [
-     *                  {
-     *                      "number": "15182445765",
-     *                      "ext": "4765"
-     *                  },
-     *                  {
-     *                      "number": "15187032319",
-     *                      "ext": null
-     *                  }
-     *               ],
-     *               "room": [
-     *                  {
-     *                      "building": "17",
-     *                      "floor_number": "0",
-     *                      "floor_name": "Basement",
-     *                      "room_number": "1",
-     *                      "room_name": "Network Office"
-     *                      }
-     *                  ]
-     *               }
+     *          [
+     *            {
+     *              "id": "4",
+     *              "user": "2",
+     *              "email": "starna@sage.edu",
+     *              "created_at": "2015-10-21 13:29:11",
+     *              "updated_at": "2015-10-21 13:29:11"
+     *            }
+     *          ]
+     *     }
      *
      * @apiError (Error 4xx/5xx) {Boolean} success Tells the application if the request was successful.
      * @apiError (Error 4xx/5xx) {String} error An error message from the server.
@@ -461,15 +407,11 @@ class UserController extends BaseController
     {
         $result = APIKey::testAPIKey($request, 'get');
         if ($result[0]) {
-            $obj = User::where('id', $id)->get()->first();
+            $obj = Email::where('id', $id)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-                $obj->email = Email::where('user', $obj->id)->get();
-                $obj->phone = Phone::where('user', $obj->id)->get();
-                $obj->room = Room::where('user', $obj->id)->get();
                 return json_encode($obj);
             } else {
-                return json_encode(
-                    array("success" => false, "message" => "NotFound"));
+                return json_encode(array("success" => false, "error" => "NotFound"));
             }
         } else {
             return json_encode($result[1]);
@@ -477,24 +419,24 @@ class UserController extends BaseController
     }
 
     /**
-     * @api {get} /user/sageid/:sageid Get: by SageID
+     * @api {get} /email/user/:user Get: User ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
-     * @apiGroup User
-     * @apiDescription This method returns an object with a specified sageid.
-     * @apiParam {String} sageid The sageid assigned to the target user.
+     * @apiGroup Email
+     * @apiDescription This method returns an object with the specified API user id.
+     * @apiParam {Integer} user The API id of a user.
      *
-     * @apiSampleRequest https://databridge.sage.edu/v1/user/sageid/:sageid
+     * @apiSampleRequest https://databridge.sage.edu/v1/email/user/:user
      * @apiExample {curl} Curl
-     *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/user/sageid/0970620/
+     *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/email/user/2/
      *
      * @apiExample {ruby} Ruby
      *      # This code snippet uses an open-source library. http://unirest.io/ruby
-     *      response = Unirest.get "https://databridge.sage.edu/v1/user/sageid/0970620/",
+     *      response = Unirest.get "https://databridge.sage.edu/v1/email/user/2/",
      *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" }.to_json
      *
      * @apiExample {php} PHP
-     *      $ch = curl_init("https://databridge.sage.edu/v1/user/sageid/0970620/");
+     *      $ch = curl_init("https://databridge.sage.edu/v1/email/user/2/");
      *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
      *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
      *      $result = curl_exec($ch);
@@ -504,18 +446,18 @@ class UserController extends BaseController
      *      # PowerShell v3 and above
      *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
      *      $headers.Add("X-Authorization", '<Your-API-Key>')
-     *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/user/sageid/0970620/ -Headers $headers
+     *      $result = Invoke-RestMethod -Uri https://databridge.sage.edu/v1/email/user/2/ -Headers $headers
      *
      * @apiExample {java} Java
      *      # This code snippet uses an open-source library. http://unirest.io/java
-     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/user/sageid/0970620/")
+     *      HttpResponse <String> response = Unirest.get("https://databridge.sage.edu/v1/email/user/2/")
      *      .header("X-Authorization", "<Your-API-Key>")
      *      .header("Accept", "application/json")
      *      .asString();
      *
      * @apiExample {python} Python
      *      # This code snippet uses an open-source library http://unirest.io/python
-     *      response = unirest.get("https://databridge.sage.edu/v1/user/sageid/0970620/",
+     *      response = unirest.get("https://databridge.sage.edu/v1/email/user/2/",
      *          headers={
      *              "X-Authorization": "<Your-API-Key>",
      *              "Accept": "application/json"
@@ -524,7 +466,7 @@ class UserController extends BaseController
      *
      * @apiExample {.net} .NET
      *      // This code snippet uses an open-source library http://unirest.io/net
-     *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/user/sageid/0970620/")
+     *       Task<HttpResponse<MyClass>> response = Unirest.get("https://databridge.sage.edu/v1/email/user/2/")
      *       .header("X-Authorization", "<Your-API-Key>")
      *       .header("Accept", "application/json")
      *       .asString();
@@ -532,69 +474,26 @@ class UserController extends BaseController
      * @apiSuccess {Boolean} success Tells the application if the request was successful.
      * @apiSuccess {Object} result The object that has been returned.
      * @apiSuccess {Integer} id The numeric id of the object.
-     * @apiSuccess {String} sageid The sageid assigned to the user.
-     * @apiSuccess {Boolean} active Boolean value that signifies if a user is active.
-     * @apiSuccess {String} name_prefix A prefix for the user's name.
-     * @apiSuccess {String} name_first The user's first name.
-     * @apiSuccess {String} name_middle The user's middle name or middle initial.
-     * @apiSuccess {String} name_last The user's last name.
-     * @apiSuccess {String} name_phonetic The user's phonetic name.
-     * @apiSuccess {String} username The username assigned to the user.
+     * @apiSuccess {Integer} user The numeric id of the corresponding user.
+     * @apiSuccess {String} email The email address for that record.
      * @apiSuccess {Timestamp} created_at The date and time that the object was created.
      * @apiSuccess {Timestamp} updated_at The date and time that the object was updated.
-     * @apiSuccess {Array} email An array of emails associated with the user.
-     * @apiSuccess {Array} phone An array of phone records associated with the user.
-     * @apiSuccess {Array} room An array of rooms associated with the user.
-     * @apiSuccess {Array} program An array of programs associated with the user.
-     * @apiSuccess {Array} role An array of roles associated with the user.
+     *
      * @apiSuccessExample {json} Success: Objects
      *     HTTP/1.1 200 OK
      *     {
      *         "success": true,
      *         "result":
-     *             {
-     *               "id": "1",
-     *               "sageid": "970620",
-     *               "active": "1",
-     *               "name_prefix": "Mr.",
-     *               "name_first": "Alex",
-     *               "name_middle": "L",
-     *               "name_last": "Markessinis",
-     *               "name_phonetic": null,
-     *               "username": "markea",
-     *               "created_at": "2015-10-21 13:29:11",
-     *               "updated_at": "2015-10-21 13:29:11",
-     *               "email": [
-     *                  {
-     *                      "email": "markea@sage.edu"
-     *                  },
-     *                  {
-     *                      "email": "markea@gmail.com"
-     *                  },
-     *                  {
-     *                      "email": "markea@yahoo.com"
-     *                  }
-     *               ],
-     *               "phone": [
-     *                  {
-     *                      "number": "15182445765",
-     *                      "ext": "4765"
-     *                  },
-     *                  {
-     *                      "number": "15187032319",
-     *                      "ext": null
-     *                  }
-     *               ],
-     *               "room": [
-     *                  {
-     *                      "building": "17",
-     *                      "floor_number": "0",
-     *                      "floor_name": "Basement",
-     *                      "room_number": "1",
-     *                      "room_name": "Network Office"
-     *                      }
-     *                  ]
-     *               }
+     *          [
+     *            {
+     *              "id": "4",
+     *              "user": "2",
+     *              "email": "starna@sage.edu",
+     *              "created_at": "2015-10-21 13:29:11",
+     *              "updated_at": "2015-10-21 13:29:11"
+     *            }
+     *          ]
+     *     }
      *
      * @apiError (Error 4xx/5xx) {Boolean} success Tells the application if the request was successful.
      * @apiError (Error 4xx/5xx) {String} error An error message from the server.
@@ -630,22 +529,19 @@ class UserController extends BaseController
 
     /**
      * @param Request $request
-     * @param $sageid
+     * @param $id
      * @return string
      */
-    public function getBySageID(Request $request, $sageid)
+    public function getByUser(Request $request, $id)
     {
         $result = APIKey::testAPIKey($request, 'get');
         if ($result[0]) {
-
-            $obj = User::where('sageid', $sageid)->get()->first();
+            $obj = Email::where('user_id', $id)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-                $obj->email = Email::where('user', $obj->id)->get();
-                $obj->phone = Phone::where('user', $obj->id)->get();
-                $obj->room = Room::where('user', $obj->id)->get();
                 return json_encode($obj);
             } else {
-                return json_encode(array("success" => false, "message" => "NotFound"));
+                return json_encode(
+                    array("success" => false, "error" => "NotFound"));
             }
         } else {
             return json_encode($result[1]);
@@ -653,49 +549,38 @@ class UserController extends BaseController
     }
 
     /**
-     * @api {post} /user/ Post: Create or Update
+     * @api {post} /email/ Post: Create or Update
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
-     * @apiGroup User
-     * @apiDescription An application can create new user record or update existing records.
-     * If the Informer code does not exist in the database, the rest of the data sent in the POST request will be treated as a new entry.
-     * If the Informer code does exist in the database, the data sent in the POST request will replace the data in that record.
+     * @apiGroup Email
+     * @apiDescription An application can create new email record or update existing records.
+     * If the email does not exist in the database, the rest of the data sent in the POST request will be treated as a new entry.
+     * If the email does exist in the database, the data sent in the POST request will replace the data in that record.
      *
-     * @apiParam {String} sageid The user's Sage ID number.
-     * @apiParam {Boolean} active A boolean that signifies that activity state of the user.
-     * @apiParam {String} name_prefix A prefix for the user's name(Optional).
-     * @apiParam {String} name_first The user's first name.
-     * @apiParam {String} name_middle The user's middle name or initial(Optional).
-     * @apiParam {String} name_last The user's last name.
-     * @apiParam {String} name_phonetic A phonetic name for the user(Optional).
-     * @apiParam {String} username The username assigned to the user.
-     *
+     * @apiParam {Integer} user The id of a user to associate the email with.
+     * @apiParam {String} email The email for this record.
      * @apiSuccess {Boolean} success Tells the application if the request was successful.
      * @apiSuccess {String} result The action that was performed. This may be `update` or `create`.
      *
      * @apiExample {curl} Curl
      *      curl -H "X-Authorization: <Your-API-Key>" \
      *      -X "POST" \
-     *      --data "sageid=0979659" \
-     *      --data "active=1" \
-     *      --data "name_prefix=MR." \
-     *      --data "name_first=Luke" \
-     *      --data "name_last=Skywalker." \
-     *      --data "username=skywal" \
-     *      --url https://databridge.sage.edu/v1/user
+     *      --data "user=3" \
+     *      --data "email=skywal@sage.edu" \
+     *      --url https://databridge.sage.edu/v1/email
      *
      * @apiExample {ruby} Ruby
      *      # This code snippet uses an open-source library. http://unirest.io/ruby
-     *      response = Unirest.post "https://databridge.sage.edu/v1/user",
+     *      response = Unirest.post "https://databridge.sage.edu/v1/email",
      *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
-     *      parameters:{ :sageid => "0979659", :active => true, :name_prefix => "MR.", :name_first => "Luke", :name_last => "Skywalker", :username => "skywal"}.to_json
+     *      parameters:{ :user => 3, :email => "skywal@sage.edu"}.to_json
      *
      * @apiExample {php} PHP
-     *      $ch = curl_init("https://databridge.sage.edu/v1/user");
+     *      $ch = curl_init("https://databridge.sage.edu/v1/email");
      *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
      *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
      *      curl_setopt($ch, CURLOPT_POST, true);
-     *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("sageid" => "0979659", "active" => true, "name_prefix" => "MR.", "name_first" => "Luke", "name_last" => "Skywalker", "username" => "skywal"));
+     *      curl_setopt($ch, CURLOPT_POSTFIELDS, array("user" => 3, "email" => "skywal@sage.edu"));
      *      $result = curl_exec($ch);
      *      curl_close($ch);
      *
@@ -703,46 +588,38 @@ class UserController extends BaseController
      *      # PowerShell v3 and above
      *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
      *      $headers.Add("X-Authorization", '<Your-API-Key>')
-     *      $uri = https://databridge.sage.edu/v1/user
-     *      $body = @{ sageid = "0979659", active = $true, name_prefix = "MR.", name_first = "Luke", name_last = "Skywalker", username = "skywal" }
+     *      $uri = https://databridge.sage.edu/v1/email
+     *      $body = @{ user = "3", email = "skywal@sage.edu" }
      *      $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method Post -Body $body
      *
      * @apiExample {java} Java
      *      # This code snippet uses an open-source library. http://unirest.io/java
-     *      HttpResponse <String> response = Unirest.post("https://databridge.sage.edu/v1/user")
+     *      HttpResponse <String> response = Unirest.post("https://databridge.sage.edu/v1/email")
      *      .header("X-Authorization", "<Your-API-Key>")
      *      .header("Accept", "application/json")
-     *      .body("{\"sageid\":\"0979659\", \"active\":1, \"name_prefix\":\"MR.\", \"name_first\":\"Luke\", \"name_last\":\"Skywalker\", \"username\":\"skywal\"}")
+     *      .body("{ \"user\":\"3\", \"email\":\"skywal@sage.edu\"}")
      *      .asString();
      *
      * @apiExample {python} Python
      *      # This code snippet uses an open-source library http://unirest.io/python
-     *      response = unirest.post("https://databridge.sage.edu/v1/user",
+     *      response = unirest.post("https://databridge.sage.edu/v1/email",
      *          headers={
      *              "X-Authorization": "<Your-API-Key>",
      *              "Accept": "application/json"
      *          },
      *          params={
-     *              "sageid" : "0979659",
-     *              "active": true,
-     *              "name_prefix": "MR.",
-     *              "name_first": "Luke",
-     *              "name_last": "Skywalker",
-     *              "username": "skywal"
+     *              "user": 3,
+     *              "email": "skywal@sage.edu"
      *          }
      *      )
      *
      * @apiExample {.net} .NET
      *      // This code snippet uses an open-source library http://unirest.io/net
-     *       Task<HttpResponse<MyClass>> response = Unirest.post("https://databridge.sage.edu/v1/user")
+     *       Task<HttpResponse<MyClass>> response = Unirest.post("https://databridge.sage.edu/v1/email")
      *       .header("X-Authorization", "<Your-API-Key>")
      *       .header("Accept", "application/json")
-     *       .field("sageid", "0979659")
-     *       .field("active", true)
-     *       .field("name_prefix", "MR.")
-     *       .field("name_first", "Luke")
-     *       .field("name_last", "Skywalker")
-     *       .field("username", "skywal")
+     *       .field("user", "3")
+     *       .field("email", "skywal@sage.edu")
      *       .asString();
      *
      * @apiSuccessExample {json} Success: Create
@@ -807,26 +684,20 @@ class UserController extends BaseController
         $result = APIKey::testAPIKey($request, 'post');
         if ($result[0]) {
             $validator = Validator::make($request->all(), [
-                'sageid' => 'integer|required|max:7|min:6|unique:users',
-                'active' => 'boolean|required|max:5|min:1',
-                'name_prefix' => 'string',
-                'name_first' => 'string|required|min:1',
-                'name_middle' => 'string',
-                'name_last' => 'string|required|min:1',
-                'name_phonetic' => 'string',
-                'username' => 'string|required|max:11|min:3|unique:users'
+                'user' => 'integer|required|max:11|min:1',
+                'email' => 'email|required|max:60|min:7|unique:emails',
             ]);
             if ($validator->fails()) {
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
-            if (User::where('sageid', $request->input('sageid'))->get()->first()) {
-                if (User::where('sageid', $request->input('sageid'))->update($request->input())) {
+            if (Email::where('email', $request->input('email'))->get()->first()) {
+                if (Email::where('email', $request->input('email'))->update($request->input())) {
                     return json_encode(array('success' => true, 'message' => 'update'));
                 } else {
                     return json_encode(array('success' => false, 'message' => 'Could not update'));
                 }
             } else {
-                $model = new User();
+                $model = new Email();
                 foreach ($request->input() as $key => $value) {
                     $model->$key = $value;
                 }
@@ -839,13 +710,13 @@ class UserController extends BaseController
     }
 
     /**
-     * @api {delete} /user/ Delete: by ID
+     * @api {delete} /email/ Delete: by ID
      * @apiVersion 1.1.1
      * @apiHeader {String} X-Authorization The application's unique access-key.
-     * @apiGroup User
-     * @apiDescription Delete a user record. This also deletes any room, email, or phone records that are in that user.
+     * @apiGroup Email
+     * @apiDescription Delete a email record.
      *
-     * @apiParam {Integer} id The numeric API id of the user.
+     * @apiParam {Integer} id The numeric API id of the email.
      * @apiSuccess {Boolean} success Tells the application if the request was successful.
      * @apiSuccess {String} result The action that was performed, this should be `delete`.
      *
@@ -853,16 +724,16 @@ class UserController extends BaseController
      *      curl -H "X-Authorization: <Your-API-Key>" \
      *      -X "DELETE" \
      *      --data "id=1" \
-     *      --url https://databridge.sage.edu/v1/user
+     *      --url https://databridge.sage.edu/v1/email
      *
      * @apiExample {ruby} Ruby
      *      # This code snippet uses an open-source library. http://unirest.io/ruby
-     *      response = Unirest.delete "https://databridge.sage.edu/v1/user",
+     *      response = Unirest.delete "https://databridge.sage.edu/v1/email",
      *      headers:{ "X-Authorization" => "<Your-API-Key>", "Accept" => "application/json" },
      *      parameters:{ :id => 1}.to_json
      *
      * @apiExample {php} PHP
-     *      $ch = curl_init("https://databridge.sage.edu/v1/user");
+     *      $ch = curl_init("https://databridge.sage.edu/v1/email");
      *      curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Authorization: <Your-API-Key>', 'Accept: application/json'));
      *      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
      *      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
@@ -874,13 +745,13 @@ class UserController extends BaseController
      *      # PowerShell v3 and above
      *      $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
      *      $headers.Add("X-Authorization", '<Your-API-Key>')
-     *      $uri = https://databridge.sage.edu/v1/user
+     *      $uri = https://databridge.sage.edu/v1/email
      *      $body = @{ id = 1 }
      *      $result = Invoke-RestMethod -Uri $uri -Headers $headers -Method Delete -Body $body
      *
      * @apiExample {java} Java
      *      # This code snippet uses an open-source library. http://unirest.io/java
-     *      HttpResponse <String> response = Unirest.delete("https://databridge.sage.edu/v1/user")
+     *      HttpResponse <String> response = Unirest.delete("https://databridge.sage.edu/v1/email")
      *      .header("X-Authorization", "<Your-API-Key>")
      *      .header("Accept", "application/json")
      *      .body("{\"id\":1}")
@@ -888,7 +759,7 @@ class UserController extends BaseController
      *
      * @apiExample {python} Python
      *      # This code snippet uses an open-source library http://unirest.io/python
-     *      response = unirest.delete("https://databridge.sage.edu/v1/user",
+     *      response = unirest.delete("https://databridge.sage.edu/v1/email",
      *          headers={
      *              "X-Authorization": "<Your-API-Key>",
      *              "Accept": "application/json"
@@ -900,7 +771,7 @@ class UserController extends BaseController
      *
      * @apiExample {.net} .NET
      *      // This code snippet uses an open-source library http://unirest.io/net
-     *       Task<HttpResponse<MyClass>> response = Unirest.delete("https://databridge.sage.edu/v1/user")
+     *       Task<HttpResponse<MyClass>> response = Unirest.delete("https://databridge.sage.edu/v1/email")
      *       .header("X-Authorization", "<Your-API-Key>")
      *       .header("Accept", "application/json")
      *       .field("id", 1)
@@ -966,7 +837,7 @@ class UserController extends BaseController
             if ($validator->fails()) {
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
-            if ($model = User::find($request->input('id'))) {
+            if ($model = Email::find($request->input('id'))) {
                 if ($model->delete()) {
                     return json_encode(array('success' => true, 'message' => 'delete'));
                 } else {

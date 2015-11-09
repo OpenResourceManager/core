@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Community;
+use App\Model\Community;
 
 /**
  * Created by PhpStorm.

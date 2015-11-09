@@ -25,17 +25,17 @@ Route::group(['prefix' => 'v1'], function () {
     });
 
     Route::group(['prefix' => 'user'], function () {
-        Route::post('/', 'UserController@post');
+        Route::post('/', 'UserRecordController@post');
 
-        Route::delete('/', 'UserController@del');
+        Route::delete('/', 'UserRecordController@del');
 
-        Route::delete('/', 'UserController@del');
+        Route::delete('/', 'UserRecordController@del');
 
-        Route::get('id/{id}', 'UserController@getByID');
-        Route::get('sageid/{sageid}', 'UserController@getBySageID');
+        Route::get('id/{id}', 'UserRecordController@getByID');
+        Route::get('sageid/{sageid}', 'UserRecordController@getBySageID');
 
-        Route::get('/', 'UserController@get');
-        Route::get('/{limit}', 'UserController@get');
+        Route::get('/', 'UserRecordController@get');
+        Route::get('/{limit}', 'UserRecordController@get');
     });
 
     Route::group(['prefix' => 'role'], function () {
@@ -101,37 +101,37 @@ Route::group(['prefix' => 'v1'], function () {
     });
 
     Route::group(['prefix' => 'email'], function () {
-        Route::post('/', 'EmailController@post');
+        Route::post('/', 'EmailRecordController@post');
 
-        Route::delete('/', 'EmailController@del');
+        Route::delete('/', 'EmailRecordController@del');
 
-        Route::get('id/{id}', 'EmailController@getByID');
-        Route::get('user/{id}', 'EmailController@getByUser');
+        Route::get('id/{id}', 'EmailRecordController@getByID');
+        Route::get('user/{id}', 'EmailRecordController@getByUser');
 
-        Route::get('/', 'EmailController@get');
-        Route::get('/{limit}', 'EmailController@get');
+        Route::get('/', 'EmailRecordController@get');
+        Route::get('/{limit}', 'EmailRecordController@get');
     });
 
     Route::group(['prefix' => 'phone'], function () {
-        Route::post('/', 'PhoneController@post');
+        Route::post('/', 'PhoneRecordController@post');
 
-        Route::delete('/', 'PhoneController@del');
+        Route::delete('/', 'PhoneRecordController@del');
 
-        Route::get('id/{id}', 'PhoneController@getByID');
+        Route::get('id/{id}', 'PhoneRecordController@getByID');
 
-        Route::get('/', 'PhoneController@get');
-        Route::get('/{limit}', 'PhoneController@get');
+        Route::get('/', 'PhoneRecordController@get');
+        Route::get('/{limit}', 'PhoneRecordController@get');
     });
 
     Route::group(['prefix' => 'room'], function () {
-        Route::post('/', 'RoomController@post');
+        Route::post('/', 'RoomRecordController@post');
 
-        Route::delete('/', 'RoomController@del');
+        Route::delete('/', 'RoomRecordController@del');
 
-        Route::get('id/{id}', 'RoomController@getByID');
+        Route::get('id/{id}', 'RoomRecordController@getByID');
 
-        Route::get('/', 'RoomController@get');
-        Route::get('/{limit}', 'RoomController@get');
+        Route::get('/', 'RoomRecordController@get');
+        Route::get('/{limit}', 'RoomRecordController@get');
     });
 
     Route::group(['prefix' => 'course'], function () {

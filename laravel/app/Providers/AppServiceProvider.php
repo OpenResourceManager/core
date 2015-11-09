@@ -2,12 +2,11 @@
 
 namespace App\Providers;
 
-use App\Building;
-use App\Campus;
-use App\Department;
-use App\Program;
-use App\Room;
-use App\User;
+use App\Model\Building;
+use App\Model\Campus;
+use App\Model\Department;
+use App\Model\Program;
+use App\Model\Record\User;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

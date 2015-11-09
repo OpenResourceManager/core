@@ -7,10 +7,8 @@
  * Time: 1:42 PM
  */
 
-use App\Campus;
-use App\Building;
-use App\Room;
-use App\APIKey;
+use App\Model\Campus;
+use App\Model\Record\APIKey;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
