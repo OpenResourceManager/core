@@ -239,10 +239,6 @@ class CreateTables extends Migration
             $table->dropForeign('department_records_department_id_foreign');
         });
 
-        Schema::table('courses', function (Blueprint $table) {
-            $table->dropForeign('courses_department_record_id_foreign');
-        });
-
         Schema::table('course_records', function (Blueprint $table) {
             $table->dropForeign('course_records_course_id_foreign');
             $table->dropForeign('course_records_user_id_foreign');
