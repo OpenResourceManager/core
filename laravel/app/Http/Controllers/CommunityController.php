@@ -7,7 +7,7 @@
  * Time: 8:27 PM
  */
 
-use App\Model\Record\APIKey;
+use App\Model\Record\API_Key_Record;
 use App\Model\Community;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller as BaseController;
@@ -258,7 +258,7 @@ class CommunityController extends BaseController
      */
     public function get(Request $request, $limit = 0)
     {
-        $result = APIKey::testAPIKey($request, 'get');
+        $result = API_Key_Record::testAPIKey($request, 'get');
         if ($result[0]) {
             return $limit > 0 ? json_encode(array("success" => true, 'result' => Community::all()->take($limit))) : json_encode(array("success" => true, 'result' => Community::all()));
         } else {
@@ -382,7 +382,7 @@ class CommunityController extends BaseController
      */
     public function getById(Request $request, $id)
     {
-        $result = APIKey::testAPIKey($request, 'get');
+        $result = API_Key_Record::testAPIKey($request, 'get');
         if ($result[0]) {
             $obj = Community::find($id);
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
@@ -511,7 +511,7 @@ class CommunityController extends BaseController
      */
     public function getByCode(Request $request, $code)
     {
-        $result = APIKey::testAPIKey($request, 'get');
+        $result = API_Key_Record::testAPIKey($request, 'get');
         if ($result[0]) {
             $obj = Community::where('code', $code)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
@@ -657,7 +657,7 @@ class CommunityController extends BaseController
      */
     public function post(Request $request)
     {
-        $result = APIKey::testAPIKey($request, 'post');
+        $result = API_Key_Record::testAPIKey($request, 'post');
         if ($result[0]) {
             $validator = Validator::make($request->all(), [
                 'program_id' => 'integer|required',
@@ -806,7 +806,7 @@ class CommunityController extends BaseController
      */
     public function del(Request $request)
     {
-        $result = APIKey::testAPIKey($request, 'delete');
+        $result = API_Key_Record::testAPIKey($request, 'delete');
         if ($result[0]) {
             $validator = Validator::make($request->all(), [
                 'id' => 'integer|required',

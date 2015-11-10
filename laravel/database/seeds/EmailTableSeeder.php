@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Record\Email;
+use App\Model\Record\Email_Record;
 
 /**
  * Created by PhpStorm.
@@ -25,7 +25,7 @@ class EmailTableSeeder extends Seeder
         );
 
         foreach ($emails as $emailArr) {
-            $email = new Email();
+            $email = new Email_Record();
             $email->user_id = $emailArr[0];
             $email->email = $emailArr[1];
             $email->save();

@@ -10,9 +10,9 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Room extends Model
+class Room_Record extends Model
 {
     use SoftDeletes;
-    protected $table = 'rooms';
+    protected $table = 'room_records';
     protected $dates = ['deleted_at'];
 }

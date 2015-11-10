@@ -10,10 +10,10 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class APIKey extends Model
+class API_Key_Record extends Model
 {
     use SoftDeletes;
-    protected $table = 'apikeys';
+    protected $table = 'api_key_records';
     protected $dates = ['deleted_at'];
 
     /**
@@ -22,7 +22,7 @@ class APIKey extends Model
      */
     public static function getAPIKey($key = '')
     {
-        return APIKey::where('key', $key)->get()->first();
+        return API_Key_Record::where('key', $key)->get()->first();
     }
 
     /**

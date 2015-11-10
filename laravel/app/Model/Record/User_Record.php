@@ -7,30 +7,30 @@
  * Time: 3:57 PM
  */
 
-use App\Model\Record\Room;
-use App\Model\Record\Email;
-use App\Model\Record\Phone;
+use App\Model\Record\Room_Record;
+use App\Model\Record\Email_Record;
+use App\Model\Record\Phone_Record;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Model
+class User_Record extends Model
 {
     use SoftDeletes;
-    protected $table = 'users';
+    protected $table = 'user_records';
     protected $dates = ['deleted_at'];
 
     public function rooms()
     {
-        return $this->hasMany('App\Model\Record\Room');
+        return $this->hasMany('App\Model\Record\Room_Records');
     }
 
     public function emails()
     {
-        return $this->hasMany('App\Model\Record\Email');
+        return $this->hasMany('App\Model\Record\Email_Records');
     }
 
     public function phones()
     {
-        return $this->hasMany('App\Model\Record\Phone');
+        return $this->hasMany('App\Model\Record\Phone_Records');
     }
 }

@@ -7,7 +7,7 @@
  * Time: 10:30 AM
  */
 
-use App\Model\Record\Room;
+use App\Model\Record\Room_Record;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -19,7 +19,7 @@ class Building extends Model
 
     public function rooms()
     {
-        return $this->hasMany('App\Model\Record\Room');
+        return $this->hasMany('App\Model\Record\Room_Records');
     }
 }
 

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Record\Room;
+use App\Model\Record\Room_Record;
 
 /**
  * Created by PhpStorm.
@@ -23,7 +23,7 @@ class RoomTableSeeder extends Seeder
         );
 
         foreach ($rooms as $roomArr) {
-            $room = new Room();
+            $room = new Room_Record();
             $room->user_id = $roomArr[0];
             $room->building_id = $roomArr[1];
             $room->floor_number = $roomArr[2];

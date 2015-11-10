@@ -7,11 +7,11 @@
  * Time: 1:25 PM
  */
 
-use App\Model\Record\Email;
-use App\Model\Record\Phone;
-use App\Model\Record\Room;
-use App\Model\Record\User;
-use App\Model\Record\APIKey;
+use App\Model\Record\Email_Record;
+use App\Model\Record\Phone_Record;
+use App\Model\Record\Room_Record;
+use App\Model\Record\User_Record;
+use App\Model\Record\API_Key_Record;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller as BaseController;
@@ -291,9 +291,9 @@ class UserRecordController extends BaseController
      */
     public function get(Request $request, $limit = 0)
     {
-        $result = APIKey::testAPIKey($request, 'get');
+        $result = API_Key_Record::testAPIKey($request, 'get');
         if ($result[0]) {
-            return $limit > 0 ? json_encode(array("success" => true, 'result' => User::all()->take($limit))) : json_encode(array("success" => true, 'result' => User::all()));
+            return $limit > 0 ? json_encode(array("success" => true, 'result' => User_Record::all()->take($limit))) : json_encode(array("success" => true, 'result' => User_Record::all()));
         } else {
             return json_encode($result[1]);
         }
@@ -459,13 +459,13 @@ class UserRecordController extends BaseController
      */
     public function getById(Request $request, $id)
     {
-        $result = APIKey::testAPIKey($request, 'get');
+        $result = API_Key_Record::testAPIKey($request, 'get');
         if ($result[0]) {
-            $obj = User::where('id', $id)->get()->first();
+            $obj = User_Record::where('id', $id)->get()->first();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-                $obj->email = Email::where('user', $obj->id)->get();
-                $obj->phone = Phone::where('user', $obj->id)->get();
-                $obj->room = Room::where('user', $obj->id)->get();
+                $obj->email = Email_Record::where('user', $obj->id)->get();
+                $obj->phone = Phone_Record::where('user', $obj->id)->get();
+                $obj->room = Room_Record::where('user', $obj->id)->get();
                 return json_encode($obj);
             } else {
                 return json_encode(
@@ -635,14 +635,14 @@ class UserRecordController extends BaseController
      */
     public function getBySageID(Request $request, $sageid)
     {
-        $result = APIKey::testAPIKey($request, 'get');
+        $result = API_Key_Record::testAPIKey($request, 'get');
         if ($result[0]) {
 
-            $obj = User::where('sageid', $sageid)->get()->first();
+            $obj = User_Record::where('sageid', $sageid)->get()->first();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-                $obj->email = Email::where('user', $obj->id)->get();
-                $obj->phone = Phone::where('user', $obj->id)->get();
-                $obj->room = Room::where('user', $obj->id)->get();
+                $obj->email = Email_Record::where('user', $obj->id)->get();
+                $obj->phone = Phone_Record::where('user', $obj->id)->get();
+                $obj->room = Room_Record::where('user', $obj->id)->get();
                 return json_encode($obj);
             } else {
                 return json_encode(array("success" => false, "message" => "NotFound"));
@@ -804,7 +804,7 @@ class UserRecordController extends BaseController
      */
     public function post(Request $request)
     {
-        $result = APIKey::testAPIKey($request, 'post');
+        $result = API_Key_Record::testAPIKey($request, 'post');
         if ($result[0]) {
             $validator = Validator::make($request->all(), [
                 'sageid' => 'integer|required|max:7|min:6|unique:users',
@@ -819,14 +819,14 @@ class UserRecordController extends BaseController
             if ($validator->fails()) {
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
-            if (User::where('sageid', $request->input('sageid'))->get()->first()) {
-                if (User::where('sageid', $request->input('sageid'))->update($request->input())) {
+            if (User_Record::where('sageid', $request->input('sageid'))->get()->first()) {
+                if (User_Record::where('sageid', $request->input('sageid'))->update($request->input())) {
                     return json_encode(array('success' => true, 'message' => 'update'));
                 } else {
                     return json_encode(array('success' => false, 'message' => 'Could not update'));
                 }
             } else {
-                $model = new User();
+                $model = new User_Record();
                 foreach ($request->input() as $key => $value) {
                     $model->$key = $value;
                 }
@@ -958,7 +958,7 @@ class UserRecordController extends BaseController
      */
     public function del(Request $request)
     {
-        $result = APIKey::testAPIKey($request, 'delete');
+        $result = API_Key_Record::testAPIKey($request, 'delete');
         if ($result[0]) {
             $validator = Validator::make($request->all(), [
                 'id' => 'integer|required',
@@ -966,7 +966,7 @@ class UserRecordController extends BaseController
             if ($validator->fails()) {
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
-            if ($model = User::find($request->input('id'))) {
+            if ($model = User_Record::find($request->input('id'))) {
                 if ($model->delete()) {
                     return json_encode(array('success' => true, 'message' => 'delete'));
                 } else {

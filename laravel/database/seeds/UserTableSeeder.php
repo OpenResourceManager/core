@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Record\User;
+use App\Model\Record\User_Record;
 
 /**
  * Created by PhpStorm.
@@ -25,7 +25,7 @@ class UserTableSeeder extends Seeder
 
 
         foreach ($users as $userArr) {
-            $user = new User();
+            $user = new User_Record();
             $user->sageid = $userArr[0];
             $user->active = $userArr[1];
             $user->name_prefix = $userArr[2];

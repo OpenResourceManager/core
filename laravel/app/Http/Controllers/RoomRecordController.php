@@ -7,8 +7,8 @@
  * Time: 3:45 PM
  */
 
-use App\Model\Record\Room;
-use App\Model\Record\APIKey;
+use App\Model\Record\Room_Record;
+use App\Model\Record\API_Key_Record;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
@@ -275,9 +275,9 @@ class RoomRecordController extends BaseController
      */
     public function get(Request $request, $limit = 0)
     {
-        $result = APIKey::testAPIKey($request, 'get');
+        $result = API_Key_Record::testAPIKey($request, 'get');
         if ($result[0]) {
-            return $limit > 0 ? json_encode(array("success" => true, 'result' => Room::all()->take($limit))) : json_encode(array("success" => true, 'result' => Room::all()));
+            return $limit > 0 ? json_encode(array("success" => true, 'result' => Room_Record::all()->take($limit))) : json_encode(array("success" => true, 'result' => Room_Record::all()));
         } else {
             return json_encode($result[1]);
         }
@@ -405,9 +405,9 @@ class RoomRecordController extends BaseController
      */
     public function getById(Request $request, $id)
     {
-        $result = APIKey::testAPIKey($request, 'get');
+        $result = API_Key_Record::testAPIKey($request, 'get');
         if ($result[0]) {
-            $obj = Room::where('id', $id)->get();
+            $obj = Room_Record::where('id', $id)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
                 return json_encode($obj);
             } else {
@@ -568,7 +568,7 @@ class RoomRecordController extends BaseController
      */
     public function post(Request $request)
     {
-        $result = APIKey::testAPIKey($request, 'post');
+        $result = API_Key_Record::testAPIKey($request, 'post');
         if ($result[0]) {
             $validator = Validator::make($request->all(), [
                 'user' => 'integer|required|max:11|min:1',
@@ -581,14 +581,14 @@ class RoomRecordController extends BaseController
             if ($validator->fails()) {
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
-            if (Room::where('room_number', $request->input('room_number'))->where('building', $request->input('building'))->get()->first()) {
-                if (Room::where('room_number', $request->input('room_number'))->where('building', $request->input('building'))->update($request->input())) {
+            if (Room_Record::where('room_number', $request->input('room_number'))->where('building', $request->input('building'))->get()->first()) {
+                if (Room_Record::where('room_number', $request->input('room_number'))->where('building', $request->input('building'))->update($request->input())) {
                     return json_encode(array('success' => true, 'message' => 'update'));
                 } else {
                     return json_encode(array('success' => false, 'message' => 'Could not update'));
                 }
             } else {
-                $model = new Room();
+                $model = new Room_Record();
 
                 foreach ($request->input() as $key => $value) {
                     $model->$key = $value;
@@ -721,7 +721,7 @@ class RoomRecordController extends BaseController
      */
     public function del(Request $request)
     {
-        $result = APIKey::testAPIKey($request, 'delete');
+        $result = API_Key_Record::testAPIKey($request, 'delete');
         if ($result[0]) {
             $validator = Validator::make($request->all(), [
                 'id' => 'integer|required',
@@ -729,7 +729,7 @@ class RoomRecordController extends BaseController
             if ($validator->fails()) {
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
-            if ($model = Room::find($request->input('id'))) {
+            if ($model = Room_Record::find($request->input('id'))) {
                 if ($model->delete()) {
                     return json_encode(array('success' => true, 'message' => 'delete'));
                 } else {

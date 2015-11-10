@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Record\APIKey;
+use App\Model\Record\API_Key_Record;
 
 /**
  * Created by PhpStorm.
@@ -24,7 +24,7 @@ class APIKeyTableSeeder extends Seeder
 
 
         foreach ($keys as $key) {
-            $model = new APIKey();
+            $model = new API_Key_Record();
             $model->app_name = $key[0];
             $model->key = $key[1];
             $model->can_get = $key[2];

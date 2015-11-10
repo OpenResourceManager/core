@@ -63,7 +63,7 @@ class CreateTables extends Migration
 
         // Records
 
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('user_records', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('sageid')->unique();
             $table->boolean('active');
@@ -77,7 +77,7 @@ class CreateTables extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('emails', function (Blueprint $table) {
+        Schema::create('email_records', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('email')->unique();
@@ -86,7 +86,7 @@ class CreateTables extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
-        Schema::create('phones', function (Blueprint $table) {
+        Schema::create('phone_records', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('number', 11)->unique();
@@ -146,7 +146,7 @@ class CreateTables extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
-        Schema::create('rooms', function (Blueprint $table) {
+        Schema::create('room_records', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('building_id');
@@ -186,7 +186,7 @@ class CreateTables extends Migration
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
 
-        Schema::create('apikeys', function (Blueprint $table) {
+        Schema::create('api_key_records', function (Blueprint $table) {
             $table->increments('id');
             $table->string('app_name')->unique();
             $table->string('key')->unique();
@@ -216,11 +216,11 @@ class CreateTables extends Migration
             $table->dropForeign('courses_department_record_id_foreign');
         });
 
-        Schema::table('emails', function (Blueprint $table) {
+        Schema::table('email_records', function (Blueprint $table) {
             $table->dropForeign('emails_user_id_foreign');
         });
 
-        Schema::table('phones', function (Blueprint $table) {
+        Schema::table('phone_records', function (Blueprint $table) {
             $table->dropForeign('phones_user_id_foreign');
         });
 
@@ -244,7 +244,7 @@ class CreateTables extends Migration
             $table->dropForeign('course_records_user_id_foreign');
         });
 
-        Schema::table('rooms', function (Blueprint $table) {
+        Schema::table('room_records', function (Blueprint $table) {
             $table->dropForeign('rooms_user_id_foreign');
             $table->dropForeign('rooms_building_id_foreign');
         });
@@ -262,22 +262,23 @@ class CreateTables extends Migration
             $table->dropForeign('community_records_role_id_foreign');
         });
 
-        Schema::drop('users');
-        Schema::drop('roles');
-        Schema::drop('role_records');
-        Schema::drop('campuses');
-        Schema::drop('communities');
+        Schema::drop('api_key_records');
         Schema::drop('community_records');
-        Schema::drop('buildings');
-        Schema::drop('departments');
+        Schema::drop('user_records');
+        Schema::drop('email_records');
+        Schema::drop('phone_records');
+        Schema::drop('role_records');
         Schema::drop('department_records');
         Schema::drop('program_records');
-        Schema::drop('programs');
         Schema::drop('course_records');
-        Schema::drop('emails');
-        Schema::drop('phones');
-        Schema::drop('rooms');
+        Schema::drop('room_records');
+
         Schema::drop('courses');
-        Schema::drop('apikeys');
+        Schema::drop('roles');
+        Schema::drop('communities');
+        Schema::drop('buildings');
+        Schema::drop('campuses');
+        Schema::drop('programs');
+        Schema::drop('departments');
     }
 }
