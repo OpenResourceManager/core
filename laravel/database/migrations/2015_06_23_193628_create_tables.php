@@ -166,9 +166,7 @@ class CreateTables extends Migration
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('campus_id')->nullable();
             $table->unsignedInteger('building_id')->nullable();
-            $table->unsignedInteger('department_record_id')->nullable();
             $table->unsignedInteger('department_id')->nullable();
-            $table->unsignedInteger('program_record_id')->nullable();
             $table->unsignedInteger('program_id')->nullable();
             $table->unsignedInteger('course_id')->nullable();
             $table->unsignedInteger('role_id')->nullable();
@@ -178,9 +176,7 @@ class CreateTables extends Migration
             $table->foreign('user_id')->references('id')->on('user_records')->onDelete('cascade');
             $table->foreign('campus_id')->references('id')->on('campuses')->onDelete('cascade');
             $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
-            $table->foreign('department_record_id')->references('id')->on('department_records')->onDelete('cascade');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
-            $table->foreign('program_record_id')->references('id')->on('program_records')->onDelete('cascade');
             $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
@@ -254,9 +250,7 @@ class CreateTables extends Migration
             $table->dropForeign('community_records_user_id_foreign');
             $table->dropForeign('community_records_campus_id_foreign');
             $table->dropForeign('community_records_building_id_foreign');
-            $table->dropForeign('community_records_department_record_id_foreign');
             $table->dropForeign('community_records_department_id_foreign');
-            $table->dropForeign('community_records_program_record_id_foreign');
             $table->dropForeign('community_records_program_id_foreign');
             $table->dropForeign('community_records_course_id_foreign');
             $table->dropForeign('community_records_role_id_foreign');
