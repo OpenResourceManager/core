@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call('EmailTableSeeder');
         $this->call('PhoneTableSeeder');
         $this->call('RoomTableSeeder');
-        $this->call('CourseTableSeeder');
+        // $this->call('CourseTableSeeder');
         $this->call('CommunityTableSeeder');
         $this->call('APIKeyTableSeeder');
 
