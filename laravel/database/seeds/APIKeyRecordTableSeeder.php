@@ -10,7 +10,7 @@ use App\Model\Record\API_Key_Record;
  * Date: 10/20/15
  * Time: 3:20 PM
  */
-class APIKeyTableSeeder extends Seeder
+class APIKeyRecordTableSeeder extends Seeder
 {
 
     public function run()

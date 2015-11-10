@@ -10,7 +10,7 @@ use App\Model\Record\Phone_Record;
  * Date: 7/7/15
  * Time: 8:39 PM
  */
-class PhoneTableSeeder extends Seeder
+class PhoneRecordTableSeeder extends Seeder
 {
     public function run()
     {

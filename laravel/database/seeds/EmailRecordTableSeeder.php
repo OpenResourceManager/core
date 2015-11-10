@@ -10,7 +10,7 @@ use App\Model\Record\Email_Record;
  * Date: 7/7/15
  * Time: 8:38 PM
  */
-class EmailTableSeeder extends Seeder
+class EmailRecordTableSeeder extends Seeder
 {
     public function run()
     {

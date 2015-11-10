@@ -10,7 +10,7 @@ use App\Model\Record\User_Record;
  * Date: 7/7/15
  * Time: 9:38 AM
  */
-class UserTableSeeder extends Seeder
+class UserRecordTableSeeder extends Seeder
 {
 
     public function run()

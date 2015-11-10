@@ -10,7 +10,7 @@ use App\Model\Record\Room_Record;
  * Date: 7/7/15
  * Time: 8:39 PM
  */
-class RoomTableSeeder extends Seeder
+class RoomRecordTableSeeder extends Seeder
 {
     public function run()
     {
