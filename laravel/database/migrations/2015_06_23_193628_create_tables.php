@@ -162,17 +162,16 @@ class CreateTables extends Migration
 
         Schema::create('community_records', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('community_id');
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('campus_id');
-            $table->unsignedInteger('building_id');
-            $table->unsignedInteger('department_record_id');
-            $table->unsignedInteger('department_id');
-            $table->unsignedInteger('program_record_id');
-            $table->unsignedInteger('program_id');
-            $table->unsignedInteger('course_record_id');
-            $table->unsignedInteger('course_id');
-            $table->unsignedInteger('role_id');
+            $table->unsignedInteger('community_id')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('campus_id')->nullable();
+            $table->unsignedInteger('building_id')->nullable();
+            $table->unsignedInteger('department_record_id')->nullable();
+            $table->unsignedInteger('department_id')->nullable();
+            $table->unsignedInteger('program_record_id')->nullable();
+            $table->unsignedInteger('program_id')->nullable();
+            $table->unsignedInteger('course_id')->nullable();
+            $table->unsignedInteger('role_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('community_id')->references('id')->on('communities')->onDelete('cascade');
