@@ -207,10 +207,6 @@ class CreateTables extends Migration
      */
     public function down()
     {
-        Schema::table('role_records', function (Blueprint $table) {
-            $table->dropForeign('role_record_user_id_foreign');
-            $table->dropForeign('role_record_role_id_foreign');
-        });
 
         Schema::table('buildings', function (Blueprint $table) {
             $table->dropForeign('buildings_campus_id_foreign');
@@ -229,18 +225,18 @@ class CreateTables extends Migration
         });
 
         Schema::table('role_records', function (Blueprint $table) {
-            $table->dropForeign('role_record_user_id_foreign');
-            $table->dropForeign('role_record_role_id_foreign');
+            $table->dropForeign('role_records_user_id_foreign');
+            $table->dropForeign('role_records_role_id_foreign');
         });
 
         Schema::table('program_records', function (Blueprint $table) {
-            $table->dropForeign('program_record_program_id_foreign');
-            $table->dropForeign('program_record_user_id_foreign');
+            $table->dropForeign('program_records_program_id_foreign');
+            $table->dropForeign('program_records_user_id_foreign');
         });
 
         Schema::table('department_records', function (Blueprint $table) {
-            $table->dropForeign('department_record_program_id_foreign');
-            $table->dropForeign('department_record_department_id_foreign');
+            $table->dropForeign('department_records_program_id_foreign');
+            $table->dropForeign('department_records_department_id_foreign');
         });
 
         Schema::table('courses', function (Blueprint $table) {
@@ -248,8 +244,8 @@ class CreateTables extends Migration
         });
 
         Schema::table('course_records', function (Blueprint $table) {
-            $table->dropForeign('course_record_course_id_foreign');
-            $table->dropForeign('course_record_user_id_foreign');
+            $table->dropForeign('course_records_course_id_foreign');
+            $table->dropForeign('course_records_user_id_foreign');
         });
 
         Schema::table('rooms', function (Blueprint $table) {
@@ -258,16 +254,16 @@ class CreateTables extends Migration
         });
 
         Schema::table('community_records', function (Blueprint $table) {
-            $table->dropForeign('community_record_community_id_foreign');
-            $table->dropForeign('community_record_user_id_foreign');
-            $table->dropForeign('community_record_campus_id_foreign');
-            $table->dropForeign('community_record_building_id_foreign');
-            $table->dropForeign('community_record_department_record_id_foreign');
-            $table->dropForeign('community_record_department_id_foreign');
-            $table->dropForeign('community_record_program_record_id_foreign');
-            $table->dropForeign('community_record_program_id_foreign');
-            $table->dropForeign('community_record_course_id_foreign');
-            $table->dropForeign('community_record_role_id_foreign');
+            $table->dropForeign('community_records_community_id_foreign');
+            $table->dropForeign('community_records_user_id_foreign');
+            $table->dropForeign('community_records_campus_id_foreign');
+            $table->dropForeign('community_records_building_id_foreign');
+            $table->dropForeign('community_records_department_record_id_foreign');
+            $table->dropForeign('community_records_department_id_foreign');
+            $table->dropForeign('community_records_program_record_id_foreign');
+            $table->dropForeign('community_records_program_id_foreign');
+            $table->dropForeign('community_records_course_id_foreign');
+            $table->dropForeign('community_records_role_id_foreign');
         });
 
         Schema::drop('users');
