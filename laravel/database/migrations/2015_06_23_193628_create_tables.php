@@ -12,7 +12,7 @@ class CreateTables extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
@@ -20,7 +20,7 @@ class CreateTables extends Migration
 
         Schema::create('campuses', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
@@ -29,7 +29,7 @@ class CreateTables extends Migration
         Schema::create('buildings', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('campus_id');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
@@ -38,7 +38,7 @@ class CreateTables extends Migration
 
         Schema::create('programs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
@@ -47,7 +47,7 @@ class CreateTables extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('academic');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
@@ -55,7 +55,7 @@ class CreateTables extends Migration
 
         Schema::create('communities', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
@@ -129,7 +129,7 @@ class CreateTables extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('department_record_id');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
