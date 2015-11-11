@@ -1,20 +1,21 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Record;
 
 /**
  * Created by PhpStorm.
  * User: melon
  * Date: 7/7/15
- * Time: 2:23 PM
+ * Time: 3:46 PM
  */
 
-use App\Model\Department;
+use App\Model\Record\Email_Record;
 use App\Model\Record\API_Key_Record;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 
-class DepartmentController extends BaseController
+class EmailRecordController extends BaseController
 {
+
     /**
      * @param Request $request
      * @param int $limit
@@ -24,7 +25,7 @@ class DepartmentController extends BaseController
     {
         $result = API_Key_Record::testAPIKey($request, 'get');
         if ($result[0]) {
-            return $limit > 0 ? json_encode(array("success" => true, 'result' => Department::all()->take($limit))) : json_encode(array("success" => true, 'result' => Department::all()));
+            return $limit > 0 ? json_encode(array("success" => true, 'result' => Email_Record::all()->take($limit))) : json_encode(array("success" => true, 'result' => Email_Record::all()));
         } else {
             return json_encode($result[1]);
         }
@@ -39,7 +40,7 @@ class DepartmentController extends BaseController
     {
         $result = API_Key_Record::testAPIKey($request, 'get');
         if ($result[0]) {
-            $obj = Department::where('id', $id)->get();
+            $obj = Email_Record::where('id', $id)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
                 return json_encode(array('success' => true, 'message' => $obj));
             } else {
@@ -52,14 +53,14 @@ class DepartmentController extends BaseController
 
     /**
      * @param Request $request
-     * @param $code
+     * @param $id
      * @return string
      */
-    public function getByCode(Request $request, $code)
+    public function getByUser(Request $request, $id)
     {
         $result = API_Key_Record::testAPIKey($request, 'get');
         if ($result[0]) {
-            $obj = Department::where('code', $code)->get();
+            $obj = Email_Record::where('user_id', $id)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
                 return json_encode(array('success' => true, 'message' => $obj));
             } else {
@@ -79,21 +80,20 @@ class DepartmentController extends BaseController
         $result = API_Key_Record::testAPIKey($request, 'post');
         if ($result[0]) {
             $validator = Validator::make($request->all(), [
-                'academic' => 'boolean|required|max:5|min:1',
-                'code' => 'string|required|max:50|min:3|unique:departments',
-                'name' => 'string|required|max:30|min:3'
+                'user' => 'integer|required|max:11|min:1',
+                'email' => 'email|required|max:60|min:7|unique:emails',
             ]);
             if ($validator->fails()) {
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
-            if (Department::where('code', $request->input('code'))->get()->first()) {
-                if (Department::where('code', $request->input('code'))->update($request->input())) {
+            if (Email_Record::where('email', $request->input('email'))->get()->first()) {
+                if (Email_Record::where('email', $request->input('email'))->update($request->input())) {
                     return json_encode(array('success' => true, 'message' => 'update'));
                 } else {
                     return json_encode(array('success' => false, 'message' => 'Could not update'));
                 }
             } else {
-                $model = new Department();
+                $model = new Email_Record();
                 foreach ($request->input() as $key => $value) {
                     $model->$key = $value;
                 }
@@ -119,7 +119,7 @@ class DepartmentController extends BaseController
             if ($validator->fails()) {
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
-            if ($model = Department::find($request->input('id'))) {
+            if ($model = Email_Record::find($request->input('id'))) {
                 if ($model->delete()) {
                     return json_encode(array('success' => true, 'message' => 'delete'));
                 } else {

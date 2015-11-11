@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Record;
 
 /**
  * Created by PhpStorm.
@@ -7,13 +7,13 @@
  * Time: 3:45 PM
  */
 
-use App\Model\Record\Phone_Record;
+use App\Model\Record\Room_Record;
 use App\Model\Record\API_Key_Record;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 
-class PhoneRecordController extends BaseController
+class RoomRecordController extends BaseController
 {
     /**
      * @param Request $request
@@ -24,7 +24,7 @@ class PhoneRecordController extends BaseController
     {
         $result = API_Key_Record::testAPIKey($request, 'get');
         if ($result[0]) {
-            return $limit > 0 ? json_encode(array("success" => true, 'result' => Phone_Record::all()->take($limit))) : json_encode(array("success" => true, 'result' => Phone_Record::all()));
+            return $limit > 0 ? json_encode(array("success" => true, 'result' => Room_Record::all()->take($limit))) : json_encode(array("success" => true, 'result' => Room_Record::all()));
         } else {
             return json_encode($result[1]);
         }
@@ -39,7 +39,7 @@ class PhoneRecordController extends BaseController
     {
         $result = API_Key_Record::testAPIKey($request, 'get');
         if ($result[0]) {
-            $obj = Phone_Record::where('id', $id)->get();
+            $obj = Room_Record::where('id', $id)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
                 return json_encode(array('success' => true, 'message' => $obj));
             } else {
@@ -60,20 +60,24 @@ class PhoneRecordController extends BaseController
         if ($result[0]) {
             $validator = Validator::make($request->all(), [
                 'user' => 'integer|required|max:11|min:1',
-                'number' => 'string|required|max:20|min:10|unique:phones',
-                'ext' => 'string|max:4|min:3|unique:phones'
+                'building' => 'integer|required|max:11|min:1',
+                'floor_number' => 'integer|max:4|min:1',
+                'floor_name' => 'string|max:50|min:1',
+                'room_number' => 'integer|required|max:4|min:1',
+                'room_name' => 'string|max:50|min:1',
             ]);
             if ($validator->fails()) {
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
-            if (Phone_Record::where('number', $request->input('number'))->get()->first()) {
-                if (Phone_Record::where('number', $request->input('number'))->update($request->input())) {
+            if (Room_Record::where('room_number', $request->input('room_number'))->where('building', $request->input('building'))->get()->first()) {
+                if (Room_Record::where('room_number', $request->input('room_number'))->where('building', $request->input('building'))->update($request->input())) {
                     return json_encode(array('success' => true, 'message' => 'update'));
                 } else {
                     return json_encode(array('success' => false, 'message' => 'Could not update'));
                 }
             } else {
-                $model = new Phone_Record();
+                $model = new Room_Record();
+
                 foreach ($request->input() as $key => $value) {
                     $model->$key = $value;
                 }
@@ -99,7 +103,7 @@ class PhoneRecordController extends BaseController
             if ($validator->fails()) {
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
-            if ($model = Phone_Record::find($request->input('id'))) {
+            if ($model = Room_Record::find($request->input('id'))) {
                 if ($model->delete()) {
                     return json_encode(array('success' => true, 'message' => 'delete'));
                 } else {

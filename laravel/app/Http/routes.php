@@ -20,129 +20,157 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'v1'], function () {
 
-    Route::get('/', function () {
-        return Redirect::away(url('docs'));
+    Route::get('/', 'Controller@get');
+
+
+    Route::group(['prefix' => 'type'], function () {
+
+
+        Route::get('/', 'TypeController@get');
+
+        Route::group(['prefix' => 'role'], function () {
+            Route::post('/', 'RoleController@post');
+
+            Route::delete('/', 'RoleController@del');
+
+            Route::get('id/{id}', 'RoleController@getByID');
+            Route::get('code/{code}', 'RoleController@getByCode');
+
+            Route::get('/', 'RoleController@get');
+            Route::get('/{limit}', 'RoleController@get');
+        });
+
+        Route::group(['prefix' => 'building'], function () {
+            Route::post('/', 'BuildingController@post');
+
+            Route::delete('/', 'BuildingController@del');
+
+            Route::get('id/{id}', 'BuildingController@getByID');
+            Route::get('code/{code}', 'BuildingController@getByCode');
+            Route::get('campus/{campusId}', 'BuildingController@getByCampus');
+
+            Route::get('/', 'BuildingController@get');
+            Route::get('/{limit}', 'BuildingController@get');
+        });
+
+        Route::group(['prefix' => 'campus'], function () {
+            Route::post('/', 'CampusController@post');
+
+            Route::delete('/', 'CampusController@del');
+
+            Route::get('id/{id}', 'CampusController@getByID');
+            Route::get('code/{code}', 'CampusController@getByCode');
+
+            Route::get('/', 'CampusController@get');
+            Route::get('/{limit}', 'CampusController@get');
+        });
+
+        Route::group(['prefix' => 'department'], function () {
+            Route::post('/', 'DepartmentController@post');
+
+            Route::delete('/', 'DepartmentController@del');
+
+            Route::get('id/{id}', 'DepartmentController@getByID');
+            Route::get('code/{code}', 'DepartmentController@getByCode');
+
+            Route::get('/', 'DepartmentController@get');
+            Route::get('/{limit}', 'DepartmentController@get');
+        });
+
+        Route::group(['prefix' => 'course'], function () {
+            Route::post('/', 'CourseController@post');
+
+            Route::delete('/', 'CourseController@del');
+
+            Route::get('id/{id}', 'CourseController@getByID');
+            Route::get('code/{code}', 'CourseController@getByCode');
+
+            Route::get('/', 'CourseController@get');
+            Route::get('/{limit}', 'CourseController@get');
+        });
+
+        Route::group(['prefix' => 'community'], function () {
+            Route::post('/', 'CommunityController@post');
+
+            Route::delete('/', 'CommunityController@del');
+
+            Route::get('id/{id}', 'CommunityController@getByID');
+            Route::get('code/{code}', 'CommunityController@getByCode');
+
+            Route::get('/', 'CommunityController@get');
+            Route::get('/{limit}', 'CommunityController@get');
+        });
+
     });
 
-    Route::group(['prefix' => 'user'], function () {
-        Route::post('/', 'UserRecordController@post');
+    Route::group(['prefix' => 'record'], function () {
 
-        Route::delete('/', 'UserRecordController@del');
+        Route::get('/', 'RecordController@get');
 
-        Route::delete('/', 'UserRecordController@del');
+        Route::group(['prefix' => 'room'], function () {
+            Route::post('/', 'RoomRecordController@post');
 
-        Route::get('id/{id}', 'UserRecordController@getByID');
-        Route::get('sageid/{sageid}', 'UserRecordController@getBySageID');
+            Route::delete('/', 'RoomRecordController@del');
 
-        Route::get('/', 'UserRecordController@get');
-        Route::get('/{limit}', 'UserRecordController@get');
-    });
+            Route::get('id/{id}', 'RoomRecordController@getByID');
 
-    Route::group(['prefix' => 'role'], function () {
-        Route::post('/', 'RoleController@post');
+            Route::get('/', 'RoomRecordController@get');
+            Route::get('/{limit}', 'RoomRecordController@get');
+        });
 
-        Route::delete('/', 'RoleController@del');
+        Route::group(['prefix' => 'email'], function () {
+            Route::post('/', 'EmailRecordController@post');
 
-        Route::get('id/{id}', 'RoleController@getByID');
-        Route::get('code/{code}', 'RoleController@getByCode');
+            Route::delete('/', 'EmailRecordController@del');
 
-        Route::get('/', 'RoleController@get');
-        Route::get('/{limit}', 'RoleController@get');
-    });
+            Route::get('id/{id}', 'EmailRecordController@getByID');
+            Route::get('user/{id}', 'EmailRecordController@getByUser');
 
-    Route::group(['prefix' => 'building'], function () {
-        Route::post('/', 'BuildingController@post');
+            Route::get('/', 'EmailRecordController@get');
+            Route::get('/{limit}', 'EmailRecordController@get');
+        });
 
-        Route::delete('/', 'BuildingController@del');
+        Route::group(['prefix' => 'phone'], function () {
+            Route::post('/', 'PhoneRecordController@post');
 
-        Route::get('id/{id}', 'BuildingController@getByID');
-        Route::get('code/{code}', 'BuildingController@getByCode');
-        Route::get('campus/{campusId}', 'BuildingController@getByCampus');
+            Route::delete('/', 'PhoneRecordController@del');
 
-        Route::get('/', 'BuildingController@get');
-        Route::get('/{limit}', 'BuildingController@get');
-    });
+            Route::get('id/{id}', 'PhoneRecordController@getByID');
 
-    Route::group(['prefix' => 'campus'], function () {
-        Route::post('/', 'CampusController@post');
+            Route::get('/', 'PhoneRecordController@get');
+            Route::get('/{limit}', 'PhoneRecordController@get');
+        });
 
-        Route::delete('/', 'CampusController@del');
+        Route::group(['prefix' => 'user'], function () {
+            Route::post('/', 'UserRecordController@post');
 
-        Route::get('id/{id}', 'CampusController@getByID');
-        Route::get('code/{code}', 'CampusController@getByCode');
+            Route::delete('/', 'UserRecordController@del');
 
-        Route::get('/', 'CampusController@get');
-        Route::get('/{limit}', 'CampusController@get');
-    });
+            Route::delete('/', 'UserRecordController@del');
 
-    Route::group(['prefix' => 'department'], function () {
-        Route::post('/', 'DepartmentController@post');
+            Route::get('id/{id}', 'UserRecordController@getByID');
+            Route::get('sageid/{sageid}', 'UserRecordController@getBySageID');
 
-        Route::delete('/', 'DepartmentController@del');
+            Route::get('/', 'UserRecordController@get');
+            Route::get('/{limit}', 'UserRecordController@get');
+        });
 
-        Route::get('id/{id}', 'DepartmentController@getByID');
-        Route::get('code/{code}', 'DepartmentController@getByCode');
+        Route::group(['prefix' => 'department'], function () {
 
-        Route::get('/', 'DepartmentController@get');
-        Route::get('/{limit}', 'DepartmentController@get');
-    });
+        });
 
-    Route::group(['prefix' => 'email'], function () {
-        Route::post('/', 'EmailRecordController@post');
+        Route::group(['prefix' => 'community'], function () {
 
-        Route::delete('/', 'EmailRecordController@del');
+        });
 
-        Route::get('id/{id}', 'EmailRecordController@getByID');
-        Route::get('user/{id}', 'EmailRecordController@getByUser');
+        Route::group(['prefix' => 'course'], function () {
 
-        Route::get('/', 'EmailRecordController@get');
-        Route::get('/{limit}', 'EmailRecordController@get');
-    });
+        });
 
-    Route::group(['prefix' => 'phone'], function () {
-        Route::post('/', 'PhoneRecordController@post');
+        Route::group(['prefix' => 'role'], function () {
 
-        Route::delete('/', 'PhoneRecordController@del');
+        });
 
-        Route::get('id/{id}', 'PhoneRecordController@getByID');
-
-        Route::get('/', 'PhoneRecordController@get');
-        Route::get('/{limit}', 'PhoneRecordController@get');
-    });
-
-    Route::group(['prefix' => 'room'], function () {
-        Route::post('/', 'RoomRecordController@post');
-
-        Route::delete('/', 'RoomRecordController@del');
-
-        Route::get('id/{id}', 'RoomRecordController@getByID');
-
-        Route::get('/', 'RoomRecordController@get');
-        Route::get('/{limit}', 'RoomRecordController@get');
-    });
-
-    Route::group(['prefix' => 'course'], function () {
-        Route::post('/', 'CourseController@post');
-
-        Route::delete('/', 'CourseController@del');
-
-        Route::get('id/{id}', 'CourseController@getByID');
-        Route::get('code/{code}', 'CourseController@getByCode');
-
-        Route::get('/', 'CourseController@get');
-        Route::get('/{limit}', 'CourseController@get');
-    });
-
-    Route::group(['prefix' => 'community'], function () {
-        Route::post('/', 'CommunityController@post');
-
-        Route::delete('/', 'CommunityController@del');
-
-        Route::get('id/{id}', 'CommunityController@getByID');
-        Route::get('code/{code}', 'CommunityController@getByCode');
-
-        Route::get('/', 'CommunityController@get');
-        Route::get('/{limit}', 'CommunityController@get');
     });
 
 });

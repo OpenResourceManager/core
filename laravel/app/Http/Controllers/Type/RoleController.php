@@ -1,19 +1,19 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Type;
 
 /**
  * Created by PhpStorm.
  * User: melon
  * Date: 7/7/15
- * Time: 3:45 PM
+ * Time: 1:41 PM
  */
 
-use App\Model\Record\Room_Record;
+use App\Model\Role;
 use App\Model\Record\API_Key_Record;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 
-class RoomRecordController extends BaseController
+class RoleController extends BaseController
 {
     /**
      * @param Request $request
@@ -24,7 +24,7 @@ class RoomRecordController extends BaseController
     {
         $result = API_Key_Record::testAPIKey($request, 'get');
         if ($result[0]) {
-            return $limit > 0 ? json_encode(array("success" => true, 'result' => Room_Record::all()->take($limit))) : json_encode(array("success" => true, 'result' => Room_Record::all()));
+            return $limit > 0 ? json_encode(array("success" => true, 'result' => Role::all()->take($limit))) : json_encode(array("success" => true, 'result' => Role::all()));
         } else {
             return json_encode($result[1]);
         }
@@ -39,7 +39,27 @@ class RoomRecordController extends BaseController
     {
         $result = API_Key_Record::testAPIKey($request, 'get');
         if ($result[0]) {
-            $obj = Room_Record::where('id', $id)->get();
+            $obj = Role::where('id', $id)->get();
+            if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+                return json_encode(array('success' => true, 'message' => $obj));
+            } else {
+                return json_encode(array("success" => false, "error" => "NotFound"));
+            }
+        } else {
+            return json_encode($result[1]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param $code
+     * @return string
+     */
+    public function getByCode(Request $request, $code)
+    {
+        $result = API_Key_Record::testAPIKey($request, 'get');
+        if ($result[0]) {
+            $obj = Role::where('code', $code)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
                 return json_encode(array('success' => true, 'message' => $obj));
             } else {
@@ -59,25 +79,21 @@ class RoomRecordController extends BaseController
         $result = API_Key_Record::testAPIKey($request, 'post');
         if ($result[0]) {
             $validator = Validator::make($request->all(), [
-                'user' => 'integer|required|max:11|min:1',
-                'building' => 'integer|required|max:11|min:1',
-                'floor_number' => 'integer|max:4|min:1',
-                'floor_name' => 'string|max:50|min:1',
-                'room_number' => 'integer|required|max:4|min:1',
-                'room_name' => 'string|max:50|min:1',
+                'code' => 'string|required|max:50|min:3|unique:roles',
+                'name' => 'string|required|max:50|min:3',
+
             ]);
             if ($validator->fails()) {
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
-            if (Room_Record::where('room_number', $request->input('room_number'))->where('building', $request->input('building'))->get()->first()) {
-                if (Room_Record::where('room_number', $request->input('room_number'))->where('building', $request->input('building'))->update($request->input())) {
+            if (Role::where('code', $request->input('code'))->get()->first()) {
+                if (Role::where('code', $request->input('code'))->update($request->input())) {
                     return json_encode(array('success' => true, 'message' => 'update'));
                 } else {
                     return json_encode(array('success' => false, 'message' => 'Could not update'));
                 }
             } else {
-                $model = new Room_Record();
-
+                $model = new Role();
                 foreach ($request->input() as $key => $value) {
                     $model->$key = $value;
                 }
@@ -103,7 +119,7 @@ class RoomRecordController extends BaseController
             if ($validator->fails()) {
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
-            if ($model = Room_Record::find($request->input('id'))) {
+            if ($model = Role::find($request->input('id'))) {
                 if ($model->delete()) {
                     return json_encode(array('success' => true, 'message' => 'delete'));
                 } else {

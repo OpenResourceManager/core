@@ -1,20 +1,21 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Type;
 
 /**
  * Created by PhpStorm.
  * User: melon
- * Date: 11/5/15
- * Time: 8:27 PM
+ * Date: 7/7/15
+ * Time: 1:43 PM
  */
 
+use App\Model\Building;
 use App\Model\Record\API_Key_Record;
-use App\Model\Community;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 
-class CommunityController extends BaseController
+class BuildingController extends BaseController
 {
+
     /**
      * @param Request $request
      * @param int $limit
@@ -24,7 +25,7 @@ class CommunityController extends BaseController
     {
         $result = API_Key_Record::testAPIKey($request, 'get');
         if ($result[0]) {
-            return $limit > 0 ? json_encode(array("success" => true, 'result' => Community::all()->take($limit))) : json_encode(array("success" => true, 'result' => Community::all()));
+            return $limit > 0 ? json_encode(array("success" => true, 'result' => Building::all()->take($limit))) : json_encode(array("success" => true, 'result' => Building::all()));
         } else {
             return json_encode($result[1]);
         }
@@ -39,9 +40,9 @@ class CommunityController extends BaseController
     {
         $result = API_Key_Record::testAPIKey($request, 'get');
         if ($result[0]) {
-            $obj = Community::find($id);
+            $obj = Building::where('id', $id)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-                return json_encode(array('success' => true, 'message' => $obj));
+                return json_encode(array('success' => true, 'message' => $obj)                                                                                   );
             } else {
                 return json_encode(array("success" => false, "error" => "NotFound"));
             }
@@ -59,7 +60,27 @@ class CommunityController extends BaseController
     {
         $result = API_Key_Record::testAPIKey($request, 'get');
         if ($result[0]) {
-            $obj = Community::where('code', $code)->get();
+            $obj = Building::where('code', $code)->get();
+            if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
+                return json_encode(array('success' => true, 'message' => $obj));
+            } else {
+                return json_encode(array("success" => false, "error" => "NotFound"));
+            }
+        } else {
+            return json_encode($result[1]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param $campusId
+     * @return string
+     */
+    public function getByCampus(Request $request, $campusId)
+    {
+        $result = API_Key_Record::testAPIKey($request, 'get');
+        if ($result[0]) {
+            $obj = Building::where('campus_id', $campusId)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
                 return json_encode(array('success' => true, 'message' => $obj));
             } else {
@@ -79,20 +100,21 @@ class CommunityController extends BaseController
         $result = API_Key_Record::testAPIKey($request, 'post');
         if ($result[0]) {
             $validator = Validator::make($request->all(), [
-                'code' => 'string|required|max:50|min:3|unique:communities',
+                'campus' => 'integer|required|max:11|min:1',
+                'code' => 'string|required|max:10|min:3|unique:buildings',
                 'name' => 'string|required|max:30|min:3'
             ]);
             if ($validator->fails()) {
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
-            if (Community::where('code', $request->input('code'))->get()->first()) {
-                if (Community::where('code', $request->input('code'))->update($request->input())) {
+            if (Building::where('code', $request->input('code'))->get()->first()) {
+                if (Building::where('code', $request->input('code'))->update($request->input())) {
                     return json_encode(array('success' => true, 'message' => 'update'));
                 } else {
                     return json_encode(array('success' => false, 'message' => 'Could not update'));
                 }
             } else {
-                $model = new Community();
+                $model = new Building();
                 foreach ($request->input() as $key => $value) {
                     $model->$key = $value;
                 }
@@ -118,7 +140,7 @@ class CommunityController extends BaseController
             if ($validator->fails()) {
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));
             }
-            if ($model = Community::find($request->input('id'))) {
+            if ($model = Building::find($request->input('id'))) {
                 if ($model->delete()) {
                     return json_encode(array('success' => true, 'message' => 'delete'));
                 } else {
@@ -131,5 +153,4 @@ class CommunityController extends BaseController
             return json_encode($result[1]);
         }
     }
-
 }
