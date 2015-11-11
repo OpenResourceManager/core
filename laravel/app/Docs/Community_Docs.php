@@ -591,7 +591,7 @@
  * @apiVersion 1.1.1
  * @apiHeader {String} X-Authorization The application's unique access-key.
  * @apiGroup Community
- * @apiDescription Delete a community record. This also deletes any program records that may be a child of the community.
+ * @apiDescription Delete a community record.
  *
  * @apiParam {Integer} id The numeric API id of the community.
  * @apiSuccess {Boolean} success Tells the application if the request was successful.

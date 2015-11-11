@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
         $this->call('RoomRecordTableSeeder');
         // $this->call('CourseTableSeeder');
         $this->call('CommunityTableSeeder');
+        $this->call('RoleRecordTableSeeder');
+        $this->call('DepartmentRecordTableSeeder');
         $this->call('APIKeyRecordTableSeeder');
 
         Model::reguard();

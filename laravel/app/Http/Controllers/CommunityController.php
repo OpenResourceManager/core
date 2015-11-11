@@ -79,9 +79,8 @@ class CommunityController extends BaseController
         $result = API_Key_Record::testAPIKey($request, 'post');
         if ($result[0]) {
             $validator = Validator::make($request->all(), [
-                'program_id' => 'integer|required',
-                'code' => 'string|required|max:50|min:3|unique:departments',
-                'name' => 'string|required|max:30|min:3|unique:departments'
+                'code' => 'string|required|max:50|min:3|unique:communities',
+                'name' => 'string|required|max:30|min:3'
             ]);
             if ($validator->fails()) {
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));

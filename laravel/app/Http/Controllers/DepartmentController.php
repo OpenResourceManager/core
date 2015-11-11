@@ -81,7 +81,7 @@ class DepartmentController extends BaseController
             $validator = Validator::make($request->all(), [
                 'academic' => 'boolean|required|max:5|min:1',
                 'code' => 'string|required|max:50|min:3|unique:departments',
-                'name' => 'string|required|max:30|min:3|unique:departments'
+                'name' => 'string|required|max:30|min:3'
             ]);
             if ($validator->fails()) {
                 return json_encode(array('success' => false, 'message' => $validator->errors()->all()));

@@ -36,14 +36,6 @@ class CreateTables extends Migration
             $table->foreign('campus_id')->references('id')->on('campuses')->onDelete('cascade');
         });
 
-        Schema::create('programs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('code')->unique();
-            $table->string('name');
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
         Schema::create('departments', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('academic');
@@ -106,23 +98,13 @@ class CreateTables extends Migration
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
 
-        Schema::create('program_records', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('program_id');
-            $table->unsignedInteger('user_id');
-            $table->timestamps();
-            $table->softDeletes();
-            $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('user_records')->onDelete('cascade');
-        });
-
         Schema::create('department_records', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('program_id');
+            $table->unsignedInteger('user_id');
             $table->unsignedInteger('department_id');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('user_records')->onDelete('cascade');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
         });
 
@@ -167,7 +149,6 @@ class CreateTables extends Migration
             $table->unsignedInteger('campus_id')->nullable();
             $table->unsignedInteger('building_id')->nullable();
             $table->unsignedInteger('department_id')->nullable();
-            $table->unsignedInteger('program_id')->nullable();
             $table->unsignedInteger('course_id')->nullable();
             $table->unsignedInteger('role_id')->nullable();
             $table->timestamps();
@@ -177,7 +158,6 @@ class CreateTables extends Migration
             $table->foreign('campus_id')->references('id')->on('campuses')->onDelete('cascade');
             $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
-            $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
@@ -225,13 +205,8 @@ class CreateTables extends Migration
             $table->dropForeign('role_records_role_id_foreign');
         });
 
-        Schema::table('program_records', function (Blueprint $table) {
-            $table->dropForeign('program_records_program_id_foreign');
-            $table->dropForeign('program_records_user_id_foreign');
-        });
-
         Schema::table('department_records', function (Blueprint $table) {
-            $table->dropForeign('department_records_program_id_foreign');
+            $table->dropForeign('department_records_user_id_foreign');
             $table->dropForeign('department_records_department_id_foreign');
         });
 
@@ -251,7 +226,6 @@ class CreateTables extends Migration
             $table->dropForeign('community_records_campus_id_foreign');
             $table->dropForeign('community_records_building_id_foreign');
             $table->dropForeign('community_records_department_id_foreign');
-            $table->dropForeign('community_records_program_id_foreign');
             $table->dropForeign('community_records_course_id_foreign');
             $table->dropForeign('community_records_role_id_foreign');
         });
@@ -263,7 +237,6 @@ class CreateTables extends Migration
         Schema::drop('phone_records');
         Schema::drop('role_records');
         Schema::drop('department_records');
-        Schema::drop('program_records');
         Schema::drop('course_records');
         Schema::drop('room_records');
 
@@ -272,7 +245,6 @@ class CreateTables extends Migration
         Schema::drop('communities');
         Schema::drop('buildings');
         Schema::drop('campuses');
-        Schema::drop('programs');
         Schema::drop('departments');
     }
 }

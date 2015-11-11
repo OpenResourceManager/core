@@ -79,8 +79,8 @@ class RoleController extends BaseController
         $result = API_Key_Record::testAPIKey($request, 'post');
         if ($result[0]) {
             $validator = Validator::make($request->all(), [
-                'code' => 'string|required|max:50|min:3|unique:programs',
-                'name' => 'string|required|max:50|min:3|unique:programs',
+                'code' => 'string|required|max:50|min:3|unique:roles',
+                'name' => 'string|required|max:50|min:3',
 
             ]);
             if ($validator->fails()) {
