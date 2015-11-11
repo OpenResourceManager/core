@@ -7,17 +7,21 @@
  * Time: 1:42 PM
  */
 
+use App\Model\Type\Campus;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Validator;
-use App\Model\Type\Campus;
 
 class CampusController extends BaseController
 {
 
     public function index()
     {
-        return Campus::all();
+        $results = Campus::all();
+
+        return Response::json([
+            'data' => $results->toArray()
+        ], 200);
     }
 
 }
