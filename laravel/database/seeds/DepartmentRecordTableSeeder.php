@@ -26,6 +26,7 @@ class DepartmentRecordTableSeeder extends Seeder
             $model = new Department_Record();
             $model->user_id = $modelArr[0];
             $model->department_id = $modelArr[1];
+            $model->save();
         }
     }
 
