@@ -17,14 +17,14 @@ class DepartmentRecordTableSeeder extends Seeder
         Model::unguard();
 
         $models = array(
-            array(),
-            array(),
-            array(),
+            array(1,2),
+            array(2,2),
+            array(3,1),
         );
 
         foreach ($models as $modelArr) {
             $model = new Department_Record();
-            $model->program_id = $modelArr[0];
+            $model->user_id = $modelArr[0];
             $model->department_id = $modelArr[1];
         }
     }
