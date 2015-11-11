@@ -41,7 +41,7 @@ class DepartmentController extends BaseController
         if ($result[0]) {
             $obj = Department::where('id', $id)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-                return json_encode($obj);
+                return json_encode(array('success' => true, 'message' => $obj));
             } else {
                 return json_encode(array("success" => false, "error" => "NotFound"));
             }
@@ -61,7 +61,7 @@ class DepartmentController extends BaseController
         if ($result[0]) {
             $obj = Department::where('code', $code)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-                return json_encode($obj);
+                return json_encode(array('success' => true, 'message' => $obj));
             } else {
                 return json_encode(array("success" => false, "error" => "NotFound"));
             }

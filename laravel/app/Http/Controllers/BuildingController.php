@@ -42,7 +42,7 @@ class BuildingController extends BaseController
         if ($result[0]) {
             $obj = Building::where('id', $id)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-                return json_encode($obj);
+                return json_encode(array('success' => true, 'message' => $obj)                                                                                   );
             } else {
                 return json_encode(array("success" => false, "error" => "NotFound"));
             }
@@ -62,7 +62,7 @@ class BuildingController extends BaseController
         if ($result[0]) {
             $obj = Building::where('code', $code)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-                return json_encode($obj);
+                return json_encode(array('success' => true, 'message' => $obj));
             } else {
                 return json_encode(array("success" => false, "error" => "NotFound"));
             }
@@ -82,7 +82,7 @@ class BuildingController extends BaseController
         if ($result[0]) {
             $obj = Building::where('campus_id', $campusId)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-                return json_encode($obj);
+                return json_encode(array('success' => true, 'message' => $obj));
             } else {
                 return json_encode(array("success" => false, "error" => "NotFound"));
             }

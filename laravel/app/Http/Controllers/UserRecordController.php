@@ -48,7 +48,7 @@ class UserRecordController extends BaseController
                 $obj->email = Email_Record::where('user', $obj->id)->get();
                 $obj->phone = Phone_Record::where('user', $obj->id)->get();
                 $obj->room = Room_Record::where('user', $obj->id)->get();
-                return json_encode($obj);
+                return json_encode(array('success' => true, 'message' => $obj));
             } else {
                 return json_encode(
                     array("success" => false, "message" => "NotFound"));
@@ -73,7 +73,7 @@ class UserRecordController extends BaseController
                 $obj->email = Email_Record::where('user', $obj->id)->get();
                 $obj->phone = Phone_Record::where('user', $obj->id)->get();
                 $obj->room = Room_Record::where('user', $obj->id)->get();
-                return json_encode($obj);
+                return json_encode(array('success' => true, 'message' => $obj));
             } else {
                 return json_encode(array("success" => false, "message" => "NotFound"));
             }
