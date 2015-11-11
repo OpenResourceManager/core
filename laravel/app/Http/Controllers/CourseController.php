@@ -41,7 +41,7 @@ class CourseController extends BaseController
         if ($result[0]) {
             $obj = Course::find($id);
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-                return json_encode($obj);
+                return json_encode(array("success" => true, 'result' => $obj));
             } else {
                 return json_encode(array("success" => false, "error" => "NotFound"));
             }
@@ -61,7 +61,7 @@ class CourseController extends BaseController
         if ($result[0]) {
             $obj = Course::where('code', $code)->get();
             if ($obj && !is_null($obj) && !empty($obj) && sizeof($obj) > 0) {
-                return json_encode($obj);
+                return json_encode(array("success" => true, 'result' => $obj));
             } else {
                 return json_encode(array("success" => false, "error" => "NotFound"));
             }

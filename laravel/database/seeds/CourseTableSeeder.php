@@ -29,7 +29,7 @@ class CourseTableSeeder extends Seeder
             $course = new Course();
             $course->code = $courseArr[0];
             $course->name = $courseArr[1];
-            $course->department_record_id = $courseArr[2];
+            $course->department_id = $courseArr[2];
             $course->save();
         }
     }
