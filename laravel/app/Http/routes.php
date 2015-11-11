@@ -20,11 +20,11 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'v1'], function () {
 
-    Route::get('/', 'Controller@get');
-
+    Route::get('/', function () {
+        return Redirect::away(url('docs'));
+    });
 
     Route::group(['prefix' => 'type'], function () {
-
 
         Route::get('/', 'TypeController@get');
 
