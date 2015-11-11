@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Validator;
 
-class TypeController
+class TypeController extends BaseController
 {
 
     public function get(Request $request)
