@@ -24,8 +24,8 @@ Route::group(['prefix' => 'api/v1'], function () {
         return Redirect::away(url('docs'));
     });
 
-    Route::resource('campuses', 'CampusController');
-    Route::resource('buildings', 'BuildingController');
+    Route::resource('campuses', 'Type\CampusController');
+    Route::resource('buildings', 'Type\BuildingController');
 
 });
 
