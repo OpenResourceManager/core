@@ -77,7 +77,7 @@ class ApiController extends Controller
             'success' => $this->getSuccessStatus(),
             'status_code' => $this->getStatusCode(),
             'error' => $message
-        ], $this->getStatusCode());
+        ]);
     }
 
     /**
