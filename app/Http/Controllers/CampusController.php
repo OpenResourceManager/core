@@ -20,7 +20,7 @@ class CampusController extends Controller
 
         return Response::json([
             'success' => true,
-            'result' => $result->toArray()
+            'result' => $result->transform()
         ], 200);
     }
 
