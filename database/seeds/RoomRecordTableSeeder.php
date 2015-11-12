@@ -33,11 +33,6 @@ class RoomRecordTableSeeder extends Seeder
 
         foreach (range(1, 300) as $index) {
 
-            $user_building_pair = $faker->unique()->randomElement([[
-                $faker->randomElement($userIds),
-                $faker->randomElement($buildingIds),
-            ]]);
-
             $floorNum = $faker->optional()->numberBetween(1, 4);
             $floorName = null;
             if ($floorNum == 1) {
@@ -57,8 +52,8 @@ class RoomRecordTableSeeder extends Seeder
             }
 
             Room_Record::create([
-                'user_id' => $user_building_pair[0],
-                'building_id' => $user_building_pair[1],
+                'user_id' => $faker->randomElement($userIds),
+                'building_id' => $faker->randomElement($buildingIds),
                 'floor_number' => $floorNum,
                 'floor_name' => $floorName,
                 'room_number' => $roomNum,
