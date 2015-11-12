@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Model\Type\Campus;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 use App\UUD\Transformers\CampusTransformer;
+use Illuminate\Http\Request;
 
-class CampusController extends Controller
+class CampusController extends ApiController
 {
 
     /**
@@ -33,10 +32,7 @@ class CampusController extends Controller
     {
         $result = Campus::all();
 
-        return Response::json([
-            'success' => true,
-            'result' => $this->campusTransformer->transformCollection($result->all())
-        ], 200);
+        return $this->respond($this->campusTransformer->transform($result));
     }
 
     /**
@@ -71,16 +67,10 @@ class CampusController extends Controller
         $result = Campus::find($id);
 
         if (!$result) {
-            return Response::json([
-                'success' => false,
-                'error' => 'Not found'
-            ], 404);
+            return $this->respondNotFound();
         }
 
-        return Response::json([
-            'success' => true,
-            'result' => $this->campusTransformer->transform($result)
-        ], 200);
+        return $this->respond($this->campusTransformer->transform($result));
     }
 
     /**
