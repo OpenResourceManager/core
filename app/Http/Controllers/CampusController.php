@@ -31,7 +31,7 @@ class CampusController extends ApiController
     public function index()
     {
         $result = Campus::all();
-        return $this->respond($this->campusTransformer->transform($result));
+        return $this->respondWithSuccess($this->campusTransformer->transformCollection($result));
     }
 
     /**
@@ -65,7 +65,7 @@ class CampusController extends ApiController
     {
         $result = Campus::find($id);
         if (!$result) return $this->respondNotFound();
-        return $this->respond($this->campusTransformer->transform($result));
+        return $this->respondWithSuccess($this->campusTransformer->transform($result));
     }
 
     /**

@@ -81,6 +81,19 @@ class ApiController extends Controller
     }
 
     /**
+     * @param $data
+     * @return mixed
+     */
+    public function respondWithSuccess($data)
+    {
+        return $this->respond([
+            'success' => $this->getSuccessStatus(),
+            'status_code' => $this->getStatusCode(),
+            'result' => $data
+        ]);
+    }
+
+    /**
      * @param string $message
      * @return mixed
      */
