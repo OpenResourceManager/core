@@ -7,7 +7,6 @@
  * Time: 10:19 AM
  */
 
-use App\Model\Building;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -19,7 +18,7 @@ class Campus extends Model
 
     public function buildings()
     {
-        return $this->hasMany('App\Model\Building');
+        return $this->hasMany('App\Model\Type\Building');
     }
 
     public function rooms()
