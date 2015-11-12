@@ -118,13 +118,13 @@ class RoomController extends ApiController
     {
         $result = Building::find($id)->rooms();
 
-        return $this->respondWithSuccess($this->roomRecordTransformer->transformCollection($result->all()));
+        return $this->respondWithSuccess($this->roomRecordTransformer->transformCollection($result));
     }
 
     public function userRooms($id)
     {
         $result = User::find($id)->rooms();
 
-        return $this->respondWithSuccess($this->roomRecordTransformer->transformCollection($result->all()));
+        return $this->respondWithSuccess($this->roomRecordTransformer->transformCollection($result));
     }
 }
