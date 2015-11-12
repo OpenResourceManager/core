@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Type\Course;
+use App\Model\Course;
 
 /**
  * Created by PhpStorm.

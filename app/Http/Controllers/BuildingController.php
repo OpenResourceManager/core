@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Type\Building;
+use App\Model\Building;
 use App\UUD\Transformers\BuildingTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;

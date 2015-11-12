@@ -34,6 +34,10 @@ Route::group(['prefix' => 'api'], function () {
         Route::resource('campus', 'CampusController');
         Route::resource('building', 'BuildingController');
 
-    });
+        Route::group(['prefix' => 'record'], function () {
 
+            Route::resource('user', 'UserRecordController');
+
+        });
+    });
 });

@@ -7,9 +7,6 @@
  * Time: 3:57 PM
  */
 
-use App\Model\Record\Room_Record;
-use App\Model\Record\Email_Record;
-use App\Model\Record\Phone_Record;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -18,6 +15,17 @@ class User_Record extends Model
     use SoftDeletes;
     protected $table = 'user_records';
     protected $dates = ['deleted_at'];
+    protected $fillable = [
+        'sageid',
+        'active',
+        'name_prefix',
+        'name_first',
+        'name_middle',
+        'name_last',
+        'name_postfix',
+        'name_phonetic',
+        'username'
+    ];
 
     public function rooms()
     {

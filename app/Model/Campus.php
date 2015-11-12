@@ -1,4 +1,4 @@
-<?php namespace App\Model\Type;
+<?php namespace App\Model;
 
 /**
  * Created by PhpStorm.
@@ -19,7 +19,7 @@ class Campus extends Model
 
     public function buildings()
     {
-        return $this->hasMany('App\Model\Type\Building');
+        return $this->hasMany('App\Model\Building');
     }
 
     public function rooms()
