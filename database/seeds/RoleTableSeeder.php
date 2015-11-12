@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Role;
+use App\Model\Type\Role;
 
 /**
  * Created by PhpStorm.
