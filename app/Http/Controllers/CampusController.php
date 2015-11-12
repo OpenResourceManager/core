@@ -60,7 +60,7 @@ class CampusController extends ApiController
             'name' => 'string|required|max:30|min:3'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        Course::create(Input::all());
+        Course::create(Input::only(['code', 'name']));
         return $this->respondCreateSuccess();
     }
 
