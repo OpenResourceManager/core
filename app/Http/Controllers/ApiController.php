@@ -60,9 +60,18 @@ class ApiController extends Controller
      * @param string $message
      * @return mixed
      */
-    public function respondNotFound($message = 'Not Found')
+    public function respondNotFound($message = 'Not Found!')
     {
         return $this->setStatusCode(404)->respondWithError($message);
+    }
+
+    /**
+     * @param string $message
+     * @return mixed
+     */
+    public function respondInternalError($message = 'Internal Error!')
+    {
+        return $this->setStatusCode(500)->respondWithError($message);
     }
 
     /**
