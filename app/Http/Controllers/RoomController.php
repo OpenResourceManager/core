@@ -116,11 +116,11 @@ class RoomController extends ApiController
 
     public function buildingRooms($id)
     {
-        $result = Building::find($id)->rooms;
+        $result = Building::find($id)->rooms();
     }
 
     public function userRooms($id)
     {
-        $result = User::find($id)->rooms;
+        $result = User::find($id)->rooms();
     }
 }
