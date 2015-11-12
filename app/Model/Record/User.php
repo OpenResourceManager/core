@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Model
 {
     use SoftDeletes;
-    protected $table = 'user_records';
+    protected $table = 'users';
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'sageid',
