@@ -7,7 +7,6 @@
  * Time: 10:30 AM
  */
 
-use App\Model\Record\Room_Record;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

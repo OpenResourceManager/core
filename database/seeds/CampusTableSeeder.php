@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Faker\Factory as Faker;
 use App\Model\Campus;
 
 /**
@@ -17,18 +18,15 @@ class CampusTableSeeder extends Seeder
     {
         Model::unguard();
 
-        // Create an array of campuses
-        $campuses = array(
-            'TRY' => 'Russell Sage College',
-            'ALB' => 'Sage College of Albany'
-        );
+        $faker = Faker::create();
 
-        // Loop through the array and save the campuses
-        foreach ($campuses as $code => $name) {
-            $campus = new Campus();
-            $campus->code = $code;
-            $campus->name = $name;
-            $campus->save();
+        foreach (range(1, 5) as $index) {
+            $city = $faker->city;
+            Campus::create([
+                'code' => strtoupper(substr($city, 3)),
+                'name' => $city
+            ]);
+
         }
 
     }
