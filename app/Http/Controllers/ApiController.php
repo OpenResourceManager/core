@@ -27,11 +27,14 @@ class ApiController extends Controller
     }
 
     /**
-     * @param boolean $successStatus
+     * @param $successStatus
+     * @return $this
      */
     public function setSuccessStatus($successStatus)
     {
         $this->successStatus = $successStatus;
+
+        return $this;
     }
 
     /**
@@ -43,11 +46,14 @@ class ApiController extends Controller
     }
 
     /**
-     * @param mixed $statusCode
+     * @param $statusCode
+     * @return $this
      */
     public function setStatusCode($statusCode)
     {
         $this->statusCode = $statusCode;
+
+        return $this;
     }
 
     /**
@@ -56,7 +62,18 @@ class ApiController extends Controller
      */
     public function respondNotFound($message = 'Not Found')
     {
-        return Response::json([
+        return $this->setStatusCode(404)->respondWithError($message);
+    }
+
+    /**
+     * @param $message
+     * @return mixed
+     */
+    public function respondWithError($message = 'An Error Has Occurred')
+    {
+        $this->setSuccessStatus(false);
+
+        return $this->respond([
             'success' => $this->getSuccessStatus(),
             'status_code' => $this->getStatusCode(),
             'error' => $message
@@ -67,13 +84,9 @@ class ApiController extends Controller
      * @param string $message
      * @return mixed
      */
-    public function respond($data)
+    public function respond($data, $headers = [])
     {
-        return Response::json([
-            'success' => $this->getSuccessStatus(),
-            'status_code' => $this->getStatusCode(),
-            'result' => $data
-        ], $this->getStatusCode());
+        return Response::json($data, $this->getStatusCode(), $headers);
     }
 
 }
