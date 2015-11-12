@@ -57,10 +57,7 @@ class CampusController extends ApiController
             'code' => 'string|required|max:10|min:3|unique:campuses',
             'name' => 'string|required|max:30|min:3'
         ]);
-        if ($validator->fails()) {
-            return $this->respondUnprocessableEntity($validator->errors()->all());
-        }
-
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         return $this->respondCreateSuccess();
     }
 
