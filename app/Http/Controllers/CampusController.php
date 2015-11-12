@@ -31,7 +31,7 @@ class CampusController extends ApiController
     public function index()
     {
         $result = Campus::all();
-        return $this->respondWithSuccess($this->campusTransformer->transformCollection($result));
+        return $this->respondWithSuccess($this->campusTransformer->transformCollection($result->all()));
     }
 
     /**
