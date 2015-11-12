@@ -19,7 +19,7 @@ class Building extends Model
 
     public function rooms()
     {
-        return $this->hasMany('App\Model\Record\Room', 'building_id', 'id');
+        return $this->hasMany('App\Model\Record\Room');
     }
 }
 
