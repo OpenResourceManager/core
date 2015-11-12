@@ -22,7 +22,7 @@ class Building extends Model
      */
     public function rooms()
     {
-        return $this->belongsToMany('Room_Record');
+        return $this->belongsToMany('App\Model\Record\Room_Record');
     }
 }
 
