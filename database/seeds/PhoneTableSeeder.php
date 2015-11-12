@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Record\Phone_Record;
+use App\Model\Record\Phone;
 
 /**
  * Created by PhpStorm.
@@ -10,7 +10,7 @@ use App\Model\Record\Phone_Record;
  * Date: 7/7/15
  * Time: 8:39 PM
  */
-class PhoneRecordTableSeeder extends Seeder
+class PhoneTableSeeder extends Seeder
 {
     public function run()
     {
@@ -24,7 +24,7 @@ class PhoneRecordTableSeeder extends Seeder
         );
 
         foreach ($phones as $phoneArr) {
-            $phone = new Phone_Record();
+            $phone = new Phone();
             $phone->user_id = $phoneArr[0];
             $phone->number = $phoneArr[1];
             $phone->ext = $phoneArr[2];

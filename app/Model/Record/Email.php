@@ -10,9 +10,9 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Email_Record extends Model
+class Email extends Model
 {
     use SoftDeletes;
-    protected $table = 'email_records';
+    protected $table = 'emails';
     protected $dates = ['deleted_at'];
 }

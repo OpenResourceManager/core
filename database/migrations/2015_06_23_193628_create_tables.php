@@ -70,7 +70,7 @@ class CreateTables extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('email_records', function (Blueprint $table) {
+        Schema::create('emails', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('email')->unique();
@@ -79,7 +79,7 @@ class CreateTables extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
-        Schema::create('phone_records', function (Blueprint $table) {
+        Schema::create('phones', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('number', 11)->unique();
@@ -193,12 +193,12 @@ class CreateTables extends Migration
             $table->dropForeign('courses_department_id_foreign');
         });
 
-        Schema::table('email_records', function (Blueprint $table) {
-            $table->dropForeign('email_records_user_id_foreign');
+        Schema::table('emails', function (Blueprint $table) {
+            $table->dropForeign('emails_user_id_foreign');
         });
 
-        Schema::table('phone_records', function (Blueprint $table) {
-            $table->dropForeign('phone_records_user_id_foreign');
+        Schema::table('phones', function (Blueprint $table) {
+            $table->dropForeign('phones_user_id_foreign');
         });
 
         Schema::table('role_records', function (Blueprint $table) {
@@ -234,8 +234,8 @@ class CreateTables extends Migration
         Schema::drop('api_key_records');
         Schema::drop('community_records');
         Schema::drop('users');
-        Schema::drop('email_records');
-        Schema::drop('phone_records');
+        Schema::drop('emails');
+        Schema::drop('phones');
         Schema::drop('role_records');
         Schema::drop('department_records');
         Schema::drop('course_records');

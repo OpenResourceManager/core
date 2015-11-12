@@ -34,11 +34,11 @@ class User extends Model
 
     public function emails()
     {
-        return $this->hasMany('App\Model\Record\Email_Records');
+        return $this->hasMany('App\Model\Record\Email');
     }
 
     public function phones()
     {
-        return $this->hasMany('App\Model\Record\Phone_Records');
+        return $this->hasMany('App\Model\Record\Phone');
     }
 }
