@@ -16,7 +16,7 @@ class CampusController extends Controller
      */
     public function index()
     {
-        $result = $this->transform(Campus::all());
+        $result = $this->transformCollection(Campus::all());
 
         return Response::json([
             'success' => true,
@@ -53,7 +53,7 @@ class CampusController extends Controller
      */
     public function show($id)
     {
-        $result = Campus::find($id);
+        $result = $this->transform(Campus::find($id));
 
         if (!$result) {
             return Response::json([
@@ -103,16 +103,23 @@ class CampusController extends Controller
     }
 
     /**
+     * @param $campus
+     * @return array
+     */
+    private function transform($campus)
+    {
+        return [
+            'code' => $campus['code'],
+            'name' => $campus['name']
+        ];
+    }
+
+    /**
      * @param $campuses
      * @return array
      */
-    private function transform($campuses)
+    private function transformCollection($campuses)
     {
-        return array_map(function ($campus) {
-            return [
-                'code' => $campus['code'],
-                'name' => $campus['name']
-            ];
-        }, $campuses->toArray());
+        return array_map([$this, 'transform'], $campuses->toArray());
     }
 }
