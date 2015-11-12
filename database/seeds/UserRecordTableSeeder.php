@@ -20,7 +20,7 @@ class UserRecordTableSeeder extends Seeder
 
         $faker = Faker::create();
 
-        foreach (range(1, 200) as $index) {
+        foreach (range(1, 5000) as $index) {
             User_Record::create([
                 'sageid' => $faker->unique()->randomNumber($nbDigits = 7, $strict = true),
                 'active' => $faker->boolean(),

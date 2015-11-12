@@ -18,7 +18,7 @@ class CampusTableSeeder extends Seeder
         Model::unguard();
         $faker = Faker::create();
 
-        foreach (range(1, 5) as $index) {
+        foreach (range(1, 9) as $index) {
             $city = $faker->unique()->city;
             $num = $faker->unique()->randomDigitNotNull;
             Campus::create([
