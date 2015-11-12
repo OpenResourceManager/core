@@ -22,7 +22,7 @@ class RoomRecordTableSeeder extends Seeder
         $faker = Faker::create();
 
         $buildingIds = Building::get()->lists('id')->all();
-        $userIds = User_Record::get()->list('id')->all();
+        $userIds = User_Record::get()->lists('id')->all();
 
         $floorNames = [
             'First Floor',
