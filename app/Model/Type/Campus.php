@@ -15,7 +15,7 @@ class Campus extends Model
     use SoftDeletes;
     protected $table = 'campuses';
     protected $dates = ['deleted_at'];
-    public $fillable = ['code', 'name'];
+    protected $fillable = ['code', 'name'];
 
     public function buildings()
     {
