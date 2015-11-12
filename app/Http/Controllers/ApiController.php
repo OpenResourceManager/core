@@ -60,7 +60,7 @@ class ApiController extends Controller
      * @param string $message
      * @return mixed
      */
-    public function respondNotFound($message = 'Not Found!')
+    public function respondNotFound($message = 'Not Found')
     {
         return $this->setStatusCode(404)->respondWithError($message);
     }
@@ -69,9 +69,45 @@ class ApiController extends Controller
      * @param string $message
      * @return mixed
      */
-    public function respondInternalError($message = 'Internal Error!')
+    public function respondInternalError($message = 'Internal Error')
     {
         return $this->setStatusCode(500)->respondWithError($message);
+    }
+
+    /**
+     * @param string $message
+     * @return mixed
+     */
+    public function respondNotAuthorized($message = 'Unauthorized')
+    {
+        return $this->setStatusCode(401)->respondWithError($message);
+    }
+
+    /**
+     * @param string $message
+     * @return mixed
+     */
+    public function respondUnprocessableEntity($message = 'Unprocessable Entity')
+    {
+        return $this->setStatusCode(422)->respondWithError($message);
+    }
+
+    /**
+     * @param string $message
+     * @return mixed
+     */
+    public function respondCreateSuccess($message = 'Created')
+    {
+        return $this->respondWithSuccess($message);
+    }
+
+    /**
+     * @param string $message
+     * @return mixed
+     */
+    public function respondUpdateSuccess($message = 'Updated')
+    {
+        return $this->respondWithSuccess($message);
     }
 
     /**

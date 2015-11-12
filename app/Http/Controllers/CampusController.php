@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Model\Type\Campus;
 use App\UUD\Transformers\CampusTransformer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CampusController extends ApiController
 {
@@ -52,7 +53,15 @@ class CampusController extends ApiController
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'code' => 'string|required|max:10|min:3|unique:campuses',
+            'name' => 'string|required|max:30|min:3'
+        ]);
+        if ($validator->fails()) {
+            return $this->respondUnprocessableEntity($validator->errors()->all());
+        }
+
+        return $this->respondCreateSuccess();
     }
 
     /**
