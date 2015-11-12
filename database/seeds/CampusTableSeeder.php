@@ -13,22 +13,17 @@ use App\Model\Campus;
  */
 class CampusTableSeeder extends Seeder
 {
-
     public function run()
     {
         Model::unguard();
-
         $faker = Faker::create();
 
         foreach (range(1, 5) as $index) {
             $city = $faker->city;
             Campus::create([
-                'code' => strtoupper(substr($city, 0, 3)),
+                'code' => strtoupper(trim(substr($city, 0, 3))),
                 'name' => $city
             ]);
-
         }
-
     }
-
 }
