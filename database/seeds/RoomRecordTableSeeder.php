@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Record\Room_Record;
+use App\Model\Record\Room;
 use App\Model\Building;
 use App\Model\Record\User_Record;
 use Faker\Factory as Faker;
@@ -51,7 +51,7 @@ class RoomRecordTableSeeder extends Seeder
                 $roomNum = $faker->numberBetween(($floorNum * 100), (($floorNum * 100) + 99));
             }
 
-            Room_Record::create([
+            Room::create([
                 'user_id' => $faker->randomElement($userIds),
                 'building_id' => $faker->randomElement($buildingIds),
                 'floor_number' => $floorNum,

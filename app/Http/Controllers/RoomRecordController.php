@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Building;
-use App\Model\Record\Room_Record;
+use App\Model\Record\Room;
 use App\Model\Record\User_Record;
 use App\UUD\Transformers\RoomRecordTransformer;
 use Illuminate\Http\Request;
@@ -32,7 +32,7 @@ class RoomRecordController extends ApiController
      */
     public function index()
     {
-        $result = Room_Record::all();
+        $result = Room::all();
         return $this->respondWithSuccess($this->roomRecordTransformer->transformCollection($result->all()));
     }
 
@@ -63,7 +63,7 @@ class RoomRecordController extends ApiController
             'room_name' => 'string|max:50'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        Room_Record::create(Input::all());
+        Room::create(Input::all());
         return $this->respondCreateSuccess();
     }
 
@@ -75,7 +75,7 @@ class RoomRecordController extends ApiController
      */
     public function show($id)
     {
-        $result = Room_Record::find($id);
+        $result = Room::find($id);
         if (!$result) return $this->respondNotFound();
         return $this->respondWithSuccess($this->roomRecordTransformer->transform($result));
     }

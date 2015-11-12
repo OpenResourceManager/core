@@ -27,12 +27,9 @@ class User_Record extends Model
         'username'
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
     public function rooms()
     {
-        return $this->hasMany('App\Model\Record\Room_Record');
+        return $this->hasMany('App\Model\Record\Room');
     }
 
     public function emails()

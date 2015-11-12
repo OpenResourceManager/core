@@ -10,7 +10,7 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Room_Record extends Model
+class Room extends Model
 {
     use SoftDeletes;
     protected $table = 'room_records';
