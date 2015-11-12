@@ -17,10 +17,10 @@ class CampusController extends BaseController
 
     public function index()
     {
-        $results = Campus::all();
+        $result = Campus::all();
 
         return  Response::json([
-            'data' => $results->toArray()
+            'result' => $result->toArray()
         ], 200);
     }
 
