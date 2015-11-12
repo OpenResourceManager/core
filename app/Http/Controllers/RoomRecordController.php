@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use App\Model\Record\Room_Record;
 use App\UUD\Transformers\RoomRecordTransformer;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class RoomRecordController extends Controller
+class RoomRecordController extends ApiController
 {
     /**
      * @var \App\UUD\Transformers\RoomRecordTransformer
