@@ -6,7 +6,7 @@
  * Time: 8:58 PM
  */
 
-namespace UUD\Transformers;
+namespace App\UUD\Transformers;
 
 
 abstract class Transformer

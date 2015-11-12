@@ -6,13 +6,13 @@ use App\Http\Requests;
 use App\Model\Type\Campus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
-use UUD\Transformers\CampusTransformer;
+use App\UUD\Transformers\CampusTransformer;
 
 class CampusController extends Controller
 {
 
     /**
-     * @var UUD\Transformers\CampusTransformer
+     * @var \App\UUD\Transformers\CampusTransformer
      */
     protected $campusTransformer;
 

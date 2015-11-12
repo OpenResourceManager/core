@@ -6,7 +6,7 @@
  * Time: 9:01 PM
  */
 
-namespace UUD\Transformers;
+namespace App\UUD\Transformers;
 
 class CampusTransformer extends Transformer
 {
