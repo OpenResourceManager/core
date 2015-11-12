@@ -16,6 +16,7 @@ class Building extends Model
     use SoftDeletes;
     protected $table = 'buildings';
     protected $dates = ['deleted_at'];
+    protected $fillable = ['campus_id', 'code', 'name'];
 
     public function rooms()
     {

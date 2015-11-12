@@ -2,27 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use App\Model\Type\Campus;
-use App\UUD\Transformers\CampusTransformer;
+use App\Model\Type\Building;
+use app\UUD\Transformers\BuildingTransformer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
+use App\Http\Requests;
 use Illuminate\Support\Facades\Validator;
 
-class CampusController extends ApiController
+class BuildingController extends ApiController
 {
 
     /**
-     * @var \App\UUD\Transformers\CampusTransformer
+     * @var \App\UUD\Transformers\BuildingTransformer
      */
-    protected $campusTransformer;
+    protected $buildingTransformer;
 
     /**
-     * @param CampusTransformer $campusTransformer
+     * @param BuildingTransformer $buildingTransformer
      */
-    function __construct(CampusTransformer $campusTransformer)
+    function __construct(BuildingTransformer $buildingTransformer)
     {
-        $this->campusTransformer = $campusTransformer;
+        $this->buildingTransformer = $buildingTransformer;
     }
 
     /**
@@ -32,8 +31,8 @@ class CampusController extends ApiController
      */
     public function index()
     {
-        $result = Campus::all();
-        return $this->respondWithSuccess($this->campusTransformer->transformCollection($result->all()));
+        $result = Building::all();
+        return $this->respondWithSuccess($this->buildingTransformer->transformCollection($result->all()));
     }
 
     /**
@@ -55,11 +54,12 @@ class CampusController extends ApiController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'campus_id' => 'integer|required|exists:campuses,id,deleted_at,NULL',
             'code' => 'string|required|max:10|min:3|unique:campuses,deleted_at,NULL',
             'name' => 'string|required|max:30|min:3'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        Campus::create(Input::all());
+        Building::create(Input::all());
         return $this->respondCreateSuccess();
     }
 
@@ -71,9 +71,9 @@ class CampusController extends ApiController
      */
     public function show($id)
     {
-        $result = Campus::find($id);
+        $result = Building::find($id);
         if (!$result) return $this->respondNotFound();
-        return $this->respondWithSuccess($this->campusTransformer->transform($result));
+        return $this->respondWithSuccess($this->buildingTransformer->transform($result));
     }
 
     /**
