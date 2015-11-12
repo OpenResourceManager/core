@@ -15,4 +15,12 @@ class Room_Record extends Model
     use SoftDeletes;
     protected $table = 'room_records';
     protected $dates = ['deleted_at'];
+    protected $fillable = [
+        'user_id',
+        'building_id',
+        'floor_number',
+        'floor_name',
+        'room_number',
+        'room_name'
+    ];
 }

@@ -11,10 +11,6 @@
 |
 */
 
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 Route::get('/', function () {
     return Redirect::away(url('docs'));
 });
@@ -37,6 +33,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::group(['prefix' => 'record'], function () {
 
             Route::resource('user', 'UserRecordController');
+            Route::resource('room', 'RoomRecordController');
 
         });
     });
