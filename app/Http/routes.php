@@ -29,12 +29,9 @@ Route::group(['prefix' => 'api'], function () {
 
         Route::resource('campus', 'CampusController');
         Route::resource('building', 'BuildingController');
-
-        Route::group(['prefix' => 'record'], function () {
-
-            Route::resource('user', 'UserRecordController');
-            Route::resource('room', 'RoomRecordController');
-
-        });
+        Route::resource('user', 'UserRecordController');
+        Route::resource('room', 'RoomRecordController');
+        Route::get('building/{id}/rooms', 'RoomRecordController@buildingRooms');
+        Route::get('user/{id}/rooms', 'RoomRecordController@userRooms');
     });
 });

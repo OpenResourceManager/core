@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Building;
 use App\Model\Record\Room_Record;
+use App\Model\Record\User_Record;
 use App\UUD\Transformers\RoomRecordTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -110,5 +112,15 @@ class RoomRecordController extends ApiController
     public function destroy($id)
     {
         //
+    }
+
+    public function buildingRooms($id)
+    {
+        $result = Building::find($id)->rooms;
+    }
+
+    public function userRooms($id)
+    {
+        $result = User_Record::find($id)->rooms;
     }
 }
