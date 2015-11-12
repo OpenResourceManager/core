@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Model\Record\Room;
 use App\Model\Building;
-use App\Model\Record\User_Record;
+use App\Model\Record\User;
 use Faker\Factory as Faker;
 
 /**
@@ -13,7 +13,7 @@ use Faker\Factory as Faker;
  * Date: 7/7/15
  * Time: 8:39 PM
  */
-class RoomRecordTableSeeder extends Seeder
+class RoomTableSeeder extends Seeder
 {
     public function run()
     {
@@ -22,7 +22,7 @@ class RoomRecordTableSeeder extends Seeder
         $faker = Faker::create();
 
         $buildingIds = Building::get()->lists('id')->all();
-        $userIds = User_Record::get()->lists('id')->all();
+        $userIds = User::get()->lists('id')->all();
 
         $floorNames = [
             'First Floor',

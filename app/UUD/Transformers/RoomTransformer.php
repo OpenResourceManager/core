@@ -7,7 +7,7 @@
  */
 namespace App\UUD\Transformers;
 
-class RoomRecordTransformer extends Transformer
+class RoomTransformer extends Transformer
 {
 
     /**

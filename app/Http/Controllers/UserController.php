@@ -2,27 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Building;
-use App\Model\Record\Room;
-use App\Model\Record\User_Record;
-use App\UUD\Transformers\RoomRecordTransformer;
+use App\Model\Record\User;
+use App\UUD\Transformers\UserTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Validator;
 
-class RoomRecordController extends ApiController
+class UserController extends ApiController
 {
-    /**
-     * @var \App\UUD\Transformers\RoomRecordTransformer
-     */
-    protected $roomRecordController;
 
     /**
-     * @param RoomRecordTransformer $roomRecordTransformer
+     * @var \App\UUD\Transformers\UserTransformer
      */
-    function __construct(RoomRecordTransformer $roomRecordTransformer)
+    protected $userRecordTransformer;
+
+    /**
+     * @param UserTransformer $userRecordTransformer
+     */
+    function __construct(UserTransformer $userRecordTransformer)
     {
-        $this->roomRecordTransformer = $roomRecordTransformer;
+        $this->userRecordTransformer = $userRecordTransformer;
     }
 
     /**
@@ -32,8 +31,8 @@ class RoomRecordController extends ApiController
      */
     public function index()
     {
-        $result = Room::all();
-        return $this->respondWithSuccess($this->roomRecordTransformer->transformCollection($result->all()));
+        $result = User::all();
+        return $this->respondWithSuccess($this->userRecordTransformer->transformCollection($result->all()));
     }
 
     /**
@@ -55,15 +54,18 @@ class RoomRecordController extends ApiController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user_id' => 'integer|required|exists:user_records,id,deleted_at,NULL',
-            'building_id' => 'integer|required|exists:buildings,id,deleted_at,NULL',
-            'floor_number' => 'integer',
-            'floor_name' => 'string|max:20',
-            'room_number' => 'integer|required',
-            'room_name' => 'string|max:50'
+            'active' => 'boolean|required',
+            'sageid' => 'string|required|max:7|min:6|unique:user_records,deleted_at,NULL',
+            'name_prefix' => 'string|max:7',
+            'name_first' => 'string|required|min:1',
+            'name_middle' => 'string',
+            'name_last' => 'string|required|min:1',
+            'name_postfix' => 'string|max:7',
+            'name_phonetic' => 'string',
+            'username' => 'string|required|max:11|min:3|unique:user_records,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        Room::create(Input::all());
+        User::create(Input::all());
         return $this->respondCreateSuccess();
     }
 
@@ -75,9 +77,9 @@ class RoomRecordController extends ApiController
      */
     public function show($id)
     {
-        $result = Room::find($id);
+        $result = User::find($id);
         if (!$result) return $this->respondNotFound();
-        return $this->respondWithSuccess($this->roomRecordTransformer->transform($result));
+        return $this->respondWithSuccess($this->userRecordTransformer->transform($result));
     }
 
     /**
@@ -112,15 +114,5 @@ class RoomRecordController extends ApiController
     public function destroy($id)
     {
         //
-    }
-
-    public function buildingRooms($id)
-    {
-        $result = Building::find($id)->rooms;
-    }
-
-    public function userRooms($id)
-    {
-        $result = User_Record::find($id)->rooms;
     }
 }

@@ -9,7 +9,7 @@
 namespace App\UUD\Transformers;
 
 
-class UserRecordTransformer extends Transformer
+class UserTransformer extends Transformer
 {
     /**
      * @param $item

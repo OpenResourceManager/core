@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Model\Building;
 use App\Model\Campus;
-use App\Model\Record\User_Record;
+use App\Model\Record\User;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
             $campus->buildings()->delete();
         });
 
-        User_Record::deleting(function ($user) {
+        User::deleting(function ($user) {
             $user->emails()->delete();
             $user->phones()->delete();
             $user->rooms()->delete();

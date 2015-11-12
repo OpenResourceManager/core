@@ -55,7 +55,7 @@ class CreateTables extends Migration
 
         // Records
 
-        Schema::create('user_records', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('sageid')->unique();
             $table->boolean('active');
@@ -129,7 +129,7 @@ class CreateTables extends Migration
             $table->foreign('user_id')->references('id')->on('user_records')->onDelete('cascade');
         });
 
-        Schema::create('room_records', function (Blueprint $table) {
+        Schema::create('rooms', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('building_id');
@@ -216,7 +216,7 @@ class CreateTables extends Migration
             $table->dropForeign('course_records_user_id_foreign');
         });
 
-        Schema::table('room_records', function (Blueprint $table) {
+        Schema::table('rooms', function (Blueprint $table) {
             $table->dropForeign('room_records_user_id_foreign');
             $table->dropForeign('room_records_building_id_foreign');
         });
@@ -233,13 +233,13 @@ class CreateTables extends Migration
 
         Schema::drop('api_key_records');
         Schema::drop('community_records');
-        Schema::drop('user_records');
+        Schema::drop('users');
         Schema::drop('email_records');
         Schema::drop('phone_records');
         Schema::drop('role_records');
         Schema::drop('department_records');
         Schema::drop('course_records');
-        Schema::drop('room_records');
+        Schema::drop('rooms');
 
         Schema::drop('courses');
         Schema::drop('roles');

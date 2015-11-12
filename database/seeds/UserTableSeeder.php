@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Record\User_Record;
+use App\Model\Record\User;
 use Faker\Factory as Faker;
 
 /**
@@ -11,7 +11,7 @@ use Faker\Factory as Faker;
  * Date: 7/7/15
  * Time: 9:38 AM
  */
-class UserRecordTableSeeder extends Seeder
+class UserTableSeeder extends Seeder
 {
 
     public function run()
@@ -21,7 +21,7 @@ class UserRecordTableSeeder extends Seeder
         $faker = Faker::create();
 
         foreach (range(1, 800) as $index) {
-            User_Record::create([
+            User::create([
                 'sageid' => $faker->unique()->randomNumber($nbDigits = 7, $strict = true),
                 'active' => $faker->boolean(),
                 'name_prefix' => $faker->optional()->title,
