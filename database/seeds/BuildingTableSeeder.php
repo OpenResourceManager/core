@@ -20,7 +20,7 @@ class BuildingTableSeeder extends Seeder
 
         $faker = Faker::create();
 
-        $campusIds = Campus::get()->lists('id');
+        $campusIds = Campus::get()->lists('id')->all();
 
         $buildingPostfixes = [
             'Center',
