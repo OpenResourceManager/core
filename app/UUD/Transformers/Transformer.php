@@ -23,7 +23,7 @@ abstract class Transformer
      */
     public function transformCollection(array $collection)
     {
-        return array_map([$this, 'transform'], $collection->toArray());
+        return array_map([$this, 'transform'], $collection);
     }
 
 }
