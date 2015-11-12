@@ -32,6 +32,7 @@ Route::group(['prefix' => 'api'], function () {
         });
 
         Route::resource('campus', 'CampusController');
+        Route::resource('building', 'BuildingController');
 
     });
 
