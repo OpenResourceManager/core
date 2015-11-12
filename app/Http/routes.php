@@ -35,7 +35,8 @@ Route::group(['prefix' => 'api'], function () {
         Route::resource('building', 'BuildingController');
         Route::resource('user', 'UserController');
         Route::resource('room', 'RoomController');
-        Route::get('building/{id}/rooms', 'RoomController@buildingRooms');
-        Route::get('user/{id}/rooms', 'RoomController@userRooms');
+
+        Route::get('building/{id}/room', 'RoomController@buildingRooms');
+        Route::get('user/{id}/room', 'RoomController@userRooms');
     });
 });
