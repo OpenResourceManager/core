@@ -8,9 +8,9 @@
  */
 
 use App\Model\Type\Campus;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Response;
+
 
 class CampusController extends BaseController
 {
@@ -19,7 +19,7 @@ class CampusController extends BaseController
     {
         $results = Campus::all();
 
-        return Response::json([
+        return  Response::json([
             'data' => $results->toArray()
         ], 200);
     }
