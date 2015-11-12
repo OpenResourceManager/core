@@ -40,11 +40,11 @@ class BuildingTableSeeder extends Seeder
         ];
 
         foreach (range(1, 100) as $index) {
-            $name = $faker->unique()->randomElement([
+            $name = preg_replace('/\s\s+/', ' ', $faker->unique()->randomElement([
                 trim($faker->optional()->firstName . ' ' . $faker->unique()->lastName . ' ' . $faker->randomElement($buildingPostfixes)),
                 trim($faker->streetName . ' ' . $faker->randomElement($buildingPostfixes)),
                 trim($faker->randomElement($directions) . ' ' . $faker->optional()->lastName . ' ' . $faker->randomElement($buildingPostfixes))
-            ]);
+            ]));
             $num = $faker->unique()->randomNumber($nbDigits = 3);
             $code = strtoupper(trim(substr($name, 0, 3)) . $num);
             Building::create([
