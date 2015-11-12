@@ -39,7 +39,7 @@ class BuildingTableSeeder extends Seeder
             'West',
         ];
 
-        foreach (range(1, 500) as $index) {
+        foreach (range(1, 300) as $index) {
             $name = preg_replace('/\s\s+/', ' ', $faker->unique()->randomElement([
                 trim($faker->optional()->firstName . ' ' . $faker->unique()->lastName . ' ' . $faker->randomElement($buildingPostfixes)),
                 trim($faker->streetName . ' ' . $faker->randomElement($buildingPostfixes)),
