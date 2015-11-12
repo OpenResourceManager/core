@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Model\Type\Campus;
+use App\Model\Type\Course;
 use App\UUD\Transformers\CampusTransformer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
 class CampusController extends ApiController
@@ -58,6 +60,7 @@ class CampusController extends ApiController
             'name' => 'string|required|max:30|min:3'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        Course::create(Input::all());
         return $this->respondCreateSuccess();
     }
 

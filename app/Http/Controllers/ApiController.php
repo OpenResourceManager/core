@@ -98,7 +98,7 @@ class ApiController extends Controller
      */
     public function respondCreateSuccess($message = 'Created')
     {
-        return $this->respondWithSuccess($message);
+        return $this->setStatusCode(201)->respondWithSuccess($message);
     }
 
     /**
