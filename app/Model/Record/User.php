@@ -29,7 +29,7 @@ class User extends Model
 
     public function rooms()
     {
-        return $this->belongsToMany('App\Model\Record\Room', 'rooms');
+        return $this->belongsToMany('App\Model\Record\Room', 'rooms', 'user_id', 'id');
     }
 
     public function emails()
