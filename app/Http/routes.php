@@ -32,11 +32,21 @@ Route::group(['prefix' => 'api'], function () {
         });
 
         Route::resource('campus', 'CampusController');
+
         Route::resource('building', 'BuildingController');
+        Route::get('building/{id}/room', 'RoomController@buildingRooms');
+
         Route::resource('user', 'UserController');
+        Route::get('user/{id}/room', 'RoomController@userRooms');
+        Route::get('user/{id}/email', 'EmailController@userEmails');
+        Route::get('user/{id}/phone', 'PhoneController@userPhones');
+
         Route::resource('room', 'RoomController');
 
-        Route::get('building/{id}/room', 'RoomController@buildingRooms');
-        Route::get('user/{id}/room', 'RoomController@userRooms');
+        Route::resource('email', 'EmailController');
+
+        Route::resource('phone', 'PhoneController');
+
+
     });
 });

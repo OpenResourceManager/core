@@ -13,7 +13,7 @@ class CampusController extends ApiController
 {
 
     /**
-     * @var \App\UUD\Transformers\CampusTransformer
+     * @var CampusTransformer
      */
     protected $campusTransformer;
 

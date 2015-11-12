@@ -15,4 +15,5 @@ class Phone extends Model
     use SoftDeletes;
     protected $table = 'phone_records';
     protected $dates = ['deleted_at'];
+    protected $fillable = ['user_id', 'number', 'ext'];
 }

@@ -13,16 +13,16 @@ use Illuminate\Support\Facades\Validator;
 class RoomController extends ApiController
 {
     /**
-     * @var \App\UUD\Transformers\RoomTransformer
+     * @var RoomTransformer
      */
-    protected $roomRecordController;
+    protected $roomTransformer;
 
     /**
      * @param RoomTransformer $roomRecordTransformer
      */
-    function __construct(RoomTransformer $roomRecordTransformer)
+    function __construct(RoomTransformer $roomTransformer)
     {
-        $this->roomRecordTransformer = $roomRecordTransformer;
+        $this->roomTransformer = $roomTransformer;
     }
 
     /**
@@ -33,7 +33,7 @@ class RoomController extends ApiController
     public function index()
     {
         $result = Room::all();
-        return $this->respondWithSuccess($this->roomRecordTransformer->transformCollection($result->all()));
+        return $this->respondWithSuccess($this->roomTransformer->transformCollection($result->all()));
     }
 
     /**
@@ -77,7 +77,7 @@ class RoomController extends ApiController
     {
         $result = Room::find($id);
         if (!$result) return $this->respondNotFound();
-        return $this->respondWithSuccess($this->roomRecordTransformer->transform($result));
+        return $this->respondWithSuccess($this->roomTransformer->transform($result));
     }
 
     /**
@@ -118,13 +118,13 @@ class RoomController extends ApiController
     {
         $result = Building::find($id)->rooms;
 
-        return $this->respondWithSuccess($this->roomRecordTransformer->transformCollection($result->all()));
+        return $this->respondWithSuccess($this->roomTransformer->transformCollection($result->all()));
     }
 
     public function userRooms($id)
     {
         $result = User::find($id)->rooms;
 
-        return $this->respondWithSuccess($this->roomRecordTransformer->transformCollection($result->all()));
+        return $this->respondWithSuccess($this->roomTransformer->transformCollection($result->all()));
     }
 }

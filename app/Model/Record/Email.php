@@ -15,4 +15,5 @@ class Email extends Model
     use SoftDeletes;
     protected $table = 'emails';
     protected $dates = ['deleted_at'];
+    protected $fillable = ['user_id', 'email'];
 }

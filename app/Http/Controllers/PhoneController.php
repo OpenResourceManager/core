@@ -3,25 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Model\Record\User;
-use App\UUD\Transformers\UserTransformer;
+use App\UUD\Transformers\PhoneTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use Illuminate\Support\Facades\Validator;
 
-class UserController extends ApiController
+class PhoneController extends ApiController
 {
+    /**
+     * @var PhoneTransformer
+     */
+    protected $phoneTransformer;
 
     /**
-     * @var UserTransformer
+     * @param PhoneTransformer $phoneTransformer
      */
-    protected $userTransformer;
-
-    /**
-     * @param UserTransformer $userTransformer
-     */
-    function __construct(UserTransformer $userTransformer)
+    function __construct(PhoneTransformer $phoneTransformer)
     {
-        $this->userTransformer = $userTransformer;
+        $this->phoneTransformer = $phoneTransformer;
     }
 
     /**
@@ -31,8 +29,7 @@ class UserController extends ApiController
      */
     public function index()
     {
-        $result = User::all();
-        return $this->respondWithSuccess($this->userTransformer->transformCollection($result->all()));
+        //
     }
 
     /**
@@ -53,20 +50,7 @@ class UserController extends ApiController
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'active' => 'boolean|required',
-            'sageid' => 'string|required|max:7|min:6|unique:user_records,deleted_at,NULL',
-            'name_prefix' => 'string|max:7',
-            'name_first' => 'string|required|min:1',
-            'name_middle' => 'string',
-            'name_last' => 'string|required|min:1',
-            'name_postfix' => 'string|max:7',
-            'name_phonetic' => 'string',
-            'username' => 'string|required|max:11|min:3|unique:user_records,deleted_at,NULL'
-        ]);
-        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        User::create(Input::all());
-        return $this->respondCreateSuccess();
+        //
     }
 
     /**
@@ -77,9 +61,7 @@ class UserController extends ApiController
      */
     public function show($id)
     {
-        $result = User::find($id);
-        if (!$result) return $this->respondNotFound();
-        return $this->respondWithSuccess($this->userTransformer->transform($result));
+        //
     }
 
     /**
@@ -114,5 +96,16 @@ class UserController extends ApiController
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function userPhones($id)
+    {
+        $result = User::find($id)->phones;
+
+        return $this->respondWithSuccess($this->phoneTransformer->transformCollection($result->all()));
     }
 }

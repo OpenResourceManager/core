@@ -12,7 +12,7 @@ class BuildingController extends ApiController
 {
 
     /**
-     * @var \App\UUD\Transformers\BuildingTransformer
+     * @var BuildingTransformer
      */
     protected $buildingTransformer;
 
