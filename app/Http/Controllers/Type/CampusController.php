@@ -19,7 +19,8 @@ class CampusController extends BaseController
     {
         $result = Campus::all();
 
-        return  Response::json([
+        return Response::json([
+            'success' => true,
             'result' => $result->toArray()
         ], 200);
     }
