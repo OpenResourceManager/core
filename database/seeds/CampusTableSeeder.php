@@ -23,7 +23,7 @@ class CampusTableSeeder extends Seeder
         foreach (range(1, 5) as $index) {
             $city = $faker->city;
             Campus::create([
-                'code' => strtoupper(substr($city, 3)),
+                'code' => strtoupper(substr($city, 0, 3)),
                 'name' => $city
             ]);
 
