@@ -19,7 +19,7 @@ class CampusTableSeeder extends Seeder
         $faker = Faker::create();
 
         foreach (range(1, 5) as $index) {
-            $city = $faker->city;
+            $city = $faker->unique()->city;
             Campus::create([
                 'code' => strtoupper(trim(substr($city, 0, 3))),
                 'name' => $city
