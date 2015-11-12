@@ -30,15 +30,22 @@ class BuildingTableSeeder extends Seeder
             'Court',
             'Annex',
             'Pavilion',
-            ''
+        ];
+
+        $directions = [
+            'North',
+            'South',
+            'East',
+            'West',
         ];
 
         foreach (range(1, 100) as $index) {
-            $bname1 = $faker->optional()->firstName;
-            $bname2 = $faker->unique()->lastName;
-            $bname3 = $faker->optional()->randomElement($buildingPostfixes);
+            $name = $faker->unique()->randomElement([
+                trim($faker->optional()->firstName . ' ' . $faker->unique()->lastName . ' ' . $faker->randomElement($buildingPostfixes)),
+                trim($faker->streetName . ' ' . $faker->randomElement($buildingPostfixes)),
+                trim($faker->randomElement($directions) . ' ' . $faker->optional()->lastName . ' ' . $faker->randomElement($buildingPostfixes))
+            ]);
             $num = $faker->unique()->randomNumber($nbDigits = 3);
-            $name = trim($bname1 . ' ' . $bname2 . ' ' . $bname3);
             $code = strtoupper(trim(substr($name, 0, 3)) . $num);
             Building::create([
                 'campus_id' => $faker->randomElement($campusIds),
@@ -46,6 +53,5 @@ class BuildingTableSeeder extends Seeder
                 'name' => $name
             ]);
         }
-
     }
 }
