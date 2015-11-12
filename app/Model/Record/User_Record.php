@@ -32,7 +32,7 @@ class User_Record extends Model
      */
     public function rooms()
     {
-        return $this->belongsToMany('App\Model\Record\Room_Record');
+        return $this->hasMany('App\Model\Record\Room_Record');
     }
 
     public function emails()

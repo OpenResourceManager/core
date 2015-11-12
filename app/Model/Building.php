@@ -17,12 +17,9 @@ class Building extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = ['campus_id', 'code', 'name'];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
     public function rooms()
     {
-        return $this->belongsToMany('App\Model\Record\Room_Record');
+        return $this->hasMany('App\Model\Record\Room_Record');
     }
 }
 
