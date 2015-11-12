@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Type\Building;
-use app\UUD\Transformers\BuildingTransformer;
+use App\UUD\Transformers\BuildingTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Validator;
