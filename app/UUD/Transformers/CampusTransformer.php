@@ -17,6 +17,7 @@ class CampusTransformer extends Transformer
     public function transform($campus)
     {
         return [
+            'id' => (int)$campus['id'],
             'code' => $campus['code'],
             'name' => $campus['name']
         ];
