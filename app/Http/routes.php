@@ -12,7 +12,6 @@
 */
 
 
-
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -20,13 +19,20 @@ Route::get('/', function () {
     return Redirect::away(url('docs'));
 });
 
-Route::group(['prefix' => 'api/v1'], function () {
+Route::group(['prefix' => 'api'], function () {
 
     Route::get('/', function () {
         return Redirect::away(url('docs'));
     });
 
-    Route::resource('campuses', 'Type\CampusController');
-    Route::resource('buildings', 'Type\BuildingController');
+    Route::group(['prefix' => 'v1'], function () {
+
+        Route::get('/', function () {
+            return Redirect::away(url('docs'));
+        });
+
+        Route::resource('campus', 'CampusController');
+
+    });
 
 });
