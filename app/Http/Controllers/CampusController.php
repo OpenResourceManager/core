@@ -6,9 +6,24 @@ use App\Http\Requests;
 use App\Model\Type\Campus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+use UUD\Transformers\CampusTransformer;
 
 class CampusController extends Controller
 {
+
+    /**
+     * @var UUD\Transformers\CampusTransformer
+     */
+    protected $campusTransformer;
+
+    /**
+     * @param CampusTransformer $campusTransformer
+     */
+    function __construct(CampusTransformer $campusTransformer)
+    {
+        $this->campusTransformer = $campusTransformer;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,11 +31,11 @@ class CampusController extends Controller
      */
     public function index()
     {
-        $result = $this->transformCollection(Campus::all());
+        $result = Campus::all();
 
         return Response::json([
             'success' => true,
-            'result' => $result
+            'result' => $this->campusTransformer->transformCollection($result->all())
         ], 200);
     }
 
@@ -53,7 +68,7 @@ class CampusController extends Controller
      */
     public function show($id)
     {
-        $result = $this->transform(Campus::find($id));
+        $result = Campus::find($id);
 
         if (!$result) {
             return Response::json([
@@ -64,7 +79,7 @@ class CampusController extends Controller
 
         return Response::json([
             'success' => true,
-            'result' => $result
+            'result' => $this->campusTransformer->transform($result)
         ], 200);
     }
 
@@ -100,26 +115,5 @@ class CampusController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * @param $campus
-     * @return array
-     */
-    private function transform($campus)
-    {
-        return [
-            'code' => $campus['code'],
-            'name' => $campus['name']
-        ];
-    }
-
-    /**
-     * @param $campuses
-     * @return array
-     */
-    private function transformCollection($campuses)
-    {
-        return array_map([$this, 'transform'], $campuses->toArray());
     }
 }
