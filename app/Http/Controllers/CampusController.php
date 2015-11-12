@@ -53,7 +53,19 @@ class CampusController extends Controller
      */
     public function show($id)
     {
-        //
+        $result = Campus::find($id);
+
+        if (!$result) {
+            return Response::json([
+                'success' => false,
+                'error' => 'Not found'
+            ], 404);
+        }
+
+        return Response::json([
+            'success' => true,
+            'result' => $result
+        ], 200);
     }
 
     /**
