@@ -16,11 +16,11 @@ class CampusController extends Controller
      */
     public function index()
     {
-        $result = Campus::all();
+        $result = $this->transform(Campus::all());
 
         return Response::json([
             'success' => true,
-            'result' => $this->transform($result)
+            'result' => $result
         ], 200);
     }
 
