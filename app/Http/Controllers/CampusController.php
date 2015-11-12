@@ -101,4 +101,18 @@ class CampusController extends Controller
     {
         //
     }
+
+    /**
+     * @param $campuses
+     * @return array
+     */
+    private function transform($campuses)
+    {
+        return array_map(function ($campus) {
+            return [
+                'code' => $campus['code'],
+                'name' => $campus['name']
+            ];
+        }, $campuses->toArray());
+    }
 }
