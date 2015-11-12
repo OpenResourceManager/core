@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Model\Type\Building;
-use App\Model\Type\Campus;
+use App\Model\Building;
+use App\Model\Campus;
 use App\Model\Record\User_Record;
 use Illuminate\Support\ServiceProvider;
 
