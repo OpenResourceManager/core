@@ -28,11 +28,11 @@ class User_Record extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function rooms()
     {
-        return $this->hasMany('App\Model\Record\Room_Record');
+        return $this->belongsToMany('App\Model\Record\Room_Record');
     }
 
     public function emails()
