@@ -25,7 +25,7 @@ class CourseTableSeeder extends Seeder
         foreach (range(1, 478) as $index) {
             Course::create([
                 'department_id' => $faker->randomElement($deptIds),
-                'code' => $faker->unique()->text(5) . $faker->randomNumber(3, true),
+                'code' => $faker->unique()->text(7) . $faker->randomNumber(3, true),
                 'name' => $faker->unique()->sentence
             ]);
         }
