@@ -31,6 +31,14 @@ class ApiTester extends TestCase
         $this->fake = Faker::create();
     }
 
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->app['artisan']->call('migrate');
+    }
+
+
     /**
      * @param $count
      * @return $this
