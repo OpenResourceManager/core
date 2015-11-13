@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Model\Department;
-use Faker\Generator as Faker;
+use Faker\Factory as Faker;
 
 /**
  * Created by PhpStorm.
@@ -17,15 +17,13 @@ class DepartmentTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $faker = new Faker;
-
-        $faker->addProvider(new Faker\Provider\en_US\Company($faker));
+        $faker = Faker::create();
 
         foreach (range(1, 150) as $index) {
             Department::create([
                 'academic' => $faker->boolean(40),
                 'code' => $faker->unique()->text(3),
-                'name' => $faker->unique()->catchPhrase,
+                'name' => $faker->unique()->company,
             ]);
         }
     }
