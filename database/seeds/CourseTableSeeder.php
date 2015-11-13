@@ -3,6 +3,8 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Model\Course;
+use App\Model\Department;
+use Faker\Factory as Faker;
 
 /**
  * Created by PhpStorm.
@@ -16,22 +18,19 @@ class CourseTableSeeder extends Seeder
     {
         Model::unguard();
 
-        // Create an array of courses
-        $courses = array(
-            array('SPAN101', 'Spanish 101', 2),
-            array('FREN101', 'French 101', 2),
-            array('GERM101', 'German 101', 2),
-            array('ENGL101', 'English 101', 2)
-        );
+        $faker = Faker::create();
 
-        // Loop through the array then save the data to the database
-        foreach ($courses as $courseArr) {
-            $course = new Course();
-            $course->code = $courseArr[0];
-            $course->name = $courseArr[1];
-            $course->department_id = $courseArr[2];
-            $course->save();
+        $deptIds = Department::get()->lists('id')->where('academic', true)->all();
+
+        foreach (range(1, 478) as $index) {
+            Course::create([
+                'department_id' => $faker->randomElement($deptIds),
+                'code' => $faker->unique()->text(5) . $faker->randomNumber(3, true),
+                'name' => $faker->unique()->sentence
+            ]);
         }
+
+
     }
 
 }

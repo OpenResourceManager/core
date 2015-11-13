@@ -15,4 +15,5 @@ class Course extends Model
     use SoftDeletes;
     protected $table = 'courses';
     protected $dates = ['deleted_at'];
+    protected $fillable = ['department_id', 'code', 'name'];
 }
