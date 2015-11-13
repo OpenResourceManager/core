@@ -3,6 +3,8 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Model\Record\Phone;
+use App\Model\Record\User;
+use Faker\Factory as Faker;
 
 /**
  * Created by PhpStorm.
@@ -16,19 +18,17 @@ class PhoneTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $phones = array(
-            array(1, '15182445765', '4765'),
-            array(1, '15187032319', null),
-            array(2, '15182442355', '2355'),
-            array(3, '15182444582', '4582'),
-        );
+        $faker = Faker::create();
 
-        foreach ($phones as $phoneArr) {
-            $phone = new Phone();
-            $phone->user_id = $phoneArr[0];
-            $phone->number = $phoneArr[1];
-            $phone->ext = $phoneArr[2];
-            $phone->save();
+        $userIds = User::get()->lists('id')->all();
+
+        foreach (range(1, 200) as $index) {
+            Phone::create([
+                'user_id' => $faker->randomElement($userIds),
+                'number' => 1 . $faker->unique()->randomNumber($nbDigits = 10, $strict = true),
+                'ext' => $faker->optional()->randomNumber($nbDigits = 4, $strict = false)
+            ]);
+
         }
     }
 }

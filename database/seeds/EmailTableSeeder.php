@@ -3,6 +3,8 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Model\Record\Email;
+use App\Model\Record\User;
+use Faker\Factory as Faker;
 
 /**
  * Created by PhpStorm.
@@ -16,19 +18,15 @@ class EmailTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $emails = array(
-            array(1, 'markea@sage.edu'),
-            array(1, 'markea125@gmail.com'),
-            array(1, 'markea@almyz125.com'),
-            array(2, 'starna@sage.edu'),
-            array(3, 'harrij8@sage.edu')
-        );
+        $faker = Faker::create();
 
-        foreach ($emails as $emailArr) {
-            $email = new Email();
-            $email->user_id = $emailArr[0];
-            $email->email = $emailArr[1];
-            $email->save();
+        $userIds = User::get()->lists('id')->all();
+
+        foreach (range(1, 200) as $index) {
+            Email::create([
+                'user_id' => $faker->randomElement($userIds),
+                'email' => $faker->unique()->email
+            ]);
         }
 
     }
