@@ -54,7 +54,6 @@ class UserController extends ApiController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'active' => 'boolean|required',
             'user_identifier' => 'string|required|max:7|min:6|unique:users,deleted_at,NULL',
             'name_prefix' => 'string|max:7',
             'name_first' => 'string|required|min:1',

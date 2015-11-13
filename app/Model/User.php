@@ -17,7 +17,6 @@ class User extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'user_identifier',
-        'active',
         'name_prefix',
         'name_first',
         'name_middle',
