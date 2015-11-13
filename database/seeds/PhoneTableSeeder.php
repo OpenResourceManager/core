@@ -57,7 +57,6 @@ class PhoneTableSeeder extends Seeder
                 $carrier = null;
             }
 
-
             Phone::create([
                 'user_id' => $faker->randomElement($userIds),
                 'number' => $number,
