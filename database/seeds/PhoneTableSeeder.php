@@ -24,7 +24,7 @@ class PhoneTableSeeder extends Seeder
 
         foreach (range(1, 500) as $index) {
             $p = explode('x', $faker->unique()->phoneNumber);
-            $number = intval('1' . trim(str_replace('-', '', $p[1])));
+            $number = intval('1' . trim(str_replace('-', '', $p[0])));
             $ext = intval($p[1]);
 
             Phone::create([
