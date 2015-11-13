@@ -23,16 +23,23 @@ class PhoneTableSeeder extends Seeder
         $userIds = User::get()->lists('id')->all();
 
         foreach (range(1, 500) as $index) {
-            $p = explode('x', $faker->unique()->phoneNumber);
-            $number = intval('1' . trim(str_replace('-', '', $p[0])));
-            $ext = intval($p[1]);
+
+            $ext = null;
+            $number = $faker->randomElement([
+                intval(1518 . $faker->unique()->randomNumber(7)),
+                intval(1518 . $faker->randomElement([244, 292]))
+            ]);
+
+            if ($number == 1518244 || 1518292) {
+                $ext = $faker->unique()->randomNumber(4);
+                $number = $number . $ext;
+            }
 
             Phone::create([
                 'user_id' => $faker->randomElement($userIds),
                 'number' => $number,
                 'ext' => $ext
             ]);
-
         }
     }
 }
