@@ -15,5 +15,6 @@ class Department extends Model
     use SoftDeletes;
     protected $table = 'departments';
     protected $dates = ['deleted_at'];
+    protected $fillable = ['academic', 'code', 'name'];
 
 }
