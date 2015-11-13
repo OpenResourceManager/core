@@ -29,8 +29,5 @@ class CourseTableSeeder extends Seeder
                 'name' => $faker->unique()->sentence
             ]);
         }
-
-
     }
-
 }
