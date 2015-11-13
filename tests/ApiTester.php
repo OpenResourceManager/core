@@ -7,6 +7,7 @@
  * Time: 2:41 PM
  */
 
+use \Illuminate\Support\Facades\Artisan;
 use Faker\Factory as Faker;
 
 class ApiTester extends TestCase
@@ -35,7 +36,7 @@ class ApiTester extends TestCase
     {
         parent::setUp();
 
-        $this->app['artisan']->call('migrate');
+        Artisan::call('migrate');
     }
 
 
