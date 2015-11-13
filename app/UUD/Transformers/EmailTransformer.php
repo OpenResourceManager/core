@@ -17,8 +17,8 @@ class EmailTransformer extends Transformer
     public function transform($item)
     {
         return [
-            'id' => $item['id'],
-            'user_id' => $item['user_id'],
+            'id' => (int)$item['id'],
+            'user_id' => (int)$item['user_id'],
             'email' => $item['email']
         ];
     }

@@ -17,10 +17,10 @@ class PhoneTransformer extends Transformer
     public function transform($item)
     {
         return [
-            'id' => $item['id'],
-            'user_id' => $item['user_id'],
-            'number' => $item['number'],
-            'ext' => $item['ext'],
+            'id' => (int)$item['id'],
+            'user_id' => (int)$item['user_id'],
+            'number' => (int)$item['number'],
+            'ext' => (int)$item['ext'],
         ];
     }
 
