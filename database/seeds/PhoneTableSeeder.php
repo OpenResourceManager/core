@@ -22,11 +22,11 @@ class PhoneTableSeeder extends Seeder
 
         $userIds = User::get()->lists('id')->all();
 
-        foreach (range(1, 200) as $index) {
+        foreach (range(1, 500) as $index) {
             Phone::create([
                 'user_id' => $faker->randomElement($userIds),
-                'number' => 1 . $faker->unique()->randomNumber($nbDigits = 10, $strict = true),
-                'ext' => $faker->optional()->randomNumber($nbDigits = 4, $strict = false)
+                'number' => $faker->unique()->randomNumber($nbDigits = 11, $strict = true),
+                'ext' => $faker->optional()->randomNumber($nbDigits = 5)
             ]);
 
         }
