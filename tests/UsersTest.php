@@ -25,6 +25,9 @@ class UsersTest extends ApiTester
     }
 
 
+    /**
+     * @param array $userFields
+     */
     private function makeUser($userFields = [])
     {
         while ($this->times--) {

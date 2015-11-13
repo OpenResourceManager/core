@@ -33,11 +33,22 @@ class ApiTester extends TestCase
 
     /**
      * @param $count
+     * @return $this
      */
     public function times($count)
     {
         $this->times = $count;
         return $this;
+    }
+
+    /**
+     * @param $uri
+     * @return string
+     */
+    protected function getJson($uri)
+    {
+        return json_encode($this->call('GET', $uri)->getContent());
+
     }
 
 }
