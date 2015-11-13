@@ -30,7 +30,7 @@ class UsersTest extends ApiTester
         while ($this->times--) {
 
             $user = array_merge([
-                'user_identifier' => $this->fake->unique()->unrandomNumber($nbDigits = 7, $strict = true),
+                'user_identifier' => $this->fake->unique()->randomNumber($nbDigits = 7, $strict = true),
                 'name_prefix' => $this->fake->optional()->title,
                 'name_first' => $this->fake->firstName,
                 'name_middle' => $this->fake->optional()->firstName,
