@@ -22,7 +22,7 @@ class UserTableSeeder extends Seeder
 
         foreach (range(1, 800) as $index) {
             User::create([
-                'sageid' => $faker->unique()->randomNumber($nbDigits = 7, $strict = true),
+                'user_identifier' => $faker->unique()->randomNumber($nbDigits = 7, $strict = true),
                 'active' => $faker->boolean(),
                 'name_prefix' => $faker->optional()->title,
                 'name_first' => $faker->firstName,

@@ -20,7 +20,7 @@ class UserTransformer extends Transformer
         return [
             'id' => (int)$item['id'],
             'active' => (bool)$item['active'],
-            'sageid' => $item['sageid'],
+            'user_identifier' => $item['user_identifier'],
             'username' => $item['username'],
             'name_prefix' => $item['name_prefix'],
             'name_first' => $item['name_first'],

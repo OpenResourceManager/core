@@ -16,7 +16,7 @@ class User extends Model
     protected $table = 'users';
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'sageid',
+        'user_identifier',
         'active',
         'name_prefix',
         'name_first',

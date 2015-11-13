@@ -55,7 +55,7 @@ class UserController extends ApiController
     {
         $validator = Validator::make($request->all(), [
             'active' => 'boolean|required',
-            'sageid' => 'string|required|max:7|min:6|unique:users,deleted_at,NULL',
+            'user_identifier' => 'string|required|max:7|min:6|unique:users,deleted_at,NULL',
             'name_prefix' => 'string|max:7',
             'name_first' => 'string|required|min:1',
             'name_middle' => 'string',
