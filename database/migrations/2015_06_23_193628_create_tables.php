@@ -84,6 +84,8 @@ class CreateTables extends Migration
             $table->unsignedInteger('user_id');
             $table->string('number', 11)->unique();
             $table->string('ext', 5)->nullable();
+            $table->boolean('is_cell')->nullable();
+            $table->string('carrier', 20)->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

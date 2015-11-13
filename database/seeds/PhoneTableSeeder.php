@@ -22,7 +22,7 @@ class PhoneTableSeeder extends Seeder
 
         $userIds = User::get()->lists('id')->all();
 
-        foreach (range(1, 2000) as $index) {
+        foreach (range(1, 1000) as $index) {
 
             $number = $faker->randomElement([
                 intval(1 . $faker->randomNumber(3, true) . $faker->unique()->randomNumber(7)),
@@ -32,14 +32,38 @@ class PhoneTableSeeder extends Seeder
             if ($number === 1518244 || $number === 1518292) {
                 $ext = $faker->unique()->randomNumber(4, true);
                 $number = $number . $ext;
+                $cell = false;
             } else {
                 $ext = $faker->optional()->randomNumber(4);
+                $cell = $faker->boolean();
             }
+
+            if ($cell) {
+                $carrier = $faker->randomElement([
+                    'T-Mobile',
+                    'Sprint',
+                    'AT&T',
+                    'Verizon',
+                    'Boost Mobile',
+                    'Cricket Wireless',
+                    'Straight Talk',
+                    'Vodaphone',
+                    'Virgin Mobile',
+                    'MetroPCS',
+                    'TracPhone',
+                    'Other'
+                ]);
+            } else {
+                $carrier = null;
+            }
+
 
             Phone::create([
                 'user_id' => $faker->randomElement($userIds),
                 'number' => $number,
-                'ext' => $ext
+                'ext' => $ext,
+                'is_cell' => $cell,
+                'carrier' => $carrier
             ]);
         }
     }

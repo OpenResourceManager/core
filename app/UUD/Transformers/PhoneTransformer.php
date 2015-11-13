@@ -21,6 +21,8 @@ class PhoneTransformer extends Transformer
             'user_id' => (int)$item['user_id'],
             'number' => (int)$item['number'],
             'ext' => (int)$item['ext'],
+            'is_cell' => (bool)$item['is_cell'],
+            'carrier' => $item['carrier']
         ];
     }
 
