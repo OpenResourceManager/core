@@ -24,15 +24,16 @@ class PhoneTableSeeder extends Seeder
 
         foreach (range(1, 500) as $index) {
 
-            $ext = null;
             $number = $faker->randomElement([
-                intval(1518 . $faker->unique()->randomNumber(7)),
+                intval(1 . $faker->randomNumber(3, true) . $faker->unique()->randomNumber(7)),
                 intval(1518 . $faker->randomElement([244, 292]))
             ]);
 
-            if ($number == 1518244 || 1518292) {
-                $ext = $faker->unique()->randomNumber(4);
+            if ($number === 1518244 || $number === 1518292) {
+                $ext = $faker->unique()->randomNumber(4, true);
                 $number = $number . $ext;
+            } else {
+                $ext = $faker->optional()->randomNumber(4);
             }
 
             Phone::create([
