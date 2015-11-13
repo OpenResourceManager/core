@@ -17,4 +17,9 @@ class Department extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = ['academic', 'code', 'name'];
 
+    public function courses()
+    {
+        return $this->hasMany('App\Model\Course');
+    }
+
 }

@@ -20,7 +20,7 @@ class CourseTableSeeder extends Seeder
 
         $faker = Faker::create();
 
-        $deptIds = Department::get()->lists('id')->where('academic', true)->all();
+        $deptIds = Department::where('academic', true)->lists('id')->all();
 
         foreach (range(1, 478) as $index) {
             Course::create([

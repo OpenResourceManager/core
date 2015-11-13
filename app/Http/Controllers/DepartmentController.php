@@ -2,26 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Email;
-use App\Model\User;
-use App\UUD\Transformers\EmailTransformer;
+use App\Model\Department;
+use App\UUD\Transformers\DepartmentTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Validator;
 
-class EmailController extends ApiController
+class DepartmentController extends ApiController
 {
     /**
-     * @var EmailTransformer
+     * @var DepartmentTransformer
      */
-    protected $emailTransformer;
+    protected $departmentTransformer;
 
     /**
-     * @param EmailTransformer $emailTransformer
+     * @param DepartmentTransformer $departmentTransformer
      */
-    function __construct(EmailTransformer $emailTransformer)
+    function __construct(DepartmentTransformer $departmentTransformer)
     {
-        $this->emailTransformer = $emailTransformer;
+        $this->departmentTransformer = $departmentTransformer;
     }
 
     /**
@@ -31,8 +30,8 @@ class EmailController extends ApiController
      */
     public function index()
     {
-        $result = Email::all();
-        return $this->respondWithSuccess($this->emailTransformer->transformCollection($result->all()));
+        $result = Department::all();
+        return $this->respondWithSuccess($this->departmentTransformer->transformCollection($result->all()));
     }
 
     /**
@@ -54,12 +53,13 @@ class EmailController extends ApiController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
-            'email' => 'email|required|unique:emails,deleted_at,NULL',
+            'academic' => 'boolean|required',
+            'code' => 'string|required|min:3|unique:departments,deleted_at,NULL',
+            'name' => 'integer|required|min:5',
 
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $item = Email::create(Input::all());
+        $item = Department::create(Input::all());
         return $this->respondCreateSuccess($id = $item->id);
     }
 
@@ -71,9 +71,9 @@ class EmailController extends ApiController
      */
     public function show($id)
     {
-        $result = Email::find($id);
+        $result = Department::find($id);
         if (!$result) return $this->respondNotFound();
-        return $this->respondWithSuccess($this->emailTransformer->transform($result));
+        return $this->respondWithSuccess($this->departmentTransformer->transform($result));
     }
 
     /**
@@ -108,15 +108,5 @@ class EmailController extends ApiController
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function userEmails($id)
-    {
-        $result = User::find($id)->emails;
-        return $this->respondWithSuccess($this->emailTransformer->transformCollection($result->all()));
     }
 }

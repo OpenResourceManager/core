@@ -31,22 +31,26 @@ Route::group(['prefix' => 'api'], function () {
             return Redirect::away(url('docs'));
         });
 
-        Route::resource('campus', 'CampusController');
+        Route::resource('campuses', 'CampusController');
 
-        Route::resource('building', 'BuildingController');
-        Route::get('building/{id}/room', 'RoomController@buildingRooms');
+        Route::resource('buildings', 'BuildingController');
+        Route::get('buildings/{id}/room', 'RoomController@buildingRooms');
 
-        Route::resource('user', 'UserController');
-        Route::get('user/{id}/room', 'RoomController@userRooms');
-        Route::get('user/{id}/email', 'EmailController@userEmails');
-        Route::get('user/{id}/phone', 'PhoneController@userPhones');
+        Route::resource('users', 'UserController');
+        Route::get('users/{id}/room', 'RoomController@userRooms');
+        Route::get('users/{id}/email', 'EmailController@userEmails');
+        Route::get('users/{id}/phone', 'PhoneController@userPhones');
 
-        Route::resource('room', 'RoomController');
+        Route::resource('rooms', 'RoomController');
 
-        Route::resource('email', 'EmailController');
+        Route::resource('emails', 'EmailController');
 
-        Route::resource('phone', 'PhoneController');
+        Route::resource('phones', 'PhoneController');
 
+        Route::resource('departments', 'DepartmentController');
+        Route::get('departments/{id}/course', 'CourseController@departmentCourses');
+
+        Route::resource('courses', 'CourseController');
 
     });
 });
