@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Model\Building;
 use App\Model\Campus;
-use App\Model\Record\User;
+use App\Model\User;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

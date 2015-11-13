@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Record\User;
-use App\Model\Record\Phone;
+use App\Model\User;
+use App\Model\Phone;
 use App\UUD\Transformers\PhoneTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;

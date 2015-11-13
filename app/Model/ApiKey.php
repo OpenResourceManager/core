@@ -1,4 +1,4 @@
-<?php namespace App\Model\Record;
+<?php namespace App\Model;
 
 /**
  * Created by PhpStorm.
@@ -10,10 +10,10 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class API_Key_Record extends Model
+class Apikey extends Model
 {
     use SoftDeletes;
-    protected $table = 'api_key_records';
+    protected $table = 'apikeys';
     protected $dates = ['deleted_at'];
 
     /**
@@ -22,7 +22,7 @@ class API_Key_Record extends Model
      */
     public static function getAPIKey($key = '')
     {
-        return API_Key_Record::where('key', $key)->get()->first();
+        return Apikey::where('key', $key)->get()->first();
     }
 
     /**

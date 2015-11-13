@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Record\Email;
-use App\Model\Record\User;
+use App\Model\Email;
+use App\Model\User;
 use App\UUD\Transformers\EmailTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;

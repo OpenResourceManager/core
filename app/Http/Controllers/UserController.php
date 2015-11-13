@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Record\User;
+use App\Model\User;
 use App\UUD\Transformers\UserTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;

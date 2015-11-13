@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Model\Building;
-use App\Model\Record\Room;
-use App\Model\Record\User;
+use App\Model\Room;
+use App\Model\User;
 use App\UUD\Transformers\RoomTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
