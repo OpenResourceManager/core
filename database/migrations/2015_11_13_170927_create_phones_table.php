@@ -17,7 +17,7 @@ class CreatePhonesTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('number', 11)->unique();
             $table->string('ext', 5)->nullable();
-            $table->boolean('is_cell')->nullable();
+            $table->boolean('is_cell');
             $table->string('carrier', 20)->nullable();
             $table->timestamps();
             $table->softDeletes();

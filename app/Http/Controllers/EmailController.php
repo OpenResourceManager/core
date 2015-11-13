@@ -7,6 +7,7 @@ use App\Model\User;
 use App\UUD\Transformers\EmailTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Validator;
 
 class EmailController extends ApiController
 {
@@ -52,7 +53,14 @@ class EmailController extends ApiController
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
+            'email' => 'email|required|unique:emails,deleted_at,NULL',
+
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $item = Email::create(Input::all());
+        return $this->respondCreateSuccess($id = $item->id);
     }
 
     /**

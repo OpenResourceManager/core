@@ -7,6 +7,7 @@ use App\Model\Phone;
 use App\UUD\Transformers\PhoneTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Validator;
 
 class PhoneController extends ApiController
 {
@@ -52,7 +53,17 @@ class PhoneController extends ApiController
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
+            'number' => 'integer|required|max:11',
+            'ext' => 'integer|max:5',
+            'is_cell' => 'boolean|required',
+            'carrier' => 'string|max:20',
+
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $item = Phone::create(Input::all());
+        return $this->respondCreateSuccess($id = $item->id);
     }
 
     /**

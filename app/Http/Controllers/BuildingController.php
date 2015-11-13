@@ -59,8 +59,8 @@ class BuildingController extends ApiController
             'name' => 'string|required|max:30|min:3'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        Building::create(Input::all());
-        return $this->respondCreateSuccess();
+        $item = Building::create(Input::all());
+        return $this->respondCreateSuccess($id = $item->id);
     }
 
     /**

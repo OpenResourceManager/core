@@ -63,8 +63,8 @@ class RoomController extends ApiController
             'room_name' => 'string|max:50'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        Room::create(Input::all());
-        return $this->respondCreateSuccess();
+        $item = Room::create(Input::all());
+        return $this->respondCreateSuccess($id = $item->id);
     }
 
     /**
