@@ -23,11 +23,9 @@ class PhoneTableSeeder extends Seeder
         $userIds = User::get()->lists('id')->all();
 
         foreach (range(1, 500) as $index) {
-            $num = $faker->unique()->phoneNumber;
-            echo $num . "\n";
-            $p = explode(' ', $num);
-            $number = intval(trim(str_replace('-', '', $p[1])));
-            $ext = intval(trim(str_replace('x', '', $p[1])));
+            $p = explode('x', $faker->unique()->phoneNumber);
+            $number = intval('1' . trim(str_replace('-', '', $p[1])));
+            $ext = intval($p[1]);
 
             Phone::create([
                 'user_id' => $faker->randomElement($userIds),
