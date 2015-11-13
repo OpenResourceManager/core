@@ -55,14 +55,14 @@ class UserController extends ApiController
     {
         $validator = Validator::make($request->all(), [
             'active' => 'boolean|required',
-            'sageid' => 'string|required|max:7|min:6|unique:user_records,deleted_at,NULL',
+            'sageid' => 'string|required|max:7|min:6|unique:users,deleted_at,NULL',
             'name_prefix' => 'string|max:7',
             'name_first' => 'string|required|min:1',
             'name_middle' => 'string',
             'name_last' => 'string|required|min:1',
             'name_postfix' => 'string|max:7',
             'name_phonetic' => 'string',
-            'username' => 'string|required|max:11|min:3|unique:user_records,deleted_at,NULL'
+            'username' => 'string|required|max:11|min:3|unique:users,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         User::create(Input::all());
