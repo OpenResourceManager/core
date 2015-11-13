@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Record\Email;
 use App\Model\Record\User;
 use App\UUD\Transformers\EmailTransformer;
 use Illuminate\Http\Request;
@@ -29,7 +30,8 @@ class EmailController extends ApiController
      */
     public function index()
     {
-        //
+        $result = Email::all();
+        return $this->respondWithSuccess($this->emailTransformer->transformCollection($result->all()));
     }
 
     /**
@@ -61,7 +63,9 @@ class EmailController extends ApiController
      */
     public function show($id)
     {
-        //
+        $result = Email::find($id);
+        if (!$result) return $this->respondNotFound();
+        return $this->respondWithSuccess($this->emailTransformer->transform($result));
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Record\User;
+use App\Model\Record\Phone;
 use App\UUD\Transformers\PhoneTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -29,7 +30,8 @@ class PhoneController extends ApiController
      */
     public function index()
     {
-        //
+        $result = Phone::all();
+        return $this->respondWithSuccess($this->phoneTransformer->transformCollection($result->all()));
     }
 
     /**
@@ -61,7 +63,9 @@ class PhoneController extends ApiController
      */
     public function show($id)
     {
-        //
+        $result = Phone::find($id);
+        if (!$result) return $this->respondNotFound();
+        return $this->respondWithSuccess($this->phoneTransformer->transform($result));
     }
 
     /**
