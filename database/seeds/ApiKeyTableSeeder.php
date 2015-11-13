@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Record\ApiKey;
+use App\Model\ApiKey;
 
 /**
  * Created by PhpStorm.

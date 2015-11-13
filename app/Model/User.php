@@ -29,16 +29,16 @@ class User extends Model
 
     public function rooms()
     {
-        return $this->hasMany('App\Model\Record\Room');
+        return $this->hasMany('App\Model\Room');
     }
 
     public function emails()
     {
-        return $this->hasMany('App\Model\Record\Email');
+        return $this->hasMany('App\Model\Email');
     }
 
     public function phones()
     {
-        return $this->hasMany('App\Model\Record\Phone');
+        return $this->hasMany('App\Model\Phone');
     }
 }

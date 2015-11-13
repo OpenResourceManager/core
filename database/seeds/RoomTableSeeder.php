@@ -2,9 +2,9 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Record\Room;
+use App\Model\Room;
 use App\Model\Building;
-use App\Model\Record\User;
+use App\Model\User;
 use Faker\Factory as Faker;
 
 /**

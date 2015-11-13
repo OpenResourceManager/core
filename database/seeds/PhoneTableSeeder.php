@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Record\Phone;
-use App\Model\Record\User;
+use App\Model\Phone;
+use App\Model\User;
 use Faker\Factory as Faker;
 
 /**
