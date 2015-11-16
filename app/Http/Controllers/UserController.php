@@ -61,7 +61,7 @@ class UserController extends ApiController
             'name_last' => 'string|required|min:1',
             'name_postfix' => 'string|max:7',
             'name_phonetic' => 'string',
-            'username' => 'string|required|max:11|min:3|unique:users,deleted_at,NULL'
+            'username' => 'string|required|min:3|unique:users,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $item = User::create(Input::all());

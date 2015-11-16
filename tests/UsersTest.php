@@ -14,8 +14,6 @@ class UsersTest extends ApiTester
     {
         $result = $this->getJson('api/v1/users', 'POST', $this->getStub());
 
-        dd($result);
-
         $this->assertResponseStatus(201);
         $this->assertObjectHasAttributes($result, 'result', 'success', 'status_code');
         $this->assertObjectHasAttributes($result->result, 'id', 'message');
@@ -65,7 +63,7 @@ class UsersTest extends ApiTester
     protected function getStub()
     {
         return [
-            'user_identifier' => $this->fake->unique()->randomNumber($nbDigits = 7, $strict = true),
+            'user_identifier' => strval($this->fake->unique()->randomNumber($nbDigits = 7, $strict = true)),
             'name_prefix' => $this->fake->optional()->title,
             'name_first' => $this->fake->firstName,
             'name_middle' => $this->fake->optional()->firstName,
