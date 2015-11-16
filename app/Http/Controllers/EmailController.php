@@ -7,6 +7,7 @@ use App\Model\User;
 use App\UUD\Transformers\EmailTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
 class EmailController extends ApiController

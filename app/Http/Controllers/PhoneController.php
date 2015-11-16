@@ -7,6 +7,7 @@ use App\Model\Phone;
 use App\UUD\Transformers\PhoneTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
 class PhoneController extends ApiController

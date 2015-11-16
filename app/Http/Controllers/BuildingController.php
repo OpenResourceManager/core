@@ -6,6 +6,7 @@ use App\Model\Building;
 use App\UUD\Transformers\BuildingTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
 class BuildingController extends ApiController

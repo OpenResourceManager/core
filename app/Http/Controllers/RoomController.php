@@ -8,6 +8,7 @@ use App\Model\User;
 use App\UUD\Transformers\RoomTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
 class RoomController extends ApiController

@@ -6,6 +6,7 @@ use App\Model\Department;
 use App\UUD\Transformers\DepartmentTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
 class DepartmentController extends ApiController

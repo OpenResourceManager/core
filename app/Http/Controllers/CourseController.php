@@ -7,6 +7,7 @@ use App\Model\Department;
 use App\UUD\Transformers\CourseTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
 class CourseController extends ApiController
