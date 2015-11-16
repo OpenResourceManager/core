@@ -32,7 +32,7 @@ class BuildingController extends ApiController
      */
     public function index(Request $request)
     {
-        parent::index();
+        parent::index($request);
         $result = Building::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->buildingTransformer->transformCollection($result->all()));
     }

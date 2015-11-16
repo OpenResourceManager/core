@@ -96,7 +96,7 @@ class ApiController extends Controller
         return $this;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $this->limit(Input::get('limit'));
     }
