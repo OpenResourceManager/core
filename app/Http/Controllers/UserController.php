@@ -30,7 +30,7 @@ class UserController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $limit = Input::get('limit') ?: 25;
         $limit = $limit > 100 ? 100 : $limit;
@@ -39,7 +39,8 @@ class UserController extends ApiController
             'total_count' => $result->lastPage(),
             'total_pages' => ceil($result->lastPage() / $result->perPage()),
             'current_page' => $result->currentPage(),
-            'limit' => $result->perPage()
+            'limit' => (int)$result->perPage(),
+            'next_page' => $request->path()
         ];
         return $this->respondWithSuccess($this->userTransformer->transformCollection($result->all()), $paginator);
     }
