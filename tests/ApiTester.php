@@ -51,13 +51,23 @@ class ApiTester extends TestCase
     }
 
     /**
-     * @param $uri
+     * @param string $uri
      * @return string
      */
     protected function getJson($uri)
     {
         return json_encode($this->call('GET', $uri)->getContent());
 
+    }
+
+    /**
+     * @param string $uri
+     * @param array $data
+     * @return string
+     */
+    protected function postToApi($uri, $data)
+    {
+        return json_encode($this->call('POST', $uri, $data));
     }
 
 }
