@@ -3,7 +3,6 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Model\User;
 
 class UsersTest extends ApiTester
 {
@@ -11,7 +10,7 @@ class UsersTest extends ApiTester
     /** @test */
     public function it_fetches_users()
     {
-        $this->times(5)->make('User');
+        $this->times(5)->make('App\Model\User');
 
         $this->getJson('api/v1/users');
 
@@ -21,7 +20,7 @@ class UsersTest extends ApiTester
     /** @test */
     public function it_fetches_a_single_user()
     {
-        $this->times(1)->make('User');
+        $this->times(1)->make('App\Model\User');
 
         $user = $this->getJson('api/v1/users/1')->result;
 
