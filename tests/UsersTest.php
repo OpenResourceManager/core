@@ -20,15 +20,12 @@ class UsersTest extends ApiTester
     }
 
     /** @test */
-    public function it_422s_if_incorrect_parameters_are_provided()
+    public function it_422s_if_incorrect_parameters_are_provided_and_validation_fails()
     {
         $result = $this->getJson('api/v1/users', 'POST');
 
-        dd($result);
-
         $this->assertResponseStatus(422);
-        // $this->assertObjectHasAttributes($result, 'result', 'success', 'status_code');
-        // $this->assertObjectHasAttributes($result->result, 'id', 'message');
+        $this->assertObjectHasAttributes($result, 'error', 'success', 'status_code');
     }
 
     /** @test */
