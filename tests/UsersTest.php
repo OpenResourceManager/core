@@ -11,7 +11,7 @@ class UsersTest extends ApiTester
     /** @test */
     public function it_fetches_users()
     {
-        $this->times(5)->makeUser();
+        $this->times(5)->make('User');
 
         $this->getJson('api/v1/users');
 
@@ -21,7 +21,7 @@ class UsersTest extends ApiTester
     /** @test */
     public function it_fetches_a_single_user()
     {
-        $this->times(1)->makeUser();
+        $this->times(1)->make('User');
 
         $user = $this->getJson('api/v1/users/1')->result;
 
@@ -50,25 +50,18 @@ class UsersTest extends ApiTester
     }
 
 
-    /**
-     * @param array $userFields
-     */
-    private function makeUser($userFields = [])
+    protected function getStub()
     {
-        while ($this->times--) {
-
-            $user = array_merge([
-                'user_identifier' => $this->fake->unique()->randomNumber($nbDigits = 7, $strict = true),
-                'name_prefix' => $this->fake->optional()->title,
-                'name_first' => $this->fake->firstName,
-                'name_middle' => $this->fake->optional()->firstName,
-                'name_last' => $this->fake->lastName,
-                'name_postfix' => $this->fake->optional()->title,
-                'name_phonetic' => $this->fake->optional()->firstName,
-                'username' => $this->fake->unique()->userName
-            ], $userFields);
-
-            User::create($user);
-        }
+        return [
+            'user_identifier' => $this->fake->unique()->randomNumber($nbDigits = 7, $strict = true),
+            'name_prefix' => $this->fake->optional()->title,
+            'name_first' => $this->fake->firstName,
+            'name_middle' => $this->fake->optional()->firstName,
+            'name_last' => $this->fake->lastName,
+            'name_postfix' => $this->fake->optional()->title,
+            'name_phonetic' => $this->fake->optional()->firstName,
+            'username' => $this->fake->unique()->userName
+        ];
     }
+
 }
