@@ -32,10 +32,9 @@ class UserController extends ApiController
      */
     public function index(Request $request)
     {
-        $limit = Input::get('limit') ?: 25;
-        $limit = $limit > 100 ? 100 : $limit;
-        $result = User::paginate($limit);
-        return $this->respondSuccessWithPagination($request, $limit, $result, $this->userTransformer->transformCollection($result->all()));
+        parent::index();
+        $result = User::paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
 
     /**

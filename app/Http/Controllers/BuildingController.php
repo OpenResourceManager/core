@@ -30,10 +30,11 @@ class BuildingController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $result = Building::all();
-        return $this->respondWithSuccess($this->buildingTransformer->transformCollection($result->all()));
+        parent::index();
+        $result = Building::paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->buildingTransformer->transformCollection($result->all()));
     }
 
     /**

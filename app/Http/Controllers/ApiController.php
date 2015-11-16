@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 
 class ApiController extends Controller
@@ -21,6 +22,40 @@ class ApiController extends Controller
     protected $successStatus = true;
 
     /**
+     * @var int
+     */
+    protected $limit = 25;
+
+
+    /**
+     * @var int
+     */
+    protected
+        $max_limit = 100;
+
+
+    /**
+     * @param $amount
+     * @return $this
+     */
+    public function limit($amount)
+    {
+        $this->limit = is_null($amount) ? $this->limit : $amount;
+        $this->limit = $this->limit > $this->max_limit ? $this->max_limit : $this->limit;
+        return $this;
+    }
+
+    /**
+     * @param $amount
+     * @return $this
+     */
+    public function max_limit($amount)
+    {
+        $this->max_limit = $amount;
+        return $this;
+    }
+
+    /**
      * @return boolean
      */
     public function getSuccessStatus()
@@ -32,7 +67,8 @@ class ApiController extends Controller
      * @param $successStatus
      * @return $this
      */
-    public function setSuccessStatus($successStatus)
+    public
+    function setSuccessStatus($successStatus)
     {
         $this->successStatus = $successStatus;
 
@@ -42,7 +78,8 @@ class ApiController extends Controller
     /**
      * @return mixed
      */
-    public function getStatusCode()
+    public
+    function getStatusCode()
     {
         return $this->statusCode;
     }
@@ -51,18 +88,25 @@ class ApiController extends Controller
      * @param $statusCode
      * @return $this
      */
-    public function setStatusCode($statusCode)
+    public
+    function setStatusCode($statusCode)
     {
         $this->statusCode = $statusCode;
 
         return $this;
     }
 
+    public function index()
+    {
+        $this->limit(Input::get('limit'));
+    }
+
     /**
      * @param string $message
      * @return mixed
      */
-    public function respondNotFound($message = 'Not Found')
+    public
+    function respondNotFound($message = 'Not Found')
     {
         return $this->setStatusCode(404)->respondWithError($message);
     }
@@ -71,7 +115,8 @@ class ApiController extends Controller
      * @param string $message
      * @return mixed
      */
-    public function respondInternalError($message = 'Internal Error')
+    public
+    function respondInternalError($message = 'Internal Error')
     {
         return $this->setStatusCode(500)->respondWithError($message);
     }
@@ -80,7 +125,8 @@ class ApiController extends Controller
      * @param string $message
      * @return mixed
      */
-    public function respondNotAuthorized($message = 'Unauthorized')
+    public
+    function respondNotAuthorized($message = 'Unauthorized')
     {
         return $this->setStatusCode(401)->respondWithError($message);
     }
@@ -89,7 +135,8 @@ class ApiController extends Controller
      * @param string $message
      * @return mixed
      */
-    public function respondUnprocessableEntity($message = 'Unprocessable Entity')
+    public
+    function respondUnprocessableEntity($message = 'Unprocessable Entity')
     {
         return $this->setStatusCode(422)->respondWithError($message);
     }
@@ -99,7 +146,8 @@ class ApiController extends Controller
      * @param int $id
      * @return mixed
      */
-    public function respondCreateSuccess($message = 'Created', $id = 0)
+    public
+    function respondCreateSuccess($message = 'Created', $id = 0)
     {
         return $this->setStatusCode(201)->respondWithSuccess(['message' => $message, 'id' => $id]);
     }
@@ -108,7 +156,8 @@ class ApiController extends Controller
      * @param string $message
      * @return mixed
      */
-    public function respondUpdateSuccess($message = 'Updated')
+    public
+    function respondUpdateSuccess($message = 'Updated')
     {
         return $this->respondWithSuccess($message);
     }
@@ -117,7 +166,8 @@ class ApiController extends Controller
      * @param $message
      * @return mixed
      */
-    public function respondWithError($message = 'An Error Has Occurred')
+    public
+    function respondWithError($message = 'An Error Has Occurred')
     {
         $this->setSuccessStatus(false);
 
@@ -135,7 +185,8 @@ class ApiController extends Controller
      * @param $data
      * @return mixed
      */
-    public function respondSuccessWithPagination(Request $request, $limit, Paginator $result, $data)
+    public
+    function respondSuccessWithPagination(Request $request, Paginator $result, $data)
     {
         $next = $request->path();
         $next = $limit == 25 ? $next . '?page=' . strval(((int)$result->currentPage() + 1)) : $next . '?limit=' . $result->perPage() . '&page=' . strval(((int)$result->currentPage() + 1));
@@ -162,7 +213,8 @@ class ApiController extends Controller
      * @param array $paginator
      * @return mixed
      */
-    public function respondWithSuccess($data, $paginator = [])
+    public
+    function respondWithSuccess($data, $paginator = [])
     {
         return $this->respond([
             'success' => $this->getSuccessStatus(),
@@ -176,7 +228,8 @@ class ApiController extends Controller
      * @param string $message
      * @return mixed
      */
-    public function respond($data, $headers = [])
+    public
+    function respond($data, $headers = [])
     {
         return Response::json($data, $this->getStatusCode(), $headers);
     }
