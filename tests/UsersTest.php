@@ -7,6 +7,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class UsersTest extends ApiTester
 {
 
+    use \tests\helpers\Factory;
+
     /** @test */
     public function it_fetches_users()
     {
