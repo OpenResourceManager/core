@@ -11,12 +11,19 @@ class UsersTest extends ApiTester
     /** @test */
     public function it_fetches_users()
     {
-
-        $this->setUp();
-
         $this->times(5)->makeUser();
 
         $this->getJson('api/v1/users');
+
+        $this->assertResponseOk();
+    }
+
+    /** @test */
+    public function it_fetches_a_single_user()
+    {
+        $this->times(1)->makeUser();
+
+        dd($this->getJson('api/v1/users/1'));
 
         $this->assertResponseOk();
     }
