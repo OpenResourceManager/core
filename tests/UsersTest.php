@@ -23,9 +23,30 @@ class UsersTest extends ApiTester
     {
         $this->times(1)->makeUser();
 
-        dd($this->getJson('api/v1/users/1'));
+        $user = $this->getJson('api/v1/users/1')->result;
 
         $this->assertResponseOk();
+
+        $this->assertObjectHasAttributes(
+            $user,
+            'id',
+            'user_identifier',
+            'username',
+            'name_prefix',
+            'name_first',
+            'name_middle',
+            'name_last',
+            'name_postfix',
+            'name_phonetic'
+        );
+    }
+
+    /** @test */
+    public function it_404s_if_a_user_is_not_found()
+    {
+        $this->getJson('api/v1/users/x');
+
+        $this->assertResponseStatus(404);
     }
 
 

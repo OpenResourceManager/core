@@ -58,4 +58,13 @@ class ApiTester extends TestCase
         return json_decode($this->call('GET', $uri)->getContent());
 
     }
+
+    protected function assertObjectHasAttributes()
+    {
+        $args = func_get_args();
+        $object = array_shift($args);
+        foreach ($args as $attribute) {
+            $this->assertObjectHasAttribute($attribute, $object);
+        }
+    }
 }
