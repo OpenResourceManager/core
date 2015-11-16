@@ -9,6 +9,18 @@ class UsersTest extends ApiTester
 
     use \tests\helpers\Factory;
 
+
+    /** @test */
+    public function it_creates_a_new_user_given_valid_parameters()
+    {
+        $result = $this->getJson('api/v1/users', 'POST', $this->getStub());
+
+        $this->assertResponseStatus(201);
+        $this->assertObjectHasAttributes($result, 'result', 'success', 'status_code');
+        $this->assertObjectHasAttributes($result->result, 'id', 'message');
+    }
+
+
     /** @test */
     public function it_fetches_users()
     {
@@ -49,17 +61,6 @@ class UsersTest extends ApiTester
 
         $this->assertResponseStatus(404);
     }
-
-    /** @test */
-    public function it_creates_a_new_user_given_valid_parameters()
-    {
-        $result = $this->getJson('api/v1/users', 'POST', $this->getStub());
-
-        $this->assertResponseStatus(201);
-        $this->assertObjectHasAttributes($result, 'result', 'success', 'status_code');
-        $this->assertObjectHasAttributes($result->result, 'id', 'message');
-    }
-
 
     protected function getStub()
     {
