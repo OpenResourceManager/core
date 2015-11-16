@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 
@@ -186,14 +186,14 @@ class ApiController extends Controller
      * @return mixed
      */
     public
-    function respondSuccessWithPagination(Request $request, Paginator $result, $data)
+    function respondSuccessWithPagination(Request $request, LengthAwarePaginator $result, $data)
     {
         $next = $request->path();
-        $next = $limit == 25 ? $next . '?page=' . strval(((int)$result->currentPage() + 1)) : $next . '?limit=' . $result->perPage() . '&page=' . strval(((int)$result->currentPage() + 1));
+        $next = $next . '?limit=' . $result->perPage() . '&page=' . strval(((int)$result->currentPage() + 1));
         $next = $next >= $result->lastPage() ? null : $next;
 
         $previous = $request->path();
-        $previous = $limit == 25 ? $previous . '?page=' . strval(((int)$result->currentPage() - 1)) : $previous . '?limit=' . $result->perPage() . '&page=' . strval(((int)$result->currentPage() - 1));
+        $previous = $previous . '?limit=' . $result->perPage() . '&page=' . strval(((int)$result->currentPage() - 1));
         $previous = ((int)$result->currentPage() - 1) > 0 ? $previous : null;
 
         $paginator = [
