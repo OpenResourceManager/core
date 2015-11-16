@@ -42,7 +42,7 @@ class UserController extends ApiController
 
         $previous = $request->path();
         $previous = $limit == 25 ? $previous . '?page=' . strval(((int)$result->currentPage() - 1)) : $previous . '?limit=' . $result->perPage() . '&page=' . strval(((int)$result->currentPage() - 1));
-        $previous = (int)$previous > 0 ? $previous : null;
+        $previous = ((int)$result->currentPage() - 1) > 0 ? $previous : null;
 
         $paginator = [
             'total_count' => $result->lastPage(),
