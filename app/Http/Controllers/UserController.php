@@ -35,12 +35,22 @@ class UserController extends ApiController
         $limit = Input::get('limit') ?: 25;
         $limit = $limit > 100 ? 100 : $limit;
         $result = User::paginate($limit);
+
+        $next = $request->url();
+        $next = $limit == 25 ? $next . '?page=' . strval(((int)$result->currentPage() + 1)) : $next . '?limit=' . $result->perPage() . '&page=' . strval(((int)$result->currentPage() + 1));
+        $next = $next >= $result->lastPage() ? null : $next;
+
+        $previous = $request->url();
+        $previous = $limit == 25 ? $previous . '?page=' . strval(((int)$result->currentPage() - 1)) : $previous . '?limit=' . $result->perPage() . '&page=' . strval(((int)$result->currentPage() - 1));
+        $previous = $previous <= 0 ? null : $previous;
+
         $paginator = [
             'total_count' => $result->lastPage(),
             'total_pages' => ceil($result->lastPage() / $result->perPage()),
             'current_page' => $result->currentPage(),
             'limit' => (int)$result->perPage(),
-            'next_page' => $request->path()
+            'next_page' => $next,
+            'previous_page' => $previous
         ];
         return $this->respondWithSuccess($this->userTransformer->transformCollection($result->all()), $paginator);
     }
