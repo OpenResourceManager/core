@@ -36,11 +36,11 @@ class UserController extends ApiController
         $limit = $limit > 100 ? 100 : $limit;
         $result = User::paginate($limit);
 
-        $next = $request->url();
+        $next = $request->path();
         $next = $limit == 25 ? $next . '?page=' . strval(((int)$result->currentPage() + 1)) : $next . '?limit=' . $result->perPage() . '&page=' . strval(((int)$result->currentPage() + 1));
         $next = $next >= $result->lastPage() ? null : $next;
 
-        $previous = $request->url();
+        $previous = $request->path();
         $previous = $limit == 25 ? $previous . '?page=' . strval(((int)$result->currentPage() - 1)) : $previous . '?limit=' . $result->perPage() . '&page=' . strval(((int)$result->currentPage() - 1));
         $previous = $previous <= 0 ? null : $previous;
 
