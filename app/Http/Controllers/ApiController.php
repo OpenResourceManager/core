@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 
 class ApiController extends Controller
@@ -124,6 +125,35 @@ class ApiController extends Controller
             'status_code' => $this->getStatusCode(),
             'error' => $message
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param $limit
+     * @param $result
+     * @param $data
+     * @return mixed
+     */
+    public function respondSuccessWithPagination(Request $request, $limit, $result, $data)
+    {
+        $next = $request->path();
+        $next = $limit == 25 ? $next . '?page=' . strval(((int)$result->currentPage() + 1)) : $next . '?limit=' . $result->perPage() . '&page=' . strval(((int)$result->currentPage() + 1));
+        $next = $next >= $result->lastPage() ? null : $next;
+
+        $previous = $request->path();
+        $previous = $limit == 25 ? $previous . '?page=' . strval(((int)$result->currentPage() - 1)) : $previous . '?limit=' . $result->perPage() . '&page=' . strval(((int)$result->currentPage() - 1));
+        $previous = ((int)$result->currentPage() - 1) > 0 ? $previous : null;
+
+        $paginator = [
+            'total_count' => $result->lastPage(),
+            'total_pages' => ceil($result->lastPage() / $result->perPage()),
+            'current_page' => $result->currentPage(),
+            'limit' => (int)$result->perPage(),
+            'next_page' => $next,
+            'previous_page' => $previous
+        ];
+
+        return $this->respondWithSuccess($data, $paginator);
     }
 
     /**
