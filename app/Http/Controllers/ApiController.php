@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 class ApiController extends Controller
