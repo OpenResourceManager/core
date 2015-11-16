@@ -14,8 +14,8 @@ class UsersTest extends ApiTester
     {
         $this->times(5)->make('App\Model\User');
 
-        $this->getJson('api/v1/users');
-
+        $result = $this->getJson('api/v1/users');
+        $this->assertObjectHasAttributes($result, 'result', 'success', 'status_code');
         $this->assertResponseOk();
     }
 
@@ -24,12 +24,12 @@ class UsersTest extends ApiTester
     {
         $this->times(1)->make('App\Model\User');
 
-        $user = $this->getJson('api/v1/users/1')->result;
+        $result = $this->getJson('api/v1/users/1');
 
         $this->assertResponseOk();
-
+        $this->assertObjectHasAttributes($result, 'result', 'success', 'status_code');
         $this->assertObjectHasAttributes(
-            $user,
+            $result->result,
             'id',
             'user_identifier',
             'username',
@@ -48,6 +48,16 @@ class UsersTest extends ApiTester
         $this->getJson('api/v1/users/x');
 
         $this->assertResponseStatus(404);
+    }
+
+    /** @test */
+    public function it_creates_a_new_user_given_valid_parameters()
+    {
+        $result = $this->getJson('api/v1/users', 'POST', $this->getStub());
+
+        $this->assertResponseStatus(201);
+        $this->assertObjectHasAttributes($result, 'result', 'success', 'status_code');
+        $this->assertObjectHasAttributes($result->result, 'id', 'message');
     }
 
 

@@ -35,12 +35,14 @@ abstract class ApiTester extends TestCase
     }
 
     /**
-     * @param string $uri
-     * @return string
+     * @param $uri
+     * @param string $method
+     * @param array $parameters
+     * @return mixed
      */
-    protected function getJson($uri)
+    protected function getJson($uri, $method = 'GET', $parameters = [])
     {
-        return json_decode($this->call('GET', $uri)->getContent());
+        return json_decode($this->call($method, $uri, $parameters)->getContent());
 
     }
 
