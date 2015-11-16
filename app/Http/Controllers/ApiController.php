@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Response;
 
 class ApiController extends Controller
@@ -134,7 +135,7 @@ class ApiController extends Controller
      * @param $data
      * @return mixed
      */
-    public function respondSuccessWithPagination(Request $request, $limit, $result, $data)
+    public function respondSuccessWithPagination(Request $request, $limit, Paginator $result, $data)
     {
         $next = $request->path();
         $next = $limit == 25 ? $next . '?page=' . strval(((int)$result->currentPage() + 1)) : $next . '?limit=' . $result->perPage() . '&page=' . strval(((int)$result->currentPage() + 1));
