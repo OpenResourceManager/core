@@ -36,9 +36,8 @@ class ApiTester extends TestCase
     {
         parent::setUp();
 
-        Artisan::call('migrate');
+        Artisan::call('migrate:refresh');
     }
-
 
     /**
      * @param $count
@@ -59,15 +58,4 @@ class ApiTester extends TestCase
         return json_encode($this->call('GET', $uri)->getContent());
 
     }
-
-    /**
-     * @param string $uri
-     * @param array $data
-     * @return string
-     */
-    protected function postToApi($uri, $data)
-    {
-        return json_encode($this->call('POST', $uri, $data));
-    }
-
 }
