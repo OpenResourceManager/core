@@ -82,5 +82,4 @@ class UsersTest extends ApiTester
             'username' => $this->fake->unique()->userName
         ];
     }
-
 }

@@ -32,8 +32,16 @@ class UserController extends ApiController
      */
     public function index()
     {
-        $result = User::all();
-        return $this->respondWithSuccess($this->userTransformer->transformCollection($result->all()));
+        $limit = Input::get('limit') ?: 25;
+        $limit = $limit > 100 ? 100 : $limit;
+        $result = User::paginate($limit);
+        $paginator = [
+            'total_count' => $result->getTotal(),
+            'total_pages' => ceil($result->getTotal() / $result->getPerPage()),
+            'current_page' => $result->getCurrentPage,
+            'limit' => $result->getPerPage
+        ];
+        return $this->respondWithSuccess($this->userTransformer->transformCollection($result->all()), $paginator);
     }
 
     /**

@@ -128,13 +128,15 @@ class ApiController extends Controller
 
     /**
      * @param $data
+     * @param array $paginator
      * @return mixed
      */
-    public function respondWithSuccess($data)
+    public function respondWithSuccess($data, $paginator = [])
     {
         return $this->respond([
             'success' => $this->getSuccessStatus(),
             'status_code' => $this->getStatusCode(),
+            'pagination' => $paginator,
             'result' => $data
         ]);
     }
