@@ -32,13 +32,10 @@ class Campus extends Model
     public function users()
     {
         $result = [];
-
-        $rooms = $this->hasManyThrough('App\Model\Room', 'App\Model\Building');
-
+        $rooms = $this->rooms;
         foreach ($rooms as $room) {
             array_push($result, $room->users);
         }
-
         return $result;
     }
 
