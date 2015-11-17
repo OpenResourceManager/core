@@ -34,7 +34,7 @@ class Campus extends Model
     {
         $users = array();
         foreach ($this->rooms as $room) {
-            $users[] = $room->users;
+            $users[] = User::find($room->user_id);
         }
         $users = Collection::make($users);
         echo json_encode($users);
