@@ -54,7 +54,7 @@ class BuildingsTest extends ApiTester
             dd($result);
         }
 
-        $this->assertObjectHasAttributes($result, 'result3', 'success', 'status_code', 'pagination');
+        $this->assertObjectHasAttributes($result, 'result', 'success', 'status_code', 'pagination');
         $this->assertResponseOk();
     }
 
