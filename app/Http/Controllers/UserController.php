@@ -136,7 +136,7 @@ class UserController extends ApiController
      */
     public function buildingUsers($id)
     {
-        $result = Building::find($id)->users;
+        $result = Building::find($id)->users();
 
         return $this->respondWithSuccess($this->userTransformer->transformCollection($result->all()));
     }
