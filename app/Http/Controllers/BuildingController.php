@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Building;
+use App\Model\Campus;
 use App\UUD\Transformers\BuildingTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -110,5 +111,13 @@ class BuildingController extends ApiController
     public function destroy($id)
     {
         //
+    }
+
+
+    public function campusBuildings($id)
+    {
+        $result = Campus::find($id)->buildings;
+
+        return $this->respondWithSuccess($this->buildingTransformer->transformCollection($result->all()));
     }
 }

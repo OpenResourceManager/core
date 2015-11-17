@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Building;
+use App\Model\Campus;
 use App\Model\Room;
 use App\Model\User;
 use App\UUD\Transformers\RoomTransformer;
@@ -114,6 +115,13 @@ class RoomController extends ApiController
     public function destroy($id)
     {
         //
+    }
+
+    public function campusRooms($id)
+    {
+        $result = Campus::find($id)->rooms;
+
+        return $this->respondWithSuccess($this->roomTransformer->transformCollection($result->all()));
     }
 
     public function buildingRooms($id)

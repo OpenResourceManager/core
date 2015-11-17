@@ -25,13 +25,15 @@ class Campus extends Model
 
     public function rooms()
     {
-        $rooms = array();
-        foreach ($this->buildings()->get() as $building) {
-            foreach ($building->rooms()->get() as $room) {
-                $rooms[] = $room;
-            }
-        }
-        return $rooms;
+        return $this->hasManyThrough('App\Model\Room', 'App\Model\Building');
+
+        /* $rooms = array();
+         foreach ($this->buildings as $building) {
+             foreach ($building->rooms as $room) {
+                 $rooms[] = $room;
+             }
+         }
+         return $rooms; */
     }
 
 }
