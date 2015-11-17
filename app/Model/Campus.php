@@ -7,10 +7,10 @@
  * Time: 10:19 AM
  */
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination;
-use Illuminate\Support\Collection;
 
 class Campus extends Model
 {
@@ -32,11 +32,11 @@ class Campus extends Model
 
     public function users()
     {
-        $users = array();
+        $users = [];
         foreach ($this->rooms as $room) {
             $users[] = User::find($room->user_id);
         }
         echo json_encode($users);
-        return $users;
+        return Collection::make($users);
     }
 }
