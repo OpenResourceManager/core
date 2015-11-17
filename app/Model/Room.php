@@ -27,6 +27,6 @@ class Room extends Model
 
     public function users()
     {
-        $this->hasMany('App\Model\User');
+        return $this->hasMany('App\Model\User');
     }
 }
