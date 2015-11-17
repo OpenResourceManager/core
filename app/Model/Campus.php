@@ -10,6 +10,7 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination;
+use Illuminate\Support\Collection;
 
 class Campus extends Model
 {
@@ -36,9 +37,6 @@ class Campus extends Model
         foreach ($rooms as $room) {
             $users = array_merge($users, json_decode($room->users()->get()));
         }
-
-        echo json_encode($users);
-
-        return $users;
+        return Collection::make($users);
     }
 }
