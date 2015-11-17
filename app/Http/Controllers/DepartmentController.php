@@ -29,10 +29,11 @@ class DepartmentController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $result = Department::all();
-        return $this->respondWithSuccess($this->departmentTransformer->transformCollection($result->all()));
+        parent::index($request);
+        $result = Department::paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->departmentTransformer->transformCollection($result->all()));
     }
 
     /**

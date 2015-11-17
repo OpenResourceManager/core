@@ -31,10 +31,11 @@ class RoomController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $result = Room::all();
-        return $this->respondWithSuccess($this->roomTransformer->transformCollection($result->all()));
+        parent::index($request);
+        $result = Room::paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
     }
 
     /**

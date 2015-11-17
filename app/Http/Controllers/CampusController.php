@@ -30,10 +30,11 @@ class CampusController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $result = Campus::all();
-        return $this->respondWithSuccess($this->campusTransformer->transformCollection($result->all()));
+        parent::index($request);
+        $result = Campus::paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->campusTransformer->transformCollection($result->all()));
     }
 
     /**

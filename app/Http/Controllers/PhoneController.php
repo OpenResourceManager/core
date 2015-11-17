@@ -30,10 +30,11 @@ class PhoneController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $result = Phone::all();
-        return $this->respondWithSuccess($this->phoneTransformer->transformCollection($result->all()));
+        parent::index($request);
+        $result = Phone::paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->phoneTransformer->transformCollection($result->all()));
     }
 
     /**

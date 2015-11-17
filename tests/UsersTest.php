@@ -29,12 +29,24 @@ class UsersTest extends ApiTester
     }
 
     /** @test */
+    public function it_pages_user_results()
+    {
+        $this->times(5)->make('App\Model\User');
+
+        $result = $this->getJson('api/v1/users', 'GET', ['page' => 2, 'limit' => 3]);
+
+        $this->assertObjectHasAttributes($result, 'result', 'success', 'status_code', 'pagination');
+        $this->assertResponseOk();
+    }
+
+    /** @test */
     public function it_fetches_users()
     {
         $this->times(5)->make('App\Model\User');
 
         $result = $this->getJson('api/v1/users');
-        $this->assertObjectHasAttributes($result, 'result', 'success', 'status_code');
+
+        $this->assertObjectHasAttributes($result, 'result', 'success', 'status_code', 'pagination');
         $this->assertResponseOk();
     }
 

@@ -30,10 +30,11 @@ class CourseController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $result = Course::all();
-        return $this->respondWithSuccess($this->courseTransformer->transformCollection($result->all()));
+        parent::index($request);
+        $result = Course::paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->courseTransformer->transformCollection($result->all()));
     }
 
     /**

@@ -30,10 +30,11 @@ class EmailController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $result = Email::all();
-        return $this->respondWithSuccess($this->emailTransformer->transformCollection($result->all()));
+        parent::index($request);
+        $result = Email::paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
     }
 
     /**
