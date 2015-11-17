@@ -31,7 +31,15 @@ class Campus extends Model
 
     public function users()
     {
-        return $this->hasManyThrough('App\Model\Room', 'App\Model\Building')->hasMany('App\Model\User');
+        $result = [];
+
+        $rooms = $this->hasManyThrough('App\Model\Room', 'App\Model\Building');
+
+        foreach ($rooms as $room) {
+            array_push($result, $room->users);
+        }
+
+        return $result;
     }
 
 }

@@ -24,4 +24,9 @@ class Room extends Model
         'room_number',
         'room_name'
     ];
+
+    public function users()
+    {
+        $this->hasMany('App\Model\User');
+    }
 }
