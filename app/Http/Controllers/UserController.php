@@ -125,8 +125,7 @@ class UserController extends ApiController
      */
     public function campusUsers($id)
     {
-        $campus = Campus::find($id);
-        $result = $campus->users();
+        $result = Campus::find($id)->users();
 
         return $this->respondWithSuccess($this->userTransformer->transformCollection($result));
     }
@@ -137,8 +136,8 @@ class UserController extends ApiController
      */
     public function buildingUsers($id)
     {
-        $result = Building::find($id)->users;
+        $result = Building::find($id)->users();
 
-        return $this->respondWithSuccess($this->userTransformer->transformCollection($result->all()));
+        return $this->respondWithSuccess($this->userTransformer->transformCollection($result));
     }
 }

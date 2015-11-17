@@ -25,7 +25,11 @@ class Building extends Model
 
     public function users()
     {
-        return $this->hasMany('App\Model\Room')->hasMany('App\Model\User');
+        $users = [];
+        foreach ($this->rooms as $room) {
+            $users[] = User::find($room->user_id);
+        }
+        return $users;
     }
 }
 
