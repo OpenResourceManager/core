@@ -125,7 +125,7 @@ class UserController extends ApiController
      */
     public function campusUsers($id)
     {
-        $campus = Campus::find($id)->get();
+        $campus = Campus::find($id);
         $result = $campus->users();
 
         return $this->respondWithSuccess($this->userTransformer->transformCollection($result));
