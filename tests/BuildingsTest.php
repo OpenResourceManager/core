@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Model\Campus;
 use Illuminate\Support\Facades\Artisan;
 
-class BuildingTest extends ApiTester
+class BuildingsTest extends ApiTester
 {
 
     use \tests\helpers\Factory;
