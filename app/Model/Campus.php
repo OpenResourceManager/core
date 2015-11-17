@@ -33,7 +33,7 @@ class Campus extends Model
     {
         $result = [];
         foreach ($this->rooms()->get() as $room) {
-            foreach ($room->users()->get() as $user) {
+            foreach ($room->users->all() as $user) {
                 $result[] = $user;
             }
         }
