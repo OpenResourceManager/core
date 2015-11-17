@@ -33,11 +33,10 @@ class Campus extends Model
     {
         $rooms = $this->rooms()->get();
         $users = array();
-
         foreach ($rooms as $room) {
-            echo json_encode($room->users()->get());
             $users[] = $room->users()->get();
         }
+        echo json_encode($users);
 
         return $users;
     }
