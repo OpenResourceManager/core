@@ -4,11 +4,18 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Model\Campus;
+use Illuminate\Support\Facades\Artisan;
 
 class BuildingTest extends ApiTester
 {
 
     use \tests\helpers\Factory;
+
+    public function setUp()
+    {
+        parent:$this->setUp();
+        Artisan::call('db:seed --class=CampusTableSeeder');
+    }
 
     /** @test */
     public function it_creates_a_new_building_given_valid_parameters()

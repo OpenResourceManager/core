@@ -7,7 +7,7 @@
  * Time: 2:41 PM
  */
 
-use \Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Artisan;
 use Faker\Factory as Faker;
 
 abstract class ApiTester extends TestCase
