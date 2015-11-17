@@ -31,7 +31,14 @@ class Campus extends Model
 
     public function users()
     {
-        return $this->rooms()->users();
+        $rooms = $this->rooms()->get();
+        $users = array();
+
+        foreach ($rooms as $room) {
+            $users[] = $room->users()->get();
+        }
+
+        return $users;
     }
 
 }
