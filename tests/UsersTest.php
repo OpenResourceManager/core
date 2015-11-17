@@ -14,6 +14,10 @@ class UsersTest extends ApiTester
     {
         $result = $this->getJson('api/v1/users', 'POST', $this->getStub());
 
+        if (in_array('--verbose', $_SERVER['argv'], true)) {
+            dd($result);
+        }
+
         $this->assertResponseStatus(201);
         $this->assertObjectHasAttributes($result, 'result', 'success', 'status_code');
         $this->assertObjectHasAttributes($result->result, 'id', 'message');
@@ -23,6 +27,10 @@ class UsersTest extends ApiTester
     public function it_422s_if_incorrect_parameters_are_provided_and_validation_fails()
     {
         $result = $this->getJson('api/v1/users', 'POST');
+
+        if (in_array('--verbose', $_SERVER['argv'], true)) {
+            dd($result);
+        }
 
         $this->assertResponseStatus(422);
         $this->assertObjectHasAttributes($result, 'error', 'success', 'status_code');
@@ -35,6 +43,10 @@ class UsersTest extends ApiTester
 
         $result = $this->getJson('api/v1/users', 'GET', ['page' => 2, 'limit' => 3]);
 
+        if (in_array('--verbose', $_SERVER['argv'], true)) {
+            dd($result);
+        }
+
         $this->assertObjectHasAttributes($result, 'result', 'success', 'status_code', 'pagination');
         $this->assertResponseOk();
     }
@@ -46,6 +58,10 @@ class UsersTest extends ApiTester
 
         $result = $this->getJson('api/v1/users');
 
+        if (in_array('--verbose', $_SERVER['argv'], true)) {
+            dd($result);
+        }
+
         $this->assertObjectHasAttributes($result, 'result', 'success', 'status_code', 'pagination');
         $this->assertResponseOk();
     }
@@ -56,6 +72,10 @@ class UsersTest extends ApiTester
         $this->times(1)->make('App\Model\User');
 
         $result = $this->getJson('api/v1/users/1');
+
+        if (in_array('--verbose', $_SERVER['argv'], true)) {
+            dd($result);
+        }
 
         $this->assertResponseOk();
         $this->assertObjectHasAttributes($result, 'result', 'success', 'status_code');
@@ -76,7 +96,11 @@ class UsersTest extends ApiTester
     /** @test */
     public function it_404s_if_a_user_is_not_found()
     {
-        $this->getJson('api/v1/users/x');
+        $result = $this->getJson('api/v1/users/x');
+
+        if (in_array('--verbose', $_SERVER['argv'], true)) {
+            dd($result);
+        }
 
         $this->assertResponseStatus(404);
     }

@@ -21,6 +21,10 @@ class BuildingsTest extends ApiTester
     {
         $result = $this->getJson('api/v1/buildings', 'POST', $this->getStub());
 
+        if (in_array('--verbose', $_SERVER['argv'], true)) {
+            dd($result);
+        }
+
         $this->assertResponseStatus(201);
         $this->assertObjectHasAttributes($result, 'result', 'success', 'status_code');
         $this->assertObjectHasAttributes($result->result, 'id', 'message');
@@ -30,6 +34,10 @@ class BuildingsTest extends ApiTester
     public function it_422s_if_incorrect_parameters_are_provided_and_validation_fails()
     {
         $result = $this->getJson('api/v1/buildings', 'POST');
+
+        if (in_array('--verbose', $_SERVER['argv'], true)) {
+            dd($result);
+        }
 
         $this->assertResponseStatus(422);
         $this->assertObjectHasAttributes($result, 'error', 'success', 'status_code');
@@ -42,6 +50,10 @@ class BuildingsTest extends ApiTester
 
         $result = $this->getJson('api/v1/buildings', 'GET', ['page' => 2, 'limit' => 3]);
 
+        if (in_array('--verbose', $_SERVER['argv'], true)) {
+            dd($result);
+        }
+
         $this->assertObjectHasAttributes($result, 'result', 'success', 'status_code', 'pagination');
         $this->assertResponseOk();
     }
@@ -53,6 +65,10 @@ class BuildingsTest extends ApiTester
 
         $result = $this->getJson('api/v1/buildings');
 
+        if (in_array('--verbose', $_SERVER['argv'], true)) {
+            dd($result);
+        }
+
         $this->assertObjectHasAttributes($result, 'result', 'success', 'status_code', 'pagination');
         $this->assertResponseOk();
     }
@@ -63,6 +79,10 @@ class BuildingsTest extends ApiTester
         $this->times(1)->make('App\Model\Building');
 
         $result = $this->getJson('api/v1/buildings/1');
+
+        if (in_array('--verbose', $_SERVER['argv'], true)) {
+            dd($result);
+        }
 
         $this->assertResponseOk();
         $this->assertObjectHasAttributes($result, 'result', 'success', 'status_code');
@@ -78,7 +98,11 @@ class BuildingsTest extends ApiTester
     /** @test */
     public function it_404s_if_a_building_is_not_found()
     {
-        $this->getJson('api/v1/buildings/x');
+        $result = $this->getJson('api/v1/buildings/x');
+
+        if (in_array('--verbose', $_SERVER['argv'], true)) {
+            dd($result);
+        }
 
         $this->assertResponseStatus(404);
     }
