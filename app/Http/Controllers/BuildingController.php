@@ -113,11 +113,15 @@ class BuildingController extends ApiController
         //
     }
 
-
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function campusBuildings($id)
     {
         $result = Campus::find($id)->buildings;
 
         return $this->respondWithSuccess($this->buildingTransformer->transformCollection($result->all()));
     }
+
 }

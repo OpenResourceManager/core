@@ -117,6 +117,10 @@ class RoomController extends ApiController
         //
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function campusRooms($id)
     {
         $result = Campus::find($id)->rooms;
@@ -124,6 +128,10 @@ class RoomController extends ApiController
         return $this->respondWithSuccess($this->roomTransformer->transformCollection($result->all()));
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function buildingRooms($id)
     {
         $result = Building::find($id)->rooms;
@@ -131,6 +139,10 @@ class RoomController extends ApiController
         return $this->respondWithSuccess($this->roomTransformer->transformCollection($result->all()));
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function userRooms($id)
     {
         $result = User::find($id)->rooms;

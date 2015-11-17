@@ -27,13 +27,11 @@ class Campus extends Model
     {
         return $this->hasManyThrough('App\Model\Room', 'App\Model\Building');
 
-        /* $rooms = array();
-         foreach ($this->buildings as $building) {
-             foreach ($building->rooms as $room) {
-                 $rooms[] = $room;
-             }
-         }
-         return $rooms; */
+    }
+
+    public function users()
+    {
+        return $this->hasManyThrough('App\Model\Room', 'App\Model\Building')->hasMany('App\Model\User');
     }
 
 }

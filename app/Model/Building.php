@@ -22,5 +22,10 @@ class Building extends Model
     {
         return $this->hasMany('App\Model\Room');
     }
+
+    public function users()
+    {
+        return $this->hasMany('App\Model\Room')->hasMany('App\Model\User');
+    }
 }
 
