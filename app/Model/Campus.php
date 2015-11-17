@@ -37,7 +37,10 @@ class Campus extends Model
                 $result[] = $user;
             }
         } */
-        return $this->rooms()->get();
+
+        echo json_encode($this->rooms()->get());
+
+        //return $this->rooms()->get();
     }
 
 }
