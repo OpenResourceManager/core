@@ -13,7 +13,6 @@ class BuildingsTest extends ApiTester
 
     public function setUp()
     {
-        parent:$this->setUp();
         Artisan::call('db:seed --class=CampusTableSeeder');
     }
 
