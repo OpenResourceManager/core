@@ -32,15 +32,13 @@ class Campus extends Model
     public function users()
     {
         $result = [];
-        foreach ($this->rooms()->get() as $room) {
-            $room = json_decode(json_encode($room));
+        foreach ($this->rooms as $room) {
             foreach ($room->users as $user) {
                 echo json_encode($user);
                 $result[] = $user;
             }
         }
-
-        //return $this->rooms()->get();
+        return $result;
     }
 
 }
