@@ -32,9 +32,8 @@ class Campus extends Model
 
     public function users()
     {
-        $rooms = $this->rooms()->get();
         $users = array();
-        foreach ($rooms as $room) {
+        foreach ($this->rooms as $room) {
             $users[] = $room->users;
         }
         $users = Collection::make($users);
