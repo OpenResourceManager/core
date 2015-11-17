@@ -35,6 +35,7 @@ class Campus extends Model
         $users = array();
 
         foreach ($rooms as $room) {
+            echo json_encode($room->users()->get());
             $users[] = $room->users()->get();
         }
 
