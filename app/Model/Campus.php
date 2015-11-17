@@ -35,6 +35,7 @@ class Campus extends Model
         foreach ($this->rooms()->get() as $room) {
             $room = Room::find($room->id);
             foreach ($room->users->all() as $user) {
+                echo json_encode($user);
                 $result[] = $user;
             }
         }
