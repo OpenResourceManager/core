@@ -37,6 +37,8 @@ class Campus extends Model
         foreach ($rooms as $room) {
             $users = array_merge($users, json_decode($room->users()->get()));
         }
-        return Collection::make($users);
+        $users = Collection::make($users);
+        echo json_encode($users);
+        return $users;
     }
 }
