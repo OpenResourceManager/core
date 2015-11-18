@@ -44,6 +44,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('users/{id}/room', 'RoomController@userRooms');
         Route::get('users/{id}/email', 'EmailController@userEmails');
         Route::get('users/{id}/phone', 'PhoneController@userPhones');
+        Route::get('users/{id}/course', 'CourseController@userCourses');
 
         Route::resource('rooms', 'RoomController');
 
@@ -55,6 +56,8 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('departments/{id}/course', 'CourseController@departmentCourses');
 
         Route::resource('courses', 'CourseController');
+        Route::get('courses/{id}/user', 'UserController@courseUsers');
+
 
     });
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Course;
 use App\Model\Department;
+use App\Model\User;
 use App\UUD\Transformers\CourseTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -119,6 +120,16 @@ class CourseController extends ApiController
     public function departmentCourses($id)
     {
         $result = Department::findOrFail($id)->courses;
+        return $this->respondWithSuccess($this->courseTransformer->transformCollection($result->all()));
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function userCourses($id)
+    {
+        $result = User::findOrFail($id)->courses;
         return $this->respondWithSuccess($this->courseTransformer->transformCollection($result->all()));
     }
 }

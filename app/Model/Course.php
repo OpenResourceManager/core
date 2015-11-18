@@ -18,6 +18,12 @@ class Course extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = ['department_id', 'code', 'name'];
 
+    public function department()
+    {
+        // Not tested
+        return $this->belongsTo('App\Model\Department');
+    }
+
     public function users()
     {
         return $this->hasMany('App\Model\User');

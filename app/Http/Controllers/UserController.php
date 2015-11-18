@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Building;
 use App\Model\Campus;
+use App\Model\Course;
 use App\Model\User;
 use App\UUD\Transformers\UserTransformer;
 use Illuminate\Http\Request;
@@ -135,6 +136,16 @@ class UserController extends ApiController
     public function buildingUsers($id)
     {
         $result = Building::findOrFail($id)->users();
+        return $this->respondWithSuccess($this->userTransformer->transformCollection($result));
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function courseUsers($id)
+    {
+        $result = Course::findOrFail($id)->users();
         return $this->respondWithSuccess($this->userTransformer->transformCollection($result));
     }
 }
