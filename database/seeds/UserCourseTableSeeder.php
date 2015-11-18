@@ -21,7 +21,7 @@ class UserCourseTableSeeder extends Seeder
         $userIds = User::lists('id')->all();
         $courseIds = Course::lists('id')->all();
 
-        foreach (range(1, 50) as $index) {
+        foreach (range(1, 700) as $index) {
             DB::table('course_user')->insert([
                 'course_id' => $faker->randomElement($courseIds),
                 'user_id' => $faker->randomElement($userIds)
