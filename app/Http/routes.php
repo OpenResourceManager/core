@@ -57,6 +57,7 @@ Route::group(['prefix' => 'api'], function () {
 
         Route::resource('courses', 'CourseController');
         Route::get('courses/{id}/user', 'UserController@courseUsers');
+        Route::get('courses/{id}/department', 'DepartmentController@courseDepartment');
 
 
     });

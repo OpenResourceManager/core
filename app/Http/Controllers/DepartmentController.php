@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Course;
 use App\Model\Department;
 use App\UUD\Transformers\DepartmentTransformer;
 use Illuminate\Http\Request;
@@ -109,5 +110,16 @@ class DepartmentController extends ApiController
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return mixed
+     */
+    public function courseDepartment($id, Request $request)
+    {
+        $result = Course::findOrFail($id)->department()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->departmentTransformer->transformCollection($result->all()));
     }
 }
