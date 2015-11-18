@@ -129,7 +129,7 @@ class RoleController extends ApiController
      */
     public function userRoles($id, Request $request)
     {
-        $result = User::findOrFail($id)->rooms()->paginate();
+        $result = User::findOrFail($id)->roles()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->roleTransformer->transformCollection($result->all()));
     }
 }
