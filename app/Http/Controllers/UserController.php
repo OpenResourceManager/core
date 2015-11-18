@@ -162,6 +162,7 @@ class UserController extends ApiController
 
     /**
      * @param $id
+     * @param Request $request
      * @return mixed
      */
     public function roleUsers($id, Request $request)
@@ -172,6 +173,7 @@ class UserController extends ApiController
 
     /**
      * @param $id
+     * @param Request $request
      * @return mixed
      */
     public function courseUsers($id, Request $request)

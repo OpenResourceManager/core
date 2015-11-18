@@ -137,11 +137,12 @@ class DepartmentController extends ApiController
 
     /**
      * @param $code
+     * @param Request $request
      * @return mixed
      */
-    public function courseDepartmentByCode($code)
+    public function courseDepartmentByCode($code, Request $request)
     {
-        $result = Course::where('code', $code)->firstOrFail()->department;
-        return $this->respondWithSuccess($this->departmentTransformer->transform($result));
+        $result = Course::where('code', $code)->firstOrFail()->department()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->departmentTransformer->transformCollection($result->all()));
     }
 }
