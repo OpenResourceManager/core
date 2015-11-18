@@ -20,13 +20,12 @@ class Course extends Model
 
     public function department()
     {
-        // Not tested
-        return $this->belongsTo('App\Model\Department');
+        return $this->belongsTo('App\Model\Department', 'courses');
     }
 
     public function users()
     {
-        return $this->hasMany('App\Model\User');
+        return $this->belongsToMany('App\Model\User', 'course_user');
     }
 
 }
