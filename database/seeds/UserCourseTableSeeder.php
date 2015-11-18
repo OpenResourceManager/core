@@ -8,7 +8,7 @@
 
 namespace database\seeds;
 
-
+use Illuminate\Database\Seeder;
 use App\Model\Course;
 use App\Model\User;
 use Illuminate\Support\Facades\DB;
