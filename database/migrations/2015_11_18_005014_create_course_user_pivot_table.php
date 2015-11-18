@@ -13,6 +13,7 @@ class CreateCourseUserPivotTable extends Migration
     public function up()
     {
         Schema::create('course_user', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('course_id')->unsigned()->index();
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->integer('user_id')->unsigned()->index();
