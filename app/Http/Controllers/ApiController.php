@@ -67,8 +67,7 @@ class ApiController extends Controller
      * @param $successStatus
      * @return $this
      */
-    public
-    function setSuccessStatus($successStatus)
+    public function setSuccessStatus($successStatus)
     {
         $this->successStatus = $successStatus;
 
@@ -78,8 +77,7 @@ class ApiController extends Controller
     /**
      * @return mixed
      */
-    public
-    function getStatusCode()
+    public function getStatusCode()
     {
         return $this->statusCode;
     }
@@ -88,8 +86,7 @@ class ApiController extends Controller
      * @param $statusCode
      * @return $this
      */
-    public
-    function setStatusCode($statusCode)
+    public function setStatusCode($statusCode)
     {
         $this->statusCode = $statusCode;
 
@@ -105,8 +102,7 @@ class ApiController extends Controller
      * @param string $message
      * @return mixed
      */
-    public
-    function respondNotFound($message = 'Not Found')
+    public function respondNotFound($message = 'Not Found')
     {
         return $this->setStatusCode(404)->respondWithError($message);
     }
@@ -115,8 +111,7 @@ class ApiController extends Controller
      * @param string $message
      * @return mixed
      */
-    public
-    function respondInternalError($message = 'Internal Error')
+    public function respondInternalError($message = 'Internal Error')
     {
         return $this->setStatusCode(500)->respondWithError($message);
     }
@@ -125,8 +120,7 @@ class ApiController extends Controller
      * @param string $message
      * @return mixed
      */
-    public
-    function respondNotAuthorized($message = 'Unauthorized')
+    public function respondNotAuthorized($message = 'Unauthorized')
     {
         return $this->setStatusCode(401)->respondWithError($message);
     }
@@ -146,8 +140,7 @@ class ApiController extends Controller
      * @param int $id
      * @return mixed
      */
-    public
-    function respondCreateSuccess($message = 'Created', $id = 0)
+    public function respondCreateSuccess($message = 'Created', $id = 0)
     {
         return $this->setStatusCode(201)->respondWithSuccess(['message' => $message, 'id' => $id]);
     }
@@ -156,8 +149,7 @@ class ApiController extends Controller
      * @param string $message
      * @return mixed
      */
-    public
-    function respondUpdateSuccess($message = 'Updated')
+    public function respondUpdateSuccess($message = 'Updated')
     {
         return $this->respondWithSuccess($message);
     }
@@ -166,8 +158,7 @@ class ApiController extends Controller
      * @param $message
      * @return mixed
      */
-    public
-    function respondWithError($message = 'An Error Has Occurred')
+    public function respondWithError($message = 'An Error Has Occurred')
     {
         $this->setSuccessStatus(false);
 
@@ -185,8 +176,7 @@ class ApiController extends Controller
      * @param $data
      * @return mixed
      */
-    public
-    function respondSuccessWithPagination(Request $request, LengthAwarePaginator $result, $data)
+    public function respondSuccessWithPagination(Request $request, LengthAwarePaginator $result, $data)
     {
         $next = $request->path();
         $next = $next . '?limit=' . $result->perPage() . '&page=' . strval(((int)$result->currentPage() + 1));
@@ -213,8 +203,7 @@ class ApiController extends Controller
      * @param array $paginator
      * @return mixed
      */
-    public
-    function respondWithSuccess($data, $paginator = [])
+    public function respondWithSuccess($data, $paginator = [])
     {
         return $this->respond([
             'success' => $this->getSuccessStatus(),
@@ -228,8 +217,7 @@ class ApiController extends Controller
      * @param string $message
      * @return mixed
      */
-    public
-    function respond($data, $headers = [])
+    public function respond($data, $headers = [])
     {
         return Response::json($data, $this->getStatusCode(), $headers);
     }
