@@ -116,10 +116,10 @@ class BuildingController extends ApiController
      * @param $id
      * @return mixed
      */
-    public function campusBuildings($id)
+    public function campusBuildings($id, Request $request)
     {
-        $result = Campus::findOrFail($id)->buildings;
-        return $this->respondWithSuccess($this->buildingTransformer->transformCollection($result->all()));
+        $result = Campus::findOrFail($id)->buildings()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->buildingTransformer->transformCollection($result->all()));
     }
 
 }

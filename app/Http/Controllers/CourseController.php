@@ -117,10 +117,10 @@ class CourseController extends ApiController
      * @param $id
      * @return mixed
      */
-    public function departmentCourses($id)
+    public function departmentCourses($id, Request $request)
     {
-        $result = Department::findOrFail($id)->courses;
-        return $this->respondWithSuccess($this->courseTransformer->transformCollection($result->all()));
+        $result = Department::findOrFail($id)->courses()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->courseTransformer->transformCollection($result->all()));
     }
 
     /**

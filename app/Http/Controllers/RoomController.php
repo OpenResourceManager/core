@@ -120,29 +120,29 @@ class RoomController extends ApiController
      * @param $id
      * @return mixed
      */
-    public function campusRooms($id)
+    public function campusRooms($id, Request $request)
     {
-        $result = Campus::findOrFail($id)->rooms;
-        return $this->respondWithSuccess($this->roomTransformer->transformCollection($result->all()));
+        $result = Campus::findOrFail($id)->rooms()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
     }
 
     /**
      * @param $id
      * @return mixed
      */
-    public function buildingRooms($id)
+    public function buildingRooms($id, Request $request)
     {
-        $result = Building::findOrFail($id)->rooms;
-        return $this->respondWithSuccess($this->roomTransformer->transformCollection($result->all()));
+        $result = Building::findOrFail($id)->rooms()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
     }
 
     /**
      * @param $id
      * @return mixed
      */
-    public function userRooms($id)
+    public function userRooms($id, Request $request)
     {
-        $result = User::findOrFail($id)->rooms;
-        return $this->respondWithSuccess($this->roomTransformer->transformCollection($result->all()));
+        $result = User::findOrFail($id)->rooms()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
     }
 }

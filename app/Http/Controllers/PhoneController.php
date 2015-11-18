@@ -118,9 +118,9 @@ class PhoneController extends ApiController
      * @param $id
      * @return mixed
      */
-    public function userPhones($id)
+    public function userPhones($id, Request $request)
     {
-        $result = User::findOrFail($id)->phones;
-        return $this->respondWithSuccess($this->phoneTransformer->transformCollection($result->all()));
+        $result = User::findOrFail($id)->phones()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->phoneTransformer->transformCollection($result->all()));
     }
 }

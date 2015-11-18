@@ -133,10 +133,10 @@ class UserController extends ApiController
      * @param $id
      * @return mixed
      */
-    public function buildingUsers($id, Request $request)
+    public function buildingUsers($id)
     {
-        $result = Building::findOrFail($id)->users()->paginate();
-        return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result));
+        $result = Building::findOrFail($id)->users();
+        return $this->respondWithSuccess($this->userTransformer->transformCollection($result));
     }
 
     /**
