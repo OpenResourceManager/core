@@ -145,7 +145,7 @@ class UserController extends ApiController
      */
     public function courseUsers($id)
     {
-        $result = Course::findOrFail($id)->users();
+        $result = Course::findOrFail($id)->users;
         return $this->respondWithSuccess($this->userTransformer->transformCollection($result->all()));
     }
 }
