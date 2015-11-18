@@ -6,8 +6,6 @@
  * Time: 8:06 PM
  */
 
-namespace database\seeds;
-
 use Illuminate\Database\Seeder;
 use App\Model\Course;
 use App\Model\User;
