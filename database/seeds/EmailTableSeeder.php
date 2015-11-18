@@ -20,7 +20,7 @@ class EmailTableSeeder extends Seeder
         $faker = Faker::create();
         $userIds = User::get()->lists('id')->all();
 
-        foreach (range(1, 1000) as $index) {
+        foreach (range(1, 500) as $index) {
             Email::create([
                 'user_id' => $faker->randomElement($userIds),
                 'email' => $faker->unique()->email

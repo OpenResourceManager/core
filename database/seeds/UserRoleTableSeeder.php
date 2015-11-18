@@ -16,9 +16,9 @@ class UserRoleTableSeeder extends Seeder
         $userIds = User::lists('id')->all();
         $roleIds = Role::lists('id')->all();
 
-        foreach (range(1, 200) as $index) {
+        foreach (range(1, 150) as $index) {
             DB::table('role_user')->insert([
-                'role_id' => $faker->unique()->randomElement($roleIds),
+                'role_id' => $faker->randomElement($roleIds),
                 'user_id' => $faker->unique()->randomElement($userIds)
             ]);
         }

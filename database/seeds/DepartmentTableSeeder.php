@@ -19,7 +19,7 @@ class DepartmentTableSeeder extends Seeder
 
         $faker = Faker::create();
 
-        foreach (range(1, 150) as $index) {
+        foreach (range(1, 100) as $index) {
             Department::create([
                 'academic' => $faker->boolean(40),
                 'code' => $faker->unique()->text(7),

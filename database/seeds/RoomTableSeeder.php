@@ -31,7 +31,7 @@ class RoomTableSeeder extends Seeder
             'Fourth Floor'
         ];
 
-        foreach (range(1, 1000) as $index) {
+        foreach (range(1, 200) as $index) {
 
             $floorNum = $faker->optional()->numberBetween(1, 4);
             $floorName = null;

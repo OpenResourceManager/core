@@ -22,7 +22,7 @@ class PhoneTableSeeder extends Seeder
 
         $userIds = User::get()->lists('id')->all();
 
-        foreach (range(1, 1000) as $index) {
+        foreach (range(1, 500) as $index) {
 
             $number = $faker->randomElement([
                 intval(1 . $faker->randomNumber(3, true) . $faker->unique()->randomNumber(7)),
