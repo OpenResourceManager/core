@@ -86,6 +86,16 @@ class UserController extends ApiController
     }
 
     /**
+     * @param $user_id
+     * @return mixed
+     */
+    public function showUserId($user_id)
+    {
+        $result = User::where('user_identifier', $user_id)->firstOrFail();
+        return $this->respondWithSuccess($this->userTransformer->transform($result));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int $id
