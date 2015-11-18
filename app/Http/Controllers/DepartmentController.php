@@ -120,6 +120,6 @@ class DepartmentController extends ApiController
     public function courseDepartment($id)
     {
         $result = Course::findOrFail($id)->department();
-        return $this->respondWithSuccess($this->departmentTransformer->transformCollection($result->all()));
+        return $this->respondWithSuccess($this->departmentTransformer->transformCollection($result));
     }
 }
