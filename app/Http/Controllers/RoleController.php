@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Role;
+use App\Model\User;
 use App\UUD\Transformers\RoleTransformer;
 use Illuminate\Http\Request;
 
@@ -119,5 +120,16 @@ class RoleController extends ApiController
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return mixed
+     */
+    public function userRoles($id, Request $request)
+    {
+        $result = User::findOrFail($id)->rooms()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->roleTransformer->transformCollection($result->all()));
     }
 }
