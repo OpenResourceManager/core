@@ -96,10 +96,10 @@ class UserController extends ApiController
     public function showByUserId($user_id)
     {
         $result = User::where('user_identifier', $user_id)->firstOrFail();
-        $result->emails = $result->emails;
-        $result->phones = $result->phones;
-        $result->rooms = $result->rooms;
-        $result->courses = $result->courses;
+        $result->email = $result->emails();
+        $result->phone = $result->phones();
+        $result->room = $result->rooms();
+        $result->course = $result->courses();
         return $this->respondWithSuccess($this->userTransformer->transform($result));
     }
 
