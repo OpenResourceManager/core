@@ -18,8 +18,8 @@ class UserCourseTableSeeder extends Seeder
     {
 
         $faker = Faker::create();
-        $userIds = User::lists('id');
-        $courseIds = Course::lists('id');
+        $userIds = User::lists('id')->all();
+        $courseIds = Course::lists('id')->all();
 
         foreach (range(1, 50) as $index) {
 
