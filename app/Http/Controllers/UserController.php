@@ -157,7 +157,7 @@ class UserController extends ApiController
     public function roleUsers($id, Request $request)
     {
         $result = Role::findOrFail($id)->users()->paginate();
-        return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result));
+        return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
 
     /**
