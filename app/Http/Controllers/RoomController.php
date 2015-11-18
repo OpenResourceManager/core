@@ -157,7 +157,7 @@ class RoomController extends ApiController
     public function userRoomsByUserId($user_id, Request $request)
     {
         $result = [];
-        echo json_encode(User::where('user_identifier', $user_id)->get());
+        echo json_encode(User::where('user_identifier', $user_id)->get()['id']);
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
     }
 }
