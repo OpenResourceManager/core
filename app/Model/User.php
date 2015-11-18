@@ -34,7 +34,7 @@ class User extends Model
 
     public function roles()
     {
-        return $this->hasMany('App\Model\Role');
+        return $this->belongsToMany('App\Model\Role');
     }
 
     public function emails()
