@@ -118,6 +118,7 @@ class RoomController extends ApiController
 
     /**
      * @param $id
+     * @param Request $request
      * @return mixed
      */
     public function campusRooms($id, Request $request)
@@ -128,6 +129,7 @@ class RoomController extends ApiController
 
     /**
      * @param $id
+     * @param Request $request
      * @return mixed
      */
     public function buildingRooms($id, Request $request)
@@ -138,11 +140,23 @@ class RoomController extends ApiController
 
     /**
      * @param $id
+     * @param Request $request
      * @return mixed
      */
     public function userRooms($id, Request $request)
     {
         $result = User::findOrFail($id)->rooms()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
+    }
+
+    /**
+     * @param $user_id
+     * @param Request $request
+     * @return mixed
+     */
+    public function userRoomsByUserId($user_id, Request $request)
+    {
+        $result = User::where('user_identifier', $user_id)->findOrFail()->rooms()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
     }
 }
