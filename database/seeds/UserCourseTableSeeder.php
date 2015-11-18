@@ -23,7 +23,7 @@ class UserCourseTableSeeder extends Seeder
 
         foreach (range(1, 150) as $index) {
             DB::table('course_user')->insert([
-                'course_id' => $faker->unique()->randomElement($courseIds),
+                'course_id' => $faker->randomElement($courseIds),
                 'user_id' => $faker->unique()->randomElement($userIds)
             ]);
         }
