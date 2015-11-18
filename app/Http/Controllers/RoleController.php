@@ -132,4 +132,15 @@ class RoleController extends ApiController
         $result = User::findOrFail($id)->roles()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->roleTransformer->transformCollection($result->all()));
     }
+
+    /**
+     * @param $user_id
+     * @param Request $request
+     * @return mixed
+     */
+    public function userRolesByUserId($user_id, Request $request)
+    {
+        $result = User::where('user_identifier', $user_id)->firstOrFail()->roles()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->roleTransformer->transformCollection($result->all()));
+    }
 }

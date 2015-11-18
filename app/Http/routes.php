@@ -52,6 +52,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('users/{id}/course', 'CourseController@userCourses');
         Route::get('users/user_id/{user_id}', 'UserController@showByUserId');
         Route::get('users/user_id/{user_id}/room', 'RoomController@userRoomsByUserId');
+        Route::get('users/user_id/{user_id}/role', 'RoleController@userRolesByUserId');
 
         Route::resource('roles', 'RoleController');
         Route::get('roles/{id}/user', 'UserController@roleUsers');
