@@ -180,7 +180,7 @@ class ApiController extends Controller
     {
         $next = $request->path();
         $next = $next . '?limit=' . $result->perPage() . '&page=' . strval(((int)$result->currentPage() + 1));
-        $next = $next >= (int)$result->lastPage() ? null : $next;
+        $next = ((int)$result->currentPage() + 1) >= (int)$result->lastPage() ? null : $next;
 
         $previous = $request->path();
         $previous = $previous . '?limit=' . $result->perPage() . '&page=' . strval(((int)$result->currentPage() - 1));
