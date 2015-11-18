@@ -188,6 +188,6 @@ class UserController extends ApiController
     public function courseUsersByCode($code, Request $request)
     {
         $result = Course::where('code', $code)->firstOrFail()->users()->paginate();
-        return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transform($result->all()));
+        return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transform($result));
     }
 }
