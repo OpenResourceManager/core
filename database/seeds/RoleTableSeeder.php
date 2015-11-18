@@ -27,10 +27,10 @@ class RoleTableSeeder extends Seeder
 
         // Loop over the array and save the data to the database
         foreach ($roles as $code => $name) {
-            $role = new Role();
-            $role->code = $code;
-            $role->name = $name;
-            $role->save();
+            Role::create([
+                'code' => $code,
+                'name' => $name
+            ]);
         }
     }
 

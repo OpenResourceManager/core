@@ -42,6 +42,8 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('buildings/{id}/room', 'RoomController@buildingRooms');
         Route::get('buildings/{id}/user', 'UserController@buildingUsers');
 
+        Route::resource('rooms', 'RoomController');
+
         Route::resource('users', 'UserController');
         Route::get('users/{id}/room', 'RoomController@userRooms');
         Route::get('users/{id}/email', 'EmailController@userEmails');
@@ -50,7 +52,8 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('users/user_id/{user_id}', 'UserController@showByUserId');
         Route::get('users/user_id/{user_id}/room', 'RoomController@userRoomsByUserId');
 
-        Route::resource('rooms', 'RoomController');
+        Route::resource('roles', 'RoleController');
+        Route::get('roles/code/{code}', 'RoleController@showByCode');
 
         Route::resource('emails', 'EmailController');
 

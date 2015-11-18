@@ -32,6 +32,11 @@ class User extends Model
         return $this->hasMany('App\Model\Room');
     }
 
+    public function roles()
+    {
+        return $this->hasMany('App\Model\Role');
+    }
+
     public function emails()
     {
         return $this->hasMany('App\Model\Email');

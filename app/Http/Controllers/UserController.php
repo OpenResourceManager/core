@@ -82,10 +82,6 @@ class UserController extends ApiController
     public function show($id)
     {
         $result = User::findOrFail($id);
-        $result->email = $result->emails;
-        $result->phone = $result->phones;
-        $result->room = $result->rooms;
-        $result->course = $result->courses;
         return $this->respondWithSuccess($this->userTransformer->transform($result));
     }
 
