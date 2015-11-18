@@ -95,7 +95,7 @@ class UserController extends ApiController
      */
     public function showByUserId($user_id)
     {
-        $result = User::where('user_identifier', $user_id)->firstOrFail();
+        $result = User::where('user_identifier', $user_id)->firstOrFail()->get();
         $result->email = $result->emails();
         $result->phone = $result->phones();
         $result->room = $result->rooms();
