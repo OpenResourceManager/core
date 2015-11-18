@@ -154,9 +154,9 @@ class RoomController extends ApiController
      * @param Request $request
      * @return mixed
      */
-    public function userRoomsByUserId($user_id, Request $request)
+    public function userRoomsByUserId($user_id)
     {
         $result = User::where('user_identifier', $user_id)->get();
-        return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
+        return $this->respondWithSuccess($this->roomTransformer->transformCollection($result->all()));
     }
 }
