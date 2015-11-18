@@ -32,11 +32,13 @@ Route::group(['prefix' => 'api'], function () {
         });
 
         Route::resource('campuses', 'CampusController');
+        Route::get('campuses/code/{code}', 'CampusController@showByCode');
         Route::get('campuses/{id}/building', 'BuildingController@campusBuildings');
         Route::get('campuses/{id}/room', 'RoomController@campusRooms');
         Route::get('campuses/{id}/user', 'UserController@campusUsers');
 
         Route::resource('buildings', 'BuildingController');
+        Route::get('buildings/code/{code}', 'BuildingController@showByCode');
         Route::get('buildings/{id}/room', 'RoomController@buildingRooms');
         Route::get('buildings/{id}/user', 'UserController@buildingUsers');
 
@@ -54,9 +56,11 @@ Route::group(['prefix' => 'api'], function () {
         Route::resource('phones', 'PhoneController');
 
         Route::resource('departments', 'DepartmentController');
+        Route::get('departments/code/{code}', 'DepartmentController@showByCode');
         Route::get('departments/{id}/course', 'CourseController@departmentCourses');
 
         Route::resource('courses', 'CourseController');
+        Route::get('courses/code/{code}', 'CourseController@showByCode');
         Route::get('courses/{id}/user', 'UserController@courseUsers');
         Route::get('courses/{id}/department', 'DepartmentController@courseDepartment');
 

@@ -77,6 +77,18 @@ class CampusController extends ApiController
     }
 
     /**
+     * Display a resource with a specific code
+     *
+     * @param $code
+     * @return mixed
+     */
+    public function showByCode($code)
+    {
+        $result = Campus::where('code', $code)->firstOrFail();
+        return $this->respondWithSuccess($this->campusTransformer->transform($result));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int $id
