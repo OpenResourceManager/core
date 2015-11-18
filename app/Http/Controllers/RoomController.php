@@ -159,4 +159,15 @@ class RoomController extends ApiController
         $result = User::where('user_identifier', $user_id)->firstOrFail()->rooms()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
     }
+
+    /**
+     * @param $username
+     * @param Request $request
+     * @return mixed
+     */
+    public function userRoomsByUsername($username, Request $request)
+    {
+        $result = User::where('username', $username)->firstOrFail()->rooms()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
+    }
 }

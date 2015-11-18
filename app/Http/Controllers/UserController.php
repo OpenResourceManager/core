@@ -97,6 +97,16 @@ class UserController extends ApiController
     }
 
     /**
+     * @param $username
+     * @return mixed
+     */
+    public function showByUsername($username)
+    {
+        $result = User::where('username', $username)->firstOrFail();
+        return $this->respondWithSuccess($this->userTransformer->transform($result));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int $id
@@ -168,5 +178,16 @@ class UserController extends ApiController
     {
         $result = Course::findOrFail($id)->users()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
+    }
+
+    /**
+     * @param $code
+     * @param Request $request
+     * @return mixed
+     */
+    public function courseUsersByCode($code, Request $request)
+    {
+        $result = Course::where('code', $code)->firstOrFail()->users()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transform($result->all()));
     }
 }

@@ -166,4 +166,15 @@ class CourseController extends ApiController
         $result = User::where('user_identifier', $user_id)->firstOrFail()->courses()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->courseTransformer->transformCollection($result->all()));
     }
+
+    /**
+     * @param $username
+     * @param Request $request
+     * @return mixed
+     */
+    public function userCoursesByUsername($username, Request $request)
+    {
+        $result = User::where('username', $username)->firstOrFail()->course()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->courseTransformer->transformCollection($result->all()));
+    }
 }

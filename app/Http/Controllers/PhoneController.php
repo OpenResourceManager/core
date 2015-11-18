@@ -134,4 +134,15 @@ class PhoneController extends ApiController
         $result = User::where('user_identifier', $user_id)->firstOrFail()->phones()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->phoneTransformer->transformCollection($result->all()));
     }
+
+    /**
+     * @param $username
+     * @param Request $request
+     * @return mixed
+     */
+    public function userPhonesByUsername($username, Request $request)
+    {
+        $result = User::where('username', $username)->firstOrFail()->phones()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->phoneTransformer->transformCollection($result->all()));
+    }
 }
