@@ -20,7 +20,7 @@ class Course extends Model
 
     public function department()
     {
-        return $this->belongsTo('App\Model\Department', 'courses');
+        return $this->belongsTo('App\Model\Department');
     }
 
     public function users()
