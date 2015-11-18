@@ -17,4 +17,10 @@ class Role extends Model
     protected $table = 'roles';
     protected $dates = ['deleted_at'];
     protected $fillable = ['code', 'name'];
+
+    public function users()
+    {
+        return $this->hasMany('App\Model\User');
+    }
+
 }
