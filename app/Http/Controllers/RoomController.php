@@ -156,8 +156,7 @@ class RoomController extends ApiController
      */
     public function userRoomsByUserId($user_id, Request $request)
     {
-        $result = [];
-        echo json_decode(User::where('user_identifier', $user_id)->get())->id;
+        $result = User::where('user_identifier', $user_id)->firstOrFail()->rooms()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
     }
 }
