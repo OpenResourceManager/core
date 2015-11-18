@@ -46,7 +46,7 @@ class Handler extends ExceptionHandler
         $api = new ApiController();
 
         if ($e instanceof ModelNotFoundException) return $api->respondNotFound($e->getMessage());
-        if ($e instanceof NotFoundHttpException) return $api->respondNotFound($e->getMessage());
+        if ($e instanceof NotFoundHttpException) return $api->respondNotFound();
 
         return parent::render($request, $e);
     }
