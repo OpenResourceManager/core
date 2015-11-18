@@ -72,8 +72,7 @@ class CampusController extends ApiController
      */
     public function show($id)
     {
-        $result = Campus::find($id);
-        if (!$result) return $this->respondNotFound();
+        $result = Campus::findOrFail($id);
         return $this->respondWithSuccess($this->campusTransformer->transform($result));
     }
 

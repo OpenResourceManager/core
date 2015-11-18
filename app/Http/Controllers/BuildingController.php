@@ -74,8 +74,7 @@ class BuildingController extends ApiController
      */
     public function show($id)
     {
-        $result = Building::find($id);
-        if (!$result) return $this->respondNotFound();
+        $result = Building::findOrFail($id);
         return $this->respondWithSuccess($this->buildingTransformer->transform($result));
     }
 
@@ -119,8 +118,7 @@ class BuildingController extends ApiController
      */
     public function campusBuildings($id)
     {
-        $result = Campus::find($id)->buildings;
-
+        $result = Campus::findOrFail($id)->buildings;
         return $this->respondWithSuccess($this->buildingTransformer->transformCollection($result->all()));
     }
 

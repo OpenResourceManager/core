@@ -76,8 +76,7 @@ class PhoneController extends ApiController
      */
     public function show($id)
     {
-        $result = Phone::find($id);
-        if (!$result) return $this->respondNotFound();
+        $result = Phone::findOrFail($id);
         return $this->respondWithSuccess($this->phoneTransformer->transform($result));
     }
 
@@ -121,8 +120,7 @@ class PhoneController extends ApiController
      */
     public function userPhones($id)
     {
-        $result = User::find($id)->phones;
-
+        $result = User::findOrFail($id)->phones;
         return $this->respondWithSuccess($this->phoneTransformer->transformCollection($result->all()));
     }
 }

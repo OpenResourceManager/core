@@ -73,8 +73,7 @@ class EmailController extends ApiController
      */
     public function show($id)
     {
-        $result = Email::find($id);
-        if (!$result) return $this->respondNotFound();
+        $result = Email::findOrFail($id);
         return $this->respondWithSuccess($this->emailTransformer->transform($result));
     }
 
@@ -118,7 +117,7 @@ class EmailController extends ApiController
      */
     public function userEmails($id)
     {
-        $result = User::find($id)->emails;
+        $result = User::findOrFail($id)->emails;
         return $this->respondWithSuccess($this->emailTransformer->transformCollection($result->all()));
     }
 }

@@ -80,8 +80,7 @@ class UserController extends ApiController
      */
     public function show($id)
     {
-        $result = User::find($id);
-        if (!$result) return $this->respondNotFound();
+        $result = User::findOrFail($id);
         return $this->respondWithSuccess($this->userTransformer->transform($result));
     }
 
@@ -126,7 +125,6 @@ class UserController extends ApiController
     public function campusUsers($id)
     {
         $result = Campus::findOrFail($id)->users();
-
         return $this->respondWithSuccess($this->userTransformer->transformCollection($result));
     }
 
@@ -137,7 +135,6 @@ class UserController extends ApiController
     public function buildingUsers($id)
     {
         $result = Building::findOrFail($id)->users();
-
         return $this->respondWithSuccess($this->userTransformer->transformCollection($result));
     }
 }

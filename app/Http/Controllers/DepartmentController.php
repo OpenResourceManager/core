@@ -73,8 +73,7 @@ class DepartmentController extends ApiController
      */
     public function show($id)
     {
-        $result = Department::find($id);
-        if (!$result) return $this->respondNotFound();
+        $result = Department::findOrFail($id);
         return $this->respondWithSuccess($this->departmentTransformer->transform($result));
     }
 

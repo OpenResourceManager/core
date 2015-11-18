@@ -74,8 +74,7 @@ class CourseController extends ApiController
      */
     public function show($id)
     {
-        $result = Course::find($id);
-        if (!$result) return $this->respondNotFound();
+        $result = Course::findOrFail($id);
         return $this->respondWithSuccess($this->courseTransformer->transform($result));
     }
 
@@ -119,7 +118,7 @@ class CourseController extends ApiController
      */
     public function departmentCourses($id)
     {
-        $result = Department::find($id)->courses;
+        $result = Department::findOrFail($id)->courses;
         return $this->respondWithSuccess($this->courseTransformer->transformCollection($result->all()));
     }
 }
