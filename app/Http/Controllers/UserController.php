@@ -8,8 +8,6 @@ use App\Model\User;
 use App\UUD\Transformers\UserTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
@@ -134,11 +132,9 @@ class UserController extends ApiController
      * @param $id
      * @return mixed
      */
-    public function buildingUsers(Request $request, $id)
+    public function buildingUsers($id)
     {
-        parent::index($request);
-        $objects = Building::findOrFail($id)->users();
-        $result = Paginator::make($objects, $objects->count(), $this->limit);
+        $result = Building::findOrFail($id)->users();
         return $this->respondWithSuccess($this->userTransformer->transformCollection($result));
     }
 }

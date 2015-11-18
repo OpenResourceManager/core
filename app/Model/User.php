@@ -41,4 +41,9 @@ class User extends Model
     {
         return $this->hasMany('App\Model\Phone');
     }
+
+    public function courses()
+    {
+        return $this->belongsToMany('App\Model\Course');
+    }
 }

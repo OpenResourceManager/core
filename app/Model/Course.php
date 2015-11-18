@@ -17,4 +17,10 @@ class Course extends Model
     protected $table = 'courses';
     protected $dates = ['deleted_at'];
     protected $fillable = ['department_id', 'code', 'name'];
+
+    public function users()
+    {
+        return $this->hasMany('App\Model\User');
+    }
+
 }

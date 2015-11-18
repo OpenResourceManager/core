@@ -13,7 +13,8 @@
         "fzaninotto/faker": "^1.5",
         "mockery/mockery": "0.9.*",
         "phpspec/phpspec": "~2.1",
-        "barryvdh/laravel-ide-helper": "^2.1"
+        "barryvdh/laravel-ide-helper": "^2.1",
+        "laracasts/generators": "^1.1"
     },
     "autoload": {
         "classmap": [
