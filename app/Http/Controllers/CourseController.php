@@ -136,12 +136,34 @@ class CourseController extends ApiController
     }
 
     /**
+     * @param $user_id
+     * @param Request $request
+     * @return mixed
+     */
+    public function departmentCoursesByCode($code, Request $request)
+    {
+        $result = Department::where('code', $code)->firstOrFail()->courses()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->courseTransformer->transformCollection($result->all()));
+    }
+
+    /**
      * @param $id
      * @return mixed
      */
     public function userCourses($id, Request $request)
     {
         $result = User::findOrFail($id)->courses()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->courseTransformer->transformCollection($result->all()));
+    }
+
+    /**
+     * @param $user_id
+     * @param Request $request
+     * @return mixed
+     */
+    public function userCoursesByUserId($user_id, Request $request)
+    {
+        $result = User::where('user_identifier', $user_id)->firstOrFail()->courses()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->courseTransformer->transformCollection($result->all()));
     }
 }

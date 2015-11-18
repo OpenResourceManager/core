@@ -53,6 +53,9 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('users/user_id/{user_id}', 'UserController@showByUserId');
         Route::get('users/user_id/{user_id}/room', 'RoomController@userRoomsByUserId');
         Route::get('users/user_id/{user_id}/role', 'RoleController@userRolesByUserId');
+        Route::get('users/user_id/{user_id}/email', 'EmailController@userEmailsByUserId');
+        Route::get('users/user_id/{user_id}/phone', 'PhoneController@userPhonesByUserId');
+        Route::get('users/user_id/{user_id}/course', 'CourseController@userCoursesByUserId');
 
         Route::resource('roles', 'RoleController');
         Route::get('roles/{id}/user', 'UserController@roleUsers');
@@ -65,6 +68,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::resource('departments', 'DepartmentController');
         Route::get('departments/code/{code}', 'DepartmentController@showByCode');
         Route::get('departments/{id}/course', 'CourseController@departmentCourses');
+        Route::get('departments/code/{code}/course', 'CourseController@departmentCoursesByCode');
 
         Route::resource('courses', 'CourseController');
         Route::get('courses/code/{code}', 'CourseController@showByCode');

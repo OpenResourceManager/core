@@ -120,4 +120,15 @@ class EmailController extends ApiController
         $result = User::findOrFail($id)->emails()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
     }
+
+    /**
+     * @param $user_id
+     * @param Request $request
+     * @return mixed
+     */
+    public function userEmailsByUserId($user_id, Request $request)
+    {
+        $result = User::where('user_identifier', $user_id)->firstOrFail()->emails()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
+    }
 }
