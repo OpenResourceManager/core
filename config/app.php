@@ -149,8 +149,6 @@ return [
          * Third Party Providers...
          */
 
-        Chrisbjr\ApiGuard\Providers\ApiGuardServiceProvider::class,
-
     ],
 
     /*
