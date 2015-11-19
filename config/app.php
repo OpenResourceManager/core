@@ -145,6 +145,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * Third Party Providers...
+         */
+
+        Chrisbjr\ApiGuard\Providers\ApiGuardServiceProvider::class,
+
     ],
 
     /*

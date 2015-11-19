@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\ApiKey;
+use Chrisbjr\ApiGuard\Models\ApiKey;
 
 /**
  * Created by PhpStorm.
@@ -17,21 +17,10 @@ class ApikeyTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $keys = array(
-            array('Key R/O', str_random(32), true, false, false, false),
-            array('Key R/W', str_random(32), true, true, true, true),
-        );
-
-
-        foreach ($keys as $key) {
-            $model = new ApiKey();
-            $model->app_name = $key[0];
-            $model->key = $key[1];
-            $model->can_get = $key[2];
-            $model->can_post = $key[3];
-            $model->can_put = $key[4];
-            $model->can_delete = $key[5];
-            $model->save();
+        foreach (range(1, 4) as $index) {
+            $apiKey = new ApiKey();
+            $apiKey->key = $apiKey->generateKey();
+            $apiKey->save();
         }
 
     }
