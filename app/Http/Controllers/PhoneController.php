@@ -111,7 +111,8 @@ class PhoneController extends ApiController
      */
     public function destroy($id)
     {
-        //
+        Phone::findOrFail($id)->delete();
+        return $this->respondDestroySuccess();
     }
 
     /**

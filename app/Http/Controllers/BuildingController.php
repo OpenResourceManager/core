@@ -121,7 +121,8 @@ class BuildingController extends ApiController
      */
     public function destroy($id)
     {
-        //
+        Building::findOrFail($id)->delete();
+        return $this->respondDestroySuccess();
     }
 
     /**

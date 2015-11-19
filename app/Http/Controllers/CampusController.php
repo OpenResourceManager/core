@@ -119,6 +119,7 @@ class CampusController extends ApiController
      */
     public function destroy($id)
     {
-        //
+        Campus::findOrFail($id)->delete();
+        return $this->respondDestroySuccess();
     }
 }

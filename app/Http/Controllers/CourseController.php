@@ -122,7 +122,8 @@ class CourseController extends ApiController
      */
     public function destroy($id)
     {
-        //
+        Course::findOrFail($id)->delete();
+        return $this->respondDestroySuccess();
     }
 
     /**

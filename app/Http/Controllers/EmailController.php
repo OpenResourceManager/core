@@ -108,7 +108,8 @@ class EmailController extends ApiController
      */
     public function destroy($id)
     {
-        //
+        Email::findOrFail($id)->delete();
+        return $this->respondDestroySuccess();
     }
 
     /**

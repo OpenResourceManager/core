@@ -119,7 +119,8 @@ class RoleController extends ApiController
      */
     public function destroy($id)
     {
-        //
+        Role::findOrFail($id)->delete();
+        return $this->respondDestroySuccess();
     }
 
     /**

@@ -121,7 +121,8 @@ class DepartmentController extends ApiController
      */
     public function destroy($id)
     {
-        //
+        Department::findOrFail($id)->delete();
+        return $this->respondDestroySuccess();
     }
 
     /**

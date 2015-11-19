@@ -113,7 +113,8 @@ class RoomController extends ApiController
      */
     public function destroy($id)
     {
-        //
+        Room::findOrFail($id)->delete();
+        return $this->respondDestroySuccess();
     }
 
     /**
