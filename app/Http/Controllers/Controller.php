@@ -6,8 +6,9 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Chrisbjr\ApiGuard\Http\Controllers\ApiGuardController;
 
-abstract class Controller extends BaseController
+abstract class Controller extends ApiGuardController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }
