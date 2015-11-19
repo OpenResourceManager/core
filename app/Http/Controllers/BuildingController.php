@@ -34,8 +34,11 @@ class BuildingController extends ApiController
      */
     public function index(Request $request)
     {
+        if (!$this->isAuthorized($request, 'get')) return $this->respondNotAuthorized();
+
         parent::index($request);
-        $result = $this->isAuthorized($request, 'get') ? Building::paginate($this->limit) : $this->respondNotAuthorized();
+
+        $result = Building::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->buildingTransformer->transformCollection($result->all()));
     }
 
