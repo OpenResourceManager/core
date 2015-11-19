@@ -24,7 +24,7 @@ class BuildingController extends ApiController
      */
     function __construct(Request $request, BuildingTransformer $buildingTransformer)
     {
-        parent::__Construct($request);
+        if ($this->isAuthorized($request)) return $this->respondNotAuthorized();
         $this->buildingTransformer = $buildingTransformer;
     }
 

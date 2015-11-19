@@ -94,12 +94,6 @@ class ApiController extends Controller
         return $this;
     }
 
-    function __Construct(Request $request)
-    {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        return true;
-    }
-
     /**
      * @param Request $request
      */
