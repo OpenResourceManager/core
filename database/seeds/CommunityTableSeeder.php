@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Faker\Factory as Faker;
 use App\Model\Community;
 
 /**
@@ -16,19 +17,13 @@ class CommunityTableSeeder extends Seeder
     {
         Model::unguard();
 
-        // Create an array of communities
-        $communities = array(
-            array('CHESS', 'Chess Club'),
-            array('STU-GOV', 'Student Government')
-        );
+        $faker = Faker::create();
 
-        // Loop through the array then save the data to the database
-        foreach ($communities as $commArr) {
-            $comm = new Community();
-            $comm->code = $commArr[0];
-            $comm->name = $commArr[1];
-            $comm->save();
+        foreach (range(1, 40) as $index) {
+            Community::create([
+                'code' => $faker->unique()->word,
+                'name' => $faker->sentence($nbWords = 3)
+            ]);
         }
     }
-
 }

@@ -25,6 +25,11 @@ class Department extends Model
 
     public function users()
     {
+        return $this->hasMany('App\Model\User');
+    }
+
+    public function enrolled_users()
+    {
         return $this->hasManyThrough('App\Model\User', 'App\Model\Course');
     }
 }

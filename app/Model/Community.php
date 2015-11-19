@@ -16,5 +16,9 @@ class Community extends Model
     use SoftDeletes;
     protected $table = 'communities';
     protected $dates = ['deleted_at'];
+    protected $fillable = [
+        'code',
+        'name'
+    ];
 
 }

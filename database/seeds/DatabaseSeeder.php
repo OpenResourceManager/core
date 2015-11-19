@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call('ApiKeyTableSeeder');
 
         $this->call('UserCourseTableSeeder');
+        $this->call('DepartmentsUsersTableSeeder');
         $this->call('UserRoleTableSeeder');
 
         Model::reguard();

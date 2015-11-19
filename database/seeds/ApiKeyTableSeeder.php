@@ -18,8 +18,9 @@ class ApiKeyTableSeeder extends Seeder
         Model::unguard();
 
         $keys = array(
-            array('Key R/O', str_random(32), true, false, false, false),
-            array('Key R/W', str_random(32), true, true, true, true),
+            array('Test Key R/O', str_random(32), true, false, false, false),
+            array('Test Key Write Only', str_random(32), false, true, true, true),
+            array('Test Key R/W', str_random(32), true, true, true, true),
         );
 
 
