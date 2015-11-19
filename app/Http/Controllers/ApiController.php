@@ -155,6 +155,15 @@ class ApiController extends Controller
     }
 
     /**
+     * @param string $message
+     * @return mixed
+     */
+    public function respondDestroySuccess($message = 'Object Destroyed')
+    {
+        return $this->respondWithSuccess($message);
+    }
+
+    /**
      * @param $message
      * @return mixed
      */

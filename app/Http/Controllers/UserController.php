@@ -137,7 +137,28 @@ class UserController extends ApiController
      */
     public function destroy($id)
     {
-        //
+        User::findOrFail($id)->destroy();
+        return $this->respondDestroySuccess();
+    }
+
+    /**
+     * @param $user_id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyByUserId($user_id)
+    {
+        User::where('user_identifier', $user_id)->firstOrFail()->destroy();
+        return $this->respondDestroySuccess();
+    }
+
+    /**
+     * @param $username
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyByUsername($username)
+    {
+        User::where('username', $username)->firstOrFail()->destroy();
+        return $this->respondDestroySuccess();
     }
 
     /**

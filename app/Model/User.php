@@ -32,11 +32,6 @@ class User extends Model
         return $this->hasMany('App\Model\Room');
     }
 
-    public function roles()
-    {
-        return $this->belongsToMany('App\Model\Role');
-    }
-
     public function emails()
     {
         return $this->hasMany('App\Model\Email');
@@ -45,6 +40,11 @@ class User extends Model
     public function phones()
     {
         return $this->hasMany('App\Model\Phone');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Model\Role');
     }
 
     public function courses()
