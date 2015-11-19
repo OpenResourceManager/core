@@ -122,4 +122,14 @@ class CampusController extends ApiController
         Campus::findOrFail($id)->delete();
         return $this->respondDestroySuccess();
     }
+
+    /**
+     * @param $code
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyByCode($code)
+    {
+        Campus::where('code', $code)->firstOrFail()->delete();
+        return $this->respondDestroySuccess();
+    }
 }

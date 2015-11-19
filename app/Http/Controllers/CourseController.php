@@ -127,6 +127,16 @@ class CourseController extends ApiController
     }
 
     /**
+     * @param $code
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyByCode($code)
+    {
+        Course::where('code', $code)->firstOrFail()->delete();
+        return $this->respondDestroySuccess();
+    }
+
+    /**
      * @param $id
      * @return mixed
      */

@@ -124,6 +124,16 @@ class RoleController extends ApiController
     }
 
     /**
+     * @param $code
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyByCode($code)
+    {
+        Role::where('code', $code)->firstOrFail()->delete();
+        return $this->respondDestroySuccess();
+    }
+
+    /**
      * @param $id
      * @param Request $request
      * @return mixed

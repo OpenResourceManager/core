@@ -36,11 +36,13 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('campuses/{id}/building', 'BuildingController@campusBuildings');
         Route::get('campuses/{id}/room', 'RoomController@campusRooms');
         Route::get('campuses/{id}/user', 'UserController@campusUsers');
+        Route::delete('campuses/code/{code}', 'CampusController@destroyByCode');
 
         Route::resource('buildings', 'BuildingController');
         Route::get('buildings/code/{code}', 'BuildingController@showByCode');
         Route::get('buildings/{id}/room', 'RoomController@buildingRooms');
         Route::get('buildings/{id}/user', 'UserController@buildingUsers');
+        Route::delete('buildings/code/{code}', 'BuildingController@destroyByCode');
 
         Route::resource('rooms', 'RoomController');
 
@@ -68,6 +70,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::resource('roles', 'RoleController');
         Route::get('roles/{id}/user', 'UserController@roleUsers');
         Route::get('roles/code/{code}', 'RoleController@showByCode');
+        Route::delete('roles/code/{code}', 'RoleController@destroyByCode');
 
         Route::resource('emails', 'EmailController');
 
@@ -77,6 +80,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('departments/code/{code}', 'DepartmentController@showByCode');
         Route::get('departments/{id}/course', 'CourseController@departmentCourses');
         Route::get('departments/code/{code}/course', 'CourseController@departmentCoursesByCode');
+        Route::delete('departments/code/{code}', 'DepartmentController@destroyByCode');
 
         Route::resource('courses', 'CourseController');
         Route::get('courses/{id}/user', 'UserController@courseUsers');
@@ -84,6 +88,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('courses/code/{code}', 'CourseController@showByCode');
         Route::get('courses/code/{code}/user', 'UserController@courseUsersByCode');
         Route::get('courses/code/{code}/department', 'DepartmentController@courseDepartmentByCode');
+        Route::delete('courses/code/{code}', 'CourseController@destroyByCode');
 
     });
 });

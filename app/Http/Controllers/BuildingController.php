@@ -126,6 +126,16 @@ class BuildingController extends ApiController
     }
 
     /**
+     * @param $code
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyByCode($code)
+    {
+        Building::where('code', $code)->firstOrFail()->delete();
+        return $this->respondDestroySuccess();
+    }
+
+    /**
      * @param $id
      * @return mixed
      */
