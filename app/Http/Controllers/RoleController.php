@@ -34,6 +34,7 @@ class RoleController extends ApiController
      */
     public function index(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Role::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roleTransformer->transformCollection($result->all()));
@@ -44,8 +45,9 @@ class RoleController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -57,6 +59,7 @@ class RoleController extends ApiController
      */
     public function store(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'code' => 'string|required|min:3|unique:roles,deleted_at,NULL',
             'name' => 'string|max:25',
@@ -72,8 +75,9 @@ class RoleController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Role::findOrFail($id);
         return $this->respondWithSuccess($this->roleTransformer->transform($result));
     }
@@ -82,8 +86,9 @@ class RoleController extends ApiController
      * @param $code
      * @return mixed
      */
-    public function showByCode($code)
+    public function showByCode($code, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Role::where('code', $code)->firstOrFail();
         return $this->respondWithSuccess($this->roleTransformer->transform($result));
     }
@@ -94,8 +99,9 @@ class RoleController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -108,6 +114,7 @@ class RoleController extends ApiController
      */
     public function update(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -117,8 +124,9 @@ class RoleController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         Role::findOrFail($id)->delete();
         return $this->respondDestroySuccess();
     }
@@ -127,8 +135,9 @@ class RoleController extends ApiController
      * @param $code
      * @return \Illuminate\Http\Response
      */
-    public function destroyByCode($code)
+    public function destroyByCode($code, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         Role::where('code', $code)->firstOrFail()->delete();
         return $this->respondDestroySuccess();
     }
@@ -140,6 +149,7 @@ class RoleController extends ApiController
      */
     public function userRoles($id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = User::findOrFail($id)->roles()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->roleTransformer->transformCollection($result->all()));
     }
@@ -151,6 +161,7 @@ class RoleController extends ApiController
      */
     public function userRolesByUserId($user_id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = User::where('user_identifier', $user_id)->firstOrFail()->roles()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->roleTransformer->transformCollection($result->all()));
     }
@@ -162,6 +173,7 @@ class RoleController extends ApiController
      */
     public function userRolesByUsername($username, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = User::where('username', $username)->firstOrFail()->roles()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->roleTransformer->transformCollection($result->all()));
     }

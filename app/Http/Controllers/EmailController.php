@@ -32,6 +32,7 @@ class EmailController extends ApiController
      */
     public function index(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Email::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
@@ -42,8 +43,9 @@ class EmailController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -55,6 +57,7 @@ class EmailController extends ApiController
      */
     public function store(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
             'email' => 'email|required|unique:emails,deleted_at,NULL',
@@ -71,8 +74,9 @@ class EmailController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Email::findOrFail($id);
         return $this->respondWithSuccess($this->emailTransformer->transform($result));
     }
@@ -83,8 +87,9 @@ class EmailController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -97,6 +102,7 @@ class EmailController extends ApiController
      */
     public function update(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -106,8 +112,9 @@ class EmailController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         Email::findOrFail($id)->delete();
         return $this->respondDestroySuccess();
     }
@@ -118,6 +125,7 @@ class EmailController extends ApiController
      */
     public function userEmails($id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = User::findOrFail($id)->emails()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
     }
@@ -129,6 +137,7 @@ class EmailController extends ApiController
      */
     public function userEmailsByUserId($user_id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = User::where('user_identifier', $user_id)->firstOrFail()->emails()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
     }
@@ -140,6 +149,7 @@ class EmailController extends ApiController
      */
     public function userEmailsByUsername($username, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = User::where('username', $username)->firstOrFail()->emails()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
     }

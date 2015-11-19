@@ -32,6 +32,7 @@ class DepartmentController extends ApiController
      */
     public function index(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Department::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->departmentTransformer->transformCollection($result->all()));
@@ -42,8 +43,9 @@ class DepartmentController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -55,6 +57,7 @@ class DepartmentController extends ApiController
      */
     public function store(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'academic' => 'boolean|required',
             'code' => 'string|required|min:3|unique:departments,deleted_at,NULL',
@@ -72,8 +75,9 @@ class DepartmentController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Department::findOrFail($id);
         return $this->respondWithSuccess($this->departmentTransformer->transform($result));
     }
@@ -84,8 +88,9 @@ class DepartmentController extends ApiController
      * @param $code
      * @return mixed
      */
-    public function showByCode($code)
+    public function showByCode(Request $request, $code)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Department::where('code', $code)->firstOrFail();
         return $this->respondWithSuccess($this->departmentTransformer->transform($result));
     }
@@ -96,8 +101,9 @@ class DepartmentController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -110,6 +116,7 @@ class DepartmentController extends ApiController
      */
     public function update(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -119,8 +126,9 @@ class DepartmentController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         Department::findOrFail($id)->delete();
         return $this->respondDestroySuccess();
     }
@@ -129,8 +137,9 @@ class DepartmentController extends ApiController
      * @param $code
      * @return \Illuminate\Http\Response
      */
-    public function destroyByCode($code)
+    public function destroyByCode(Request $request, $code)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         Department::where('code', $code)->firstOrFail()->delete();
         return $this->respondDestroySuccess();
     }
@@ -142,6 +151,7 @@ class DepartmentController extends ApiController
      */
     public function courseDepartment($id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Course::findOrFail($id)->department()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->departmentTransformer->transformCollection($result->all()));
     }
@@ -153,6 +163,7 @@ class DepartmentController extends ApiController
      */
     public function courseDepartmentByCode($code, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Course::where('code', $code)->firstOrFail()->department()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->departmentTransformer->transformCollection($result->all()));
     }

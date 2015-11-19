@@ -36,6 +36,7 @@ class UserController extends ApiController
      */
     public function index(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = User::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
@@ -46,8 +47,9 @@ class UserController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -59,6 +61,7 @@ class UserController extends ApiController
      */
     public function store(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user_identifier' => 'string|required|max:7|min:6|unique:users,deleted_at,NULL',
             'name_prefix' => 'string|max:7',
@@ -80,8 +83,9 @@ class UserController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = User::findOrFail($id);
         return $this->respondWithSuccess($this->userTransformer->transform($result));
     }
@@ -90,8 +94,9 @@ class UserController extends ApiController
      * @param $user_id
      * @return mixed
      */
-    public function showByUserId($user_id)
+    public function showByUserId($user_id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = User::where('user_identifier', $user_id)->firstOrFail();
         return $this->respondWithSuccess($this->userTransformer->transform($result));
     }
@@ -100,8 +105,9 @@ class UserController extends ApiController
      * @param $username
      * @return mixed
      */
-    public function showByUsername($username)
+    public function showByUsername($username, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = User::where('username', $username)->firstOrFail();
         return $this->respondWithSuccess($this->userTransformer->transform($result));
     }
@@ -112,8 +118,9 @@ class UserController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -126,6 +133,7 @@ class UserController extends ApiController
      */
     public function update(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -135,8 +143,9 @@ class UserController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         User::findOrFail($id)->delete();
         return $this->respondDestroySuccess();
     }
@@ -145,8 +154,9 @@ class UserController extends ApiController
      * @param $user_id
      * @return \Illuminate\Http\Response
      */
-    public function destroyByUserId($user_id)
+    public function destroyByUserId($user_id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         User::where('user_identifier', $user_id)->firstOrFail()->delete();
         return $this->respondDestroySuccess();
     }
@@ -155,8 +165,9 @@ class UserController extends ApiController
      * @param $username
      * @return \Illuminate\Http\Response
      */
-    public function destroyByUsername($username)
+    public function destroyByUsername($username, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         User::where('username', $username)->firstOrFail()->delete();
         return $this->respondDestroySuccess();
     }
@@ -165,8 +176,9 @@ class UserController extends ApiController
      * @param $id
      * @return mixed
      */
-    public function campusUsers($id)
+    public function campusUsers($id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Campus::findOrFail($id)->users();
         return $this->respondWithSuccess($this->userTransformer->transformCollection($result));
     }
@@ -175,8 +187,9 @@ class UserController extends ApiController
      * @param $id
      * @return mixed
      */
-    public function buildingUsers($id)
+    public function buildingUsers($id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Building::findOrFail($id)->users();
         return $this->respondWithSuccess($this->userTransformer->transformCollection($result));
     }
@@ -188,6 +201,7 @@ class UserController extends ApiController
      */
     public function roleUsers($id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Role::findOrFail($id)->users()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
@@ -199,6 +213,7 @@ class UserController extends ApiController
      */
     public function courseUsers($id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Course::findOrFail($id)->users()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
@@ -210,6 +225,7 @@ class UserController extends ApiController
      */
     public function courseUsersByCode($code, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Course::where('code', $code)->firstOrFail()->users()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }

@@ -32,6 +32,7 @@ class PhoneController extends ApiController
      */
     public function index(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Phone::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->phoneTransformer->transformCollection($result->all()));
@@ -42,8 +43,9 @@ class PhoneController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -55,6 +57,7 @@ class PhoneController extends ApiController
      */
     public function store(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
             'number' => 'integer|required|max:11',
@@ -74,8 +77,9 @@ class PhoneController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Phone::findOrFail($id);
         return $this->respondWithSuccess($this->phoneTransformer->transform($result));
     }
@@ -86,8 +90,9 @@ class PhoneController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -100,6 +105,7 @@ class PhoneController extends ApiController
      */
     public function update(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -109,8 +115,9 @@ class PhoneController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         Phone::findOrFail($id)->delete();
         return $this->respondDestroySuccess();
     }
@@ -121,6 +128,7 @@ class PhoneController extends ApiController
      */
     public function userPhones($id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = User::findOrFail($id)->phones()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->phoneTransformer->transformCollection($result->all()));
     }
@@ -132,6 +140,7 @@ class PhoneController extends ApiController
      */
     public function userPhonesByUserId($user_id, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = User::where('user_identifier', $user_id)->firstOrFail()->phones()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->phoneTransformer->transformCollection($result->all()));
     }
@@ -143,6 +152,7 @@ class PhoneController extends ApiController
      */
     public function userPhonesByUsername($username, Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = User::where('username', $username)->firstOrFail()->phones()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->phoneTransformer->transformCollection($result->all()));
     }
