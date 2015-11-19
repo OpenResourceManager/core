@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
+use Chrisbjr\ApiGuard\Http\Controllers\ApiGuardController;
 
-class ApiController extends Controller
+class ApiController extends ApiGuardController
 {
 
     /**
