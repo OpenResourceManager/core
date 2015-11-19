@@ -197,10 +197,9 @@ class ApiController extends ApiGuardController
         $previous = ((int)$result->currentPage() - 1) > 0 ? $previous : null;
 
         $paginator = [
-            'total_count' => $result->lastPage(),
-            'total_pages' => ceil($result->lastPage() / $result->perPage()),
+            'total_pages' => $result->lastPage(),
             'current_page' => $result->currentPage(),
-            'limit' => (int)$result->perPage(),
+            'result_limit' => $result->perPage(),
             'next_page' => $next,
             'previous_page' => $previous
         ];
