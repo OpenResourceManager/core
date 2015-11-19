@@ -94,6 +94,12 @@ class ApiController extends Controller
         return $this;
     }
 
+    function __Construct(Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        return true;
+    }
+
     /**
      * @param Request $request
      */
@@ -107,9 +113,9 @@ class ApiController extends Controller
      * @param $method
      * @return mixed
      */
-    public function isAuthorized(Request $request, $method)
+    public function isAuthorized(Request $request)
     {
-        $key = Apikey::testAPIKey($request, $method);
+        $key = Apikey::testAPIKey($request);
         return $key[0];
     }
 

@@ -30,12 +30,12 @@ class Apikey extends Model
      * @param $method
      * @return array
      */
-    public static function testAPIKey($request, $method)
+    public static function testAPIKey($request)
     {
         if ($request->header('X-Authorization')) {
             $key = self::getAPIKey($request->header('X-Authorization'));
             if ($key) {
-                switch ($method) {
+                switch (strtolower($request->method())) {
                     case 'get' :
                         return $key->can_get ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;

@@ -22,8 +22,9 @@ class BuildingController extends ApiController
     /**
      * @param BuildingTransformer $buildingTransformer
      */
-    function __construct(BuildingTransformer $buildingTransformer)
+    function __construct(Request $request, BuildingTransformer $buildingTransformer)
     {
+        parent::__Construct($request);
         $this->buildingTransformer = $buildingTransformer;
     }
 
@@ -34,10 +35,7 @@ class BuildingController extends ApiController
      */
     public function index(Request $request)
     {
-        if (!$this->isAuthorized($request, 'get')) return $this->respondNotAuthorized();
-
         parent::index($request);
-
         $result = Building::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->buildingTransformer->transformCollection($result->all()));
     }
