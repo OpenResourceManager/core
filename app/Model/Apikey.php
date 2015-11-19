@@ -15,6 +15,14 @@ class ApiKey extends Model
     use SoftDeletes;
     protected $table = 'api_keys';
     protected $dates = ['deleted_at'];
+    protected $fillable = [
+        'app_name',
+        'key',
+        'can_get',
+        'can_post',
+        'can_put',
+        'can_delete'
+    ];
 
     /**
      * @param string $key

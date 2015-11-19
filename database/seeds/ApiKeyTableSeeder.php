@@ -24,16 +24,15 @@ class ApiKeyTableSeeder extends Seeder
 
 
         foreach ($keys as $key) {
-            $model = new ApiKey();
-            $model->app_name = $key[0];
-            $model->key = $key[1];
-            $model->can_get = $key[2];
-            $model->can_post = $key[3];
-            $model->can_put = $key[4];
-            $model->can_delete = $key[5];
-            $model->save();
+            ApiKey::create([
+                'app_name' => $key[0],
+                'key' => $key[1],
+                'can_get' => $key[2],
+                'can_post' => $key[3],
+                'can_put' => $key[4],
+                'can_delete' => $key[5]
+            ]);
         }
-
     }
 
 }
