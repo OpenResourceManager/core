@@ -10,7 +10,7 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Apikey extends Model
+class ApiKey extends Model
 {
     use SoftDeletes;
     protected $table = 'api_keys';
@@ -22,7 +22,7 @@ class Apikey extends Model
      */
     protected static function getAPIKey($key = '')
     {
-        return Apikey::where('key', $key)->get()->first();
+        return ApiKey::where('key', $key)->get()->first();
     }
 
     /**

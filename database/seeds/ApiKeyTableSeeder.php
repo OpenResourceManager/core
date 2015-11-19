@@ -10,7 +10,7 @@ use App\Model\ApiKey;
  * Date: 10/20/15
  * Time: 3:20 PM
  */
-class ApikeyTableSeeder extends Seeder
+class ApiKeyTableSeeder extends Seeder
 {
 
     public function run()

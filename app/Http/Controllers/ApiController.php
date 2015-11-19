@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Model\Apikey;
+use App\Model\ApiKey;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Input;
@@ -109,7 +109,7 @@ class ApiController extends Controller
      */
     public function isAuthorized(Request $request)
     {
-        $key = Apikey::testAPIKey($request);
+        $key = ApiKey::testAPIKey($request);
         return $key[0];
     }
 
