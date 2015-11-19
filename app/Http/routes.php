@@ -62,6 +62,8 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('users/username/{username}/email', 'EmailController@userEmailsByUsername');
         Route::get('users/username/{username}/phone', 'PhoneController@userPhonesByUsername');
         Route::get('users/username/{username}/course', 'CourseController@userCoursesUsername');
+        Route::delete('users/user_id/{user_id}', 'UserController@destroyByUserId');
+        Route::delete('users/username/{username}', 'UserController@destroyByUsername');
 
         Route::resource('roles', 'RoleController');
         Route::get('roles/{id}/user', 'UserController@roleUsers');
