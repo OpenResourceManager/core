@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Apikey;
 use App\Model\Building;
 use App\Model\Campus;
 use App\UUD\Transformers\BuildingTransformer;
@@ -34,7 +35,7 @@ class BuildingController extends ApiController
     public function index(Request $request)
     {
         parent::index($request);
-        $result = Building::paginate($this->limit);
+        $result = $this->isAuthorized($request, 'get') ? Building::paginate($this->limit) : $this->respondNotAuthorized();
         return $this->respondSuccessWithPagination($request, $result, $this->buildingTransformer->transformCollection($result->all()));
     }
 

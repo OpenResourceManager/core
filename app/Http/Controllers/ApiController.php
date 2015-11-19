@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Model\Apikey;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Input;
@@ -93,9 +94,23 @@ class ApiController extends Controller
         return $this;
     }
 
+    /**
+     * @param Request $request
+     */
     public function index(Request $request)
     {
         $this->limit(Input::get('limit'));
+    }
+
+    /**
+     * @param Request $request
+     * @param $method
+     * @return mixed
+     */
+    public function isAuthorized(Request $request, $method)
+    {
+        $key = Apikey::testAPIKey($request, $method);
+        return $key[0];
     }
 
     /**

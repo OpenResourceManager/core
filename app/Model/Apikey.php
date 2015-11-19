@@ -20,7 +20,7 @@ class Apikey extends Model
      * @param string $key
      * @return mixed
      */
-    public static function getAPIKey($key = '')
+    protected static function getAPIKey($key = '')
     {
         return Apikey::where('key', $key)->get()->first();
     }
