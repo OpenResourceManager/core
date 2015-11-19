@@ -137,7 +137,7 @@ class UserController extends ApiController
      */
     public function destroy($id)
     {
-        User::findOrFail($id)->destroy();
+        User::findOrFail($id)->delete();
         return $this->respondDestroySuccess();
     }
 
@@ -147,7 +147,7 @@ class UserController extends ApiController
      */
     public function destroyByUserId($user_id)
     {
-        User::where('user_identifier', $user_id)->firstOrFail()->destroy();
+        User::where('user_identifier', $user_id)->firstOrFail()->delete();
         return $this->respondDestroySuccess();
     }
 
@@ -157,7 +157,7 @@ class UserController extends ApiController
      */
     public function destroyByUsername($username)
     {
-        User::where('username', $username)->firstOrFail()->destroy();
+        User::where('username', $username)->firstOrFail()->delete();
         return $this->respondDestroySuccess();
     }
 
