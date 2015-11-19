@@ -22,9 +22,8 @@ class BuildingController extends ApiController
     /**
      * @param BuildingTransformer $buildingTransformer
      */
-    function __construct(Request $request, BuildingTransformer $buildingTransformer)
+    function __construct(BuildingTransformer $buildingTransformer)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $this->buildingTransformer = $buildingTransformer;
     }
 
@@ -35,6 +34,7 @@ class BuildingController extends ApiController
      */
     public function index(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Building::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->buildingTransformer->transformCollection($result->all()));
@@ -45,8 +45,9 @@ class BuildingController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -58,6 +59,7 @@ class BuildingController extends ApiController
      */
     public function store(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'campus_id' => 'integer|required|exists:campuses,id,deleted_at,NULL',
             'code' => 'string|required|max:10|min:3|unique:campuses,deleted_at,NULL',
@@ -74,8 +76,9 @@ class BuildingController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Building::findOrFail($id);
         return $this->respondWithSuccess($this->buildingTransformer->transform($result));
     }
@@ -86,8 +89,9 @@ class BuildingController extends ApiController
      * @param $code
      * @return mixed
      */
-    public function showByCode($code)
+    public function showByCode(Request $request, $code)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Building::where('code', $code)->firstOrFail();
         return $this->respondWithSuccess($this->buildingTransformer->transform($result));
     }
@@ -98,8 +102,9 @@ class BuildingController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -112,6 +117,7 @@ class BuildingController extends ApiController
      */
     public function update(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -121,8 +127,9 @@ class BuildingController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         Building::findOrFail($id)->delete();
         return $this->respondDestroySuccess();
     }
@@ -131,8 +138,9 @@ class BuildingController extends ApiController
      * @param $code
      * @return \Illuminate\Http\Response
      */
-    public function destroyByCode($code)
+    public function destroyByCode(Request $request, $code)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         Building::where('code', $code)->firstOrFail()->delete();
         return $this->respondDestroySuccess();
     }
@@ -141,8 +149,9 @@ class BuildingController extends ApiController
      * @param $id
      * @return mixed
      */
-    public function campusBuildings($id, Request $request)
+    public function campusBuildings(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Campus::findOrFail($id)->buildings()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->buildingTransformer->transformCollection($result->all()));
     }
