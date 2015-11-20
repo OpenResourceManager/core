@@ -17,4 +17,10 @@ class Email extends Model
     protected $table = 'emails';
     protected $dates = ['deleted_at'];
     protected $fillable = ['user_id', 'email'];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Model\User');
+    }
+
 }

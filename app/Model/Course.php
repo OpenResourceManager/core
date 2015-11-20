@@ -20,7 +20,7 @@ class Course extends Model
 
     public function users()
     {
-        return $this->hasMany('App\Model\User', 'course_user');
+        return $this->hasMany('App\Model\User');
     }
 
     public function department()

@@ -27,11 +27,6 @@ class User extends Model
         'username'
     ];
 
-    public function rooms()
-    {
-        return $this->hasMany('App\Model\Room');
-    }
-
     public function emails()
     {
         return $this->hasMany('App\Model\Email');
@@ -42,9 +37,9 @@ class User extends Model
         return $this->hasMany('App\Model\Phone');
     }
 
-    public function communities()
+    public function rooms()
     {
-        return $this->belongsToMany('App\Model\Community');
+        return $this->belongsToMany('App\Model\Room');
     }
 
     public function roles()
@@ -55,5 +50,10 @@ class User extends Model
     public function courses()
     {
         return $this->belongsToMany('App\Model\Course');
+    }
+
+    public function communities()
+    {
+        return $this->belongsToMany('App\Model\Community');
     }
 }

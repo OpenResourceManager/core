@@ -17,4 +17,10 @@ class Phone extends Model
     protected $table = 'phones';
     protected $dates = ['deleted_at'];
     protected $fillable = ['user_id', 'number', 'ext', 'is_cell', 'carrier'];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Model\User');
+    }
+
 }

@@ -25,14 +25,7 @@ class Building extends Model
 
     public function users()
     {
-
-        return $this->rooms()->with('users')->get();
-
-        /*$users = [];
-        foreach ($this->rooms as $room) {
-            $users[] = User::find($room->user_id);
-        }
-        return $users; */
+        return $this->hasManyThrough('App\Model\User', 'App\Model\Room');
     }
 
     public function campus()
