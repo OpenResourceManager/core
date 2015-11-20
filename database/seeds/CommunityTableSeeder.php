@@ -19,7 +19,7 @@ class CommunityTableSeeder extends Seeder
 
         $faker = Faker::create();
 
-        foreach (range(1, 40) as $index) {
+        foreach (range(1, 100) as $index) {
             Community::create([
                 'code' => $faker->unique()->word,
                 'name' => $faker->sentence($nbWords = 3)
