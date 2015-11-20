@@ -32,7 +32,7 @@ class Campus extends Model
 
     public function users()
     {
-        return $this->buildings()->with('users');
+        return $this->buildings()->with('users')->get();
     }
 
     public function communities()

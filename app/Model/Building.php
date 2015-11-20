@@ -26,7 +26,7 @@ class Building extends Model
     public function users()
     {
 
-        return $this->rooms()->with('users');
+        return $this->rooms()->with('users')->get();
 
         /*$users = [];
         foreach ($this->rooms as $room) {
