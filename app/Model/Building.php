@@ -31,5 +31,15 @@ class Building extends Model
         }
         return $users;
     }
+
+    public function campus()
+    {
+        return $this->belongsTo('App\Model\Campus');
+    }
+
+    public function communities()
+    {
+        return $this->belongsToMany('App\Model\Community');
+    }
 }
 

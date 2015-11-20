@@ -32,4 +32,9 @@ class Department extends Model
     {
         return $this->hasManyThrough('App\Model\User', 'App\Model\Course');
     }
+
+    public function communities()
+    {
+        return $this->belongsToMany('App\Model\Community');
+    }
 }

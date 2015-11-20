@@ -42,6 +42,11 @@ class User extends Model
         return $this->hasMany('App\Model\Phone');
     }
 
+    public function communities()
+    {
+        return $this->belongsToMany('App\Model\Community');
+    }
+
     public function roles()
     {
         return $this->belongsToMany('App\Model\Role');

@@ -18,14 +18,19 @@ class Course extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = ['department_id', 'code', 'name'];
 
+    public function users()
+    {
+        return $this->hasMany('App\Model\User', 'course_user');
+    }
+
     public function department()
     {
         return $this->belongsTo('App\Model\Department');
     }
 
-    public function users()
+    public function communities()
     {
-        return $this->belongsToMany('App\Model\User', 'course_user');
+        return $this->belongsToMany('App\Model\Community');
     }
 
 }

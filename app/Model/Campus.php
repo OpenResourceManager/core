@@ -38,4 +38,9 @@ class Campus extends Model
         }
         return $users;
     }
+
+    public function communities()
+    {
+        return $this->belongsToMany('App\Model\Community');
+    }
 }

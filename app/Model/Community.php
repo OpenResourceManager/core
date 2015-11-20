@@ -21,4 +21,34 @@ class Community extends Model
         'name'
     ];
 
+    public function users()
+    {
+        return $this->hasMany('App\Model\User');
+    }
+
+    public function courses()
+    {
+        return $this->hasMany('App\Model\Course');
+    }
+
+    public function departments()
+    {
+        return $this->hasMany('App\Model\Department');
+    }
+
+    public function roles()
+    {
+        return $this->hasMany('App\Model\Role');
+    }
+
+    public function buildings()
+    {
+        return $this->hasMany('App\Model\Building');
+    }
+
+    public function campuses()
+    {
+        return $this->hasMany('App\Model\Campus');
+    }
+
 }
