@@ -30,7 +30,7 @@ class Building extends Model
         $users = [];
 
         foreach ($this->rooms() as $room) {
-            $users = array_merge($users, $room->users()->all());
+            $users = array_merge($users, $room->users());
         }
 
         return Collection::make($users);
