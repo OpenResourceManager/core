@@ -25,7 +25,7 @@ class Building extends Model
 
     public function users()
     {
-        return $this->hasManyThrough('App\Model\User', 'App\Model\Room', 'building_id', 'user_id', 'id');
+        return $this->rooms()->with('users');
     }
 
     public function campus()
