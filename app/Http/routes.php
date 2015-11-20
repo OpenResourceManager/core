@@ -90,5 +90,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('courses/code/{code}/department', 'DepartmentController@courseDepartmentByCode');
         Route::delete('courses/code/{code}', 'CourseController@destroyByCode');
 
+        Route::resource('communities', 'CommunityController');
+
     });
 });
