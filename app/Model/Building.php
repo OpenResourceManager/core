@@ -25,14 +25,11 @@ class Building extends Model
 
     public function users()
     {
-
-        return $this->rooms()->with('users')->get();
-
-        /*$users = [];
-        foreach ($this->rooms as $room) {
-            $users[] = User::find($room->user_id);
+        $users = [];
+        foreach ($this->rooms()->with('users')->get() as $room) {
+            $users = array_merge($users, $room['users']);
         }
-        return $users; */
+        return $users;
     }
 
     public function campus()
