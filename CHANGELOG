@@ -7,6 +7,8 @@
 * API Key Authentication
 * Soft Deletions
 * Cascading deletions based on foreign keys
+* Removed Programs model
+* Fixed output of GET method for all models
 
 ### v1.1.0 ###
 * Rebuild using Lumen framework
