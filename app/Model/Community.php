@@ -51,4 +51,16 @@ class Community extends Model
         return $this->hasMany('App\Model\Campus');
     }
 
+    public function allMembers()
+    {
+        $users = $this->users();
+        $courses = $this->courses();
+        $departments = $this->departments();
+        $roles = $this->roles();
+        $buildings = $this->buildings();
+        $campuses = $this->campuses();
+
+
+    }
+
 }

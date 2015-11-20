@@ -91,6 +91,10 @@ Route::group(['prefix' => 'api'], function () {
         Route::delete('courses/code/{code}', 'CourseController@destroyByCode');
 
         Route::resource('communities', 'CommunityController');
+        Route::get('communities/code/{code}', 'CommunityController@showByCode');
+        Route::delete('communities/code/{code}', 'CommunityController@destroyByCode');
+        Route::get('communities/{id}/user', 'CommunityController@communityUsers');
+
 
     });
 });

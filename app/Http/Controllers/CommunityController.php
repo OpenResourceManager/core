@@ -6,9 +6,9 @@ use App\Model\Community;
 use App\UUD\Transformers\CommunityTransformer;
 use App\UUD\Transformers\UserTransformer;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
 class CommunityController extends ApiController
 {
@@ -59,29 +59,51 @@ class CommunityController extends ApiController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'code' => 'string|required|min:3|unique:communities,deleted_at,NULL',
+            'name' => 'string|max:30',
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $item = Community::create(Input::all());
+        return $this->respondCreateSuccess($id = $item->id);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $id)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $result = Community::findOrFail($id);
+        return $this->respondWithSuccess($this->communityTransformer->transform($result));
+    }
+
+    /**
+     * Display a resource with a specific code
+     *
+     * @param $code
+     * @return mixed
+     */
+    public function showByCode(Request $request, $code)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $result = Community::where('code', $code)->firstOrFail();
+        return $this->respondWithSuccess($this->communityTransformer->transform($result));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, $id)
@@ -92,8 +114,8 @@ class CommunityController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -104,11 +126,35 @@ class CommunityController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        Community::findOrFail($id)->delete();
+        return $this->respondDestroySuccess();
+    }
+
+    /**
+     * Remove the specified resource from storage, using the resource code.
+     *
+     * @param Request $request
+     * @param $code
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyByCode(Request $request, $code)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        Community::where('code', $code)->firstOrFail()->delete();
+        return $this->respondDestroySuccess();
+    }
+
+    public function communityUsers(Request $request, $id)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $community = Community::findOrFail($id);
+        $users = $community->users;
+
     }
 }
