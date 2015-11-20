@@ -25,7 +25,7 @@ class Building extends Model
 
     public function users()
     {
-        return $this->rooms->user;
+        return $this->with('rooms', 'users')->get();
     }
 
     public function campus()
