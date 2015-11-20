@@ -32,14 +32,7 @@ class Campus extends Model
 
     public function users()
     {
-
         return $this->buildings()->with('users');
-
-        /* $users = [];
-         foreach ($this->rooms as $room) {
-             $users[] = User::find($room->user_id);
-         }
-         return $users; */
     }
 
     public function communities()
