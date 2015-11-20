@@ -17,7 +17,7 @@ class UserCommunityTableSeeder extends Seeder
         $communityIds = Community::lists('id')->all();
 
         foreach (range(1, 85) as $index) {
-            DB::table('role_user')->insert([
+            DB::table('community_user')->insert([
                 'community_id' => $faker->randomElement($communityIds),
                 'user_id' => $faker->unique()->randomElement($userIds)
             ]);

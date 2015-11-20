@@ -17,7 +17,7 @@ class DepartmentCommunityTableSeeder extends Seeder
         $communityIds = Community::lists('id')->all();
 
         foreach (range(1, 50) as $index) {
-            DB::table('role_department')->insert([
+            DB::table('community_department')->insert([
                 'community_id' => $faker->randomElement($communityIds),
                 'department_id' => $faker->unique()->randomElement($departmentIds)
             ]);
