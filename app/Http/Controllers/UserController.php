@@ -192,7 +192,7 @@ class UserController extends ApiController
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Building::findOrFail($id)->users();
 
-        dd($result);
+        echo json_encode($result->all());
 
         //  return $this->respondWithSuccess($this->userTransformer->transformCollection($result->all()));
     }
