@@ -33,7 +33,7 @@ class Building extends Model
             $users = array_merge($users, $room->users);
         }
 
-        return Collection::make($users);
+        return $users;
     }
 
     public function campus()
