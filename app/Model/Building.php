@@ -26,14 +26,7 @@ class Building extends Model
 
     public function users()
     {
-
-        $users = [];
-
-        foreach ($this->rooms() as $room) {
-            $users = array_merge($users, $room->users);
-        }
-
-        return $users;
+        return $this->hasManyThrough('App\Model\User', 'App\Model\Room');
     }
 
     public function campus()
