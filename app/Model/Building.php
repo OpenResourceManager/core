@@ -7,6 +7,7 @@
  * Time: 10:30 AM
  */
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination;
@@ -25,7 +26,14 @@ class Building extends Model
 
     public function users()
     {
-        return $this->with('rooms')->get();
+
+        $users = [];
+
+        foreach ($this->rooms() as $room) {
+            $users = array_merge($users, $room->users()->all());
+        }
+
+        return Collection::make($users);
     }
 
     public function campus()
