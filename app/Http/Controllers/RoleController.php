@@ -61,12 +61,12 @@ class RoleController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'code' => 'string|required|min:3|unique:roles,deleted_at,NULL',
+            'code' => 'string|required|min:3',
             'name' => 'string|max:25',
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $item = Role::create(Input::all());
-        return $this->respondCreateSuccess($id = $item->id);
+        $item = Role::updateOrCreate(['code' => Input::get('code')], Input::all());
+        return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
 
     /**

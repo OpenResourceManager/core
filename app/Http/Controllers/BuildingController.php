@@ -62,12 +62,12 @@ class BuildingController extends ApiController
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'campus_id' => 'integer|required|exists:campuses,id,deleted_at,NULL',
-            'code' => 'string|required|max:10|min:3|unique:campuses,deleted_at,NULL',
+            'code' => 'string|required|max:10|min:3',
             'name' => 'string|required|max:30|min:3'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $item = Building::create(Input::all());
-        return $this->respondCreateSuccess($id = $item->id);
+        $item = Building::updateOrCreate(['code' => Input::get('code')], Input::all());
+        return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
 
     /**

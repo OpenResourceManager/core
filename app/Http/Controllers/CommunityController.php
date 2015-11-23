@@ -66,12 +66,12 @@ class CommunityController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'code' => 'string|required|min:3|unique:communities,deleted_at,NULL',
+            'code' => 'string|required|min:3',
             'name' => 'string|max:30',
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $item = Community::create(Input::all());
-        return $this->respondCreateSuccess($id = $item->id);
+        $item = Community::updateOrCreate(['code' => Input::get('code')], Input::all());
+        return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
 
     /**

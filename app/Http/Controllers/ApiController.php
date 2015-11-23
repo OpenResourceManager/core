@@ -164,9 +164,23 @@ class ApiController extends Controller
      * @param string $message
      * @return mixed
      */
-    public function respondUpdateSuccess($message = 'Updated')
+    public function respondUpdateSuccess($message = 'Updated', $id = 0)
     {
-        return $this->respondWithSuccess($message);
+        return $this->respondWithSuccess(['message' => $message, 'id' => $id]);
+    }
+
+    /**
+     * @param int $id
+     * @param bool|true $recently
+     * @return mixed
+     */
+    public function respondCreateUpdateSuccess($id = 0, $recently = true)
+    {
+        if ($recently) {
+            return $this->setStatusCode(201)->respondCreateSuccess('Created', $id);
+        } else {
+            return $this->setStatusCode(200)->respondUpdateSuccess('Updated', $id);
+        }
     }
 
     /**

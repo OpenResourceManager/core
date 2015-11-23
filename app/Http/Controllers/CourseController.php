@@ -61,13 +61,13 @@ class CourseController extends ApiController
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'department_id' => 'integer|required|exists:departments,id,deleted_at,NULL',
-            'code' => 'string|required|min:3|unique:courses,deleted_at,NULL',
+            'code' => 'string|required|min:3',
             'name' => 'integer|required|min:5',
 
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $item = Course::create(Input::all());
-        return $this->respondCreateSuccess($id = $item->id);
+        $item = Course::updateOrCreate(['code' => Input::get('code')], Input::all());
+        return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
 
     /**

@@ -63,7 +63,7 @@ class UserController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_identifier' => 'string|required|max:7|min:6|unique:users,deleted_at,NULL',
+            'user_identifier' => 'string|required|max:7|min:6',
             'name_prefix' => 'string|max:7',
             'name_first' => 'string|required|min:1',
             'name_middle' => 'string',
@@ -73,8 +73,8 @@ class UserController extends ApiController
             'username' => 'string|required|min:3|unique:users,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $item = User::create(Input::all());
-        return $this->respondCreateSuccess($id = $item->id);
+        $item = Building::updateOrCreate(['user_identifier' => Input::get('user_identifier')], Input::all());
+        return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
 
     /**
