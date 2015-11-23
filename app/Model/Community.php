@@ -21,7 +21,7 @@ class Community extends Model
         'name'
     ];
 
-    public function users()
+    /*public function users()
     {
         return $this->hasMany('App\Model\User');
     }
@@ -51,7 +51,7 @@ class Community extends Model
         return $this->hasMany('App\Model\Campus');
     }
 
-    public function allMembers()
+    public function members()
     {
         $users = $this->users();
         $courses = $this->courses();
@@ -60,7 +60,6 @@ class Community extends Model
         $buildings = $this->buildings();
         $campuses = $this->campuses();
 
-
-    }
+    }*/
 
 }

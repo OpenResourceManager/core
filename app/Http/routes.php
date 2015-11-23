@@ -90,12 +90,10 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('courses/code/{code}/department', 'DepartmentController@courseDepartmentByCode');
         Route::delete('courses/code/{code}', 'CourseController@destroyByCode');
 
-        Route::resource('communities', 'CommunityController');
-
+       /* Route::resource('communities', 'CommunityController');
         Route::get('communities/{id}/user', 'CommunityController@communityUsers');
-
         Route::get('communities/code/{code}', 'CommunityController@showByCode');
-        Route::delete('communities/code/{code}', 'CommunityController@destroyByCode');
+        Route::delete('communities/code/{code}', 'CommunityController@destroyByCode');*/
 
 
     });

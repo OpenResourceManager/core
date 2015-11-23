@@ -25,6 +25,11 @@ class Room extends Model
         'room_name'
     ];
 
+    public function building()
+    {
+        return $this->belongsTo('App\Model\Building');
+    }
+
     public function users()
     {
         return $this->hasMany('App\Model\User', 'id');
