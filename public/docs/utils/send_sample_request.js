@@ -37,6 +37,9 @@ define([
           $root.find("[data-sample-request-header-group=\"" + group + "\"]").each(function(i, element) {
             var key = $(element).data("sample-request-header-name");
             var value = element.value;
+            if ( ! element.optional && element.defaultValue !== '') {
+                value = element.defaultValue;
+            }
             header[key] = $.type(value) === "string" ? escapeHtml(value) : value;
           });
       });
@@ -48,6 +51,9 @@ define([
           $root.find("[data-sample-request-param-group=\"" + group + "\"]").each(function(i, element) {
             var key = $(element).data("sample-request-param-name");
             var value = element.value;
+            if ( ! element.optional && element.defaultValue !== '') {
+                value = element.defaultValue;
+            }
             param[key] = $.type(value) === "string" ? escapeHtml(value) : value;
           });
       });
@@ -69,16 +75,40 @@ define([
       } // for
 
       // send AJAX request, catch success or error callback
-      $.ajax({
-          url: url,
-          dataType: "json",
+      var ajaxRequest = {
+          url        : url,
+          dataType   : "json",
           contentType: "application/json",
-          data: JSON.stringify(param),
-          headers: header,
-          type: type.toUpperCase(),
-          success: displaySuccess,
-          error: displayError
-      });
+          headers    : header,
+          type       : type.toUpperCase(),
+          success    : displaySuccess,
+          error      : displayError
+      };
+
+      if (type === 'get') {
+          ajaxRequest.url = url + paramToQueryParms(param),
+          ajaxRequest.dataType = "text";
+          ajaxRequest.contentType = "text/plain";
+      } else {
+          if ( ! $.isEmptyObject(param)) {
+              ajaxRequest.data = JSON.stringify(param);
+          }
+      }
+      $.ajax(ajaxRequest);
+
+      function paramToQueryParms(param) {
+          var p = 0;
+          var queryParms = "";
+          for (var k in param) {
+              if (p === 0) {
+                  queryParms += "?" + k + "=" + param[k];
+              } else {
+                  queryParms += "&" + k + "=" + param[k];
+              }
+              p++;
+          }
+          return queryParms;
+      }
 
       function displaySuccess(data) {
           var jsonResponse;
