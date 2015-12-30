@@ -105,9 +105,7 @@ class ApiController extends Controller
     /**
      * @apiDefine AuthorizationHeader
      * @apiHeader {String} X-Authorization The application's unique access-key.
-     */
-    /**
-     * @apiDefine AuthorizationErrors
+     *
      * @apiErrorExample {json} Error: Missing Header Option
      *      HTTP/1.1 400 Bad Request
      *      {
@@ -234,12 +232,18 @@ class ApiController extends Controller
     }
 
     /**
-     * @apiDefine Limit
-     * @apiParam {Integer} limit The max number of objects returned. Default is 25, the max that will be honored by the api is 100.
+     * @apiDefine PaginationParams
+     * @apiParam {Integer} [limit=25] The max number of objects returned. The max that will be honored by the api is 100.
+     * @apiParam {Integer} [page=1] The page of results to return.
      */
     /**
-     * @apiDefine Page
-     * @apiParam {Integer} page The page of results to return.
+     * @apiDefine PaginatedSuccess
+     * @apiSuccess {Object} pagination A key to reference for paginated results.
+     * @apiSuccess (Pagination) {Integer} total_pages The total number of pages available.
+     * @apiSuccess (Pagination) {Integer} current_page The currently selected page.
+     * @apiSuccess (Pagination) {Integer} result_limit The max amount of results returned per request.
+     * @apiSuccess (Pagination) {String} next_page The next page available in url form.
+     * @apiSuccess (Pagination) {String} previous_page The previous page in url form.
      */
     /**
      * @param Request $request

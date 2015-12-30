@@ -17,6 +17,318 @@ class UserController extends ApiController
 {
 
     /**
+     * @apiDefine UsersSuccess
+     * @apiSuccess {Boolean} success Tells the application if the request was successful.
+     * @apiSuccess {Integer} status_code The HTTP status code of the request, this is also available in the header.
+     * @apiSuccess {Object[]} result An array of User objects.
+     */
+    /**
+     * @apiDefine UserSuccess
+     * @apiSuccess (User Object) {Integer} id The numeric id assigned to the user by the database.
+     * @apiSuccess (User Object) {String} user_identifier The user's unique identifier string.
+     * @apiSuccess (User Object) {String} username The user's username string.
+     * @apiSuccess (User Object) {String} name_prefix The user's name prefix, if there is one.
+     * @apiSuccess (User Object) {String} name_first The user's fist name.
+     * @apiSuccess (User Object) {String} name_middle The user's middle name or initial, if there is one.
+     * @apiSuccess (User Object) {String} name_last The user's last name.
+     * @apiSuccess (User Object) {String} name_postfix The user's name postfix, if there is one.
+     * @apiSuccess (User Object) {String} name_phonetic The phonetic user's name, if there is one.
+     */
+    /**
+     * @apiDefine GetUsersSuccessResult
+     * @apiSuccessExample {json} Success Response:
+     *      HTTP/1.1 200 OK
+            {
+                "success": true,
+                "status_code": 200,
+                "pagination": {
+                    "total_pages": 6,
+                    "current_page": 1,
+                    "result_limit": 25,
+                    "next_page": "api\/v1\/users?limit=25&page=2",
+                    "previous_page": null
+                },
+                "result": [
+                    {
+                        "id": 1,
+                        "user_identifier": "6223406",
+                        "username": "Caitlyn62",
+                        "name_prefix": "Ms.",
+                        "name_first": "Robb",
+                        "name_middle": "Irwin",
+                        "name_last": "Fritsch",
+                        "name_postfix": "Dr.",
+                        "name_phonetic": null
+                    },
+                    {
+                        "id": 2,
+                        "user_identifier": "4027012",
+                        "username": "Manley.Hirthe",
+                        "name_prefix": "Mr.",
+                        "name_first": "Eunice",
+                        "name_middle": "Reva",
+                        "name_last": "Pfeffer",
+                        "name_postfix": "Dr.",
+                        "name_phonetic": null
+                    },
+                    {
+                        "id": 3,
+                        "user_identifier": "2892039",
+                        "username": "Tess39",
+                        "name_prefix": "Ms.",
+                        "name_first": "Franco",
+                        "name_middle": null,
+                        "name_last": "Kirlin",
+                        "name_postfix": "Mr.",
+                        "name_phonetic": "Jerald"
+                    },
+                    {
+                        "id": 4,
+                        "user_identifier": "9901344",
+                        "username": "Sauer.Eulalia",
+                        "name_prefix": null,
+                        "name_first": "Karianne",
+                        "name_middle": "Mollie",
+                        "name_last": "Aufderhar",
+                        "name_postfix": "Prof.",
+                        "name_phonetic": "Shanna"
+                    },
+                    {
+                        "id": 5,
+                        "user_identifier": "4619979",
+                        "username": "Lang.Sydnee",
+                        "name_prefix": null,
+                        "name_first": "Leopold",
+                        "name_middle": "Nicholaus",
+                        "name_last": "Lesch",
+                        "name_postfix": "Dr.",
+                        "name_phonetic": "Emanuel"
+                    },
+                    {
+                        "id": 6,
+                        "user_identifier": "9066187",
+                        "username": "iReilly",
+                        "name_prefix": null,
+                        "name_first": "Ernie",
+                        "name_middle": "Hiram",
+                        "name_last": "Crooks",
+                        "name_postfix": null,
+                        "name_phonetic": "Ewell"
+                    },
+                    {
+                        "id": 7,
+                        "user_identifier": "7305798",
+                        "username": "Emard.Emmie",
+                        "name_prefix": null,
+                        "name_first": "Elza",
+                        "name_middle": null,
+                        "name_last": "Homenick",
+                        "name_postfix": "Mrs.",
+                        "name_phonetic": "Ettie"
+                    },
+                    {
+                        "id": 8,
+                        "user_identifier": "5439215",
+                        "username": "Wehner.Dale",
+                        "name_prefix": "Mr.",
+                        "name_first": "Billie",
+                        "name_middle": null,
+                        "name_last": "Predovic",
+                        "name_postfix": null,
+                        "name_phonetic": null
+                    },
+                    {
+                        "id": 9,
+                        "user_identifier": "5752942",
+                        "username": "Koch.Kiana",
+                        "name_prefix": null,
+                        "name_first": "Alexandria",
+                        "name_middle": "Ryan",
+                        "name_last": "Weimann",
+                        "name_postfix": null,
+                        "name_phonetic": null
+                    },
+                    {
+                        "id": 10,
+                        "user_identifier": "3472187",
+                        "username": "Alan26",
+                        "name_prefix": "Miss",
+                        "name_first": "Phoebe",
+                        "name_middle": "Ryan",
+                        "name_last": "Howell",
+                        "name_postfix": "Prof.",
+                        "name_phonetic": "Nils"
+                    },
+                    {
+                        "id": 11,
+                        "user_identifier": "2980379",
+                        "username": "Haylie.Miller",
+                        "name_prefix": null,
+                        "name_first": "Eda",
+                        "name_middle": null,
+                        "name_last": "Glover",
+                        "name_postfix": "Miss",
+                        "name_phonetic": "Lamont"
+                    },
+                    {
+                        "id": 12,
+                        "user_identifier": "3352865",
+                        "username": "Emerson80",
+                        "name_prefix": "Prof.",
+                        "name_first": "Jaylon",
+                        "name_middle": null,
+                        "name_last": "Farrell",
+                        "name_postfix": "Mrs.",
+                        "name_phonetic": null
+                    },
+                    {
+                        "id": 13,
+                        "user_identifier": "4150244",
+                        "username": "Chaz.Predovic",
+                        "name_prefix": null,
+                        "name_first": "Davonte",
+                        "name_middle": "Eudora",
+                        "name_last": "Rolfson",
+                        "name_postfix": "Prof.",
+                        "name_phonetic": null
+                    },
+                    {
+                        "id": 14,
+                        "user_identifier": "4131977",
+                        "username": "Daniella.Bosco",
+                        "name_prefix": null,
+                        "name_first": "Thaddeus",
+                        "name_middle": "Felipe",
+                        "name_last": "Weimann",
+                        "name_postfix": null,
+                        "name_phonetic": "Lionel"
+                    },
+                    {
+                        "id": 15,
+                        "user_identifier": "8964391",
+                        "username": "Myrtie54",
+                        "name_prefix": null,
+                        "name_first": "Amya",
+                        "name_middle": "Kristian",
+                        "name_last": "Anderson",
+                        "name_postfix": "Dr.",
+                        "name_phonetic": "Maximillian"
+                    },
+                    {
+                        "id": 16,
+                        "user_identifier": "8088111",
+                        "username": "Felix.Gaylord",
+                        "name_prefix": "Prof.",
+                        "name_first": "Dangelo",
+                        "name_middle": null,
+                        "name_last": "Schinner",
+                        "name_postfix": "Mr.",
+                        "name_phonetic": null
+                    },
+                    {
+                        "id": 17,
+                        "user_identifier": "2537465",
+                        "username": "tDicki",
+                        "name_prefix": "Prof.",
+                        "name_first": "Albin",
+                        "name_middle": null,
+                        "name_last": "Waters",
+                        "name_postfix": "Ms.",
+                        "name_phonetic": null
+                    },
+                    {
+                        "id": 18,
+                        "user_identifier": "6093255",
+                        "username": "Reese.Murazik",
+                        "name_prefix": "Mr.",
+                        "name_first": "Kay",
+                        "name_middle": "Mabelle",
+                        "name_last": "Reinger",
+                        "name_postfix": "Mrs.",
+                        "name_phonetic": null
+                    },
+                    {
+                        "id": 19,
+                        "user_identifier": "8351837",
+                        "username": "Zulauf.Maybelle",
+                        "name_prefix": null,
+                        "name_first": "Violet",
+                        "name_middle": "Adam",
+                        "name_last": "Wisozk",
+                        "name_postfix": null,
+                        "name_phonetic": null
+                    },
+                    {
+                        "id": 20,
+                        "user_identifier": "7520298",
+                        "username": "eRowe",
+                        "name_prefix": "Mr.",
+                        "name_first": "Delmer",
+                        "name_middle": "Bertram",
+                        "name_last": "Tremblay",
+                        "name_postfix": "Dr.",
+                        "name_phonetic": null
+                    },
+                    {
+                        "id": 21,
+                        "user_identifier": "3720241",
+                        "username": "hFunk",
+                        "name_prefix": null,
+                        "name_first": "Conner",
+                        "name_middle": "Marta",
+                        "name_last": "Batz",
+                        "name_postfix": "Dr.",
+                        "name_phonetic": null
+                    },
+                    {
+                        "id": 22,
+                        "user_identifier": "8018599",
+                        "username": "Rubie.Jacobson",
+                        "name_prefix": "Prof.",
+                        "name_first": "Stefan",
+                        "name_middle": "Serena",
+                        "name_last": "Champlin",
+                        "name_postfix": "Prof.",
+                        "name_phonetic": null
+                    },
+                    {
+                        "id": 23,
+                        "user_identifier": "1199050",
+                        "username": "Danial.Medhurst",
+                        "name_prefix": null,
+                        "name_first": "Ova",
+                        "name_middle": null,
+                        "name_last": "Cruickshank",
+                        "name_postfix": "Dr.",
+                        "name_phonetic": "Josefina"
+                    },
+                    {
+                        "id": 24,
+                        "user_identifier": "9221453",
+                        "username": "Schmeler.Alexanne",
+                        "name_prefix": null,
+                        "name_first": "Fredrick",
+                        "name_middle": null,
+                        "name_last": "Monahan",
+                        "name_postfix": null,
+                        "name_phonetic": "Alexzander"
+                    },
+                    {
+                        "id": 25,
+                        "user_identifier": "8716103",
+                        "username": "Novella.Hauck",
+                        "name_prefix": null,
+                        "name_first": "Libby",
+                        "name_middle": "Hailey",
+                        "name_last": "Gutkowski",
+                        "name_postfix": null,
+                        "name_phonetic": null
+                    }
+                ]
+            }
+     */
+
+    /**
      * @var UserTransformer
      */
     protected $userTransformer;
@@ -29,9 +341,7 @@ class UserController extends ApiController
         $this->userTransformer = $userTransformer;
     }
 
-    /**
-     * @apiDefine PaginatedUsers
-     */
+
     /**
      * @api {get} /users/ Get: Request Users
      * @apiVersion 1.1.1
@@ -39,14 +349,15 @@ class UserController extends ApiController
      * @apiGroup Users
      *
      * @apiUse AuthorizationHeader
-     * @apiUse AuthorizationErrors
-     *
-     * @apiUse Limit
-     * @apiUse Page
+     * @apiUse PaginationParams
      *
      * @apiExample {curl} Curl
-     *      curl -H "X-Authorization: <Your-API-Key>" --url @apiUrl/users/
+     *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/
      *
+     * @apiUse PaginatedSuccess
+     * @apiUse UsersSuccess
+     * @apiUse UserSuccess
+     * @apiUse GetUsersSuccessResult
      */
     /**
      * Display a listing of the resource.
