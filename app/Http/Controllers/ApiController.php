@@ -200,6 +200,8 @@ class ApiController extends Controller
     {
         $this->setSuccessStatus(false);
 
+        if (!is_array($message)) $message = [$message];
+
         return $this->respond([
             'success' => $this->getSuccessStatus(),
             'status_code' => $this->getStatusCode(),

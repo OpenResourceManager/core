@@ -14,20 +14,26 @@
  *      HTTP/1.1 400 Bad Request
  *      {
  *          "success": false,
- *          "error": "X-Authorization: Header Option Not Found."
+ *          "error": [
+ *              "X-Authorization: Header Option Not Found."
+ *          ]
  *      }
  * @apiErrorExample {json} Error: Not Privileged
  *      HTTP/1.1 403 Forbidden
  *      {
  *          "success": false,
- *          "error": "X-Authorization: Insufficient privileges."
+ *          "error": [
+ *              "X-Authorization: Insufficient privileges."
+ *          ]
  *      }
  *
  * @apiErrorExample {json} Error: Invalid API Key
  *      HTTP/1.1 403 Forbidden
  *      {
  *          "success": false,
- *          "error": "X-Authorization: API Key is not valid."
+ *          "error": [
+ *              "X-Authorization: API Key is not valid."
+ *          ]
  *      }
  */
 
@@ -54,7 +60,9 @@
  *      {
  *          "success": false,
  *          "status_code": 404,
- *          "error": "No query results for model."
+ *          "error": [
+ *              "No query results for model <Model Name>."
+ *          ]
  *      }
  */
 
