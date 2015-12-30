@@ -11,6 +11,8 @@
  *
  * @api {get} /users/ Get: Request Users
  *
+ * @apiUse Version
+ *
  * @apiUse AuthorizationHeader
  * @apiUse AuthorizationErrors
  *
