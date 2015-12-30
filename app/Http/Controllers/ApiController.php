@@ -103,6 +103,32 @@ class ApiController extends Controller
     }
 
     /**
+     * @apiDefine AuthorizationHeader
+     * @apiHeader {String} X-Authorization The application's unique access-key.
+     */
+    /**
+     * @apiDefine AuthorizationErrors
+     * @apiErrorExample {json} Error: Missing Header Option
+     *      HTTP/1.1 400 Bad Request
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: Header Option Not Found."
+     *      }
+     * @apiErrorExample {json} Error: Not Privileged
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: Insufficient privileges."
+     *      }
+     *
+     * @apiErrorExample {json} Error: Invalid API Key
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "success": false,
+     *          "error": "X-Authorization: API Key is not valid."
+     *      }
+     */
+    /**
      * @param Request $request
      * @param $method
      * @return mixed
@@ -207,6 +233,14 @@ class ApiController extends Controller
         ]);
     }
 
+    /**
+     * @apiDefine Limit
+     * @apiParam {Integer} limit The max number of objects returned. Default is 25, the max that will be honored by the api is 100.
+     */
+    /**
+     * @apiDefine Page
+     * @apiParam {Integer} page The page of results to return.
+     */
     /**
      * @param Request $request
      * @param $limit

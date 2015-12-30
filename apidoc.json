@@ -1,17 +1,23 @@
 {
   "name": "Universal User Data API",
-  "description": "Central API to access user data in a secure manor.",
-  "title": "UUD API",
   "version": "1.1.1",
+  "description": "Central API access to data in a secure manor.",
+  "title": "UUD API",
   "url": "https://databridge.sage.edu/api/v1",
   "header": {
     "title": "Introduction",
-    "filename": "app/Docs/header.md"
+    "filename": "header.md"
   },
   "order ": [
     "Users",
-    "Buildings",
     "Roles",
-    "Campuses"
+    "Emails",
+    "Phones",
+    "Campuses",
+    "Buildings",
+    "Rooms",
+    "Departments",
+    "Courses",
+    "Communities"
   ]
 }

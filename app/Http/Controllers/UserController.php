@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests;
 use App\Model\Building;
 use App\Model\Campus;
 use App\Model\Course;
@@ -9,7 +10,6 @@ use App\Model\Role;
 use App\Model\User;
 use App\UUD\Transformers\UserTransformer;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,6 +29,18 @@ class UserController extends ApiController
         $this->userTransformer = $userTransformer;
     }
 
+    /**
+     * @api {get} /users/ Get: Request Users
+     * @apiVersion 1.1.1
+     * @apiName GetUsers
+     * @apiGroup Users
+     *
+     * @apiUse AuthorizationHeader
+     * @apiUse AuthorizationErrors
+     *
+     * @apiUse Limit
+     * @apiUse Page
+     */
     /**
      * Display a listing of the resource.
      *
