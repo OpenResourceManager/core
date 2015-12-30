@@ -16,7 +16,7 @@
  * @api {get} /users/ Get: Request Users
  * @apiVersion 1.1.1
  * @apiUse AuthorizationHeader
- * @apiUse UserGroup
+ * @apiGroup Users
  * @apiUse Limit
  * @apiUse Page
  *
