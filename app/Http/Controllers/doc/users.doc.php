@@ -156,7 +156,7 @@
  * @api {post} /users/ POST: Create/Update User
  * @apiVersion 1.1.1
  * @apiGroup Users
- * @apiDescription This method creates a new user.
+ * @apiDescription This method creates a new user, or updates a user with the specified `user_identifier`.
  *
  * @apiUse AuthorizationHeader
  *
