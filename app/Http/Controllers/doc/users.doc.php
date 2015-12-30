@@ -118,7 +118,8 @@
  *              "name_last": "Fritsch",
  *              "name_postfix": "Dr.",
  *              "name_phonetic": null
- *          },
+ *          }
+ *      }
  */
 
 /**
@@ -154,7 +155,7 @@
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/1
  *
  * @apiSuccess {Object} pagination Will be null, there can only be one user returned.
- * @apiSuccess {Object[]} resultThe User object.
+ * @apiSuccess {Object} result The User object.
  * @apiUse UserSuccess
  * @apiUse GetUserSuccessResultExample
  *
