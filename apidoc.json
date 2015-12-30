@@ -6,7 +6,7 @@
   "url": "https://databridge.sage.edu/api/v1",
   "header": {
     "title": "Introduction",
-    "filename": "public/docs/header.md"
+    "filename": "app/Docs/header.md"
   },
   "order ": [
     "Users",
