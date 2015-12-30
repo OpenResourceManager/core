@@ -123,9 +123,8 @@
  */
 
 /**
- * @api {get} /users/ Get: Request Users
+ * @api {get} /users/ Request Users
  * @apiVersion 1.1.1
- * @apiName GetUsers
  * @apiGroup Users
  * @apiDescription This method returns pages of User objects.
  *
@@ -142,17 +141,36 @@
  */
 
 /**
- * @api {get} /users/:id Get: Request a User
+ * @api {get} /users/:id Request a User
  * @apiVersion 1.1.1
- * @apiName GetUser
  * @apiGroup Users
- * @apiDescription This method returns a User object.
+ * @apiDescription This method returns a User object, an id is supplied to the API.
  *
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id Users unique ID.
  *
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/1
+ *
+ * @apiSuccess {Object} pagination Will be null, there can only be one user returned.
+ * @apiSuccess {Object} result The User object.
+ * @apiUse UserSuccess
+ * @apiUse GetUserSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
+ * @api {get} /users/username/:username Request a User via Username
+ * @apiVersion 1.1.1
+ * @apiGroup Users
+ * @apiDescription This method returns a User object, a username is supplied to the API.
+ *
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} username Users unique Username.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/username/Caitlyn62
  *
  * @apiSuccess {Object} pagination Will be null, there can only be one user returned.
  * @apiSuccess {Object} result The User object.
