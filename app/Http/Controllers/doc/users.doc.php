@@ -141,7 +141,7 @@
  */
 
 /**
- * @api {get} /users/:id GET: Request a User
+ * @api {get} /users/:id GET: Request User
  * @apiVersion 1.1.1
  * @apiGroup Users
  * @apiDescription This method returns a User object, an id is supplied to the API.
@@ -161,7 +161,7 @@
  */
 
 /**
- * @api {get} /users/username/:username GET: Request a User via Username
+ * @api {get} /users/username/:username GET: Request User via Username
  * @apiVersion 1.1.1
  * @apiGroup Users
  * @apiDescription This method returns a User object, a username is supplied to the API.
@@ -181,7 +181,7 @@
  */
 
 /**
- * @api {get} /users/user_id/:user_id GET: Request a User via Identifier
+ * @api {get} /users/user_id/:user_id GET: Request User via Identifier
  * @apiVersion 1.1.1
  * @apiGroup Users
  * @apiDescription This method returns a User object, a user_id is supplied to the API.
