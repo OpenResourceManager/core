@@ -17,8 +17,8 @@
  * @apiDefine ApiSuccessFields
  * @apiSuccess {Boolean} success Tells the application if the request was successful.
  * @apiSuccess {Integer} status_code The HTTP status code of the request, this is also available in the header.
- * @apiSuccess {Object_Null} pagination A key to reference for paginated results, this may be null if only a single object has been returned.
- * @apiSuccess {Object[]_Object} result An array of objects or a single object.
+ * @apiSuccess {Object_Or_Null} pagination A key to reference for paginated results, this may be null if only a single object has been returned.
+ * @apiSuccess {Object[]_Or_Object} result An array of objects or a single object.
  */
 
 /**
