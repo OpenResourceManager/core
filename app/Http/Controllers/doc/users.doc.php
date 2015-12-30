@@ -172,7 +172,7 @@
  *
  * @apiUse CreateUserSuccessResultExample
  * @apiUse UpdateUserSuccessResultExample
- *
+ * @apiUse UnprocessableEntityErrors
  */
 
 /**
