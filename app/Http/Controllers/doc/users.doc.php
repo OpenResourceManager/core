@@ -203,8 +203,6 @@
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/1
  *
- * @apiSuccess {Object} pagination Will be null, there can only be one user returned.
- * @apiSuccess {Object} result The User object.
  * @apiUse UserSuccess
  * @apiUse GetUserSuccessResultExample
  *
@@ -225,8 +223,6 @@
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/username/Caitlyn62
  *
- * @apiSuccess {Object} pagination Will be null, there can only be one user returned.
- * @apiSuccess {Object} result The User object.
  * @apiUse UserSuccess
  * @apiUse GetUserSuccessResultExample
  *
@@ -247,8 +243,6 @@
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/user_id/6223406
  *
- * @apiSuccess {Object} pagination Will be null, there can only be one user returned.
- * @apiSuccess {Object} result The User object.
  * @apiUse UserSuccess
  * @apiUse GetUserSuccessResultExample
  *
