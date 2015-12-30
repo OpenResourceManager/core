@@ -181,7 +181,7 @@
  */
 
 /**
- * @api {get} /users/user_id/:user_id Request a User via User Identifier
+ * @api {get} /users/user_id/:user_id Request a User via Identifier
  * @apiVersion 1.1.1
  * @apiGroup Users
  * @apiDescription This method returns a User object, a user_id is supplied to the API.
