@@ -123,6 +123,26 @@
  */
 
 /**
+ * @api {post} /users/ POST: Create/Update User
+ * @apiVersion 1.1.1
+ * @apiGroup Users
+ * @apiDescription This method creates a new user.
+ *
+ * @apiUse AuthorizationHeader
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "user_identifier=0979659" \
+ *      --data "name_prefix=MR." \
+ *      --data "name_first=Luke" \
+ *      --data "name_last=Skywalker" \
+ *      --data "username=skywal" \
+ *      --url https://databridge.sage.edu/api/v1/users/
+ *
+ */
+
+/**
  * @api {get} /users/ GET: Request Users
  * @apiVersion 1.1.1
  * @apiGroup Users
@@ -181,13 +201,13 @@
  */
 
 /**
- * @api {get} /users/user_id/:user_id GET: Request User via Identifier
+ * @api {get} /users/user_id/:user_identifier GET: Request User via Identifier
  * @apiVersion 1.1.1
  * @apiGroup Users
- * @apiDescription This method returns a User object, a user_id is supplied to the API.
+ * @apiDescription This method returns a User object, a user_identifier is supplied to the API.
  *
  * @apiUse AuthorizationHeader
- * @apiParam {String} user_id The user's unique identifier string.
+ * @apiParam {String} user_identifier The user's unique identifier string.
  *
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/user_id/6223406
