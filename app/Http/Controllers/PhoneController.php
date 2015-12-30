@@ -60,11 +60,10 @@ class PhoneController extends ApiController
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
-            'number' => 'integer|required|max:11',
+            'number' => 'integer|required|max:14|min:7',
             'ext' => 'integer|max:5',
             'is_cell' => 'boolean|required',
             'carrier' => 'string|max:20',
-
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $item = Phone::create(Input::all());

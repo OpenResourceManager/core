@@ -3,7 +3,7 @@
   "version": "1.1.1",
   "description": "Central API to access user data in a secure manor.",
   "title": "UUD API",
-  "url": "https://databridge.sage.edu/v1",
+  "url": "https://databridge.sage.edu/api/v1",
   "header": {
     "title": "Introduction",
     "filename": "public/docs/header.md"

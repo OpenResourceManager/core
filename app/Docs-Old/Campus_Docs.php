@@ -7,15 +7,15 @@
  */
 
 /**
- * @api {get} /campus/ Get: All
+ * @api {get} /campuses/ Get Campuses
  * @apiVersion 1.1.1
  * @apiHeader {String} X-Authorization The application's unique access-key.
- * @apiGroup Campus
+ * @apiGroup Campuses
  * @apiDescription This method returns all campus objects.
  *
- * @apiSampleRequest https://databridge.sage.edu/v1/campus/
+ * @apiSampleRequest https://databridge.sage.edu/v1/campuses/
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/campus/
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/v1/campuses/
  *
  * @apiExample {ruby} Ruby
  *      # This code snippet uses an open-source library. http://unirest.io/ruby
