@@ -7,17 +7,14 @@
  */
 
 /**
- * @apiDefine UserGroup
+ * @apiGroup Users
  *
- * @apiGroup Users
- */
-
-/**
  * @api {get} /users/ Get: Request Users
- * @apiVersion 1.1.1
+ *
  * @apiUse AuthorizationHeader
- * @apiGroup Users
+ * @apiUse AuthorizationErrors
+ *
  * @apiUse Limit
  * @apiUse Page
- *
  */
+
