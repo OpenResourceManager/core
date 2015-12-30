@@ -23,7 +23,7 @@
  * @apiSuccess (User) {String} name_middle The user's middle name or initial, if there is one.
  * @apiSuccess (User) {String} name_last The user's last name.
  * @apiSuccess (User) {String} name_postfix The user's name postfix, if there is one.
- * @apiSuccess (User) {String} name_phonetic The phonetic user's name, if there is one.
+ * @apiSuccess (User) {String} name_phonetic The user's phonetic name, if there is one.
  */
 
 /**
@@ -147,7 +147,7 @@
  * @apiDescription This method returns a User object, an id is supplied to the API.
  *
  * @apiUse AuthorizationHeader
- * @apiParam {Integer} id Users unique ID.
+ * @apiParam {Integer} id The users unique ID.
  *
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/1
@@ -167,10 +167,30 @@
  * @apiDescription This method returns a User object, a username is supplied to the API.
  *
  * @apiUse AuthorizationHeader
- * @apiParam {String} username Users unique Username.
+ * @apiParam {String} username The users unique username.
  *
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/username/Caitlyn62
+ *
+ * @apiSuccess {Object} pagination Will be null, there can only be one user returned.
+ * @apiSuccess {Object} result The User object.
+ * @apiUse UserSuccess
+ * @apiUse GetUserSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
+ * @api {get} /users/user_id/:user_id Request a User via User Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Users
+ * @apiDescription This method returns a User object, a user_id is supplied to the API.
+ *
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} user_id The user's unique identifier string.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/user_id/6223406
  *
  * @apiSuccess {Object} pagination Will be null, there can only be one user returned.
  * @apiSuccess {Object} result The User object.
