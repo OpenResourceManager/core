@@ -265,7 +265,7 @@ class ApiController extends Controller
         $paginator = [
             'total_pages' => $result->lastPage(),
             'current_page' => $result->currentPage(),
-            'result_limit' => $result->perPage(),
+            'result_limit' => intval($result->perPage()),
             'next_page' => $next,
             'previous_page' => $previous
         ];
