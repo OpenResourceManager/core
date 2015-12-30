@@ -28,25 +28,6 @@ class UserController extends ApiController
         $this->userTransformer = $userTransformer;
     }
 
-
-    /**
-     * @api {get} /users/ Get: Request Users
-     * @apiVersion 1.1.1
-     * @apiName GetUsers
-     * @apiGroup Users
-     *
-     * @apiUse AuthorizationHeader
-     * @apiUse PaginationParams
-     *
-     * @apiExample {curl} Curl
-     *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/
-     *
-     * @apiUse PaginatedSuccess
-     * @apiUse UsersSuccess
-     * @apiUse UserSuccess
-     * @apiUse GetUsersSuccessResultExample
-     */
-
     /**
      * Display a listing of the resource.
      *

@@ -120,3 +120,43 @@
  *              "name_phonetic": null
  *          },
  */
+
+/**
+ * @api {get} /users/ Get: Request Users
+ * @apiVersion 1.1.1
+ * @apiName GetUsers
+ * @apiGroup Users
+ * @apiDescription This method returns pages of User objects.
+ *
+ * @apiUse AuthorizationHeader
+ * @apiUse PaginationParams
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/
+ *
+ * @apiUse PaginatedSuccess
+ * @apiUse UsersSuccess
+ * @apiUse UserSuccess
+ * @apiUse GetUsersSuccessResultExample
+ */
+
+/**
+ * @api {get} /users/:id Get: Request a User
+ * @apiVersion 1.1.1
+ * @apiName GetUser
+ * @apiGroup Users
+ * @apiDescription This method returns a User object.
+ *
+ * @apiUse AuthorizationHeader
+ * @apiParam {Integer} id Users unique ID.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/1
+ *
+ * @apiSuccess {Object} pagination Will be null, there can only be one user returned.
+ * @apiSuccess {Object[]} resultThe User object.
+ * @apiUse UserSuccess
+ * @apiUse GetUserSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
