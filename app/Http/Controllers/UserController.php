@@ -30,6 +30,9 @@ class UserController extends ApiController
     }
 
     /**
+     * @apiDefine PaginatedUsers
+     */
+    /**
      * @api {get} /users/ Get: Request Users
      * @apiVersion 1.1.1
      * @apiName GetUsers
@@ -40,6 +43,10 @@ class UserController extends ApiController
      *
      * @apiUse Limit
      * @apiUse Page
+     *
+     * @apiExample {curl} Curl
+     *      curl -H "X-Authorization: <Your-API-Key>" --url @apiUrl/users/
+     *
      */
     /**
      * Display a listing of the resource.

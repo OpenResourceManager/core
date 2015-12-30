@@ -4,6 +4,7 @@
   "description": "Central API access to data in a secure manor.",
   "title": "UUD API",
   "url": "https://databridge.sage.edu/api/v1",
+  "sampleUrl": "https://databridge.sage.edu/api/v1",
   "header": {
     "title": "Introduction",
     "filename": "header.md"
