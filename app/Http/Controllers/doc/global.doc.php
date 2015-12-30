@@ -7,6 +7,21 @@
  */
 
 /**
+ * @apiDefine ApiErrorFields
+ * @apiError {Boolean} success Tells the application if the request was successful.
+ * @apiError {Integer} status_code The HTTP status code of the request, this is also available in the header.
+ * @apiError {String[]} error An array containing a descriptions of each error.
+ */
+
+/**
+ * @apiDefine ApiSuccessFields
+ * @apiSuccess {Boolean} success Tells the application if the request was successful.
+ * @apiSuccess {Integer} status_code The HTTP status code of the request, this is also available in the header.
+ * @apiSuccess {Object_Null} pagination A key to reference for paginated results, this may be null if only a single object has been returned.
+ * @apiSuccess {Object[]_Object} result An array of objects or a single object.
+ */
+
+/**
  * @apiDefine AuthorizationHeader
  * @apiHeader {String} X-Authorization The application's unique access-key.
  *
@@ -45,7 +60,6 @@
 
 /**
  * @apiDefine PaginatedSuccess
- * @apiSuccess {Object} pagination A key to reference for paginated results.
  * @apiSuccess (Pagination) {Integer} total_pages The total number of pages available.
  * @apiSuccess (Pagination) {Integer} current_page The currently selected page.
  * @apiSuccess (Pagination) {Integer} result_limit The max amount of results returned per request.

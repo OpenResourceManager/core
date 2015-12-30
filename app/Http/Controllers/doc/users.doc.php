@@ -7,13 +7,6 @@
  */
 
 /**
- * @apiDefine UsersSuccess
- * @apiSuccess {Boolean} success Tells the application if the request was successful.
- * @apiSuccess {Integer} status_code The HTTP status code of the request, this is also available in the header.
- * @apiSuccess {Object[]} result An array of User objects.
- */
-
-/**
  * @apiDefine UserSuccess
  * @apiSuccess (User) {Integer} id The numeric id assigned to the user by the database.
  * @apiSuccess (User) {String} user_identifier The user's unique identifier string.
@@ -158,6 +151,8 @@
  * @apiGroup Users
  * @apiDescription This method creates a new user, or updates a user with the specified `user_identifier`.
  *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  *
  * @apiExample {curl} Curl
@@ -181,6 +176,8 @@
  * @apiGroup Users
  * @apiDescription This method returns pages of User objects.
  *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiUse PaginationParams
  *
@@ -188,7 +185,6 @@
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/
  *
  * @apiUse PaginatedSuccess
- * @apiUse UsersSuccess
  * @apiUse UserSuccess
  * @apiUse GetUsersSuccessResultExample
  */
@@ -199,6 +195,8 @@
  * @apiGroup Users
  * @apiDescription This method returns a User object, an id is supplied to the API.
  *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The users unique ID.
  *
@@ -219,6 +217,8 @@
  * @apiGroup Users
  * @apiDescription This method returns a User object, a username is supplied to the API.
  *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {String} username The users unique username.
  *
@@ -239,6 +239,8 @@
  * @apiGroup Users
  * @apiDescription This method returns a User object, a user_identifier is supplied to the API.
  *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {String} user_identifier The user's unique identifier string.
  *
