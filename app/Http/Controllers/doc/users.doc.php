@@ -7,16 +7,28 @@
  */
 
 /**
+ * @apiDefine UserParameters
+ * @apiParam (User Parameters) {String} user_identifier The user's unique identifier string.
+ * @apiParam (User Parameters) {String} [name_prefix] The user's name prefix, if there is one.
+ * @apiParam (User Parameters) {String} name_first The user's fist name.
+ * @apiParam (User Parameters) {String} [name_middle] The user's middle name or initial, if there is one.
+ * @apiParam (User Parameters) {String} name_last The user's last name.
+ * @apiParam (User Parameters) {String} [name_postfix] The user's name postfix, if there is one.
+ * @apiParam (User Parameters) {String} [name_phonetic] The user's phonetic name, if there is one.
+ * @apiParam (User Parameters) {String} username The user's username string.
+ */
+
+/**
  * @apiDefine UserSuccess
  * @apiSuccess (Success 2xx: User) {Integer} id The numeric id assigned to the user by the database.
  * @apiSuccess (Success 2xx: User) {String} user_identifier The user's unique identifier string.
- * @apiSuccess (Success 2xx: User) {String} username The user's username string.
  * @apiSuccess (Success 2xx: User) {String} name_prefix The user's name prefix, if there is one.
  * @apiSuccess (Success 2xx: User) {String} name_first The user's fist name.
  * @apiSuccess (Success 2xx: User) {String} name_middle The user's middle name or initial, if there is one.
  * @apiSuccess (Success 2xx: User) {String} name_last The user's last name.
  * @apiSuccess (Success 2xx: User) {String} name_postfix The user's name postfix, if there is one.
  * @apiSuccess (Success 2xx: User) {String} name_phonetic The user's phonetic name, if there is one.
+ * @apiSuccess (Success 2xx: User) {String} username The user's username string.
  */
 
 /**
@@ -168,6 +180,7 @@
  * @apiUse CreateUserSuccessResultExample
  * @apiUse UpdateUserSuccessResultExample
  * @apiUse UnprocessableEntityErrors
+ * @apiUse UserParameters
  */
 
 /**
