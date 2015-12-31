@@ -22,6 +22,18 @@
  */
 
 /**
+ * @apiDefine ApiSuccessExampleDestroy
+ * @apiSuccessExample {json} Success Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "success": true,
+ *          "status_code": 200,
+ *          "pagination": [],
+ *          "result": "Object Destroyed"
+ *      }
+ */
+
+/**
  * @apiDefine AuthorizationHeader
  * @apiHeader {String} X-Authorization The application's unique access-key.
  *

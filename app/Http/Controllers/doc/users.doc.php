@@ -281,15 +281,13 @@
  * @apiDescription This method deletes a User object, a user_identifier is supplied to the API.
  *
  * @apiUse ApiSuccessFields
+ * @apiUse ApiSuccessExampleDestroy
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {String} user_identifier The user's unique identifier string.
  *
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/user_id/6223406
- *
- * @apiUse UserSuccess
- * @apiUse GetUserSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */
