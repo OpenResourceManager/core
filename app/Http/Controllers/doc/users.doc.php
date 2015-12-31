@@ -262,7 +262,9 @@
  * @apiParam {Integer} id The users unique ID.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/151
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --url https://databridge.sage.edu/api/v1/users/151
  *
  * @apiUse ModelNotFoundError
  */
@@ -280,7 +282,9 @@
  * @apiParam {String} username The users unique username.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/username/skywal
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --url https://databridge.sage.edu/api/v1/users/username/skywal
  *
  * @apiUse ModelNotFoundError
  */
@@ -298,7 +302,9 @@
  * @apiParam {String} user_identifier The user's unique identifier string.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/user_id/0979659
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --url https://databridge.sage.edu/api/v1/users/user_id/0979659
  *
  * @apiUse ModelNotFoundError
  */
