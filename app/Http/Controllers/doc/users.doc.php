@@ -246,7 +246,7 @@
  * @apiParam {String} username The users unique username.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/username/Caitlyn62
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/username/skywal
  *
  * @apiUse UserSuccess
  * @apiUse GetUserSuccessResultExample
@@ -275,7 +275,43 @@
  */
 
 /**
- * @api {delete} /users/user_id/:user_identifier DELETE: User via Identifier
+ * @api {delete} /users/:id DELETE: Destroy User
+ * @apiVersion 1.1.1
+ * @apiGroup Users
+ * @apiDescription This method deletes a User object, the database ID value is supplied to the API.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiSuccessExampleDestroy
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {Integer} id The users unique ID.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/151
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
+ * @api {delete} /users/username/:username DELETE: Destroy User via Username
+ * @apiVersion 1.1.1
+ * @apiGroup Users
+ * @apiDescription This method deletes a User object, a username value is supplied to the API.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiSuccessExampleDestroy
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} username The users unique username.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/username/skywal
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
+ * @api {delete} /users/user_id/:user_identifier DELETE: Destroy User via Identifier
  * @apiVersion 1.1.1
  * @apiGroup Users
  * @apiDescription This method deletes a User object, a user_identifier is supplied to the API.
@@ -287,7 +323,7 @@
  * @apiParam {String} user_identifier The user's unique identifier string.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/user_id/6223406
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/user_id/0979659
  *
  * @apiUse ModelNotFoundError
  */
