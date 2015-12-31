@@ -37,7 +37,7 @@
  * @apiDefine AuthorizationHeader
  * @apiHeader {String} X-Authorization The application's unique access-key.
  *
- * @apiError (Authorization Error: 4xx) MissingHeaderOption The `X-Authorization` header option was not supplied to the API.
+ * @apiError (Authorization Error: 4xx) {String} MissingHeaderOption The `X-Authorization` header option was not supplied to the API.
  * @apiErrorExample {json} Error: Missing Header Option
  *      HTTP/1.1 400 Bad Request
  *      {
@@ -46,7 +46,7 @@
  *              "X-Authorization: Header Option Not Found."
  *          ]
  *      }
- * @apiError (Authorization Error: 4xx) NotPrivileged The key supplied is not authorized to perform the requested operation.
+ * @apiError (Authorization Error: 4xx) {String} NotPrivileged The key supplied is not authorized to perform the requested operation.
  * @apiErrorExample {json} Error: Not Privileged
  *      HTTP/1.1 403 Forbidden
  *      {
@@ -55,7 +55,7 @@
  *              "X-Authorization: Insufficient privileges."
  *          ]
  *      }
- * @apiError (Authorization Error: 4xx) InvalidApiKey The key that has been supplied to the API is not valid.
+ * @apiError (Authorization Error: 4xx) {String} InvalidApiKey The key that has been supplied to the API is not valid.
  * @apiErrorExample {json} Error: Invalid API Key
  *      HTTP/1.1 403 Forbidden
  *      {
@@ -83,6 +83,7 @@
 
 /**
  * @apiDefine ModelNotFoundError
+ * @apiError (Model Error: 4xx) {String} ModelNotFound The API was unable to find the requested model or the model type.
  * @apiErrorExample {json} Error: Not Found
  *      HTTP/1.1 404 Not Found
  *      {
@@ -96,6 +97,7 @@
 
 /**
  * @apiDefine UnprocessableEntityErrors
+ * @apiError (Model Error: 4xx) {String} UnprocessableEntity The API unable to complete the request. This is generally caused by a violation of various constraints, such as maximum characters or missing a required data field.
  * @apiErrorExample {json} Error: Unprocessable Entity
  *      HTTP/1.1 422 Unprocessable Entity
  *      {
