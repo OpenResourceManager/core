@@ -39,7 +39,7 @@ class User extends Model
 
     public function rooms()
     {
-        return $this->belongsToMany('App\Model\Room', 'room', 'user_id', 'id');
+        return $this->hasMany('App\Model\Room');
     }
 
     public function roles()
