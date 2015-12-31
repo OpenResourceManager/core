@@ -171,31 +171,6 @@
  */
 
 /**
- * @api {post} /users/ POST: Create/Update User
- * @apiVersion 1.1.1
- * @apiGroup Users
- * @apiDescription This method creates a new user, or updates a user with the specified `user_identifier`.
- *
- * @apiUse ApiSuccessFields
- * @apiUse ApiErrorFields
- * @apiUse AuthorizationHeader
- *
- * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" \
- *      -X "POST" \
- *      --data "user_identifier=0979659" \
- *      --data "name_prefix=MR." \
- *      --data "name_first=Luke" \
- *      --data "name_last=Skywalker" \
- *      --data "username=skywal" \
- *      --url https://databridge.sage.edu/api/v1/users/
- *
- * @apiUse CreateUserSuccessResultExample
- * @apiUse UpdateUserSuccessResultExample
- * @apiUse UnprocessableEntityErrors
- */
-
-/**
  * @api {get} /users/ GET: Request Users
  * @apiVersion 1.1.1
  * @apiGroup Users
@@ -235,7 +210,7 @@
  */
 
 /**
- * @api {get} /users/username/:username GET: Request User via Username
+ * @api {get} /users/username/:username GET: Request via Username
  * @apiVersion 1.1.1
  * @apiGroup Users
  * @apiDescription This method returns a User object, a username is supplied to the API.
@@ -255,7 +230,7 @@
  */
 
 /**
- * @api {get} /users/user_id/:user_identifier GET: Request User via Identifier
+ * @api {get} /users/user_id/:user_identifier GET: Request via Identifier
  * @apiVersion 1.1.1
  * @apiGroup Users
  * @apiDescription This method returns a User object, a user_identifier is supplied to the API.
@@ -293,7 +268,7 @@
  */
 
 /**
- * @api {delete} /users/username/:username DELETE: Destroy User via Username
+ * @api {delete} /users/username/:username DELETE: Destroy via Username
  * @apiVersion 1.1.1
  * @apiGroup Users
  * @apiDescription This method deletes a User object, a username value is supplied to the API.
@@ -311,7 +286,7 @@
  */
 
 /**
- * @api {delete} /users/user_id/:user_identifier DELETE: Destroy User via Identifier
+ * @api {delete} /users/user_id/:user_identifier DELETE: Destroy via Identifier
  * @apiVersion 1.1.1
  * @apiGroup Users
  * @apiDescription This method deletes a User object, a user_identifier is supplied to the API.
