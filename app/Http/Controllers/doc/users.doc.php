@@ -8,15 +8,15 @@
 
 /**
  * @apiDefine UserSuccess
- * @apiSuccess (User) {Integer} id The numeric id assigned to the user by the database.
- * @apiSuccess (User) {String} user_identifier The user's unique identifier string.
- * @apiSuccess (User) {String} username The user's username string.
- * @apiSuccess (User) {String} name_prefix The user's name prefix, if there is one.
- * @apiSuccess (User) {String} name_first The user's fist name.
- * @apiSuccess (User) {String} name_middle The user's middle name or initial, if there is one.
- * @apiSuccess (User) {String} name_last The user's last name.
- * @apiSuccess (User) {String} name_postfix The user's name postfix, if there is one.
- * @apiSuccess (User) {String} name_phonetic The user's phonetic name, if there is one.
+ * @apiSuccess (Success 2xx: User) {Integer} id The numeric id assigned to the user by the database.
+ * @apiSuccess (Success 2xx: User) {String} user_identifier The user's unique identifier string.
+ * @apiSuccess (Success 2xx: User) {String} username The user's username string.
+ * @apiSuccess (Success 2xx: User) {String} name_prefix The user's name prefix, if there is one.
+ * @apiSuccess (Success 2xx: User) {String} name_first The user's fist name.
+ * @apiSuccess (Success 2xx: User) {String} name_middle The user's middle name or initial, if there is one.
+ * @apiSuccess (Success 2xx: User) {String} name_last The user's last name.
+ * @apiSuccess (Success 2xx: User) {String} name_postfix The user's name postfix, if there is one.
+ * @apiSuccess (Success 2xx: User) {String} name_phonetic The user's phonetic name, if there is one.
  */
 
 /**
@@ -171,6 +171,31 @@
  */
 
 /**
+ * @api {post} /users/ POST: Create/Update User
+ * @apiVersion 1.1.1
+ * @apiGroup Users
+ * @apiDescription This method creates a new user, or updates a user with the specified `user_identifier`.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "user_identifier=0979659" \
+ *      --data "name_prefix=MR." \
+ *      --data "name_first=Luke" \
+ *      --data "name_last=Skywalker" \
+ *      --data "username=skywal" \
+ *      --url https://databridge.sage.edu/api/v1/users/
+ *
+ * @apiUse CreateUserSuccessResultExample
+ * @apiUse UpdateUserSuccessResultExample
+ * @apiUse UnprocessableEntityErrors
+ */
+
+/**
  * @api {get} /users/ GET: Request Users
  * @apiVersion 1.1.1
  * @apiGroup Users
@@ -234,6 +259,26 @@
  * @apiVersion 1.1.1
  * @apiGroup Users
  * @apiDescription This method returns a User object, a user_identifier is supplied to the API.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} user_identifier The user's unique identifier string.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/user_id/6223406
+ *
+ * @apiUse UserSuccess
+ * @apiUse GetUserSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
+ * @api {delete} /users/user_id/:user_identifier DELETE: User via Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Users
+ * @apiDescription This method deletes a User object, a user_identifier is supplied to the API.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
