@@ -8,17 +8,17 @@
 
 /**
  * @apiDefine ApiErrorFields
- * @apiError (Error 4xx) {Boolean} success Tells the application if the request was successful.
- * @apiError (Error 4xx) {Integer} status_code The HTTP status code of the request, this is also available in the header.
- * @apiError (Error 4xx) {String[]} error An array containing a descriptions of each error.
+ * @apiError (Error: 4xx) {Boolean} success Tells the application if the request was successful.
+ * @apiError (Error: 4xx) {Integer} status_code The HTTP status code of the request, this is also available in the header.
+ * @apiError (Error: 4xx) {String[]} error An array containing a descriptions of each error.
  */
 
 /**
  * @apiDefine ApiSuccessFields
- * @apiSuccess (Success 2xx) {Boolean} success Tells the application if the request was successful.
- * @apiSuccess (Success 2xx) {Integer} status_code The HTTP status code of the request, this is also available in the header.
- * @apiSuccess (Success 2xx) {Object_Or_Null} pagination A key to reference for paginated results, this may be null if only a single object has been returned.
- * @apiSuccess (Success 2xx) {Object[]_Or_Object} result An array of objects or a single object.
+ * @apiSuccess (Success: 2xx) {Boolean} success Tells the application if the request was successful.
+ * @apiSuccess (Success: 2xx) {Integer} status_code The HTTP status code of the request, this is also available in the header.
+ * @apiSuccess (Success: 2xx) {Object_Or_Null} pagination A key to reference for paginated results, this may be null if only a single object has been returned.
+ * @apiSuccess (Success: 2xx) {Object[]_Or_Object} result An array of objects or a single object.
  */
 
 /**
@@ -37,6 +37,7 @@
  * @apiDefine AuthorizationHeader
  * @apiHeader {String} X-Authorization The application's unique access-key.
  *
+ * @apiError (Authorization Error: 4xx) MissingHeaderOption The `X-Authorization` header option was not supplied to the API.
  * @apiErrorExample {json} Error: Missing Header Option
  *      HTTP/1.1 400 Bad Request
  *      {
@@ -45,6 +46,7 @@
  *              "X-Authorization: Header Option Not Found."
  *          ]
  *      }
+ * @apiError (Authorization Error: 4xx) NotPrivileged The key supplied is not authorized to perform the requested operation.
  * @apiErrorExample {json} Error: Not Privileged
  *      HTTP/1.1 403 Forbidden
  *      {
@@ -53,7 +55,7 @@
  *              "X-Authorization: Insufficient privileges."
  *          ]
  *      }
- *
+ * @apiError (Authorization Error: 4xx) InvalidApiKey The key that has been supplied to the API is not valid.
  * @apiErrorExample {json} Error: Invalid API Key
  *      HTTP/1.1 403 Forbidden
  *      {
