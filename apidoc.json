@@ -11,9 +11,9 @@
   },
   "order ": [
     "Users",
-    "Roles",
     "Emails",
     "Phones",
+    "Roles",
     "Campuses",
     "Buildings",
     "Rooms",
