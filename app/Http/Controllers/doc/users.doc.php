@@ -33,6 +33,66 @@
  */
 
 /**
+ * @api {delete} /users/:id DELETE: Destroy User
+ * @apiVersion 1.1.1
+ * @apiGroup Users
+ * @apiDescription This method deletes a User object, the database ID value is supplied to the API.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiSuccessExampleDestroy
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {Integer} id The users unique ID.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --url https://databridge.sage.edu/api/v1/users/151
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
+ * @api {delete} /users/username/:username DELETE: Destroy via Username
+ * @apiVersion 1.1.1
+ * @apiGroup Users
+ * @apiDescription This method deletes a User object, a username value is supplied to the API.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiSuccessExampleDestroy
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} username The users unique username.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --url https://databridge.sage.edu/api/v1/users/username/skywal
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
+ * @api {delete} /users/user_id/:user_identifier DELETE: Destroy via Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Users
+ * @apiDescription This method deletes a User object, a user_identifier is supplied to the API.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiSuccessExampleDestroy
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} user_identifier The user's unique identifier string.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --url https://databridge.sage.edu/api/v1/users/user_id/0979659
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
  * @api {get} /users/ GET: Request Users
  * @apiVersion 1.1.1
  * @apiGroup Users
@@ -112,61 +172,61 @@
  */
 
 /**
- * @api {delete} /users/:id DELETE: Destroy User
+ * @api {get} /users/:id/email GET: Request User's Emails
  * @apiVersion 1.1.1
  * @apiGroup Users
- * @apiDescription This method deletes a User object, the database ID value is supplied to the API.
+ * @apiDescription This method returns Email objects associated with the user's database id.
  *
  * @apiUse ApiSuccessFields
- * @apiUse ApiSuccessExampleDestroy
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The users unique ID.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" \
- *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/users/151
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/153/email
+ *
+ * @apiUse EmailSuccess
+ * @apiUse GetUsersEmailsSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {delete} /users/username/:username DELETE: Destroy via Username
+ * @api {get} /users/username/:username/email GET: Request Emails via Username
  * @apiVersion 1.1.1
  * @apiGroup Users
- * @apiDescription This method deletes a User object, a username value is supplied to the API.
+ * @apiDescription This method returns Email objects associated with the Username that was supplied.
  *
  * @apiUse ApiSuccessFields
- * @apiUse ApiSuccessExampleDestroy
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {String} username The users unique username.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" \
- *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/users/username/skywal
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/username/skywal/email
+ *
+ * @apiUse EmailSuccess
+ * @apiUse GetUsersEmailsSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {delete} /users/user_id/:user_identifier DELETE: Destroy via Identifier
+ * @api {get} /users/user_id/:user_identifier/email GET: Request Emails via Identifier
  * @apiVersion 1.1.1
  * @apiGroup Users
- * @apiDescription This method deletes a User object, a user_identifier is supplied to the API.
+ * @apiDescription This method returns Email objects associated with the Identifier that was supplied.
  *
  * @apiUse ApiSuccessFields
- * @apiUse ApiSuccessExampleDestroy
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {String} user_identifier The user's unique identifier string.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" \
- *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/users/user_id/0979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/user_id/979659/email
+ *
+ * @apiUse EmailSuccess
+ * @apiUse GetUsersEmailsSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */

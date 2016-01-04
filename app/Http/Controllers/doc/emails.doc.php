@@ -60,7 +60,7 @@
  * @apiParam {Integer} id The email's unique ID.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/1
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/501
  *
  * @apiUse EmailSuccess
  * @apiUse GetEmailSuccessResultExample
@@ -83,7 +83,7 @@
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/emails/151
+ *      --url https://databridge.sage.edu/api/v1/emails/501
  *
  * @apiUse ModelNotFoundError
  */

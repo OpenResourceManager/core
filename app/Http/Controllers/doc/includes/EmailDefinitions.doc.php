@@ -78,3 +78,32 @@
  *          }
  *      }
  */
+
+/**
+ * @apiDefine GetUsersEmailsSuccessResultExample
+ * @apiSuccessExample {json} Success Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "success": true,
+ *          "status_code": 200,
+ *          "pagination": {
+ *              "total_pages": 1,
+ *              "current_page": 1,
+ *              "result_limit": 15,
+ *              "next_page": "null",
+ *              "previous_page": null
+ *          },
+ *          "result": [
+ *              {
+ *                  "id": 501,
+ *                  "user_id": 153,
+ *                  "email": "skywalker@yahoo.com"
+ *              },
+ *              {
+ *                  "id": 503,
+ *                  "user_id": 153,
+ *                  "email": "skywalker@gmail.com"
+ *              }
+ *          ]
+ *      }
+ */
