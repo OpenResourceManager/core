@@ -31,7 +31,7 @@
  *          "pagination": {
  *              "total_pages": 40,
  *              "current_page": 1,
- *              "result_limit": 25,
+ *              "result_limit": 5,
  *              "next_page": "api\/v1\/buildings?limit=5&page=2",
  *              "previous_page": null
  *          },
