@@ -64,8 +64,8 @@ class EmailController extends ApiController
 
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $item = Email::create(Input::all());
-        return $this->respondCreateUpdateSuccess($item->id, true);
+        $item = Email::updateOrCreate(['email' => Input::get('email')], Input::all());
+        return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
 
     /**
