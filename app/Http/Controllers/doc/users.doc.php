@@ -172,7 +172,7 @@
  */
 
 /**
- * @api {get} /users/:id/email GET: Request User's Emails
+ * @api {get} /users/:id/email GET: Emails via ID
  * @apiVersion 1.1.1
  * @apiGroup Users
  * @apiDescription This method returns Email objects associated with the user's database id.
@@ -192,7 +192,7 @@
  */
 
 /**
- * @api {get} /users/username/:username/email GET: Request Emails via Username
+ * @api {get} /users/username/:username/email GET: Emails via Username
  * @apiVersion 1.1.1
  * @apiGroup Users
  * @apiDescription This method returns Email objects associated with the Username that was supplied.
@@ -212,7 +212,7 @@
  */
 
 /**
- * @api {get} /users/user_id/:user_identifier/email GET: Request Emails via Identifier
+ * @api {get} /users/user_id/:user_identifier/email GET: Emails via Identifier
  * @apiVersion 1.1.1
  * @apiGroup Users
  * @apiDescription This method returns Email objects associated with the Identifier that was supplied.
