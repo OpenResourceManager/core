@@ -8,16 +8,17 @@
 
 /**
  * @apiDefine CourseParameters
- * @apiParam (Course Parameters) {Integer} department_id The API id .
+ * @apiParam (Course Parameters) {Integer} department_id The id number assigned to the parent department by the database.
  * @apiParam (Course Parameters) {String} code The user's name prefix, if there is one.
  * @apiParam (Course Parameters) {String} name The user's fist name.
  */
 
 /**
  * @apiDefine CourseSuccess
- * @apiSuccess (Success 2xx: User) {Integer} id The numeric id assigned to the course by the database.
- * @apiSuccess (Success 2xx: User) {String} code The courses' unique identifier string.
- * @apiSuccess (Success 2xx: User) {String} name The courses' name, this is a label.
+ * @apiSuccess (Success 2xx: Course) {Integer} id The numeric id assigned to the course by the database.
+ * @apiSuccess (Success 2xx: Course) {Integer} department_id The id number assigned to the parent department by the database.
+ * @apiSuccess (Success 2xx: Course) {String} code The courses' unique identifier string.
+ * @apiSuccess (Success 2xx: Course) {String} name The courses' name, this is a label.
  */
 
 /**
