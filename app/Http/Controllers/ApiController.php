@@ -144,8 +144,7 @@ class ApiController extends Controller
      * @param string $message
      * @return mixed
      */
-    public
-    function respondUnprocessableEntity($message = 'Unprocessable Entity')
+    public function respondUnprocessableEntity($message = 'Unprocessable Entity')
     {
         return $this->setStatusCode(422)->respondWithError($message);
     }

@@ -110,3 +110,33 @@
  *          ]
  *      }
  */
+
+/**
+ * @apiDefine CreateSuccessResultExample
+ * @apiSuccessExample {json} Success Create:
+ *      HTTP/1.1 201 Created
+ *      {
+ *          "success": true,
+ *          "status_code": 201,
+ *          "pagination": [],
+ *          "result": {
+ *              "message": "Created",
+ *              "id": <ID of the new object.>
+ *          }
+ *      }
+ */
+
+/**
+ * @apiDefine UpdateSuccessResultExample
+ * @apiSuccessExample {json} Success Update:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "success": true,
+ *          "status_code": 200,
+ *          "pagination": [],
+ *          "result": {
+ *              "message": "Updated",
+ *              "id": <ID of the object that was updated.>
+ *          }
+ *      }
+ */

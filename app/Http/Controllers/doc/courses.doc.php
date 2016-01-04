@@ -1,0 +1,87 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: melon
+ * Date: 12/31/15
+ * Time: 4:30 PM
+ */
+
+/**
+ * @apiDefine CourseParameters
+ * @apiParam (Course Parameters) {Integer} department_id The API id .
+ * @apiParam (Course Parameters) {String} code The user's name prefix, if there is one.
+ * @apiParam (Course Parameters) {String} name The user's fist name.
+ */
+
+/**
+ * @apiDefine CourseSuccess
+ * @apiSuccess (Success 2xx: User) {Integer} id The numeric id assigned to the course by the database.
+ * @apiSuccess (Success 2xx: User) {String} code The courses' unique identifier string.
+ * @apiSuccess (Success 2xx: User) {String} name The courses' name, this is a label.
+ */
+
+/**
+ * @apiDefine GetCoursesSuccessResultExample
+ * @apiSuccessExample {json} Success Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "success": true,
+ *          "status_code": 200,
+ *          "pagination": {
+ *              "total_pages": 60,
+ *              "current_page": 1,
+ *              "result_limit": 5,
+ *              "next_page": "api\/v1\/courses?limit=5&page=2",
+ *              "previous_page": null
+ *          },
+ *          "result": [
+ *              {
+ *                  "id": 1,
+ *                  "department_id": 37,
+ *                  "code": "Quia.332",
+ *                  "name": "Officia consectetur velit laboriosam corrupti quis sed."
+ *              },
+ *              {
+ *                  "id": 2,
+ *                  "department_id": 84,
+ *                  "code": "Et eum.348",
+ *                  "name": "Dolorem sint ea qui omnis quo illo necessitatibus."
+ *              },
+ *              {
+ *                  "id": 3,
+ *                  "department_id": 63,
+ *                  "code": "Facere.570",
+ *                  "name": "Pariatur repudiandae delectus dignissimos qui eum quo maiores id."
+ *              },
+ *              {
+ *                  "id": 4,
+ *                  "department_id": 29,
+ *                  "code": "Quasi.135",
+ *                  "name": "In possimus aspernatur dicta harum."
+ *              },
+ *              {
+ *                  "id": 5,
+ *                  "department_id": 36,
+ *                  "code": "Est.120",
+ *                  "name": "Qui nisi recusandae eos ea soluta consequatur voluptatem."
+ *              }
+ *          ]
+ *      }
+ */
+
+/**
+ * @apiDefine GetCourseSuccessResultExample
+ * @apiSuccessExample {json} Success Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "success": true,
+ *          "status_code": 200,
+ *          "pagination": [],
+ *          "result": {
+ *              "id": 1,
+ *              "department_id": 37,
+ *              "code": "Quia.332",
+ *              "name": "Officia consectetur velit laboriosam corrupti quis sed."
+ *          }
+ *      }
+ */

@@ -128,36 +128,6 @@
  */
 
 /**
- * @apiDefine CreateUserSuccessResultExample
- * @apiSuccessExample {json} Success Create:
- *      HTTP/1.1 201 Created
- *      {
- *          "success": true,
- *          "status_code": 201,
- *          "pagination": [],
- *          "result": {
- *              "message": "Created",
- *              "id": 151
- *          }
- *      }
- */
-
-/**
- * @apiDefine UpdateUserSuccessResultExample
- * @apiSuccessExample {json} Success Update:
- *      HTTP/1.1 200 OK
- *      {
- *          "success": true,
- *          "status_code": 200,
- *          "pagination": [],
- *          "result": {
- *              "message": "Updated",
- *              "id": 151
- *          }
- *      }
- */
-
-/**
  * @api {post} /users/ POST: Create/Update User
  * @apiVersion 1.1.1
  * @apiGroup Users
@@ -177,8 +147,8 @@
  *      --data "username=skywal" \
  *      --url https://databridge.sage.edu/api/v1/users/
  *
- * @apiUse CreateUserSuccessResultExample
- * @apiUse UpdateUserSuccessResultExample
+ * @apiUse CreateSuccessResultExample
+ * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
  * @apiUse UserParameters
  */
