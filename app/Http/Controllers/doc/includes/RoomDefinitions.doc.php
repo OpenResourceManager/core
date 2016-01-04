@@ -28,7 +28,7 @@
  */
 
 /**
- * @apiDefine GetRoomSuccessResultExample
+ * @apiDefine GetRoomsSuccessResultExample
  * @apiSuccessExample {json} Success Response:
  *      HTTP/1.1 200 OK
  *      {

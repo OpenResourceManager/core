@@ -45,7 +45,7 @@
  *
  * @apiUse PaginatedSuccess
  * @apiUse EmailSuccess
- * @apiUse GetEmailSuccessResultExample
+ * @apiUse GetEmailsSuccessResultExample
  */
 
 /**
