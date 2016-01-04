@@ -165,7 +165,7 @@ class ApiController extends Controller
      */
     public function respondUpdateSuccess($message = 'Updated', $id = 0)
     {
-        return $this->respondWithSuccess(['message' => $message, 'id' => intval($id)]);
+        return $this->setStatusCode(200)->respondWithSuccess(['message' => $message, 'id' => intval($id)]);
     }
 
     /**
@@ -176,9 +176,9 @@ class ApiController extends Controller
     public function respondCreateUpdateSuccess($id = 0, $recently = true)
     {
         if ($recently) {
-            return $this->setStatusCode(201)->respondCreateSuccess('Created', $id);
+            return $this->respondCreateSuccess('Created', $id);
         } else {
-            return $this->setStatusCode(200)->respondUpdateSuccess('Updated', $id);
+            return $this->respondUpdateSuccess('Updated', $id);
         }
     }
 
