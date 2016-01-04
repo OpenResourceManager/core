@@ -176,9 +176,9 @@ class ApiController extends Controller
     public function respondCreateUpdateSuccess($id = 0, $recently = true)
     {
         if ($recently) {
-            return $this->setStatusCode(201)->respondCreateSuccess('Created', $id);
+            return $this->setStatusCode(201)->respondCreateSuccess('Created', intval($id));
         } else {
-            return $this->setStatusCode(200)->respondUpdateSuccess('Updated', $id);
+            return $this->setStatusCode(200)->respondUpdateSuccess('Updated', intval($id));
         }
     }
 

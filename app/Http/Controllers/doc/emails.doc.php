@@ -7,10 +7,10 @@
  */
 
 /**
- * @api {post} /emails/ POST: Create Email
+ * @api {post} /emails/ POST: Create/Update Email
  * @apiVersion 1.1.1
  * @apiGroup Emails
- * @apiDescription This method creates a new email.
+ * @apiDescription This method creates a new email, or updates an email object with the specified email address.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
