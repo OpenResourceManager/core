@@ -9,8 +9,8 @@
 /**
  * @apiDefine CourseParameters
  * @apiParam (Course Parameters) {Integer} department_id The id number assigned to the parent department by the database.
- * @apiParam (Course Parameters) {String} code The user's name prefix, if there is one.
- * @apiParam (Course Parameters) {String} name The user's fist name.
+ * @apiParam (Course Parameters) {String} code The courses' unique identifier string.
+ * @apiParam (Course Parameters) {String} name The courses' name, this is a label.
  */
 
 /**
