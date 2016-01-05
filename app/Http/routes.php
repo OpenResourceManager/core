@@ -68,9 +68,10 @@ Route::group(['prefix' => 'api'], function () {
         Route::delete('users/username/{username}', 'UserController@destroyByUsername');
 
         Route::resource('roles', 'RoleController');
-        Route::get('roles/{id}/user', 'UserController@roleUsers');
         Route::get('roles/code/{code}', 'RoleController@showByCode');
         Route::delete('roles/code/{code}', 'RoleController@destroyByCode');
+        Route::get('roles/{id}/user', 'UserController@roleUsers');
+        Route::get('roles/code/{code}/user', 'UserController@roleUsersByCode');
 
         Route::resource('emails', 'EmailController');
 
