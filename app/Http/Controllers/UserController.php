@@ -190,7 +190,7 @@ class UserController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Building::findOrFail($id)->users()->paginate();
-        return $this->respondWithSuccess($this->userTransformer->transformCollection($result));
+        return $this->respondWithSuccess($this->userTransformer->transformCollection($result->all()));
     }
 
     /**
