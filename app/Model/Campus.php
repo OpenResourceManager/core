@@ -31,12 +31,7 @@ class Campus extends BaseModel
 
     public function users()
     {
-        $rooms = $this->rooms()->with('users')->paginate()->get();
-        $result = collect([]);
-        foreach ($rooms as $room) {
-            $result = $result->merge($room->users);
-        }
-        return $result;
+        return $this->hasManyThrough('App\Model\Room', 'App\Model\Building')->with('users');
     }
 
     public function communities()
