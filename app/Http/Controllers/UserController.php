@@ -173,13 +173,26 @@ class UserController extends ApiController
 
     /**
      * @param $id
+     * @param Request $request
      * @return mixed
      */
     public function campusUsers($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Campus::findOrFail($id)->users();
-        return $this->respondWithSuccess($this->userTransformer->transformCollection($result));
+        $result = Campus::findOrFail($id)->users()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result));
+    }
+
+    /**
+     * @param $code
+     * @param Request $request
+     * @return mixed
+     */
+    public function campusUsersByCode($code, Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $result = Campus::where('code', $code)->firstOrFail()->users()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result));
     }
 
     /**
