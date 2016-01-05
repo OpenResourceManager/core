@@ -7,14 +7,12 @@
  * Time: 10:30 AM
  */
 
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Model\BaseModel;
 use Illuminate\Pagination;
 
-class Building extends Model
+class Building extends BaseModel
 {
-    use SoftDeletes;
+
     protected $table = 'buildings';
     protected $dates = ['deleted_at'];
     protected $fillable = ['campus_id', 'code', 'name'];
@@ -26,7 +24,7 @@ class Building extends Model
 
     public function users()
     {
-        return $this->hasManyThrough('App\Model\User', 'App\Model\Room', 'building_id', 'id', 'id');
+        return $this->manyThroughMany('App\Model\User', 'App\Model\Room', 'room_id', 'id', 'user_id');
     }
 
     public function campus()
