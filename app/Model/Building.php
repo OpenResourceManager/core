@@ -24,7 +24,7 @@ class Building extends BaseModel
 
     public function users()
     {
-        return $this->manyThroughMany('App\Model\User', 'App\Model\Room', 'id', 'building_id', 'user_id');
+        return $this->manyThroughMany('App\Model\User', 'App\Model\Room', 'building_id', 'id', 'user_id');
     }
 
     public function campus()
