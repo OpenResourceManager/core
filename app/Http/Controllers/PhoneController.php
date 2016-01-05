@@ -66,8 +66,8 @@ class PhoneController extends ApiController
             'carrier' => 'string|max:20',
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $item = Phone::create(Input::all());
-        return $this->respondCreateSuccess($id = $item->id);
+        $item = Phone::updateOrCreate(['number' => Input::get('number')], Input::all());
+        return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
 
     /**
