@@ -42,7 +42,7 @@ class User extends BaseModel
         return $this->belongsToMany('App\Model\Room');
     }
 
-    public function buildings()
+    public function building()
     {
         return $this->belongsToMany('App\Model\Building', 'rooms');
     }
