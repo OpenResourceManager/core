@@ -34,8 +34,9 @@ class Campus extends BaseModel
         $rooms = $this->rooms()->with('users')->get();
         $result = array();
         foreach ($rooms as $room) {
-            if (!empty($room->users->toArray())) {
-                $result = array_merge($room->users->toArray(), $result);
+            $users = $room->users->all();
+            if (!empty($users)) {
+                $result = array_merge($users, $result);
             }
         }
         return $result;
