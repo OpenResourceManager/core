@@ -31,7 +31,7 @@ class Campus extends BaseModel
 
     public function users()
     {
-        return $this->rooms()->with('users');
+        echo json_encode($this->rooms()->with('users')->get());
     }
 
     public function communities()
