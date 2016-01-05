@@ -180,7 +180,7 @@ class UserController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Campus::findOrFail($id)->users();
-        return $this->respondWithSuccess($this->userTransformer->transformCollection($result->all()));
+        return $this->respondWithSuccess($this->userTransformer->transformCollection($result));
     }
 
     /**
