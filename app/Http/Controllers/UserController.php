@@ -190,7 +190,7 @@ class UserController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Building::findOrFail($id)->users()->paginate();
-        return $this->respondWithSuccess($this->userTransformer->transformCollection($result->all()));
+        return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
 
     /**
@@ -200,11 +200,8 @@ class UserController extends ApiController
     public function buildingUsersByCode($code, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Building::where('code', $code)->firstOrFail()->users();
-
-        echo json_encode($result);
-
-        //  return $this->respondWithSuccess($this->userTransformer->transformCollection($result->all()));
+        $result = Building::where('code', $code)->firstOrFail()->users()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
 
     /**
