@@ -51,19 +51,19 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('room/campus/{id}', 'RoomController@campusRooms');
 
 
-        Route::resource('users', 'UserController');
-        Route::get('users/user_id/{user_id}', 'UserController@showByUserId');
-        Route::get('users/username/{username}', 'UserController@showByUsername');
-        Route::get('users/building/{id}', 'UserController@buildingUsers');
-        Route::get('users/building/code/{code}', 'UserController@buildingUsersByCode');
-        Route::get('users/role/{id}', 'UserController@roleUsers');
-        Route::get('users/role/code/{code}', 'UserController@roleUsersByCode');
+        Route::resource('users', 'UserController'); // Documented
+        Route::get('users/user_id/{user_id}', 'UserController@showByUserId'); // Documented
+        Route::get('users/username/{username}', 'UserController@showByUsername'); // Documented
+        Route::get('users/building/{id}', 'UserController@buildingUsers'); // Documented
+        Route::get('users/building/code/{code}', 'UserController@buildingUsersByCode'); // Documented
+        Route::get('users/role/{id}', 'UserController@roleUsers'); // Documented
+        Route::get('users/role/code/{code}', 'UserController@roleUsersByCode'); // Documented
         Route::get('users/course/{id}', 'UserController@courseUsers');
         Route::get('users/course/code/{code}', 'UserController@courseUsersByCode');
         // Route::get('users/campus/{id}', 'UserController@campusUsers'); // Not possible yet
         // Route::get('users/campus/code/{code}', 'UserController@campusUsersByCode'); // Not possible yet
-        Route::delete('users/user_id/{user_id}', 'UserController@destroyByUserId');
-        Route::delete('users/username/{username}', 'UserController@destroyByUsername');
+        Route::delete('users/user_id/{user_id}', 'UserController@destroyByUserId'); // Documented
+        Route::delete('users/username/{username}', 'UserController@destroyByUsername'); // Documented
 
 
         Route::resource('roles', 'RoleController');
@@ -75,15 +75,15 @@ Route::group(['prefix' => 'api'], function () {
 
 
         Route::resource('emails', 'EmailController');
-        Route::get('emails/user/{id}', 'EmailController@userEmails');
-        Route::get('emails/user/user_id/{user_id}', 'EmailController@userEmailsByUserId');
-        Route::get('emails/user/username/{username}', 'EmailController@userEmailsByUsername');
+        Route::get('emails/user/{id}', 'EmailController@userEmails'); // Documented
+        Route::get('emails/user/user_id/{user_id}', 'EmailController@userEmailsByUserId'); // Documented
+        Route::get('emails/user/username/{username}', 'EmailController@userEmailsByUsername'); // Documented
 
 
         Route::resource('phones', 'PhoneController');
-        Route::get('phones/user/{id}', 'PhoneController@userPhones');
-        Route::get('phones/user/user_id/{user_id}', 'PhoneController@userPhonesByUserId');
-        Route::get('phones/user/username/{username}', 'PhoneController@userPhonesByUsername');
+        Route::get('phones/user/{id}', 'PhoneController@userPhones'); // Documented
+        Route::get('phones/user/user_id/{user_id}', 'PhoneController@userPhonesByUserId'); // Documented
+        Route::get('phones/user/username/{username}', 'PhoneController@userPhonesByUsername'); // Documented
 
 
         Route::resource('departments', 'DepartmentController');
