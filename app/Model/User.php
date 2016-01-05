@@ -42,6 +42,11 @@ class User extends BaseModel
         return $this->belongsToMany('App\Model\Room');
     }
 
+    public function buildings()
+    {
+        return $this->belongsToMany('App\Model\Building', 'rooms');
+    }
+
     public function roles()
     {
         return $this->belongsToMany('App\Model\Role');
