@@ -31,7 +31,7 @@ class Campus extends BaseModel
 
     public function users()
     {
-        $rooms = $this->rooms()->with('users')->with('paginate')->get();
+        $rooms = $this->rooms()->with('users')->paginate()->get();
         $result = collect([]);
         foreach ($rooms as $room) {
             $result = $result->merge($room->users);
