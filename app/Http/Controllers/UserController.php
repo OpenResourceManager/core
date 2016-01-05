@@ -216,7 +216,7 @@ class UserController extends ApiController
     public function roleUsersByCode($code, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Role::where('code', $code)->firstOrFail()->paginate();
+        $result = Role::where('code', $code)->firstOrFail()->users()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
 
