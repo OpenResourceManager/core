@@ -39,7 +39,7 @@ class User extends BaseModel
 
     public function rooms()
     {
-        return $this->hasMany('App\Model\Room');
+        return $this->belongsToMany('App\Model\Room');
     }
 
     public function roles()
