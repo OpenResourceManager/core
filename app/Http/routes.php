@@ -41,6 +41,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('buildings/code/{code}', 'BuildingController@showByCode');
         Route::get('buildings/{id}/room', 'RoomController@buildingRooms');
         Route::get('buildings/campus/{id}', 'BuildingController@campusBuildings');
+        Route::get('buildings/campus/code/{code}', 'BuildingController@campusBuildingsByCode');
         Route::delete('buildings/code/{code}', 'BuildingController@destroyByCode');
 
 

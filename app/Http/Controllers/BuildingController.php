@@ -122,12 +122,11 @@ class BuildingController extends ApiController
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @param Request $request
+     * @return mixed
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         Building::findOrFail($id)->delete();
@@ -136,9 +135,10 @@ class BuildingController extends ApiController
 
     /**
      * @param $code
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return mixed
      */
-    public function destroyByCode(Request $request, $code)
+    public function destroyByCode($code, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         Building::where('code', $code)->firstOrFail()->delete();
@@ -147,13 +147,25 @@ class BuildingController extends ApiController
 
     /**
      * @param $id
+     * @param Request $request
      * @return mixed
      */
-    public function campusBuildings(Request $request, $id)
+    public function campusBuildings($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Campus::findOrFail($id)->buildings()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->buildingTransformer->transformCollection($result->all()));
     }
 
+    /**
+     * @param $code
+     * @param Request $request
+     * @return mixed
+     */
+    public function campusBuildingsByCode($code, Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $result = Campus::where('code', $code)->firstOrFail()->buildings()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->buildingTransformer->transformCollection($result->all()));
+    }
 }
