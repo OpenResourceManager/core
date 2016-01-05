@@ -8,7 +8,6 @@
  */
 
 use App\Model\BaseModel;
-use Illuminate\Pagination;
 
 class Building extends BaseModel
 {
