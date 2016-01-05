@@ -180,11 +180,12 @@ class UserController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Campus::findOrFail($id)->users();
-       // return $this->respondWithSuccess($this->userTransformer->transformCollection($result));
+        return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
 
     /**
      * @param $id
+     * @param Request $request
      * @return mixed
      */
     public function buildingUsers($id, Request $request)
@@ -195,7 +196,8 @@ class UserController extends ApiController
     }
 
     /**
-     * @param $id
+     * @param $code
+     * @param Request $request
      * @return mixed
      */
     public function buildingUsersByCode($code, Request $request)
