@@ -7,14 +7,13 @@
  * Time: 10:19 AM
  */
 
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
+use App\Model\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Pagination;
 
-class Campus extends Model
+class Campus extends BaseModel
 {
     use SoftDeletes;
+
     protected $table = 'campuses';
     protected $dates = ['deleted_at'];
     protected $fillable = ['code', 'name'];

@@ -7,13 +7,13 @@
  * Time: 8:25 PM
  */
 
-use Illuminate\Database\Eloquent\Model;
+use App\Model\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Pagination;
 
-class Community extends Model
+class Community extends BaseModel
 {
     use SoftDeletes;
+
     protected $table = 'communities';
     protected $dates = ['deleted_at'];
     protected $fillable = [

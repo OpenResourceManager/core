@@ -7,13 +7,13 @@
  * Time: 12:31 PM
  */
 
-use Illuminate\Database\Eloquent\Model;
+use App\Model\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Pagination;
 
-class Course extends Model
+class Course extends BaseModel
 {
     use SoftDeletes;
+
     protected $table = 'courses';
     protected $dates = ['deleted_at'];
     protected $fillable = ['department_id', 'code', 'name'];

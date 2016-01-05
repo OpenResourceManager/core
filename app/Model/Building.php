@@ -8,9 +8,11 @@
  */
 
 use App\Model\BaseModel;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Building extends BaseModel
 {
+    use SoftDeletes;
 
     protected $table = 'buildings';
     protected $dates = ['deleted_at'];

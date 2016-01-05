@@ -7,13 +7,13 @@
  * Time: 3:29 PM
  */
 
-use Illuminate\Database\Eloquent\Model;
+use App\Model\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Pagination;
 
-class Phone extends Model
+class Phone extends BaseModel
 {
     use SoftDeletes;
+
     protected $table = 'phones';
     protected $dates = ['deleted_at'];
     protected $fillable = ['user_id', 'number', 'ext', 'is_cell', 'carrier'];
