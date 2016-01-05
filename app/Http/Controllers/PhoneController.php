@@ -61,7 +61,7 @@ class PhoneController extends ApiController
         $validator = Validator::make($request->all(), [
             'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
             'number' => 'integer|required|unique:phones',
-            'ext' => 'integer|max:5',
+            'ext' => 'integer',
             'is_cell' => 'boolean|required',
             'carrier' => 'string|max:20',
         ]);
