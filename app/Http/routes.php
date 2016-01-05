@@ -41,33 +41,46 @@ Route::group(['prefix' => 'api'], function () {
         Route::resource('buildings', 'BuildingController');
         Route::get('buildings/code/{code}', 'BuildingController@showByCode');
         Route::get('buildings/{id}/room', 'RoomController@buildingRooms');
-        Route::get('buildings/{id}/user', 'UserController@buildingUsers');
+
         Route::delete('buildings/code/{code}', 'BuildingController@destroyByCode');
 
         Route::resource('rooms', 'RoomController');
 
         Route::resource('users', 'UserController');
+
         Route::get('users/{id}/room', 'RoomController@userRooms');
         Route::get('users/{id}/role', 'RoleController@userRoles');
         Route::get('users/{id}/email', 'EmailController@userEmails');
         Route::get('users/{id}/phone', 'PhoneController@userPhones');
         Route::get('users/{id}/course', 'CourseController@userCourses');
+
         Route::get('users/user_id/{user_id}', 'UserController@showByUserId');
         Route::get('users/user_id/{user_id}/room', 'RoomController@userRoomsByUserId');
         Route::get('users/user_id/{user_id}/role', 'RoleController@userRolesByUserId');
         Route::get('users/user_id/{user_id}/email', 'EmailController@userEmailsByUserId');
         Route::get('users/user_id/{user_id}/phone', 'PhoneController@userPhonesByUserId');
         Route::get('users/user_id/{user_id}/course', 'CourseController@userCoursesByUserId');
+
         Route::get('users/username/{username}', 'UserController@showByUsername');
         Route::get('users/username/{username}/room', 'RoomController@userRoomsByUsername');
         Route::get('users/username/{username}/role', 'RoleController@userRolesByUsername');
         Route::get('users/username/{username}/email', 'EmailController@userEmailsByUsername');
         Route::get('users/username/{username}/phone', 'PhoneController@userPhonesByUsername');
         Route::get('users/username/{username}/course', 'CourseController@userCoursesUsername');
+
+        Route::get('users/building/{id}', 'UserController@buildingUsers');
+        Route::get('users/building/code/{code}', 'UserController@buildingUsersByCode');
+
         Route::get('users/role/{id}', 'UserController@roleUsers');
         Route::get('users/role/code/{code}', 'UserController@roleUsersByCode');
+
+        Route::get('users/course/{id}', 'UserController@courseUsers');
+        Route::get('users/course/code/{code}', 'UserController@courseUsersByCode');
+
         Route::delete('users/user_id/{user_id}', 'UserController@destroyByUserId');
         Route::delete('users/username/{username}', 'UserController@destroyByUsername');
+
+
 
         Route::resource('roles', 'RoleController');
         Route::get('roles/code/{code}', 'RoleController@showByCode');
@@ -84,17 +97,15 @@ Route::group(['prefix' => 'api'], function () {
         Route::delete('departments/code/{code}', 'DepartmentController@destroyByCode');
 
         Route::resource('courses', 'CourseController');
-        Route::get('courses/{id}/user', 'UserController@courseUsers');
         Route::get('courses/{id}/department', 'DepartmentController@courseDepartment');
         Route::get('courses/code/{code}', 'CourseController@showByCode');
-        Route::get('courses/code/{code}/user', 'UserController@courseUsersByCode');
         Route::get('courses/code/{code}/department', 'DepartmentController@courseDepartmentByCode');
         Route::delete('courses/code/{code}', 'CourseController@destroyByCode');
 
-       /* Route::resource('communities', 'CommunityController');
-        Route::get('communities/{id}/user', 'CommunityController@communityUsers');
-        Route::get('communities/code/{code}', 'CommunityController@showByCode');
-        Route::delete('communities/code/{code}', 'CommunityController@destroyByCode');*/
+        /* Route::resource('communities', 'CommunityController');
+         Route::get('communities/{id}/user', 'CommunityController@communityUsers');
+         Route::get('communities/code/{code}', 'CommunityController@showByCode');
+         Route::delete('communities/code/{code}', 'CommunityController@destroyByCode');*/
 
 
     });

@@ -198,6 +198,20 @@ class UserController extends ApiController
 
     /**
      * @param $id
+     * @return mixed
+     */
+    public function buildingUsersByCode($code, Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $result = Building::where('code', $code)->firstOrFail()->users();
+
+        echo json_encode($result);
+
+        //  return $this->respondWithSuccess($this->userTransformer->transformCollection($result->all()));
+    }
+
+    /**
+     * @param $id
      * @param Request $request
      * @return mixed
      */
