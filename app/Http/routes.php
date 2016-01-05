@@ -64,14 +64,14 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('users/username/{username}/email', 'EmailController@userEmailsByUsername');
         Route::get('users/username/{username}/phone', 'PhoneController@userPhonesByUsername');
         Route::get('users/username/{username}/course', 'CourseController@userCoursesUsername');
+        Route::get('users/role/{id}', 'UserController@roleUsers');
+        Route::get('users/role/code/{code}', 'UserController@roleUsersByCode');
         Route::delete('users/user_id/{user_id}', 'UserController@destroyByUserId');
         Route::delete('users/username/{username}', 'UserController@destroyByUsername');
 
         Route::resource('roles', 'RoleController');
         Route::get('roles/code/{code}', 'RoleController@showByCode');
         Route::delete('roles/code/{code}', 'RoleController@destroyByCode');
-        Route::get('roles/{id}/user', 'UserController@roleUsers');
-        Route::get('roles/code/{code}/user', 'UserController@roleUsersByCode');
 
         Route::resource('emails', 'EmailController');
 
