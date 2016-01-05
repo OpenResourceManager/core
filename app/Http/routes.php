@@ -36,7 +36,6 @@ Route::group(['prefix' => 'api'], function () {
         Route::delete('campuses/code/{code}', 'CampusController@destroyByCode');
 
 
-
         Route::resource('buildings', 'BuildingController');
         Route::get('buildings/code/{code}', 'BuildingController@showByCode');
         Route::get('buildings/{id}/room', 'RoomController@buildingRooms');
@@ -45,13 +44,11 @@ Route::group(['prefix' => 'api'], function () {
         Route::delete('buildings/code/{code}', 'BuildingController@destroyByCode');
 
 
-
         Route::resource('rooms', 'RoomController');
         Route::get('rooms/user/{id}', 'RoomController@userRooms');
         Route::get('rooms/user/user_id/{user_id}', 'RoomController@userRoomsByUserId');
         Route::get('rooms/user/username/{username}', 'RoomController@userRoomsByUsername');
         Route::get('room/campus/{id}', 'RoomController@campusRooms');
-
 
 
         Route::resource('users', 'UserController');
@@ -63,10 +60,10 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('users/role/code/{code}', 'UserController@roleUsersByCode');
         Route::get('users/course/{id}', 'UserController@courseUsers');
         Route::get('users/course/code/{code}', 'UserController@courseUsersByCode');
-        Route::get('users/campus/{id}', 'UserController@campusUsers');
+        // Route::get('users/campus/{id}', 'UserController@campusUsers'); // Not possible yet
+        // Route::get('users/campus/code/{code}', 'UserController@campusUsersByCode'); // Not possible yet
         Route::delete('users/user_id/{user_id}', 'UserController@destroyByUserId');
         Route::delete('users/username/{username}', 'UserController@destroyByUsername');
-
 
 
         Route::resource('roles', 'RoleController');
@@ -77,12 +74,10 @@ Route::group(['prefix' => 'api'], function () {
         Route::delete('roles/code/{code}', 'RoleController@destroyByCode');
 
 
-
         Route::resource('emails', 'EmailController');
         Route::get('emails/user/{id}', 'EmailController@userEmails');
         Route::get('emails/user/user_id/{user_id}', 'EmailController@userEmailsByUserId');
         Route::get('emails/user/username/{username}', 'EmailController@userEmailsByUsername');
-
 
 
         Route::resource('phones', 'PhoneController');
@@ -91,13 +86,11 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('phones/user/username/{username}', 'PhoneController@userPhonesByUsername');
 
 
-
         Route::resource('departments', 'DepartmentController');
         Route::get('departments/code/{code}', 'DepartmentController@showByCode');
         Route::get('departments/course/{id}', 'DepartmentController@courseDepartment');
         Route::get('departments/course/code/{code}', 'DepartmentController@courseDepartmentByCode');
         Route::delete('departments/code/{code}', 'DepartmentController@destroyByCode');
-
 
 
         Route::resource('courses', 'CourseController');
@@ -108,7 +101,6 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('courses/department/{id}', 'CourseController@departmentCourses');
         Route::get('courses/department/code/{code}', 'CourseController@departmentCoursesByCode');
         Route::delete('courses/code/{code}', 'CourseController@destroyByCode');
-
 
 
         /* Route::resource('communities', 'CommunityController');
