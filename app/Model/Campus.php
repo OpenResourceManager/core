@@ -31,7 +31,7 @@ class Campus extends BaseModel
 
     public function users()
     {
-        return $this->hasManyThrough('App\Model\Room', 'App\Model\Building')->with('users');
+        echo json_encode($this->hasManyThrough('App\Model\Room', 'App\Model\Building')->with('users'));
     }
 
     public function communities()
