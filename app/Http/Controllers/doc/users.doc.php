@@ -172,121 +172,82 @@
  */
 
 /**
- * @api {get} /users/:id/email GET: Emails via ID
+ * @api {get} /users/building/:id GET: By Building ID
  * @apiVersion 1.1.1
  * @apiGroup Users
- * @apiDescription This method returns Email objects associated with the user's database id.
+ * @apiDescription This method returns User objects, associated with the building ID.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
- * @apiParam {Integer} id The users unique ID.
+ * @apiParam {String} id The building's unique database id.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/153/email
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/building/68
  *
- * @apiUse EmailSuccess
- * @apiUse GetUsersEmailsSuccessResultExample
+ * @apiUse UserSuccess
+ * @apiUse GetUsersSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {get} /users/username/:username/email GET: Emails via Username
+ * @api {get} /users/building/code/:code GET: By Building Code
  * @apiVersion 1.1.1
  * @apiGroup Users
- * @apiDescription This method returns Email objects associated with the Username that was supplied.
+ * @apiDescription This method returns User objects, associated with the building code.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
- * @apiParam {String} username The users unique username.
+ * @apiParam {String} code The building's unique identifier string.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/username/skywal/email
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/building/code/SWI688
  *
- * @apiUse EmailSuccess
- * @apiUse GetUsersEmailsSuccessResultExample
+ * @apiUse UserSuccess
+ * @apiUse GetUsersSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {get} /users/user_id/:user_identifier/email GET: Emails via Identifier
+ * @api {get} /users/role/:id GET: By Role ID
  * @apiVersion 1.1.1
  * @apiGroup Users
- * @apiDescription This method returns Email objects associated with the Identifier that was supplied.
+ * @apiDescription This method returns User objects, associated with the role ID.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
- * @apiParam {String} user_identifier The user's unique identifier string.
+ * @apiParam {String} id The role's unique database id.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/user_id/979659/email
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/role/2
  *
- * @apiUse EmailSuccess
- * @apiUse GetUsersEmailsSuccessResultExample
+ * @apiUse UserSuccess
+ * @apiUse GetUsersSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {get} /users/:id/phone GET: Phones via ID
+ * @api {get} /users/role/code/:code GET: By Role Code
  * @apiVersion 1.1.1
  * @apiGroup Users
- * @apiDescription This method returns Phone objects associated with the user's database id.
+ * @apiDescription This method returns User objects, associated with the role code.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
- * @apiParam {Integer} id The users unique ID.
+ * @apiParam {String} code The role's unique identifier string.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/153/phone
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/role/code/STUDENT
  *
- * @apiUse PhoneSuccess
- * @apiUse GetUsersPhonesSuccessResultExample
+ * @apiUse UserSuccess
+ * @apiUse GetUsersSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */
 
-/**
- * @api {get} /users/username/:username/phone GET: Phones via Username
- * @apiVersion 1.1.1
- * @apiGroup Users
- * @apiDescription This method returns Phone objects associated with the Username that was supplied.
- *
- * @apiUse ApiSuccessFields
- * @apiUse ApiErrorFields
- * @apiUse AuthorizationHeader
- * @apiParam {String} username The users unique username.
- *
- * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/username/skywal/phone
- *
- * @apiUse PhoneSuccess
- * @apiUse GetUsersPhonesSuccessResultExample
- *
- * @apiUse ModelNotFoundError
- */
-
-/**
- * @api {get} /users/user_id/:user_identifier/phone GET: Phones via Identifier
- * @apiVersion 1.1.1
- * @apiGroup Users
- * @apiDescription This method returns Phone objects associated with the Identifier that was supplied.
- *
- * @apiUse ApiSuccessFields
- * @apiUse ApiErrorFields
- * @apiUse AuthorizationHeader
- * @apiParam {String} user_identifier The user's unique identifier string.
- *
- * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/user_id/979659/phone
- *
- * @apiUse PhoneSuccess
- * @apiUse GetUsersPhonesSuccessResultExample
- *
- * @apiUse ModelNotFoundError
- */

@@ -88,4 +88,63 @@
  * @apiUse ModelNotFoundError
  */
 
+/**
+ * @api {get} /emails/user/:id GET: By User ID
+ * @apiVersion 1.1.1
+ * @apiGroup Emails
+ * @apiDescription This method returns Email objects associated with the user's database id.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {Integer} id The users unique ID.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/user/153
+ *
+ * @apiUse EmailSuccess
+ * @apiUse GetUsersEmailsSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
+ * @api {get} /emails/user/username/:username GET: By Username
+ * @apiVersion 1.1.1
+ * @apiGroup Emails
+ * @apiDescription This method returns Email objects associated with the Username that was supplied.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} username The users unique username.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/user/username/skywal
+ *
+ * @apiUse EmailSuccess
+ * @apiUse GetUsersEmailsSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
+ * @api {get} /emails/user/user_id/:user_identifier GET: By User Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Emails
+ * @apiDescription This method returns Email objects associated with the Identifier that was supplied.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} user_identifier The user's unique identifier string.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/user/user_id/979659
+ *
+ * @apiUse EmailSuccess
+ * @apiUse GetUsersEmailsSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
 

@@ -33,50 +33,36 @@ Route::group(['prefix' => 'api'], function () {
 
         Route::resource('campuses', 'CampusController');
         Route::get('campuses/code/{code}', 'CampusController@showByCode');
-        Route::get('campuses/{id}/building', 'BuildingController@campusBuildings');
-        Route::get('campuses/{id}/room', 'RoomController@campusRooms');
-        Route::get('campuses/{id}/user', 'UserController@campusUsers');
         Route::delete('campuses/code/{code}', 'CampusController@destroyByCode');
+
+
 
         Route::resource('buildings', 'BuildingController');
         Route::get('buildings/code/{code}', 'BuildingController@showByCode');
         Route::get('buildings/{id}/room', 'RoomController@buildingRooms');
-
+        Route::get('buildings/campus/{id}', 'BuildingController@campusBuildings');
         Route::delete('buildings/code/{code}', 'BuildingController@destroyByCode');
 
+
+
         Route::resource('rooms', 'RoomController');
+        Route::get('rooms/user/{id}', 'RoomController@userRooms');
+        Route::get('rooms/user/user_id/{user_id}', 'RoomController@userRoomsByUserId');
+        Route::get('rooms/user/username/{username}', 'RoomController@userRoomsByUsername');
+        Route::get('room/campus/{id}', 'RoomController@campusRooms');
+
+
 
         Route::resource('users', 'UserController');
-
-        Route::get('users/{id}/room', 'RoomController@userRooms');
-        Route::get('users/{id}/role', 'RoleController@userRoles');
-        Route::get('users/{id}/email', 'EmailController@userEmails');
-        Route::get('users/{id}/phone', 'PhoneController@userPhones');
-        Route::get('users/{id}/course', 'CourseController@userCourses');
-
         Route::get('users/user_id/{user_id}', 'UserController@showByUserId');
-        Route::get('users/user_id/{user_id}/room', 'RoomController@userRoomsByUserId');
-        Route::get('users/user_id/{user_id}/role', 'RoleController@userRolesByUserId');
-        Route::get('users/user_id/{user_id}/email', 'EmailController@userEmailsByUserId');
-        Route::get('users/user_id/{user_id}/phone', 'PhoneController@userPhonesByUserId');
-        Route::get('users/user_id/{user_id}/course', 'CourseController@userCoursesByUserId');
-
         Route::get('users/username/{username}', 'UserController@showByUsername');
-        Route::get('users/username/{username}/room', 'RoomController@userRoomsByUsername');
-        Route::get('users/username/{username}/role', 'RoleController@userRolesByUsername');
-        Route::get('users/username/{username}/email', 'EmailController@userEmailsByUsername');
-        Route::get('users/username/{username}/phone', 'PhoneController@userPhonesByUsername');
-        Route::get('users/username/{username}/course', 'CourseController@userCoursesUsername');
-
         Route::get('users/building/{id}', 'UserController@buildingUsers');
         Route::get('users/building/code/{code}', 'UserController@buildingUsersByCode');
-
         Route::get('users/role/{id}', 'UserController@roleUsers');
         Route::get('users/role/code/{code}', 'UserController@roleUsersByCode');
-
         Route::get('users/course/{id}', 'UserController@courseUsers');
         Route::get('users/course/code/{code}', 'UserController@courseUsersByCode');
-
+        Route::get('users/campus/{id}', 'UserController@campusUsers');
         Route::delete('users/user_id/{user_id}', 'UserController@destroyByUserId');
         Route::delete('users/username/{username}', 'UserController@destroyByUsername');
 
@@ -84,23 +70,45 @@ Route::group(['prefix' => 'api'], function () {
 
         Route::resource('roles', 'RoleController');
         Route::get('roles/code/{code}', 'RoleController@showByCode');
+        Route::get('roles/user/{id}', 'RoleController@userRoles');
+        Route::get('roles/user/user_id/{user_id}', 'RoleController@userRolesByUserId');
+        Route::get('roles/user/username/{username}', 'RoleController@userRolesByUsername');
         Route::delete('roles/code/{code}', 'RoleController@destroyByCode');
 
+
+
         Route::resource('emails', 'EmailController');
+        Route::get('emails/user/{id}', 'EmailController@userEmails');
+        Route::get('emails/user/user_id/{user_id}', 'EmailController@userEmailsByUserId');
+        Route::get('emails/user/username/{username}', 'EmailController@userEmailsByUsername');
+
+
 
         Route::resource('phones', 'PhoneController');
+        Route::get('phones/user/{id}', 'PhoneController@userPhones');
+        Route::get('phones/user/user_id/{user_id}', 'PhoneController@userPhonesByUserId');
+        Route::get('phones/user/username/{username}', 'PhoneController@userPhonesByUsername');
+
+
 
         Route::resource('departments', 'DepartmentController');
         Route::get('departments/code/{code}', 'DepartmentController@showByCode');
-        Route::get('departments/{id}/course', 'CourseController@departmentCourses');
-        Route::get('departments/code/{code}/course', 'CourseController@departmentCoursesByCode');
+        Route::get('departments/course/{id}', 'DepartmentController@courseDepartment');
+        Route::get('departments/course/code/{code}', 'DepartmentController@courseDepartmentByCode');
         Route::delete('departments/code/{code}', 'DepartmentController@destroyByCode');
 
+
+
         Route::resource('courses', 'CourseController');
-        Route::get('courses/{id}/department', 'DepartmentController@courseDepartment');
         Route::get('courses/code/{code}', 'CourseController@showByCode');
-        Route::get('courses/code/{code}/department', 'DepartmentController@courseDepartmentByCode');
+        Route::get('courses/user/{id}', 'CourseController@userCourses');
+        Route::get('courses/user/user_id/{user_id}', 'CourseController@userCoursesByUserId');
+        Route::get('courses/user/username/{username}', 'CourseController@userCoursesUsername');
+        Route::get('courses/department/{id}', 'CourseController@departmentCourses');
+        Route::get('courses/department/code/{code}', 'CourseController@departmentCoursesByCode');
         Route::delete('courses/code/{code}', 'CourseController@destroyByCode');
+
+
 
         /* Route::resource('communities', 'CommunityController');
          Route::get('communities/{id}/user', 'CommunityController@communityUsers');

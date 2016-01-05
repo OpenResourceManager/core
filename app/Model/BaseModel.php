@@ -9,12 +9,10 @@
 
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination;
 
 class BaseModel extends Model
 {
-    use SoftDeletes;
 
     public function manyThroughMany($related, $through, $firstKey, $secondKey, $pivotKey)
     {
