@@ -20,7 +20,7 @@ class Role extends Model
 
     public function users()
     {
-        return $this->hasMany('App\Model\User', 'role_user');
+        return $this->hasMany('App\Model\User', 'id', 'role_user');
     }
 
     public function communities()
