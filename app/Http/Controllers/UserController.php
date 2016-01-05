@@ -189,11 +189,11 @@ class UserController extends ApiController
     public function buildingUsers($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Building::findOrFail($id)->users();
+        $result = Building::findOrFail($id)->users()->paginate();
 
-        echo json_encode($result);
+       // echo json_encode($result);
 
-        //  return $this->respondWithSuccess($this->userTransformer->transformCollection($result->all()));
+        return $this->respondWithSuccess($this->userTransformer->transformCollection($result));
     }
 
     /**
