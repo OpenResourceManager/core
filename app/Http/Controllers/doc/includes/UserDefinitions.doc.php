@@ -138,7 +138,7 @@
  *              "total_pages": 1,
  *              "current_page": 1,
  *              "result_limit": 15,
- *              "next_page": "null",
+ *              "next_page": null,
  *              "previous_page": null
  *          },
  *          "result": [
@@ -167,7 +167,7 @@
  *              "total_pages": 1,
  *              "current_page": 1,
  *              "result_limit": 15,
- *              "next_page": "null",
+ *              "next_page": null,
  *              "previous_page": null
  *          },
  *          "result": [
