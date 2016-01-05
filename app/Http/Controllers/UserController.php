@@ -180,7 +180,7 @@ class UserController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Campus::findOrFail($id)->users()->paginate();
-        return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result));
+        return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
 
     /**
@@ -192,7 +192,7 @@ class UserController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Campus::where('code', $code)->firstOrFail()->users()->paginate();
-        return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result));
+        return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
 
     /**
