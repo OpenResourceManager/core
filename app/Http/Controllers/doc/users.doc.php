@@ -230,3 +230,64 @@
  *
  * @apiUse ModelNotFoundError
  */
+
+/**
+ * @api {get} /users/:id/phone GET: Phones via ID
+ * @apiVersion 1.1.1
+ * @apiGroup Users
+ * @apiDescription This method returns Phone objects associated with the user's database id.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {Integer} id The users unique ID.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/153/phone
+ *
+ * @apiUse PhoneSuccess
+ * @apiUse GetUsersPhonesSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
+ * @api {get} /users/username/:username/phone GET: Phones via Username
+ * @apiVersion 1.1.1
+ * @apiGroup Users
+ * @apiDescription This method returns Phone objects associated with the Username that was supplied.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} username The users unique username.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/username/skywal/phone
+ *
+ * @apiUse PhoneSuccess
+ * @apiUse GetUsersPhonesSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
+ * @api {get} /users/user_id/:user_identifier/phone GET: Phones via Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Users
+ * @apiDescription This method returns Phone objects associated with the Identifier that was supplied.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} user_identifier The user's unique identifier string.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/user_id/979659/phone
+ *
+ * @apiUse PhoneSuccess
+ * @apiUse GetUsersPhonesSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
+
