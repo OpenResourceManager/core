@@ -49,7 +49,7 @@ class User extends BaseModel
 
     public function campuses()
     {
-        return $this->manyThroughMany('App\Model\Campus', 'App\Model\Building', 'building_id', 'id', 'campus_id');
+        return $this->hasManyThrough('App\Model\Campus', 'App\Model\Building');
     }
 
     public function roles()
