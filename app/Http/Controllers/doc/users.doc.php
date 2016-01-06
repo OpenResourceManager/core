@@ -172,6 +172,46 @@
  */
 
 /**
+ * @api {get} /users/campus/:id GET: By Campus ID
+ * @apiVersion 1.1.1
+ * @apiGroup Users
+ * @apiDescription This method returns User objects, associated with the campus ID.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} id The campuses' unique database id.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/campus/3
+ *
+ * @apiUse UserSuccess
+ * @apiUse GetUsersSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
+ * @api {get} /users/campus/code/:code GET: By Campus Code
+ * @apiVersion 1.1.1
+ * @apiGroup Users
+ * @apiDescription This method returns User objects, associated with the campus code.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} code The campuses' unique identifier string.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/campus/code/SWI688
+ *
+ * @apiUse UserSuccess
+ * @apiUse GetUsersSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
  * @api {get} /users/building/:id GET: By Building ID
  * @apiVersion 1.1.1
  * @apiGroup Users
