@@ -26,13 +26,12 @@ class Campus extends BaseModel
     public function rooms()
     {
         return $this->hasManyThrough('App\Model\Room', 'App\Model\Building');
-
     }
 
-    /* public function users()
-     {
-         echo json_encode($this->rooms()->with('users'));
-     } */
+    public function users()
+    {
+        return $this->belongsToMany('App\Model\User', 'campus_user');
+    }
 
     public function communities()
     {

@@ -47,7 +47,10 @@ class User extends BaseModel
         return $this->belongsToMany('App\Model\Building', 'rooms');
     }
 
-
+    public function campuses()
+    {
+        return $this->belongsToMany('App\Model\Campus', 'campus_user');
+    }
 
     public function roles()
     {
