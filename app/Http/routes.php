@@ -58,10 +58,11 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('users/building/code/{code}', 'UserController@buildingUsersByCode'); // Documented
         Route::get('users/role/{id}', 'UserController@roleUsers'); // Documented
         Route::get('users/role/code/{code}', 'UserController@roleUsersByCode'); // Documented
-        Route::get('users/course/{id}', 'UserController@courseUsers');
-        Route::get('users/course/code/{code}', 'UserController@courseUsersByCode');
-        Route::get('users/campus/{id}', 'UserController@campusUsers');
-        Route::get('users/campus/code/{code}', 'UserController@campusUsersByCode');
+        Route::get('users/course/{id}', 'UserController@courseUsers'); // Documented
+        Route::get('users/course/code/{code}', 'UserController@courseUsersByCode'); // Documented
+        Route::get('users/campus/{id}', 'UserController@campusUsers'); // Documented
+        Route::get('users/campus/code/{code}', 'UserController@campusUsersByCode'); // Documented
+        Route::get('users/room/{id}', 'UserController@roomsUsers'); // Documented
         Route::delete('users/user_id/{user_id}', 'UserController@destroyByUserId'); // Documented
         Route::delete('users/username/{username}', 'UserController@destroyByUsername'); // Documented
 

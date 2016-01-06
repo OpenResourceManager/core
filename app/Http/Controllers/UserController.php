@@ -7,6 +7,7 @@ use App\Model\Building;
 use App\Model\Campus;
 use App\Model\Course;
 use App\Model\Role;
+use App\Model\Room;
 use App\Model\User;
 use App\UUD\Transformers\UserTransformer;
 use Illuminate\Http\Request;
@@ -264,6 +265,18 @@ class UserController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Course::where('code', $code)->firstOrFail()->users()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return mixed
+     */
+    public function roomUsers($id, Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $result = Room::findOrFail($id)->users()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
 }

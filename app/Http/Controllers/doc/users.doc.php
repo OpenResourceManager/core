@@ -252,6 +252,26 @@
  */
 
 /**
+ * @api {get} /users/room/:id GET: By Room ID
+ * @apiVersion 1.1.1
+ * @apiGroup Users
+ * @apiDescription This method returns User objects, associated with the room ID.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} id The room's unique database id.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/room/31
+ *
+ * @apiUse UserSuccess
+ * @apiUse GetUsersSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
  * @api {get} /users/role/:id GET: By Role ID
  * @apiVersion 1.1.1
  * @apiGroup Users
