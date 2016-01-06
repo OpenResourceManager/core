@@ -203,7 +203,7 @@
  * @apiParam {String} code The campuses' unique identifier string.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/campus/code/SWI688
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/campus/code/KUN3
  *
  * @apiUse UserSuccess
  * @apiUse GetUsersSuccessResultExample
