@@ -28,7 +28,12 @@ class AppServiceProvider extends ServiceProvider
             $user_id = $room->user_id;
             $building = Building::find($room->building_id);
             $campus_id = $building->campus_id;
-            DB::table('campus_user')->insert(['campus_id' => $campus_id, 'user_id' => $user_id]);
+
+            if (DB::table('campus_user')->where('campus_id', $campus_id)->where('user_id', $user_id)->first()) {
+                DB::table('campus_user')->update(['campus_id' => $campus_id, 'user_id' => $user_id]);
+            } else {
+                DB::table('campus_user')->insert(['campus_id' => $campus_id, 'user_id' => $user_id]);
+            }
         });
 
         // set deleting event for campus. Should delete all children buildings.
