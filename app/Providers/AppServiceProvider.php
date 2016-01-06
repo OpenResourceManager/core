@@ -26,7 +26,8 @@ class AppServiceProvider extends ServiceProvider
         // Adds a user campus record when a user is assigned a room.
         Room::created(function ($room) {
             $user_id = $room->user_id;
-            $campus_id = Building::find($room->building_id)->get()->campus_id;
+            $building = Building::find($room->building_id);
+            $campus_id = $building->campus_id;
             DB::table('campus_user')->insert(['campus_id' => $campus_id, 'user_id' => $user_id]);
         });
 
