@@ -33,6 +33,11 @@ class Campus extends BaseModel
         return $this->belongsToMany('App\Model\User', 'campus_user');
     }
 
+    public function emails()
+    {
+        return $this->hasManyThrough('App\Model\Email', 'App\Model\User');
+    }
+
     public function communities()
     {
         return $this->belongsToMany('App\Model\Community');

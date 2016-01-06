@@ -180,7 +180,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
- * @apiParam {String} id The campuses' unique database id.
+ * @apiParam {Integer} id The campuses' unique database id.
  *
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/campus/3
@@ -220,7 +220,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
- * @apiParam {String} id The building's unique database id.
+ * @apiParam {Integer} id The building's unique database id.
  *
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/building/68
@@ -260,7 +260,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
- * @apiParam {String} id The room's unique database id.
+ * @apiParam {Integer} id The room's unique database id.
  *
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/room/31
@@ -280,7 +280,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
- * @apiParam {String} id The role's unique database id.
+ * @apiParam {Integer} id The role's unique database id.
  *
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/role/2
@@ -320,7 +320,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
- * @apiParam {String} id The courses' unique database id.
+ * @apiParam {Integer} id The courses' unique database id.
  *
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/course/13

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Campus;
 use App\Model\Email;
 use App\Model\User;
 use App\UUD\Transformers\EmailTransformer;
@@ -151,6 +152,30 @@ class EmailController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = User::where('username', $username)->firstOrFail()->emails()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return mixed
+     */
+    public function campusEmails($id, Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $result = Campus::findOrFail($id)->emails()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
+    }
+
+    /**
+     * @param $code
+     * @param Request $request
+     * @return mixed
+     */
+    public function campusEmailsByCode($code, Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $result = Campus::where('code', $code)->firstOrFail()->emails()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
     }
 }
