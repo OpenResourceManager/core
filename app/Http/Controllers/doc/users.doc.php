@@ -291,3 +291,42 @@
  * @apiUse ModelNotFoundError
  */
 
+/**
+ * @api {get} /users/course/:id GET: By Course ID
+ * @apiVersion 1.1.1
+ * @apiGroup Users
+ * @apiDescription This method returns User objects, associated with the course ID.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} id The courses' unique database id.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/course/13
+ *
+ * @apiUse UserSuccess
+ * @apiUse GetUsersSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
+ * @api {get} /users/course/code/:code GET: By Course Code
+ * @apiVersion 1.1.1
+ * @apiGroup Users
+ * @apiDescription This method returns User objects, associated with the course code.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} code The course' unique identifier string.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/course/code/Ab.427
+ *
+ * @apiUse UserSuccess
+ * @apiUse GetUsersSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
