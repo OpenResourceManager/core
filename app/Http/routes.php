@@ -79,8 +79,6 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('emails/user/{id}', 'EmailController@userEmails'); // Documented
         Route::get('emails/user/user_id/{user_id}', 'EmailController@userEmailsByUserId'); // Documented
         Route::get('emails/user/username/{username}', 'EmailController@userEmailsByUsername'); // Documented
-        Route::get('emails/campus/{id}', 'EmailController@campusEmails');
-        Route::get('emails/campus/code/{code}', 'EmailController@campusEmailsByCode');
 
 
         Route::resource('phones', 'PhoneController');

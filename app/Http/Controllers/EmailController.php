@@ -154,28 +154,4 @@ class EmailController extends ApiController
         $result = User::where('username', $username)->firstOrFail()->emails()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
     }
-
-    /**
-     * @param $id
-     * @param Request $request
-     * @return mixed
-     */
-    public function campusEmails($id, Request $request)
-    {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Campus::findOrFail($id)->emails()->paginate();
-        return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
-    }
-
-    /**
-     * @param $code
-     * @param Request $request
-     * @return mixed
-     */
-    public function campusEmailsByCode($code, Request $request)
-    {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Campus::where('code', $code)->firstOrFail()->emails()->paginate();
-        return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
-    }
 }
