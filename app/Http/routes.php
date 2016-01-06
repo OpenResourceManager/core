@@ -60,8 +60,8 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('users/role/code/{code}', 'UserController@roleUsersByCode'); // Documented
         Route::get('users/course/{id}', 'UserController@courseUsers');
         Route::get('users/course/code/{code}', 'UserController@courseUsersByCode');
-        // Route::get('users/campus/{id}', 'UserController@campusUsers'); // Not possible yet
-        // Route::get('users/campus/code/{code}', 'UserController@campusUsersByCode'); // Not possible yet
+        Route::get('users/campus/{id}', 'UserController@campusUsers');
+        Route::get('users/campus/code/{code}', 'UserController@campusUsersByCode');
         Route::delete('users/user_id/{user_id}', 'UserController@destroyByUserId'); // Documented
         Route::delete('users/username/{username}', 'UserController@destroyByUsername'); // Documented
 
