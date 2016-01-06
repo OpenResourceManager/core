@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\ApiKey;
+use App\Model\Apikey;
 
 /**
  * Created by PhpStorm.
@@ -10,7 +10,7 @@ use App\Model\ApiKey;
  * Date: 10/20/15
  * Time: 3:20 PM
  */
-class ApiKeyTableSeeder extends Seeder
+class ApikeyTableSeeder extends Seeder
 {
 
     public function run()
@@ -25,7 +25,7 @@ class ApiKeyTableSeeder extends Seeder
 
 
         foreach ($keys as $key) {
-            ApiKey::create([
+            Apikey::create([
                 'app_name' => $key[0],
                 'key' => $key[1],
                 'can_get' => $key[2],
