@@ -29,9 +29,7 @@ class AppServiceProvider extends ServiceProvider
             $building = Building::find($room->building_id);
             $campus_id = $building->campus_id;
 
-            if (DB::table('campus_user')->where('campus_id', $campus_id)->where('user_id', $user_id)->first()) {
-                DB::table('campus_user')->update(['campus_id' => $campus_id, 'user_id' => $user_id]);
-            } else {
+            if (!DB::table('campus_user')->where('campus_id', $campus_id)->where('user_id', $user_id)->first()) {
                 DB::table('campus_user')->insert(['campus_id' => $campus_id, 'user_id' => $user_id]);
             }
         });
