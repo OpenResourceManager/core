@@ -147,23 +147,3 @@
  *
  * @apiUse ModelNotFoundError
  */
-
-/**
- * @api {get} /emails/campus/:id GET: By Campus ID
- * @apiVersion 1.1.1
- * @apiGroup Emails
- * @apiDescription This method returns Email objects, associated with the campus ID.
- *
- * @apiUse ApiSuccessFields
- * @apiUse ApiErrorFields
- * @apiUse AuthorizationHeader
- * @apiParam {Integer} id The campuses' unique database id.
- *
- * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/campus/3
- *
- * @apiUse UserSuccess
- * @apiUse GetEmailsSuccessResultExample
- *
- * @apiUse ModelNotFoundError
- */
