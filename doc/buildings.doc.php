@@ -22,8 +22,8 @@
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
- *      --data "name=Troy" \
- *      --data "code=TRY" \
+ *      --data "name=CAR469" \
+ *      --data "code=Carter Turnpike Court" \
  *      --url https://databridge.sage.edu/api/v1/buildings/
  *
  * @apiUse BuildingParameters
@@ -44,7 +44,7 @@
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/buildings/4
+ *      --url https://databridge.sage.edu/api/v1/buildings/14
  *
  * @apiUse ModelNotFoundError
  */
@@ -64,7 +64,7 @@
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/buildings/code/TRY
+ *      --url https://databridge.sage.edu/api/v1/buildings/code/WES514
  *
  * @apiUse ModelNotFoundError
  */
