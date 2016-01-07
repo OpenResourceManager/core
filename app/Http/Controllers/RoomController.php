@@ -137,6 +137,18 @@ class RoomController extends ApiController
     }
 
     /**
+     * @param $code
+     * @param Request $request
+     * @return mixed
+     */
+    public function campusRoomsByCode($code, Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $result = Campus::where('code', $code)->firstOrFail()->rooms()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
+    }
+
+    /**
      * @param $id
      * @param Request $request
      * @return mixed
@@ -145,6 +157,18 @@ class RoomController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $result = Building::findOrFail($id)->rooms()->paginate();
+        return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
+    }
+
+    /**
+     * @param $code
+     * @param Request $request
+     * @return mixed
+     */
+    public function buildingRoomsByCode($code, Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $result = Building::where('code', $code)->firstOrFail()->rooms()->paginate();
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
     }
 

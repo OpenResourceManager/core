@@ -43,12 +43,14 @@ Route::group(['prefix' => 'api'], function () {
         Route::delete('buildings/code/{code}', 'BuildingController@destroyByCode'); // Documented
 
 
-        Route::resource('rooms', 'RoomController');
-        Route::get('rooms/user/{id}', 'RoomController@userRooms');
-        Route::get('rooms/user/user_id/{user_id}', 'RoomController@userRoomsByUserId');
-        Route::get('rooms/user/username/{username}', 'RoomController@userRoomsByUsername');
-        Route::get('rooms/campus/{id}', 'RoomController@campusRooms');
-        Route::get('rooms/buildings/{id}', 'RoomController@buildingRooms');
+        Route::resource('rooms', 'RoomController'); // Documented
+        Route::get('rooms/user/{id}', 'RoomController@userRooms'); // Documented
+        Route::get('rooms/user/user_id/{user_id}', 'RoomController@userRoomsByUserId'); // Documented
+        Route::get('rooms/user/username/{username}', 'RoomController@userRoomsByUsername'); // Documented
+        Route::get('rooms/campus/{id}', 'RoomController@campusRooms'); // Documented
+        Route::get('rooms/campus/code/{code}', 'RoomController@campusRoomsByCode'); // Documented
+        Route::get('rooms/buildings/{id}', 'RoomController@buildingRooms'); // Documented
+        Route::get('rooms/buildings/code/{code}', 'RoomController@buildingRoomsByCode'); // Documented
 
 
         Route::resource('users', 'UserController'); // Documented
