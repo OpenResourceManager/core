@@ -10,7 +10,7 @@
  * @api {post} /campuses/ POST: Create/Update Campus
  * @apiVersion 1.1.1
  * @apiGroup Campuses
- * @apiDescription This method creates a new phone, or updates a phone with the specified `number`.
+ * @apiDescription This method creates a new campus, or updates a campus with the specified `code`.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
