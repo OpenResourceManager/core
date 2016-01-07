@@ -91,7 +91,7 @@
  */
 
 /**
- * @api {get} /phones/user/:id/phone GET: By User ID
+ * @api {get} /phones/user/:id GET: By User ID
  * @apiVersion 1.1.1
  * @apiGroup Phones
  * @apiDescription This method returns Phone objects associated with the user's database id.
@@ -111,7 +111,7 @@
  */
 
 /**
- * @api {get} /phones/user/username/:username/phone GET: By Username
+ * @api {get} /phones/user/username/:username GET: By Username
  * @apiVersion 1.1.1
  * @apiGroup Phones
  * @apiDescription This method returns Phone objects associated with the Username that was supplied.
