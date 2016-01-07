@@ -25,7 +25,7 @@ class ApiController extends Controller
     /**
      * @var int
      */
-    public $limit = 25;
+    public $limit = 100;
 
 
     /**
