@@ -32,6 +32,65 @@
  */
 
 /**
+ * @api {delete} /phones/:id DELETE: Destroy Phone
+ * @apiVersion 1.1.1
+ * @apiGroup Phones
+ * @apiDescription This method deletes a Phone object, the database ID value is supplied to the API.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiSuccessExampleDestroy
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {Integer} id The phone's unique ID.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --url https://databridge.sage.edu/api/v1/phones/4
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
+ * @api {get} /phones/ GET: Request Users
+ * @apiVersion 1.1.1
+ * @apiGroup Phones
+ * @apiDescription This method returns pages of Phone objects.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse PaginationParams
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/phones/
+ *
+ * @apiUse PaginatedSuccess
+ * @apiUse PhoneSuccess
+ * @apiUse GetPhonesSuccessResultExample
+ */
+
+/**
+ * @api {get} /phones/:id GET: Request Phone
+ * @apiVersion 1.1.1
+ * @apiGroup Phones
+ * @apiDescription This method returns a Phone object, an id is supplied to the API.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {Integer} id The phone's unique ID.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/phones/12
+ *
+ * @apiUse PhoneSuccess
+ * @apiUse GetPhoneSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
  * @api {get} /phones/user/:id/phone GET: By User ID
  * @apiVersion 1.1.1
  * @apiGroup Phones
