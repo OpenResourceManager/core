@@ -30,6 +30,48 @@
  */
 
 /**
+ * @api {get} /buildings/campus/:id GET: By Campus ID
+ * @apiVersion 1.1.1
+ * @apiGroup Buildings
+ * @apiDescription This method returns a Building object, a campus `id` is supplied.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {Integer} id The campuses' unique database ID.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/buildings/campus/2
+ *
+ * @apiUse PaginatedSuccess
+ * @apiUse BuildingSuccess
+ * @apiUse GetBuildingsSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
+ * @api {get} /buildings/campus/code/:code GET: By Campus Code
+ * @apiVersion 1.1.1
+ * @apiGroup Buildings
+ * @apiDescription This method returns a Building object, a campus unique `code` is supplied.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} code The campuses' unique identifier string.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/buildings/campus/code/TRY
+ *
+ * @apiUse PaginatedSuccess
+ * @apiUse BuildingSuccess
+ * @apiUse GetBuildingsSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
  * @api {delete} /buildings/:id DELETE: Destroy Building
  * @apiVersion 1.1.1
  * @apiGroup Buildings
@@ -121,46 +163,6 @@
  *
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/buildings/code/WES514
- *
- * @apiUse BuildingSuccess
- * @apiUse GetBuildingSuccessResultExample
- *
- * @apiUse ModelNotFoundError
- */
-
-/**
- * @api {get} /buildings/campus/:id GET: By Campus ID
- * @apiVersion 1.1.1
- * @apiGroup Buildings
- * @apiDescription This method returns a Building object, a campus `id` is supplied.
- *
- * @apiUse ApiSuccessFields
- * @apiUse ApiErrorFields
- * @apiUse AuthorizationHeader
- * @apiParam {Integer} id The campuses' unique database ID.
- *
- * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/buildings/campus/2
- *
- * @apiUse BuildingSuccess
- * @apiUse GetBuildingSuccessResultExample
- *
- * @apiUse ModelNotFoundError
- */
-
-/**
- * @api {get} /buildings/campus/code/:code GET: By Campus Code
- * @apiVersion 1.1.1
- * @apiGroup Buildings
- * @apiDescription This method returns a Building object, a campus unique `code` is supplied.
- *
- * @apiUse ApiSuccessFields
- * @apiUse ApiErrorFields
- * @apiUse AuthorizationHeader
- * @apiParam {String} code The campuses' unique identifier string.
- *
- * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/buildings/campus/code/TRY
  *
  * @apiUse BuildingSuccess
  * @apiUse GetBuildingSuccessResultExample

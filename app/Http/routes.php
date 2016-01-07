@@ -38,8 +38,8 @@ Route::group(['prefix' => 'api'], function () {
 
         Route::resource('buildings', 'BuildingController'); // Documented
         Route::get('buildings/code/{code}', 'BuildingController@showByCode'); // Documented
-        Route::get('buildings/campus/{id}', 'BuildingController@campusBuildings');
-        Route::get('buildings/campus/code/{code}', 'BuildingController@campusBuildingsByCode');
+        Route::get('buildings/campus/{id}', 'BuildingController@campusBuildings'); // Documented
+        Route::get('buildings/campus/code/{code}', 'BuildingController@campusBuildingsByCode'); // Documented
         Route::delete('buildings/code/{code}', 'BuildingController@destroyByCode'); // Documented
 
 
