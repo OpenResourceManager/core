@@ -6,10 +6,12 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.1.*",
+        "laravel/framework": "5.2.*",
         "phpunit/phpunit": "^4.8"
     },
     "require-dev": {
+        "symfony/dom-crawler": "~3.0",
+        "symfony/css-selector": "~3.0",
         "fzaninotto/faker": "^1.5",
         "mockery/mockery": "0.9.*",
         "phpspec/phpspec": "~2.1",
