@@ -86,6 +86,7 @@ class UserController extends ApiController
     public function show($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        parent::index($request);
         $result = User::findOrFail($id);
         return $this->respondWithSuccess($this->userTransformer->transform($result));
     }
@@ -97,6 +98,7 @@ class UserController extends ApiController
     public function showByUserId($user_id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        parent::index($request);
         $result = User::where('user_identifier', $user_id)->firstOrFail();
         return $this->respondWithSuccess($this->userTransformer->transform($result));
     }
@@ -108,6 +110,7 @@ class UserController extends ApiController
     public function showByUsername($username, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        parent::index($request);
         $result = User::where('username', $username)->firstOrFail();
         return $this->respondWithSuccess($this->userTransformer->transform($result));
     }
@@ -180,7 +183,8 @@ class UserController extends ApiController
     public function campusUsers($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Campus::findOrFail($id)->users()->paginate();
+        parent::index($request);
+        $result = Campus::findOrFail($id)->users()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
 
@@ -192,7 +196,8 @@ class UserController extends ApiController
     public function campusUsersByCode($code, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Campus::where('code', $code)->firstOrFail()->users()->paginate();
+        parent::index($request);
+        $result = Campus::where('code', $code)->firstOrFail()->users()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
 
@@ -204,7 +209,8 @@ class UserController extends ApiController
     public function buildingUsers($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Building::findOrFail($id)->users()->paginate();
+        parent::index($request);
+        $result = Building::findOrFail($id)->users()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
 
@@ -216,7 +222,8 @@ class UserController extends ApiController
     public function buildingUsersByCode($code, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Building::where('code', $code)->firstOrFail()->users()->paginate();
+        parent::index($request);
+        $result = Building::where('code', $code)->firstOrFail()->users()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
 
@@ -228,7 +235,8 @@ class UserController extends ApiController
     public function roleUsers($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Role::findOrFail($id)->users()->paginate();
+        parent::index($request);
+        $result = Role::findOrFail($id)->users()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
 
@@ -240,7 +248,8 @@ class UserController extends ApiController
     public function roleUsersByCode($code, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Role::where('code', $code)->firstOrFail()->users()->paginate();
+        parent::index($request);
+        $result = Role::where('code', $code)->firstOrFail()->users()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
 
@@ -252,7 +261,8 @@ class UserController extends ApiController
     public function courseUsers($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Course::findOrFail($id)->users()->paginate();
+        parent::index($request);
+        $result = Course::findOrFail($id)->users()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
 
@@ -264,7 +274,8 @@ class UserController extends ApiController
     public function courseUsersByCode($code, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Course::where('code', $code)->firstOrFail()->users()->paginate();
+        parent::index($request);
+        $result = Course::where('code', $code)->firstOrFail()->users()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
 
@@ -276,7 +287,8 @@ class UserController extends ApiController
     public function roomUsers($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Room::findOrFail($id)->users()->paginate();
+        parent::index($request);
+        $result = Room::findOrFail($id)->users()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
 }
