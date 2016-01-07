@@ -68,7 +68,7 @@
 
 /**
  * @apiDefine PaginationParams
- * @apiParam {Integer} [limit=25] The max number of objects returned. The max that will be honored by the api is 100.
+ * @apiParam {Integer} [limit=100] The max number of objects returned. The max that will be honored by the api is 1500.
  * @apiParam {Integer} [page=1] The page of results to return.
  */
 
