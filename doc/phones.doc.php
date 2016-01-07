@@ -52,7 +52,7 @@
  */
 
 /**
- * @api {get} /phones/ GET: Request Users
+ * @api {get} /phones/ GET: Request Phones
  * @apiVersion 1.1.1
  * @apiGroup Phones
  * @apiDescription This method returns pages of Phone objects.
