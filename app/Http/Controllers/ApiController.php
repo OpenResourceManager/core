@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Model\Apikey;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 
@@ -25,14 +26,20 @@ class ApiController extends Controller
     /**
      * @var int
      */
-    public $limit = 100;
+    protected $limit;
 
 
     /**
      * @var int
      */
-    protected $max_limit = 100;
+    protected $max_limit;
 
+
+    function __construct()
+    {
+        $this->limit = Config::get('uud.default_result_limit');
+        $this->max_limit = Config::get('uud.max_result_limit');
+    }
 
     /**
      * @param $amount
