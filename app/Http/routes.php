@@ -49,8 +49,8 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('rooms/user/username/{username}', 'RoomController@userRoomsByUsername'); // Documented
         Route::get('rooms/campus/{id}', 'RoomController@campusRooms'); // Documented
         Route::get('rooms/campus/code/{code}', 'RoomController@campusRoomsByCode'); // Documented
-        Route::get('rooms/buildings/{id}', 'RoomController@buildingRooms'); // Documented
-        Route::get('rooms/buildings/code/{code}', 'RoomController@buildingRoomsByCode'); // Documented
+        Route::get('rooms/building/{id}', 'RoomController@buildingRooms'); // Documented
+        Route::get('rooms/building/code/{code}', 'RoomController@buildingRoomsByCode'); // Documented
 
 
         Route::resource('users', 'UserController'); // Documented
