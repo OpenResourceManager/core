@@ -31,9 +31,9 @@ Route::group(['prefix' => 'api'], function () {
             return Redirect::away(url('docs'));
         });
 
-        Route::resource('campuses', 'CampusController');
-        Route::get('campuses/code/{code}', 'CampusController@showByCode');
-        Route::delete('campuses/code/{code}', 'CampusController@destroyByCode');
+        Route::resource('campuses', 'CampusController'); // Documented
+        Route::get('campuses/code/{code}', 'CampusController@showByCode'); // Documented
+        Route::delete('campuses/code/{code}', 'CampusController@destroyByCode'); // Documented
 
 
         Route::resource('buildings', 'BuildingController');
