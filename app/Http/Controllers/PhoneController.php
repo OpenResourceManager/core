@@ -128,7 +128,8 @@ class PhoneController extends ApiController
     public function userPhones($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = User::findOrFail($id)->phones()->paginate();
+        parent::index($request);
+        $result = User::findOrFail($id)->phones()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->phoneTransformer->transformCollection($result->all()));
     }
 
@@ -140,7 +141,8 @@ class PhoneController extends ApiController
     public function userPhonesByUserId($user_id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = User::where('user_identifier', $user_id)->firstOrFail()->phones()->paginate();
+        parent::index($request);
+        $result = User::where('user_identifier', $user_id)->firstOrFail()->phones()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->phoneTransformer->transformCollection($result->all()));
     }
 
@@ -152,7 +154,8 @@ class PhoneController extends ApiController
     public function userPhonesByUsername($username, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = User::where('username', $username)->firstOrFail()->phones()->paginate();
+        parent::index($request);
+        $result = User::where('username', $username)->firstOrFail()->phones()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->phoneTransformer->transformCollection($result->all()));
     }
 }

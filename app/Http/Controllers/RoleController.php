@@ -150,7 +150,8 @@ class RoleController extends ApiController
     public function userRoles($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = User::findOrFail($id)->roles()->paginate();
+        parent::index($request);
+        $result = User::findOrFail($id)->roles()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roleTransformer->transformCollection($result->all()));
     }
 
@@ -162,7 +163,8 @@ class RoleController extends ApiController
     public function userRolesByUserId($user_id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = User::where('user_identifier', $user_id)->firstOrFail()->roles()->paginate();
+        parent::index($request);
+        $result = User::where('user_identifier', $user_id)->firstOrFail()->roles()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roleTransformer->transformCollection($result->all()));
     }
 
@@ -174,7 +176,8 @@ class RoleController extends ApiController
     public function userRolesByUsername($username, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = User::where('username', $username)->firstOrFail()->roles()->paginate();
+        parent::index($request);
+        $result = User::where('username', $username)->firstOrFail()->roles()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roleTransformer->transformCollection($result->all()));
     }
 }

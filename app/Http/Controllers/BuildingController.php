@@ -153,7 +153,8 @@ class BuildingController extends ApiController
     public function campusBuildings($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Campus::findOrFail($id)->buildings()->paginate();
+        parent::index($request);
+        $result = Campus::findOrFail($id)->buildings()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->buildingTransformer->transformCollection($result->all()));
     }
 
@@ -165,7 +166,8 @@ class BuildingController extends ApiController
     public function campusBuildingsByCode($code, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Campus::where('code', $code)->firstOrFail()->buildings()->paginate();
+        parent::index($request);
+        $result = Campus::where('code', $code)->firstOrFail()->buildings()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->buildingTransformer->transformCollection($result->all()));
     }
 }

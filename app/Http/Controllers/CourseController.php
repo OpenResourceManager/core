@@ -152,7 +152,8 @@ class CourseController extends ApiController
     public function departmentCourses($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Department::findOrFail($id)->courses()->paginate();
+        parent::index($request);
+        $result = Department::findOrFail($id)->courses()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->courseTransformer->transformCollection($result->all()));
     }
 
@@ -164,7 +165,8 @@ class CourseController extends ApiController
     public function departmentCoursesByCode($code, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Department::where('code', $code)->firstOrFail()->courses()->paginate();
+        parent::index($request);
+        $result = Department::where('code', $code)->firstOrFail()->courses()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->courseTransformer->transformCollection($result->all()));
     }
 
@@ -175,7 +177,8 @@ class CourseController extends ApiController
     public function userCourses($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = User::findOrFail($id)->courses()->paginate();
+        parent::index($request);
+        $result = User::findOrFail($id)->courses()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->courseTransformer->transformCollection($result->all()));
     }
 
@@ -187,7 +190,8 @@ class CourseController extends ApiController
     public function userCoursesByUserId($user_id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = User::where('user_identifier', $user_id)->firstOrFail()->courses()->paginate();
+        parent::index($request);
+        $result = User::where('user_identifier', $user_id)->firstOrFail()->courses()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->courseTransformer->transformCollection($result->all()));
     }
 
@@ -199,7 +203,8 @@ class CourseController extends ApiController
     public function userCoursesByUsername($username, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = User::where('username', $username)->firstOrFail()->course()->paginate();
+        parent::index($request);
+        $result = User::where('username', $username)->firstOrFail()->course()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->courseTransformer->transformCollection($result->all()));
     }
 }

@@ -127,7 +127,8 @@ class EmailController extends ApiController
     public function userEmails($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = User::findOrFail($id)->emails()->paginate();
+        parent::index($request);
+        $result = User::findOrFail($id)->emails()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
     }
 
@@ -139,7 +140,8 @@ class EmailController extends ApiController
     public function userEmailsByUserId($user_id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = User::where('user_identifier', $user_id)->firstOrFail()->emails()->paginate();
+        parent::index($request);
+        $result = User::where('user_identifier', $user_id)->firstOrFail()->emails()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
     }
 
@@ -151,7 +153,8 @@ class EmailController extends ApiController
     public function userEmailsByUsername($username, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = User::where('username', $username)->firstOrFail()->emails()->paginate();
+        parent::index($request);
+        $result = User::where('username', $username)->firstOrFail()->emails()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
     }
 }

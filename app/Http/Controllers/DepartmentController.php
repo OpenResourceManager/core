@@ -152,7 +152,8 @@ class DepartmentController extends ApiController
     public function courseDepartment($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Course::findOrFail($id)->department()->paginate();
+        parent::index($request);
+        $result = Course::findOrFail($id)->department()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->departmentTransformer->transformCollection($result->all()));
     }
 
@@ -164,7 +165,8 @@ class DepartmentController extends ApiController
     public function courseDepartmentByCode($code, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Course::where('code', $code)->firstOrFail()->department()->paginate();
+        parent::index($request);
+        $result = Course::where('code', $code)->firstOrFail()->department()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->departmentTransformer->transformCollection($result->all()));
     }
 }

@@ -132,7 +132,8 @@ class RoomController extends ApiController
     public function campusRooms($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Campus::findOrFail($id)->rooms()->paginate();
+        parent::index($request);
+        $result = Campus::findOrFail($id)->rooms()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
     }
 
@@ -144,7 +145,8 @@ class RoomController extends ApiController
     public function campusRoomsByCode($code, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Campus::where('code', $code)->firstOrFail()->rooms()->paginate();
+        parent::index($request);
+        $result = Campus::where('code', $code)->firstOrFail()->rooms()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
     }
 
@@ -156,7 +158,8 @@ class RoomController extends ApiController
     public function buildingRooms($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Building::findOrFail($id)->rooms()->paginate();
+        parent::index($request);
+        $result = Building::findOrFail($id)->rooms()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
     }
 
@@ -168,7 +171,8 @@ class RoomController extends ApiController
     public function buildingRoomsByCode($code, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = Building::where('code', $code)->firstOrFail()->rooms()->paginate();
+        parent::index($request);
+        $result = Building::where('code', $code)->firstOrFail()->rooms()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
     }
 
@@ -180,7 +184,8 @@ class RoomController extends ApiController
     public function userRooms($id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = User::findOrFail($id)->rooms()->paginate();
+        parent::index($request);
+        $result = User::findOrFail($id)->rooms()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
     }
 
@@ -192,7 +197,8 @@ class RoomController extends ApiController
     public function userRoomsByUserId($user_id, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = User::where('user_identifier', $user_id)->firstOrFail()->rooms()->paginate();
+        parent::index($request);
+        $result = User::where('user_identifier', $user_id)->firstOrFail()->rooms()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
     }
 
@@ -204,7 +210,8 @@ class RoomController extends ApiController
     public function userRoomsByUsername($username, Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        $result = User::where('username', $username)->firstOrFail()->rooms()->paginate();
+        parent::index($request);
+        $result = User::where('username', $username)->firstOrFail()->rooms()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
     }
 }
