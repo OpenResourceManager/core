@@ -83,17 +83,17 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('emails/user/username/{username}', 'EmailController@userEmailsByUsername'); // Documented
 
 
-        Route::resource('phones', 'PhoneController');
+        Route::resource('phones', 'PhoneController'); // Documented
         Route::get('phones/user/{id}', 'PhoneController@userPhones'); // Documented
         Route::get('phones/user/user_id/{user_id}', 'PhoneController@userPhonesByUserId'); // Documented
         Route::get('phones/user/username/{username}', 'PhoneController@userPhonesByUsername'); // Documented
 
 
-        Route::resource('departments', 'DepartmentController');
-        Route::get('departments/code/{code}', 'DepartmentController@showByCode');
-        Route::get('departments/course/{id}', 'DepartmentController@courseDepartment');
-        Route::get('departments/course/code/{code}', 'DepartmentController@courseDepartmentByCode');
-        Route::delete('departments/code/{code}', 'DepartmentController@destroyByCode');
+        Route::resource('departments', 'DepartmentController'); // Documented
+        Route::get('departments/code/{code}', 'DepartmentController@showByCode'); // Documented
+        Route::get('departments/course/{id}', 'DepartmentController@courseDepartment'); // Documented
+        Route::get('departments/course/code/{code}', 'DepartmentController@courseDepartmentByCode'); // Documented
+        Route::delete('departments/code/{code}', 'DepartmentController@destroyByCode'); // Documented
 
 
         Route::resource('courses', 'CourseController');

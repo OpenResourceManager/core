@@ -24,7 +24,7 @@
  *      -X "POST" \
  *      --data "user_id=151" \
  *      --data "number=15188573007" \
- *      --data "is_cell=true" \
+ *      --data "is_cell=1" \
  *      --data "carrier=Sprint" \
  *      --url https://databridge.sage.edu/api/v1/phones/
  *
