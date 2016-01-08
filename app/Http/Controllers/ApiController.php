@@ -172,7 +172,7 @@ class ApiController extends Controller
      * @param array $id
      * @return mixed
      */
-    public function respondAssignSuccess($message = 'Assigned', $id = [])
+    public function respondAssignmentSuccess($message = 'Assigned', $id = [])
     {
         return $this->setStatusCode(200)->respondWithSuccess(['message' => $message, 'id' => $id]);
     }

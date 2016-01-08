@@ -142,37 +142,37 @@
  */
 
 /**
- * @apiDefine AssignRoleUserParams
+ * @apiDefine AssignmentRoleUserParams
  * @apiParam user {Integer} The database ID of the user.
  * @apiParam role {Integer} The database ID of the role.
  */
 
 /**
- * @apiDefine AssignRoleUserIDParams
+ * @apiDefine AssignmentRoleUserIDParams
  * @apiParam user_id {String} The unique identifier string associated with a user.
  * @apiParam role {Integer} The database ID of the role.
  */
 
 /**
- * @apiDefine AssignRoleUsernameIDParams
+ * @apiDefine AssignmentRoleUsernameIDParams
  * @apiParam username {String} The unique username string associated with a user.
  * @apiParam role {Integer} The database ID of the role.
  */
 
 /**
- * @apiDefine AssignRoleCodeUserParams
+ * @apiDefine AssignmentRoleCodeUserParams
  * @apiParam user {Integer} The database ID of the user
  * @apiParam role {String} The unique code string of the role.
  */
 
 /**
- * @apiDefine AssignRoleCodeUserIDParams
+ * @apiDefine AssignmentRoleCodeUserIDParams
  * @apiParam user_id {String} The unique identifier string associated with a user.
  * @apiParam role {String} The unique code string of the role.
  */
 
 /**
- * @apiDefine AssignRoleCodeUsernameIDParams
+ * @apiDefine AssignmentRoleCodeUsernameIDParams
  * @apiParam username {String} The unique username string associated with a user.
  * @apiParam role {String} The unique code string of the role.
  */
@@ -205,6 +205,42 @@
  *          "pagination": [],
  *          "result": {
  *              "message": "Assigned",
+ *              "id": {
+ *                  "user": 20,
+ *                  "role": 1
+ *              }
+ *          }
+ *      }
+ */
+
+/**
+ * @apiDefine AssignmentNotPresentRoleResultExample
+ * @apiSuccessExample {json} Success Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "success": true,
+ *          "status_code": 200,
+ *          "pagination": [],
+ *          "result": {
+ *              "message": "Assignment Not Present",
+ *              "id": {
+ *                  "user": 20,
+ *                  "role": 1
+ *              }
+ *          }
+ *      }
+ */
+
+/**
+ * @apiDefine UnassignRoleResultExample
+ * @apiSuccessExample {json} Success Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "success": true,
+ *          "status_code": 200,
+ *          "pagination": [],
+ *          "result": {
+ *              "message": "Unassigned",
  *              "id": {
  *                  "user": 20,
  *                  "role": 1

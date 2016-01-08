@@ -197,9 +197,10 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
  * @apiUse AssignNewRoleResultExample
  * @apiUse AssignPresentRoleResultExample
- * @apiUse UnprocessableEntityErrors
  *
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
@@ -208,7 +209,7 @@
  *      --data "role=1" \
  *      --url https://databridge.sage.edu/api/v1/roles/user/
  *
- * @apiUse AssignRoleUserParams
+ * @apiUse AssignmentRoleUserParams
  */
 
 /**
@@ -220,9 +221,10 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
  * @apiUse AssignNewRoleResultExample
  * @apiUse AssignPresentRoleResultExample
- * @apiUse UnprocessableEntityErrors
  *
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
@@ -231,7 +233,7 @@
  *      --data "role=1" \
  *      --url https://databridge.sage.edu/api/v1/roles/user_id/
  *
- * @apiUse AssignRoleUserIDParams
+ * @apiUse AssignmentRoleUserIDParams
  */
 
 /**
@@ -243,9 +245,10 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
  * @apiUse AssignNewRoleResultExample
  * @apiUse AssignPresentRoleResultExample
- * @apiUse UnprocessableEntityErrors
  *
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
@@ -254,7 +257,7 @@
  *      --data "role=1" \
  *      --url https://databridge.sage.edu/api/v1/roles/username/
  *
- * @apiUse AssignRoleUsernameIDParams
+ * @apiUse AssignmentRoleUsernameIDParams
  */
 
 /**
@@ -266,9 +269,10 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
  * @apiUse AssignNewRoleResultExample
  * @apiUse AssignPresentRoleResultExample
- * @apiUse UnprocessableEntityErrors
  *
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
@@ -277,7 +281,7 @@
  *      --data "code=STUDENT" \
  *      --url https://databridge.sage.edu/api/v1/roles/code/user/
  *
- * @apiUse AssignRoleCodeUserParams
+ * @apiUse AssignmentRoleCodeUserParams
  */
 
 /**
@@ -289,9 +293,10 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
  * @apiUse AssignNewRoleResultExample
  * @apiUse AssignPresentRoleResultExample
- * @apiUse UnprocessableEntityErrors
  *
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
@@ -300,7 +305,7 @@
  *      --data "code=STUDENT" \
  *      --url https://databridge.sage.edu/api/v1/roles/code/user_id/
  *
- * @apiUse AssignRoleCodeUserIDParams
+ * @apiUse AssignmentRoleCodeUserIDParams
  */
 
 /**
@@ -312,9 +317,10 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
  * @apiUse AssignNewRoleResultExample
  * @apiUse AssignPresentRoleResultExample
- * @apiUse UnprocessableEntityErrors
  *
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
@@ -323,5 +329,149 @@
  *      --data "code=STUDENT" \
  *      --url https://databridge.sage.edu/api/v1/roles/code/username/
  *
- * @apiUse AssignRoleCodeUsernameIDParams
+ * @apiUse AssignmentRoleCodeUsernameIDParams
+ */
+
+/**
+ * @api {delete} /roles/user/ DELETE: Unassign User
+ * @apiVersion 1.1.1
+ * @apiGroup Roles
+ * @apiDescription This method unassigns a user from a role a user, using the user and role database id values.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse UnassignRoleResultExample
+ * @apiUse AssignmentNotPresentRoleResultExample
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "user=25" \
+ *      --data "role=1" \
+ *      --url https://databridge.sage.edu/api/v1/roles/user/
+ *
+ * @apiUse AssignmentRoleUserParams
+ */
+
+/**
+ * @api {delete} /roles/user_id/ DELETE: Unassign from Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Roles
+ * @apiDescription This method unassigns a user from a role a user, using the user_id value and role database id value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse UnassignRoleResultExample
+ * @apiUse AssignmentNotPresentRoleResultExample
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "user_id=0958757" \
+ *      --data "role=1" \
+ *      --url https://databridge.sage.edu/api/v1/roles/user_id/
+ *
+ * @apiUse AssignmentRoleUserIDParams
+ */
+
+/**
+ * @api {delete} /roles/username/ DELETE: Unassign from Username
+ * @apiVersion 1.1.1
+ * @apiGroup Roles
+ * @apiDescription This method unassigns a user from a role a user, using the username value and role database id value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse UnassignRoleResultExample
+ * @apiUse AssignmentNotPresentRoleResultExample
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "username=skywal" \
+ *      --data "role=1" \
+ *      --url https://databridge.sage.edu/api/v1/roles/username/
+ *
+ * @apiUse AssignmentRoleUsernameIDParams
+ */
+
+/**
+ * @api {delete} /roles/code/user/ DELETE: Unassign Code from User
+ * @apiVersion 1.1.1
+ * @apiGroup Roles
+ * @apiDescription This method unassigns a user from a role a user, using the user and role code value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse UnassignRoleResultExample
+ * @apiUse AssignmentNotPresentRoleResultExample
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "user=25" \
+ *      --data "code=STUDENT" \
+ *      --url https://databridge.sage.edu/api/v1/roles/code/user/
+ *
+ * @apiUse AssignmentRoleCodeUserParams
+ */
+
+/**
+ * @api {delete} /roles/code/user_id/ DELETE: Unassign Code from Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Roles
+ * @apiDescription This method unassigns a user from a role a user, using the user_id value and role code value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse UnassignRoleResultExample
+ * @apiUse AssignmentNotPresentRoleResultExample
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "user_id=0958757" \
+ *      --data "code=STUDENT" \
+ *      --url https://databridge.sage.edu/api/v1/roles/code/user_id/
+ *
+ * @apiUse AssignmentRoleCodeUserIDParams
+ */
+
+/**
+ * @api {delete} /roles/code/username/ DELETE: Unassign Code from Username
+ * @apiVersion 1.1.1
+ * @apiGroup Roles
+ * @apiDescription This method unassigns a user from a role a user, using the username value and role code value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse UnassignRoleResultExample
+ * @apiUse AssignmentNotPresentRoleResultExample
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "username=skywal" \
+ *      --data "code=STUDENT" \
+ *      --url https://databridge.sage.edu/api/v1/roles/code/username/
+ *
+ * @apiUse AssignmentRoleCodeUsernameIDParams
  */

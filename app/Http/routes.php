@@ -80,6 +80,12 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('roles/code/user', 'RoleController@assignUserRoleCode'); // Documented
         Route::post('roles/code/user_id', 'RoleController@assignUserRoleCodeByUserId'); // Documented
         Route::post('roles/code/username', 'RoleController@assignUserRoleCodeByUsername'); // Documented
+        Route::delete('roles/user', 'RoleController@unassignUserRole'); // Documented
+        Route::delete('roles/user_id', 'RoleController@unassignUserRoleByUserId'); // Documented
+        Route::delete('roles/username', 'RoleController@unassignUserRoleByUsername'); // Documented
+        Route::delete('roles/code/user', 'RoleController@unassignUserRoleCode'); // Documented
+        Route::delete('roles/code/user_id', 'RoleController@unassignUserRoleCodeByUserId'); // Documented
+        Route::delete('roles/code/username', 'RoleController@unassignUserRoleCodeByUsername'); // Documented
         Route::delete('roles/code/{code}', 'RoleController@destroyByCode'); // Documented
 
 
