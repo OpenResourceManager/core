@@ -73,39 +73,3 @@
  *          }
  *      }
  */
-
-/**
- * @apiDefine AssignPresentRoleResultExample
- * @apiSuccessExample {json} Success Response:
- *      HTTP/1.1 200 OK
- *      {
- *          "success": true,
- *          "status_code": 200,
- *          "pagination": [],
- *          "result": {
- *              "message": "Assignment Already Present",
- *              "id": {
- *                  "user": 20,
- *                  "role": 1
- *              }
- *          }
- *      }
- */
-
-/**
- * @apiDefine AssignNewRoleResultExample
- * @apiSuccessExample {json} Success Response:
- *      HTTP/1.1 200 OK
- *      {
- *          "success": true,
- *          "status_code": 200,
- *          "pagination": [],
- *          "result": {
- *              "message": "Assigned",
- *              "id": {
- *                  "user": 20,
- *                  "role": 1
- *              }
- *          }
- *      }
- */

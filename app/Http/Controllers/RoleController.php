@@ -182,7 +182,6 @@ class RoleController extends ApiController
     }
 
     /**
-     * @param $roleID
      * @param Request $request
      * @return mixed
      */
@@ -193,16 +192,124 @@ class RoleController extends ApiController
             'user' => 'integer|required|exists:users,id,deleted_at,NULL',
             'role' => 'integer|required|exists:roles,id,deleted_at,NULL'
         ]);
-        $user_id = $request->input('user');
-        $role_id = $request->input('role');
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::findOrFail($user_id);
-        $role = Role::findOrFail($role_id);
-        if (!$user->roles->contains($role_id)) {
+        $user = User::findOrFail($request->input('user'));
+        $role = Role::findOrFail($request->input('role'));
+        if (!$user->roles->contains($role->id)) {
             $user->roles()->attach($role);
-            return $this->respondAssignSuccess($message = 'Assigned', $id = ['user' => $user_id, 'role' => $role_id]);
+            return $this->respondAssignSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
         } else {
-            return $this->respondAssignSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user_id), 'role' => intval($role_id)]);
+            return $this->respondAssignSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserRoleByUserId(Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'role' => 'integer|required|exists:roles,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('user_identifier', $request->input('user_id'))->firstOrFail();
+        $role = Role::findOrFail($request->input('role'));
+        if (!$user->roles->contains($role->id)) {
+            $user->roles()->attach($role);
+            return $this->respondAssignSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
+        } else {
+            return $this->respondAssignSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserRoleByUsername(Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'username' => 'string|required|exists:users,username,deleted_at,NULL',
+            'role' => 'integer|required|exists:roles,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('username', $request->input('username'))->firstOrFail();
+        $role = Role::findOrFail($request->input('role'));
+        if (!$user->roles->contains($role->id)) {
+            $user->roles()->attach($role);
+            return $this->respondAssignSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
+        } else {
+            return $this->respondAssignSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserRoleCode(Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user' => 'integer|required|exists:users,id,deleted_at,NULL',
+            'code' => 'string|required|exists:roles,code,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::findOrFail($request->input('user'));
+        $role = Role::where('code', $request->input('code'))->firstOrFail();
+        if (!$user->roles->contains($role->id)) {
+            $user->roles()->attach($role);
+            return $this->respondAssignSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
+        } else {
+            return $this->respondAssignSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserRoleCodeByUserId(Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'code' => 'string|required|exists:roles,code,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('user_identifier', $request->input('user_id'))->firstOrFail();
+        $role = Role::where('code', $request->input('code'))->firstOrFail();
+        if (!$user->roles->contains($role->id)) {
+            $user->roles()->attach($role);
+            return $this->respondAssignSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
+        } else {
+            return $this->respondAssignSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserRoleCodeByUsername(Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'username' => 'string|required|exists:users,username,deleted_at,NULL',
+            'code' => 'string|required|exists:roles,code,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('username', $request->input('username'))->firstOrFail();
+        $role = Role::where('code', $request->input('code'))->firstOrFail();
+        if (!$user->roles->contains($role->id)) {
+            $user->roles()->attach($role);
+            return $this->respondAssignSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
+        } else {
+            return $this->respondAssignSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
         }
     }
 }
