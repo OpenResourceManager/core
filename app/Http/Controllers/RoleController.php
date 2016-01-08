@@ -198,11 +198,11 @@ class RoleController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::findOrFail($user_id);
         $role = Role::findOrFail($role_id);
-        if(!$user->roles->contains($role_id)) {
+        if (!$user->roles->contains($role_id)) {
             $user->roles()->attach($role);
             return $this->respondAssignSuccess($id = ['user' => $user_id, 'role' => $role_id]);
         } else {
-            return $this->respondAssignSuccess($message = 'Assignment Already Present', $id = ['user' => $user_id, 'role' => $role_id]);
+            return $this->respondAssignSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user_id), 'role' => intval($role_id)]);
         }
     }
 }
