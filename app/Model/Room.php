@@ -37,7 +37,7 @@ class Room extends BaseModel
 
     public function campus()
     {
-        $building = $this->building();
+        $building = $this->building()->getResults();
         return $building->campus();
     }
 }
