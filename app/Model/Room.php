@@ -37,7 +37,6 @@ class Room extends BaseModel
 
     public function campus()
     {
-        return Building::firstOrFail($this->building_id)->campus();
-        //return $building->campus();
+       return $this->hasManyThrough('App\Model\Campus','App\Model\Building');
     }
 }
