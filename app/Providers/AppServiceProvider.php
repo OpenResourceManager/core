@@ -32,10 +32,6 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-        // set deleting event for building. Should delete all children rooms.
-        Building::deleting(function ($building) {
-            $building->rooms()->delete();
-        });
 
         // Adds a user campus record when a user is assigned a room.
         Room::created(function ($room) {
@@ -52,6 +48,16 @@ class AppServiceProvider extends ServiceProvider
 
         });
 
+        // set deleting event for campus. Should delete all children buildings.
+        Campus::deleting(function ($campus) {
+            $campus->buildings()->delete();
+        });
+
+        // set deleting event for building. Should delete all children rooms.
+        Building::deleting(function ($building) {
+            $building->rooms()->delete();
+        });
+
         // Adds a user campus record when a user is assigned a room.
         Room::deleting(function ($room) {
             $user_id = $room->user_id;
@@ -62,14 +68,8 @@ class AppServiceProvider extends ServiceProvider
             $campus = Campus::findOrFail($campus_id);
 
             if (!$user->campuses->contains($campus->id)) {
-                $user->campuses()->attach($campus);
+                $user->campuses()->detach($campus);
             }
-        });
-
-        // set deleting event for campus. Should delete all children buildings.
-        Campus::deleting(function ($campus) {
-            $campus->rooms()->delete();
-            $campus->buildings()->delete();
         });
 
         User::deleting(function ($user) {
