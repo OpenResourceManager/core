@@ -19,7 +19,6 @@ class CreateCommunityDepartmentPivotTable extends Migration
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->primary(['community_id', 'department_id']);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

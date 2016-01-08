@@ -19,7 +19,6 @@ class CreateCommunityRolePivotTable extends Migration
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
             $table->primary(['community_id', 'role_id']);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

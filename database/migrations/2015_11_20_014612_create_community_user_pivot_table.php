@@ -19,7 +19,6 @@ class CreateCommunityUserPivotTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->primary(['community_id', 'user_id']);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

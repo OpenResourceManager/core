@@ -51,9 +51,6 @@ class AppServiceProvider extends ServiceProvider
         // set deleting event for campus. Should delete all children buildings.
         Campus::deleting(function ($campus) {
             foreach ($campus->rooms() as $room) {
-                foreach ($room->users() as $user) {
-                    $user->detach($campus);
-                }
                 $room->delete();
             }
             $campus->buildings()->delete();
