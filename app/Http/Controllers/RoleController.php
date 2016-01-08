@@ -62,7 +62,7 @@ class RoleController extends ApiController
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'code' => 'string|required|min:3',
-            'name' => 'string|max:25',
+            'name' => 'string|required|max:25',
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $item = Role::updateOrCreate(['code' => Input::get('code')], Input::all());
@@ -179,5 +179,25 @@ class RoleController extends ApiController
         parent::index($request);
         $result = User::where('username', $username)->firstOrFail()->roles()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roleTransformer->transformCollection($result->all()));
+    }
+
+    /**
+     * @param $roleID
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserRole($roleID, Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $userValidator = Validator::make($request->all(), [
+            'id' => 'integer|required|exists:users,id,deleted_at,NULL'
+        ]);
+        $roleValidator = Validator::make(['roleID' => $roleID], [
+            'roleID' => 'integer|required|exists:roles,id,deleted_at,NULL'
+        ]);
+        if ($userValidator->fails()) return $this->respondUnprocessableEntity($userValidator->errors()->all());
+        if ($roleValidator->fails()) return $this->respondUnprocessableEntity($roleValidator->errors()->all());
+        User::findOrFail($request->input('id'))->roles()->attach(Role::findOrFail($roleID));
+        return $this->respondAssignSuccess($id = ['user_id' => $request->input('id'), 'role_id' => $roleID]);
     }
 }

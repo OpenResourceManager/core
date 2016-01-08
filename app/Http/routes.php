@@ -71,9 +71,18 @@ Route::group(['prefix' => 'api'], function () {
 
         Route::resource('roles', 'RoleController'); // Documented
         Route::get('roles/code/{code}', 'RoleController@showByCode'); // Documented
-        Route::get('role/user/{id}', 'RoleController@userRoles');
-        Route::get('role/user/user_id/{user_id}', 'RoleController@userRolesByUserId');
-        Route::get('role/user/username/{username}', 'RoleController@userRolesByUsername');
+        Route::get('roles/user/{id}', 'RoleController@userRoles'); // Documented
+        Route::get('roles/user/user_id/{user_id}', 'RoleController@userRolesByUserId'); // Documented
+        Route::get('roles/user/username/{username}', 'RoleController@userRolesByUsername'); // Documented
+
+        Route::post('roles/{roleID}/user', 'RoleController@assignUserRole');
+        Route::post('roles/{roleID}/user', 'RoleController@assignUserRoleByUserId');
+        Route::post('roles/{roleID}/user', 'RoleController@assignUserRoleByUsername');
+
+        Route::post('roles/code/{code}/user', 'RoleController@assignUserRoleCode');
+        Route::post('roles/code/{code}/user', 'RoleController@assignUserRoleCodeByUserId');
+        Route::post('roles/code/{code}/user', 'RoleController@assignUserRoleCodeByUsername');
+
         Route::delete('roles/code/{code}', 'RoleController@destroyByCode'); // Documented
 
 

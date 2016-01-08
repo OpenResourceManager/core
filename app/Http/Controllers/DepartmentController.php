@@ -59,7 +59,7 @@ class DepartmentController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'academic' => 'boolean|required',
+            'academic' => 'integer|required|max:1',
             'code' => 'string|required|min:3',
             'name' => 'integer|required|min:5',
 
