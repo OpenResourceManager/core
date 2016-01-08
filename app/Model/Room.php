@@ -34,4 +34,9 @@ class Room extends BaseModel
     {
         return $this->hasMany('App\Model\User', 'id');
     }
+
+    public function campus()
+    {
+        return $this->belongsTo('App\Model\Building');
+    }
 }
