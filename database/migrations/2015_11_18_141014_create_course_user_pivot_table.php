@@ -18,6 +18,8 @@ class CreateCourseUserPivotTable extends Migration
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->primary(['course_id', 'user_id']);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -22,20 +22,19 @@ class DatabaseSeeder extends Seeder
         $this->call('RoomTableSeeder');
         $this->call('DepartmentTableSeeder');
         $this->call('CourseTableSeeder');
-       // $this->call('CommunityTableSeeder');
+        // $this->call('CommunityTableSeeder');
         $this->call('RoleTableSeeder');
         $this->call('ApikeyTableSeeder');
 
         $this->call('UserCourseTableSeeder');
-        $this->call('DepartmentsUsersTableSeeder');
         $this->call('UserRoleTableSeeder');
 
-       /* $this->call('UserCommunityTableSeeder');
-        $this->call('RoleCommunityTableSeeder');
-        $this->call('CampusCommunityTableSeeder');
-        $this->call('BuildingCommunityTableSeeder');
-        $this->call('DepartmentCommunityTableSeeder');
-        $this->call('CourseCommunityTableSeeder');*/
+        /* $this->call('UserCommunityTableSeeder');
+         $this->call('RoleCommunityTableSeeder');
+         $this->call('CampusCommunityTableSeeder');
+         $this->call('BuildingCommunityTableSeeder');
+         $this->call('DepartmentCommunityTableSeeder');
+         $this->call('CourseCommunityTableSeeder');*/
 
         Model::reguard();
     }

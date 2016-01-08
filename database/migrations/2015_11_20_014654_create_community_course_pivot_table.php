@@ -18,6 +18,8 @@ class CreateCommunityCoursePivotTable extends Migration
             $table->integer('course_id')->unsigned()->index();
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->primary(['community_id', 'course_id']);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
