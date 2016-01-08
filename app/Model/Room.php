@@ -37,6 +37,7 @@ class Room extends BaseModel
 
     public function campus()
     {
-        return $this->building()->getParent();
+        $building = $this->building();
+        return $building->campus();
     }
 }
