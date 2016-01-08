@@ -51,7 +51,7 @@
  */
 
 /**
- * @api {delete} /courses/:id DELETE: Destroy By Code
+ * @api {delete} /courses/code/:code DELETE: Destroy By Code
  * @apiVersion 1.1.1
  * @apiGroup Courses
  * @apiDescription This method deletes a Course object,  a courses' unique code is supplied.
@@ -60,7 +60,7 @@
  * @apiUse ApiSuccessExampleDestroy
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
- * @apiParam {String} id The courses' unique code.
+ * @apiParam {String} code The courses' unique code.
  *
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
