@@ -142,6 +142,42 @@
  */
 
 /**
+ * @apiDefine AssignRoleUserParams
+ * @apiParam user {Integer} The database ID of the user.
+ * @apiParam role {Integer} The database ID of the role.
+ */
+
+/**
+ * @apiDefine AssignRoleUserIDParams
+ * @apiParam user_id {String} The unique identifier string associated with a user.
+ * @apiParam role {Integer} The database ID of the role.
+ */
+
+/**
+ * @apiDefine AssignRoleUsernameIDParams
+ * @apiParam username {String} The unique username string associated with a user.
+ * @apiParam role {Integer} The database ID of the role.
+ */
+
+/**
+ * @apiDefine AssignRoleCodeUserParams
+ * @apiParam user {Integer} The database ID of the user
+ * @apiParam role {String} The unique code string of the role.
+ */
+
+/**
+ * @apiDefine AssignRoleCodeUserIDParams
+ * @apiParam user_id {String} The unique identifier string associated with a user.
+ * @apiParam role {String} The unique code string of the role.
+ */
+
+/**
+ * @apiDefine AssignRoleCodeUsernameIDParams
+ * @apiParam username {String} The unique username string associated with a user.
+ * @apiParam role {String} The unique code string of the role.
+ */
+
+/**
  * @apiDefine AssignPresentRoleResultExample
  * @apiSuccessExample {json} Success Response:
  *      HTTP/1.1 200 OK

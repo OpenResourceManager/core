@@ -187,3 +187,141 @@
  *
  * @apiUse ModelNotFoundError
  */
+
+/**
+ * @api {post} /roles/user/ POST: Assign to User
+ * @apiVersion 1.1.1
+ * @apiGroup Roles
+ * @apiDescription This method assigns a role to a user, using the user and role database id values.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse AssignNewRoleResultExample
+ * @apiUse AssignPresentRoleResultExample
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "user=25" \
+ *      --data "role=1" \
+ *      --url https://databridge.sage.edu/api/v1/roles/user/
+ *
+ * @apiUse AssignRoleUserParams
+ */
+
+/**
+ * @api {post} /roles/user_id/ POST: Assign to Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Roles
+ * @apiDescription This method assigns a role to a user, using the user_id value and role database id value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse AssignNewRoleResultExample
+ * @apiUse AssignPresentRoleResultExample
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "user_id=0958757" \
+ *      --data "role=1" \
+ *      --url https://databridge.sage.edu/api/v1/roles/user_id/
+ *
+ * @apiUse AssignRoleUserIDParams
+ */
+
+/**
+ * @api {post} /roles/username/ POST: Assign to Username
+ * @apiVersion 1.1.1
+ * @apiGroup Roles
+ * @apiDescription This method assigns a role to a user, using the username value and role database id value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse AssignNewRoleResultExample
+ * @apiUse AssignPresentRoleResultExample
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "username=skywal" \
+ *      --data "role=1" \
+ *      --url https://databridge.sage.edu/api/v1/roles/username/
+ *
+ * @apiUse AssignRoleUsernameIDParams
+ */
+
+/**
+ * @api {post} /roles/code/user/ POST: Assign Code to User
+ * @apiVersion 1.1.1
+ * @apiGroup Roles
+ * @apiDescription This method assigns a role to a user, using the user and role code value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse AssignNewRoleResultExample
+ * @apiUse AssignPresentRoleResultExample
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "user=25" \
+ *      --data "code=STUDENT" \
+ *      --url https://databridge.sage.edu/api/v1/roles/code/user/
+ *
+ * @apiUse AssignRoleCodeUserParams
+ */
+
+/**
+ * @api {post} /roles/code/user_id/ POST: Assign Code to Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Roles
+ * @apiDescription This method assigns a role to a user, using the user_id value and role code value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse AssignNewRoleResultExample
+ * @apiUse AssignPresentRoleResultExample
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "user_id=0958757" \
+ *      --data "code=STUDENT" \
+ *      --url https://databridge.sage.edu/api/v1/roles/code/user_id/
+ *
+ * @apiUse AssignRoleCodeUserIDParams
+ */
+
+/**
+ * @api {post} /roles/code/username/ POST: Assign Code to Username
+ * @apiVersion 1.1.1
+ * @apiGroup Roles
+ * @apiDescription This method assigns a role to a user, using the username value and role code value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse AssignNewRoleResultExample
+ * @apiUse AssignPresentRoleResultExample
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "username=skywal" \
+ *      --data "code=STUDENT" \
+ *      --url https://databridge.sage.edu/api/v1/roles/code/username/
+ *
+ * @apiUse AssignRoleCodeUsernameIDParams
+ */
