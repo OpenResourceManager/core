@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
             $campus = Campus::findOrFail($campus_id);
 
             if (!$user->campuses->contains($campus->id)) {
-                $user->attach($campus);
+                $user->campuses()->attach($campus);
             }
 
             /* if (!DB::table('campus_user')->where('campus_id', $campus_id)->where('user_id', $user_id)->first()) {
@@ -58,7 +58,7 @@ class AppServiceProvider extends ServiceProvider
                 $user = User::findOrFail($pivot->user_id);
                 $department = Department::findOrFail($course->department_id);
                 if (!$user->departments->contains($department->id)) {
-                    $user->attach($department);
+                    $user->departments()->attach($department);
                 }
             }
         });
