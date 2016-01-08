@@ -37,7 +37,7 @@ class Room extends BaseModel
 
     public function campus()
     {
-        return $building = $this->building()->getResults();
+        return Building::firstOrFail($this->building_id)->campus();
         //return $building->campus();
     }
 }
