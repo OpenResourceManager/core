@@ -75,13 +75,13 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('roles/user/user_id/{user_id}', 'RoleController@userRolesByUserId'); // Documented
         Route::get('roles/user/username/{username}', 'RoleController@userRolesByUsername'); // Documented
 
-        Route::post('roles/{roleID}/user', 'RoleController@assignUserRole');
-        Route::post('roles/{roleID}/user', 'RoleController@assignUserRoleByUserId');
-        Route::post('roles/{roleID}/user', 'RoleController@assignUserRoleByUsername');
+        Route::post('roles/user', 'RoleController@assignUserRole');
+        Route::post('roles/user_id', 'RoleController@assignUserRoleByUserId');
+        Route::post('roles/username', 'RoleController@assignUserRoleByUsername');
 
-        Route::post('roles/code/{code}/user', 'RoleController@assignUserRoleCode');
-        Route::post('roles/code/{code}/user', 'RoleController@assignUserRoleCodeByUserId');
-        Route::post('roles/code/{code}/user', 'RoleController@assignUserRoleCodeByUsername');
+        Route::post('roles/code/user', 'RoleController@assignUserRoleCode');
+        Route::post('roles/code/user_id', 'RoleController@assignUserRoleCodeByUserId');
+        Route::post('roles/code/username', 'RoleController@assignUserRoleCodeByUsername');
 
         Route::delete('roles/code/{code}', 'RoleController@destroyByCode'); // Documented
 
