@@ -1,16 +1,6 @@
 # Introduction
 
-## About
-Access to this API gives you the ability to view:
+The [Universal User Data](https://gitlab.sage.edu/groups/UniversalUserData) project's goal is to provide a means to manage and maintain institutional data in a way that is accessible across any language that can utilize HTTP/HTTPS.
+In order to achieve this goal, the [Universal User Data API](https://gitlab.sage.edu/UniversalUserData/UniversalUserDataApi) has been created. The API leverages [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) standards through the Laravel PHP framework.
 
-* [Users](/docs/#api-Users)
-* [Emails](/docs/#api-Emails)
-* [Phones](/docs/#api-Phones)
-* [Roles](/docs/#api-Roles)
-* [Departments](/docs/#api-Departments)
-* [Courses](/docs/#api-Courses)
-* [Rooms](/docs/#api-Rooms)
-* [Buildings](/docs/#api-Buildings)
-* [Campuses](/docs/#api-Campuses)
-
-Responses to API requests are returned in JSON. You will need an API access-key to use this API.
+---
