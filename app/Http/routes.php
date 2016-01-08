@@ -64,7 +64,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('users/course/code/{code}', 'UserController@courseUsersByCode'); // Documented
         Route::get('users/campus/{id}', 'UserController@campusUsers'); // Documented
         Route::get('users/campus/code/{code}', 'UserController@campusUsersByCode'); // Documented
-        Route::get('users/room/{id}', 'UserController@roomsUsers'); // Documented
+        Route::get('users/room/{id}', 'UserController@roomUsers'); // Documented
         Route::delete('users/user_id/{user_id}', 'UserController@destroyByUserId'); // Documented
         Route::delete('users/username/{username}', 'UserController@destroyByUsername'); // Documented
 
