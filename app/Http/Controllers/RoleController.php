@@ -196,7 +196,7 @@ class RoleController extends ApiController
         $user_id = $request->input('user');
         $role_id = $request->input('role');
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        User::findOrFail($user_id)->roles()->attach(Role::findOrFail($role_id));
+        User::findOrFail($user_id)->roles()->sync(Role::findOrFail($role_id));
         return $this->respondAssignSuccess($id = ['user' => $user_id, 'role' => $role_id]);
     }
 }
