@@ -37,6 +37,7 @@ class Room extends BaseModel
 
     public function campus()
     {
-        return $this->belongsTo('App\Model\Building');
+        $building = $this->belongsTo('App\Model\Building');
+        return $building->getResults()->belongsTo('App\Model\Campus');
     }
 }
