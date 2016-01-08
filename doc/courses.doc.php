@@ -118,7 +118,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
- * @apiParam {String} id The courses' unique code.
+ * @apiParam {String} code The courses' unique code.
  *
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/SPAN101
