@@ -17,7 +17,6 @@ class Room extends BaseModel
     protected $table = 'rooms';
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'user_id',
         'building_id',
         'floor_number',
         'floor_name',
@@ -32,11 +31,6 @@ class Room extends BaseModel
 
     public function users()
     {
-        return $this->hasMany('App\Model\User', 'id');
-    }
-
-    public function campus()
-    {
-       return $this->hasManyThrough('App\Model\Campus','App\Model\Building');
+        return $this->belongsToMany('App\Model\User');
     }
 }

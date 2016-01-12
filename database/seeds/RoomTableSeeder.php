@@ -4,7 +4,6 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Model\Room;
 use App\Model\Building;
-use App\Model\User;
 use Faker\Factory as Faker;
 
 /**
@@ -22,7 +21,6 @@ class RoomTableSeeder extends Seeder
         $faker = Faker::create();
 
         $buildingIds = Building::get()->lists('id')->all();
-        $userIds = User::get()->lists('id')->all();
 
         $floorNames = [
             'First Floor',
@@ -52,7 +50,6 @@ class RoomTableSeeder extends Seeder
             }
 
             Room::create([
-                'user_id' => $faker->randomElement($userIds),
                 'building_id' => $faker->randomElement($buildingIds),
                 'floor_number' => $floorNum,
                 'floor_name' => $floorName,

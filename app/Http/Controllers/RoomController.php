@@ -61,7 +61,6 @@ class RoomController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
             'building_id' => 'integer|required|exists:buildings,id,deleted_at,NULL',
             'floor_number' => 'integer',
             'floor_name' => 'string|max:20',

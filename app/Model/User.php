@@ -44,7 +44,7 @@ class User extends BaseModel
 
     public function buildings()
     {
-        return $this->belongsToMany('App\Model\Building', 'rooms');
+        return $this->hasManyThrough('App\Model\Building', 'App\Model\Room');
     }
 
     public function campuses()

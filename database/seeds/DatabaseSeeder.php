@@ -22,12 +22,12 @@ class DatabaseSeeder extends Seeder
         $this->call('RoomTableSeeder');
         $this->call('DepartmentTableSeeder');
         $this->call('CourseTableSeeder');
-        // $this->call('CommunityTableSeeder');
         $this->call('RoleTableSeeder');
         $this->call('ApikeyTableSeeder');
 
         $this->call('UserCourseTableSeeder');
         $this->call('UserRoleTableSeeder');
+        $this->call('UserRoomTableSeeder');
 
         /* $this->call('UserCommunityTableSeeder');
          $this->call('RoleCommunityTableSeeder');
