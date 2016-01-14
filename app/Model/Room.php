@@ -31,6 +31,6 @@ class Room extends BaseModel
 
     public function users()
     {
-        return $this->belongsToMany('App\Model\User');
+        return $this->belongsToMany('App\Model\User','room_user');
     }
 }
