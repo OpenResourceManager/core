@@ -231,3 +231,147 @@
  *
  * @apiUse ModelNotFoundError
  */
+
+/**
+ * @api {post} /rooms/user/ POST: Assign to User
+ * @apiVersion 1.1.1
+ * @apiGroup Rooms
+ * @apiDescription This method assigns a room to a user, using the user and room database id values.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse AssignNewRoomResultExample
+ * @apiUse AssignPresentRoomResultExample
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "user=25" \
+ *      --data "room=1" \
+ *      --url https://databridge.sage.edu/api/v1/rooms/user/
+ *
+ * @apiUse AssignmentRoomUserParams
+ */
+
+/**
+ * @api {post} /rooms/user_id/ POST: Assign to Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Rooms
+ * @apiDescription This method assigns a room to a user, using the user_id value and room database id value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse AssignNewRoomResultExample
+ * @apiUse AssignPresentRoomResultExample
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "user_id=0958757" \
+ *      --data "room=1" \
+ *      --url https://databridge.sage.edu/api/v1/rooms/user_id/
+ *
+ * @apiUse AssignmentRoomUserIDParams
+ */
+
+/**
+ * @api {post} /rooms/username/ POST: Assign to Username
+ * @apiVersion 1.1.1
+ * @apiGroup Rooms
+ * @apiDescription This method assigns a room to a user, using the username value and room database id value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse AssignNewRoomResultExample
+ * @apiUse AssignPresentRoomResultExample
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "username=skywal" \
+ *      --data "room=1" \
+ *      --url https://databridge.sage.edu/api/v1/rooms/username/
+ *
+ * @apiUse AssignmentRoomUsernameIDParams
+ */
+
+/**
+ * @api {delete} /rooms/user/ DELETE: Unassign User
+ * @apiVersion 1.1.1
+ * @apiGroup Rooms
+ * @apiDescription This method unassigns a user from a room a user, using the user and room database id values.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse UnassignRoomResultExample
+ * @apiUse AssignmentNotPresentRoomResultExample
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "user=25" \
+ *      --data "room=1" \
+ *      --url https://databridge.sage.edu/api/v1/rooms/user/
+ *
+ * @apiUse AssignmentRoomUserParams
+ */
+
+/**
+ * @api {delete} /rooms/user_id/ DELETE: Unassign from Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Rooms
+ * @apiDescription This method unassigns a user from a room a user, using the user_id value and room database id value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse UnassignRoomResultExample
+ * @apiUse AssignmentNotPresentRoomResultExample
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "user_id=0958757" \
+ *      --data "room=1" \
+ *      --url https://databridge.sage.edu/api/v1/rooms/user_id/
+ *
+ * @apiUse AssignmentRoomUserIDParams
+ */
+
+/**
+ * @api {delete} /rooms/username/ DELETE: Unassign from Username
+ * @apiVersion 1.1.1
+ * @apiGroup Rooms
+ * @apiDescription This method unassigns a user from a room a user, using the username value and room database id value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse UnassignRoomResultExample
+ * @apiUse AssignmentNotPresentRoomResultExample
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "username=skywal" \
+ *      --data "room=1" \
+ *      --url https://databridge.sage.edu/api/v1/rooms/username/
+ *
+ * @apiUse AssignmentRoomUsernameIDParams
+ */

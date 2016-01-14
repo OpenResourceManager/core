@@ -142,6 +142,24 @@
  */
 
 /**
+ * @apiDefine AssignmentRoomUserParams
+ * @apiParam user {Integer} The database ID of the user.
+ * @apiParam room {Integer} The database ID of the room.
+ */
+
+/**
+ * @apiDefine AssignmentRoomUserIDParams
+ * @apiParam user_id {String} The unique identifier string associated with a user.
+ * @apiParam room {Integer} The database ID of the room.
+ */
+
+/**
+ * @apiDefine AssignmentRoomUsernameIDParams
+ * @apiParam username {String} The unique username string associated with a user.
+ * @apiParam room {Integer} The database ID of the room.
+ */
+
+/**
  * @apiDefine AssignmentRoleUserParams
  * @apiParam user {Integer} The database ID of the user.
  * @apiParam role {Integer} The database ID of the role.
@@ -175,6 +193,78 @@
  * @apiDefine AssignmentRoleCodeUsernameIDParams
  * @apiParam username {String} The unique username string associated with a user.
  * @apiParam role {String} The unique code string of the role.
+ */
+
+/**
+ * @apiDefine AssignPresentRoomResultExample
+ * @apiSuccessExample {json} Success Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "success": true,
+ *          "status_code": 200,
+ *          "pagination": [],
+ *          "result": {
+ *              "message": "Assignment Already Present",
+ *              "id": {
+ *                  "user": 20,
+ *                  "room": 1
+ *              }
+ *          }
+ *      }
+ */
+
+/**
+ * @apiDefine AssignNewRoomResultExample
+ * @apiSuccessExample {json} Success Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "success": true,
+ *          "status_code": 200,
+ *          "pagination": [],
+ *          "result": {
+ *              "message": "Assigned",
+ *              "id": {
+ *                  "user": 20,
+ *                  "room": 1
+ *              }
+ *          }
+ *      }
+ */
+
+/**
+ * @apiDefine AssignmentNotPresentRoomResultExample
+ * @apiSuccessExample {json} Success Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "success": true,
+ *          "status_code": 200,
+ *          "pagination": [],
+ *          "result": {
+ *              "message": "Assignment Not Present",
+ *              "id": {
+ *                  "user": 20,
+ *                  "room": 1
+ *              }
+ *          }
+ *      }
+ */
+
+/**
+ * @apiDefine UnassignRoomResultExample
+ * @apiSuccessExample {json} Success Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "success": true,
+ *          "status_code": 200,
+ *          "pagination": [],
+ *          "result": {
+ *              "message": "Unassigned",
+ *              "id": {
+ *                  "user": 20,
+ *                  "room": 1
+ *              }
+ *          }
+ *      }
  */
 
 /**

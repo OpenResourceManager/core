@@ -213,4 +213,137 @@ class RoomController extends ApiController
         $result = User::where('username', $username)->firstOrFail()->rooms()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
     }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserRoom(Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user' => 'integer|required|exists:users,id,deleted_at,NULL',
+            'room' => 'integer|required|exists:room,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::findOrFail($request->input('user'));
+        $room = Room::findOrFail($request->input('room'));
+        if (!$user->roles->contains($room->id)) {
+            $user->rooms()->attach($room);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'room' => intval($room->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'room' => intval($room->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserRoomByUserId(Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'room' => 'integer|required|exists:rooms,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('user_identifier', $request->input('user_id'))->firstOrFail();
+        $room = Room::findOrFail($request->input('room'));
+        if (!$user->rooms->contains($room->id)) {
+            $user->rooms()->attach($room);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'room' => intval($room->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'room' => intval($room->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserRoomByUsername(Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'username' => 'string|required|exists:users,username,deleted_at,NULL',
+            'room' => 'integer|required|exists:rooms,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('username', $request->input('username'))->firstOrFail();
+        $room = Room::findOrFail($request->input('room'));
+        if (!$user->rooms->contains($room->id)) {
+            $user->rooms()->attach($room);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'room' => intval($room->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'room' => intval($room->id)]);
+        }
+    }
+
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function unassignUserRoom(Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user' => 'integer|required|exists:users,id,deleted_at,NULL',
+            'room' => 'integer|required|exists:rooms,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::findOrFail($request->input('user'));
+        $room = Room::findOrFail($request->input('room'));
+        if ($user->rooms->contains($room->id)) {
+            $user->rooms()->detach($room);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'room' => intval($room->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'room' => intval($room->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function unassignUserRoomByUserId(Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'room' => 'integer|required|exists:rooms,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('user_identifier', $request->input('user_id'))->firstOrFail();
+        $room = Room::findOrFail($request->input('room'));
+        if ($user->rooms->contains($room->id)) {
+            $user->rooms()->detach($room);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'room' => intval($room->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'room' => intval($room->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function unassignUserRoomByUsername(Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'username' => 'string|required|exists:users,username,deleted_at,NULL',
+            'room' => 'integer|required|exists:rooms,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('username', $request->input('username'))->firstOrFail();
+        $room = Room::findOrFail($request->input('room'));
+        if ($user->rooms->contains($room->id)) {
+            $user->rooms()->detach($room);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'room' => intval($room->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'room' => intval($room->id)]);
+        }
+    }
 }

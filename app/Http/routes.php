@@ -51,6 +51,12 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('rooms/campus/code/{code}', 'RoomController@campusRoomsByCode'); // Documented
         Route::get('rooms/building/{id}', 'RoomController@buildingRooms'); // Documented
         Route::get('rooms/building/code/{code}', 'RoomController@buildingRoomsByCode'); // Documented
+        Route::post('rooms/user', 'RoomController@assignUserRoom'); // Documented
+        Route::post('rooms/user_id', 'RoomController@assignUserRoomByUserId'); // Documented
+        Route::post('rooms/username', 'RoomController@assignUserRoomByUsername'); // Documented
+        Route::delete('rooms/user', 'RoomController@unassignUserRoom'); // Documented
+        Route::delete('rooms/user_id', 'RoomController@unassignUserRoomByUserId'); // Documented
+        Route::delete('rooms/username', 'RoomController@unassignUserRoomByUsername'); // Documented
 
 
         Route::resource('users', 'UserController'); // Documented
