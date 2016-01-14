@@ -18,7 +18,6 @@ class RoomTransformer extends Transformer
     {
         return [
             'id' => (int)$item['id'],
-            'user_id' => (int)$item['user_id'],
             'building_id' => (int)$item['building_id'],
             'floor_number' => (int)$item['floor_number'],
             'floor_name' => $item['floor_name'],
