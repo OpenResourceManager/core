@@ -17,6 +17,7 @@ class Room extends BaseModel
     protected $table = 'rooms';
     protected $dates = ['deleted_at'];
     protected $fillable = [
+        'code',
         'building_id',
         'floor_number',
         'floor_name',

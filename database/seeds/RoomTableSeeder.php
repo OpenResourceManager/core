@@ -49,7 +49,9 @@ class RoomTableSeeder extends Seeder
                 $roomNum = $faker->numberBetween(($floorNum * 100), (($floorNum * 100) + 99));
             }
 
+
             Room::create([
+                'code' => $faker->unique()->word,
                 'building_id' => $faker->randomElement($buildingIds),
                 'floor_number' => $floorNum,
                 'floor_name' => $floorName,

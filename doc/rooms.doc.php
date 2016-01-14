@@ -93,6 +93,26 @@
  */
 
 /**
+ * @api {delete} /rooms/code/:code DELETE: Destroy By Code
+ * @apiVersion 1.1.1
+ * @apiGroup Rooms
+ * @apiDescription This method deletes a Room object, a room's unique code is supplied.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiSuccessExampleDestroy
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} code The room's unique code.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --url https://databridge.sage.edu/api/v1/rooms/code/ACK303
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
  * @api {get} /rooms/user/:id GET: By User ID
  * @apiVersion 1.1.1
  * @apiGroup Rooms
@@ -305,6 +325,78 @@
  */
 
 /**
+ * @api {post} /rooms/code/user/ POST: Assign Code to User
+ * @apiVersion 1.1.1
+ * @apiGroup Rooms
+ * @apiDescription This method assigns a room to a user, using the user and room code value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse AssignNewRoomResultExample
+ * @apiUse AssignPresentRoomResultExample
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "user=25" \
+ *      --data "code=STUDENT" \
+ *      --url https://databridge.sage.edu/api/v1/rooms/code/user/
+ *
+ * @apiUse AssignmentRoomCodeUserParams
+ */
+
+/**
+ * @api {post} /rooms/code/user_id/ POST: Assign Code to Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Rooms
+ * @apiDescription This method assigns a room to a user, using the user_id value and room code value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse AssignNewRoomResultExample
+ * @apiUse AssignPresentRoomResultExample
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "user_id=0958757" \
+ *      --data "code=STUDENT" \
+ *      --url https://databridge.sage.edu/api/v1/rooms/code/user_id/
+ *
+ * @apiUse AssignmentRoomCodeUserIDParams
+ */
+
+/**
+ * @api {post} /rooms/code/username/ POST: Assign Code to Username
+ * @apiVersion 1.1.1
+ * @apiGroup Rooms
+ * @apiDescription This method assigns a room to a user, using the username value and room code value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse AssignNewRoomResultExample
+ * @apiUse AssignPresentRoomResultExample
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "username=skywal" \
+ *      --data "code=STUDENT" \
+ *      --url https://databridge.sage.edu/api/v1/rooms/code/username/
+ *
+ * @apiUse AssignmentRoomCodeUsernameIDParams
+ */
+
+/**
  * @api {delete} /rooms/user/ DELETE: Unassign User
  * @apiVersion 1.1.1
  * @apiGroup Rooms
@@ -374,4 +466,76 @@
  *      --url https://databridge.sage.edu/api/v1/rooms/username/
  *
  * @apiUse AssignmentRoomUsernameIDParams
+ */
+
+/**
+ * @api {delete} /rooms/code/user/ DELETE: Unassign Code from User
+ * @apiVersion 1.1.1
+ * @apiGroup Rooms
+ * @apiDescription This method unassigns a user from a room a user, using the user and room code value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse UnassignRoomResultExample
+ * @apiUse AssignmentNotPresentRoomResultExample
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "user=25" \
+ *      --data "code=STUDENT" \
+ *      --url https://databridge.sage.edu/api/v1/rooms/code/user/
+ *
+ * @apiUse AssignmentRoomCodeUserParams
+ */
+
+/**
+ * @api {delete} /rooms/code/user_id/ DELETE: Unassign Code from Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Rooms
+ * @apiDescription This method unassigns a user from a room a user, using the user_id value and room code value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse UnassignRoomResultExample
+ * @apiUse AssignmentNotPresentRoomResultExample
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "user_id=0958757" \
+ *      --data "code=STUDENT" \
+ *      --url https://databridge.sage.edu/api/v1/rooms/code/user_id/
+ *
+ * @apiUse AssignmentRoomCodeUserIDParams
+ */
+
+/**
+ * @api {delete} /rooms/code/username/ DELETE: Unassign Code from Username
+ * @apiVersion 1.1.1
+ * @apiGroup Rooms
+ * @apiDescription This method unassigns a user from a room a user, using the username value and room code value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse UnassignRoomResultExample
+ * @apiUse AssignmentNotPresentRoomResultExample
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "username=skywal" \
+ *      --data "code=STUDENT" \
+ *      --url https://databridge.sage.edu/api/v1/rooms/code/username/
+ *
+ * @apiUse AssignmentRoomCodeUsernameIDParams
  */

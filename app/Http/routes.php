@@ -54,9 +54,16 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('rooms/user', 'RoomController@assignUserRoom'); // Documented
         Route::post('rooms/user_id', 'RoomController@assignUserRoomByUserId'); // Documented
         Route::post('rooms/username', 'RoomController@assignUserRoomByUsername'); // Documented
+        Route::post('rooms/code/user', 'RoomController@assignUserRoomCode'); // Documented
+        Route::post('rooms/code/user_id', 'RoomController@assignUserRoomCodeByUserId'); // Documented
+        Route::post('rooms/code/username', 'RoomController@assignUserRoomCodeByUsername'); // Documented
         Route::delete('rooms/user', 'RoomController@unassignUserRoom'); // Documented
         Route::delete('rooms/user_id', 'RoomController@unassignUserRoomByUserId'); // Documented
         Route::delete('rooms/username', 'RoomController@unassignUserRoomByUsername'); // Documented
+        Route::delete('rooms/code/user', 'RoomController@unassignUserRoomCode'); // Documented
+        Route::delete('rooms/code/user_id', 'RoomController@unassignUserRoomCodeByUserId'); // Documented
+        Route::delete('rooms/code/username', 'RoomController@unassignUserRoomCodeByUsername'); // Documented
+        Route::delete('rooms/code/{code}', 'RoomController@destroyByCode'); // Documented
 
 
         Route::resource('users', 'UserController'); // Documented

@@ -160,6 +160,24 @@
  */
 
 /**
+ * @apiDefine AssignmentRoomCodeUserParams
+ * @apiParam user {Integer} The database ID of the user
+ * @apiParam room {String} The unique code string of the room.
+ */
+
+/**
+ * @apiDefine AssignmentRoomCodeUserIDParams
+ * @apiParam user_id {String} The unique identifier string associated with a user.
+ * @apiParam room {String} The unique code string of the room.
+ */
+
+/**
+ * @apiDefine AssignmentRoomCodeUsernameIDParams
+ * @apiParam username {String} The unique username string associated with a user.
+ * @apiParam room {String} The unique code string of the room.
+ */
+
+/**
  * @apiDefine AssignmentRoleUserParams
  * @apiParam user {Integer} The database ID of the user.
  * @apiParam role {Integer} The database ID of the role.

@@ -53,7 +53,7 @@
  * @api {delete} /roles/code/:code DELETE: Destroy By Code
  * @apiVersion 1.1.1
  * @apiGroup Roles
- * @apiDescription This method deletes a Role object,  a role's unique code is supplied.
+ * @apiDescription This method deletes a Role object, a role's unique code is supplied.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiSuccessExampleDestroy
@@ -64,7 +64,7 @@
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/roles/EMP
+ *      --url https://databridge.sage.edu/api/v1/roles/code/EMP
  *
  * @apiUse ModelNotFoundError
  */

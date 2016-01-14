@@ -14,8 +14,8 @@ class CreateBuildingsTable extends Migration
     {
         Schema::create('buildings', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('campus_id');
             $table->string('code')->unique();
+            $table->unsignedInteger('campus_id');
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
