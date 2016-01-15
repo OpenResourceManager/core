@@ -40,9 +40,9 @@ class ApiController extends Controller
      */
     function __construct(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request)) die($this->respondNotAuthorized());
         if ($request->is('*/passwords/*') || $request->is('*/password/*')) {
-            if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+            if (!$this->canManagePassword($request)) die($this->respondNotAuthorized());
         }
         return $this;
     }
