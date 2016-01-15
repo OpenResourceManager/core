@@ -16,6 +16,7 @@ class CreateCoursesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('department_id');
             $table->string('code')->unique();
+            $table->unsignedInteger('course_level');
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();

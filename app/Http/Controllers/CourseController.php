@@ -62,6 +62,7 @@ class CourseController extends ApiController
         $validator = Validator::make($request->all(), [
             'department_id' => 'integer|required|exists:departments,id,deleted_at,NULL',
             'code' => 'string|required|min:3',
+            'course_level' => 'integer|required',
             'name' => 'integer|required|min:5',
 
         ]);

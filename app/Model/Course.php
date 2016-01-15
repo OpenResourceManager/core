@@ -16,7 +16,7 @@ class Course extends BaseModel
 
     protected $table = 'courses';
     protected $dates = ['deleted_at'];
-    protected $fillable = ['department_id', 'code', 'name'];
+    protected $fillable = ['department_id', 'code', 'course_level', 'name'];
 
     public function users()
     {

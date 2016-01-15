@@ -26,6 +26,7 @@ class CourseTableSeeder extends Seeder
             Course::create([
                 'department_id' => $faker->randomElement($deptIds),
                 'code' => $faker->unique()->text(7) . $faker->randomNumber(3, true),
+                'course_level' => $faker->randomElement([100, 200, 300, 400, 500]),
                 'name' => $faker->unique()->sentence
             ]);
         }

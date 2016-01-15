@@ -9,7 +9,7 @@ namespace App\UUD\Transformers;
 
 class CourseTransformer extends Transformer
 {
-    
+
     /**
      * @param $item
      * @return array
@@ -20,6 +20,7 @@ class CourseTransformer extends Transformer
             'id' => (int)$item['id'],
             'department_id' => (int)$item['department_id'],
             'code' => $item['code'],
+            'course_level' => (int)$item['course_level'],
             'name' => $item['name']
         ];
     }

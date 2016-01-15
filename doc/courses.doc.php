@@ -25,6 +25,7 @@
  *      --data "department_id=34" \
  *      --data "code=SPAN101" \
  *      --data "name=Spanish 101" \
+ *      --data "course_level=100" \
  *      --url https://databridge.sage.edu/api/v1/courses/
  *
  * @apiUse CourseParameters
