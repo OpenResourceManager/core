@@ -20,6 +20,8 @@ class CreateApiKeysTable extends Migration
             $table->boolean('can_post');
             $table->boolean('can_put');
             $table->boolean('can_delete');
+            $table->boolean('can_view_password');
+            $table->boolean('can_edit_password');
             $table->timestamps();
             $table->softDeletes();
         });
