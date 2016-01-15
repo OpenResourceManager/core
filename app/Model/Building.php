@@ -27,7 +27,7 @@ class Building extends BaseModel
     public function users()
     {
 
-        return $this->hasManyThrough('App\Model\User', 'App\Model\Room', 'room_id', 'user_id', 'id');
+        return $this->manyThroughMany('App\Model\User', 'App\Model\Room', 'building_id', 'user_id', 'room_id');
 
         /**
          * Will Work... but has no way to paginate
