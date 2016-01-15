@@ -22,9 +22,4 @@ class Department extends BaseModel
     {
         return $this->hasMany('App\Model\Course');
     }
-
-    public function users()
-    {
-        return $this->hasManyThrough('App\Model\User', 'App\Model\Course');
-    }
 }
