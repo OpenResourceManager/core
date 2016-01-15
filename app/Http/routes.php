@@ -111,6 +111,11 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('passwords/user/{id}', 'PasswordController@userPasswords'); // Documented
         Route::get('passwords/user/user_id/{user_id}', 'PasswordController@userPasswordsByUserId'); // Documented
         Route::get('passwords/user/username/{username}', 'PasswordController@userPasswordsByUsername'); // Documented
+        Route::post('passwords/user_id', 'PasswordController@storeUserPasswordByUserId'); // Documented
+        Route::post('passwords/username', 'PasswordController@storeUserPasswordByUsername'); // Documented
+        Route::delete('passwords/user', 'PasswordController@deleteUserPassword'); // Documented
+        Route::delete('passwords/user_id', 'PasswordController@deleteUserPasswordByUserId'); // Documented
+        Route::delete('passwords/username', 'PasswordController@deleteUserPasswordByUsername'); // Documented
 
 
         Route::resource('phones', 'PhoneController'); // Documented

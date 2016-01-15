@@ -8,8 +8,8 @@
 
 /**
  * @apiDefine PasswordParameters
- * @apiParam (Department Password) {Integer} user_id The user that this password belongs to.
- * @apiParam (Department Password) {String} password The unencrypted password string.
+ * @apiParam (Password Parameters) {Integer} user_id The user that this password belongs to.
+ * @apiParam (Password Parameters) {String} password The unencrypted password string.
  */
 
 /**

@@ -52,6 +52,9 @@ class Apikey extends Model
                     case 'post' :
                         return $key->can_edit_password ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
+                    case 'delete' :
+                        return $key->can_edit_password ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
                     default :
                         return array(false, array("success" => false, "error" => "Method not found."));
                 }

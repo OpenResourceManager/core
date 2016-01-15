@@ -8,8 +8,8 @@
 
 /**
  * @apiDefine EmailParameters
- * @apiParam (Department Email) {Integer} user_id The user that this email address belongs to.
- * @apiParam (Department Email) {String} email The email address string.
+ * @apiParam (Email Parameters) {Integer} user_id The user that this email address belongs to.
+ * @apiParam (Email Parameters) {String} email The email address string.
  */
 
 /**

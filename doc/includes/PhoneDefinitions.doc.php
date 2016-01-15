@@ -8,11 +8,11 @@
 
 /**
  * @apiDefine PhoneParameters
- * @apiParam (Department Phone) {Integer} user_id The user that this phone belongs to.
- * @apiParam (Department Phone) {Integer} number The phone number.
- * @apiParam (Department Phone) {Integer} [ext] The phone number's extension, if there is one.
- * @apiParam (Department Phone) {Boolean} is_cell Signifies if the phone number is a mobile number.
- * @apiParam (Department Phone) {String} [carrier] The mobile carrier, if known.
+ * @apiParam (Phone Parameters) {Integer} user_id The user that this phone belongs to.
+ * @apiParam (Phone Parameters) {Integer} number The phone number.
+ * @apiParam (Phone Parameters) {Integer} [ext] The phone number's extension, if there is one.
+ * @apiParam (Phone Parameters) {Boolean} is_cell Signifies if the phone number is a mobile number.
+ * @apiParam (Phone Parameters) {String} [carrier] The mobile carrier, if known.
  */
 
 /**

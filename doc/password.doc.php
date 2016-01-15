@@ -10,7 +10,7 @@
  * @api {post} /passwords/ POST: Create/Update Password
  * @apiVersion 1.1.1
  * @apiGroup Passwords
- * @apiDescription This method creates a new password, or updates an password object with the specified password address.
+ * @apiDescription This method creates a new password, or updates an password object with the specified user database id.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -27,6 +27,54 @@
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
  * @apiUse PasswordParameters
+ */
+
+/**
+ * @api {post} /passwords/username POST: Create/Update Password by Username
+ * @apiVersion 1.1.1
+ * @apiGroup Passwords
+ * @apiDescription This method creates a new password, or updates an password object with the specified username.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "username=skywal" \
+ *      --data "password=qwertyuiop1234567890" \
+ *      --url https://databridge.sage.edu/api/v1/passwords/username
+ *
+ * @apiUse CreateSuccessResultExample
+ * @apiUse UpdateSuccessResultExample
+ * @apiUse UnprocessableEntityErrors
+ * @apiParam (Password Parameters) {String} username The user's unique username string.
+ * @apiParam (Password Parameters) {String} password The unencrypted password string.
+ */
+
+/**
+ * @api {post} /passwords/user_id POST: Create/Update Password by User Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Passwords
+ * @apiDescription This method creates a new password, or updates an password object with the specified user identifier.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "user_id=04986732" \
+ *      --data "password=qwertyuiop1234567890" \
+ *      --url https://databridge.sage.edu/api/v1/passwords/user_id
+ *
+ * @apiUse CreateSuccessResultExample
+ * @apiUse UpdateSuccessResultExample
+ * @apiUse UnprocessableEntityErrors
+ * @apiParam (Password Parameters) {String} user_id The user's unique identifier string.
+ * @apiParam (Password Parameters) {String} password The unencrypted password string.
  */
 
 /**
@@ -72,7 +120,7 @@
  * @api {delete} /passwords/:id DELETE: Destroy Password
  * @apiVersion 1.1.1
  * @apiGroup Passwords
- * @apiDescription This method deletes an Password object, the database ID value is supplied to the API.
+ * @apiDescription This method deletes a Password object, the database ID value is supplied to the API.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiSuccessExampleDestroy
@@ -84,6 +132,70 @@
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --url https://databridge.sage.edu/api/v1/passwords/501
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+
+/**
+ * @api {delete} /passwords/user DELETE: Destroy by User
+ * @apiVersion 1.1.1
+ * @apiGroup Passwords
+ * @apiDescription This method deletes a Password object, the database ID value of the user is supplied to the API.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiSuccessExampleDestroy
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {Integer} user The user's unique ID.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "user=151" \
+ *      --url https://databridge.sage.edu/api/v1/passwords/user
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
+ * @api {delete} /passwords/user_id DELETE: Destroy by User Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Passwords
+ * @apiDescription This method deletes a Password object, a user's unique identifier string is supplied.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiSuccessExampleDestroy
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} user_id The user's unique identifier string.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "user_id=04986732" \
+ *      --url https://databridge.sage.edu/api/v1/passwords/user_id
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
+ * @api {delete} /passwords/username DELETE: Destroy by Username
+ * @apiVersion 1.1.1
+ * @apiGroup Passwords
+ * @apiDescription This method deletes a Password object, a user's unique username string is supplied.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiSuccessExampleDestroy
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} username The user's unique username string.
+ *
+ * @apiExample {curl} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "username=skywal" \
+ *      --url https://databridge.sage.edu/api/v1/passwords/username
  *
  * @apiUse ModelNotFoundError
  */

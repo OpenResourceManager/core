@@ -170,4 +170,91 @@ class PasswordController extends ApiController
         $result = User::where('username', $username)->firstOrFail()->password()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->passwordTransformer->transformCollection($result->all()));
     }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function storeUserPasswordByUserId(Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'password' => 'integer|required'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('user_identifier', $request->input('user_id'))->firstOrFail();
+        $item = Password::updateOrCreate(['user_id' => $user->id], ['user_id' => $user->id, 'password' => Crypt::encrypt(Input::get('password'))]);
+        return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function storeUserPasswordByUsername(Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'username' => 'string|required|exists:users,username,deleted_at,NULL',
+            'password' => 'integer|required'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('username', $request->input('username'))->firstOrFail();
+        $item = Password::updateOrCreate(['user_id' => $user->id], ['user_id' => $user->id, 'password' => Crypt::encrypt(Input::get('password'))]);
+        return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function deleteUserPassword(Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user' => 'integer|required|exists:users,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::findOrFail($request->input('user'));
+        Password::where('user_id', $user->id)->firstOrFail()->delete();
+        return $this->respondDestroySuccess();
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function deleteUserPasswordByUserId(Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('user_identifier', $request->input('user_id'))->firstOrFail();
+        Password::where('user_id', $user->id)->firstOrFail()->delete();
+        return $this->respondDestroySuccess();
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function deleteUserPasswordByUsername(Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'username' => 'string|required|exists:users,username,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('username', $request->input('username'))->firstOrFail();
+        Password::where('user_id', $user->id)->firstOrFail()->delete();
+        return $this->respondDestroySuccess();
+    }
 }

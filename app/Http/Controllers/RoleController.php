@@ -314,9 +314,9 @@ class RoleController extends ApiController
     }
 
     /**
- * @param Request $request
- * @return mixed
- */
+     * @param Request $request
+     * @return mixed
+     */
     public function unassignUserRole(Request $request)
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
