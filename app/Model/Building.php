@@ -26,15 +26,21 @@ class Building extends BaseModel
 
     public function users()
     {
-        $users = array();
 
-        foreach ($this->rooms()->get() as $room) {
-            foreach ($room->users()->get() as $user) {
-                unset($user->pivot);
-                $users[] = $user;
-            }
-        }
-        return Collection::make($users);
+        return $this->hasManyThrough('App\Model\User', 'App\Model\Room', 'building_id', 'room_id', 'id');
+
+        /**
+         * Will Work... but has no way to paginate
+         *
+         * $users = array();
+         * foreach ($this->rooms()->get() as $room) {
+         * foreach ($room->users()->get() as $user) {
+         * unset($user->pivot);
+         * $users[] = $user;
+         * }
+         * }
+         * return Collection::make($users);
+         */
     }
 
     public function campus()
