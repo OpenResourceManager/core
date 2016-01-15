@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Password;
+use App\Model\User;
 use App\UUD\Transformers\PasswordTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -127,5 +128,46 @@ class PasswordController extends ApiController
         if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
         Password::findOrFail($id)->delete();
         return $this->respondDestroySuccess();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function userPasswords($id, Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        parent::index($request);
+        $result = User::findOrFail($id)->password()->paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->passwordTransformer->transformCollection($result->all()));
+    }
+
+    /**
+     * @param $user_id
+     * @param Request $request
+     * @return mixed
+     */
+    public function userPasswordsByUserId($user_id, Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        parent::index($request);
+        $result = User::where('user_identifier', $user_id)->firstOrFail()->password()->paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->passwordTransformer->transformCollection($result->all()));
+    }
+
+    /**
+     * @param $username
+     * @param Request $request
+     * @return mixed
+     */
+    public function userPasswordsByUsername($username, Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        parent::index($request);
+        $result = User::where('username', $username)->firstOrFail()->password()->paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->passwordTransformer->transformCollection($result->all()));
     }
 }

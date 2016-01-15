@@ -16,6 +16,5 @@ class Password extends BaseModel
     public function user()
     {
         return $this->belongsTo('App\Model\User');
-
     }
 }

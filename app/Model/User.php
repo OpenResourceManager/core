@@ -27,6 +27,11 @@ class User extends BaseModel
         'username'
     ];
 
+    public function password()
+    {
+        return $this->hasOne('App\Model\Password');
+    }
+
     public function emails()
     {
         return $this->hasMany('App\Model\Email');
