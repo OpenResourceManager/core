@@ -21,7 +21,9 @@ class Apikey extends Model
         'can_get',
         'can_post',
         'can_put',
-        'can_delete'
+        'can_delete',
+        'can_view_password',
+        'can_edit_password'
     ];
 
     /**
@@ -33,9 +35,36 @@ class Apikey extends Model
         return Apikey::where('key', $key)->get()->first();
     }
 
+
     /**
      * @param $request
-     * @param $method
+     * @return array
+     */
+    public static function testPasswordPermissions($request)
+    {
+        if ($request->header('X-Authorization')) {
+            $key = self::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                switch (strtolower($request->method())) {
+                    case 'get' :
+                        return $key->can_view_password ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'post' :
+                        return $key->can_edit_password ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    default :
+                        return array(false, array("success" => false, "error" => "Method not found."));
+                }
+            } else {
+                return array(false, array("success" => false, "error" => "X-Authorization: API Key is not valid."));
+            }
+        } else {
+            return array(false, array("success" => false, "error" => "X-Authorization: Header Option Not Found."));
+        }
+    }
+
+    /**
+     * @param $request
      * @return array
      */
     public static function testAPIKey($request)
