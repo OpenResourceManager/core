@@ -34,9 +34,7 @@ class Building extends BaseModel
                 $users[] = $user;
             }
         }
-
-        echo json_encode($users);
-        //return Collection::make($users);
+        return Collection::make($users);
     }
 
     public function campus()
