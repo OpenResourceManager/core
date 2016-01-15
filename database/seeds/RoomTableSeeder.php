@@ -44,7 +44,7 @@ class RoomTableSeeder extends Seeder
             }
 
             if (is_null($floorNum)) {
-                $roomNum = $faker->numberBetween(100, 999);
+                $roomNum = $faker->numberBetween(100, 599);
             } else {
                 $roomNum = $faker->numberBetween(($floorNum * 100), (($floorNum * 100) + 99));
             }
@@ -52,8 +52,7 @@ class RoomTableSeeder extends Seeder
 
             $codearr = [
                 $faker->word,
-                $faker->word . $faker->numberBetween(($floorNum * 100), (($floorNum * 100) + 99)),
-                $faker->numberBetween(($floorNum * 100), (($floorNum * 100) + 99))
+                $faker->word . $faker->numberBetween(($floorNum * 100), (($floorNum * 100) + 99))
             ];
 
             Room::create([
