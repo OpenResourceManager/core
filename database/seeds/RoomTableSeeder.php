@@ -50,12 +50,12 @@ class RoomTableSeeder extends Seeder
             }
 
 
-            $codes = [
+            $codes = array(
                 $faker->word,
-                $faker->word . $faker->numberBetween(1, 999),
-                $faker->word . $faker->numberBetween(1, 999),
-                $faker->word . $faker->numberBetween(1, 999)
-            ];
+                $faker->word . (String)$faker->numberBetween(1, 999),
+                $faker->word . (String)$faker->numberBetween(1, 999),
+                $faker->word . (String)$faker->numberBetween(1, 999)
+            );
 
             Room::create([
                 'code' => $faker->unique()->randomElement($codes),
@@ -63,9 +63,8 @@ class RoomTableSeeder extends Seeder
                 'floor_number' => $floorNum,
                 'floor_name' => $floorName,
                 'room_number' => $roomNum,
-                'room_name' => $faker->optional()->words
+                'room_name' => $faker->optional()->word
             ]);
         }
-
     }
 }
