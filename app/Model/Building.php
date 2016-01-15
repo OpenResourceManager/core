@@ -28,13 +28,13 @@ class Building extends BaseModel
     {
         $users = array();
 
-
         foreach ($this->rooms()->get() as $room) {
-            $user = $room->users()->get()->toArray();
-            array_merge($users, $user);
+            foreach ($room->users()->get() as $user) {
+                echo json_encode($user);
+            }
         }
 
-        echo json_encode($users);
+        // echo json_encode($users);
         //return Collection::make($users);
     }
 
