@@ -7,6 +7,8 @@
  */
 namespace App\UUD\Transformers;
 
+use Illuminate\Support\Facades\Crypt;
+
 class PasswordTransformer extends Transformer
 {
 
@@ -19,7 +21,7 @@ class PasswordTransformer extends Transformer
         return [
             'id' => (int)$item['id'],
             'user_id' => (int)$item['user_id'],
-            'password' => $item['password']
+            'password' => Crypt::decrypt(['password'])
         ];
     }
 
