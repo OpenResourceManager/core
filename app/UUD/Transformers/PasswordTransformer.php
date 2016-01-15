@@ -24,5 +24,4 @@ class PasswordTransformer extends Transformer
             'password' => Crypt::decrypt($item['password'])
         ];
     }
-
 }

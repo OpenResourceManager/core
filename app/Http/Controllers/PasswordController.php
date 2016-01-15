@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Model\Password;
 use App\UUD\Transformers\PasswordTransformer;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 
 class PasswordController extends ApiController
@@ -62,7 +64,14 @@ class PasswordController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
-        //
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
+            'password' => 'string|required',
+
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $item = Password::updateOrCreate(['user_id' => Input::get('user_id')], ['user_id' => Input::get('user_id'), 'password' => Crypt::encrypt(Input::get('password'))]);
+        return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
 
     /**
@@ -75,7 +84,8 @@ class PasswordController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
-        //
+        $result = Password::findOrFail($id);
+        return $this->respondWithSuccess($this->passwordTransformer->transform($result));
     }
 
     /**
@@ -115,6 +125,7 @@ class PasswordController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
-        //
+        Password::findOrFail($id)->delete();
+        return $this->respondDestroySuccess();
     }
 }
