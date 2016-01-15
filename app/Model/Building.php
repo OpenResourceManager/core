@@ -30,7 +30,9 @@ class Building extends BaseModel
         foreach ($this->rooms() as $room) {
             array_merge($users, $room->users()->get()->toArray());
         }
-        return Collection::make($users);
+
+        echo Collection::make($users)->toJson();
+        //return Collection::make($users);
     }
 
     public function campus()
