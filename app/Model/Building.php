@@ -8,7 +8,6 @@
  */
 
 use App\Model\BaseModel;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Building extends BaseModel
@@ -24,33 +23,9 @@ class Building extends BaseModel
         return $this->hasMany('App\Model\Room');
     }
 
-    public function users()
-    {
-
-        return $this->manyThroughManyPivot('App\Model\User', 'App\Model\Room', 'building_id', 'id', 'id');
-
-        /**
-         * Will Work... but has no way to paginate
-         *
-         * $users = array();
-         * foreach ($this->rooms()->get() as $room) {
-         * foreach ($room->users()->get() as $user) {
-         * unset($user->pivot);
-         * $users[] = $user;
-         * }
-         * }
-         * return Collection::make($users);
-         */
-    }
-
     public function campus()
     {
         return $this->belongsTo('App\Model\Campus');
-    }
-
-    public function communities()
-    {
-        return $this->belongsToMany('App\Model\Community');
     }
 }
 

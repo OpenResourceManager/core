@@ -69,14 +69,10 @@ Route::group(['prefix' => 'api'], function () {
         Route::resource('users', 'UserController'); // Documented
         Route::get('users/user_id/{user_id}', 'UserController@showByUserId'); // Documented
         Route::get('users/username/{username}', 'UserController@showByUsername'); // Documented
-        Route::get('users/building/{id}', 'UserController@buildingUsers'); // Documented
-        Route::get('users/building/code/{code}', 'UserController@buildingUsersByCode'); // Documented
         Route::get('users/role/{id}', 'UserController@roleUsers'); // Documented
         Route::get('users/role/code/{code}', 'UserController@roleUsersByCode'); // Documented
         Route::get('users/course/{id}', 'UserController@courseUsers'); // Documented
         Route::get('users/course/code/{code}', 'UserController@courseUsersByCode'); // Documented
-        Route::get('users/campus/{id}', 'UserController@campusUsers'); // Documented
-        Route::get('users/campus/code/{code}', 'UserController@campusUsersByCode'); // Documented
         Route::get('users/room/{id}', 'UserController@roomUsers'); // Documented
         Route::delete('users/user_id/{user_id}', 'UserController@destroyByUserId'); // Documented
         Route::delete('users/username/{username}', 'UserController@destroyByUsername'); // Documented
