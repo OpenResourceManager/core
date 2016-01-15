@@ -25,16 +25,6 @@ class Department extends BaseModel
 
     public function users()
     {
-        return $this->hasMany('App\Model\User');
-    }
-
-    public function enrolled_users()
-    {
         return $this->hasManyThrough('App\Model\User', 'App\Model\Course');
-    }
-
-    public function communities()
-    {
-        return $this->belongsToMany('App\Model\Community');
     }
 }

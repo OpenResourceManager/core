@@ -44,17 +44,12 @@ class User extends BaseModel
 
     public function rooms()
     {
-        return $this->belongsToMany('App\Model\Room', 'room_user');
+        return $this->hasMany('App\Model\Room');
     }
 
     public function buildings()
     {
         return $this->hasManyThrough('App\Model\Building', 'App\Model\Room');
-    }
-
-    public function campuses()
-    {
-        return $this->belongsToMany('App\Model\Campus', 'campus_user');
     }
 
     public function roles()
@@ -65,10 +60,5 @@ class User extends BaseModel
     public function courses()
     {
         return $this->belongsToMany('App\Model\Course');
-    }
-
-    public function communities()
-    {
-        return $this->belongsToMany('App\Model\Community');
     }
 }

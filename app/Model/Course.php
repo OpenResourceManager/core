@@ -20,17 +20,11 @@ class Course extends BaseModel
 
     public function users()
     {
-        return $this->belongsToMany('App\Model\User');
+        return $this->hasMany('App\Model\User');
     }
 
     public function department()
     {
         return $this->belongsTo('App\Model\Department');
     }
-
-    public function communities()
-    {
-        return $this->belongsToMany('App\Model\Community');
-    }
-
 }

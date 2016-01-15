@@ -20,12 +20,6 @@ class Role extends BaseModel
 
     public function users()
     {
-        return $this->belongsToMany('App\Model\User');
+        return $this->hasMany('App\Model\User');
     }
-
-    public function communities()
-    {
-        return $this->belongsToMany('App\Model\Community');
-    }
-
 }
