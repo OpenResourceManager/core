@@ -21,7 +21,7 @@ class PasswordTransformer extends Transformer
         return [
             'id' => (int)$item['id'],
             'user_id' => (int)$item['user_id'],
-            'password' => Crypt::decrypt(['password'])
+            'password' => Crypt::decrypt($item['password'])
         ];
     }
 
