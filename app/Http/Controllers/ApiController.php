@@ -113,6 +113,16 @@ class ApiController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function canManagePassword(Request $request)
+    {
+        $key = Apikey::testPasswordPermissions($request);
+        return $key[0];
+    }
+
+    /**
      * @param string $message
      * @return mixed
      */

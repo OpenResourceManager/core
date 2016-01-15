@@ -38,7 +38,7 @@ class UserController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         parent::index($request);
-        $result = User::paginate($this->limit);
+        $result = User::paginate($this->limit)->showPassword($this->canManagePassword($request));
         return $this->respondSuccessWithPagination($request, $result, $this->userTransformer->transformCollection($result->all()));
     }
 
@@ -70,7 +70,8 @@ class UserController extends ApiController
             'name_last' => 'string|required|min:1',
             'name_postfix' => 'string|max:7',
             'name_phonetic' => 'string',
-            'username' => 'string|required|min:3|unique:users,deleted_at,NULL'
+            'username' => 'string|required|min:3|unique:users,deleted_at,NULL',
+            'password' => 'string|required'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $item = User::updateOrCreate(['user_identifier' => Input::get('user_identifier')], Input::all());
@@ -87,7 +88,7 @@ class UserController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         parent::index($request);
-        $result = User::findOrFail($id);
+        $result = User::findOrFail($id)->showPassword($this->canManagePassword($request));
         return $this->respondWithSuccess($this->userTransformer->transform($result));
     }
 
@@ -99,7 +100,7 @@ class UserController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         parent::index($request);
-        $result = User::where('user_identifier', $user_id)->firstOrFail();
+        $result = User::where('user_identifier', $user_id)->firstOrFail()->showPassword($this->canManagePassword($request));
         return $this->respondWithSuccess($this->userTransformer->transform($result));
     }
 
@@ -111,7 +112,7 @@ class UserController extends ApiController
     {
         if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
         parent::index($request);
-        $result = User::where('username', $username)->firstOrFail();
+        $result = User::where('username', $username)->firstOrFail()->showPassword($this->canManagePassword($request));
         return $this->respondWithSuccess($this->userTransformer->transform($result));
     }
 

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Crypt;
 use App\Model\User;
 use Faker\Factory as Faker;
 
@@ -29,7 +30,8 @@ class UserTableSeeder extends Seeder
                 'name_last' => $faker->lastName,
                 'name_postfix' => $faker->optional()->title,
                 'name_phonetic' => $faker->optional()->firstName,
-                'username' => $faker->unique()->userName
+                'username' => $faker->unique()->userName,
+                'password' => Crypt::encrypt($faker->password)
             ]);
         }
     }
