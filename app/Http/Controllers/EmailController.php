@@ -19,6 +19,7 @@ class EmailController extends ApiController
     protected $emailTransformer;
 
     /**
+     * EmailController constructor.
      * @param EmailTransformer $emailTransformer
      */
     function __construct(EmailTransformer $emailTransformer)
@@ -33,7 +34,7 @@ class EmailController extends ApiController
      */
     public function index(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+
         parent::index($request);
         $result = Email::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));

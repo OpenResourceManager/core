@@ -9,7 +9,6 @@
 
 use App\Model\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Crypt;
 
 class User extends BaseModel
 {
@@ -25,18 +24,8 @@ class User extends BaseModel
         'name_last',
         'name_postfix',
         'name_phonetic',
-        'username',
-        'password'
+        'username'
     ];
-
-    public function showPassword($answer = false)
-    {
-        if (!$answer) {
-            unset($this->password);
-        } else {
-            $this->password = Crypt::decrypt($this->password);
-        }
-    }
 
     public function emails()
     {

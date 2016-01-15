@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
 
         // Base Tables
         $this->call('UserTableSeeder');
+        $this->call('PasswordTableSeeder');
         $this->call('EmailTableSeeder');
         $this->call('PhoneTableSeeder');
         $this->call('CampusTableSeeder');

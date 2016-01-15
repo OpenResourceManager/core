@@ -35,6 +35,19 @@ class ApiController extends Controller
 
 
     /**
+     * ApiController constructor.
+     * @param Request $request
+     */
+    function __construct(Request $request)
+    {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if ($request->is('*/passwords/*') || $request->is('*/password/*')) {
+            if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        }
+        return $this;
+    }
+
+    /**
      * @param $amount
      * @return $this
      */

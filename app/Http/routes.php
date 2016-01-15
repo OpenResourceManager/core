@@ -107,6 +107,8 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('emails/user/user_id/{user_id}', 'EmailController@userEmailsByUserId'); // Documented
         Route::get('emails/user/username/{username}', 'EmailController@userEmailsByUsername'); // Documented
 
+        Route::resource('passwords', 'PasswordController'); // Documented
+
 
         Route::resource('phones', 'PhoneController'); // Documented
         Route::get('phones/user/{id}', 'PhoneController@userPhones'); // Documented

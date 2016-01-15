@@ -22,7 +22,6 @@ class CreateUsersTable extends Migration
             $table->string('name_postfix')->nullable();
             $table->string('name_phonetic')->nullable();
             $table->string('username')->unique();
-            $table->string('password');
             $table->timestamps();
             $table->softDeletes();
         });

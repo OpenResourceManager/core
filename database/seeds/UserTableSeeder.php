@@ -30,8 +30,7 @@ class UserTableSeeder extends Seeder
                 'name_last' => $faker->lastName,
                 'name_postfix' => $faker->optional()->title,
                 'name_phonetic' => $faker->optional()->firstName,
-                'username' => $faker->unique()->userName,
-                'password' => Crypt::encrypt($faker->password)
+                'username' => $faker->unique()->userName
             ]);
         }
     }
