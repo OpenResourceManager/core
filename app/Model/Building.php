@@ -27,7 +27,7 @@ class Building extends BaseModel
     public function users()
     {
         $users = array();
-        foreach ($this->rooms()->get() as $room) {
+        foreach ($this->rooms() as $room) {
             array_merge($users, $room->users()->get()->toArray());
         }
         return Collection::make($users);
