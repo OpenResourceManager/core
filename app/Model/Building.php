@@ -30,7 +30,7 @@ class Building extends BaseModel
 
 
         foreach ($this->rooms()->get() as $room) {
-            $user = $room->users()->get();
+            $user = $room->users()->get()->toArray;
             array_merge($users, $user);
         }
 
