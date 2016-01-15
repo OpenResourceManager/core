@@ -33,20 +33,6 @@ class ApiController extends Controller
      */
     protected $max_limit = 1500;
 
-
-    /**
-     * ApiController constructor.
-     * @param Request $request
-     */
-    function __construct(Request $request)
-    {
-        if (!$this->isAuthorized($request)) die($this->respondNotAuthorized());
-        if ($request->is('*/passwords/*') || $request->is('*/password/*')) {
-            if (!$this->canManagePassword($request)) die($this->respondNotAuthorized());
-        }
-        return $this;
-    }
-
     /**
      * @param $amount
      * @return $this

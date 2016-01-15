@@ -33,6 +33,8 @@ class PasswordController extends ApiController
      */
     public function index(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Password::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->passwordTransformer->transformCollection($result->all()));
@@ -45,6 +47,8 @@ class PasswordController extends ApiController
      */
     public function create(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -56,6 +60,8 @@ class PasswordController extends ApiController
      */
     public function store(Request $request)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -67,6 +73,8 @@ class PasswordController extends ApiController
      */
     public function show(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -78,6 +86,8 @@ class PasswordController extends ApiController
      */
     public function edit(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -90,6 +100,8 @@ class PasswordController extends ApiController
      */
     public function update(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
         //
     }
 
@@ -101,6 +113,8 @@ class PasswordController extends ApiController
      */
     public function destroy(Request $request, $id)
     {
+        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
         //
     }
 }
