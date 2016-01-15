@@ -31,7 +31,7 @@ class Building extends BaseModel
             array_merge($users, $room->users()->get()->toArray());
         }
 
-        echo Collection::make($users)->toJson();
+        echo json_encode($users);
         //return Collection::make($users);
     }
 
