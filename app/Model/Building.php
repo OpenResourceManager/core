@@ -30,6 +30,7 @@ class Building extends BaseModel
 
         foreach ($this->rooms()->get() as $room) {
             foreach ($room->users()->get() as $user) {
+                unset($user->pivot);
                 echo json_encode($user);
             }
         }
