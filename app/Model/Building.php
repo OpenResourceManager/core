@@ -8,6 +8,7 @@
  */
 
 use App\Model\BaseModel;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Building extends BaseModel
@@ -25,7 +26,11 @@ class Building extends BaseModel
 
     public function users()
     {
-        return $this->manyThroughMany('App\Model\User', 'App\Model\Room', 'building_id', 'id', 'user_id');
+        $users = array();
+        foreach ($this->rooms()->get() as $room) {
+            array_merge($users, $room->users()->all());
+        }
+        return Collection::make($users);
     }
 
     public function campus()
