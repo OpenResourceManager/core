@@ -28,6 +28,8 @@ class CreateAddressesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

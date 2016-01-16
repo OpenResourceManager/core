@@ -25,6 +25,8 @@ class CreateStatesTable extends Migration
             $table->string('name', 60);
             $table->string('code', 5)->unique();
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
