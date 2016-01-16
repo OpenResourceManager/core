@@ -6,8 +6,6 @@
  * Time: 8:27 PM
  */
 
-namespace database\seeds;
-
 use App\Model\Country;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
