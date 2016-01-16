@@ -22,8 +22,17 @@
  * @apiExample {curl} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
- *      --data "name=Troy" \
- *      --data "code=TRY" \
+ *      --data "user_id=142" \
+ *      --data "addressee=Sir Luke Skywalker" \
+ *      --data "organization=The Jedi Knight Academy" \
+ *      --data "line_1=65 1st Street" \
+ *      --data "line_2=Cowee Building" \
+ *      --data "city=Troy" \
+ *      --data "state=33" \
+ *      --data "zip=12180" \
+ *      --data "country_id=226" \
+ *      --data "latitude=42.7274609" \
+ *      --data "longitude=-73.6964327" \
  *      --url https://databridge.sage.edu/api/v1/addresses/
  *
  * @apiUse AddressParameters
