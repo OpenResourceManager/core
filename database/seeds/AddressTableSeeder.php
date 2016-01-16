@@ -25,7 +25,7 @@ class AddressTableSeeder extends Seeder
         $states = State::get()->all();
         $users = User::get()->all();
 
-        foreach (range(1, 700) as $index) {
+        foreach (range(1, 400) as $index) {
 
             $user = $faker->randomElement($users);
             $state = $faker->randomElement($states);
