@@ -44,6 +44,6 @@ class CreateAddressesTable extends Migration
             $table->dropForeign('addresses_country_id_foreign');
         });
 
-        Schema::drop('address');
+        Schema::drop('addresses');
     }
 }
