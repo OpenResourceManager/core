@@ -46,7 +46,7 @@ class AddressTableSeeder extends Seeder
                 'line_2' => $faker->optional()->word,
                 'city' => $faker->city,
                 'state_id' => $state->id,
-                'zip' => $faker->randomNumber($nbDigits = 11),
+                'zip' => $faker->randomNumber(),
                 'country_id' => $state->country_id,
                 'latitude' => $lat,
                 'longitude' => $lng
