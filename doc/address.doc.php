@@ -129,7 +129,7 @@
  */
 
 /**
- * @api {get} /addresses/user_id/:user_id GET: By Identifier
+ * @api {get} /addresses/user_id/:user_id GET: By User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Addresses
  * @apiDescription This method returns a Address objects, with the user's database id.
