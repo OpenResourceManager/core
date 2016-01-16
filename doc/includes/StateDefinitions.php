@@ -15,7 +15,7 @@
 
 /**
  * @apiDefine StateSuccess
- * @apiSuccess (Success 2xx: State) {Integer} id The numeric id assigned to the course by the database.
+ * @apiSuccess (Success 2xx: State) {Integer} id The numeric id assigned to the state by the database.
  * @apiSuccess (Success 2xx: State) {String} code The state's unique identifier string.
  * @apiSuccess (Success 2xx: State) {String} name The state's name, this is a label.
  * @apiSuccess (Success 2xx: State) {String} abbreviation The state's shortened name.

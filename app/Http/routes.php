@@ -45,8 +45,8 @@ Route::group(['prefix' => 'api'], function () {
 
         Route::resource('rooms', 'RoomController'); // Documented
         Route::get('rooms/user/{id}', 'RoomController@userRooms'); // Documented
-        Route::get('rooms/user/user_id/{user_id}', 'RoomController@userRoomsByUserId'); // Documented
-        Route::get('rooms/user/username/{username}', 'RoomController@userRoomsByUsername'); // Documented
+        Route::get('rooms/user_id/{user_id}', 'RoomController@userRoomsByUserId'); // Documented
+        Route::get('rooms/username/{username}', 'RoomController@userRoomsByUsername'); // Documented
         Route::get('rooms/campus/{id}', 'RoomController@campusRooms'); // Documented
         Route::get('rooms/campus/code/{code}', 'RoomController@campusRoomsByCode'); // Documented
         Route::get('rooms/building/{id}', 'RoomController@buildingRooms'); // Documented
@@ -81,8 +81,8 @@ Route::group(['prefix' => 'api'], function () {
         Route::resource('roles', 'RoleController'); // Documented
         Route::get('roles/code/{code}', 'RoleController@showByCode'); // Documented
         Route::get('roles/user/{id}', 'RoleController@userRoles'); // Documented
-        Route::get('roles/user/user_id/{user_id}', 'RoleController@userRolesByUserId'); // Documented
-        Route::get('roles/user/username/{username}', 'RoleController@userRolesByUsername'); // Documented
+        Route::get('roles/user_id/{user_id}', 'RoleController@userRolesByUserId'); // Documented
+        Route::get('roles/username/{username}', 'RoleController@userRolesByUsername'); // Documented
         Route::post('roles/user', 'RoleController@assignUserRole'); // Documented
         Route::post('roles/user_id', 'RoleController@assignUserRoleByUserId'); // Documented
         Route::post('roles/username', 'RoleController@assignUserRoleByUsername'); // Documented
@@ -138,20 +138,20 @@ Route::group(['prefix' => 'api'], function () {
         Route::delete('courses/code/{code}', 'CourseController@destroyByCode'); // Documented
 
 
-        Route::resource('addresses', 'AddressController');
+        Route::resource('addresses', 'AddressController'); // Documented
         Route::get('addresses/user/{id}', 'AddressController@userCourses');
-        Route::get('addresses/user/user_id/{user_id}', 'AddressController@userAddressesByUserId');
-        Route::get('addresses/user/username/{username}', 'AddressController@userAddressesByUsername');
+        Route::get('addresses/user_id/{user_id}', 'AddressController@userAddressesByUserId');
+        Route::get('addresses/username/{username}', 'AddressController@userAddressesByUsername');
 
 
-        Route::resource('states', 'StateController');
-        Route::get('states/code/{code}', 'StateController@showByCode');
-        Route::delete('states/code/{code}', 'StateController@destroyByCode');
+        Route::resource('states', 'StateController'); // Documented
+        Route::get('states/code/{code}', 'StateController@showByCode'); // Documented
+        Route::delete('states/code/{code}', 'StateController@destroyByCode'); // Documented
 
 
-        Route::resource('countries', 'CountryController');
-        Route::get('countries/code/{code}', 'CountryController@showByCode');
-        Route::delete('countries/code/{code}', 'CountryController@destroyByCode');
+        Route::resource('countries', 'CountryController'); // Documented
+        Route::get('countries/code/{code}', 'CountryController@showByCode'); // Documented
+        Route::delete('countries/code/{code}', 'CountryController@destroyByCode'); // Documented
 
     });
 });

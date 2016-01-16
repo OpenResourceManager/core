@@ -149,7 +149,7 @@
  */
 
 /**
- * @api {get} /roles/user/username/:username GET: By Username
+ * @api {get} /roles/username/:username GET: By Username
  * @apiVersion 1.1.1
  * @apiGroup Roles
  * @apiDescription This method returns Role objects associated with the Username that was supplied.
@@ -160,7 +160,7 @@
  * @apiParam {String} username The users unique username.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/user/username/skywal
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/username/skywal
  *
  * @apiUse RoleSuccess
  * @apiUse GetRolesSuccessResultExample
@@ -169,7 +169,7 @@
  */
 
 /**
- * @api {get} /roles/user/user_id/:user_identifier GET: By User Identifier
+ * @api {get} /roles/user_id/:user_identifier GET: By User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Roles
  * @apiDescription This method returns Role objects associated with the Identifier that was supplied.
@@ -180,7 +180,7 @@
  * @apiParam {String} user_identifier The user's unique identifier string.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/user/user_id/979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/user_id/979659
  *
  * @apiUse RoleSuccess
  * @apiUse GetRolesSuccessResultExample

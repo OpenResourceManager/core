@@ -15,7 +15,7 @@
 
 /**
  * @apiDefine CountrySuccess
- * @apiSuccess (Success 2xx: Country) {Integer} id The numeric id assigned to the course by the database.
+ * @apiSuccess (Success 2xx: Country) {Integer} id The numeric id assigned to the country by the database.
  * @apiSuccess (Success 2xx: Country) {String} code The countries' unique identifier string.
  * @apiSuccess (Success 2xx: Country) {String} name The countries' name, this is a label.
  * @apiSuccess (Success 2xx: Country) {String} abbreviation The countries' shortened name.

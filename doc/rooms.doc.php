@@ -133,7 +133,7 @@
  */
 
 /**
- * @api {get} /rooms/user/username/:username GET: By Username
+ * @api {get} /rooms/username/:username GET: By Username
  * @apiVersion 1.1.1
  * @apiGroup Rooms
  * @apiDescription This method returns Room objects associated with the Username that was supplied.
@@ -144,7 +144,7 @@
  * @apiParam {String} username The users unique username.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/user/username/skywal
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/username/skywal
  *
  * @apiUse RoomSuccess
  * @apiUse GetRoomsSuccessResultExample
@@ -153,7 +153,7 @@
  */
 
 /**
- * @api {get} /rooms/user/user_id/:user_identifier GET: By User Identifier
+ * @api {get} /rooms/user_id/:user_identifier GET: By User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Rooms
  * @apiDescription This method returns Room objects associated with the Identifier that was supplied.
@@ -164,7 +164,7 @@
  * @apiParam {String} user_identifier The user's unique identifier string.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/user/user_id/979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/user_id/979659
  *
  * @apiUse RoomSuccess
  * @apiUse GetRoomsSuccessResultExample
