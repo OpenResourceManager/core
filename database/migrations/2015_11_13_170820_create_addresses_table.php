@@ -25,9 +25,9 @@ class CreateAddressesTable extends Migration
             $table->unsignedInteger('country_id');
             $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
-            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
-            $table->foreign('country_id')->references('id')->on('country')->onDelete('cascade');
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
         });
     }
 
