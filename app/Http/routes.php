@@ -139,9 +139,9 @@ Route::group(['prefix' => 'api'], function () {
 
 
         Route::resource('addresses', 'AddressController'); // Documented
-        Route::get('addresses/user/{id}', 'AddressController@userCourses');
-        Route::get('addresses/user_id/{user_id}', 'AddressController@userAddressesByUserId');
-        Route::get('addresses/username/{username}', 'AddressController@userAddressesByUsername');
+        Route::get('addresses/user/{id}', 'AddressController@userCourses'); // Documented
+        Route::get('addresses/user_id/{user_id}', 'AddressController@userAddressesByUserId'); // Documented
+        Route::get('addresses/username/{username}', 'AddressController@userAddressesByUsername'); // Documented
 
 
         Route::resource('states', 'StateController'); // Documented
