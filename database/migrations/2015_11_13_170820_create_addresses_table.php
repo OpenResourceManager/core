@@ -39,9 +39,9 @@ class CreateAddressesTable extends Migration
     public function down()
     {
         Schema::table('addresses', function (Blueprint $table) {
-            $table->dropForeign('users_address_id_foreign');
-            $table->dropForeign('states_address_id_foreign');
-            $table->dropForeign('countries_address_id_foreign');
+            $table->dropForeign('addresses_user_id_foreign');
+            $table->dropForeign('addresses_state_id_foreign');
+            $table->dropForeign('addresses_country_id_foreign');
         });
 
         Schema::drop('address');
