@@ -9,7 +9,7 @@
 /**
  * @apiDefine AddressParameters
  * @apiParam (Address Parameters) {Integer} user_id The user who is associated with this address.
- * @apiParam (Address Parameters) {String} addressee The name of the addressee if different from the user's name.
+ * @apiParam (Address Parameters) {String} [addressee] The name of the addressee if different from the user's name.
  * @apiParam (Address Parameters) {String} [organization] The organization that the addressee belongs to.
  * @apiParam (Address Parameters) {String} line_1 The first address line.
  * @apiParam (Address Parameters) {String} [line_2] The second address line.
