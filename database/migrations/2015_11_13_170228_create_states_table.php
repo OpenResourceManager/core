@@ -38,7 +38,7 @@ class CreateStatesTable extends Migration
     public function down()
     {
         Schema::table('states', function (Blueprint $table) {
-            $table->dropForeign('countries_state_id_foreign');
+            $table->dropForeign('states_country_id_foreign');
         });
 
         Schema::drop('states');
