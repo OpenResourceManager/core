@@ -7,7 +7,6 @@
  * Time: 3:44 PM
  */
 
-use App\Model\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Room extends BaseModel

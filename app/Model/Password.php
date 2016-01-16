@@ -1,8 +1,12 @@
-<?php
+<?php namespace App\Model;
 
-namespace App\Model;
+/**
+ * Created by PhpStorm.
+ * User: melon
+ * Date: 1/15/16
+ * Time: 6:00 PM
+ */
 
-use App\Model\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Password extends BaseModel

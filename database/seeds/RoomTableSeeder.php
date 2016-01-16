@@ -1,17 +1,18 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
-use App\Model\Room;
-use App\Model\Building;
-use Faker\Factory as Faker;
-
 /**
  * Created by PhpStorm.
  * User: melon
  * Date: 7/7/15
  * Time: 8:39 PM
  */
+
+use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
+use App\Model\Room;
+use App\Model\Building;
+use Faker\Factory as Faker;
+
 class RoomTableSeeder extends Seeder
 {
     public function run()

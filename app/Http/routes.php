@@ -103,6 +103,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('emails/user/user_id/{user_id}', 'EmailController@userEmailsByUserId'); // Documented
         Route::get('emails/user/username/{username}', 'EmailController@userEmailsByUsername'); // Documented
 
+
         Route::resource('passwords', 'PasswordController'); // Documented
         Route::get('passwords/user/{id}', 'PasswordController@userPasswords'); // Documented
         Route::get('passwords/user/user_id/{user_id}', 'PasswordController@userPasswordsByUserId'); // Documented
@@ -135,6 +136,22 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('courses/department/{id}', 'CourseController@departmentCourses'); // Documented
         Route::get('courses/department/code/{code}', 'CourseController@departmentCoursesByCode'); // Documented
         Route::delete('courses/code/{code}', 'CourseController@destroyByCode'); // Documented
+
+
+        Route::resource('addresses', 'AddressController');
+        Route::get('addresses/user/{id}', 'AddressController@userCourses');
+        Route::get('addresses/user/user_id/{user_id}', 'AddressController@userAddressesByUserId');
+        Route::get('addresses/user/username/{username}', 'AddressController@userAddressesByUsername');
+
+
+        Route::resource('states', 'StateController');
+        Route::get('states/code/{code}', 'StateController@showByCode');
+        Route::delete('states/code/{code}', 'StateController@destroyByCode');
+
+
+        Route::resource('countries', 'CountryController');
+        Route::get('countries/code/{code}', 'CountryController@showByCode');
+        Route::delete('countries/code/{code}', 'CountryController@destroyByCode');
 
     });
 });

@@ -7,7 +7,6 @@
  * Time: 10:19 AM
  */
 
-use App\Model\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Campus extends BaseModel

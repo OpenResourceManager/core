@@ -7,7 +7,6 @@
  * Time: 3:57 PM
  */
 
-use App\Model\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends BaseModel
@@ -60,5 +59,20 @@ class User extends BaseModel
     public function courses()
     {
         return $this->belongsToMany('App\Model\Course');
+    }
+
+    public function addresses()
+    {
+        return $this->hasMany('App\Model\Address');
+    }
+
+    public function states()
+    {
+        return $this->hasManyThrough('App\Model\State', 'App\Model\Address');
+    }
+
+    public function countries()
+    {
+        return $this->hasManyThrough('App\Model\Country', 'App\Model\Address');
     }
 }
