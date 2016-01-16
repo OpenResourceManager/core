@@ -7,10 +7,10 @@
  */
 
 /**
- * @api {post} /addresses/ POST: Create/Update Address
+ * @api {post} /addresses/ POST: Create Address
  * @apiVersion 1.1.1
  * @apiGroup Addresses
- * @apiDescription This method creates a new address, or updates a address with the specified `code`.
+ * @apiDescription This method creates a new address.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
