@@ -1,4 +1,4 @@
-<?php namespace database\seeds;
+<?php
 
 /**
  * Created by PhpStorm.
