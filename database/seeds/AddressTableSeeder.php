@@ -33,7 +33,7 @@ class AddressTableSeeder extends Seeder
             $name_middle = ($user->name_middle) ? $user->name_middle : '';
             $name_postfix = ($user->name_postfix) ? $user->name_postfix : '';
             $addressee = $faker->boolean() ? $name_prefix . ' ' . $user->name_first . ' ' . $name_middle . ' ' . $user->name_last . ' ' . $name_postfix : null;
-            $lat_long = [[$faker->randomFloat(), $faker->randomFloat()], [$faker->randomFloat(), $faker->randomFloat()]];
+            $lat_long = [[$faker->randomFloat(), $faker->randomFloat()]];
             $latlng_pick = $faker->optional()->randomElement($lat_long);
             $lat = (is_null($latlng_pick)) ? null : $latlng_pick[0];
             $lng = (is_null($latlng_pick)) ? null : $latlng_pick[1];
@@ -46,7 +46,7 @@ class AddressTableSeeder extends Seeder
                 'line_2' => $faker->optional()->word,
                 'city' => $faker->city,
                 'state_id' => $state->id,
-                'zip' => $faker->randomNumber($nbDigits = 11, $strict = true),
+                'zip' => $faker->randomNumber($nbDigits = 11),
                 'country_id' => $state->country_id,
                 'latitude' => $lat,
                 'longitude' => $lng
