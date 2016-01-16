@@ -22,6 +22,9 @@ class DatabaseSeeder extends Seeder
         $this->call('CampusTableSeeder');
         $this->call('BuildingTableSeeder');
         $this->call('RoomTableSeeder');
+        $this->call('CountryTableSeeder');
+        $this->call('StateTableSeeder');
+        $this->call('AddressTableSeeder');
         $this->call('DepartmentTableSeeder');
         $this->call('CourseTableSeeder');
         $this->call('RoleTableSeeder');
