@@ -31,7 +31,8 @@ class AppServiceProvider extends ServiceProvider
         User::deleting(function ($user) {
             $user->emails()->delete();
             $user->phones()->delete();
-            $user->rooms()->delete();
+            $user->password()->delete();
+            $user->addresses()->delete();
         });
     }
 
