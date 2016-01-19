@@ -109,7 +109,7 @@
  */
 
 /**
- * @api {get} /emails/user/username/:username GET: By Username
+ * @api {get} /emails/username/:username GET: By Username
  * @apiVersion 1.1.1
  * @apiGroup Emails
  * @apiDescription This method returns Email objects associated with the Username that was supplied.
@@ -120,7 +120,7 @@
  * @apiParam {String} username The users unique username.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/user/username/skywal
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/username/skywal
  *
  * @apiUse EmailSuccess
  * @apiUse GetUsersEmailsSuccessResultExample
@@ -129,7 +129,7 @@
  */
 
 /**
- * @api {get} /emails/user/user_id/:user_identifier GET: By User Identifier
+ * @api {get} /emails/user_id/:user_identifier GET: By User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Emails
  * @apiDescription This method returns Email objects associated with the Identifier that was supplied.
@@ -140,7 +140,7 @@
  * @apiParam {String} user_identifier The user's unique identifier string.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/user/user_id/979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/user_id/979659
  *
  * @apiUse EmailSuccess
  * @apiUse GetUsersEmailsSuccessResultExample

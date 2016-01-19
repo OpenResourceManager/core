@@ -100,14 +100,14 @@ Route::group(['prefix' => 'api'], function () {
 
         Route::resource('emails', 'EmailController'); // Documented
         Route::get('emails/user/{id}', 'EmailController@userEmails'); // Documented
-        Route::get('emails/user/user_id/{user_id}', 'EmailController@userEmailsByUserId'); // Documented
-        Route::get('emails/user/username/{username}', 'EmailController@userEmailsByUsername'); // Documented
+        Route::get('emails/user_id/{user_id}', 'EmailController@userEmailsByUserId'); // Documented
+        Route::get('emails/username/{username}', 'EmailController@userEmailsByUsername'); // Documented
 
 
         Route::resource('passwords', 'PasswordController'); // Documented
         Route::get('passwords/user/{id}', 'PasswordController@userPasswords'); // Documented
-        Route::get('passwords/user/user_id/{user_id}', 'PasswordController@userPasswordsByUserId'); // Documented
-        Route::get('passwords/user/username/{username}', 'PasswordController@userPasswordsByUsername'); // Documented
+        Route::get('passwords/user_id/{user_id}', 'PasswordController@userPasswordsByUserId'); // Documented
+        Route::get('passwords/username/{username}', 'PasswordController@userPasswordsByUsername'); // Documented
         Route::post('passwords/user_id', 'PasswordController@storeUserPasswordByUserId'); // Documented
         Route::post('passwords/username', 'PasswordController@storeUserPasswordByUsername'); // Documented
         Route::delete('passwords/user', 'PasswordController@deleteUserPassword'); // Documented

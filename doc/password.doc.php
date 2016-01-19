@@ -7,7 +7,7 @@
  */
 
 /**
- * @api {post} /passwords/ POST: Create/Update Password
+ * @api {post} /passwords POST: Create/Update Password
  * @apiVersion 1.1.1
  * @apiGroup Passwords
  * @apiDescription This method creates a new password, or updates an password object with the specified user database id.
@@ -78,7 +78,7 @@
  */
 
 /**
- * @api {get} /passwords/ GET: Request Passwords
+ * @api {get} /passwords GET: Request Passwords
  * @apiVersion 1.1.1
  * @apiGroup Passwords
  * @apiDescription This method returns pages of Password objects.
@@ -221,7 +221,7 @@
  */
 
 /**
- * @api {get} /passwords/user/username/:username GET: By Username
+ * @api {get} /passwords/username/:username GET: By Username
  * @apiVersion 1.1.1
  * @apiGroup Passwords
  * @apiDescription This method returns Password objects associated with the Username that was supplied.
@@ -232,7 +232,7 @@
  * @apiParam {String} username The users unique username.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/passwords/user/username/skywal
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/passwords/username/skywal
  *
  * @apiUse PasswordSuccess
  * @apiUse GetPasswordSuccessResultExample
@@ -241,7 +241,7 @@
  */
 
 /**
- * @api {get} /passwords/user/user_id/:user_identifier GET: By User Identifier
+ * @api {get} /passwords/user_id/:user_identifier GET: By User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Passwords
  * @apiDescription This method returns Password objects associated with the Identifier that was supplied.
@@ -252,7 +252,7 @@
  * @apiParam {String} user_identifier The user's unique identifier string.
  *
  * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/passwords/user/user_id/979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/passwords/user_id/979659
  *
  * @apiUse PasswordSuccess
  * @apiUse GetPasswordSuccessResultExample
