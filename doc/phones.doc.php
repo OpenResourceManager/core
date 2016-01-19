@@ -19,7 +19,7 @@
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user_id=151" \
@@ -43,7 +43,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The phone's unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --url https://databridge.sage.edu/api/v1/phones/4
@@ -62,7 +62,7 @@
  * @apiUse AuthorizationHeader
  * @apiUse PaginationParams
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/phones/
  *
  * @apiUse PaginatedSuccess
@@ -81,7 +81,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The phone's unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/phones/12
  *
  * @apiUse PhoneSuccess
@@ -101,7 +101,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The users unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/phones/user/153
  *
  * @apiUse PhoneSuccess
@@ -121,7 +121,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} username The users unique username.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/phones/user/username/skywal
  *
  * @apiUse PhoneSuccess
@@ -141,7 +141,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} user_identifier The user's unique identifier string.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/phones/user/user_id/979659
  *
  * @apiUse PhoneSuccess

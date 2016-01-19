@@ -19,7 +19,7 @@
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "code=EMP" \
@@ -41,7 +41,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The role's unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --url https://databridge.sage.edu/api/v1/roles/4
@@ -61,7 +61,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The role's unique code.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --url https://databridge.sage.edu/api/v1/roles/code/EMP
@@ -80,7 +80,7 @@
  * @apiUse AuthorizationHeader
  * @apiUse PaginationParams
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/
  *
  * @apiUse PaginatedSuccess
@@ -99,7 +99,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The role's unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/3
  *
  * @apiUse RoleSuccess
@@ -119,7 +119,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The role's unique code.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/EMP
  *
  * @apiUse RoleSuccess
@@ -139,7 +139,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The users unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/user/153
  *
  * @apiUse RoleSuccess
@@ -159,7 +159,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} username The users unique username.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/username/skywal
  *
  * @apiUse RoleSuccess
@@ -179,7 +179,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} user_identifier The user's unique identifier string.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/user_id/979659
  *
  * @apiUse RoleSuccess
@@ -202,7 +202,7 @@
  * @apiUse AssignNewRoleResultExample
  * @apiUse AssignPresentRoleResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user=25" \
@@ -226,7 +226,7 @@
  * @apiUse AssignNewRoleResultExample
  * @apiUse AssignPresentRoleResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user_id=0958757" \
@@ -250,7 +250,7 @@
  * @apiUse AssignNewRoleResultExample
  * @apiUse AssignPresentRoleResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "username=skywal" \
@@ -274,7 +274,7 @@
  * @apiUse AssignNewRoleResultExample
  * @apiUse AssignPresentRoleResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user=25" \
@@ -298,7 +298,7 @@
  * @apiUse AssignNewRoleResultExample
  * @apiUse AssignPresentRoleResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user_id=0958757" \
@@ -322,7 +322,7 @@
  * @apiUse AssignNewRoleResultExample
  * @apiUse AssignPresentRoleResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "username=skywal" \
@@ -346,7 +346,7 @@
  * @apiUse UnassignRoleResultExample
  * @apiUse AssignmentNotPresentRoleResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user=25" \
@@ -370,7 +370,7 @@
  * @apiUse UnassignRoleResultExample
  * @apiUse AssignmentNotPresentRoleResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user_id=0958757" \
@@ -394,7 +394,7 @@
  * @apiUse UnassignRoleResultExample
  * @apiUse AssignmentNotPresentRoleResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "username=skywal" \
@@ -418,7 +418,7 @@
  * @apiUse UnassignRoleResultExample
  * @apiUse AssignmentNotPresentRoleResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user=25" \
@@ -442,7 +442,7 @@
  * @apiUse UnassignRoleResultExample
  * @apiUse AssignmentNotPresentRoleResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user_id=0958757" \
@@ -466,7 +466,7 @@
  * @apiUse UnassignRoleResultExample
  * @apiUse AssignmentNotPresentRoleResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "username=skywal" \

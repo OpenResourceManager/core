@@ -19,7 +19,11 @@
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o courses -m post -d "department_id=34&code=SPAN101&name=Spanish 101&course_level=100"
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "department_id=34" \
@@ -43,7 +47,11 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The courses' unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o courses -m delete -p 4
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --url https://databridge.sage.edu/api/v1/courses/4
@@ -63,10 +71,14 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The courses' unique code.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o courses -m delete -p code/SPAN101
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/courses/SPAN101
+ *      --url https://databridge.sage.edu/api/v1/courses/code/SPAN101
  *
  * @apiUse ModelNotFoundError
  */
@@ -82,7 +94,11 @@
  * @apiUse AuthorizationHeader
  * @apiUse PaginationParams
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o courses
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/
  *
  * @apiUse PaginatedSuccess
@@ -101,7 +117,11 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The courses' unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o courses -p 12
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/12
  *
  * @apiUse CourseSuccess
@@ -121,8 +141,12 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The courses' unique code.
  *
- * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/SPAN101
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o courses -p code/SPAN101
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/code/SPAN101
  *
  * @apiUse CourseSuccess
  * @apiUse GetCourseSuccessResultExample
@@ -141,7 +165,11 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The users unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o courses -p user/153
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/user/153
  *
  * @apiUse CourseSuccess
@@ -151,7 +179,7 @@
  */
 
 /**
- * @api {get} /courses/user/username/:username GET: By Username
+ * @api {get} /courses/username/:username GET: By Username
  * @apiVersion 1.1.1
  * @apiGroup Courses
  * @apiDescription This method returns Course objects associated with the Username that was supplied.
@@ -161,8 +189,12 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} username The users unique username.
  *
- * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/user/username/skywal
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o courses -p username/skywal
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/username/skywal
  *
  * @apiUse CourseSuccess
  * @apiUse GetCoursesSuccessResultExample
@@ -171,7 +203,7 @@
  */
 
 /**
- * @api {get} /courses/user/user_id/:user_identifier GET: By User Identifier
+ * @api {get} /courses/user_id/:user_identifier GET: By User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Courses
  * @apiDescription This method returns Course objects associated with the Identifier that was supplied.
@@ -181,8 +213,12 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} user_identifier The user's unique identifier string.
  *
- * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/user/user_id/979659
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o courses -p user_id/979659
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/user_id/979659
  *
  * @apiUse CourseSuccess
  * @apiUse GetCoursesSuccessResultExample
@@ -201,7 +237,11 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The departments unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o courses -p department/23
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/department/23
  *
  * @apiUse CourseSuccess
@@ -221,8 +261,12 @@
  * @apiUse AuthorizationHeader
  * @apiParam {string} code The departments unique code.
  *
- * @apiExample {curl} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/department/MIS
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o courses -m department/code/MIS
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/department/code/MIS
  *
  * @apiUse CourseSuccess
  * @apiUse GetCoursesSuccessResultExample

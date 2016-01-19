@@ -19,7 +19,11 @@
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o countries -m post -d "name=United States of America&code=USA&abbreviation=US"
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "name=United States of America" \
@@ -42,7 +46,11 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The country's unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o countries -m delete -p 4
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --url https://databridge.sage.edu/api/v1/countries/4
@@ -62,7 +70,11 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The country's unique identifier string.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o countries -m delete -p code/USA
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --url https://databridge.sage.edu/api/v1/countries/code/USA
@@ -81,7 +93,11 @@
  * @apiUse AuthorizationHeader
  * @apiUse PaginationParams
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o countries
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/countries/
  *
  * @apiUse PaginatedSuccess
@@ -100,7 +116,11 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The country's unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o countries -p 2
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/countries/2
  *
  * @apiUse CountrySuccess
@@ -120,7 +140,11 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The country's unique identifier string.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o countries -p code/AFG
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/countries/code/AFG
  *
  * @apiUse CountrySuccess

@@ -16,7 +16,7 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user_id=151" \
@@ -44,7 +44,7 @@
  * @apiUse AuthorizationHeader
  * @apiUse PaginationParams
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/
  *
  * @apiUse PaginatedSuccess
@@ -63,7 +63,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The room's unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/501
  *
  * @apiUse RoomSuccess
@@ -84,7 +84,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The room's unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --url https://databridge.sage.edu/api/v1/rooms/501
@@ -104,7 +104,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The room's unique code.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --url https://databridge.sage.edu/api/v1/rooms/code/ACK303
@@ -123,7 +123,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The users unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/user/153
  *
  * @apiUse RoomSuccess
@@ -143,7 +143,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} username The users unique username.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/username/skywal
  *
  * @apiUse RoomSuccess
@@ -163,7 +163,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} user_identifier The user's unique identifier string.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/user_id/979659
  *
  * @apiUse RoomSuccess
@@ -183,7 +183,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The campuses' unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/campus/3
  *
  * @apiUse RoomSuccess
@@ -203,7 +203,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The campuses' unique code.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/campus/code/TRY
  *
  * @apiUse RoomSuccess
@@ -223,7 +223,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The building's unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/building/3
  *
  * @apiUse RoomSuccess
@@ -243,7 +243,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The building's unique code.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/building/code/WES514
  *
  * @apiUse RoomSuccess
@@ -266,7 +266,7 @@
  * @apiUse AssignNewRoomResultExample
  * @apiUse AssignPresentRoomResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user=25" \
@@ -290,7 +290,7 @@
  * @apiUse AssignNewRoomResultExample
  * @apiUse AssignPresentRoomResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user_id=0958757" \
@@ -314,7 +314,7 @@
  * @apiUse AssignNewRoomResultExample
  * @apiUse AssignPresentRoomResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "username=skywal" \
@@ -338,7 +338,7 @@
  * @apiUse AssignNewRoomResultExample
  * @apiUse AssignPresentRoomResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user=25" \
@@ -362,7 +362,7 @@
  * @apiUse AssignNewRoomResultExample
  * @apiUse AssignPresentRoomResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user_id=0958757" \
@@ -386,7 +386,7 @@
  * @apiUse AssignNewRoomResultExample
  * @apiUse AssignPresentRoomResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "username=skywal" \
@@ -410,7 +410,7 @@
  * @apiUse UnassignRoomResultExample
  * @apiUse AssignmentNotPresentRoomResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user=25" \
@@ -434,7 +434,7 @@
  * @apiUse UnassignRoomResultExample
  * @apiUse AssignmentNotPresentRoomResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user_id=0958757" \
@@ -458,7 +458,7 @@
  * @apiUse UnassignRoomResultExample
  * @apiUse AssignmentNotPresentRoomResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "username=skywal" \
@@ -482,7 +482,7 @@
  * @apiUse UnassignRoomResultExample
  * @apiUse AssignmentNotPresentRoomResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user=25" \
@@ -506,7 +506,7 @@
  * @apiUse UnassignRoomResultExample
  * @apiUse AssignmentNotPresentRoomResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user_id=0958757" \
@@ -530,7 +530,7 @@
  * @apiUse UnassignRoomResultExample
  * @apiUse AssignmentNotPresentRoomResultExample
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "username=skywal" \

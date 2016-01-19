@@ -16,7 +16,7 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user_id=151" \
@@ -40,7 +40,7 @@
  * @apiUse AuthorizationHeader
  * @apiUse PaginationParams
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/
  *
  * @apiUse PaginatedSuccess
@@ -59,7 +59,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The email's unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/501
  *
  * @apiUse EmailSuccess
@@ -80,7 +80,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The email's unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --url https://databridge.sage.edu/api/v1/emails/501
@@ -99,7 +99,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The users unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/user/153
  *
  * @apiUse EmailSuccess
@@ -119,7 +119,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} username The users unique username.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/username/skywal
  *
  * @apiUse EmailSuccess
@@ -139,7 +139,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} user_identifier The user's unique identifier string.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/user_id/979659
  *
  * @apiUse EmailSuccess

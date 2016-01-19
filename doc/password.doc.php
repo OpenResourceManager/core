@@ -16,7 +16,7 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user_id=151" \
@@ -39,7 +39,7 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "username=skywal" \
@@ -63,7 +63,7 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user_id=04986732" \
@@ -88,7 +88,7 @@
  * @apiUse AuthorizationHeader
  * @apiUse PaginationParams
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/passwords/
  *
  * @apiUse PaginatedSuccess
@@ -107,7 +107,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The password's unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/passwords/501
  *
  * @apiUse PasswordSuccess
@@ -128,7 +128,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The password's unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --url https://databridge.sage.edu/api/v1/passwords/501
@@ -149,7 +149,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} user The user's unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user=151" \
@@ -170,7 +170,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} user_id The user's unique identifier string.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user_id=04986732" \
@@ -191,7 +191,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} username The user's unique username string.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "username=skywal" \
@@ -211,7 +211,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The users unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/passwords/user/153
  *
  * @apiUse PasswordSuccess
@@ -231,7 +231,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} username The users unique username.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/passwords/username/skywal
  *
  * @apiUse PasswordSuccess
@@ -251,7 +251,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} user_identifier The user's unique identifier string.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/passwords/user_id/979659
  *
  * @apiUse PasswordSuccess

@@ -19,7 +19,7 @@
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "academic=0" \
@@ -42,7 +42,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The department's unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --url https://databridge.sage.edu/api/v1/departments/4
@@ -61,7 +61,7 @@
  * @apiUse AuthorizationHeader
  * @apiUse PaginationParams
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments
  *
  * @apiUse PaginatedSuccess
@@ -80,7 +80,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The department's unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments/12
  *
  * @apiUse DepartmentSuccess
@@ -100,7 +100,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} id The department's unique code.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments/MIS
  *
  * @apiUse DepartmentSuccess
@@ -122,7 +122,7 @@
  *
  * @apiParam {Integer} id The courses' unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments/course/3
  *
  * @apiUse PaginatedSuccess
@@ -143,7 +143,7 @@
  *
  * @apiParam {String} id The courses' unique code.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments/course/code/SPAN101
  *
  * @apiUse PaginatedSuccess
@@ -163,7 +163,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The department's unique code.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --url https://databridge.sage.edu/api/v1/departments/code/MSI

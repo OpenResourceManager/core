@@ -19,7 +19,7 @@
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "name=New York" \
@@ -42,7 +42,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The state's unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --url https://databridge.sage.edu/api/v1/states/4
@@ -62,7 +62,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The state's unique identifier string.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --url https://databridge.sage.edu/api/v1/states/code/NY
@@ -81,7 +81,7 @@
  * @apiUse AuthorizationHeader
  * @apiUse PaginationParams
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/states/
  *
  * @apiUse PaginatedSuccess
@@ -100,7 +100,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The state's unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/states/2
  *
  * @apiUse StateSuccess
@@ -120,7 +120,7 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The state's unique identifier string.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/states/code/NY
  *
  * @apiUse StateSuccess
