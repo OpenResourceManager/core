@@ -19,7 +19,7 @@
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
  *
- * @apiExample {bash} @apiExample {bash} UUD Client
+ * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
  *      uud -o addresses -m post -d "user_id=142&addressee=Sir Luke Skywalker&organization=The Jedi Knight Academy&line_1=65 1st Street&line_2=Cowee Building&city=Troy&state=33&zip=12180&country_id=226&latitude=42.7274609&longitude=-73.6964327"
  *
