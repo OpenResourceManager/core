@@ -7,6 +7,10 @@
  * Time: 12:20 PM
  */
 
+/**
+ * @TODO Write Mobile Carrier model
+ * @TODO Modify phone model to use carrier_id
+ */
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination;

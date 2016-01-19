@@ -7,6 +7,21 @@
  * Time: 3:15 PM
  */
 
+/**
+ * @TODO: API Key control for addresses
+ * @TODO: API Key control for buildings
+ * @TODO: API Key control for campuses
+ * @TODO: API Key control for countries
+ * @TODO: API Key control for courses
+ * @TODO: API Key control for departments
+ * @TODO: API Key control for emails
+ * @TODO: API Key control for phones
+ * @TODO: API Key control for roles
+ * @TODO: API Key control for rooms
+ * @TODO: API Key control for state
+ * @TODO: API Key control for users
+ */
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
