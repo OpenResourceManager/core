@@ -19,6 +19,10 @@
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -m post -d "academic=0&code=MIS&name=Management Information Systems"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
@@ -42,6 +46,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The department's unique ID.
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -m delete -p 4
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
@@ -61,6 +69,10 @@
  * @apiUse AuthorizationHeader
  * @apiUse PaginationParams
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments
  *
@@ -79,6 +91,10 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The department's unique ID.
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -p 12
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments/12
@@ -100,8 +116,12 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} id The department's unique code.
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -p code/MIS
+ *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments/MIS
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments/code/MIS
  *
  * @apiUse DepartmentSuccess
  * @apiUse GetDepartmentSuccessResultExample
@@ -121,6 +141,10 @@
  * @apiUse PaginationParams
  *
  * @apiParam {Integer} id The courses' unique ID.
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -p course/3
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments/course/3
@@ -143,6 +167,10 @@
  *
  * @apiParam {String} id The courses' unique code.
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -p course/code/SPAN101
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments/course/code/SPAN101
  *
@@ -162,6 +190,10 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The department's unique code.
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -m delete -p code/MIS
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \

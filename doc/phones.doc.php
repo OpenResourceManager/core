@@ -7,7 +7,7 @@
  */
 
 /**
- * @api {post} /phones/ POST: Create/Update Phone
+ * @api {post} /phones POST: Create/Update Phone
  * @apiVersion 1.1.1
  * @apiGroup Phones
  * @apiDescription This method creates a new phone, or updates a phone with the specified `number`.
@@ -19,6 +19,10 @@
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o phones -m post -d "user_id=151&number=15188573007&is_cell=1&carrier=Sprint"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
@@ -26,7 +30,7 @@
  *      --data "number=15188573007" \
  *      --data "is_cell=1" \
  *      --data "carrier=Sprint" \
- *      --url https://databridge.sage.edu/api/v1/phones/
+ *      --url https://databridge.sage.edu/api/v1/phones
  *
  * @apiUse PhoneParameters
  */
@@ -43,6 +47,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The phone's unique ID.
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o phones -m delete -p 4
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
@@ -52,7 +60,7 @@
  */
 
 /**
- * @api {get} /phones/ GET: Request Phones
+ * @api {get} /phones GET: Request Phones
  * @apiVersion 1.1.1
  * @apiGroup Phones
  * @apiDescription This method returns pages of Phone objects.
@@ -61,6 +69,10 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiUse PaginationParams
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o phones
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/phones/
@@ -80,6 +92,10 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The phone's unique ID.
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o phones -p 12
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/phones/12
@@ -101,6 +117,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The users unique ID.
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o phones -p user/153
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/phones/user/153
  *
@@ -111,7 +131,7 @@
  */
 
 /**
- * @api {get} /phones/user/username/:username GET: By Username
+ * @api {get} /phones/username/:username GET: By Username
  * @apiVersion 1.1.1
  * @apiGroup Phones
  * @apiDescription This method returns Phone objects associated with the Username that was supplied.
@@ -120,6 +140,10 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {String} username The users unique username.
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o phones -p username/skywal
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/phones/user/username/skywal
@@ -131,7 +155,7 @@
  */
 
 /**
- * @api {get} /phones/user/user_id/:user_identifier GET: By User Identifier
+ * @api {get} /phones/user_id/:user_identifier GET: By User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Phones
  * @apiDescription This method returns Phone objects associated with the Identifier that was supplied.
@@ -140,6 +164,10 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {String} user_identifier The user's unique identifier string.
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o phones -p user_id/979659
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/phones/user/user_id/979659

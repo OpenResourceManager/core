@@ -7,7 +7,7 @@
  */
 
 /**
- * @api {post} /rooms/ POST: Create/Update Room
+ * @api {post} /rooms POST: Create/Update Room
  * @apiVersion 1.1.1
  * @apiGroup Rooms
  * @apiDescription This method creates a new room, or updates an room object with the specified room address.
@@ -15,6 +15,10 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -m post -d "user_id=151&building_id=11&floor_number=2&floor_name=The Second Floor&room_number=204&room_name=West Mohawk Room"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
@@ -25,7 +29,7 @@
  *      --data "floor_name=The Second Floor" \
  *      --data "room_number=204" \
  *      --data "room_name=West Mohawk Room" \
- *      --url https://databridge.sage.edu/api/v1/rooms/
+ *      --url https://databridge.sage.edu/api/v1/rooms
  *
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
@@ -34,7 +38,7 @@
  */
 
 /**
- * @api {get} /rooms/ GET: Request Rooms
+ * @api {get} /rooms GET: Request Rooms
  * @apiVersion 1.1.1
  * @apiGroup Rooms
  * @apiDescription This method returns pages of Room objects.
@@ -44,8 +48,12 @@
  * @apiUse AuthorizationHeader
  * @apiUse PaginationParams
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms
+ *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms
  *
  * @apiUse PaginatedSuccess
  * @apiUse RoomSuccess
@@ -62,6 +70,10 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The room's unique ID.
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -p 501
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/501
@@ -84,6 +96,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The room's unique ID.
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -m delete -p 501
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
@@ -104,6 +120,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The room's unique code.
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -m delete -p code/ACK303
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
@@ -122,6 +142,10 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The users unique ID.
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -p user/153
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/user/153
@@ -143,6 +167,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} username The users unique username.
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -p username/skywal
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/username/skywal
  *
@@ -162,6 +190,10 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {String} user_identifier The user's unique identifier string.
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -p user_id/979659
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/user_id/979659
@@ -183,6 +215,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The campuses' unique ID.
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -p campus/3
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/campus/3
  *
@@ -202,6 +238,10 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The campuses' unique code.
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -p campus/code/TRY
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/campus/code/TRY
@@ -223,6 +263,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The building's unique ID.
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -p building/3
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/building/3
  *
@@ -243,6 +287,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The building's unique code.
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -p building/code/WES514
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/building/code/WES514
  *
@@ -253,7 +301,7 @@
  */
 
 /**
- * @api {post} /rooms/user/ POST: Assign to User
+ * @api {post} /rooms/user POST: Assign to User
  * @apiVersion 1.1.1
  * @apiGroup Rooms
  * @apiDescription This method assigns a room to a user, using the user and room database id values.
@@ -266,18 +314,22 @@
  * @apiUse AssignNewRoomResultExample
  * @apiUse AssignPresentRoomResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -m post -d "user=25&room=1"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user=25" \
  *      --data "room=1" \
- *      --url https://databridge.sage.edu/api/v1/rooms/user/
+ *      --url https://databridge.sage.edu/api/v1/rooms/user
  *
  * @apiUse AssignmentRoomUserParams
  */
 
 /**
- * @api {post} /rooms/user_id/ POST: Assign to Identifier
+ * @api {post} /rooms/user_id POST: Assign to Identifier
  * @apiVersion 1.1.1
  * @apiGroup Rooms
  * @apiDescription This method assigns a room to a user, using the user_id value and room database id value.
@@ -290,18 +342,22 @@
  * @apiUse AssignNewRoomResultExample
  * @apiUse AssignPresentRoomResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -m post -d "user_id=0958757&room=1'
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user_id=0958757" \
  *      --data "room=1" \
- *      --url https://databridge.sage.edu/api/v1/rooms/user_id/
+ *      --url https://databridge.sage.edu/api/v1/rooms/user_id
  *
  * @apiUse AssignmentRoomUserIDParams
  */
 
 /**
- * @api {post} /rooms/username/ POST: Assign to Username
+ * @api {post} /rooms/username POST: Assign to Username
  * @apiVersion 1.1.1
  * @apiGroup Rooms
  * @apiDescription This method assigns a room to a user, using the username value and room database id value.
@@ -314,18 +370,22 @@
  * @apiUse AssignNewRoomResultExample
  * @apiUse AssignPresentRoomResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -m post -d "username=skywal&room=1"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "username=skywal" \
  *      --data "room=1" \
- *      --url https://databridge.sage.edu/api/v1/rooms/username/
+ *      --url https://databridge.sage.edu/api/v1/rooms/username
  *
  * @apiUse AssignmentRoomUsernameIDParams
  */
 
 /**
- * @api {post} /rooms/code/user/ POST: Assign Code to User
+ * @api {post} /rooms/code/user POST: Assign Code to User
  * @apiVersion 1.1.1
  * @apiGroup Rooms
  * @apiDescription This method assigns a room to a user, using the user and room code value.
@@ -338,12 +398,16 @@
  * @apiUse AssignNewRoomResultExample
  * @apiUse AssignPresentRoomResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -m post -p code/user -d "user=25&code=STUDENT"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user=25" \
  *      --data "code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/rooms/code/user/
+ *      --url https://databridge.sage.edu/api/v1/rooms/code/user
  *
  * @apiUse AssignmentRoomCodeUserParams
  */
@@ -362,6 +426,10 @@
  * @apiUse AssignNewRoomResultExample
  * @apiUse AssignPresentRoomResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -m post -p code/user_id -d "user_id=0958757&code=STUDENT"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
@@ -373,7 +441,7 @@
  */
 
 /**
- * @api {post} /rooms/code/username/ POST: Assign Code to Username
+ * @api {post} /rooms/code/username POST: Assign Code to Username
  * @apiVersion 1.1.1
  * @apiGroup Rooms
  * @apiDescription This method assigns a room to a user, using the username value and room code value.
@@ -386,18 +454,22 @@
  * @apiUse AssignNewRoomResultExample
  * @apiUse AssignPresentRoomResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -m post -p code/username -d "username=skywal&code=STUDENT"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "username=skywal" \
  *      --data "code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/rooms/code/username/
+ *      --url https://databridge.sage.edu/api/v1/rooms/code/username
  *
  * @apiUse AssignmentRoomCodeUsernameIDParams
  */
 
 /**
- * @api {delete} /rooms/user/ DELETE: Unassign User
+ * @api {delete} /rooms/user DELETE: Unassign User
  * @apiVersion 1.1.1
  * @apiGroup Rooms
  * @apiDescription This method unassigns a user from a room a user, using the user and room database id values.
@@ -410,18 +482,22 @@
  * @apiUse UnassignRoomResultExample
  * @apiUse AssignmentNotPresentRoomResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -m delete -p user -d "user=25&room=1"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user=25" \
  *      --data "room=1" \
- *      --url https://databridge.sage.edu/api/v1/rooms/user/
+ *      --url https://databridge.sage.edu/api/v1/rooms/user
  *
  * @apiUse AssignmentRoomUserParams
  */
 
 /**
- * @api {delete} /rooms/user_id/ DELETE: Unassign from Identifier
+ * @api {delete} /rooms/user_id DELETE: Unassign from Identifier
  * @apiVersion 1.1.1
  * @apiGroup Rooms
  * @apiDescription This method unassigns a user from a room a user, using the user_id value and room database id value.
@@ -434,18 +510,22 @@
  * @apiUse UnassignRoomResultExample
  * @apiUse AssignmentNotPresentRoomResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -m delete -p user_id -d "user_id=0958757&room=1"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user_id=0958757" \
  *      --data "room=1" \
- *      --url https://databridge.sage.edu/api/v1/rooms/user_id/
+ *      --url https://databridge.sage.edu/api/v1/rooms/user_id
  *
  * @apiUse AssignmentRoomUserIDParams
  */
 
 /**
- * @api {delete} /rooms/username/ DELETE: Unassign from Username
+ * @api {delete} /rooms/username DELETE: Unassign from Username
  * @apiVersion 1.1.1
  * @apiGroup Rooms
  * @apiDescription This method unassigns a user from a room a user, using the username value and room database id value.
@@ -458,18 +538,22 @@
  * @apiUse UnassignRoomResultExample
  * @apiUse AssignmentNotPresentRoomResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -m delete -p username -d "username=skywal&room=1"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "username=skywal" \
  *      --data "room=1" \
- *      --url https://databridge.sage.edu/api/v1/rooms/username/
+ *      --url https://databridge.sage.edu/api/v1/rooms/username
  *
  * @apiUse AssignmentRoomUsernameIDParams
  */
 
 /**
- * @api {delete} /rooms/code/user/ DELETE: Unassign Code from User
+ * @api {delete} /rooms/code/user DELETE: Unassign Code from User
  * @apiVersion 1.1.1
  * @apiGroup Rooms
  * @apiDescription This method unassigns a user from a room a user, using the user and room code value.
@@ -482,18 +566,22 @@
  * @apiUse UnassignRoomResultExample
  * @apiUse AssignmentNotPresentRoomResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -m delete -p code/user -d "user=25&code=STUDENT"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user=25" \
  *      --data "code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/rooms/code/user/
+ *      --url https://databridge.sage.edu/api/v1/rooms/code/user
  *
  * @apiUse AssignmentRoomCodeUserParams
  */
 
 /**
- * @api {delete} /rooms/code/user_id/ DELETE: Unassign Code from Identifier
+ * @api {delete} /rooms/code/user_id DELETE: Unassign Code from Identifier
  * @apiVersion 1.1.1
  * @apiGroup Rooms
  * @apiDescription This method unassigns a user from a room a user, using the user_id value and room code value.
@@ -506,18 +594,22 @@
  * @apiUse UnassignRoomResultExample
  * @apiUse AssignmentNotPresentRoomResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -m delete -p code/user_id -d "user_id=0958757&code=STUDENT"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user_id=0958757" \
  *      --data "code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/rooms/code/user_id/
+ *      --url https://databridge.sage.edu/api/v1/rooms/code/user_id
  *
  * @apiUse AssignmentRoomCodeUserIDParams
  */
 
 /**
- * @api {delete} /rooms/code/username/ DELETE: Unassign Code from Username
+ * @api {delete} /rooms/code/username DELETE: Unassign Code from Username
  * @apiVersion 1.1.1
  * @apiGroup Rooms
  * @apiDescription This method unassigns a user from a room a user, using the username value and room code value.
@@ -530,12 +622,16 @@
  * @apiUse UnassignRoomResultExample
  * @apiUse AssignmentNotPresentRoomResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o rooms -m delete -p code/username -d "username=skywal&code=STUDENT"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "username=skywal" \
  *      --data "code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/rooms/code/username/
+ *      --url https://databridge.sage.edu/api/v1/rooms/code/username
  *
  * @apiUse AssignmentRoomCodeUsernameIDParams
  */

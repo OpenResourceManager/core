@@ -7,7 +7,7 @@
  */
 
 /**
- * @api {post} /roles/ POST: Create/Update Role
+ * @api {post} /roles POST: Create/Update Role
  * @apiVersion 1.1.1
  * @apiGroup Roles
  * @apiDescription This method creates a new role, or updates a role with the specified `number`.
@@ -18,6 +18,10 @@
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -m post -d "code=EMP&name=Employee"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
@@ -41,6 +45,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The role's unique ID.
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -m delete -p 4
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
@@ -61,6 +69,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The role's unique code.
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -m delete -p code/EMP
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
@@ -70,7 +82,7 @@
  */
 
 /**
- * @api {get} /roles/ GET: Request Roles
+ * @api {get} /roles GET: Request Roles
  * @apiVersion 1.1.1
  * @apiGroup Roles
  * @apiDescription This method returns pages of Role objects.
@@ -79,6 +91,10 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiUse PaginationParams
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/
@@ -98,6 +114,10 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The role's unique ID.
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -p 3
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/3
@@ -119,6 +139,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The role's unique code.
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -p code/EMP
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/EMP
  *
@@ -138,6 +162,10 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The users unique ID.
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -p user/153
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/user/153
@@ -159,6 +187,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} username The users unique username.
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -p username/skywal
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/username/skywal
  *
@@ -179,6 +211,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} user_identifier The user's unique identifier string.
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -p user_name/979659
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/user_id/979659
  *
@@ -189,7 +225,7 @@
  */
 
 /**
- * @api {post} /roles/user/ POST: Assign to User
+ * @api {post} /roles/user POST: Assign to User
  * @apiVersion 1.1.1
  * @apiGroup Roles
  * @apiDescription This method assigns a role to a user, using the user and role database id values.
@@ -202,18 +238,22 @@
  * @apiUse AssignNewRoleResultExample
  * @apiUse AssignPresentRoleResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -m post -p user -d "user=25&role=1"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user=25" \
  *      --data "role=1" \
- *      --url https://databridge.sage.edu/api/v1/roles/user/
+ *      --url https://databridge.sage.edu/api/v1/roles/user
  *
  * @apiUse AssignmentRoleUserParams
  */
 
 /**
- * @api {post} /roles/user_id/ POST: Assign to Identifier
+ * @api {post} /roles/user_id POST: Assign to Identifier
  * @apiVersion 1.1.1
  * @apiGroup Roles
  * @apiDescription This method assigns a role to a user, using the user_id value and role database id value.
@@ -226,18 +266,22 @@
  * @apiUse AssignNewRoleResultExample
  * @apiUse AssignPresentRoleResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -m post -p user_id -d "user_id=0958757&role=1"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user_id=0958757" \
  *      --data "role=1" \
- *      --url https://databridge.sage.edu/api/v1/roles/user_id/
+ *      --url https://databridge.sage.edu/api/v1/roles/user_id
  *
  * @apiUse AssignmentRoleUserIDParams
  */
 
 /**
- * @api {post} /roles/username/ POST: Assign to Username
+ * @api {post} /roles/username POST: Assign to Username
  * @apiVersion 1.1.1
  * @apiGroup Roles
  * @apiDescription This method assigns a role to a user, using the username value and role database id value.
@@ -250,18 +294,22 @@
  * @apiUse AssignNewRoleResultExample
  * @apiUse AssignPresentRoleResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -m post -p username -d "username=0958757&role=1"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "username=skywal" \
  *      --data "role=1" \
- *      --url https://databridge.sage.edu/api/v1/roles/username/
+ *      --url https://databridge.sage.edu/api/v1/roles/username
  *
  * @apiUse AssignmentRoleUsernameIDParams
  */
 
 /**
- * @api {post} /roles/code/user/ POST: Assign Code to User
+ * @api {post} /roles/code/user POST: Assign Code to User
  * @apiVersion 1.1.1
  * @apiGroup Roles
  * @apiDescription This method assigns a role to a user, using the user and role code value.
@@ -274,18 +322,22 @@
  * @apiUse AssignNewRoleResultExample
  * @apiUse AssignPresentRoleResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -m post -p code/user -d "user=25&code=STUDENT"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user=25" \
  *      --data "code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/roles/code/user/
+ *      --url https://databridge.sage.edu/api/v1/roles/code/user
  *
  * @apiUse AssignmentRoleCodeUserParams
  */
 
 /**
- * @api {post} /roles/code/user_id/ POST: Assign Code to Identifier
+ * @api {post} /roles/code/user_id POST: Assign Code to Identifier
  * @apiVersion 1.1.1
  * @apiGroup Roles
  * @apiDescription This method assigns a role to a user, using the user_id value and role code value.
@@ -298,18 +350,22 @@
  * @apiUse AssignNewRoleResultExample
  * @apiUse AssignPresentRoleResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -m post -p code/user_id -d "user_id=0958757&code=STUDENT"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user_id=0958757" \
  *      --data "code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/roles/code/user_id/
+ *      --url https://databridge.sage.edu/api/v1/roles/code/user_id
  *
  * @apiUse AssignmentRoleCodeUserIDParams
  */
 
 /**
- * @api {post} /roles/code/username/ POST: Assign Code to Username
+ * @api {post} /roles/code/username POST: Assign Code to Username
  * @apiVersion 1.1.1
  * @apiGroup Roles
  * @apiDescription This method assigns a role to a user, using the username value and role code value.
@@ -322,18 +378,22 @@
  * @apiUse AssignNewRoleResultExample
  * @apiUse AssignPresentRoleResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -m post -p code/username -d "username=skywal&code=STUDENT"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "username=skywal" \
  *      --data "code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/roles/code/username/
+ *      --url https://databridge.sage.edu/api/v1/roles/code/username
  *
  * @apiUse AssignmentRoleCodeUsernameIDParams
  */
 
 /**
- * @api {delete} /roles/user/ DELETE: Unassign User
+ * @api {delete} /roles/user DELETE: Unassign User
  * @apiVersion 1.1.1
  * @apiGroup Roles
  * @apiDescription This method unassigns a user from a role a user, using the user and role database id values.
@@ -346,18 +406,22 @@
  * @apiUse UnassignRoleResultExample
  * @apiUse AssignmentNotPresentRoleResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -m delete -p user -d "user=25&role=1"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user=25" \
  *      --data "role=1" \
- *      --url https://databridge.sage.edu/api/v1/roles/user/
+ *      --url https://databridge.sage.edu/api/v1/roles/user
  *
  * @apiUse AssignmentRoleUserParams
  */
 
 /**
- * @api {delete} /roles/user_id/ DELETE: Unassign from Identifier
+ * @api {delete} /roles/user_id DELETE: Unassign from Identifier
  * @apiVersion 1.1.1
  * @apiGroup Roles
  * @apiDescription This method unassigns a user from a role a user, using the user_id value and role database id value.
@@ -370,18 +434,22 @@
  * @apiUse UnassignRoleResultExample
  * @apiUse AssignmentNotPresentRoleResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -m delete -p user_id -d "user_id=0958757&role=1"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user_id=0958757" \
  *      --data "role=1" \
- *      --url https://databridge.sage.edu/api/v1/roles/user_id/
+ *      --url https://databridge.sage.edu/api/v1/roles/user_id
  *
  * @apiUse AssignmentRoleUserIDParams
  */
 
 /**
- * @api {delete} /roles/username/ DELETE: Unassign from Username
+ * @api {delete} /roles/username DELETE: Unassign from Username
  * @apiVersion 1.1.1
  * @apiGroup Roles
  * @apiDescription This method unassigns a user from a role a user, using the username value and role database id value.
@@ -394,18 +462,22 @@
  * @apiUse UnassignRoleResultExample
  * @apiUse AssignmentNotPresentRoleResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -m delete -p username -d "username=skywal&role=1"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "username=skywal" \
  *      --data "role=1" \
- *      --url https://databridge.sage.edu/api/v1/roles/username/
+ *      --url https://databridge.sage.edu/api/v1/roles/username
  *
  * @apiUse AssignmentRoleUsernameIDParams
  */
 
 /**
- * @api {delete} /roles/code/user/ DELETE: Unassign Code from User
+ * @api {delete} /roles/code/user DELETE: Unassign Code from User
  * @apiVersion 1.1.1
  * @apiGroup Roles
  * @apiDescription This method unassigns a user from a role a user, using the user and role code value.
@@ -418,18 +490,22 @@
  * @apiUse UnassignRoleResultExample
  * @apiUse AssignmentNotPresentRoleResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -m delete -p code/user -d "user=25&code=STUDENT"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user=25" \
  *      --data "code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/roles/code/user/
+ *      --url https://databridge.sage.edu/api/v1/roles/code/user
  *
  * @apiUse AssignmentRoleCodeUserParams
  */
 
 /**
- * @api {delete} /roles/code/user_id/ DELETE: Unassign Code from Identifier
+ * @api {delete} /roles/code/user_id DELETE: Unassign Code from Identifier
  * @apiVersion 1.1.1
  * @apiGroup Roles
  * @apiDescription This method unassigns a user from a role a user, using the user_id value and role code value.
@@ -442,18 +518,22 @@
  * @apiUse UnassignRoleResultExample
  * @apiUse AssignmentNotPresentRoleResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -m delete -p code/user_id -d "user_id=0958757&code=STUDENT"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user_id=0958757" \
  *      --data "code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/roles/code/user_id/
+ *      --url https://databridge.sage.edu/api/v1/roles/code/user_id
  *
  * @apiUse AssignmentRoleCodeUserIDParams
  */
 
 /**
- * @api {delete} /roles/code/username/ DELETE: Unassign Code from Username
+ * @api {delete} /roles/code/username DELETE: Unassign Code from Username
  * @apiVersion 1.1.1
  * @apiGroup Roles
  * @apiDescription This method unassigns a user from a role a user, using the username value and role code value.
@@ -466,12 +546,16 @@
  * @apiUse UnassignRoleResultExample
  * @apiUse AssignmentNotPresentRoleResultExample
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o roles -m delete -p code/username -d "username=skywal&code=STUDENT"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "username=skywal" \
  *      --data "code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/roles/code/username/
+ *      --url https://databridge.sage.edu/api/v1/roles/code/username
  *
  * @apiUse AssignmentRoleCodeUsernameIDParams
  */

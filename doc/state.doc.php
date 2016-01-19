@@ -7,7 +7,7 @@
  */
 
 /**
- * @api {post} /states/ POST: Create/Update State
+ * @api {post} /states POST: Create/Update State
  * @apiVersion 1.1.1
  * @apiGroup States
  * @apiDescription This method creates a new state, or updates a state with the specified `code`.
@@ -19,13 +19,17 @@
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o states -m post -d "name=New York&code=NY&country_id=226"
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "name=New York" \
  *      --data "code=NY" \
  *      --data "country_id=226" \
- *      --url https://databridge.sage.edu/api/v1/states/
+ *      --url https://databridge.sage.edu/api/v1/states
  *
  * @apiUse StateParameters
  */
@@ -41,6 +45,10 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The state's unique ID.
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o states -m delete -p 4
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
@@ -62,6 +70,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The state's unique identifier string.
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o states -m delete -p code/NY
+ *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
@@ -71,7 +83,7 @@
  */
 
 /**
- * @api {get} /states/ GET: Request States
+ * @api {get} /states GET: Request States
  * @apiVersion 1.1.1
  * @apiGroup States
  * @apiDescription This method returns pages of State objects.
@@ -81,8 +93,12 @@
  * @apiUse AuthorizationHeader
  * @apiUse PaginationParams
  *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o states
+ *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/states/
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/states
  *
  * @apiUse PaginatedSuccess
  * @apiUse StateSuccess
@@ -99,6 +115,10 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The state's unique ID.
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o states -p 2
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/states/2
@@ -119,6 +139,10 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiParam {String} code The state's unique identifier string.
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o states -p code/NY
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/states/code/NY
