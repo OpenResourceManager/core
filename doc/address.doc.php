@@ -19,7 +19,11 @@
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} @apiExample {bash} [UUD Client](https://gitlab.sage.edu/UniversalUserData/uud-client)
+ *      uud -o addresses -m post -d "user_id=142&addressee=Sir Luke Skywalker&organization=The Jedi Knight Academy&"\
+ *      "line_1=65 1st Street&line_2=Cowee Building&city=Troy&state=33&zip=12180&country_id=226&latitude=42.7274609&longitude=-73.6964327"
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user_id=142" \
@@ -50,7 +54,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The addresses' unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} [UUD Client](https://gitlab.sage.edu/UniversalUserData/uud-client)
+ *      uud -o addresses -m delete -p 4
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --url https://databridge.sage.edu/api/v1/addresses/4
@@ -69,7 +76,10 @@
  * @apiUse AuthorizationHeader
  * @apiUse PaginationParams
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} [UUD Client](https://gitlab.sage.edu/UniversalUserData/uud-client)
+ *      uud -o addresses
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/addresses/
  *
  * @apiUse PaginatedSuccess
@@ -88,7 +98,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The addresses' unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} [UUD Client](https://gitlab.sage.edu/UniversalUserData/uud-client)
+ *      uud -o addresses -p 2
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/addresses/2
  *
  * @apiUse AddressSuccess
@@ -108,7 +121,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {Integer} id The users unique ID.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} [UUD Client](https://gitlab.sage.edu/UniversalUserData/uud-client)
+ *      uud -o addresses -p user/3
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/addresses/user/3
  *
  * @apiUse AddressSuccess
@@ -128,7 +144,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} id The username of the user.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} [UUD Client](https://gitlab.sage.edu/UniversalUserData/uud-client)
+ *      uud -o addresses -p username/skywal
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/addresses/username/skywal
  *
  * @apiUse AddressSuccess
@@ -148,7 +167,10 @@
  * @apiUse AuthorizationHeader
  * @apiParam {String} user_id The user's unique identifier.
  *
- * @apiExample {curl} Curl
+ * @apiExample {bash} [UUD Client](https://gitlab.sage.edu/UniversalUserData/uud-client)
+ *      uud -o addresses -p user_id/9748523
+ *
+ * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/addresses/user_id/9748523
  *
  * @apiUse AddressSuccess
