@@ -22,43 +22,43 @@ class Apikey extends Model
         'can_get',
         'can_post',
         'can_delete',
-        'can_view_address',
+        'can_get_address',
         'can_post_address',
         'can_delete_address',
-        'can_view_building',
+        'can_get_building',
         'can_post_building',
         'can_delete_building',
-        'can_view_campus',
+        'can_get_campus',
         'can_post_campus',
         'can_delete_campus',
-        'can_view_country',
+        'can_get_country',
         'can_post_country',
         'can_delete_country',
-        'can_view_course',
+        'can_get_course',
         'can_post_course',
         'can_delete_course',
-        'can_view_department',
+        'can_get_department',
         'can_post_department',
         'can_delete_department',
-        'can_view_email',
+        'can_get_email',
         'can_post_email',
         'can_delete_email',
-        'can_view_password',
+        'can_get_password',
         'can_post_password',
         'can_delete_password',
-        'can_view_phone',
+        'can_get_phone',
         'can_post_phone',
         'can_delete_phone',
-        'can_view_role',
+        'can_get_role',
         'can_post_role',
         'can_delete_role',
-        'can_view_room',
+        'can_get_room',
         'can_post_room',
         'can_delete_room',
-        'can_view_state',
+        'can_get_state',
         'can_post_state',
         'can_delete_state',
-        'can_view_user',
+        'can_get_user',
         'can_post_user',
         'can_delete_user',
     ];
@@ -84,7 +84,7 @@ class Apikey extends Model
             if ($key) {
                 switch (strtolower($request->method())) {
                     case 'get' :
-                        return $key->can_view_address ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        return $key->can_get_address ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
                     case 'post' :
                         return $key->can_post_address ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
@@ -114,7 +114,7 @@ class Apikey extends Model
             if ($key) {
                 switch (strtolower($request->method())) {
                     case 'get' :
-                        return $key->can_view_building ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        return $key->can_get_building ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
                     case 'post' :
                         return $key->can_post_building ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
@@ -144,7 +144,7 @@ class Apikey extends Model
             if ($key) {
                 switch (strtolower($request->method())) {
                     case 'get' :
-                        return $key->can_view_campus ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        return $key->can_get_campus ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
                     case 'post' :
                         return $key->can_post_campus ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
@@ -174,7 +174,7 @@ class Apikey extends Model
             if ($key) {
                 switch (strtolower($request->method())) {
                     case 'get' :
-                        return $key->can_view_country ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        return $key->can_get_country ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
                     case 'post' :
                         return $key->can_post_country ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
@@ -204,7 +204,7 @@ class Apikey extends Model
             if ($key) {
                 switch (strtolower($request->method())) {
                     case 'get' :
-                        return $key->can_view_course ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        return $key->can_get_course ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
                     case 'post' :
                         return $key->can_post_course ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
@@ -234,7 +234,7 @@ class Apikey extends Model
             if ($key) {
                 switch (strtolower($request->method())) {
                     case 'get' :
-                        return $key->can_view_department ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        return $key->can_get_department ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
                     case 'post' :
                         return $key->can_post_department ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
@@ -264,7 +264,7 @@ class Apikey extends Model
             if ($key) {
                 switch (strtolower($request->method())) {
                     case 'get' :
-                        return $key->can_view_email ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        return $key->can_get_email ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
                     case 'post' :
                         return $key->can_post_email ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
@@ -294,7 +294,7 @@ class Apikey extends Model
             if ($key) {
                 switch (strtolower($request->method())) {
                     case 'get' :
-                        return $key->can_view_password ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        return $key->can_get_password ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
                     case 'post' :
                         return $key->can_post_password ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
@@ -324,7 +324,7 @@ class Apikey extends Model
             if ($key) {
                 switch (strtolower($request->method())) {
                     case 'get' :
-                        return $key->can_view_phone ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        return $key->can_get_phone ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
                     case 'post' :
                         return $key->can_post_phone ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
@@ -354,7 +354,7 @@ class Apikey extends Model
             if ($key) {
                 switch (strtolower($request->method())) {
                     case 'get' :
-                        return $key->can_view_role ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        return $key->can_get_role ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
                     case 'post' :
                         return $key->can_post_role ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
@@ -384,7 +384,7 @@ class Apikey extends Model
             if ($key) {
                 switch (strtolower($request->method())) {
                     case 'get' :
-                        return $key->can_view_room ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        return $key->can_get_room ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
                     case 'post' :
                         return $key->can_post_room ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
@@ -414,7 +414,7 @@ class Apikey extends Model
             if ($key) {
                 switch (strtolower($request->method())) {
                     case 'get' :
-                        return $key->can_view_state ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        return $key->can_get_state ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
                     case 'post' :
                         return $key->can_post_state ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
@@ -444,7 +444,7 @@ class Apikey extends Model
             if ($key) {
                 switch (strtolower($request->method())) {
                     case 'get' :
-                        return $key->can_view_user ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        return $key->can_get_user ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
                     case 'post' :
                         return $key->can_post_user ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
