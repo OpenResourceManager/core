@@ -17,6 +17,11 @@ class CountryController extends ApiController
     protected $countryTransformer;
 
     /**
+     * @var string
+     */
+    protected $type = 'campus';
+
+    /**
      * CountryController constructor.
      * @param CountryTransformer $countryTransformer
      */
@@ -32,7 +37,7 @@ class CountryController extends ApiController
      */
     public function index(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Country::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->countryTransformer->transformCollection($result->all()));
@@ -45,7 +50,7 @@ class CountryController extends ApiController
      */
     public function create(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
     }
 
     /**
@@ -56,7 +61,7 @@ class CountryController extends ApiController
      */
     public function store(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'code' => 'string|required|max:5|unique:countries,deleted_at,NULL',
             'abbreviation' => 'string|required|max:3',
@@ -75,7 +80,7 @@ class CountryController extends ApiController
      */
     public function show(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $result = Country::findOrFail($id);
         return $this->respondWithSuccess($this->countryTransformer->transform($result));
     }
@@ -87,7 +92,7 @@ class CountryController extends ApiController
      */
     public function showByCode(Request $request, $code)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $result = Country::where('code', $code)->firstOrFail();
         return $this->respondWithSuccess($this->countryTransformer->transform($result));
     }
@@ -100,7 +105,7 @@ class CountryController extends ApiController
      */
     public function edit(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
     }
 
     /**
@@ -112,7 +117,7 @@ class CountryController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
     }
 
     /**
@@ -123,7 +128,7 @@ class CountryController extends ApiController
      */
     public function destroy(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         Country::findOrFail($id)->delete();
         return $this->respondDestroySuccess();
     }
@@ -135,7 +140,7 @@ class CountryController extends ApiController
      */
     public function destroyByCode($code, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         Country::where('code', $code)->firstOrFail()->delete();
         return $this->respondDestroySuccess();
     }

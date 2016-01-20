@@ -18,6 +18,11 @@ class CampusController extends ApiController
     protected $campusTransformer;
 
     /**
+     * @var string
+     */
+    protected $type = 'campus';
+
+    /**
      * @param CampusTransformer $campusTransformer
      */
     function __construct(CampusTransformer $campusTransformer)
@@ -32,7 +37,7 @@ class CampusController extends ApiController
      */
     public function index(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Campus::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->campusTransformer->transformCollection($result->all()));
@@ -45,7 +50,7 @@ class CampusController extends ApiController
      */
     public function create(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         //
     }
 
@@ -57,7 +62,7 @@ class CampusController extends ApiController
      */
     public function store(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'code' => 'string|required|max:10|min:3',
             'name' => 'string|required|max:30|min:3'
@@ -75,7 +80,7 @@ class CampusController extends ApiController
      */
     public function show(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $result = Campus::findOrFail($id);
         return $this->respondWithSuccess($this->campusTransformer->transform($result));
     }
@@ -88,7 +93,7 @@ class CampusController extends ApiController
      */
     public function showByCode(Request $request, $code)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $result = Campus::where('code', $code)->firstOrFail();
         return $this->respondWithSuccess($this->campusTransformer->transform($result));
     }
@@ -101,7 +106,7 @@ class CampusController extends ApiController
      */
     public function edit(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         //
     }
 
@@ -114,7 +119,7 @@ class CampusController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         //
     }
 
@@ -126,7 +131,7 @@ class CampusController extends ApiController
      */
     public function destroy(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         Campus::findOrFail($id)->delete();
         return $this->respondDestroySuccess();
     }
@@ -137,7 +142,7 @@ class CampusController extends ApiController
      */
     public function destroyByCode(Request $request, $code)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         Campus::where('code', $code)->firstOrFail()->delete();
         return $this->respondDestroySuccess();
     }

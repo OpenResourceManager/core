@@ -18,6 +18,11 @@ class StateController extends ApiController
     protected $stateTransformer;
 
     /**
+     * @var string
+     */
+    protected $type = 'state';
+
+    /**
      * StateController constructor.
      * @param StateTransformer $stateTransformer
      */
@@ -33,7 +38,7 @@ class StateController extends ApiController
      */
     public function index(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = State::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->stateTransformer->transformCollection($result->all()));
@@ -46,7 +51,7 @@ class StateController extends ApiController
      */
     public function create(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
     }
 
     /**
@@ -57,7 +62,7 @@ class StateController extends ApiController
      */
     public function store(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'country_id' => 'integer|required|exists:campuses,id,deleted_at,NULL',
             'code' => 'string|required|max:5|unique:states,deleted_at,NULL',
@@ -76,7 +81,7 @@ class StateController extends ApiController
      */
     public function show(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $result = State::findOrFail($id);
         return $this->respondWithSuccess($this->stateTransformer->transform($result));
     }
@@ -88,7 +93,7 @@ class StateController extends ApiController
      */
     public function showByCode(Request $request, $code)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $result = State::where('code', $code)->firstOrFail();
         return $this->respondWithSuccess($this->stateTransformer->transform($result));
     }
@@ -101,7 +106,7 @@ class StateController extends ApiController
      */
     public function edit(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
     }
 
     /**
@@ -113,7 +118,7 @@ class StateController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
     }
 
     /**
@@ -124,7 +129,7 @@ class StateController extends ApiController
      */
     public function destroy(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         State::findOrFail($id)->delete();
         return $this->respondDestroySuccess();
     }
@@ -136,7 +141,7 @@ class StateController extends ApiController
      */
     public function destroyByCode($code, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         State::where('code', $code)->firstOrFail()->delete();
         return $this->respondDestroySuccess();
     }

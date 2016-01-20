@@ -21,6 +21,11 @@ class PasswordController extends ApiController
     protected $passwordTransformer;
 
     /**
+     * @var string
+     */
+    protected $type = 'password';
+
+    /**
      * PasswordController constructor.
      * @param PasswordTransformer $passwordTransformer
      */
@@ -36,8 +41,7 @@ class PasswordController extends ApiController
      */
     public function index(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this - type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Password::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->passwordTransformer->transformCollection($result->all()));
@@ -50,8 +54,7 @@ class PasswordController extends ApiController
      */
     public function create(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         //
     }
 
@@ -63,8 +66,7 @@ class PasswordController extends ApiController
      */
     public function store(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
             'password' => 'string|required',
@@ -83,8 +85,7 @@ class PasswordController extends ApiController
      */
     public function show(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $result = Password::findOrFail($id);
         return $this->respondWithSuccess($this->passwordTransformer->transform($result));
     }
@@ -97,8 +98,7 @@ class PasswordController extends ApiController
      */
     public function edit(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         //
     }
 
@@ -111,8 +111,7 @@ class PasswordController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         //
     }
 
@@ -124,8 +123,7 @@ class PasswordController extends ApiController
      */
     public function destroy(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         Password::findOrFail($id)->delete();
         return $this->respondDestroySuccess();
     }
@@ -136,8 +134,7 @@ class PasswordController extends ApiController
      */
     public function userPasswords($id, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = User::findOrFail($id)->password()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->passwordTransformer->transformCollection($result->all()));
@@ -150,8 +147,7 @@ class PasswordController extends ApiController
      */
     public function userPasswordsByUserId($user_id, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = User::where('user_identifier', $user_id)->firstOrFail()->password()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->passwordTransformer->transformCollection($result->all()));
@@ -164,8 +160,7 @@ class PasswordController extends ApiController
      */
     public function userPasswordsByUsername($username, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = User::where('username', $username)->firstOrFail()->password()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->passwordTransformer->transformCollection($result->all()));
@@ -177,8 +172,7 @@ class PasswordController extends ApiController
      */
     public function storeUserPasswordByUserId(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
             'password' => 'integer|required'
@@ -195,8 +189,7 @@ class PasswordController extends ApiController
      */
     public function storeUserPasswordByUsername(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'username' => 'string|required|exists:users,username,deleted_at,NULL',
             'password' => 'integer|required'
@@ -213,8 +206,7 @@ class PasswordController extends ApiController
      */
     public function deleteUserPassword(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user' => 'integer|required|exists:users,id,deleted_at,NULL'
         ]);
@@ -230,8 +222,7 @@ class PasswordController extends ApiController
      */
     public function deleteUserPasswordByUserId(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL'
         ]);
@@ -247,8 +238,7 @@ class PasswordController extends ApiController
      */
     public function deleteUserPasswordByUsername(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
-        if (!$this->canManagePassword($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'username' => 'string|required|exists:users,username,deleted_at,NULL'
         ]);

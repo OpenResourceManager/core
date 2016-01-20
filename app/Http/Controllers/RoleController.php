@@ -20,6 +20,11 @@ class RoleController extends ApiController
     protected $roleTransformer;
 
     /**
+     * @var string
+     */
+    protected $type = 'role';
+
+    /**
      * @param RoleTransformer $userTransformer
      */
     function __construct(RoleTransformer $roleTransformer)
@@ -34,7 +39,7 @@ class RoleController extends ApiController
      */
     public function index(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Role::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roleTransformer->transformCollection($result->all()));
@@ -47,7 +52,7 @@ class RoleController extends ApiController
      */
     public function create(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         //
     }
 
@@ -59,7 +64,7 @@ class RoleController extends ApiController
      */
     public function store(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'code' => 'string|required|min:3',
             'name' => 'string|required|max:25',
@@ -77,7 +82,7 @@ class RoleController extends ApiController
      */
     public function show($id, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $result = Role::findOrFail($id);
         return $this->respondWithSuccess($this->roleTransformer->transform($result));
     }
@@ -88,7 +93,7 @@ class RoleController extends ApiController
      */
     public function showByCode($code, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $result = Role::where('code', $code)->firstOrFail();
         return $this->respondWithSuccess($this->roleTransformer->transform($result));
     }
@@ -101,7 +106,7 @@ class RoleController extends ApiController
      */
     public function edit($id, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         //
     }
 
@@ -114,7 +119,7 @@ class RoleController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         //
     }
 
@@ -126,7 +131,7 @@ class RoleController extends ApiController
      */
     public function destroy($id, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         Role::findOrFail($id)->delete();
         return $this->respondDestroySuccess();
     }
@@ -137,7 +142,7 @@ class RoleController extends ApiController
      */
     public function destroyByCode($code, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         Role::where('code', $code)->firstOrFail()->delete();
         return $this->respondDestroySuccess();
     }
@@ -149,7 +154,7 @@ class RoleController extends ApiController
      */
     public function userRoles($id, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = User::findOrFail($id)->roles()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roleTransformer->transformCollection($result->all()));
@@ -162,7 +167,7 @@ class RoleController extends ApiController
      */
     public function userRolesByUserId($user_id, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = User::where('user_identifier', $user_id)->firstOrFail()->roles()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roleTransformer->transformCollection($result->all()));
@@ -175,7 +180,7 @@ class RoleController extends ApiController
      */
     public function userRolesByUsername($username, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = User::where('username', $username)->firstOrFail()->roles()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roleTransformer->transformCollection($result->all()));
@@ -187,7 +192,7 @@ class RoleController extends ApiController
      */
     public function assignUserRole(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user' => 'integer|required|exists:users,id,deleted_at,NULL',
             'role' => 'integer|required|exists:roles,id,deleted_at,NULL'
@@ -209,7 +214,7 @@ class RoleController extends ApiController
      */
     public function assignUserRoleByUserId(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
             'role' => 'integer|required|exists:roles,id,deleted_at,NULL'
@@ -231,7 +236,7 @@ class RoleController extends ApiController
      */
     public function assignUserRoleByUsername(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'username' => 'string|required|exists:users,username,deleted_at,NULL',
             'role' => 'integer|required|exists:roles,id,deleted_at,NULL'
@@ -253,7 +258,7 @@ class RoleController extends ApiController
      */
     public function assignUserRoleCode(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user' => 'integer|required|exists:users,id,deleted_at,NULL',
             'code' => 'string|required|exists:roles,code,deleted_at,NULL'
@@ -275,7 +280,7 @@ class RoleController extends ApiController
      */
     public function assignUserRoleCodeByUserId(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
             'code' => 'string|required|exists:roles,code,deleted_at,NULL'
@@ -297,7 +302,7 @@ class RoleController extends ApiController
      */
     public function assignUserRoleCodeByUsername(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'username' => 'string|required|exists:users,username,deleted_at,NULL',
             'code' => 'string|required|exists:roles,code,deleted_at,NULL'
@@ -319,7 +324,7 @@ class RoleController extends ApiController
      */
     public function unassignUserRole(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user' => 'integer|required|exists:users,id,deleted_at,NULL',
             'role' => 'integer|required|exists:roles,id,deleted_at,NULL'
@@ -341,7 +346,7 @@ class RoleController extends ApiController
      */
     public function unassignUserRoleByUserId(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
             'role' => 'integer|required|exists:roles,id,deleted_at,NULL'
@@ -363,7 +368,7 @@ class RoleController extends ApiController
      */
     public function unassignUserRoleByUsername(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'username' => 'string|required|exists:users,username,deleted_at,NULL',
             'role' => 'integer|required|exists:roles,id,deleted_at,NULL'
@@ -385,7 +390,7 @@ class RoleController extends ApiController
      */
     public function unassignUserRoleCode(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user' => 'integer|required|exists:users,id,deleted_at,NULL',
             'code' => 'string|required|exists:roles,code,deleted_at,NULL'
@@ -407,7 +412,7 @@ class RoleController extends ApiController
      */
     public function unassignUserRoleCodeByUserId(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
             'code' => 'string|required|exists:roles,code,deleted_at,NULL'
@@ -429,7 +434,7 @@ class RoleController extends ApiController
      */
     public function unassignUserRoleCodeByUsername(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'username' => 'string|required|exists:users,username,deleted_at,NULL',
             'code' => 'string|required|exists:roles,code,deleted_at,NULL'

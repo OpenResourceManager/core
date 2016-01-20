@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Model\Apikey;
+use Illuminate\Support\Str;
 
 /**
  * Created by PhpStorm.
@@ -18,26 +19,47 @@ class ApikeyTableSeeder extends Seeder
         Model::unguard();
 
         $keys = array(
-            array('Test Key R/O', str_random(32), true, false, false, false, false, false),
-            array('Test Key R/O & Password', str_random(32), true, false, false, false, true, false),
-            array('Test Key Write Only', str_random(32), false, true, true, true, false, false),
-            array('Test Key Write Only & Password', str_random(32), false, true, true, true, false, true),
-            array('Test Key R/W', str_random(32), true, true, true, true, false, false),
-            array('Test Key R/W & Password', str_random(32), true, true, true, true, true, true),
+            array('Read Write', true, true, true),
+            array('Read Only', true, false, false),
+            array('Write Only', false, true, true),
+            array('Delete Only', false, false, true),
+            array('Post Only', false, true, false),
         );
+
+        $models = [
+            '',
+            '_address',
+            '_building',
+            '_campus',
+            '_country',
+            '_course',
+            '_department',
+            '_email',
+            '_password',
+            '_phone',
+            '_role',
+            '_room',
+            '_state',
+            '_user',
+        ];
 
 
         foreach ($keys as $key) {
-            Apikey::create([
-                'app_name' => $key[0],
-                'key' => $key[1],
-                'can_get' => $key[2],
-                'can_post' => $key[3],
-                'can_put' => $key[4],
-                'can_delete' => $key[5],
-                'can_view_password' => $key[6],
-                'can_edit_password' => $key[7]
-            ]);
+            foreach ($models as $model) {
+
+                do {
+                    $token = Str::quickRandom(96);
+                    $exists = Apikey::where('key', $token)->first();
+                } while (!empty($exists));
+
+                Apikey::create([
+                    'app_name' => $key[0] . ' ' . $model,
+                    'key' => $token,
+                    'can_get' . $model => $key[1],
+                    'can_post' . $model => $key[2],
+                    'can_delete' . $model => $key[3]
+                ]);
+            }
         }
     }
 
