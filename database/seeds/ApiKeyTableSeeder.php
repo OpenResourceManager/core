@@ -46,7 +46,7 @@ class ApikeyTableSeeder extends Seeder
                     'key' => $key[1],
                     'can_get' . $model => $key[2],
                     'can_post' . $model => $key[3],
-                    'can_delete' . $model => $key[5]
+                    'can_delete' . $model => $key[4]
                 ]);
             }
         }
