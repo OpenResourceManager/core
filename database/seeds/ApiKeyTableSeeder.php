@@ -23,19 +23,19 @@ class ApikeyTableSeeder extends Seeder
 
         $models = [
             '',
-            'address',
-            'building',
-            'campus',
-            'country',
-            'course',
-            'department',
-            'email',
-            'password',
-            'phone',
-            'role',
-            'room',
-            'state',
-            'user',
+            '_address',
+            '_building',
+            '_campus',
+            '_country',
+            '_course',
+            '_department',
+            '_email',
+            '_password',
+            '_phone',
+            '_role',
+            '_room',
+            '_state',
+            '_user',
         ];
 
 
