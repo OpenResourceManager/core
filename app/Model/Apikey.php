@@ -7,20 +7,6 @@
  * Time: 3:15 PM
  */
 
-/**
- * @TODO: API Key control for addresses
- * @TODO: API Key control for buildings
- * @TODO: API Key control for campuses
- * @TODO: API Key control for countries
- * @TODO: API Key control for courses
- * @TODO: API Key control for departments
- * @TODO: API Key control for emails
- * @TODO: API Key control for phones
- * @TODO: API Key control for roles
- * @TODO: API Key control for rooms
- * @TODO: API Key control for state
- * @TODO: API Key control for users
- */
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -35,10 +21,46 @@ class Apikey extends Model
         'key',
         'can_get',
         'can_post',
-        'can_put',
         'can_delete',
+        'can_view_address',
+        'can_post_address',
+        'can_delete_address',
+        'can_view_building',
+        'can_post_building',
+        'can_delete_building',
+        'can_view_campus',
+        'can_post_campus',
+        'can_delete_campus',
+        'can_view_country',
+        'can_post_country',
+        'can_delete_country',
+        'can_view_course',
+        'can_post_course',
+        'can_delete_course',
+        'can_view_department',
+        'can_post_department',
+        'can_delete_department',
+        'can_view_email',
+        'can_post_email',
+        'can_delete_email',
         'can_view_password',
-        'can_edit_password'
+        'can_post_password',
+        'can_delete_password',
+        'can_view_phone',
+        'can_post_phone',
+        'can_delete_phone',
+        'can_view_role',
+        'can_post_role',
+        'can_delete_role',
+        'can_view_room',
+        'can_post_room',
+        'can_delete_room',
+        'can_view_state',
+        'can_post_state',
+        'can_delete_state',
+        'can_view_user',
+        'can_post_user',
+        'can_delete_user',
     ];
 
     /**
@@ -55,6 +77,216 @@ class Apikey extends Model
      * @param $request
      * @return array
      */
+    public static function testAddressPermissions($request)
+    {
+        if ($request->header('X-Authorization')) {
+            $key = self::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                switch (strtolower($request->method())) {
+                    case 'get' :
+                        return $key->can_view_address ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'post' :
+                        return $key->can_post_address ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'delete' :
+                        return $key->can_delete_address ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    default :
+                        return array(false, array("success" => false, "error" => "Method not found."));
+                }
+            } else {
+                return array(false, array("success" => false, "error" => "X-Authorization: API Key is not valid."));
+            }
+        } else {
+            return array(false, array("success" => false, "error" => "X-Authorization: Header Option Not Found."));
+        }
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    public static function testBuildingPermissions($request)
+    {
+        if ($request->header('X-Authorization')) {
+            $key = self::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                switch (strtolower($request->method())) {
+                    case 'get' :
+                        return $key->can_view_building ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'post' :
+                        return $key->can_post_building ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'delete' :
+                        return $key->can_delete_building ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    default :
+                        return array(false, array("success" => false, "error" => "Method not found."));
+                }
+            } else {
+                return array(false, array("success" => false, "error" => "X-Authorization: API Key is not valid."));
+            }
+        } else {
+            return array(false, array("success" => false, "error" => "X-Authorization: Header Option Not Found."));
+        }
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    public static function testCampusPermissions($request)
+    {
+        if ($request->header('X-Authorization')) {
+            $key = self::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                switch (strtolower($request->method())) {
+                    case 'get' :
+                        return $key->can_view_campus ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'post' :
+                        return $key->can_post_campus ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'delete' :
+                        return $key->can_delete_campus ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    default :
+                        return array(false, array("success" => false, "error" => "Method not found."));
+                }
+            } else {
+                return array(false, array("success" => false, "error" => "X-Authorization: API Key is not valid."));
+            }
+        } else {
+            return array(false, array("success" => false, "error" => "X-Authorization: Header Option Not Found."));
+        }
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    public static function testCountryPermissions($request)
+    {
+        if ($request->header('X-Authorization')) {
+            $key = self::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                switch (strtolower($request->method())) {
+                    case 'get' :
+                        return $key->can_view_country ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'post' :
+                        return $key->can_post_country ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'delete' :
+                        return $key->can_delete_country ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    default :
+                        return array(false, array("success" => false, "error" => "Method not found."));
+                }
+            } else {
+                return array(false, array("success" => false, "error" => "X-Authorization: API Key is not valid."));
+            }
+        } else {
+            return array(false, array("success" => false, "error" => "X-Authorization: Header Option Not Found."));
+        }
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    public static function testCoursePermissions($request)
+    {
+        if ($request->header('X-Authorization')) {
+            $key = self::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                switch (strtolower($request->method())) {
+                    case 'get' :
+                        return $key->can_view_course ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'post' :
+                        return $key->can_post_course ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'delete' :
+                        return $key->can_delete_course ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    default :
+                        return array(false, array("success" => false, "error" => "Method not found."));
+                }
+            } else {
+                return array(false, array("success" => false, "error" => "X-Authorization: API Key is not valid."));
+            }
+        } else {
+            return array(false, array("success" => false, "error" => "X-Authorization: Header Option Not Found."));
+        }
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    public static function testDepartmentPermissions($request)
+    {
+        if ($request->header('X-Authorization')) {
+            $key = self::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                switch (strtolower($request->method())) {
+                    case 'get' :
+                        return $key->can_view_department ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'post' :
+                        return $key->can_post_department ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'delete' :
+                        return $key->can_delete_department ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    default :
+                        return array(false, array("success" => false, "error" => "Method not found."));
+                }
+            } else {
+                return array(false, array("success" => false, "error" => "X-Authorization: API Key is not valid."));
+            }
+        } else {
+            return array(false, array("success" => false, "error" => "X-Authorization: Header Option Not Found."));
+        }
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    public static function testEmailPermissions($request)
+    {
+        if ($request->header('X-Authorization')) {
+            $key = self::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                switch (strtolower($request->method())) {
+                    case 'get' :
+                        return $key->can_view_email ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'post' :
+                        return $key->can_post_email ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'delete' :
+                        return $key->can_delete_email ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    default :
+                        return array(false, array("success" => false, "error" => "Method not found."));
+                }
+            } else {
+                return array(false, array("success" => false, "error" => "X-Authorization: API Key is not valid."));
+            }
+        } else {
+            return array(false, array("success" => false, "error" => "X-Authorization: Header Option Not Found."));
+        }
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
     public static function testPasswordPermissions($request)
     {
         if ($request->header('X-Authorization')) {
@@ -65,10 +297,160 @@ class Apikey extends Model
                         return $key->can_view_password ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
                     case 'post' :
-                        return $key->can_edit_password ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        return $key->can_post_password ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
                     case 'delete' :
-                        return $key->can_edit_password ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        return $key->can_delete_password ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    default :
+                        return array(false, array("success" => false, "error" => "Method not found."));
+                }
+            } else {
+                return array(false, array("success" => false, "error" => "X-Authorization: API Key is not valid."));
+            }
+        } else {
+            return array(false, array("success" => false, "error" => "X-Authorization: Header Option Not Found."));
+        }
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    public static function testPhonePermissions($request)
+    {
+        if ($request->header('X-Authorization')) {
+            $key = self::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                switch (strtolower($request->method())) {
+                    case 'get' :
+                        return $key->can_view_phone ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'post' :
+                        return $key->can_post_phone ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'delete' :
+                        return $key->can_delete_phone ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    default :
+                        return array(false, array("success" => false, "error" => "Method not found."));
+                }
+            } else {
+                return array(false, array("success" => false, "error" => "X-Authorization: API Key is not valid."));
+            }
+        } else {
+            return array(false, array("success" => false, "error" => "X-Authorization: Header Option Not Found."));
+        }
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    public static function testRolePermissions($request)
+    {
+        if ($request->header('X-Authorization')) {
+            $key = self::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                switch (strtolower($request->method())) {
+                    case 'get' :
+                        return $key->can_view_role ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'post' :
+                        return $key->can_post_role ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'delete' :
+                        return $key->can_delete_role ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    default :
+                        return array(false, array("success" => false, "error" => "Method not found."));
+                }
+            } else {
+                return array(false, array("success" => false, "error" => "X-Authorization: API Key is not valid."));
+            }
+        } else {
+            return array(false, array("success" => false, "error" => "X-Authorization: Header Option Not Found."));
+        }
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    public static function testRoomPermissions($request)
+    {
+        if ($request->header('X-Authorization')) {
+            $key = self::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                switch (strtolower($request->method())) {
+                    case 'get' :
+                        return $key->can_view_room ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'post' :
+                        return $key->can_post_room ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'delete' :
+                        return $key->can_delete_room ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    default :
+                        return array(false, array("success" => false, "error" => "Method not found."));
+                }
+            } else {
+                return array(false, array("success" => false, "error" => "X-Authorization: API Key is not valid."));
+            }
+        } else {
+            return array(false, array("success" => false, "error" => "X-Authorization: Header Option Not Found."));
+        }
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    public static function testStatePermissions($request)
+    {
+        if ($request->header('X-Authorization')) {
+            $key = self::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                switch (strtolower($request->method())) {
+                    case 'get' :
+                        return $key->can_view_state ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'post' :
+                        return $key->can_post_state ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'delete' :
+                        return $key->can_delete_state ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    default :
+                        return array(false, array("success" => false, "error" => "Method not found."));
+                }
+            } else {
+                return array(false, array("success" => false, "error" => "X-Authorization: API Key is not valid."));
+            }
+        } else {
+            return array(false, array("success" => false, "error" => "X-Authorization: Header Option Not Found."));
+        }
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    public static function testUserPermissions($request)
+    {
+        if ($request->header('X-Authorization')) {
+            $key = self::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                switch (strtolower($request->method())) {
+                    case 'get' :
+                        return $key->can_view_user ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'post' :
+                        return $key->can_post_user ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'delete' :
+                        return $key->can_delete_user ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
                     default :
                         return array(false, array("success" => false, "error" => "Method not found."));
@@ -97,9 +479,6 @@ class Apikey extends Model
                     case 'post' :
                         return $key->can_post ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
-                    /* case 'put':
-                         return $key->can_put ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges"));
-                         break; */
                     case 'delete':
                         return $key->can_delete ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges"));
                         break;

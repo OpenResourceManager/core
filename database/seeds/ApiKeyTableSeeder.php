@@ -6,7 +6,7 @@ use App\Model\Apikey;
 
 /**
  * Created by PhpStorm.
- * User: melon
+ * : melon
  * Date: 10/20/15
  * Time: 3:20 PM
  */
@@ -18,26 +18,37 @@ class ApikeyTableSeeder extends Seeder
         Model::unguard();
 
         $keys = array(
-            array('Test Key R/O', str_random(32), true, false, false, false, false, false),
-            array('Test Key R/O & Password', str_random(32), true, false, false, false, true, false),
-            array('Test Key Write Only', str_random(32), false, true, true, true, false, false),
-            array('Test Key Write Only & Password', str_random(32), false, true, true, true, false, true),
-            array('Test Key R/W', str_random(32), true, true, true, true, false, false),
-            array('Test Key R/W & Password', str_random(32), true, true, true, true, true, true),
+            array('R/W', str_random(32), true, true, true),
         );
+
+        $models = [
+            '',
+            'address',
+            'building',
+            'campus',
+            'country',
+            'course',
+            'department',
+            'email',
+            'password',
+            'phone',
+            'role',
+            'room',
+            'state',
+            'user',
+        ];
 
 
         foreach ($keys as $key) {
-            Apikey::create([
-                'app_name' => $key[0],
-                'key' => $key[1],
-                'can_get' => $key[2],
-                'can_post' => $key[3],
-                'can_put' => $key[4],
-                'can_delete' => $key[5],
-                'can_view_password' => $key[6],
-                'can_edit_password' => $key[7]
-            ]);
+            foreach ($models as $model) {
+                Apikey::create([
+                    'app_name' . $model => $key[0] . ' ' . $model,
+                    'key' => $key[1],
+                    'can_get' . $model => $key[2],
+                    'can_post' . $model => $key[3],
+                    'can_delete' . $model => $key[5]
+                ]);
+            }
         }
     }
 
