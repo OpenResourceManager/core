@@ -44,9 +44,9 @@ class ApikeyTableSeeder extends Seeder
             foreach ($models as $model) {
 
                 do {
-                    $string = Str::quickRandom(96);
-                    $token = Apikey::where('key', $string)->first();
-                } while (!empty($token));
+                    $token = Str::quickRandom(96);
+                    $exists = Apikey::where('key', $token)->first();
+                } while (!empty($exists));
 
                 Apikey::create([
                     'app_name' => $key[0] . ' ' . $model,
