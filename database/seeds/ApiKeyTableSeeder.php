@@ -42,7 +42,7 @@ class ApikeyTableSeeder extends Seeder
         foreach ($keys as $key) {
             foreach ($models as $model) {
                 Apikey::create([
-                    'app_name' . $model => $key[0] . ' ' . $model,
+                    'app_name' => $key[0] . ' ' . $model,
                     'key' => $key[1],
                     'can_get' . $model => $key[2],
                     'can_post' . $model => $key[3],
