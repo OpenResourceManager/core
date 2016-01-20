@@ -19,7 +19,11 @@ class ApikeyTableSeeder extends Seeder
         Model::unguard();
 
         $keys = array(
-            array('R/W', true, true, true),
+            array('Read Write', true, true, true),
+            array('Read Only', true, false, false),
+            array('Write Only', false, true, true),
+            array('Delete Only', false, false, true),
+            array('Post Only', false, true, false),
         );
 
         $models = [
