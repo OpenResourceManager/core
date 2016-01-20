@@ -7,7 +7,7 @@
  * Time: 3:15 PM
  */
 
-
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -72,12 +72,68 @@ class Apikey extends Model
         return Apikey::where('key', $key)->get()->first();
     }
 
+    /**
+     * @param Request $request
+     * @param $type
+     */
+    public static function testAPIKey(Request $request, $type)
+    {
+        $global = self::testGlobalPermission($request);
+        if ($global[0]) {
+            return $global;
+        } else {
+            switch ($type) {
+                case 'address':
+                    return self::testAddressPermissions($request);
+                    break;
+                case 'building':
+                    return self::testBuildingPermissions($request);
+                    break;
+                case 'campus':
+                    return self::testCampusPermissions($request);
+                    break;
+                case 'country':
+                    return self::testCountryPermissions($request);
+                    break;
+                case 'course':
+                    return self::testCoursePermissions($request);
+                    break;
+                case 'department':
+                    return self::testDepartmentPermissions($request);
+                    break;
+                case 'email':
+                    return self::testEmailPermissions($request);
+                    break;
+                case 'password':
+                    return self::testPasswordPermissions($request);
+                    break;
+                case 'phone':
+                    return self::testPhonePermissions($request);
+                    break;
+                case 'role':
+                    return self::testRolePermissions($request);
+                    break;
+                case 'room':
+                    return self::testRoomPermissions($request);
+                    break;
+                case 'state':
+                    return self::testStatePermissions($request);
+                    break;
+                case 'user':
+                    return self::testUserPermissions($request);
+                    break;
+                default:
+                    return array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                    break;
+            }
+        }
+    }
 
     /**
      * @param $request
      * @return array
      */
-    public static function testAddressPermissions($request)
+    private static function testAddressPermissions(Request $request)
     {
         if ($request->header('X-Authorization')) {
             $key = self::getAPIKey($request->header('X-Authorization'));
@@ -107,7 +163,7 @@ class Apikey extends Model
      * @param $request
      * @return array
      */
-    public static function testBuildingPermissions($request)
+    private static function testBuildingPermissions(Request $request)
     {
         if ($request->header('X-Authorization')) {
             $key = self::getAPIKey($request->header('X-Authorization'));
@@ -137,7 +193,7 @@ class Apikey extends Model
      * @param $request
      * @return array
      */
-    public static function testCampusPermissions($request)
+    private static function testCampusPermissions(Request $request)
     {
         if ($request->header('X-Authorization')) {
             $key = self::getAPIKey($request->header('X-Authorization'));
@@ -167,7 +223,7 @@ class Apikey extends Model
      * @param $request
      * @return array
      */
-    public static function testCountryPermissions($request)
+    private static function testCountryPermissions(Request $request)
     {
         if ($request->header('X-Authorization')) {
             $key = self::getAPIKey($request->header('X-Authorization'));
@@ -197,7 +253,7 @@ class Apikey extends Model
      * @param $request
      * @return array
      */
-    public static function testCoursePermissions($request)
+    private static function testCoursePermissions(Request $request)
     {
         if ($request->header('X-Authorization')) {
             $key = self::getAPIKey($request->header('X-Authorization'));
@@ -227,7 +283,7 @@ class Apikey extends Model
      * @param $request
      * @return array
      */
-    public static function testDepartmentPermissions($request)
+    private static function testDepartmentPermissions(Request $request)
     {
         if ($request->header('X-Authorization')) {
             $key = self::getAPIKey($request->header('X-Authorization'));
@@ -257,7 +313,7 @@ class Apikey extends Model
      * @param $request
      * @return array
      */
-    public static function testEmailPermissions($request)
+    private static function testEmailPermissions(Request $request)
     {
         if ($request->header('X-Authorization')) {
             $key = self::getAPIKey($request->header('X-Authorization'));
@@ -287,7 +343,7 @@ class Apikey extends Model
      * @param $request
      * @return array
      */
-    public static function testPasswordPermissions($request)
+    private static function testPasswordPermissions(Request $request)
     {
         if ($request->header('X-Authorization')) {
             $key = self::getAPIKey($request->header('X-Authorization'));
@@ -317,7 +373,7 @@ class Apikey extends Model
      * @param $request
      * @return array
      */
-    public static function testPhonePermissions($request)
+    private static function testPhonePermissions(Request $request)
     {
         if ($request->header('X-Authorization')) {
             $key = self::getAPIKey($request->header('X-Authorization'));
@@ -347,7 +403,7 @@ class Apikey extends Model
      * @param $request
      * @return array
      */
-    public static function testRolePermissions($request)
+    private static function testRolePermissions(Request $request)
     {
         if ($request->header('X-Authorization')) {
             $key = self::getAPIKey($request->header('X-Authorization'));
@@ -377,7 +433,7 @@ class Apikey extends Model
      * @param $request
      * @return array
      */
-    public static function testRoomPermissions($request)
+    private static function testRoomPermissions(Request $request)
     {
         if ($request->header('X-Authorization')) {
             $key = self::getAPIKey($request->header('X-Authorization'));
@@ -407,7 +463,7 @@ class Apikey extends Model
      * @param $request
      * @return array
      */
-    public static function testStatePermissions($request)
+    private static function testStatePermissions(Request $request)
     {
         if ($request->header('X-Authorization')) {
             $key = self::getAPIKey($request->header('X-Authorization'));
@@ -437,7 +493,7 @@ class Apikey extends Model
      * @param $request
      * @return array
      */
-    public static function testUserPermissions($request)
+    private static function testUserPermissions(Request $request)
     {
         if ($request->header('X-Authorization')) {
             $key = self::getAPIKey($request->header('X-Authorization'));
@@ -463,11 +519,12 @@ class Apikey extends Model
         }
     }
 
+
     /**
      * @param $request
      * @return array
      */
-    public static function testAPIKey($request)
+    private static function testGlobalPermission(Request $request)
     {
         if ($request->header('X-Authorization')) {
             $key = self::getAPIKey($request->header('X-Authorization'));

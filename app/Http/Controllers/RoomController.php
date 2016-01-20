@@ -20,6 +20,11 @@ class RoomController extends ApiController
     protected $roomTransformer;
 
     /**
+     * @var string
+     */
+    protected $type = 'room';
+
+    /**
      * @param RoomTransformer $roomRecordTransformer
      */
     function __construct(RoomTransformer $roomTransformer)
@@ -34,7 +39,7 @@ class RoomController extends ApiController
      */
     public function index(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Room::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
@@ -47,7 +52,7 @@ class RoomController extends ApiController
      */
     public function create(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         //
     }
 
@@ -59,7 +64,7 @@ class RoomController extends ApiController
      */
     public function store(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'code' => 'string|required|max:20|unique:rooms,deleted_at,NULL',
             'building_id' => 'integer|required|exists:buildings,id,deleted_at,NULL',
@@ -81,7 +86,7 @@ class RoomController extends ApiController
      */
     public function show($id, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $result = Room::findOrFail($id);
         return $this->respondWithSuccess($this->roomTransformer->transform($result));
     }
@@ -94,7 +99,7 @@ class RoomController extends ApiController
      */
     public function edit($id, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         //
     }
 
@@ -107,7 +112,7 @@ class RoomController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         //
     }
 
@@ -119,7 +124,7 @@ class RoomController extends ApiController
      */
     public function destroy($id, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         Room::findOrFail($id)->delete();
         return $this->respondDestroySuccess();
     }
@@ -130,7 +135,7 @@ class RoomController extends ApiController
      */
     public function destroyByCode($code, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         Room::where('code', $code)->firstOrFail()->delete();
         return $this->respondDestroySuccess();
     }
@@ -142,7 +147,7 @@ class RoomController extends ApiController
      */
     public function campusRooms($id, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Campus::findOrFail($id)->rooms()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
@@ -155,7 +160,7 @@ class RoomController extends ApiController
      */
     public function campusRoomsByCode($code, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Campus::where('code', $code)->firstOrFail()->rooms()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
@@ -168,7 +173,7 @@ class RoomController extends ApiController
      */
     public function buildingRooms($id, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Building::findOrFail($id)->rooms()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
@@ -181,7 +186,7 @@ class RoomController extends ApiController
      */
     public function buildingRoomsByCode($code, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Building::where('code', $code)->firstOrFail()->rooms()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
@@ -194,7 +199,7 @@ class RoomController extends ApiController
      */
     public function userRooms($id, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = User::findOrFail($id)->rooms()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
@@ -207,7 +212,7 @@ class RoomController extends ApiController
      */
     public function userRoomsByUserId($user_id, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = User::where('user_identifier', $user_id)->firstOrFail()->rooms()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
@@ -220,7 +225,7 @@ class RoomController extends ApiController
      */
     public function userRoomsByUsername($username, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = User::where('username', $username)->firstOrFail()->rooms()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->roomTransformer->transformCollection($result->all()));
@@ -232,7 +237,7 @@ class RoomController extends ApiController
      */
     public function assignUserRoom(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user' => 'integer|required|exists:users,id,deleted_at,NULL',
             'room' => 'integer|required|exists:room,id,deleted_at,NULL'
@@ -254,7 +259,7 @@ class RoomController extends ApiController
      */
     public function assignUserRoomByUserId(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
             'room' => 'integer|required|exists:rooms,id,deleted_at,NULL'
@@ -276,7 +281,7 @@ class RoomController extends ApiController
      */
     public function assignUserRoomByUsername(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'username' => 'string|required|exists:users,username,deleted_at,NULL',
             'room' => 'integer|required|exists:rooms,id,deleted_at,NULL'
@@ -298,7 +303,7 @@ class RoomController extends ApiController
      */
     public function assignUserRoomCode(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user' => 'integer|required|exists:users,id,deleted_at,NULL',
             'code' => 'string|required|exists:rooms,code,deleted_at,NULL'
@@ -320,7 +325,7 @@ class RoomController extends ApiController
      */
     public function assignUserRoomCodeByUserId(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
             'code' => 'string|required|exists:rooms,code,deleted_at,NULL'
@@ -342,7 +347,7 @@ class RoomController extends ApiController
      */
     public function assignUserRoomCodeByUsername(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'username' => 'string|required|exists:users,username,deleted_at,NULL',
             'code' => 'string|required|exists:rooms,code,deleted_at,NULL'
@@ -364,7 +369,7 @@ class RoomController extends ApiController
      */
     public function unassignUserRoom(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user' => 'integer|required|exists:users,id,deleted_at,NULL',
             'room' => 'integer|required|exists:rooms,id,deleted_at,NULL'
@@ -386,7 +391,7 @@ class RoomController extends ApiController
      */
     public function unassignUserRoomByUserId(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
             'room' => 'integer|required|exists:rooms,id,deleted_at,NULL'
@@ -408,7 +413,7 @@ class RoomController extends ApiController
      */
     public function unassignUserRoomByUsername(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'username' => 'string|required|exists:users,username,deleted_at,NULL',
             'room' => 'integer|required|exists:rooms,id,deleted_at,NULL'
@@ -430,7 +435,7 @@ class RoomController extends ApiController
      */
     public function unassignUserRoomCode(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user' => 'integer|required|exists:users,id,deleted_at,NULL',
             'code' => 'string|required|exists:rooms,code,deleted_at,NULL'
@@ -452,7 +457,7 @@ class RoomController extends ApiController
      */
     public function unassignUserRoomCodeByUserId(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
             'code' => 'string|required|exists:rooms,code,deleted_at,NULL'
@@ -474,7 +479,7 @@ class RoomController extends ApiController
      */
     public function unassignUserRoomCodeByUsername(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'username' => 'string|required|exists:users,username,deleted_at,NULL',
             'code' => 'string|required|exists:rooms,code,deleted_at,NULL'

@@ -105,19 +105,9 @@ class ApiController extends Controller
      * @param $method
      * @return mixed
      */
-    public function isAuthorized(Request $request)
+    public function isAuthorized(Request $request, $type)
     {
-        $key = Apikey::testAPIKey($request);
-        return $key[0];
-    }
-
-    /**
-     * @param Request $request
-     * @return mixed
-     */
-    public function canManagePassword(Request $request)
-    {
-        $key = Apikey::testPasswordPermissions($request);
+        $key = Apikey::testAPIKey($request, $type);
         return $key[0];
     }
 

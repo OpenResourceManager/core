@@ -18,6 +18,11 @@ class DepartmentController extends ApiController
     protected $departmentTransformer;
 
     /**
+     * @var string
+     */
+    protected $type = 'department';
+
+    /**
      * @param DepartmentTransformer $departmentTransformer
      */
     function __construct(DepartmentTransformer $departmentTransformer)
@@ -32,7 +37,7 @@ class DepartmentController extends ApiController
      */
     public function index(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Department::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->departmentTransformer->transformCollection($result->all()));
@@ -45,7 +50,7 @@ class DepartmentController extends ApiController
      */
     public function create(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         //
     }
 
@@ -57,7 +62,7 @@ class DepartmentController extends ApiController
      */
     public function store(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'academic' => 'integer|required|max:1',
             'code' => 'string|required|min:3',
@@ -77,7 +82,7 @@ class DepartmentController extends ApiController
      */
     public function show(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $result = Department::findOrFail($id);
         return $this->respondWithSuccess($this->departmentTransformer->transform($result));
     }
@@ -90,7 +95,7 @@ class DepartmentController extends ApiController
      */
     public function showByCode(Request $request, $code)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $result = Department::where('code', $code)->firstOrFail();
         return $this->respondWithSuccess($this->departmentTransformer->transform($result));
     }
@@ -103,7 +108,7 @@ class DepartmentController extends ApiController
      */
     public function edit(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         //
     }
 
@@ -116,7 +121,7 @@ class DepartmentController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         //
     }
 
@@ -128,7 +133,7 @@ class DepartmentController extends ApiController
      */
     public function destroy(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         Department::findOrFail($id)->delete();
         return $this->respondDestroySuccess();
     }
@@ -139,7 +144,7 @@ class DepartmentController extends ApiController
      */
     public function destroyByCode(Request $request, $code)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         Department::where('code', $code)->firstOrFail()->delete();
         return $this->respondDestroySuccess();
     }
@@ -151,7 +156,7 @@ class DepartmentController extends ApiController
      */
     public function courseDepartment($id, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Course::findOrFail($id)->department()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->departmentTransformer->transformCollection($result->all()));
@@ -164,7 +169,7 @@ class DepartmentController extends ApiController
      */
     public function courseDepartmentByCode($code, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Course::where('code', $code)->firstOrFail()->department()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->departmentTransformer->transformCollection($result->all()));

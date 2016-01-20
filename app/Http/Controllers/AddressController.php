@@ -19,6 +19,11 @@ use App\Http\Requests;
 class AddressController extends ApiController
 {
     /**
+     * @var string
+     */
+    protected $type = 'address';
+
+    /**
      * @var AddressTransformer
      */
     protected $addressTransformer;
@@ -39,7 +44,7 @@ class AddressController extends ApiController
      */
     public function index(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this-type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Address::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->addressTransformer->transformCollection($result->all()));
@@ -52,7 +57,7 @@ class AddressController extends ApiController
      */
     public function create(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         //
     }
 
@@ -64,7 +69,7 @@ class AddressController extends ApiController
      */
     public function store(Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
             'addressee' => 'string|max:50',
@@ -91,7 +96,7 @@ class AddressController extends ApiController
      */
     public function show(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $result = Address::findOrFail($id);
         return $this->respondWithSuccess($this->addressTransformer->transform($result));
     }
@@ -104,7 +109,7 @@ class AddressController extends ApiController
      */
     public function edit(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         //
     }
 
@@ -117,7 +122,7 @@ class AddressController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         //
     }
 
@@ -129,7 +134,7 @@ class AddressController extends ApiController
      */
     public function destroy(Request $request, $id)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         Address::findOrFail($id)->delete();
         return $this->respondDestroySuccess();
     }
@@ -141,7 +146,7 @@ class AddressController extends ApiController
      */
     public function userAddresses($id, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = User::findOrFail($id)->addresses()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->addressTransformer->transformCollection($result->all()));
@@ -154,7 +159,7 @@ class AddressController extends ApiController
      */
     public function userAddressesByUserId($user_id, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = User::where('user_identifier', $user_id)->firstOrFail()->addresses()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->addressTransformer->transformCollection($result->all()));
@@ -167,7 +172,7 @@ class AddressController extends ApiController
      */
     public function userAddressesByUsername($username, Request $request)
     {
-        if (!$this->isAuthorized($request)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = User::where('username', $username)->firstOrFail()->addresses()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->addressTransformer->transformCollection($result->all()));
