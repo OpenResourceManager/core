@@ -22,4 +22,9 @@ class Phone extends BaseModel
         return $this->belongsTo('App\Model\User');
     }
 
+    public function carrier()
+    {
+        return $this->hasOne('App\Model\MobileCarrier');
+    }
+
 }

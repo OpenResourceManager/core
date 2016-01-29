@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Model\Phone;
 use App\Model\User;
+use App\Model\MobileCarrier;
 use Faker\Factory as Faker;
 
 /**
@@ -21,6 +22,7 @@ class PhoneTableSeeder extends Seeder
         $faker = Faker::create();
 
         $userIds = User::get()->lists('id')->all();
+        $carrierIDs = MobileCarrier::get()->list('id')->all();
 
         foreach (range(1, 500) as $index) {
 
@@ -39,22 +41,9 @@ class PhoneTableSeeder extends Seeder
             }
 
             if ($cell) {
-                $carrier = $faker->randomElement([
-                    'T-Mobile',
-                    'Sprint',
-                    'AT&T',
-                    'Verizon',
-                    'Boost Mobile',
-                    'Cricket Wireless',
-                    'Straight Talk',
-                    'Vodaphone',
-                    'Virgin Mobile',
-                    'MetroPCS',
-                    'TracPhone',
-                    'Other'
-                ]);
+                $carrierID = $faker->randomElement($carrierIDs);
             } else {
-                $carrier = null;
+                $carrierID = null;
             }
 
             Phone::create([
@@ -62,7 +51,7 @@ class PhoneTableSeeder extends Seeder
                 'number' => $number,
                 'ext' => $ext,
                 'is_cell' => $cell,
-                'carrier' => $carrier
+                'mobile_carrier_id' => $carrierID
             ]);
         }
     }

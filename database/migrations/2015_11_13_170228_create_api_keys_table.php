@@ -58,6 +58,9 @@ class CreateApiKeysTable extends Migration
             $table->boolean('can_get_user')->default(false);
             $table->boolean('can_post_user')->default(false);
             $table->boolean('can_delete_user')->default(false);
+            $table->boolean('can_get_mobile_carrier')->default(false);
+            $table->boolean('can_post_mobile_carrier')->default(false);
+            $table->boolean('can_delete_mobile_carrier')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

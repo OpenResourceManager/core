@@ -10,6 +10,7 @@
 /**
  * @TODO Write Mobile Carrier model
  * @TODO Modify phone model to use carrier_id
+ * @TODO Artisan command for API Key Management
  */
 
 use Illuminate\Database\Eloquent\Model;

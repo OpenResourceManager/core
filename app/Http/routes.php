@@ -114,6 +114,9 @@ Route::group(['prefix' => 'api'], function () {
         Route::delete('passwords/user_id', 'PasswordController@deleteUserPasswordByUserId'); // Documented
         Route::delete('passwords/username', 'PasswordController@deleteUserPasswordByUsername'); // Documented
 
+        Route::resource('mobilecarriers', 'MobileCarrierController'); // Documented
+        Route::get('mobilecarriers/code/{code}', 'MobileCarrierController@showByCode'); // Documented
+        Route::delete('mobilecarriers/code/{code}', 'MobileCarrierController@destroyByCode'); // Documented
 
         Route::resource('phones', 'PhoneController'); // Documented
         Route::get('phones/user/{id}', 'PhoneController@userPhones'); // Documented

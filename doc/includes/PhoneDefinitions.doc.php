@@ -62,7 +62,11 @@
  *                  "number": 13716372143,
  *                  "ext": 4165,
  *                  "is_cell": true,
- *                  "carrier": "Vodaphone"
+ *                  "carrier": {
+ *                      "id": 4,
+ *                      "code": "TMO",
+ *                      "name": "T-Mobile"
+ *                  }
  *              },
  *              {
  *                  "id": 4,
@@ -70,7 +74,11 @@
  *                  "number": 11862830925,
  *                  "ext": 0,
  *                  "is_cell": true,
- *                  "carrier": "MetroPCS"
+ *                  "carrier": {
+ *                      "id": 1,
+ *                      "code": "VZW",
+ *                      "name": "Verizon Wireless"
+ *                  }
  *              },
  *              {
  *                  "id": 5,

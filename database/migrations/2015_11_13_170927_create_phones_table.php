@@ -18,10 +18,11 @@ class CreatePhonesTable extends Migration
             $table->string('number', 14)->unique();
             $table->string('ext', 5)->nullable();
             $table->boolean('is_cell');
-            $table->string('carrier', 20)->nullable();
+            $table->unsignedInteger('mobile_carrier_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('mobile_carrier_id')->references('id')->on('mobile_carriers')->onDelete('cascade');
         });
     }
 
@@ -34,6 +35,7 @@ class CreatePhonesTable extends Migration
     {
         Schema::table('phones', function (Blueprint $table) {
             $table->dropForeign('phones_user_id_foreign');
+            $table->dropForeign('phones_mobile_carrier_id_foreign');
         });
 
         Schema::drop('phones');
