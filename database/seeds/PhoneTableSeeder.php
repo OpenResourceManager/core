@@ -22,7 +22,7 @@ class PhoneTableSeeder extends Seeder
         $faker = Faker::create();
 
         $userIds = User::get()->lists('id')->all();
-        $carrierIDs = MobileCarrier::get()->list('id')->all();
+        $carrierIDs = MobileCarrier::get()->lists('id')->all();
 
         foreach (range(1, 500) as $index) {
 
