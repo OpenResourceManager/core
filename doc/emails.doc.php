@@ -34,6 +34,63 @@
  */
 
 /**
+ * @api {post} /emails/username POST: Create/Update Email by Username
+ * @apiVersion 1.1.1
+ * @apiGroup Emails
+ * @apiDescription This method creates a new email, or updates an email object with the specified username.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o emails -m post -p username -d "username=skywal&email=skywalker@yahoo.com"
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "username=skywal" \
+ *      --data "email=skywalker@yahoo.com" \
+ *      --url https://databridge.sage.edu/api/v1/emails/username
+ *
+ * @apiUse CreateSuccessResultExample
+ * @apiUse UpdateSuccessResultExample
+ * @apiUse UnprocessableEntityErrors
+ * @apiParam (Email Parameters) {String} username The user's unique username.
+ * @apiParam (Email Parameters) {String} email The email address string.
+ */
+
+/**
+ * @api {post} /emails/user_id POST: Create/Update Email by User Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Emails
+ * @apiDescription This method creates a new email, or updates an email object with the specified user_identifier.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o emails -m post -p user_id -d "user_id=04986732&email=skywalker@yahoo.com"
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "user_id=04986732" \
+ *      --data "email=skywalker@yahoo.com" \
+ *      --url https://databridge.sage.edu/api/v1/emails/user_id
+ *
+ * @apiUse CreateSuccessResultExample
+ * @apiUse UpdateSuccessResultExample
+ * @apiUse UnprocessableEntityErrors
+ * @apiParam (Email Parameters) {String} user_id The user's unique identifier string.
+ * @apiParam (Email Parameters) {String} email The email address string.
+ */
+
+
+/**
  * @api {get} /emails/ GET: Request Emails
  * @apiVersion 1.1.1
  * @apiGroup Emails

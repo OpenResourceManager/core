@@ -163,4 +163,39 @@ class EmailController extends ApiController
         $result = User::where('username', $username)->firstOrFail()->emails()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
     }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function storeUserEmailByUserId(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'email' => 'email|required|unique:emails,deleted_at,NULL',
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('user_identifier', $request->input('user_id'))->firstOrFail();
+        $item = Email::updateOrCreate(['user_id' => $user->id], ['user_id' => $user->id, 'email' => Input::get('email')]);
+        return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function storeUserEmailByUsername(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'username' => 'string|required|exists:users,username,deleted_at,NULL',
+            'email' => 'email|required|unique:emails,deleted_at,NULL',
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('username', $request->input('username'))->firstOrFail();
+        $item = Email::updateOrCreate(['user_id' => $user->id], ['user_id' => $user->id, 'email' => Input::get('email')]);
+        return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
+    }
+
 }
