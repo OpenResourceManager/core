@@ -77,6 +77,32 @@ class CourseController extends ApiController
     }
 
     /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function storeByDepartmentCode(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'department_code' => 'string|required|exists:departments,code,deleted_at,NULL',
+            'code' => 'string|required|min:3|unique:courses,deleted_at,NULL',
+            'course_level' => 'integer|required',
+            'name' => 'string|required|min:5',
+
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $department = new Department();
+        $course = [
+            'department_id' => $department->code2id(Input::get('department_code')),
+            'code' => Input::get('code'),
+            'course_level' => Input::get('course_level'),
+            'name' => Input::get('name')
+        ];
+        $item = Course::updateOrCreate(['code' => Input::get('code')], $course);
+        return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int $id

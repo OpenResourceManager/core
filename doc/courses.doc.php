@@ -36,6 +36,38 @@
  */
 
 /**
+ * @api {post} /courses/department/code POST: Create/Update Course with Department Code
+ * @apiVersion 1.1.1
+ * @apiGroup Courses
+ * @apiDescription This method creates a new course, or updates a course with the specified Department code.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse CreateSuccessResultExample
+ * @apiUse UpdateSuccessResultExample
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o courses -m post -p department/code -d "department_code=LANG&code=SPAN101&name=Spanish 101&course_level=100"
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "department_code=LANG" \
+ *      --data "code=SPAN101" \
+ *      --data "name=Spanish 101" \
+ *      --data "course_level=100" \
+ *      --url https://databridge.sage.edu/api/v1/courses/department/code
+ *
+ * @apiParam (Course Parameters) {Integer} department_code The code assigned to the parent department.
+ * @apiParam (Course Parameters) {String} code The courses' unique identifier string.
+ * @apiParam (Course Parameters) {Integer} course_level The academic level of a course.
+ * @apiParam (Course Parameters) {String} name The courses' name, this is a label.
+ */
+
+/**
  * @api {delete} /courses/:id DELETE: Destroy Course
  * @apiVersion 1.1.1
  * @apiGroup Courses

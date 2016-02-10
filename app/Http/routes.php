@@ -140,6 +140,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('courses/username/{username}', 'CourseController@userCoursesUsername'); // Documented
         Route::get('courses/department/{id}', 'CourseController@departmentCourses'); // Documented
         Route::get('courses/department/code/{code}', 'CourseController@departmentCoursesByCode'); // Documented
+        Route::post('courses/department/code', 'CourseController@storeByDepartmentCode');
         Route::delete('courses/code/{code}', 'CourseController@destroyByCode'); // Documented
 
 

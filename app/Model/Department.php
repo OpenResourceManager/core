@@ -21,4 +21,9 @@ class Department extends BaseModel
     {
         return $this->hasMany('App\Model\Course');
     }
+
+    public function code2id($code)
+    {
+        return $this->where('code', $code)->firstOrFail()->id;
+    }
 }
