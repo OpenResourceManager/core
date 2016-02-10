@@ -26,5 +26,10 @@ class Building extends BaseModel
     {
         return $this->belongsTo('App\Model\Campus');
     }
+
+    public function code2id($code)
+    {
+        return $this->where('code', $code)->firstOrFail()->id;
+    }
 }
 

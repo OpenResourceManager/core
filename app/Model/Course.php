@@ -26,4 +26,9 @@ class Course extends BaseModel
     {
         return $this->belongsTo('App\Model\Department');
     }
+
+    public function code2id($code)
+    {
+        return $this->where('code', $code)->firstOrFail()->id;
+    }
 }

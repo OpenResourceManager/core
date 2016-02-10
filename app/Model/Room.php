@@ -33,4 +33,9 @@ class Room extends BaseModel
     {
         return $this->belongsToMany('App\Model\User', 'room_user');
     }
+
+    public function code2id($code)
+    {
+        return $this->where('code', $code)->firstOrFail()->id;
+    }
 }

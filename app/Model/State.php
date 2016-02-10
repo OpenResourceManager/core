@@ -31,4 +31,9 @@ class State extends BaseModel
         return $this->hasManyThrough('App\Model\User', 'App\Model\Address');
     }
 
+    public function code2id($code)
+    {
+        return $this->where('code', $code)->firstOrFail()->id;
+    }
+
 }

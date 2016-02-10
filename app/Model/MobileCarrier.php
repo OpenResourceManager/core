@@ -22,4 +22,9 @@ class MobileCarrier extends BaseModel
         return $this->belongsToMany('App\Model\Phone', 'phones');
     }
 
+    public function code2id($code)
+    {
+        return $this->where('code', $code)->firstOrFail()->id;
+    }
+
 }
