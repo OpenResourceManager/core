@@ -66,7 +66,7 @@ class DepartmentController extends ApiController
         $validator = Validator::make($request->all(), [
             'academic' => 'integer|required|max:1',
             'code' => 'string|required|min:3',
-            'name' => 'integer|required|min:5',
+            'name' => 'string|required|min:3',
 
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
