@@ -22,9 +22,9 @@ class Department extends BaseModel
         return $this->hasMany('App\Model\Course');
     }
 
-    public function courses()
+    public function users()
     {
-        return $this->hasMany('App\Model\Course');
+        return $this->hasMany('App\Model\User');
     }
 
     public function code2id($code)

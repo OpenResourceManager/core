@@ -61,6 +61,11 @@ class User extends BaseModel
         return $this->belongsToMany('App\Model\Course');
     }
 
+    public function departments()
+    {
+        return $this->belongsToMany('App\Model\Department');
+    }
+
     public function addresses()
     {
         return $this->hasMany('App\Model\Address');
