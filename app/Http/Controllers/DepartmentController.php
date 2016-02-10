@@ -70,7 +70,7 @@ class DepartmentController extends ApiController
 
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $item = Course::updateOrCreate(['code' => Input::get('code')], Input::all());
+        $item = Department::updateOrCreate(['code' => Input::get('code')], Input::all());
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
 
