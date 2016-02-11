@@ -73,19 +73,19 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o passwords -m post -p user_id -d "user_id=04986732&password=qwertyuiop1234567890"
+ *      uud -o passwords -m post -p user_id -d "user_identifier=04986732&password=qwertyuiop1234567890"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
- *      --data "user_id=04986732" \
+ *      --data "user_identifier=04986732" \
  *      --data "password=qwertyuiop1234567890" \
  *      --url https://databridge.sage.edu/api/v1/passwords/user_id
  *
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
- * @apiParam (Password Parameters) {String} user_id The user's unique identifier string.
+ * @apiParam (Password Parameters) {String} user_identifier The user's unique identifier string.
  * @apiParam (Password Parameters) {String} password The unencrypted password string.
  */
 
