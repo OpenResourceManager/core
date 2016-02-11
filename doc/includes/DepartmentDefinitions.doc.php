@@ -21,6 +21,43 @@
  * @apiSuccess (Success 2xx: Department) {String} name The department's name, this is a label.
  */
 
+
+/**
+ * @apiDefine AssignmentDepartmentUserParams
+ * @apiParam user_id {Integer} The database ID of the user.
+ * @apiParam department_id {Integer} The database ID of the department.
+ */
+
+/**
+ * @apiDefine AssignmentDepartmentUserIDParams
+ * @apiParam user_identifier {String} The unique identifier string associated with a user.
+ * @apiParam department_id {Integer} The database ID of the department.
+ */
+
+/**
+ * @apiDefine AssignmentDepartmentUsernameIDParams
+ * @apiParam username {String} The unique username string associated with a user.
+ * @apiParam department_id {Integer} The database ID of the department.
+ */
+
+/**
+ * @apiDefine AssignmentDepartmentCodeUserParams
+ * @apiParam user_id {Integer} The database ID of the user
+ * @apiParam department_code {String} The unique code string of the department.
+ */
+
+/**
+ * @apiDefine AssignmentDepartmentCodeUserIDParams
+ * @apiParam user_identifier {String} The unique identifier string associated with a user.
+ * @apiParam department_code {String} The unique code string of the department.
+ */
+
+/**
+ * @apiDefine AssignmentDepartmentCodeUsernameIDParams
+ * @apiParam username {String} The unique username string associated with a user.
+ * @apiParam department_code {String} The unique code string of the department.
+ */
+
 /**
  * @apiDefine GetDepartmentsSuccessResultExample
  * @apiSuccessExample {json} Success Response:
@@ -83,6 +120,78 @@
  *              "academic": true,
  *              "code": "Qui.",
  *              "name": "Lebsack, Renner and Orn"
+ *          }
+ *      }
+ */
+
+/**
+ * @apiDefine AssignPresentDepartmentResultExample
+ * @apiSuccessExample {json} Success Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "success": true,
+ *          "status_code": 200,
+ *          "pagination": [],
+ *          "result": {
+ *              "message": "Assignment Already Present",
+ *              "id": {
+ *                  "user": 20,
+ *                  "role": 1
+ *              }
+ *          }
+ *      }
+ */
+
+/**
+ * @apiDefine AssignNewDepartmentResultExample
+ * @apiSuccessExample {json} Success Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "success": true,
+ *          "status_code": 200,
+ *          "pagination": [],
+ *          "result": {
+ *              "message": "Assigned",
+ *              "id": {
+ *                  "user": 20,
+ *                  "role": 1
+ *              }
+ *          }
+ *      }
+ */
+
+/**
+ * @apiDefine AssignmentNotPresentDepartmentResultExample
+ * @apiSuccessExample {json} Success Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "success": true,
+ *          "status_code": 200,
+ *          "pagination": [],
+ *          "result": {
+ *              "message": "Assignment Not Present",
+ *              "id": {
+ *                  "user": 20,
+ *                  "role": 1
+ *              }
+ *          }
+ *      }
+ */
+
+/**
+ * @apiDefine UnassignDepartmentResultExample
+ * @apiSuccessExample {json} Success Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "success": true,
+ *          "status_code": 200,
+ *          "pagination": [],
+ *          "result": {
+ *              "message": "Unassigned",
+ *              "id": {
+ *                  "user": 20,
+ *                  "role": 1
+ *              }
  *          }
  *      }
  */

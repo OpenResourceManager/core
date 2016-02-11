@@ -202,3 +202,344 @@
  *
  * @apiUse ModelNotFoundError
  */
+
+
+
+
+
+
+/**
+ * @api {post} /departments/user POST: Assign to User
+ * @apiVersion 1.1.1
+ * @apiGroup Departments
+ * @apiDescription This method assigns a department to a user, using the user and department database id values.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse AssignNewDepartmentResultExample
+ * @apiUse AssignPresentDepartmentResultExample
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -m post -p user -d "user=25&department_id=1"
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "user=25" \
+ *      --data "department_id=1" \
+ *      --url https://databridge.sage.edu/api/v1/departments/user
+ *
+ * @apiUse AssignmentDepartmentUserParams
+ */
+
+/**
+ * @api {post} /departments/user_identifier POST: Assign to Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Departments
+ * @apiDescription This method assigns a department to a user, using the user_identifier value and department database id value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse AssignNewDepartmentResultExample
+ * @apiUse AssignPresentDepartmentResultExample
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -m post -p user_identifier -d "user_identifier=0958757&department_id=1"
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "user_identifier=0958757" \
+ *      --data "department_id=1" \
+ *      --url https://databridge.sage.edu/api/v1/departments/user_identifier
+ *
+ * @apiUse AssignmentDepartmentUserIDParams
+ */
+
+/**
+ * @api {post} /departments/username POST: Assign to Username
+ * @apiVersion 1.1.1
+ * @apiGroup Departments
+ * @apiDescription This method assigns a department to a user, using the username value and department database id value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse AssignNewDepartmentResultExample
+ * @apiUse AssignPresentDepartmentResultExample
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -m post -p username -d "username=0958757&department_id=1"
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "username=skywal" \
+ *      --data "department_id=1" \
+ *      --url https://databridge.sage.edu/api/v1/departments/username
+ *
+ * @apiUse AssignmentDepartmentUsernameIDParams
+ */
+
+/**
+ * @api {post} /departments/code/user POST: Assign Code to User
+ * @apiVersion 1.1.1
+ * @apiGroup Departments
+ * @apiDescription This method assigns a department to a user, using the user and department code value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse AssignNewDepartmentResultExample
+ * @apiUse AssignPresentDepartmentResultExample
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -m post -p code/user -d "user=25&department_code=STUDENT"
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "user=25" \
+ *      --data "department_code=STUDENT" \
+ *      --url https://databridge.sage.edu/api/v1/departments/code/user
+ *
+ * @apiUse AssignmentDepartmentCodeUserParams
+ */
+
+/**
+ * @api {post} /departments/code/user_identifier POST: Assign Code to Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Departments
+ * @apiDescription This method assigns a department to a user, using the user_identifier value and department code value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse AssignNewDepartmentResultExample
+ * @apiUse AssignPresentDepartmentResultExample
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -m post -p code/user_identifier -d "user_identifier=0958757&department_code=STUDENT"
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "user_identifier=0958757" \
+ *      --data "department_code=STUDENT" \
+ *      --url https://databridge.sage.edu/api/v1/departments/code/user_identifier
+ *
+ * @apiUse AssignmentDepartmentCodeUserIDParams
+ */
+
+/**
+ * @api {post} /departments/code/username POST: Assign Code to Username
+ * @apiVersion 1.1.1
+ * @apiGroup Departments
+ * @apiDescription This method assigns a department to a user, using the username value and department code value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse AssignNewDepartmentResultExample
+ * @apiUse AssignPresentDepartmentResultExample
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -m post -p code/username -d "username=skywal&department_code=STUDENT"
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "username=skywal" \
+ *      --data "department_code=STUDENT" \
+ *      --url https://databridge.sage.edu/api/v1/departments/code/username
+ *
+ * @apiUse AssignmentDepartmentCodeUsernameIDParams
+ */
+
+/**
+ * @api {delete} /departments/user DELETE: Unassign User
+ * @apiVersion 1.1.1
+ * @apiGroup Departments
+ * @apiDescription This method unassigns a user from a department a user, using the user and department database id values.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse UnassignDepartmentResultExample
+ * @apiUse AssignmentNotPresentDepartmentResultExample
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -m delete -p user -d "user=25&department_id=1"
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "user=25" \
+ *      --data "department_id=1" \
+ *      --url https://databridge.sage.edu/api/v1/departments/user
+ *
+ * @apiUse AssignmentDepartmentUserParams
+ */
+
+/**
+ * @api {delete} /departments/user_identifier DELETE: Unassign from Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Departments
+ * @apiDescription This method unassigns a user from a department a user, using the user_identifier value and department database id value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse UnassignDepartmentResultExample
+ * @apiUse AssignmentNotPresentDepartmentResultExample
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -m delete -p user_identifier -d "user_identifier=0958757&department_id=1"
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "user_identifier=0958757" \
+ *      --data "department_id=1" \
+ *      --url https://databridge.sage.edu/api/v1/departments/user_identifier
+ *
+ * @apiUse AssignmentDepartmentUserIDParams
+ */
+
+/**
+ * @api {delete} /departments/username DELETE: Unassign from Username
+ * @apiVersion 1.1.1
+ * @apiGroup Departments
+ * @apiDescription This method unassigns a user from a department a user, using the username value and department database id value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse UnassignDepartmentResultExample
+ * @apiUse AssignmentNotPresentDepartmentResultExample
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -m delete -p username -d "username=skywal&department_id=1"
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "username=skywal" \
+ *      --data "department_id=1" \
+ *      --url https://databridge.sage.edu/api/v1/departments/username
+ *
+ * @apiUse AssignmentDepartmentUsernameIDParams
+ */
+
+/**
+ * @api {delete} /departments/code/user DELETE: Unassign Code from User
+ * @apiVersion 1.1.1
+ * @apiGroup Departments
+ * @apiDescription This method unassigns a user from a department a user, using the user and department code value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse UnassignDepartmentResultExample
+ * @apiUse AssignmentNotPresentDepartmentResultExample
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -m delete -p code/user -d "user=25&department_code=STUDENT"
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "user=25" \
+ *      --data "department_code=STUDENT" \
+ *      --url https://databridge.sage.edu/api/v1/departments/code/user
+ *
+ * @apiUse AssignmentDepartmentCodeUserParams
+ */
+
+/**
+ * @api {delete} /departments/code/user_identifier DELETE: Unassign Code from Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Departments
+ * @apiDescription This method unassigns a user from a department a user, using the user_identifier value and department code value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse UnassignDepartmentResultExample
+ * @apiUse AssignmentNotPresentDepartmentResultExample
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -m delete -p code/user_identifier -d "user_identifier=0958757&department_code=STUDENT"
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "user_identifier=0958757" \
+ *      --data "department_code=STUDENT" \
+ *      --url https://databridge.sage.edu/api/v1/departments/code/user_identifier
+ *
+ * @apiUse AssignmentDepartmentCodeUserIDParams
+ */
+
+/**
+ * @api {delete} /departments/code/username DELETE: Unassign Code from Username
+ * @apiVersion 1.1.1
+ * @apiGroup Departments
+ * @apiDescription This method unassigns a user from a department a user, using the username value and department code value.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiUse UnassignDepartmentResultExample
+ * @apiUse AssignmentNotPresentDepartmentResultExample
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -m delete -p code/username -d "username=skywal&department_code=STUDENT"
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "username=skywal" \
+ *      --data "department_code=STUDENT" \
+ *      --url https://databridge.sage.edu/api/v1/departments/code/username
+ *
+ * @apiUse AssignmentDepartmentCodeUsernameIDParams
+ */

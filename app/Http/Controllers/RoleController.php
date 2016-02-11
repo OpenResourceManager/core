@@ -194,12 +194,12 @@ class RoleController extends ApiController
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user' => 'integer|required|exists:users,id,deleted_at,NULL',
-            'role' => 'integer|required|exists:roles,id,deleted_at,NULL'
+            'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
+            'role_id' => 'integer|required|exists:roles,id,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::findOrFail($request->input('user'));
-        $role = Role::findOrFail($request->input('role'));
+        $user = User::findOrFail($request->input('user_id'));
+        $role = Role::findOrFail($request->input('role_id'));
         if (!$user->roles->contains($role->id)) {
             $user->roles()->attach($role);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
@@ -216,12 +216,12 @@ class RoleController extends ApiController
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
-            'role' => 'integer|required|exists:roles,id,deleted_at,NULL'
+            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'role_id' => 'integer|required|exists:roles,id,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::where('user_identifier', $request->input('user_id'))->firstOrFail();
-        $role = Role::findOrFail($request->input('role'));
+        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $role = Role::findOrFail($request->input('role_id'));
         if (!$user->roles->contains($role->id)) {
             $user->roles()->attach($role);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
@@ -239,11 +239,11 @@ class RoleController extends ApiController
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'username' => 'string|required|exists:users,username,deleted_at,NULL',
-            'role' => 'integer|required|exists:roles,id,deleted_at,NULL'
+            'role_id' => 'integer|required|exists:roles,id,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
-        $role = Role::findOrFail($request->input('role'));
+        $role = Role::findOrFail($request->input('role_id'));
         if (!$user->roles->contains($role->id)) {
             $user->roles()->attach($role);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
@@ -260,12 +260,12 @@ class RoleController extends ApiController
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user' => 'integer|required|exists:users,id,deleted_at,NULL',
-            'code' => 'string|required|exists:roles,code,deleted_at,NULL'
+            'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
+            'role_code' => 'string|required|exists:roles,code,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::findOrFail($request->input('user'));
-        $role = Role::where('code', $request->input('code'))->firstOrFail();
+        $user = User::findOrFail($request->input('user_id'));
+        $role = Role::where('code', $request->input('role_code'))->firstOrFail();
         if (!$user->roles->contains($role->id)) {
             $user->roles()->attach($role);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
@@ -282,12 +282,12 @@ class RoleController extends ApiController
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
-            'code' => 'string|required|exists:roles,code,deleted_at,NULL'
+            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'role_code' => 'string|required|exists:roles,code,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::where('user_identifier', $request->input('user_id'))->firstOrFail();
-        $role = Role::where('code', $request->input('code'))->firstOrFail();
+        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $role = Role::where('code', $request->input('role_code'))->firstOrFail();
         if (!$user->roles->contains($role->id)) {
             $user->roles()->attach($role);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
@@ -305,11 +305,11 @@ class RoleController extends ApiController
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'username' => 'string|required|exists:users,username,deleted_at,NULL',
-            'code' => 'string|required|exists:roles,code,deleted_at,NULL'
+            'role_code' => 'string|required|exists:roles,code,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
-        $role = Role::where('code', $request->input('code'))->firstOrFail();
+        $role = Role::where('code', $request->input('role_code'))->firstOrFail();
         if (!$user->roles->contains($role->id)) {
             $user->roles()->attach($role);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
@@ -326,12 +326,12 @@ class RoleController extends ApiController
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user' => 'integer|required|exists:users,id,deleted_at,NULL',
-            'role' => 'integer|required|exists:roles,id,deleted_at,NULL'
+            'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
+            'role_id' => 'integer|required|exists:roles,id,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::findOrFail($request->input('user'));
-        $role = Role::findOrFail($request->input('role'));
+        $user = User::findOrFail($request->input('user_id'));
+        $role = Role::findOrFail($request->input('role_id'));
         if ($user->roles->contains($role->id)) {
             $user->roles()->detach($role);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
@@ -348,12 +348,12 @@ class RoleController extends ApiController
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
-            'role' => 'integer|required|exists:roles,id,deleted_at,NULL'
+            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'role_id' => 'integer|required|exists:roles,id,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::where('user_identifier', $request->input('user_id'))->firstOrFail();
-        $role = Role::findOrFail($request->input('role'));
+        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $role = Role::findOrFail($request->input('role_id'));
         if ($user->roles->contains($role->id)) {
             $user->roles()->detach($role);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
@@ -371,11 +371,11 @@ class RoleController extends ApiController
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'username' => 'string|required|exists:users,username,deleted_at,NULL',
-            'role' => 'integer|required|exists:roles,id,deleted_at,NULL'
+            'role_id' => 'integer|required|exists:roles,id,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
-        $role = Role::findOrFail($request->input('role'));
+        $role = Role::findOrFail($request->input('role_id'));
         if ($user->roles->contains($role->id)) {
             $user->roles()->detach($role);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
@@ -392,12 +392,12 @@ class RoleController extends ApiController
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user' => 'integer|required|exists:users,id,deleted_at,NULL',
-            'code' => 'string|required|exists:roles,code,deleted_at,NULL'
+            'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
+            'role_code' => 'string|required|exists:roles,code,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::findOrFail($request->input('user'));
-        $role = Role::where('code', $request->input('code'))->firstOrFail();
+        $role = Role::where('code', $request->input('role_code'))->firstOrFail();
         if ($user->roles->contains($role->id)) {
             $user->roles()->detach($role);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
@@ -414,12 +414,12 @@ class RoleController extends ApiController
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
-            'code' => 'string|required|exists:roles,code,deleted_at,NULL'
+            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'role_code' => 'string|required|exists:roles,code,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::where('user_identifier', $request->input('user_id'))->firstOrFail();
-        $role = Role::where('code', $request->input('code'))->firstOrFail();
+        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $role = Role::where('code', $request->input('role_code'))->firstOrFail();
         if ($user->roles->contains($role->id)) {
             $user->roles()->detach($role);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);
@@ -437,11 +437,11 @@ class RoleController extends ApiController
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'username' => 'string|required|exists:users,username,deleted_at,NULL',
-            'code' => 'string|required|exists:roles,code,deleted_at,NULL'
+            'role_code' => 'string|required|exists:roles,code,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
-        $role = Role::where('code', $request->input('code'))->firstOrFail();
+        $role = Role::where('code', $request->input('role_code'))->firstOrFail();
         if ($user->roles->contains($role->id)) {
             $user->roles()->detach($role);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'role' => intval($role->id)]);

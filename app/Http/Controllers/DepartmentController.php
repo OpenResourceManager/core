@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Course;
 use App\Model\Department;
+use App\Model\User;
 use App\UUD\Transformers\DepartmentTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -173,5 +174,269 @@ class DepartmentController extends ApiController
         parent::index($request);
         $result = Course::where('code', $code)->firstOrFail()->department()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->departmentTransformer->transformCollection($result->all()));
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserDepartment(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
+            'department_id' => 'integer|required|exists:departments,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::findOrFail($request->input('user_id'));
+        $department = Department::findOrFail($request->input('department_id'));
+        if (!$user->departments->contains($department->id)) {
+            $user->departments()->attach($department);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserDepartmentByUserId(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'department_id' => 'integer|required|exists:departments,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $department = Department::findOrFail($request->input('department_id'));
+        if (!$user->departments->contains($department->id)) {
+            $user->departments()->attach($department);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserDepartmentByUsername(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'username' => 'string|required|exists:users,username,deleted_at,NULL',
+            'department_id' => 'integer|required|exists:departments,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('username', $request->input('username'))->firstOrFail();
+        $department = Department::findOrFail($request->input('department_id'));
+        if (!$user->departments->contains($department->id)) {
+            $user->departments()->attach($department);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserDepartmentCode(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
+            'department_code' => 'string|required|exists:departments,code,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::findOrFail($request->input('user_id'));
+        $department = Department::where('code', $request->input('department_code'))->firstOrFail();
+        if (!$user->departments->contains($department->id)) {
+            $user->departments()->attach($department);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserDepartmentCodeByUserId(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'department_code' => 'string|required|exists:departments,code,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $department = Department::where('code', $request->input('department_code'))->firstOrFail();
+        if (!$user->departments->contains($department->id)) {
+            $user->departments()->attach($department);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserDepartmentCodeByUsername(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'username' => 'string|required|exists:users,username,deleted_at,NULL',
+            'department_code' => 'string|required|exists:departments,code,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('username', $request->input('username'))->firstOrFail();
+        $department = Department::where('code', $request->input('department_code'))->firstOrFail();
+        if (!$user->departments->contains($department->id)) {
+            $user->departments()->attach($department);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function unassignUserDepartment(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
+            'department_id' => 'integer|required|exists:departments,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::findOrFail($request->input('user_id'));
+        $department = Department::findOrFail($request->input('department_id'));
+        if ($user->departments->contains($department->id)) {
+            $user->departments()->detach($department);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function unassignUserDepartmentByUserId(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'department_id' => 'integer|required|exists:departments,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $department = Department::findOrFail($request->input('department_id'));
+        if ($user->departments->contains($department->id)) {
+            $user->departments()->detach($department);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function unassignUserDepartmentByUsername(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'username' => 'string|required|exists:users,username,deleted_at,NULL',
+            'department_id' => 'integer|required|exists:departments,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('username', $request->input('username'))->firstOrFail();
+        $department = Department::findOrFail($request->input('department_id'));
+        if ($user->departments->contains($department->id)) {
+            $user->departments()->detach($department);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function unassignUserDepartmentCode(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
+            'department_code' => 'string|required|exists:departments,code,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::findOrFail($request->input('user'));
+        $department = Department::where('code', $request->input('department_code'))->firstOrFail();
+        if ($user->departments->contains($department->id)) {
+            $user->departments()->detach($department);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function unassignUserDepartmentCodeByUserId(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'department_code' => 'string|required|exists:departments,code,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $department = Department::where('code', $request->input('department_code'))->firstOrFail();
+        if ($user->departments->contains($department->id)) {
+            $user->departments()->detach($department);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function unassignUserDepartmentCodeByUsername(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'username' => 'string|required|exists:users,username,deleted_at,NULL',
+            'department_code' => 'string|required|exists:departments,code,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('username', $request->input('username'))->firstOrFail();
+        $department = Department::where('code', $request->input('department_code'))->firstOrFail();
+        if ($user->departments->contains($department->id)) {
+            $user->departments()->detach($department);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+        }
     }
 }

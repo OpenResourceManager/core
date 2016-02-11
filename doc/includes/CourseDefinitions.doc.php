@@ -24,6 +24,42 @@
  */
 
 /**
+ * @apiDefine AssignmentCourseUserParams
+ * @apiParam user_id {Integer} The database ID of the user.
+ * @apiParam course_id {Integer} The database ID of the course.
+ */
+
+/**
+ * @apiDefine AssignmentCourseUserIDParams
+ * @apiParam user_identifier {String} The unique identifier string associated with a user.
+ * @apiParam course_id {Integer} The database ID of the course.
+ */
+
+/**
+ * @apiDefine AssignmentCourseUsernameIDParams
+ * @apiParam username {String} The unique username string associated with a user.
+ * @apiParam course_id {Integer} The database ID of the course.
+ */
+
+/**
+ * @apiDefine AssignmentCourseCodeUserParams
+ * @apiParam user_id {Integer} The database ID of the user
+ * @apiParam course_code {String} The unique code string of the course.
+ */
+
+/**
+ * @apiDefine AssignmentCourseCodeUserIDParams
+ * @apiParam user_identifier {String} The unique identifier string associated with a user.
+ * @apiParam course_code {String} The unique code string of the course.
+ */
+
+/**
+ * @apiDefine AssignmentCourseCodeUsernameIDParams
+ * @apiParam username {String} The unique username string associated with a user.
+ * @apiParam course_code {String} The unique code string of the course.
+ */
+
+/**
  * @apiDefine GetCoursesSuccessResultExample
  * @apiSuccessExample {json} Success Response:
  *      HTTP/1.1 200 OK

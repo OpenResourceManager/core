@@ -84,16 +84,16 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('roles/user_id/{user_id}', 'RoleController@userRolesByUserId'); // Documented
         Route::get('roles/username/{username}', 'RoleController@userRolesByUsername'); // Documented
         Route::post('roles/user', 'RoleController@assignUserRole'); // Documented
-        Route::post('roles/user_id', 'RoleController@assignUserRoleByUserId'); // Documented
+        Route::post('roles/user_identifier', 'RoleController@assignUserRoleByUserId'); // Documented
         Route::post('roles/username', 'RoleController@assignUserRoleByUsername'); // Documented
         Route::post('roles/code/user', 'RoleController@assignUserRoleCode'); // Documented
-        Route::post('roles/code/user_id', 'RoleController@assignUserRoleCodeByUserId'); // Documented
+        Route::post('roles/code/user_identifier', 'RoleController@assignUserRoleCodeByUserId'); // Documented
         Route::post('roles/code/username', 'RoleController@assignUserRoleCodeByUsername'); // Documented
         Route::delete('roles/user', 'RoleController@unassignUserRole'); // Documented
-        Route::delete('roles/user_id', 'RoleController@unassignUserRoleByUserId'); // Documented
+        Route::delete('roles/user_identifier', 'RoleController@unassignUserRoleByUserId'); // Documented
         Route::delete('roles/username', 'RoleController@unassignUserRoleByUsername'); // Documented
         Route::delete('roles/code/user', 'RoleController@unassignUserRoleCode'); // Documented
-        Route::delete('roles/code/user_id', 'RoleController@unassignUserRoleCodeByUserId'); // Documented
+        Route::delete('roles/code/user_identifier', 'RoleController@unassignUserRoleCodeByUserId'); // Documented
         Route::delete('roles/code/username', 'RoleController@unassignUserRoleCodeByUsername'); // Documented
         Route::delete('roles/code/{code}', 'RoleController@destroyByCode'); // Documented
 
@@ -130,6 +130,20 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('departments/code/{code}', 'DepartmentController@showByCode'); // Documented
         Route::get('departments/course/{id}', 'DepartmentController@courseDepartment'); // Documented
         Route::get('departments/course/code/{code}', 'DepartmentController@courseDepartmentByCode'); // Documented
+
+        Route::post('departments/user', 'DepartmentController@assignUserDepartment');
+        Route::post('departments/user_identifier', 'DepartmentController@assignUserDepartmentByUserId');
+        Route::post('departments/username', 'DepartmentController@assignUserDepartmentByUsername');
+        Route::post('departments/code/user', 'DepartmentController@assignUserDepartmentCode');
+        Route::post('departments/code/user_identifier', 'DepartmentController@assignUserDepartmentCodeByUserId');
+        Route::post('departments/code/username', 'DepartmentController@assignUserDepartmentCodeByUsername');
+        Route::delete('departments/user', 'DepartmentController@unassignUserDepartment');
+        Route::delete('departments/user_identifier', 'DepartmentController@unassignUserDepartmentByUserId');
+        Route::delete('departments/username', 'DepartmentController@unassignUserDepartmentByUsername');
+        Route::delete('departments/code/user', 'DepartmentController@unassignUserDepartmentCode');
+        Route::delete('departments/code/user_identifier', 'DepartmentController@unassignUserDepartmentCodeByUserId');
+        Route::delete('departments/code/username', 'DepartmentController@unassignUserDepartmentCodeByUsername');
+        
         Route::delete('departments/code/{code}', 'DepartmentController@destroyByCode'); // Documented
 
 
