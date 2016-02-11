@@ -1,2 +1,4 @@
+@TODO Per issue #57 create assign/unassign department to user methods (id, username, user_identifier)
+@TODO Per issue #62 create assign/unassign course to user methods (id, username, user_identifier)
 @TODO Create unit tests for entire API <-- Important and will be time consuming, need API Key command working for this.
 @TODO Write WIKI
