@@ -127,6 +127,21 @@ class EmailController extends ApiController
     }
 
     /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function destroyByAddress(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'email' => 'email|required|exists:emails,email,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        Email::where('email', $request->input('email'))->firstOrFail()->delete();
+        return $this->respondDestroySuccess();
+    }
+
+    /**
      * @param $id
      * @return mixed
      */

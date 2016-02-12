@@ -162,6 +162,31 @@
  */
 
 /**
+ * @api {delete} /emails/address DELETE: Destroy Email by Email Address
+ * @apiVersion 1.1.1
+ * @apiGroup Emails
+ * @apiDescription This method deletes an Email object, the database ID value is supplied to the API.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiSuccessExampleDestroy
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiParam {String} email The email address.
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o emails -p address -m delete -p "email=skywalker@yahoo.com"
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "DELETE" \
+ *      --data "email=skywalker@yahoo.com" \
+ *      --url https://databridge.sage.edu/api/v1/emails/address
+ *
+ * @apiUse ModelNotFoundError
+ */
+
+/**
  * @api {get} /emails/user/:id GET: By User ID
  * @apiVersion 1.1.1
  * @apiGroup Emails

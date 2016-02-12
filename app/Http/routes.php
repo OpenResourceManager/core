@@ -102,8 +102,9 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('emails/user/{id}', 'EmailController@userEmails'); // Documented
         Route::get('emails/user_id/{user_id}', 'EmailController@userEmailsByUserId'); // Documented
         Route::get('emails/username/{username}', 'EmailController@userEmailsByUsername'); // Documented
-        Route::post('emails/user_id', 'EmailController@storeUserEmailByUserId');
-        Route::post('emails/username', 'EmailController@storeUserEmailByUsername');
+        Route::post('emails/user_id', 'EmailController@storeUserEmailByUserId'); // Documented
+        Route::post('emails/username', 'EmailController@storeUserEmailByUsername'); // Documented
+        Route::delete('emails/address', 'EmailController@destroyByAddress'); // Documented
 
 
         Route::resource('passwords', 'PasswordController'); // Documented
@@ -153,20 +154,18 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('courses/department/{id}', 'CourseController@departmentCourses'); // Documented
         Route::get('courses/department/code/{code}', 'CourseController@departmentCoursesByCode'); // Documented
         Route::post('courses/department/code', 'CourseController@storeByDepartmentCode'); // Documented
-
-        Route::post('courses/user', 'CourseController@assignUserCourse');
-        Route::post('courses/user_identifier', 'CourseController@assignUserCourseByUserId');
-        Route::post('courses/username', 'CourseController@assignUserCourseByUsername');
-        Route::post('courses/code/user', 'CourseController@assignUserCourseCode');
-        Route::post('courses/code/user_identifier', 'CourseController@assignUserCourseCodeByUserId');
-        Route::post('courses/code/username', 'CourseController@assignUserCourseCodeByUsername');
-        Route::delete('courses/user', 'CourseController@unassignUserCourse');
-        Route::delete('courses/user_identifier', 'CourseController@unassignUserCourseByUserId');
-        Route::delete('courses/username', 'CourseController@unassignUserCourseByUsername');
-        Route::delete('courses/code/user', 'CourseController@unassignUserCourseCode');
-        Route::delete('courses/code/user_identifier', 'CourseController@unassignUserCourseCodeByUserId');
-        Route::delete('courses/code/username', 'CourseController@unassignUserCourseCodeByUsername');
-        
+        Route::post('courses/user', 'CourseController@assignUserCourse'); // Documented
+        Route::post('courses/user_identifier', 'CourseController@assignUserCourseByUserId'); // Documented
+        Route::post('courses/username', 'CourseController@assignUserCourseByUsername'); // Documented
+        Route::post('courses/code/user', 'CourseController@assignUserCourseCode'); // Documented
+        Route::post('courses/code/user_identifier', 'CourseController@assignUserCourseCodeByUserId'); // Documented
+        Route::post('courses/code/username', 'CourseController@assignUserCourseCodeByUsername'); // Documented
+        Route::delete('courses/user', 'CourseController@unassignUserCourse'); // Documented
+        Route::delete('courses/user_identifier', 'CourseController@unassignUserCourseByUserId'); // Documented
+        Route::delete('courses/username', 'CourseController@unassignUserCourseByUsername'); // Documented
+        Route::delete('courses/code/user', 'CourseController@unassignUserCourseCode'); // Documented
+        Route::delete('courses/code/user_identifier', 'CourseController@unassignUserCourseCodeByUserId'); // Documented
+        Route::delete('courses/code/username', 'CourseController@unassignUserCourseCodeByUsername'); // Documented
         Route::delete('courses/code/{code}', 'CourseController@destroyByCode'); // Documented
 
 
