@@ -21,20 +21,18 @@ class UserTransformer extends Transformer
      */
     public function transform($item)
     {
-        $phones = Phone::all()->where('user_id',$item['id'])->toArray();
-        $emails = Email::all()->where('user_id',$item['id'])->toArray();
+             /* $phones = Phone::all()->where('user_id',$item['id'])->toArray();
+                $emails = Email::all()->where('user_id',$item['id'])->toArray();
 
-        //dd($phones);
+                if ($phones) {
+                    $phoneTrans = new PhoneTransformer;
+                    $phones = $phoneTrans->transformCollection($phones);
+                }
 
-        if ($phones) {
-            $phoneTrans = new PhoneTransformer;
-            $phones = $phoneTrans->transformCollection($phones);
-        }
-
-        if ($emails) {
-            $emailTrans = new EmailTransformer;
-            $emails = $emailTrans->transformCollection($emails);
-        }
+                if ($emails) {
+                    $emailTrans = new EmailTransformer;
+                    $emails = $emailTrans->transformCollection($emails);
+                }*/
 
         return [
             'id' => (int)$item['id'],
@@ -46,8 +44,8 @@ class UserTransformer extends Transformer
             'name_last' => $item['name_last'],
             'name_postfix' => $item['name_postfix'],
             'name_phonetic' => $item['name_phonetic'],
-            'emails' => $emails,
-            'phones' => $phones
+            //  'emails' => $emails,
+            //  'phones' => $phones
         ];
     }
 }
