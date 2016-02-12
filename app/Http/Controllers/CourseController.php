@@ -239,4 +239,270 @@ class CourseController extends ApiController
         $result = User::where('username', $username)->firstOrFail()->course()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->courseTransformer->transformCollection($result->all()));
     }
+
+
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserCourse(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
+            'course_id' => 'integer|required|exists:courses,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::findOrFail($request->input('user_id'));
+        $course = Course::findOrFail($request->input('course_id'));
+        if (!$user->courses->contains($course->id)) {
+            $user->courses()->attach($course);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserCourseByUserId(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'course_id' => 'integer|required|exists:courses,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $course = Course::findOrFail($request->input('course_id'));
+        if (!$user->courses->contains($course->id)) {
+            $user->courses()->attach($course);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserCourseByUsername(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'username' => 'string|required|exists:users,username,deleted_at,NULL',
+            'course_id' => 'integer|required|exists:courses,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('username', $request->input('username'))->firstOrFail();
+        $course = Course::findOrFail($request->input('course_id'));
+        if (!$user->courses->contains($course->id)) {
+            $user->courses()->attach($course);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserCourseCode(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
+            'course_code' => 'string|required|exists:courses,code,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::findOrFail($request->input('user_id'));
+        $course = Course::where('code', $request->input('course_code'))->firstOrFail();
+        if (!$user->courses->contains($course->id)) {
+            $user->courses()->attach($course);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserCourseCodeByUserId(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'course_code' => 'string|required|exists:courses,code,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $course = Course::where('code', $request->input('course_code'))->firstOrFail();
+        if (!$user->courses->contains($course->id)) {
+            $user->courses()->attach($course);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function assignUserCourseCodeByUsername(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'username' => 'string|required|exists:users,username,deleted_at,NULL',
+            'course_code' => 'string|required|exists:courses,code,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('username', $request->input('username'))->firstOrFail();
+        $course = Course::where('code', $request->input('course_code'))->firstOrFail();
+        if (!$user->courses->contains($course->id)) {
+            $user->courses()->attach($course);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function unassignUserCourse(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
+            'course_id' => 'integer|required|exists:courses,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::findOrFail($request->input('user_id'));
+        $course = Course::findOrFail($request->input('course_id'));
+        if ($user->courses->contains($course->id)) {
+            $user->courses()->detach($course);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function unassignUserCourseByUserId(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'course_id' => 'integer|required|exists:courses,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $course = Course::findOrFail($request->input('course_id'));
+        if ($user->courses->contains($course->id)) {
+            $user->courses()->detach($course);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function unassignUserCourseByUsername(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'username' => 'string|required|exists:users,username,deleted_at,NULL',
+            'course_id' => 'integer|required|exists:courses,id,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('username', $request->input('username'))->firstOrFail();
+        $course = Course::findOrFail($request->input('course_id'));
+        if ($user->courses->contains($course->id)) {
+            $user->courses()->detach($course);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function unassignUserCourseCode(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
+            'course_code' => 'string|required|exists:courses,code,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::findOrFail($request->input('user'));
+        $course = Course::where('code', $request->input('course_code'))->firstOrFail();
+        if ($user->courses->contains($course->id)) {
+            $user->courses()->detach($course);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function unassignUserCourseCodeByUserId(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'course_code' => 'string|required|exists:courses,code,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $course = Course::where('code', $request->input('course_code'))->firstOrFail();
+        if ($user->courses->contains($course->id)) {
+            $user->courses()->detach($course);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function unassignUserCourseCodeByUsername(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'username' => 'string|required|exists:users,username,deleted_at,NULL',
+            'course_code' => 'string|required|exists:courses,code,deleted_at,NULL'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $user = User::where('username', $request->input('username'))->firstOrFail();
+        $course = Course::where('code', $request->input('course_code'))->firstOrFail();
+        if ($user->courses->contains($course->id)) {
+            $user->courses()->detach($course);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        } else {
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+        }
+    }
 }

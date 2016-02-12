@@ -62,7 +62,7 @@
  */
 
 /**
- * @api {post} /passwords/user_id POST: Create/Update Password by User Identifier
+ * @api {post} /passwords/user_identifier POST: Create/Update Password by User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Passwords
  * @apiDescription This method creates a new password, or updates an password object with the specified user identifier.
@@ -80,7 +80,7 @@
  *      -X "POST" \
  *      --data "user_identifier=04986732" \
  *      --data "password=qwertyuiop1234567890" \
- *      --url https://databridge.sage.edu/api/v1/passwords/user_id
+ *      --url https://databridge.sage.edu/api/v1/passwords/user_identifier
  *
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
@@ -187,7 +187,7 @@
  */
 
 /**
- * @api {delete} /passwords/user_id DELETE: Destroy by User Identifier
+ * @api {delete} /passwords/user_identifier DELETE: Destroy by User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Passwords
  * @apiDescription This method deletes a Password object, a user's unique identifier string is supplied.
@@ -206,7 +206,7 @@
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user_id=04986732" \
- *      --url https://databridge.sage.edu/api/v1/passwords/user_id
+ *      --url https://databridge.sage.edu/api/v1/passwords/user_identifier
  *
  * @apiUse ModelNotFoundError
  */
@@ -285,7 +285,7 @@
  */
 
 /**
- * @api {get} /passwords/user_id/:user_identifier GET: By User Identifier
+ * @api {get} /passwords/user_identifier/:user_identifier GET: By User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Passwords
  * @apiDescription This method returns Password objects associated with the Identifier that was supplied.
@@ -300,7 +300,7 @@
  *      uud -o passwords -p user_id/979659
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/passwords/user_id/979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/passwords/user_identifier/979659
  *
  * @apiUse PasswordSuccess
  * @apiUse GetPasswordSuccessResultExample

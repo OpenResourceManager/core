@@ -130,20 +130,18 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('departments/code/{code}', 'DepartmentController@showByCode'); // Documented
         Route::get('departments/course/{id}', 'DepartmentController@courseDepartment'); // Documented
         Route::get('departments/course/code/{code}', 'DepartmentController@courseDepartmentByCode'); // Documented
-
-        Route::post('departments/user', 'DepartmentController@assignUserDepartment');
-        Route::post('departments/user_identifier', 'DepartmentController@assignUserDepartmentByUserId');
-        Route::post('departments/username', 'DepartmentController@assignUserDepartmentByUsername');
-        Route::post('departments/code/user', 'DepartmentController@assignUserDepartmentCode');
-        Route::post('departments/code/user_identifier', 'DepartmentController@assignUserDepartmentCodeByUserId');
+        Route::post('departments/user', 'DepartmentController@assignUserDepartment'); // Documented
+        Route::post('departments/user_identifier', 'DepartmentController@assignUserDepartmentByUserId'); // Documented
+        Route::post('departments/username', 'DepartmentController@assignUserDepartmentByUsername'); // Documented
+        Route::post('departments/code/user', 'DepartmentController@assignUserDepartmentCode'); // Documented
+        Route::post('departments/code/user_identifier', 'DepartmentController@assignUserDepartmentCodeByUserId'); // Documented
         Route::post('departments/code/username', 'DepartmentController@assignUserDepartmentCodeByUsername');
-        Route::delete('departments/user', 'DepartmentController@unassignUserDepartment');
-        Route::delete('departments/user_identifier', 'DepartmentController@unassignUserDepartmentByUserId');
-        Route::delete('departments/username', 'DepartmentController@unassignUserDepartmentByUsername');
-        Route::delete('departments/code/user', 'DepartmentController@unassignUserDepartmentCode');
-        Route::delete('departments/code/user_identifier', 'DepartmentController@unassignUserDepartmentCodeByUserId');
-        Route::delete('departments/code/username', 'DepartmentController@unassignUserDepartmentCodeByUsername');
-        
+        Route::delete('departments/user', 'DepartmentController@unassignUserDepartment'); // Documented
+        Route::delete('departments/user_identifier', 'DepartmentController@unassignUserDepartmentByUserId'); // Documented
+        Route::delete('departments/username', 'DepartmentController@unassignUserDepartmentByUsername'); // Documented
+        Route::delete('departments/code/user', 'DepartmentController@unassignUserDepartmentCode'); // Documented
+        Route::delete('departments/code/user_identifier', 'DepartmentController@unassignUserDepartmentCodeByUserId'); // Documented
+        Route::delete('departments/code/username', 'DepartmentController@unassignUserDepartmentCodeByUsername'); // Documented
         Route::delete('departments/code/{code}', 'DepartmentController@destroyByCode'); // Documented
 
 
@@ -155,6 +153,20 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('courses/department/{id}', 'CourseController@departmentCourses'); // Documented
         Route::get('courses/department/code/{code}', 'CourseController@departmentCoursesByCode'); // Documented
         Route::post('courses/department/code', 'CourseController@storeByDepartmentCode'); // Documented
+
+        Route::post('courses/user', 'CourseController@assignUserCourse');
+        Route::post('courses/user_identifier', 'CourseController@assignUserCourseByUserId');
+        Route::post('courses/username', 'CourseController@assignUserCourseByUsername');
+        Route::post('courses/code/user', 'CourseController@assignUserCourseCode');
+        Route::post('courses/code/user_identifier', 'CourseController@assignUserCourseCodeByUserId');
+        Route::post('courses/code/username', 'CourseController@assignUserCourseCodeByUsername');
+        Route::delete('courses/user', 'CourseController@unassignUserCourse');
+        Route::delete('courses/user_identifier', 'CourseController@unassignUserCourseByUserId');
+        Route::delete('courses/username', 'CourseController@unassignUserCourseByUsername');
+        Route::delete('courses/code/user', 'CourseController@unassignUserCourseCode');
+        Route::delete('courses/code/user_identifier', 'CourseController@unassignUserCourseCodeByUserId');
+        Route::delete('courses/code/username', 'CourseController@unassignUserCourseCodeByUsername');
+        
         Route::delete('courses/code/{code}', 'CourseController@destroyByCode'); // Documented
 
 
