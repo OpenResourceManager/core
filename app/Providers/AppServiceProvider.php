@@ -17,23 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
-        // set deleting event for campus. Should delete all children buildings.
-        Campus::deleting(function ($campus) {
-            $campus->buildings()->delete();
-        });
-
-        // set deleting event for building. Should delete all children rooms.
-        Building::deleting(function ($building) {
-            $building->rooms()->delete();
-        });
-
-        User::deleting(function ($user) {
-            $user->emails()->delete();
-            $user->phones()->delete();
-            $user->password()->delete();
-            $user->addresses()->delete();
-        });
+        //
     }
 
     /**
