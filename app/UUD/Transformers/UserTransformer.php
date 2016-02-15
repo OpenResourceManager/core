@@ -44,6 +44,7 @@ class UserTransformer extends Transformer
             'name_last' => $item['name_last'],
             'name_postfix' => $item['name_postfix'],
             'name_phonetic' => $item['name_phonetic'],
+            'primary_role' => $item['primary_role'],
             //  'emails' => $emails,
             //  'phones' => $phones
         ];

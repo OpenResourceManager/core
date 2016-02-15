@@ -76,10 +76,16 @@ class UserController extends ApiController
             'name_last' => 'string|required|min:1',
             'name_postfix' => 'string|max:7',
             'name_phonetic' => 'string',
-            'username' => 'string|required|min:3|unique:users,deleted_at,NULL'
+            'username' => 'string|required|min:3|unique:users,deleted_at,NULL',
+            'primary_role' => 'integer',
+            'primary_role_code' => 'string|exists:roles,code,deleted_at,NULL',
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $item = User::updateOrCreate(['user_identifier' => Input::get('user_identifier')], Input::all());
+        $user = Input::all();
+        if (Input::get('primary_role_code')) {
+            $user['primary_role'] = Role::where('code', Input::get('primary_role_code'))->firstOrFail()->id;
+        }
+        $item = User::updateOrCreate(['user_identifier' => Input::get('user_identifier')], $user);
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
 

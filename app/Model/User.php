@@ -23,7 +23,8 @@ class User extends BaseModel
         'name_last',
         'name_postfix',
         'name_phonetic',
-        'username'
+        'username',
+        'primary_role'
     ];
 
     public function password()

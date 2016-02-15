@@ -16,6 +16,8 @@
  * @apiParam (User Parameters) {String} [name_postfix] The user's name postfix, if there is one.
  * @apiParam (User Parameters) {String} [name_phonetic] The user's phonetic name, if there is one.
  * @apiParam (User Parameters) {String} username The user's username string.
+ * @apiParam (User Parameters) {String} [primary_role] The id of the user's primary role. If not filled out, defaults to 1.
+ * @apiParam (User Parameters) {String} [primary_role_code] The code of the user's primary role. This overrides the `primary_role` field.
  */
 
 /**
@@ -29,6 +31,7 @@
  * @apiSuccess (Success 2xx: User) {String} name_postfix The user's name postfix, if there is one.
  * @apiSuccess (Success 2xx: User) {String} name_phonetic The user's phonetic name, if there is one.
  * @apiSuccess (Success 2xx: User) {String} username The user's username string.
+ * @apiSuccess (Success 2xx: User) {String} primary_role The id of the user's primary role.
  */
 
 /**
@@ -55,7 +58,8 @@
  *                  "name_middle": "Irwin",
  *                  "name_last": "Fritsch",
  *                  "name_postfix": "Dr.",
- *                  "name_phonetic": null
+ *                  "name_phonetic": null,
+ *                  "primary_role": 1
  *              },
  *              {
  *                  "id": 2,
@@ -66,7 +70,8 @@
  *                  "name_middle": "Reva",
  *                  "name_last": "Pfeffer",
  *                  "name_postfix": "Dr.",
- *                  "name_phonetic": null
+ *                  "name_phonetic": null,
+ *                  "primary_role": 3
  *              },
  *              {
  *                  "id": 3,
@@ -77,7 +82,8 @@
  *                  "name_middle": null,
  *                  "name_last": "Kirlin",
  *                  "name_postfix": "Mr.",
- *                  "name_phonetic": "Jerald"
+ *                  "name_phonetic": "Jerald",
+ *                  "primary_role": 2
  *              },
  *              {
  *                  "id": 4,
@@ -88,7 +94,8 @@
  *                  "name_middle": "Mollie",
  *                  "name_last": "Aufderhar",
  *                  "name_postfix": "Prof.",
- *                  "name_phonetic": "Shanna"
+ *                  "name_phonetic": "Shanna",
+ *                  "primary_role": 2
  *              },
  *              {
  *                  "id": 5,
@@ -99,7 +106,8 @@
  *                  "name_middle": "Nicholaus",
  *                  "name_last": "Lesch",
  *                  "name_postfix": "Dr.",
- *                  "name_phonetic": "Emanuel"
+ *                  "name_phonetic": "Emanuel",
+ *                  "primary_role": 1
  *              }
  *          ]
  *      }
@@ -122,7 +130,8 @@
  *              "name_middle": "Irwin",
  *              "name_last": "Fritsch",
  *              "name_postfix": "Dr.",
- *              "name_phonetic": null
+ *              "name_phonetic": null,
+ *              "primary_role": 1
  *          }
  *      }
  */

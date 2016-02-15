@@ -19,11 +19,12 @@ class RoleTableSeeder extends Seeder
 
         // Create an array of roles
         $roles = array(
+            'DEFAULT' => 'Default',
             'STUDENT' => 'Student',
             'EMPLOYEE' => 'Employee',
             'FACULTY' => 'Faculty',
             'ADJUNCT' => 'Adjunct',
-            'ALUMNI' =>   'Alumni',
+            'ALUMNI' => 'Alumni',
         );
 
         // Loop over the array and save the data to the database

@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('name_postfix')->nullable();
             $table->string('name_phonetic')->nullable();
             $table->string('username')->unique();
+            $table->boolean('primary_role')->default(1);
+            $table->foreign('primary_role')->references('id')->on('roles')->onDelete('set default');
             $table->timestamps();
             $table->softDeletes();
         });
