@@ -15,6 +15,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
@@ -43,6 +44,7 @@
  * @apiUse ApiSuccessExampleDestroy
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {Integer} id The role's unique ID.
  *
  * @apiExample {bash} UUD Client
@@ -67,6 +69,7 @@
  * @apiUse ApiSuccessExampleDestroy
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {String} code The role's unique code.
  *
  * @apiExample {bash} UUD Client
@@ -90,6 +93,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse PaginationParams
  *
  * @apiExample {bash} UUD Client
@@ -113,6 +117,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {Integer} id The role's unique ID.
  *
  * @apiExample {bash} UUD Client
@@ -137,6 +142,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {String} code The role's unique code.
  *
  * @apiExample {bash} UUD Client
@@ -161,6 +167,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {Integer} id The users unique ID.
  *
  * @apiExample {bash} UUD Client
@@ -185,6 +192,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {String} username The users unique username.
  *
  * @apiExample {bash} UUD Client
@@ -209,6 +217,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {String} user_identifier The user's unique identifier string.
  *
  * @apiExample {bash} UUD Client
@@ -233,6 +242,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse AssignNewRoleResultExample
@@ -261,6 +271,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse AssignNewRoleResultExample
@@ -289,6 +300,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse AssignNewRoleResultExample
@@ -317,6 +329,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse AssignNewRoleResultExample
@@ -345,6 +358,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse AssignNewRoleResultExample
@@ -373,6 +387,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse AssignNewRoleResultExample
@@ -401,6 +416,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse UnassignRoleResultExample
@@ -429,6 +445,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse UnassignRoleResultExample
@@ -457,6 +474,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse UnassignRoleResultExample
@@ -485,6 +503,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse UnassignRoleResultExample
@@ -513,6 +532,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse UnassignRoleResultExample
@@ -541,6 +561,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse UnassignRoleResultExample

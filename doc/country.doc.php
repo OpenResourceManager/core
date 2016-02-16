@@ -15,6 +15,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
@@ -44,6 +45,7 @@
  * @apiUse ApiSuccessExampleDestroy
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {Integer} id The country's unique ID.
  *
  * @apiExample {bash} UUD Client
@@ -68,6 +70,7 @@
  * @apiUse ApiSuccessExampleDestroy
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {String} code The country's unique identifier string.
  *
  * @apiExample {bash} UUD Client
@@ -91,6 +94,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse PaginationParams
  *
  * @apiExample {bash} UUD Client
@@ -114,6 +118,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {Integer} id The country's unique ID.
  *
  * @apiExample {bash} UUD Client
@@ -138,6 +143,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {String} code The country's unique identifier string.
  *
  * @apiExample {bash} UUD Client

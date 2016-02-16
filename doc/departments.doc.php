@@ -15,6 +15,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
@@ -44,6 +45,7 @@
  * @apiUse ApiSuccessExampleDestroy
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {Integer} id The department's unique ID.
  *
  * @apiExample {bash} UUD Client
@@ -67,6 +69,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse PaginationParams
  *
  * @apiExample {bash} UUD Client
@@ -90,6 +93,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {Integer} id The department's unique ID.
  *
  * @apiExample {bash} UUD Client
@@ -114,6 +118,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {String} id The department's unique code.
  *
  * @apiExample {bash} UUD Client
@@ -138,6 +143,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse PaginationParams
  *
  * @apiParam {Integer} id The courses' unique ID.
@@ -163,6 +169,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse PaginationParams
  *
  * @apiParam {String} id The courses' unique code.
@@ -189,6 +196,7 @@
  * @apiUse ApiSuccessExampleDestroy
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {String} code The department's unique code.
  *
  * @apiExample {bash} UUD Client
@@ -217,6 +225,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse AssignNewDepartmentResultExample
@@ -245,6 +254,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse AssignNewDepartmentResultExample
@@ -273,6 +283,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse AssignNewDepartmentResultExample
@@ -301,6 +312,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse AssignNewDepartmentResultExample
@@ -329,6 +341,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse AssignNewDepartmentResultExample
@@ -357,6 +370,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse AssignNewDepartmentResultExample
@@ -385,6 +399,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse UnassignDepartmentResultExample
@@ -413,6 +428,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse UnassignDepartmentResultExample
@@ -441,6 +457,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse UnassignDepartmentResultExample
@@ -469,6 +486,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse UnassignDepartmentResultExample
@@ -497,6 +515,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse UnassignDepartmentResultExample
@@ -525,6 +544,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse UnassignDepartmentResultExample

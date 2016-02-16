@@ -15,6 +15,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
@@ -44,6 +45,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
@@ -77,6 +79,7 @@
  * @apiUse ApiSuccessExampleDestroy
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {Integer} id The courses' unique ID.
  *
  * @apiExample {bash} UUD Client
@@ -101,6 +104,7 @@
  * @apiUse ApiSuccessExampleDestroy
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {String} code The courses' unique code.
  *
  * @apiExample {bash} UUD Client
@@ -124,6 +128,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse PaginationParams
  *
  * @apiExample {bash} UUD Client
@@ -147,6 +152,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {Integer} id The courses' unique ID.
  *
  * @apiExample {bash} UUD Client
@@ -171,6 +177,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {String} code The courses' unique code.
  *
  * @apiExample {bash} UUD Client
@@ -195,6 +202,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {Integer} id The users unique ID.
  *
  * @apiExample {bash} UUD Client
@@ -219,6 +227,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {String} username The users unique username.
  *
  * @apiExample {bash} UUD Client
@@ -243,6 +252,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {String} user_identifier The user's unique identifier string.
  *
  * @apiExample {bash} UUD Client
@@ -267,6 +277,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {Integer} id The departments unique ID.
  *
  * @apiExample {bash} UUD Client
@@ -291,6 +302,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {string} code The departments unique code.
  *
  * @apiExample {bash} UUD Client
@@ -315,6 +327,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse AssignNewCourseResultExample
@@ -343,6 +356,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse AssignNewCourseResultExample
@@ -371,6 +385,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse AssignNewCourseResultExample
@@ -399,6 +414,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse AssignNewCourseResultExample
@@ -427,6 +443,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse AssignNewCourseResultExample
@@ -455,6 +472,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse AssignNewCourseResultExample
@@ -483,6 +501,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse UnassignCourseResultExample
@@ -511,6 +530,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse UnassignCourseResultExample
@@ -539,6 +559,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse UnassignCourseResultExample
@@ -567,6 +588,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse UnassignCourseResultExample
@@ -595,6 +617,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse UnassignCourseResultExample
@@ -623,6 +646,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse UnprocessableEntityErrors
  *
  * @apiUse UnassignCourseResultExample

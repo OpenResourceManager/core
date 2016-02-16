@@ -11,6 +11,9 @@
  * @apiError (Error: 4xx) {Boolean} success Tells the application if the request was successful.
  * @apiError (Error: 4xx) {Integer} status_code The HTTP status code of the request, this is also available in the header.
  * @apiError (Error: 4xx) {String[]} error An array containing a descriptions of each error.
+ * @apiError (Error: 5xx) {Boolean} success Tells the application if the request was successful.
+ * @apiError (Error: 5xx) {Integer} status_code The HTTP status code of the request, this is also available in the header.
+ * @apiError (Error: 5xx) {String[]} error An array containing a descriptions of each error.
  */
 
 /**
@@ -42,6 +45,7 @@
  *      HTTP/1.1 400 Bad Request
  *      {
  *          "success": false,
+ *          "status_code": 400,
  *          "error": [
  *              "X-Authorization: Header Option Not Found."
  *          ]
@@ -51,6 +55,7 @@
  *      HTTP/1.1 403 Forbidden
  *      {
  *          "success": false,
+ *          "status_code": 403,
  *          "error": [
  *              "X-Authorization: Insufficient privileges."
  *          ]
@@ -60,6 +65,7 @@
  *      HTTP/1.1 403 Forbidden
  *      {
  *          "success": false,
+ *          "status_code": 403,
  *          "error": [
  *              "X-Authorization: API Key is not valid."
  *          ]
@@ -109,6 +115,21 @@
  *              "The <Field Name> may not be greater than <Maximum Number> characters."
  *          ]
  *      }
+ */
+
+/**
+ * @apiDefine InternalServerErrors
+ * @apiError (Model Error: 5xx) {String} InternalServerError There is a server side issue, there may or may not be an issue with your request.
+ * @apiErrorExample {json} Error: Internal Server Error
+ *      HTTP/1.1 500 Internal Server Error
+ *      {
+ *          "success": false,
+ *          "status_code": 500,
+ *          "error": [
+ *              "There is an issue with the current LDAP configuration."
+ *          ]
+ *      }
+ *
  */
 
 /**

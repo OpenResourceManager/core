@@ -15,6 +15,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
@@ -42,6 +43,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
@@ -70,6 +72,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
@@ -99,6 +102,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiUse PaginationParams
  *
  * @apiExample {bash} UUD Client
@@ -122,6 +126,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {Integer} id The email's unique ID.
  *
  * @apiExample {bash} UUD Client
@@ -147,6 +152,7 @@
  * @apiUse ApiSuccessExampleDestroy
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {Integer} id The email's unique ID.
  *
  * @apiExample {bash} UUD Client
@@ -171,6 +177,7 @@
  * @apiUse ApiSuccessExampleDestroy
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {String} email The email address.
  *
  * @apiExample {bash} UUD Client
@@ -195,6 +202,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {Integer} id The users unique ID.
  *
  * @apiExample {bash} UUD Client
@@ -219,6 +227,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {String} username The users unique username.
  *
  * @apiExample {bash} UUD Client
@@ -243,6 +252,7 @@
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
  * @apiParam {String} user_identifier The user's unique identifier string.
  *
  * @apiExample {bash} UUD Client
