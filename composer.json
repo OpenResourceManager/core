@@ -30,7 +30,6 @@
         "classmap": [
             "tests/TestCase.php",
             "tests/UsersTest.php",
-            "tests/BuildingsTest.php",
             "tests/helpers"
         ]
     },
