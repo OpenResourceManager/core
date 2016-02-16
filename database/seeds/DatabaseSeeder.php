@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         // Base Tables
+        $this->call('RoleTableSeeder');
         $this->call('UserTableSeeder');
         $this->call('PasswordTableSeeder');
         $this->call('EmailTableSeeder');
@@ -28,7 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call('AddressTableSeeder');
         $this->call('DepartmentTableSeeder');
         $this->call('CourseTableSeeder');
-        $this->call('RoleTableSeeder');
         $this->call('ApikeyTableSeeder');
         // Pivot Tables
         $this->call('UserCourseTableSeeder');

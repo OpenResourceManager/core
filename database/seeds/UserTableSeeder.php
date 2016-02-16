@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Crypt;
 use App\Model\User;
+use App\Model\Role;
 use Faker\Factory as Faker;
 
 /**
@@ -21,6 +22,8 @@ class UserTableSeeder extends Seeder
 
         $faker = Faker::create();
 
+        $roleIds = Role::lists('id')->all();
+
         foreach (range(1, 150) as $index) {
             User::create([
                 'user_identifier' => strval($faker->unique()->randomNumber($nbDigits = 7, $strict = true)),
@@ -30,7 +33,8 @@ class UserTableSeeder extends Seeder
                 'name_last' => $faker->lastName,
                 'name_postfix' => $faker->optional()->title,
                 'name_phonetic' => $faker->optional()->firstName,
-                'username' => $faker->unique()->userName
+                'username' => $faker->unique()->userName,
+                'primary_role' => $faker->randomElement($roleIds)
             ]);
         }
     }

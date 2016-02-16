@@ -12,6 +12,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_identifier')->unique();
@@ -22,8 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('name_postfix')->nullable();
             $table->string('name_phonetic')->nullable();
             $table->string('username')->unique();
-            $table->boolean('primary_role')->default(1);
-            $table->foreign('primary_role')->references('id')->on('roles')->onDelete('set default');
+            $table->integer('primary_role')->unsigned()->nullable();
+            $table->foreign('primary_role')->references('id')->on('roles')->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -36,6 +37,10 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        Schema::table('courses', function (Blueprint $table) {
+            $table->dropForeign('users_primary_role_id_foreign');
+        });
+
         Schema::drop('users');
     }
 }

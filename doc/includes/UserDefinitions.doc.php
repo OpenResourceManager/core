@@ -20,6 +20,7 @@
  * @apiParam (User Parameters) {String} [primary_role_code] The code of the user's primary role. This overrides the `primary_role` field.
  */
 
+
 /**
  * @apiDefine UserSuccess
  * @apiSuccess (Success 2xx: User) {Integer} id The numeric id assigned to the user by the database.
