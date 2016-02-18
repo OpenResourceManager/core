@@ -146,11 +146,11 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\UudLdapBridge::class,
 
         /**
          * Third Party Providers...
          */
+        App\UUD\LDAP\Providers\LdapServiceProvider::class,
 
     ],
 

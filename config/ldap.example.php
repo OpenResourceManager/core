@@ -4,6 +4,9 @@
  * User: melon
  * Date: 2/15/16
  * Time: 8:09 AM
+ *
+ * To begin copy this file to a new file called `ldap.php` and make sure it is in the config directory.
+ *
  */
 
 return [
@@ -21,24 +24,35 @@ return [
      */
     'ldap_hosts'                => ['ldap-dc1.domain.tld', 'ldap-dc2.domain.tld'],
     /**
-     * The port to communicate with ldap on
+     * The short domain name of your ldap domain
+     * Example: domain
+     */
+    'ldap_domain'               => 'domain',
+    /**
+     * The port to use for ldap
      * Example: 389
      * Example: 636
      */
-    'ldap_port'                 => 636,
+    'ldap_port'                 => 389,
     /**
-     * Should ldap over ssl/tls be used?
+     * Connect to ldap using ssl?
      */
-    'secure_ldap'               => true,
+    'ldap_secure'               => false,
     /**
-     * The user DN to that will be used to bind with LDAP.
-     * Example: 'CN=UUD,OU=Users,DC=DOMAIN,DC=TLD'
+     * The samAccountName that will be used to bind with LDAP.
+     * Example: 'BindUserName'
      */
-    'bind_user_dn'              => 'CN=UUD,OU=Users,DC=DOMAIN,DC=TLD',
+    'ldap_bind_user'            => 'BindUserName',
     /**
      * The password that belongs to the bind DN.
      */
-    'bind_user_password'        => 'SecretPassword',
+    'ldap_bind_password'        => 'SecretPassword',
+    /**
+     * Ldap The base of the LDAP tree.
+     * Example: OU=UUD,DC=DOMAIN,DC=TLD
+     * Example: DC=DOMAIN,DC=TLD
+     */
+    'ldap_tree_base'            => 'DC=DOMAIN,DC=TLD',
 
     ###################################################################
     #                                                                 #
@@ -49,7 +63,7 @@ return [
      * The base OU that users should reside in.
      * Example: 'OU=Users,DC=DOMAIN,DC=TLD'
      */
-    'base_user_ou'              => 'OU=Users,DC=DOMAIN,DC=TLD',
+    'base_user_ou_dn'           => 'OU=Users,OU=UUD,DC=DOMAIN,DC=TLD',
     /**
      * Should the bridge create users in LDAP?
      */
@@ -81,7 +95,7 @@ return [
      * This is the ou where groups will reside.
      * Example: OU=Groups,DC=DOMAIN,DC=TLD
      */
-    'base_group_ou'             => 'OU=Groups,DC=DOMAIN,DC=TLD',
+    'base_group_ou_dn'          => 'OU=Groups,OU=UUD,DC=DOMAIN,DC=TLD',
     /**
      * This prefix is put on all groups that UUD creates.
      * Example: uud
