@@ -23,7 +23,7 @@ class LdapController extends ApiController
     }
 
     /**
-     * @return bool|resource
+     * @return object
      */
     public function open_ldap()
     {
@@ -41,9 +41,9 @@ class LdapController extends ApiController
             ldap_set_option($connection, LDAP_OPT_PROTOCOL_VERSION, 3);
             ldap_set_option($connection, LDAP_OPT_REFERRALS, 0);
             $bind = @ldap_bind($connection, $ldap_domain . '\\' . $ldap_bind_user, $ldap_user_password);
-            if ($bind) return array(true, $connection);
+            if ($bind) return (object)array('started' => true, 'connection' => $connection);
         }
-        return array(false, $connection);
+        return (object)array('started' => false, 'connection' => $connection);
     }
 
     /**
