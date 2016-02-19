@@ -136,7 +136,7 @@ class LdapBridge extends ApiController
     }
 
     /**
-     * LdapController constructor.
+     * LdapBridge constructor.
      */
     function __construct()
     {
