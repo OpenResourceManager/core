@@ -22,12 +22,12 @@ class CourseTableSeeder extends Seeder
 
         $deptIds = Department::where('academic', true)->lists('id')->all();
 
-        foreach (range(1, 300) as $index) {
+        foreach (range(1, 100) as $index) {
             Course::create([
                 'department_id' => $faker->randomElement($deptIds),
                 'code' => $faker->unique()->text(7) . $faker->randomNumber(3, true),
                 'course_level' => $faker->randomElement([100, 200, 300, 400, 500]),
-                'name' => $faker->unique()->sentence
+                'name' => $faker->unique()->word
             ]);
         }
     }

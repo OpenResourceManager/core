@@ -99,9 +99,10 @@ return [
     'base_group_ou_dn'          => 'OU=Groups,OU=UUD,DC=DOMAIN,DC=TLD',
     /**
      * This prefix is put on all groups that UUD creates.
-     * Example: uud
+     * Example: uud_
+     * Set to null or '' to disable
      */
-    'group_prefix'              => 'uud',
+    'group_prefix'              => 'uud_',
     /**
      * Should the bridge create groups based on roles?
      */

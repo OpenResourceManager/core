@@ -510,7 +510,7 @@ class LdapBridge
      */
     public function map_group($name, $class)
     {
-        $cn = $this->group_prefix . '_' . $name;
+        $cn = (is_null($this->group_prefix) || empty($this->group_prefix)) ? $name : $this->group_prefix . $name;
         $ou_dn = 'OU=' . $class . ',' . $this->group_ou_dn;
         $group_dn = 'CN=' . $cn . ',' . $ou_dn;
         $this->create_ou($class, $ou_dn);

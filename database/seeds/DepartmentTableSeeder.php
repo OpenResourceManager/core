@@ -20,10 +20,17 @@ class DepartmentTableSeeder extends Seeder
         $faker = Faker::create();
 
         foreach (range(1, 100) as $index) {
+
+            $names = [
+                $faker->word . ' ' . $faker->word,
+                $faker->word . ' ' . $faker->word . $faker->word . ' ' . $faker->word,
+                implode(' ', $faker->words) . ' ' . $faker->word,
+            ];
+
             Department::create([
                 'academic' => $faker->boolean(40),
                 'code' => $faker->unique()->text(7),
-                'name' => $faker->unique()->company,
+                'name' => $faker->unique()->randomElement($names),
             ]);
         }
     }
