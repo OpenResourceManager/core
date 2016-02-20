@@ -405,7 +405,8 @@ class LdapBridge
     }
 
     /**
-     * @param $ldap
+     * @param string $message
+     * @return void
      */
     public function perform_ldap_error($message = '')
     {
@@ -415,8 +416,7 @@ class LdapBridge
     }
 
     /**
-     * @param $ldap
-     * @param $dn
+     * @param string $dn
      * @return bool
      */
     public function test_ou($dn)
@@ -447,11 +447,12 @@ class LdapBridge
     }
 
     /**
-     * @param $cn
+     * @param string $cn
+     * @param string $dn
+     * @return void
      */
-    public function create_ou($cn)
+    public function create_ou($cn, $dn)
     {
-        $dn = 'OU=' . $cn . ',' . $this->user_ou_dn;
         if (!$this->test_ou($dn)) {
             $new_ou = [
                 'objectClass' => ['top', 'organizationalUnit'],
@@ -460,5 +461,59 @@ class LdapBridge
             ];
             if (!ldap_add($this->connection, $dn, $new_ou)) $this->perform_ldap_error();
         }
+    }
+
+    /**
+     * @param string $cn
+     * @return void
+     */
+    public function map_role_ou($cn)
+    {
+        $this->create_ou($cn, 'OU=' . $cn . ',' . $this->user_ou_dn);
+    }
+
+    /**
+     * @param string $dn
+     * @return bool
+     */
+    public function test_group($dn)
+    {
+        $filter = '(&(objectClass=top)(objectClass=group)(distinguishedName=' . $dn . '))';
+        $results = ldap_get_entries($this->connection, ldap_search($this->connection, $this->base_ou_dn, $filter, array('objectGUID')));
+        return ($results['count'] > 0) ? true : false;
+    }
+
+    /**
+     * @param string $cn
+     * @param string $dn
+     * @return void
+     */
+    public function create_group($cn, $dn)
+    {
+        if (!$this->test_group($dn)) {
+            $new_group = [
+                'objectClass' => ['top', 'group'],
+                'distinguishedName' => $dn,
+                'cn' => $cn,
+                'groupType' => -2147483646,
+                'name' => $cn,
+                'sAMAccountName' => $cn
+            ];
+            if (!ldap_add($this->connection, $dn, $new_group)) $this->perform_ldap_error();
+        }
+    }
+
+    /**
+     * @param string $name
+     * @param string $class
+     * @return void
+     */
+    public function map_group($name, $class)
+    {
+        $cn = $this->group_prefix . '_' . $name;
+        $ou_dn = 'OU=' . $class . ',' . $this->group_ou_dn;
+        $group_dn = 'CN=' . $cn . ',' . $ou_dn;
+        $this->create_ou($class, $ou_dn);
+        $this->create_group($cn, $group_dn);
     }
 }
