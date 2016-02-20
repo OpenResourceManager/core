@@ -453,6 +453,7 @@ class LdapBridge
      */
     public function create_ou($cn, $dn)
     {
+        $time_start = microtime(true);
         if (!$this->test_ou($dn)) {
             $new_ou = [
                 'objectClass' => ['top', 'organizationalUnit'],
@@ -460,6 +461,7 @@ class LdapBridge
                 'ou' => $cn
             ];
             if (!ldap_add($this->connection, $dn, $new_ou)) $this->perform_ldap_error();
+            if ($this->debugging) Log::debug('LDAP OU took: ' . ((microtime(true) - $time_start) * 1000) . ' ms to create.');
         }
     }
 
@@ -490,6 +492,7 @@ class LdapBridge
      */
     public function create_group($cn, $dn)
     {
+        $time_start = microtime(true);
         if (!$this->test_group($dn)) {
             $new_group = [
                 'objectClass' => ['top', 'group'],
@@ -500,6 +503,7 @@ class LdapBridge
                 'sAMAccountName' => $cn
             ];
             if (!ldap_add($this->connection, $dn, $new_group)) $this->perform_ldap_error();
+            if ($this->debugging) Log::debug('LDAP Group took: ' . ((microtime(true) - $time_start) * 1000) . ' ms to create.');
         }
     }
 
