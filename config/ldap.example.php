@@ -70,6 +70,7 @@ return [
     'create_users'              => false,
     /**
      * Should the bridge delete users in LDAP?
+     * If this is set to false, users will be disabled instead of deleted.
      */
     'delete_users'              => false,
     /**
@@ -121,4 +122,9 @@ return [
      * Should the bridge create groups based on buildings?
      */
     'buildings_are_groups'      => false,
+    /**
+     * Enable debug logging. This has the potential to slow things down.
+     * This should be set to false on a production environment.
+     */
+    'debugging'                 => false,
 ];

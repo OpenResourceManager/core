@@ -7,11 +7,10 @@
  * Time: 3:21 PM
  */
 
-use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
-class LdapBridge extends ApiController
+class LdapBridge
 {
 
     /**
@@ -25,6 +24,19 @@ class LdapBridge extends ApiController
     public function enabled()
     {
         $this->enabled = Config::get('ldap.enable_ldap_bridge');
+    }
+
+    /**
+     * @var bool
+     */
+    public $debugging = false;
+
+    /**
+     * @return void
+     */
+    public function debugging()
+    {
+        $this->debugging = Config::get('ldap.debugging');
     }
 
     /**
@@ -314,7 +326,8 @@ class LdapBridge extends ApiController
         $this->courses_are_groups();
         $this->campuses_are_groups();
         $this->buildings_are_groups();
-        Log::debug('LDAP Settings took: ' . ((microtime(true) - $time_start) * 1000) . ' ms to load.');
+        $this->debugging();
+        if ($this->debugging) Log::debug('LDAP Settings took: ' . ((microtime(true) - $time_start) * 1000) . ' ms to load.');
     }
 
     /**
@@ -336,11 +349,11 @@ class LdapBridge extends ApiController
                 ldap_set_option($this->connection, LDAP_OPT_REFERRALS, 0);
                 $bind = @ldap_bind($this->connection, $this->domain . '\\' . $this->bind_user, $this->bind_password);
                 if ($bind) {
-                    Log::debug('LDAP Connect took: ' . ((microtime(true) - $time_start) * 1000) . ' ms to establish a connection.');
+                    if ($this->debugging) Log::debug('LDAP Connect took: ' . ((microtime(true) - $time_start) * 1000) . ' ms to establish a connection.');
                     return $this->connection;
                 }
             }
-            Log::debug('LDAP Connect took: ' . ((microtime(true) - $time_start) * 1000) . ' ms, but failed to establish a connection.');
+            if ($this->debugging) Log::debug('LDAP Connect took: ' . ((microtime(true) - $time_start) * 1000) . ' ms, but failed to establish a connection.');
             $this->perform_ldap_error();
         }
     }
@@ -358,8 +371,8 @@ class LdapBridge extends ApiController
             $time_start2 = microtime(true);
             $this->test_user_ou();
             $this->test_group_ou();
-            Log::debug('LDAP OU Tests took: ' . ((microtime(true) - $time_start2) * 1000) . ' ms to verify.');
-            Log::debug('LDAP Bridge took: ' . ((microtime(true) - $time_start1) * 1000) . ' ms to construct.');
+            if ($this->debugging) Log::debug('LDAP OU Tests took: ' . ((microtime(true) - $time_start2) * 1000) . ' ms to verify.');
+            if ($this->debugging) Log::debug('LDAP Bridge took: ' . ((microtime(true) - $time_start1) * 1000) . ' ms to construct.');
         }
     }
 
@@ -430,6 +443,22 @@ class LdapBridge extends ApiController
     {
         if (!$this->test_ou($this->group_ou_dn)) {
             $this->perform_ldap_error('The base OU for groups could not be found');
+        }
+    }
+
+    /**
+     * @param $cn
+     */
+    public function create_ou($cn)
+    {
+        $dn = 'OU=' . $cn . ',' . $this->user_ou_dn;
+        if (!$this->test_ou($dn)) {
+            $new_ou = [
+                'objectClass' => ['top', 'organizationalUnit'],
+                'distinguishedName' => $dn,
+                'ou' => $cn
+            ];
+            if (!ldap_add($this->connection, $dn, $new_ou)) $this->perform_ldap_error();
         }
     }
 }
