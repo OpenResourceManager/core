@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
 
 class LDAPTestsSeeder extends Seeder
 {
@@ -14,11 +15,15 @@ class LDAPTestsSeeder extends Seeder
     {
         Model::unguard();
 
+        $time_start = microtime(true);
+
         $this->call('ProductionSeeder');
         $this->call('CampusTableSeeder');
         $this->call('BuildingTableSeeder');
         $this->call('DepartmentTableSeeder');
         $this->call('CourseTableSeeder');
+
+        Log::debug('LDAP took: ' . ((microtime(true) - $time_start) * 1000) . ' ms to seed data.');
 
         Model::reguard();
     }
