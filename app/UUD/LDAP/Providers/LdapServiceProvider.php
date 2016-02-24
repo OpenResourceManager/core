@@ -8,6 +8,7 @@ use App\Model\Course;
 use App\Model\Department;
 use App\Model\Role;
 use App\Model\User;
+use Illuminate\Support\Facades\Log;
 use App\UUD\LDAP\LdapBridge;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,14 +23,18 @@ class LdapServiceProvider extends ServiceProvider
     {
         // While a User is being created
         User::creating(function ($user) {
+            $time_start = microtime(true);
             // Create a new bridge object
             $bridge = new LdapBridge();
             // Is the bridge enabled?
             if ($bridge->enabled) {
+                $debug = $bridge->debugging;
                 // Pass the user model to creation function
                 $bridge->create_user($user);
                 // Close LDAP connection
                 $bridge->demolish();
+                if ($debug) Log::debug('LDAP Create User took: ' . ((microtime(true) - $time_start) * 1000) . ' ms to execute.');
+                Die();
             }
         });
 

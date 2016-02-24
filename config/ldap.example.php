@@ -86,12 +86,12 @@ return [
     'home_drive_letter'         => 'h',
     /**
      * This is the path to the homes share for users.
-     * Between the curly brackets place a valid LDAP user attribute that home shares are name after.
-     * Example: \\\\fs.domain.tld\\homes\\{sAMAccountName}
-     * Example: \\\\fs.domain.tld\\homes\\{employeeID}
-     * Example: \\\\fs.domain.tld\\homes\\{sAMAccountName}\\files
+     * Between percent signs place a valid LDAP user attribute that home shares are name after.
+     * Example: \\\\fs.domain.tld\\homes\\%sAMAccountName%
+     * Example: \\\\fs.domain.tld\\homes\\%employeeID%
+     * Example: \\\\fs.domain.tld\\homes\\%sAMAccountName%\\files
      */
-    'home_drive_path'           => '\\\\fs.domain.tld\\homes\\{LDAP_Attribute}',
+    'home_drive_path'           => '\\\\fs.domain.tld\\homes\\%LDAP_Attribute%',
     /**
      * The user's email domain
      */

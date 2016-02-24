@@ -828,19 +828,90 @@ class LdapBridge
         return $dec;
     }
 
+    /**
+     * @param User $user
+     * @return string
+     */
+    public function displayName_field(User $user)
+    {
+        return $user->full_name;
+    }
+
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function employeeID_field(User $user)
+    {
+        return $user->user_identifier;
+    }
+
+    /**
+     * @param User $user
+     * @return string
+     */
+    public function extensionName_field(User $user)
+    {
+        $name = $user->format_last_name() . ', ' . $user->format_first_name();
+        $middle = $user->format_middle_name();
+        if (!empty($middle)) $name = $name . ' ' . $middle;
+        return $name;
+    }
+
+    /**
+     * @param User $user
+     * @return string
+     */
+    public function givenName_field(User $user)
+    {
+        return $user->format_last_name();
+    }
+
+    /**
+     * @param User $user
+     * @return string
+     */
+    public function homeDirectory_field(User $user)
+    {
+        $raw_path = $this->home_drive_path;
+        $path_arr = explode('%', $raw_path);
+        $attribute = strtolower($path_arr[1]);
+        switch ($attribute) {
+            case 'samaccountname' :
+                $path = $path_arr[0] . $this->sAMAccountName_field($user);
+                if (!empty($path_arr[2]) && isset($path_arr[2])) $path = $path . $path_arr[2];
+                return $path;
+                break;
+            case 'employeeid' :
+                $path = $path_arr[0] . $this->employeeID_field($user);
+                if (!empty($path_arr[2]) && isset($path_arr[2])) $path = $path . $path_arr[2];
+                return $path;
+                break;
+            default:
+                $this->perform_ldap_error('LDAP Attribute: ' . $attribute . ' is not a recognized as a valid home drive attribute!');
+        }
+
+    }
+
     public function create_user(User $user)
     {
         // Check to see if we have a user in LDAP with this info
         $user_test_results = $this->check_existing_user($user);
         $user_existed_in_ldap = $user_test_results[0];
         $existing_ldap_info = $user_test_results[1];
+        // Gather properties of LDAP user
         $dn = $this->distinguishedName_field($user);
         $cn = $this->commonName_field($user);
         $mail = $this->mail_field($user);
         $samAccount = $this->sAMAccountName_field($user);
         $objectClass = $this->objectClass_field();
         $description = $this->description_field($user, $user_existed_in_ldap, $existing_ldap_info);
+        $displayName = $this->displayName_field($user);
+        $employeeID = $this->employeeID_field($user);
+        $extensionName = $this->extensionName_field($user);
+        $givenName = $this->givenName_field($user);
+        $homeDirectory = $this->homeDirectory_field($user);
         // Die here, for testing
-        Die($description);
+        Die($homeDirectory);
     }
 }
