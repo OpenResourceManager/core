@@ -893,6 +893,50 @@ class LdapBridge
 
     }
 
+    /**
+     * @return string
+     */
+    public function homeDrive_field()
+    {
+        return $this->home_drive_letter . ':';
+    }
+
+    /**
+     * @param User $user
+     * @return string
+     */
+    public function middleName_field(User $user)
+    {
+        return $user->format_middle_name();
+    }
+
+    /**
+     * @param User $user
+     * @return string
+     */
+    public function name_field(User $user)
+    {
+        return $user->full_name;
+    }
+
+    /**
+     * @param User $user
+     * @return string
+     */
+    public function sn_field(User $user)
+    {
+        return $user->format_last_name();
+    }
+
+    /**
+     * @param User $user
+     * @return string
+     */
+    public function userPrincipalName_field(User $user)
+    {
+        return trim(strtolower($user->username . '@' . $this->email_domain));
+    }
+
     public function create_user(User $user)
     {
         // Check to see if we have a user in LDAP with this info
@@ -900,18 +944,23 @@ class LdapBridge
         $user_existed_in_ldap = $user_test_results[0];
         $existing_ldap_info = $user_test_results[1];
         // Gather properties of LDAP user
-        $dn = $this->distinguishedName_field($user);
-        $cn = $this->commonName_field($user);
-        $mail = $this->mail_field($user);
-        $samAccount = $this->sAMAccountName_field($user);
-        $objectClass = $this->objectClass_field();
+        $commonName = $this->commonName_field($user);
         $description = $this->description_field($user, $user_existed_in_ldap, $existing_ldap_info);
         $displayName = $this->displayName_field($user);
+        $distinguishedName = $this->distinguishedName_field($user);
         $employeeID = $this->employeeID_field($user);
         $extensionName = $this->extensionName_field($user);
         $givenName = $this->givenName_field($user);
         $homeDirectory = $this->homeDirectory_field($user);
+        $homeDrive = $this->homeDrive_field();
+        $mail = $this->mail_field($user);
+        $middleName = $this->middleName_field($user);
+        $name = $this->name_field($user);
+        $objectClass = $this->objectClass_field();
+        $samAccountName = $this->sAMAccountName_field($user);
+        $sn = $this->sn_field($user);
+        $userPrincipalName = $this->userPrincipalName_field($user);
         // Die here, for testing
-        Die($homeDirectory);
+        //Die($homeDrive);
     }
 }
