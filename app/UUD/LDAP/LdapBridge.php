@@ -7,6 +7,9 @@
  * Time: 3:21 PM
  */
 
+use App\Model\Role;
+use App\Model\User;
+use DateTime;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
@@ -184,6 +187,45 @@ class LdapBridge
     }
 
     /**
+     * @var string
+     */
+    public $home_drive_letter;
+
+    /**
+     * @return void
+     */
+    public function home_drive_letter()
+    {
+        $this->home_drive_letter = strtoupper(trim(Config::get('ldap.home_drive_letter'))[0]);
+    }
+
+    /**
+     * @var string
+     */
+    public $home_drive_path;
+
+    /**
+     * @return void
+     */
+    public function home_drive_path()
+    {
+        $this->home_drive_path = Config::get('ldap.home_drive_path');
+    }
+
+    /**
+     * @var string
+     */
+    public $email_domain;
+
+    /**
+     * @return void
+     */
+    public function email_domain()
+    {
+        $this->email_domain = strtolower(trim(ltrim(Config::get('ldap.email_domain'), '@')));
+    }
+
+    /**
      * @var bool
      */
     public $create_groups;
@@ -317,6 +359,9 @@ class LdapBridge
         $this->create_users();
         $this->delete_users();
         $this->roles_map_to_ou();
+        $this->home_drive_letter();
+        $this->home_drive_path();
+        $this->email_domain();
         $this->create_groups();
         $this->delete_groups();
         $this->group_ou_dn();
@@ -388,6 +433,46 @@ class LdapBridge
     }
 
     /**
+     * @param string $time
+     * @param string $output_format
+     * @return bool|string
+     */
+    public function convert_ldap_time($time, $output_format)
+    {
+        $ldap = DateTime::createFromFormat('YmdHis', rtrim($time, '.0Z'));
+        if (!$ldap) $ldap = DateTime::createFromFormat('Ymdhis', rtrim($time, '.0Z'));
+        return ($ldap) ? $ldap->format($output_format) : false;
+    }
+
+    /**
+     * @param string $dateString
+     * @return bool
+     */
+    public function is_valid_date($dateString)
+    {
+        return (bool)strtotime($dateString);
+    }
+
+    /**
+     * @param string $filter
+     * @param array $attributes
+     * @return array
+     */
+    public function query_ldap($filter = '', $attributes = array('*'), $binary = false)
+    {
+        $time_start = microtime(true);
+        if ($binary) {
+            $search = ldap_search($this->connection, $this->base_ou_dn, $filter);
+            $results = ldap_get_values_len($this->connection, ldap_first_entry($this->connection, $search), $attributes);
+        } else {
+            $search = ldap_search($this->connection, $this->base_ou_dn, $filter, $attributes);
+            $results = ldap_get_entries($this->connection, $search);
+        }
+        if ($this->debugging) Log::debug('LDAP Query took: ' . ((microtime(true) - $time_start) * 1000) . 'ms execute.');
+        return $results;
+    }
+
+    /**
      * @param string $message
      * @return string
      */
@@ -421,8 +506,11 @@ class LdapBridge
      */
     public function test_ou($dn)
     {
+        $time_start = microtime(true);
         $filter = '(&(objectClass=top)(|(objectClass=organizationalUnit)(objectClass=container))(distinguishedName=' . $dn . '))';
-        $results = ldap_get_entries($this->connection, ldap_search($this->connection, $this->base_ou_dn, $filter, array('objectGUID')));
+        $attributes = array('objectGUID');
+        $results = $this->query_ldap($filter, $attributes);
+        if ($this->debugging) Log::debug('LDAP OU - ' . $dn . ' - took: ' . ((microtime(true) - $time_start) * 1000) . ' ms to test.');
         return ($results['count'] > 0) ? true : false;
     }
 
@@ -481,7 +569,8 @@ class LdapBridge
     public function test_group($dn)
     {
         $filter = '(&(objectClass=top)(objectClass=group)(distinguishedName=' . $dn . '))';
-        $results = ldap_get_entries($this->connection, ldap_search($this->connection, $this->base_ou_dn, $filter, array('objectGUID')));
+        $attributes = array('objectGUID');
+        $results = $this->query_ldap($filter, $attributes);
         return ($results['count'] > 0) ? true : false;
     }
 
@@ -519,5 +608,239 @@ class LdapBridge
         $group_dn = 'CN=' . $cn . ',' . $ou_dn;
         $this->create_ou($class, $ou_dn);
         $this->create_group($cn, $group_dn);
+    }
+
+    /**
+     * @param string $username
+     * @return array|bool
+     */
+    public function find_user_username($username = '')
+    {
+        if (!empty(trim($username))) {
+            $filter = '(&(objectClass=top)(objectClass=person)(objectClass=user)(sAMAccountName=' . $username . '))';
+            $attributes = [
+                'cn',
+                'distinguishedName',
+                'employeeID',
+                'description',
+                'displayName',
+                'extensionName',
+                'givenName',
+                'homeDirectory',
+                'homeDrive',
+                'mail',
+                'middleName',
+                'name',
+                'objectCategory',
+                'objectClass',
+                'primaryGroupID',
+                'sAMAccountName',
+                'sAMAccountType',
+                'sn',
+                'telephoneNumber',
+                'userPrincipalName',
+                'whenCreated',
+                'whenChanged',
+            ];
+            $results = $this->query_ldap($filter, $attributes);
+            $bin = $this->query_ldap($filter, 'objectGUID', true);
+            $hex = unpack("H*hex", $bin[0]);
+            $results[0]['objectGUID'] = $hex['hex'];
+            return ($results['count'] > 0) ? $results : false;
+        }
+        return false;
+    }
+
+    /**
+     * @param string $user_identifier
+     * @return array|bool
+     */
+    public function find_user_user_identifier($user_identifier = '')
+    {
+        if (!empty(trim($user_identifier))) {
+            $filter = '(&(objectClass=top)(objectClass=person)(objectClass=user)(employeeID=' . $user_identifier . '))';
+            $attributes = [
+                'cn',
+                'distinguishedName',
+                'employeeID',
+                'description',
+                'displayName',
+                'extensionName',
+                'givenName',
+                'homeDirectory',
+                'homeDrive',
+                'mail',
+                'middleName',
+                'name',
+                'objectCategory',
+                'objectClass',
+                'primaryGroupID',
+                'sAMAccountName',
+                'sAMAccountType',
+                'sn',
+                'telephoneNumber',
+                'userPrincipalName',
+                'whenCreated',
+                'whenChanged',
+            ];
+            $results = $this->query_ldap($filter, $attributes);
+            $bin = $this->query_ldap($filter, 'objectGUID', true);
+            $hex = unpack("H*hex", $bin[0]);
+            $results[0]['objectGUID'] = $hex['hex'];
+            return ($results['count'] > 0) ? $results : false;
+        }
+        return false;
+    }
+
+    /**
+     * @param User $user
+     * @return array
+     */
+    public function check_existing_user(User $user)
+    {
+        // Init exist array
+        $exists = array(false, []);
+        // Find an existing user by username
+        $username_results = $this->find_user_username($user->username);
+        // Find an existing user by user_identifier
+        $user_identifier_results = $this->find_user_user_identifier($user->user_identifier);
+        //$user_identifier_results = $username_results;
+        // If either results returns results the user in question exists
+        if ($username_results || $user_identifier_results) $exists[0] = true;
+        // Make sure that only one user was returned
+        if ($username_results['count'] > 1) $this->perform_ldap_error('More than one user result was found while searching for username: ' . $user->username);
+        // Make sure that only one user was returned
+        if ($user_identifier_results['count'] > 1) $this->perform_ldap_error('More than one user result was found while searching for user_identifier: ' . $user->user_identifier);
+        // Make sure that the results returned from both searches match, if both returned results.
+        if (($user_identifier_results['count'] > 0) && ($username_results['count'] > 0)) {
+            // Assign results to local var
+            $result_1 = $username_results[0];
+            // Assign results to local var
+            $result_2 = $user_identifier_results[0];
+            // Verify the the objectGUID values match
+            if ($result_1['objectGUID'] !== $result_2['objectGUID']) {
+                // If the objectGUID values do not match throw an LDAP error
+                $this->perform_ldap_error('objectGUID attribute mis-match! The LDAP bridge cannot reliably determine if the target user only has one account. ' .
+                    'Info: Result 1 - (GUID =>' . $result_1['objectGUID'] . ', samaccountname => ' . $result_1['samaccountname'][0] . ', employeeid => ' . $result_1['employeeid'][0] . ')' .
+                    'Result 2 - (GUID =>' . $result_2['objectGUID'] . ', samaccountname => ' . $result_2['samaccountname'][0] . ', employeeid => ' . $result_2['employeeid'][0] . ')');
+            }
+            // Loop over result array and flatten the array.
+            foreach ($result_1 as $key => $value) {
+                $value = (is_array($value)) ? $value[0] : $value;
+                $exists[1][$key] = $value;
+            }
+        }
+        // Return the user info
+        return $exists;
+    }
+
+    /**
+     * @param User $user
+     * @return bool|string
+     */
+    public function distinguishedName_field(User $user)
+    {
+        $time_start = microtime(true);
+        $cn = $user->full_name;
+        $dn = $this->user_ou_dn;
+        if ($this->roles_map_to_ou) {
+            $role_id = $user->primary_role;
+            if (!empty($role_id) && !is_null($role_id)) {
+                $role = Role::find($role_id);
+                if (!$role) $this->perform_ldap_error('Error could not form user DN for user creation/update. An unknown role was requested with an ID of ' . strval($primary_role_id));
+                $role_cn = $role->name;
+            } else {
+                $role_cn = 'Default';
+            }
+            $dn = 'OU=' . $role_cn . ',' . $dn;
+            $test = $this->test_ou($dn);
+            if (!$test) $this->create_ou($cn, $dn);
+        }
+        if ($this->debugging) Log::debug('LDAP DN took: ' . ((microtime(true) - $time_start) * 1000) . ' ms to form.');
+        return 'CN=' . $cn . ',' . $dn;
+    }
+
+    /**
+     * @param User $user
+     * @return string
+     */
+    public function commonName_field(User $user)
+    {
+        return $user->full_name;
+    }
+
+    /**
+     * @param User $user
+     * @return string
+     */
+    public function mail_field(User $user)
+    {
+        return trim(strtolower($user->username . '@' . $this->email_domain));
+    }
+
+    /**
+     * @param User $user
+     * @return string
+     */
+    public function sAMAccountName_field(User $user)
+    {
+        return trim(strtolower($user->username));
+    }
+
+    /**
+     * @return array
+     */
+    public function objectClass_field()
+    {
+        return ['top', 'organizationalPerson', 'person', 'user'];
+    }
+
+    /**
+     * @param User $user
+     * @param bool $existed
+     * @param array $existing_info
+     * @return string
+     */
+    public function description_field(User $user, $existed = false, $existing_info = [])
+    {
+        $format = 'm/d/Y h:i:s A';
+        $dec = 'ID: ' . $user->user_identifier;
+        if ($existed) {
+            $created = $this->convert_ldap_time($existing_info['whencreated'], $format);
+            if (strpos($existing_info['description'], 'ColleagueID') !== false) {
+                $desc_array = explode('Created: ', $existing_info['description']);
+                $original_date = trim($desc_array[1]);
+                if ($this->is_valid_date($original_date)) {
+                    $date = new DateTime($original_date);
+                    $created = $date->format($format);
+                }
+            } else {
+                $date = new DateTime($user->created_at);
+                $created = $date->format($format);
+            }
+        } else {
+            $date = new DateTime($user->created_at);
+            $created = $date->format($format);
+        }
+        $date = new DateTime($user->updated_at);
+        $updated = $date->format($format);
+        $dec = $dec . ', Created: ' . $created . ', Updated: ' . $updated . ' - Managed by UUD LDAP Plugin.';
+        return $dec;
+    }
+
+    public function create_user(User $user)
+    {
+        // Check to see if we have a user in LDAP with this info
+        $user_test_results = $this->check_existing_user($user);
+        $user_existed_in_ldap = $user_test_results[0];
+        $existing_ldap_info = $user_test_results[1];
+        $dn = $this->distinguishedName_field($user);
+        $cn = $this->commonName_field($user);
+        $mail = $this->mail_field($user);
+        $samAccount = $this->sAMAccountName_field($user);
+        $objectClass = $this->objectClass_field();
+        $description = $this->description_field($user, $user_existed_in_ldap, $existing_ldap_info);
+        // Die here, for testing
+        Die($description);
     }
 }

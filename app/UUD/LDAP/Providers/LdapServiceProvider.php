@@ -7,6 +7,7 @@ use App\Model\Campus;
 use App\Model\Course;
 use App\Model\Department;
 use App\Model\Role;
+use App\Model\User;
 use App\UUD\LDAP\LdapBridge;
 use Illuminate\Support\ServiceProvider;
 
@@ -19,6 +20,19 @@ class LdapServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // While a User is being created
+        User::creating(function ($user) {
+            // Create a new bridge object
+            $bridge = new LdapBridge();
+            // Is the bridge enabled?
+            if ($bridge->enabled) {
+                // Pass the user model to creation function
+                $bridge->create_user($user);
+                // Close LDAP connection
+                $bridge->demolish();
+            }
+        });
+
         // While a Role is being created
         Role::creating(function ($role) {
             // Create a new bridge object
