@@ -15,6 +15,17 @@ use Illuminate\Support\Facades\Log;
 class UserBridge extends Bridge
 {
 
+
+    /**
+     * @var bool
+     */
+    public $user_is_preexisting = false;
+
+    /**
+     * @var array
+     */
+    public $preexisting_user = [];
+
     /**
      * @param string $username
      * @return array|bool
@@ -49,6 +60,7 @@ class UserBridge extends Bridge
             ];
             $results = $this->query_ldap($filter, $attributes);
             $bin = $this->query_ldap($filter, 'objectGUID', true);
+            if (!$bin) return false;
             $hex = unpack("H*hex", $bin[0]);
             $results[0]['objectGUID'] = $hex['hex'];
             return ($results['count'] > 0) ? $results : false;
@@ -90,6 +102,7 @@ class UserBridge extends Bridge
             ];
             $results = $this->query_ldap($filter, $attributes);
             $bin = $this->query_ldap($filter, 'objectGUID', true);
+            if (!$bin) return false;
             $hex = unpack("H*hex", $bin[0]);
             $results[0]['objectGUID'] = $hex['hex'];
             return ($results['count'] > 0) ? $results : false;
@@ -103,15 +116,13 @@ class UserBridge extends Bridge
      */
     public function check_existing_user(User $user)
     {
-        // Init exist array
-        $exists = array(false, []);
         // Find an existing user by username
         $username_results = $this->find_user_username($user->username);
         // Find an existing user by user_identifier
         $user_identifier_results = $this->find_user_user_identifier($user->user_identifier);
         //$user_identifier_results = $username_results;
         // If either results returns results the user in question exists
-        if ($username_results || $user_identifier_results) $exists[0] = true;
+        if ($username_results || $user_identifier_results) $this->user_is_preexisting = true;
         // Make sure that only one user was returned
         if ($username_results['count'] > 1) $this->perform_ldap_error('More than one user result was found while searching for username: ' . $user->username);
         // Make sure that only one user was returned
@@ -132,11 +143,9 @@ class UserBridge extends Bridge
             // Loop over result array and flatten the array.
             foreach ($result_1 as $key => $value) {
                 $value = (is_array($value)) ? $value[0] : $value;
-                $exists[1][$key] = $value;
+                $this->preexisting_user[$key] = $value;
             }
         }
-        // Return the user info
-        return $exists;
     }
 
     /**
@@ -152,7 +161,7 @@ class UserBridge extends Bridge
             $role_id = $user->primary_role;
             if (!empty($role_id) && !is_null($role_id)) {
                 $role = Role::find($role_id);
-                if (!$role) $this->perform_ldap_error('Error could not form user DN for user creation/update. An unknown role was requested with an ID of ' . strval($primary_role_id));
+                if (!$role) $this->perform_ldap_error('Error could not form user DN for user creation/update. An unknown role was requested with an ID of ' . strval($role_id));
                 $role_cn = $role->name;
             } else {
                 $role_cn = 'Default';
@@ -206,14 +215,14 @@ class UserBridge extends Bridge
      * @param array $existing_info
      * @return string
      */
-    public function description_field(User $user, $existed = false, $existing_info = [])
+    public function description_field(User $user)
     {
         $format = 'm/d/Y h:i:s A';
         $dec = 'ID: ' . $user->user_identifier;
-        if ($existed) {
-            $created = $this->convert_ldap_time($existing_info['whencreated'], $format);
-            if (strpos($existing_info['description'], 'ColleagueID') !== false) {
-                $desc_array = explode('Created: ', $existing_info['description']);
+        if ($this->user_is_preexisting) {
+            $created = $this->convert_ldap_time($this->preexisting_user['whencreated'], $format);
+            if (strpos($this->preexisting_user['description'], 'ColleagueID') !== false) {
+                $desc_array = explode('Created: ', $this->preexisting_user['description']);
                 $original_date = trim($desc_array[1]);
                 if ($this->is_valid_date($original_date)) {
                     $date = new DateTime($original_date);
@@ -344,23 +353,19 @@ class UserBridge extends Bridge
 
     /**
      * @param User $user
+     * @param string $dn
      * @return array
      */
     public function form_user_attributes(User $user)
     {
-        $user_test_results = $this->check_existing_user($user);
-        $user_existed_in_ldap = $user_test_results[0];
-        $existing_ldap_info = $user_test_results[1];
-
         return [
-            'commonName' => $this->commonName_field($user),
-            'description' => $this->description_field($user, $user_existed_in_ldap, $existing_ldap_info),
+            'cn' => $this->commonName_field($user),
+            'description' => [$this->description_field($user)],
             'displayName' => $this->displayName_field($user),
-            'distinguishedName' => $this->distinguishedName_field($user),
             'employeeID' => $this->employeeID_field($user),
-            'extensionName' => $this->extensionName_field($user),
+            'extensionName' => [$this->extensionName_field($user)],
             'givenName' => $this->givenName_field($user),
-            'homeDirector' => $this->homeDirectory_field($user),
+            'homeDirectory' => $this->homeDirectory_field($user),
             'homeDrive' => $this->homeDrive_field(),
             'mail' => $this->mail_field($user),
             'middleName' => $this->middleName_field($user),
@@ -374,10 +379,33 @@ class UserBridge extends Bridge
 
     public function create_user(User $user)
     {
+        // Does the user exist?
+        $this->check_existing_user($user);
         // Gather the user's attributes
         $attributes = $this->form_user_attributes($user);
-        // Die here, for testing
-        Die(json_encode($attributes));
+        //
+        // Die(json_encode($attributes));
+        // Does the user exist in LDAP?
+        if ($this->user_is_preexisting) {
+            // Modify the existing user or error
+            try {
+                ldap_mod_replace($this->connection, $this->preexisting_user['distinguishedname'], $attributes) or $this->perform_ldap_error();
+            } catch (\ErrorException $e) {
+                $this->perform_ldap_error();
+            } catch (\Exception $e) {
+                $this->perform_ldap_error();
+            }
+        } else {
+            // Add the new user or error
+            try {
+                $attributes['distinguishedName'] = $this->distinguishedName_field($user);
+                ldap_add($this->connection, $attributes['distinguishedName'], $attributes) or $this->perform_ldap_error();
+            } catch (\ErrorException $e) {
+                $this->perform_ldap_error();
+            } catch (\Exception $e) {
+                $this->perform_ldap_error();
+            }
+        }
     }
 
 }

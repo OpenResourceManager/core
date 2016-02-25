@@ -461,7 +461,9 @@ class Bridge
         $time_start = microtime(true);
         if ($binary) {
             $search = ldap_search($this->connection, $this->base_ou_dn, $filter);
-            $results = ldap_get_values_len($this->connection, ldap_first_entry($this->connection, $search), $attributes);
+            $entry = ldap_first_entry($this->connection, $search);
+            if (!$entry) return false;
+            $results = ldap_get_values_len($this->connection, $entry, $attributes) or $this->perform_ldap_error();
         } else {
             $search = ldap_search($this->connection, $this->base_ou_dn, $filter, $attributes);
             $results = ldap_get_entries($this->connection, $search);

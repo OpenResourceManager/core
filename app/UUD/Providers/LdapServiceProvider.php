@@ -35,7 +35,6 @@ class LdapServiceProvider extends ServiceProvider
                 // Close LDAP connection
                 $bridge->demolish();
                 if ($debug) Log::debug('LDAP Create User took: ' . ((microtime(true) - $time_start) * 1000) . ' ms to execute.');
-                Die();
             }
         });
 
