@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UUD\LDAP\Providers;
+namespace App\UUD\Providers;
 
 use App\Model\Building;
 use App\Model\Campus;
@@ -9,7 +9,7 @@ use App\Model\Department;
 use App\Model\Role;
 use App\Model\User;
 use Illuminate\Support\Facades\Log;
-use App\UUD\LDAP\LdapBridge;
+use App\UUD\LDAP\Bridge;
 use Illuminate\Support\ServiceProvider;
 
 class LdapServiceProvider extends ServiceProvider
@@ -25,7 +25,7 @@ class LdapServiceProvider extends ServiceProvider
         User::creating(function ($user) {
             $time_start = microtime(true);
             // Create a new bridge object
-            $bridge = new LdapBridge();
+            $bridge = new Bridge();
             // Is the bridge enabled?
             if ($bridge->enabled) {
                 $debug = $bridge->debugging;
@@ -41,7 +41,7 @@ class LdapServiceProvider extends ServiceProvider
         // While a Role is being created
         Role::creating(function ($role) {
             // Create a new bridge object
-            $bridge = new LdapBridge();
+            $bridge = new Bridge();
             // Is the bridge enabled?
             if ($bridge->enabled) {
                 // If roles map to an OU then verify that it is created
@@ -56,7 +56,7 @@ class LdapServiceProvider extends ServiceProvider
         // While a Department is being created
         Department::creating(function ($department) {
             // Create a new bridge object
-            $bridge = new LdapBridge();
+            $bridge = new Bridge();
             // Is the bridge enabled?
             if ($bridge->enabled) {
                 // Make a group for that department if needed
@@ -69,7 +69,7 @@ class LdapServiceProvider extends ServiceProvider
         // While a Course is being created
         Course::creating(function ($course) {
             // Create a new bridge object
-            $bridge = new LdapBridge();
+            $bridge = new Bridge();
             // Is the bridge enabled?
             if ($bridge->enabled) {
                 // Make a group for that course if needed
@@ -82,7 +82,7 @@ class LdapServiceProvider extends ServiceProvider
         // While a Campus is being created
         Campus::creating(function ($campus) {
             // Create a new bridge object
-            $bridge = new LdapBridge();
+            $bridge = new Bridge();
             // Is the bridge enabled?
             if ($bridge->enabled) {
                 // Make a group for that campus if needed
@@ -95,7 +95,7 @@ class LdapServiceProvider extends ServiceProvider
         // While a Building is being created
         Building::creating(function ($building) {
             // Create a new bridge object
-            $bridge = new LdapBridge();
+            $bridge = new Bridge();
             // Is the bridge enabled?
             if ($bridge->enabled) {
                 // Make a group for that building if needed

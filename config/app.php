@@ -151,7 +151,7 @@ return [
          * Third Party Providers...
          */
         App\Providers\UUDServiceProvider::class,
-        App\UUD\LDAP\Providers\LdapServiceProvider::class,
+        App\UUD\Providers\LdapServiceProvider::class,
 
     ],
 

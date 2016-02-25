@@ -13,7 +13,7 @@ use DateTime;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
-class LdapBridge
+class Bridge
 {
 
     /**
@@ -961,6 +961,6 @@ class LdapBridge
         $sn = $this->sn_field($user);
         $userPrincipalName = $this->userPrincipalName_field($user);
         // Die here, for testing
-        //Die($homeDrive);
+        Die($homeDrive);
     }
 }
