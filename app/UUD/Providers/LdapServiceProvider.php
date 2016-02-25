@@ -8,6 +8,7 @@ use App\Model\Course;
 use App\Model\Department;
 use App\Model\Role;
 use App\Model\User;
+use App\UUD\LDAP\UserBridge;
 use Illuminate\Support\Facades\Log;
 use App\UUD\LDAP\Bridge;
 use Illuminate\Support\ServiceProvider;
@@ -25,7 +26,7 @@ class LdapServiceProvider extends ServiceProvider
         User::creating(function ($user) {
             $time_start = microtime(true);
             // Create a new bridge object
-            $bridge = new Bridge();
+            $bridge = new UserBridge();
             // Is the bridge enabled?
             if ($bridge->enabled) {
                 $debug = $bridge->debugging;
