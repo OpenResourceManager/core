@@ -150,7 +150,7 @@ return [
         /**
          * Third Party Providers...
          */
-        App\Providers\UUDServiceProvider::class,
+        App\UUD\Providers\UUDServiceProvider::class,
         App\UUD\Providers\LdapServiceProvider::class,
 
     ],
