@@ -342,31 +342,42 @@ class UserBridge extends Bridge
         return trim(strtolower($user->username . '@' . $this->email_domain));
     }
 
-    public function create_user(User $user)
+    /**
+     * @param User $user
+     * @return array
+     */
+    public function form_user_attributes(User $user)
     {
-        // Check to see if we have a user in LDAP with this info
         $user_test_results = $this->check_existing_user($user);
         $user_existed_in_ldap = $user_test_results[0];
         $existing_ldap_info = $user_test_results[1];
-        // Gather properties of LDAP user
-        $commonName = $this->commonName_field($user);
-        $description = $this->description_field($user, $user_existed_in_ldap, $existing_ldap_info);
-        $displayName = $this->displayName_field($user);
-        $distinguishedName = $this->distinguishedName_field($user);
-        $employeeID = $this->employeeID_field($user);
-        $extensionName = $this->extensionName_field($user);
-        $givenName = $this->givenName_field($user);
-        $homeDirectory = $this->homeDirectory_field($user);
-        $homeDrive = $this->homeDrive_field();
-        $mail = $this->mail_field($user);
-        $middleName = $this->middleName_field($user);
-        $name = $this->name_field($user);
-        $objectClass = $this->objectClass_field();
-        $samAccountName = $this->sAMAccountName_field($user);
-        $sn = $this->sn_field($user);
-        $userPrincipalName = $this->userPrincipalName_field($user);
+
+        return [
+            'commonName' => $this->commonName_field($user),
+            'description' => $this->description_field($user, $user_existed_in_ldap, $existing_ldap_info),
+            'displayName' => $this->displayName_field($user),
+            'distinguishedName' => $this->distinguishedName_field($user),
+            'employeeID' => $this->employeeID_field($user),
+            'extensionName' => $this->extensionName_field($user),
+            'givenName' => $this->givenName_field($user),
+            'homeDirector' => $this->homeDirectory_field($user),
+            'homeDrive' => $this->homeDrive_field(),
+            'mail' => $this->mail_field($user),
+            'middleName' => $this->middleName_field($user),
+            'name' => $this->name_field($user),
+            'objectClass' => $this->objectClass_field(),
+            'samAccountName' => $this->sAMAccountName_field($user),
+            'sn' => $this->sn_field($user),
+            'userPrincipalName' => $this->userPrincipalName_field($user)
+        ];
+    }
+
+    public function create_user(User $user)
+    {
+        // Gather the user's attributes
+        $attributes = $this->form_user_attributes($user);
         // Die here, for testing
-        Die($homeDrive);
+        Die(json_encode($attributes));
     }
 
 }
