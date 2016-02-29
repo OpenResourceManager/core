@@ -31,7 +31,22 @@ class LdapServiceProvider extends ServiceProvider
             if ($bridge->enabled) {
                 $debug = $bridge->debugging;
                 // Pass the user model to creation function
-                $bridge->create_user($user);
+                $bridge->create_update_user($user);
+                // Close LDAP connection
+                $bridge->demolish();
+                if ($debug) Log::debug('LDAP Create User took: ' . ((microtime(true) - $time_start) * 1000) . ' ms to execute.');
+            }
+        });
+
+        User::updating(function ($user) {
+            $time_start = microtime(true);
+            // Create a new bridge object
+            $bridge = new UserBridge();
+            // Is the bridge enabled?
+            if ($bridge->enabled) {
+                $debug = $bridge->debugging;
+                // Pass the user model to creation function
+                $bridge->create_update_user($user);
                 // Close LDAP connection
                 $bridge->demolish();
                 if ($debug) Log::debug('LDAP Create User took: ' . ((microtime(true) - $time_start) * 1000) . ' ms to execute.');

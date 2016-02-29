@@ -10,6 +10,7 @@
 use App\Model\User;
 use App\Model\Role;
 use DateTime;
+
 use Illuminate\Support\Facades\Log;
 
 class UserBridge extends Bridge
@@ -53,6 +54,8 @@ class UserBridge extends Bridge
                 'sAMAccountName',
                 'sAMAccountType',
                 'sn',
+                'initials',
+                'userAccountControl',
                 'telephoneNumber',
                 'userPrincipalName',
                 'whenCreated',
@@ -95,6 +98,8 @@ class UserBridge extends Bridge
                 'sAMAccountName',
                 'sAMAccountType',
                 'sn',
+                'initials',
+                'userAccountControl',
                 'telephoneNumber',
                 'userPrincipalName',
                 'whenCreated',
@@ -124,9 +129,9 @@ class UserBridge extends Bridge
         // If either results returns results the user in question exists
         if ($username_results || $user_identifier_results) $this->user_is_preexisting = true;
         // Make sure that only one user was returned
-        if ($username_results['count'] > 1) $this->perform_ldap_error('More than one user result was found while searching for username: ' . $user->username);
+        if ($username_results['count'] > 1) $this->perform_ldap_error('More than one user result was found while searching for username: ' . $user->username, __LINE__, __FILE__, __CLASS__);
         // Make sure that only one user was returned
-        if ($user_identifier_results['count'] > 1) $this->perform_ldap_error('More than one user result was found while searching for user_identifier: ' . $user->user_identifier);
+        if ($user_identifier_results['count'] > 1) $this->perform_ldap_error('More than one user result was found while searching for user_identifier: ' . $user->user_identifier, __LINE__, __FILE__, __CLASS__);
         // Make sure that the results returned from both searches match, if both returned results.
         if (($user_identifier_results['count'] > 0) && ($username_results['count'] > 0)) {
             // Assign results to local var
@@ -138,7 +143,7 @@ class UserBridge extends Bridge
                 // If the objectGUID values do not match throw an LDAP error
                 $this->perform_ldap_error('objectGUID attribute mis-match! The LDAP bridge cannot reliably determine if the target user only has one account. ' .
                     'Info: Result 1 - (GUID =>' . $result_1['objectGUID'] . ', samaccountname => ' . $result_1['samaccountname'][0] . ', employeeid => ' . $result_1['employeeid'][0] . ')' .
-                    'Result 2 - (GUID =>' . $result_2['objectGUID'] . ', samaccountname => ' . $result_2['samaccountname'][0] . ', employeeid => ' . $result_2['employeeid'][0] . ')');
+                    'Result 2 - (GUID =>' . $result_2['objectGUID'] . ', samaccountname => ' . $result_2['samaccountname'][0] . ', employeeid => ' . $result_2['employeeid'][0] . ')', __LINE__, __FILE__, __CLASS__);
             }
             // Loop over result array and flatten the array.
             foreach ($result_1 as $key => $value) {
@@ -148,6 +153,26 @@ class UserBridge extends Bridge
         }
     }
 
+
+    public function distinguishedName_parent(User $user)
+    {
+        $dn = $this->user_ou_dn;
+        if ($this->roles_map_to_ou) {
+            $role_id = $user->primary_role;
+            if (!empty($role_id) && !is_null($role_id)) {
+                $role = Role::find($role_id);
+                if (!$role) $this->perform_ldap_error('Error could not form user DN for user creation/update. An unknown role was requested with an ID of ' . strval($role_id), __LINE__, __FILE__, __CLASS__);
+                $role_cn = $role->name;
+            } else {
+                $role_cn = 'Default';
+            }
+            $dn = 'OU=' . $role_cn . ',' . $dn;
+            $test = $this->test_ou($dn);
+            if (!$test) $this->create_ou($role_cn, $dn);
+        }
+        return $dn;
+    }
+
     /**
      * @param User $user
      * @return bool|string
@@ -155,21 +180,8 @@ class UserBridge extends Bridge
     public function distinguishedName_field(User $user)
     {
         $time_start = microtime(true);
-        $cn = $user->full_name;
-        $dn = $this->user_ou_dn;
-        if ($this->roles_map_to_ou) {
-            $role_id = $user->primary_role;
-            if (!empty($role_id) && !is_null($role_id)) {
-                $role = Role::find($role_id);
-                if (!$role) $this->perform_ldap_error('Error could not form user DN for user creation/update. An unknown role was requested with an ID of ' . strval($role_id));
-                $role_cn = $role->name;
-            } else {
-                $role_cn = 'Default';
-            }
-            $dn = 'OU=' . $role_cn . ',' . $dn;
-            $test = $this->test_ou($dn);
-            if (!$test) $this->create_ou($cn, $dn);
-        }
+        $cn = $user->format_full_name();
+        $dn = $this->distinguishedName_parent($user);
         if ($this->debugging) Log::debug('LDAP DN took: ' . ((microtime(true) - $time_start) * 1000) . ' ms to form.');
         return 'CN=' . $cn . ',' . $dn;
     }
@@ -180,7 +192,7 @@ class UserBridge extends Bridge
      */
     public function commonName_field(User $user)
     {
-        return $user->full_name;
+        return $user->format_full_name();
     }
 
     /**
@@ -236,8 +248,7 @@ class UserBridge extends Bridge
             $date = new DateTime($user->created_at);
             $created = $date->format($format);
         }
-        $date = new DateTime($user->updated_at);
-        $updated = $date->format($format);
+        $updated = date($format);
         $dec = $dec . ', Created: ' . $created . ', Updated: ' . $updated . ' - Managed by UUD LDAP Plugin.';
         return $dec;
     }
@@ -248,7 +259,7 @@ class UserBridge extends Bridge
      */
     public function displayName_field(User $user)
     {
-        return $user->full_name;
+        return $user->format_full_name();
     }
 
     /**
@@ -278,7 +289,7 @@ class UserBridge extends Bridge
      */
     public function givenName_field(User $user)
     {
-        return $user->format_last_name();
+        return $user->format_first_name();
     }
 
     /**
@@ -302,7 +313,7 @@ class UserBridge extends Bridge
                 return $path;
                 break;
             default:
-                $this->perform_ldap_error('LDAP Attribute: ' . $attribute . ' is not a recognized as a valid home drive attribute!');
+                $this->perform_ldap_error('LDAP Attribute: ' . $attribute . ' is not a recognized as a valid home drive attribute!', __LINE__, __FILE__, __CLASS__);
         }
 
     }
@@ -353,13 +364,43 @@ class UserBridge extends Bridge
 
     /**
      * @param User $user
+     * @return string
+     */
+    public function initials_field(User $user)
+    {
+        $first = $user->format_first_name();
+        $middle = $user->format_middle_name();
+        $last = $user->format_last_name();
+        $initials = '';
+        if (!empty($first)) $initials .= $first[0];
+        if (!empty($middle)) $initials .= $middle[0];
+        if (!empty($last)) $initials .= $last[0];
+        return strtoupper($initials);
+    }
+
+    /**
+     * @param string $password
+     * @return string
+     */
+    public function unicodePassword_field($password = '')
+    {
+        $return = '';
+        if (empty($password)) $password = str_random(16) . '1!Ab';
+        $password = "\"" . $password . "\"";
+        for ($i = 0; $i < strlen($password); $i++) {
+            $return .= "{$password{$i}}\000";
+        }
+        return $return;
+    }
+
+    /**
+     * @param User $user
      * @param string $dn
      * @return array
      */
     public function form_user_attributes(User $user)
     {
         return [
-            'cn' => $this->commonName_field($user),
             'description' => [$this->description_field($user)],
             'displayName' => $this->displayName_field($user),
             'employeeID' => $this->employeeID_field($user),
@@ -369,42 +410,123 @@ class UserBridge extends Bridge
             'homeDrive' => $this->homeDrive_field(),
             'mail' => $this->mail_field($user),
             'middleName' => $this->middleName_field($user),
-            'name' => $this->name_field($user),
             'objectClass' => $this->objectClass_field(),
             'samAccountName' => $this->sAMAccountName_field($user),
             'sn' => $this->sn_field($user),
-            'userPrincipalName' => $this->userPrincipalName_field($user)
+            'initials' => $this->initials_field($user),
+            'UserAccountControl' => '512'
         ];
     }
 
-    public function create_user(User $user)
+    /**
+     * @param array $attrs
+     * @return array
+     */
+    public function check_attributes($attrs = [])
+    {
+        foreach ($attrs as $attr => $value) {
+            if (empty($value) || is_null($value)) {
+                unset($attrs[$attr]);
+            }
+        }
+        return $attrs;
+    }
+
+    /**
+     * @param User $user
+     * @param array $attrs
+     */
+    public function modify_user(User $user, $attrs = [])
+    {
+        // Remove attributes that have not changed.
+        unset($attrs['objectClass']); // This should never change
+        // Go over each attribute
+        foreach ($attrs as $attr => $value) {
+            // Make sure that the existing user attr exists before we check to see if it was modified. If it does not exists we obviously want to keep it.
+            if (isset($this->preexisting_user[strtolower($attr)])) {
+                // Are the attributes the same?
+                if ($this->preexisting_user[strtolower($attr)] == $value) {
+                    // Unset this attribute because it has not changed.
+                    unset($attrs[$attr]);
+                }
+            }
+        }
+        // Loop Over the attributes and modify them if needed.
+        foreach ($attrs as $attr => $value) {
+            try {
+                // If we are debugging, log some info.
+                if ($this->debugging) {
+                    // Flatten attributes for logging, if they are arrays
+                    if (is_array($attr)) $attr = implode('-', $attr);
+                    if (is_array($value)) $value = implode('-', $value);
+                    // Log the modify
+                    Log::debug('Modify: ' . $attr . ' --> ' . $value);
+                }
+                // Try to modify the attribute
+                ldap_mod_replace($this->connection, $this->preexisting_user['distinguishedname'], [$attr => $value]);
+            } catch (\ErrorException $e) {
+                // Catch any exceptions so HTML is not returned
+                $this->perform_ldap_error(ldap_error($this->connection) . ' ' . $attr . ' => ' . $value, __LINE__, __FILE__, __CLASS__);
+            } catch (\Exception $e) {
+                // Catch any exceptions so HTML is not returned
+                $this->perform_ldap_error(ldap_error($this->connection) . ' ' . $attr . ' => ' . $value, __LINE__, __FILE__, __CLASS__);
+            }
+        }
+
+        // Gather variables for old CN & DN, and for potentially new info
+        $new_dn = $this->distinguishedName_field($user);
+        $old_dn = $this->preexisting_user['distinguishedname'];
+        $new_cn = $user->format_full_name();
+        $old_cn = $this->preexisting_user['cn'];
+        // If the user's DN has changed rename the the user.
+        if ($new_dn != $old_dn || $new_cn != $old_cn) {
+            // If the DN is different and we are debugging log it
+            if ($this->debugging && $new_dn != $old_dn) Log::debug('Rename DN: ' . $old_dn . ' --> ' . $new_dn);
+            // If the CN is different and we are debugging log it
+            if ($this->debugging && $new_cn != $old_cn) Log::debug('Rename CN: ' . $old_cn . ' --> ' . $new_cn);
+            // Perform a rename operation
+            ldap_rename($this->connection, $old_dn, 'CN=' . $new_cn, $this->distinguishedName_parent($user), true) or $this->perform_ldap_error(ldap_error($this->connection), __LINE__, __FILE__, __CLASS__);
+        }
+    }
+
+    /**
+     * @param User $user
+     * @param array $attrs
+     */
+    public function create_user(User $user, $attrs = [])
+    {
+        try {
+            // Add the user's DN to the attribute array
+            $attrs['distinguishedName'] = $this->distinguishedName_field($user);
+            // Generate a random unicode password
+            $attrs['unicodepwd'] = $this->unicodePassword_field();
+            // Add the user account in LDAP
+            ldap_add($this->connection, $attrs['distinguishedName'], $attrs) or $this->perform_ldap_error('', __LINE__, __FILE__, __CLASS__);
+        } catch (\ErrorException $e) {
+            // Catch any exceptions so HTML is not returned
+            $this->perform_ldap_error('', __LINE__, __FILE__, __CLASS__);
+        } catch (\Exception $e) {
+            // Catch any exceptions so HTML is not returned
+            $this->perform_ldap_error('', __LINE__, __FILE__, __CLASS__);
+        }
+    }
+
+    /**
+     * @param User $user
+     */
+    public function create_update_user(User $user)
     {
         // Does the user exist?
         $this->check_existing_user($user);
         // Gather the user's attributes
-        $attributes = $this->form_user_attributes($user);
-        //
-        // Die(json_encode($attributes));
+        $attributes = $this->check_attributes($this->form_user_attributes($user));
         // Does the user exist in LDAP?
         if ($this->user_is_preexisting) {
-            // Modify the existing user or error
-            try {
-                ldap_mod_replace($this->connection, $this->preexisting_user['distinguishedname'], $attributes) or $this->perform_ldap_error();
-            } catch (\ErrorException $e) {
-                $this->perform_ldap_error();
-            } catch (\Exception $e) {
-                $this->perform_ldap_error();
-            }
+            // Call the modify user function
+            $this->modify_user($user, $attributes);
         } else {
-            // Add the new user or error
-            try {
-                $attributes['distinguishedName'] = $this->distinguishedName_field($user);
-                ldap_add($this->connection, $attributes['distinguishedName'], $attributes) or $this->perform_ldap_error();
-            } catch (\ErrorException $e) {
-                $this->perform_ldap_error();
-            } catch (\Exception $e) {
-                $this->perform_ldap_error();
-            }
+            // Call the create user function
+            $this->create_user($user, $attributes);
         }
     }
 
