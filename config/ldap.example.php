@@ -79,6 +79,24 @@ return [
      */
     'roles_map_to_ou'           => false,
 
+    /**
+     * This is the user's home drive letter.
+     * This can be lowercase or uppercase, it is always cast to uppercase.
+     */
+    'home_drive_letter'         => 'h',
+    /**
+     * This is the path to the homes share for users.
+     * Between percent signs place a valid LDAP user attribute that home shares are name after.
+     * Example: \\\\fs.domain.tld\\homes\\%sAMAccountName%
+     * Example: \\\\fs.domain.tld\\homes\\%employeeID%
+     * Example: \\\\fs.domain.tld\\homes\\%sAMAccountName%\\files
+     */
+    'home_drive_path'           => '\\\\fs.domain.tld\\homes\\%LDAP_Attribute%',
+    /**
+     * The user's email domain
+     */
+    'email_domain'              => 'domain.tld',
+
     ###################################################################
     #                                                                 #
     #                        Group Settings                           #

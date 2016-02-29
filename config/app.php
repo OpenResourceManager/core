@@ -37,9 +37,15 @@ return [
     | will be used by the PHP date and date-time functions. We have gone
     | ahead and set this to a sensible default for you out of the box.
     |
+    | For more time zones look here: https://secure.php.net/manual/en/timezones.php
+    |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/New_York',
+    //'timezone' => 'America/Chicago',
+    //'timezone' => 'America/Denver',
+    //'timezone' => 'America/Los_Angeles',
+    //'timezone' => 'UTC',
 
     /*
     |--------------------------------------------------------------------------
@@ -150,7 +156,8 @@ return [
         /**
          * Third Party Providers...
          */
-        App\UUD\LDAP\Providers\LdapServiceProvider::class,
+        App\UUD\Providers\UUDServiceProvider::class,
+        App\UUD\Providers\LdapServiceProvider::class,
 
     ],
 

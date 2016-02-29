@@ -7,10 +7,11 @@
  * Time: 3:21 PM
  */
 
+use DateTime;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
-class LdapBridge
+class Bridge
 {
 
     /**
@@ -184,6 +185,45 @@ class LdapBridge
     }
 
     /**
+     * @var string
+     */
+    public $home_drive_letter;
+
+    /**
+     * @return void
+     */
+    public function home_drive_letter()
+    {
+        $this->home_drive_letter = strtoupper(trim(Config::get('ldap.home_drive_letter'))[0]);
+    }
+
+    /**
+     * @var string
+     */
+    public $home_drive_path;
+
+    /**
+     * @return void
+     */
+    public function home_drive_path()
+    {
+        $this->home_drive_path = Config::get('ldap.home_drive_path');
+    }
+
+    /**
+     * @var string
+     */
+    public $email_domain;
+
+    /**
+     * @return void
+     */
+    public function email_domain()
+    {
+        $this->email_domain = strtolower(trim(ltrim(Config::get('ldap.email_domain'), '@')));
+    }
+
+    /**
      * @var bool
      */
     public $create_groups;
@@ -317,6 +357,9 @@ class LdapBridge
         $this->create_users();
         $this->delete_users();
         $this->roles_map_to_ou();
+        $this->home_drive_letter();
+        $this->home_drive_path();
+        $this->email_domain();
         $this->create_groups();
         $this->delete_groups();
         $this->group_ou_dn();
@@ -354,7 +397,7 @@ class LdapBridge
                 }
             }
             if ($this->debugging) Log::debug('LDAP Connect took: ' . ((microtime(true) - $time_start) * 1000) . ' ms, but failed to establish a connection.');
-            $this->perform_ldap_error();
+            $this->perform_ldap_error('', __LINE__, __FILE__, __CLASS__);
         }
     }
 
@@ -388,6 +431,48 @@ class LdapBridge
     }
 
     /**
+     * @param string $time
+     * @param string $output_format
+     * @return bool|string
+     */
+    public function convert_ldap_time($time, $output_format)
+    {
+        $ldap = DateTime::createFromFormat('YmdHis', rtrim($time, '.0Z'));
+        if (!$ldap) $ldap = DateTime::createFromFormat('Ymdhis', rtrim($time, '.0Z'));
+        return ($ldap) ? $ldap->format($output_format) : false;
+    }
+
+    /**
+     * @param string $dateString
+     * @return bool
+     */
+    public function is_valid_date($dateString)
+    {
+        return (bool)strtotime($dateString);
+    }
+
+    /**
+     * @param string $filter
+     * @param array $attributes
+     * @return array
+     */
+    public function query_ldap($filter = '', $attributes = array('*'), $binary = false)
+    {
+        $time_start = microtime(true);
+        if ($binary) {
+            $search = ldap_search($this->connection, $this->base_ou_dn, $filter);
+            $entry = ldap_first_entry($this->connection, $search);
+            if (!$entry) return false;
+            $results = ldap_get_values_len($this->connection, $entry, $attributes) or $this->perform_ldap_error('', __LINE__, __FILE__, __CLASS__);
+        } else {
+            $search = ldap_search($this->connection, $this->base_ou_dn, $filter, $attributes);
+            $results = ldap_get_entries($this->connection, $search);
+        }
+        if ($this->debugging) Log::debug('LDAP Query took: ' . ((microtime(true) - $time_start) * 1000) . 'ms execute.');
+        return $results;
+    }
+
+    /**
      * @param string $message
      * @return string
      */
@@ -406,13 +491,20 @@ class LdapBridge
 
     /**
      * @param string $message
-     * @return void
+     * @param int $line_number
+     * @param string $file
      */
-    public function perform_ldap_error($message = '')
+    public function perform_ldap_error($message = '', $line_number = 0, $file = '', $class = '')
     {
-        $message = (empty($message)) ? ldap_error($this->connection) : $message;
-        Log::error('LDAP Service: ' . $message);
-        die($this->respond_internal_error('LDAP Service: ' . $message));
+
+        $message = (empty($message)) ? ldap_errno($this->connection) . ' - ' . ldap_error($this->connection) : $message;
+        $message = 'LDAP Service: ' . $message;
+        $message_arr = ['Message' => $message];
+        if (!empty($file)) $message_arr['File'] = $file;
+        if (!empty($line_number)) $message_arr['Line Number'] = $line_number;
+        if (!empty($class)) $message_arr['Class'] = $class;
+        Log::error(implode('-', $message_arr));
+        Die($this->respond_internal_error($message_arr));
     }
 
     /**
@@ -421,8 +513,11 @@ class LdapBridge
      */
     public function test_ou($dn)
     {
+        $time_start = microtime(true);
         $filter = '(&(objectClass=top)(|(objectClass=organizationalUnit)(objectClass=container))(distinguishedName=' . $dn . '))';
-        $results = ldap_get_entries($this->connection, ldap_search($this->connection, $this->base_ou_dn, $filter, array('objectGUID')));
+        $attributes = array('objectGUID');
+        $results = $this->query_ldap($filter, $attributes);
+        if ($this->debugging) Log::debug('LDAP OU - ' . $dn . ' - took: ' . ((microtime(true) - $time_start) * 1000) . ' ms to test.');
         return ($results['count'] > 0) ? true : false;
     }
 
@@ -460,7 +555,7 @@ class LdapBridge
                 'distinguishedName' => $dn,
                 'ou' => $cn
             ];
-            if (!ldap_add($this->connection, $dn, $new_ou)) $this->perform_ldap_error();
+            if (!ldap_add($this->connection, $dn, $new_ou)) $this->perform_ldap_error('', __LINE__, __FILE__, __CLASS__);
             if ($this->debugging) Log::debug('LDAP OU took: ' . ((microtime(true) - $time_start) * 1000) . ' ms to create.');
         }
     }
@@ -481,7 +576,8 @@ class LdapBridge
     public function test_group($dn)
     {
         $filter = '(&(objectClass=top)(objectClass=group)(distinguishedName=' . $dn . '))';
-        $results = ldap_get_entries($this->connection, ldap_search($this->connection, $this->base_ou_dn, $filter, array('objectGUID')));
+        $attributes = array('objectGUID');
+        $results = $this->query_ldap($filter, $attributes);
         return ($results['count'] > 0) ? true : false;
     }
 
@@ -502,7 +598,7 @@ class LdapBridge
                 'name' => $cn,
                 'sAMAccountName' => $cn
             ];
-            if (!ldap_add($this->connection, $dn, $new_group)) $this->perform_ldap_error();
+            if (!ldap_add($this->connection, $dn, $new_group)) $this->perform_ldap_error('', __LINE__, __FILE__, __CLASS__);
             if ($this->debugging) Log::debug('LDAP Group took: ' . ((microtime(true) - $time_start) * 1000) . ' ms to create.');
         }
     }
