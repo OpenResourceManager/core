@@ -43,6 +43,9 @@ class CreateApiKeysTable extends Migration
             $table->boolean('can_get_password')->default(false);
             $table->boolean('can_post_password')->default(false);
             $table->boolean('can_delete_password')->default(false);
+            $table->boolean('can_get_birth_date')->default(false);
+            $table->boolean('can_post_birth_date')->default(false);
+            $table->boolean('can_delete_birth_date')->default(false);
             $table->boolean('can_get_phone')->default(false);
             $table->boolean('can_post_phone')->default(false);
             $table->boolean('can_delete_phone')->default(false);

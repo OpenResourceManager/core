@@ -42,6 +42,7 @@ class ApikeyTableSeeder extends Seeder
             '_state',
             '_user',
             '_mobile_carrier',
+            '_birth_date',
         ];
 
 

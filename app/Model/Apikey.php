@@ -46,6 +46,9 @@ class Apikey extends Model
         'can_get_password',
         'can_post_password',
         'can_delete_password',
+        'can_get_birth_date',
+        'can_post_birth_date',
+        'can_delete_birth_date',
         'can_get_phone',
         'can_post_phone',
         'can_delete_phone',
@@ -109,6 +112,9 @@ class Apikey extends Model
                     break;
                 case 'password':
                     return self::testPasswordPermissions($request);
+                    break;
+                case 'birth_date':
+                    return self::testBirthDatePermissions($request);
                     break;
                 case 'phone':
                     return self::testPhonePermissions($request);
@@ -363,6 +369,36 @@ class Apikey extends Model
                         break;
                     case 'delete' :
                         return $key->can_delete_password ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    default :
+                        return array(false, array("success" => false, "error" => "Method not found."));
+                }
+            } else {
+                return array(false, array("success" => false, "error" => "X-Authorization: API Key is not valid."));
+            }
+        } else {
+            return array(false, array("success" => false, "error" => "X-Authorization: Header Option Not Found."));
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    private static function testBirthDatePermissions(Request $request)
+    {
+        if ($request->header('X-Authorization')) {
+            $key = self::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                switch (strtolower($request->method())) {
+                    case 'get' :
+                        return $key->can_get_birth_date ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'post' :
+                        return $key->can_post_birth_date ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'delete' :
+                        return $key->can_delete_birth_date ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
                     default :
                         return array(false, array("success" => false, "error" => "Method not found."));

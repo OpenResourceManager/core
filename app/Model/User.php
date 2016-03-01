@@ -37,6 +37,11 @@ class User extends BaseModel
         return $this->hasOne('App\Model\Password');
     }
 
+    public function birth_date()
+    {
+        return $this->hasOne('App\Model\BirthDate');
+    }
+
     public function emails()
     {
         return $this->hasMany('App\Model\Email');

@@ -53,6 +53,10 @@ class GenApikey extends Command
                             {--postPassword : The key specifically has password POST permissions.}
                             {--deletePassword : The key specifically has password DELETE permissions.}
 
+                            {--getBirthDate : The key specifically has birth date GET permissions.}
+                            {--postBirthDate : The key specifically has birth date POST permissions.}
+                            {--deleteBirthDate : The key specifically has birth date DELETE permissions.}
+
                             {--getPhone : The key specifically has phone GET permissions.}
                             {--postPhone : The key specifically has phone POST permissions.}
                             {--deletePhone : The key specifically has phone DELETE permissions.}
@@ -141,6 +145,10 @@ class GenApikey extends Command
             ['--postPassword', InputOption::VALUE_NONE, 'The key specifically has password POST permissions.'],
             ['--deletePassword', InputOption::VALUE_NONE, 'The key specifically has password DELETE permissions.'],
 
+            ['--getBirthDate', InputOption::VALUE_NONE, 'The key specifically has birth date GET permissions.'],
+            ['--postBirthDate', InputOption::VALUE_NONE, 'The key specifically has birth date POST permissions.'],
+            ['--deleteBirthDate', InputOption::VALUE_NONE, 'The key specifically has birth date DELETE permissions.'],
+
             ['--getPhone', InputOption::VALUE_NONE, 'The key specifically has phone GET permissions.'],
             ['--postPhone', InputOption::VALUE_NONE, 'The key specifically has phone POST permissions.'],
             ['--deletePhone', InputOption::VALUE_NONE, 'The key specifically has phone DELETE permissions.'],
@@ -222,6 +230,10 @@ class GenApikey extends Command
             $key->can_get_password = $this->option('getPassword') ? true : false;
             $key->can_post_password = $this->option('postPassword') ? true : false;
             $key->can_delete_password = $this->option('deletePassword') ? true : false;
+
+            $key->can_get_birth_date = $this->option('getBirthDate') ? true : false;
+            $key->can_post_birth_date = $this->option('postBirthDate') ? true : false;
+            $key->can_delete_birth_date = $this->option('deleteBirthDate') ? true : false;
 
             $key->can_get_phone = $this->option('getPhone') ? true : false;
             $key->can_post_phone = $this->option('postPhone') ? true : false;
