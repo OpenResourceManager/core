@@ -233,11 +233,16 @@ class UserBridge extends Bridge
         $dec = 'ID: ' . $user->user_identifier;
         if ($this->user_is_preexisting) {
             $created = $this->convert_ldap_time($this->preexisting_user['whencreated'], $format);
-            if (strpos($this->preexisting_user['description'], 'ColleagueID') !== false) {
-                $desc_array = explode('Created: ', $this->preexisting_user['description']);
-                $original_date = trim($desc_array[1]);
-                if ($this->is_valid_date($original_date)) {
-                    $date = new DateTime($original_date);
+            if (isset($this->preexisting_user['description']) && !empty($this->preexisting_user['description'])) {
+                if (strpos($this->preexisting_user['description'], 'ColleagueID') !== false) {
+                    $desc_array = explode('Created: ', $this->preexisting_user['description']);
+                    $original_date = trim($desc_array[1]);
+                    if ($this->is_valid_date($original_date)) {
+                        $date = new DateTime($original_date);
+                        $created = $date->format($format);
+                    }
+                } else {
+                    $date = new DateTime($user->created_at);
                     $created = $date->format($format);
                 }
             } else {
