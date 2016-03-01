@@ -119,10 +119,6 @@ class LdapServiceProvider extends ServiceProvider
                 $bridge->demolish();
             }
         });
-
-        /**
-         * @todo Manage User:creating and User:created methods
-         */
     }
 
     /**
