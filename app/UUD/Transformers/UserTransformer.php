@@ -9,10 +9,6 @@
 namespace App\UUD\Transformers;
 
 
-use App\Model\Email;
-use App\Model\Phone;
-use App\Model\User;
-
 class UserTransformer extends Transformer
 {
     /**
@@ -21,19 +17,6 @@ class UserTransformer extends Transformer
      */
     public function transform($item)
     {
-             /* $phones = Phone::all()->where('user_id',$item['id'])->toArray();
-                $emails = Email::all()->where('user_id',$item['id'])->toArray();
-
-                if ($phones) {
-                    $phoneTrans = new PhoneTransformer;
-                    $phones = $phoneTrans->transformCollection($phones);
-                }
-
-                if ($emails) {
-                    $emailTrans = new EmailTransformer;
-                    $emails = $emailTrans->transformCollection($emails);
-                }*/
-
         return [
             'id' => (int)$item['id'],
             'user_identifier' => $item['user_identifier'],
@@ -44,9 +27,7 @@ class UserTransformer extends Transformer
             'name_last' => $item['name_last'],
             'name_postfix' => $item['name_postfix'],
             'name_phonetic' => $item['name_phonetic'],
-            'primary_role' => $item['primary_role'],
-            //  'emails' => $emails,
-            //  'phones' => $phones
+            'primary_role' => (int)$item['primary_role'],
         ];
     }
 }
