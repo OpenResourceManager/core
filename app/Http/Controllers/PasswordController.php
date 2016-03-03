@@ -40,7 +40,7 @@ class PasswordController extends ApiController
      */
     public function index(Request $request)
     {
-        if (!$this->isAuthorized($request, $this - type)) return $this->respondNotAuthorized();
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = Password::paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->passwordTransformer->transformCollection($result->all()));
