@@ -80,6 +80,10 @@ class GenApikey extends Command
                             {--getMobileCarrier : The key specifically has mobile carrier GET permissions.}
                             {--postMobileCarrier : The key specifically has mobile carrier POST permissions.}
                             {--deleteMobileCarrier : The key specifically has mobile carrier DELETE permissions.}
+                            
+                            {--getSSN : The key specifically has social security number GET permissions.}
+                            {--postSSN : The key specifically has social security number POST permissions.}
+                            {--deleteSSN : The key specifically has social security number DELETE permissions.}
                             ';
 
     /**
@@ -172,6 +176,10 @@ class GenApikey extends Command
             ['--getMobileCarrier', InputOption::VALUE_NONE, 'The key specifically has mobile carrier GET permissions.'],
             ['--postMobileCarrier', InputOption::VALUE_NONE, 'The key specifically has mobile carrier POST permissions.'],
             ['--deleteMobileCarrier', InputOption::VALUE_NONE, 'The key specifically has mobile carrier DELETE permissions.'],
+
+            ['--getSSN', InputOption::VALUE_NONE, 'The key specifically has social security number GET permissions.'],
+            ['--postSSN', InputOption::VALUE_NONE, 'The key specifically has social security number POST permissions.'],
+            ['--deleteSSN', InputOption::VALUE_NONE, 'The key specifically has social security number DELETE permissions.'],
         );
     }
 
@@ -258,6 +266,10 @@ class GenApikey extends Command
             $key->can_get_mobile_carrier = $this->option('getMobileCarrier') ? true : false;
             $key->can_post_mobile_carrier = $this->option('postMobileCarrier') ? true : false;
             $key->can_delete_mobile_carrier = $this->option('deleteMobileCarrier') ? true : false;
+
+            $key->can_get_social_security_number = $this->option('getSSN') ? true : false;
+            $key->can_post_social_security_number = $this->option('postSSN') ? true : false;
+            $key->can_delete_social_security_number = $this->option('deleteSSN') ? true : false;
 
             $key->save();
 

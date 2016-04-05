@@ -117,6 +117,18 @@ Route::group(['prefix' => 'api'], function () {
         Route::delete('passwords/identifier', 'PasswordController@deleteUserPasswordByIdentifier'); // Documented
         Route::delete('passwords/username', 'PasswordController@deleteUserPasswordByUsername'); // Documented
 
+
+        Route::resource('ssn', 'SocialSecurityNumberController'); // Documented
+        Route::get('ssn/user/{id}', 'SocialSecurityNumberController@userSocialSecurityNumbers'); // Documented
+        Route::get('ssn/identifier/{identifier}', 'SocialSecurityNumberController@userSocialSecurityNumbersByIdentifier'); // Documented
+        Route::get('ssn/username/{username}', 'SocialSecurityNumberController@userSocialSecurityNumbersByUsername'); // Documented
+        Route::post('ssn/identifier', 'SocialSecurityNumberController@storeUserSocialSecurityNumberByIdentifier'); // Documented
+        Route::post('ssn/username', 'SocialSecurityNumberController@storeUserSocialSecurityNumberByUsername'); // Documented
+        Route::delete('ssn/user', 'SocialSecurityNumberController@deleteUserSocialSecurityNumber'); // Documented
+        Route::delete('ssn/identifier', 'SocialSecurityNumberController@deleteUserSocialSecurityNumberByIdentifier'); // Documented
+        Route::delete('ssn/username', 'SocialSecurityNumberController@deleteUserSocialSecurityNumberByUsername'); // Documented
+
+
         Route::resource('birthdates', 'BirthDateController'); // Documented
         Route::get('birthdates/user/{id}', 'BirthDateController@userBirthDates'); // Documented
         Route::get('birthdates/identifier/{identifier}', 'BirthDateController@userBirthDatesByIdentifier'); // Documented
@@ -127,9 +139,11 @@ Route::group(['prefix' => 'api'], function () {
         Route::delete('birthdates/identifier', 'BirthDateController@deleteUserBirthDateByIdentifier'); // Documented
         Route::delete('birthdates/username', 'BirthDateController@deleteUserBirthDateByUsername'); // Documented
 
+
         Route::resource('mobilecarriers', 'MobileCarrierController'); // Documented
         Route::get('mobilecarriers/code/{code}', 'MobileCarrierController@showByCode'); // Documented
         Route::delete('mobilecarriers/code/{code}', 'MobileCarrierController@destroyByCode'); // Documented
+
 
         Route::resource('phones', 'PhoneController'); // Documented
         Route::get('phones/user/{id}', 'PhoneController@userPhones'); // Documented

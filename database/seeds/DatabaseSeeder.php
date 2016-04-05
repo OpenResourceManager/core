@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call('RoleTableSeeder');
         $this->call('UserTableSeeder');
         $this->call('PasswordTableSeeder');
+        $this->call('SocialSecurityNumberTableSeeder');
         $this->call('BirthDateTableSeeder');
         $this->call('EmailTableSeeder');
         $this->call('MobileCarrierTableSeeder');

@@ -67,6 +67,9 @@ class Apikey extends Model
         'can_get_mobile_carrier',
         'can_post_mobile_carrier',
         'can_delete_mobile_carrier',
+        'can_get_social_security_number',
+        'can_post_social_security_number',
+        'can_delete_social_security_number',
     ];
 
     /**
@@ -133,6 +136,9 @@ class Apikey extends Model
                     break;
                 case 'mobile_carrier':
                     return self::testMobileCarrierPermissions($request);
+                    break;
+                case 'social_security_number':
+                    return self::testSocialSecurityNumberPermissions($request);
                     break;
                 default:
                     return array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
@@ -579,6 +585,36 @@ class Apikey extends Model
                         break;
                     case 'delete' :
                         return $key->can_delete_mobile_carrier ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    default :
+                        return array(false, array("success" => false, "error" => "Method not found."));
+                }
+            } else {
+                return array(false, array("success" => false, "error" => "X-Authorization: API Key is not valid."));
+            }
+        } else {
+            return array(false, array("success" => false, "error" => "X-Authorization: Header Option Not Found."));
+        }
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    private static function testSocialSecurityNumberPermissions(Request $request)
+    {
+        if ($request->header('X-Authorization')) {
+            $key = self::getAPIKey($request->header('X-Authorization'));
+            if ($key) {
+                switch (strtolower($request->method())) {
+                    case 'get' :
+                        return $key->can_get_social_security_number ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'post' :
+                        return $key->can_post_social_security_number ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
+                        break;
+                    case 'delete' :
+                        return $key->can_delete_social_security_number ? array(true) : array(false, array("success" => false, "error" => "X-Authorization: Insufficient privileges."));
                         break;
                     default :
                         return array(false, array("success" => false, "error" => "Method not found."));
