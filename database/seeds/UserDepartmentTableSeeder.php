@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Model\User;
 use App\Model\Department;
 
-class DepartmentsUsersTableSeeder extends Seeder
+class UserDepartmentTableSeeder extends Seeder
 {
     public function run()
     {
@@ -17,10 +17,8 @@ class DepartmentsUsersTableSeeder extends Seeder
         $departmentIds = Department::lists('id')->all();
 
         foreach (range(1, 100) as $index) {
-            DB::table('department_user')->insert([
-                'user_id' => $faker->unique()->randomElement($userIds),
-                'department_id' => $faker->randomElement($departmentIds),
-            ]);
+            $user = User::find($faker->unique()->randomElement($userIds));
+            $user->departments()->attach($faker->randomElement($departmentIds));
         }
     }
 }

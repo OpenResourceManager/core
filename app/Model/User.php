@@ -54,7 +54,7 @@ class User extends BaseModel
 
     public function rooms()
     {
-        return $this->belongsToMany('App\Model\Room', 'room_user');
+        return $this->belongsToMany('App\Model\Room', 'room_user')->withTimestamps();
     }
 
     public function buildings()
@@ -64,17 +64,17 @@ class User extends BaseModel
 
     public function roles()
     {
-        return $this->belongsToMany('App\Model\Role');
+        return $this->belongsToMany('App\Model\Role')->withTimestamps();
     }
 
     public function courses()
     {
-        return $this->belongsToMany('App\Model\Course');
+        return $this->belongsToMany('App\Model\Course')->withTimestamps();
     }
 
     public function departments()
     {
-        return $this->belongsToMany('App\Model\Department');
+        return $this->belongsToMany('App\Model\Department')->withTimestamps();
     }
 
     public function addresses()

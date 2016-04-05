@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->call('CourseTableSeeder');
         $this->call('ApikeyTableSeeder');
         // Pivot Tables
+        $this->call('UserDepartmentTableSeeder');
         $this->call('UserCourseTableSeeder');
         $this->call('UserRoleTableSeeder');
         $this->call('UserRoomTableSeeder');

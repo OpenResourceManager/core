@@ -19,7 +19,7 @@ class MobileCarrier extends BaseModel
 
     public function phones()
     {
-        return $this->belongsToMany('App\Model\Phone', 'phones');
+        return $this->belongsToMany('App\Model\Phone', 'phones')->withTimestamps();
     }
 
     public function code2id($code)

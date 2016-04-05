@@ -31,7 +31,7 @@ class Room extends BaseModel
 
     public function users()
     {
-        return $this->belongsToMany('App\Model\User', 'room_user');
+        return $this->belongsToMany('App\Model\User', 'room_user')->withTimestamps();
     }
 
     public function code2id($code)

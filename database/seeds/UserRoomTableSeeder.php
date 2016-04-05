@@ -17,10 +17,8 @@ class UserRoomTableSeeder extends Seeder
         $roomIds = Room::lists('id')->all();
 
         foreach (range(1, 150) as $index) {
-            DB::table('room_user')->insert([
-                'room_id' => $faker->randomElement($roomIds),
-                'user_id' => $faker->unique()->randomElement($userIds)
-            ]);
+            $user = User::find($faker->unique()->randomElement($userIds));
+            $user->rooms()->attach($faker->randomElement($roomIds));
         }
     }
 }
