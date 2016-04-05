@@ -70,11 +70,11 @@ class UserController extends ApiController
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'identifier' => 'alpha_num|required|max:7|min:6',
-            'name_prefix' => 'string|max:7',
+            'name_prefix' => 'string|max:20',
             'name_first' => 'string|required|min:1',
             'name_middle' => 'string',
             'name_last' => 'string|required|min:1',
-            'name_postfix' => 'string|max:7',
+            'name_postfix' => 'string|max:20',
             'name_phonetic' => 'string',
             'username' => 'string|required|min:3|unique:users,deleted_at,NULL',
             'primary_role' => 'integer',
