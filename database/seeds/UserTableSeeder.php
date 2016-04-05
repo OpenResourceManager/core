@@ -26,7 +26,7 @@ class UserTableSeeder extends Seeder
 
         foreach (range(1, 150) as $index) {
             User::create([
-                'user_identifier' => strval($faker->unique()->randomNumber($nbDigits = 7, $strict = true)),
+                'identifier' => strval($faker->unique()->randomNumber($nbDigits = 7, $strict = true)),
                 'name_prefix' => $faker->optional()->title,
                 'name_first' => $faker->firstName,
                 'name_middle' => $faker->optional()->firstName,

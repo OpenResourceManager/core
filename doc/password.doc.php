@@ -64,7 +64,7 @@
  */
 
 /**
- * @api {post} /passwords/user_identifier POST: Create/Update Password by User Identifier
+ * @api {post} /passwords/identifier POST: Create/Update Password by User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Passwords
  * @apiDescription This method creates a new password, or updates an password object with the specified user identifier.
@@ -76,19 +76,19 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o passwords -m post -p user_id -d "user_identifier=04986732&password=qwertyuiop1234567890"
+ *      uud -o passwords -m post -p identifier -d "identifier=04986732&password=qwertyuiop1234567890"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
- *      --data "user_identifier=04986732" \
+ *      --data "identifier=04986732" \
  *      --data "password=qwertyuiop1234567890" \
- *      --url https://databridge.sage.edu/api/v1/passwords/user_identifier
+ *      --url https://databridge.sage.edu/api/v1/passwords/identifier
  *
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
- * @apiParam (Password Parameters) {String} user_identifier The user's unique identifier string.
+ * @apiParam (Password Parameters) {String} identifier The user's unique identifier string.
  * @apiParam (Password Parameters) {String} password The unencrypted password string.
  */
 
@@ -194,7 +194,7 @@
  */
 
 /**
- * @api {delete} /passwords/user_identifier DELETE: Destroy by User Identifier
+ * @api {delete} /passwords/identifier DELETE: Destroy by User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Passwords
  * @apiDescription This method deletes a Password object, a user's unique identifier string is supplied.
@@ -204,17 +204,17 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiUse InternalServerErrors
- * @apiParam {String} user_id The user's unique identifier string.
+ * @apiParam {String} identifier The user's unique identifier string.
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o passwords -m delete -p user_id -d "user_id=04986732"
+ *      uud -o passwords -m delete -p identifier -d "identifier=04986732"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --data "user_id=04986732" \
- *      --url https://databridge.sage.edu/api/v1/passwords/user_identifier
+ *      --data "identifier=04986732" \
+ *      --url https://databridge.sage.edu/api/v1/passwords/identifier
  *
  * @apiUse ModelNotFoundError
  */
@@ -296,7 +296,7 @@
  */
 
 /**
- * @api {get} /passwords/user_identifier/:user_identifier GET: By User Identifier
+ * @api {get} /passwords/identifier/:identifier GET: By User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Passwords
  * @apiDescription This method returns Password objects associated with the Identifier that was supplied.
@@ -305,14 +305,14 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiUse InternalServerErrors
- * @apiParam {String} user_identifier The user's unique identifier string.
+ * @apiParam {String} identifier The user's unique identifier string.
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o passwords -p user_id/979659
+ *      uud -o passwords -p identifier/979659
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/passwords/user_identifier/979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/passwords/identifier/979659
  *
  * @apiUse PasswordSuccess
  * @apiUse GetPasswordSuccessResultExample

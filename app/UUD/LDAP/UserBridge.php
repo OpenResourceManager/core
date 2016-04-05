@@ -31,7 +31,7 @@ class UserBridge extends Bridge
      * @param string $username
      * @return array|bool
      */
-    public function find_user_username($username = '')
+    public function find_username($username = '')
     {
         if (!empty(trim($username))) {
             $filter = '(&(objectClass=top)(objectClass=person)(objectClass=user)(sAMAccountName=' . $username . '))';
@@ -72,13 +72,13 @@ class UserBridge extends Bridge
     }
 
     /**
-     * @param string $user_identifier
+     * @param string $identifier
      * @return array|bool
      */
-    public function find_user_user_identifier($user_identifier = '')
+    public function find_identifier($identifier = '')
     {
-        if (!empty(trim($user_identifier))) {
-            $filter = '(&(objectClass=top)(objectClass=person)(objectClass=user)(employeeID=' . $user_identifier . '))';
+        if (!empty(trim($identifier))) {
+            $filter = '(&(objectClass=top)(objectClass=person)(objectClass=user)(employeeID=' . $identifier . '))';
             $attributes = [
                 'cn',
                 'distinguishedName',
@@ -122,22 +122,22 @@ class UserBridge extends Bridge
     public function check_existing_user(User $user)
     {
         // Find an existing user by username
-        $username_results = $this->find_user_username($user->username);
-        // Find an existing user by user_identifier
-        $user_identifier_results = $this->find_user_user_identifier($user->user_identifier);
-        //$user_identifier_results = $username_results;
+        $username_results = $this->find_username($user->username);
+        // Find an existing user by identifier
+        $identifier_results = $this->find_identifier($user->identifier);
+        //$identifier_results = $username_results;
         // If either results returns results the user in question exists
-        if ($username_results || $user_identifier_results) $this->user_is_preexisting = true;
+        if ($username_results || $identifier_results) $this->user_is_preexisting = true;
         // Make sure that only one user was returned
         if ($username_results['count'] > 1) $this->perform_ldap_error('More than one user result was found while searching for username: ' . $user->username, __LINE__, __FILE__, __CLASS__);
         // Make sure that only one user was returned
-        if ($user_identifier_results['count'] > 1) $this->perform_ldap_error('More than one user result was found while searching for user_identifier: ' . $user->user_identifier, __LINE__, __FILE__, __CLASS__);
+        if ($identifier_results['count'] > 1) $this->perform_ldap_error('More than one user result was found while searching for identifier: ' . $user->identifier, __LINE__, __FILE__, __CLASS__);
         // Make sure that the results returned from both searches match, if both returned results.
-        if (($user_identifier_results['count'] > 0) && ($username_results['count'] > 0)) {
+        if (($identifier_results['count'] > 0) && ($username_results['count'] > 0)) {
             // Assign results to local var
             $result_1 = $username_results[0];
             // Assign results to local var
-            $result_2 = $user_identifier_results[0];
+            $result_2 = $identifier_results[0];
             // Verify the the objectGUID values match
             if ($result_1['objectGUID'] !== $result_2['objectGUID']) {
                 // If the objectGUID values do not match throw an LDAP error
@@ -180,7 +180,7 @@ class UserBridge extends Bridge
     public function distinguishedName_field(User $user)
     {
         $time_start = microtime(true);
-        $cn = $user->format_full_name();
+        $cn = $this->sAMAccountName_field($user);
         $dn = $this->distinguishedName_parent($user);
         if ($this->debugging) Log::debug('LDAP DN took: ' . ((microtime(true) - $time_start) * 1000) . ' ms to form.');
         return 'CN=' . $cn . ',' . $dn;
@@ -230,7 +230,7 @@ class UserBridge extends Bridge
     public function description_field(User $user)
     {
         $format = 'm/d/Y h:i:s A';
-        $dec = 'ID: ' . $user->user_identifier;
+        $dec = 'ID: ' . $user->identifier;
         if ($this->user_is_preexisting) {
             $created = $this->convert_ldap_time($this->preexisting_user['whencreated'], $format);
             if (isset($this->preexisting_user['description']) && !empty($this->preexisting_user['description'])) {
@@ -273,7 +273,7 @@ class UserBridge extends Bridge
      */
     public function employeeID_field(User $user)
     {
-        return $user->user_identifier;
+        return $user->identifier;
     }
 
     /**

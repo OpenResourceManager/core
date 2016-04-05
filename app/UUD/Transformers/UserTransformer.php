@@ -19,7 +19,7 @@ class UserTransformer extends Transformer
     {
         return [
             'id' => (int)$item['id'],
-            'user_identifier' => $item['user_identifier'],
+            'identifier' => $item['identifier'],
             'username' => $item['username'],
             'name_prefix' => $item['name_prefix'],
             'name_first' => $item['name_first'],

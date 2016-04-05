@@ -190,7 +190,7 @@ class CourseController extends ApiController
     }
 
     /**
-     * @param $user_id
+     * @param $identifier
      * @param Request $request
      * @return mixed
      */
@@ -215,15 +215,15 @@ class CourseController extends ApiController
     }
 
     /**
-     * @param $user_id
+     * @param $identifier
      * @param Request $request
      * @return mixed
      */
-    public function userCoursesByUserId($user_id, Request $request)
+    public function userCoursesByIdentifier($identifier, Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
-        $result = User::where('user_identifier', $user_id)->firstOrFail()->courses()->paginate($this->limit);
+        $result = User::where('identifier', $identifier)->firstOrFail()->courses()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->courseTransformer->transformCollection($result->all()));
     }
 
@@ -258,9 +258,9 @@ class CourseController extends ApiController
         $course = Course::findOrFail($request->input('course_id'));
         if (!$user->courses->contains($course->id)) {
             $user->courses()->attach($course);
-            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         }
     }
 
@@ -268,21 +268,21 @@ class CourseController extends ApiController
      * @param Request $request
      * @return mixed
      */
-    public function assignUserCourseByUserId(Request $request)
+    public function assignUserCourseByIdentifier(Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'identifier' => 'string|required|exists:users,identifier,deleted_at,NULL',
             'course_id' => 'integer|required|exists:courses,id,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $course = Course::findOrFail($request->input('course_id'));
         if (!$user->courses->contains($course->id)) {
             $user->courses()->attach($course);
-            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         }
     }
 
@@ -302,9 +302,9 @@ class CourseController extends ApiController
         $course = Course::findOrFail($request->input('course_id'));
         if (!$user->courses->contains($course->id)) {
             $user->courses()->attach($course);
-            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         }
     }
 
@@ -324,9 +324,9 @@ class CourseController extends ApiController
         $course = Course::where('code', $request->input('course_code'))->firstOrFail();
         if (!$user->courses->contains($course->id)) {
             $user->courses()->attach($course);
-            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         }
     }
 
@@ -334,21 +334,21 @@ class CourseController extends ApiController
      * @param Request $request
      * @return mixed
      */
-    public function assignUserCourseCodeByUserId(Request $request)
+    public function assignUserCourseCodeByIdentifier(Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'identifier' => 'string|required|exists:users,identifier,deleted_at,NULL',
             'course_code' => 'string|required|exists:courses,code,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $course = Course::where('code', $request->input('course_code'))->firstOrFail();
         if (!$user->courses->contains($course->id)) {
             $user->courses()->attach($course);
-            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         }
     }
 
@@ -368,9 +368,9 @@ class CourseController extends ApiController
         $course = Course::where('code', $request->input('course_code'))->firstOrFail();
         if (!$user->courses->contains($course->id)) {
             $user->courses()->attach($course);
-            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         }
     }
 
@@ -390,9 +390,9 @@ class CourseController extends ApiController
         $course = Course::findOrFail($request->input('course_id'));
         if ($user->courses->contains($course->id)) {
             $user->courses()->detach($course);
-            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         }
     }
 
@@ -400,21 +400,21 @@ class CourseController extends ApiController
      * @param Request $request
      * @return mixed
      */
-    public function unassignUserCourseByUserId(Request $request)
+    public function unassignUserCourseByIdentifier(Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'identifier' => 'string|required|exists:users,identifier,deleted_at,NULL',
             'course_id' => 'integer|required|exists:courses,id,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $course = Course::findOrFail($request->input('course_id'));
         if ($user->courses->contains($course->id)) {
             $user->courses()->detach($course);
-            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         }
     }
 
@@ -434,9 +434,9 @@ class CourseController extends ApiController
         $course = Course::findOrFail($request->input('course_id'));
         if ($user->courses->contains($course->id)) {
             $user->courses()->detach($course);
-            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         }
     }
 
@@ -452,13 +452,13 @@ class CourseController extends ApiController
             'course_code' => 'string|required|exists:courses,code,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::findOrFail($request->input('user'));
+        $user = User::findOrFail($request->input('user_id'));
         $course = Course::where('code', $request->input('course_code'))->firstOrFail();
         if ($user->courses->contains($course->id)) {
             $user->courses()->detach($course);
-            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         }
     }
 
@@ -466,21 +466,21 @@ class CourseController extends ApiController
      * @param Request $request
      * @return mixed
      */
-    public function unassignUserCourseCodeByUserId(Request $request)
+    public function unassignUserCourseCodeByIdentifier(Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'identifier' => 'string|required|exists:users,identifier,deleted_at,NULL',
             'course_code' => 'string|required|exists:courses,code,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $course = Course::where('code', $request->input('course_code'))->firstOrFail();
         if ($user->courses->contains($course->id)) {
             $user->courses()->detach($course);
-            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         }
     }
 
@@ -500,9 +500,9 @@ class CourseController extends ApiController
         $course = Course::where('code', $request->input('course_code'))->firstOrFail();
         if ($user->courses->contains($course->id)) {
             $user->courses()->detach($course);
-            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'course' => intval($course->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
         }
     }
 }

@@ -8,7 +8,7 @@
 
 /**
  * @apiDefine UserParameters
- * @apiParam (User Parameters) {String} user_identifier The user's unique identifier string.
+ * @apiParam (User Parameters) {String} identifier The user's unique identifier string.
  * @apiParam (User Parameters) {String} [name_prefix] The user's name prefix, if there is one.
  * @apiParam (User Parameters) {String} name_first The user's fist name.
  * @apiParam (User Parameters) {String} [name_middle] The user's middle name or initial, if there is one.
@@ -24,7 +24,7 @@
 /**
  * @apiDefine UserSuccess
  * @apiSuccess (Success 2xx: User) {Integer} id The numeric id assigned to the user by the database.
- * @apiSuccess (Success 2xx: User) {String} user_identifier The user's unique identifier string.
+ * @apiSuccess (Success 2xx: User) {String} identifier The user's unique identifier string.
  * @apiSuccess (Success 2xx: User) {String} name_prefix The user's name prefix, if there is one.
  * @apiSuccess (Success 2xx: User) {String} name_first The user's fist name.
  * @apiSuccess (Success 2xx: User) {String} name_middle The user's middle name or initial, if there is one.
@@ -52,7 +52,7 @@
  *          "result": [
  *              {
  *                  "id": 1,
- *                  "user_identifier": "6223406",
+ *                  "identifier": "6223406",
  *                  "username": "Caitlyn62",
  *                  "name_prefix": "Ms.",
  *                  "name_first": "Robb",
@@ -64,7 +64,7 @@
  *              },
  *              {
  *                  "id": 2,
- *                  "user_identifier": "4027012",
+ *                  "identifier": "4027012",
  *                  "username": "Manley.Hirthe",
  *                  "name_prefix": "Mr.",
  *                  "name_first": "Eunice",
@@ -76,7 +76,7 @@
  *              },
  *              {
  *                  "id": 3,
- *                  "user_identifier": "2892039",
+ *                  "identifier": "2892039",
  *                  "username": "Tess39",
  *                  "name_prefix": "Ms.",
  *                  "name_first": "Franco",
@@ -88,7 +88,7 @@
  *              },
  *              {
  *                  "id": 4,
- *                  "user_identifier": "9901344",
+ *                  "identifier": "9901344",
  *                  "username": "Sauer.Eulalia",
  *                  "name_prefix": null,
  *                  "name_first": "Karianne",
@@ -100,7 +100,7 @@
  *              },
  *              {
  *                  "id": 5,
- *                  "user_identifier": "4619979",
+ *                  "identifier": "4619979",
  *                  "username": "Lang.Sydnee",
  *                  "name_prefix": null,
  *                  "name_first": "Leopold",
@@ -124,7 +124,7 @@
  *          "pagination": [],
  *          "result": {
  *              "id": 1,
- *              "user_identifier": "6223406",
+ *              "identifier": "6223406",
  *              "username": "Caitlyn62",
  *              "name_prefix": "Ms.",
  *              "name_first": "Robb",

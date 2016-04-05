@@ -139,15 +139,15 @@ class PasswordController extends ApiController
     }
 
     /**
-     * @param $user_id
+     * @param $identifier
      * @param Request $request
      * @return mixed
      */
-    public function userPasswordsByUserId($user_id, Request $request)
+    public function userPasswordsByIdentifier($identifier, Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
-        $result = User::where('user_identifier', $user_id)->firstOrFail()->password()->paginate($this->limit);
+        $result = User::where('identifier', $identifier)->firstOrFail()->password()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->passwordTransformer->transformCollection($result->all()));
     }
 
@@ -168,15 +168,15 @@ class PasswordController extends ApiController
      * @param Request $request
      * @return mixed
      */
-    public function storeUserPasswordByUserId(Request $request)
+    public function storeUserPasswordByIdentifier(Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'identifier' => 'string|required|exists:users,identifier,deleted_at,NULL',
             'password' => 'string|required',
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $item = Password::updateOrCreate(['user_id' => $user->id], ['user_id' => $user->id, 'password' => Crypt::encrypt(Input::get('password'))]);
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
@@ -206,10 +206,10 @@ class PasswordController extends ApiController
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user' => 'integer|required|exists:users,id,deleted_at,NULL'
+            'user_id' => 'integer|required|exists:users,id,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::findOrFail($request->input('user'));
+        $user = User::findOrFail($request->input('user_id'));
         Password::where('user_id', $user->id)->firstOrFail()->delete();
         return $this->respondDestroySuccess();
     }
@@ -218,14 +218,14 @@ class PasswordController extends ApiController
      * @param Request $request
      * @return mixed
      */
-    public function deleteUserPasswordByUserId(Request $request)
+    public function deleteUserPasswordByIdentifier(Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL'
+            'identifier' => 'string|required|exists:users,identifier,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         Password::where('user_id', $user->id)->firstOrFail()->delete();
         return $this->respondDestroySuccess();
     }

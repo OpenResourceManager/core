@@ -246,10 +246,10 @@
  */
 
 /**
- * @api {post} /departments/user_identifier POST: Assign to Identifier
+ * @api {post} /departments/identifier POST: Assign to Identifier
  * @apiVersion 1.1.1
  * @apiGroup Departments
- * @apiDescription This method assigns a department to a user, using the user_identifier value and department database id value.
+ * @apiDescription This method assigns a department to a user, using the identifier value and department database id value.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -262,14 +262,14 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o departments -m post -p user_identifier -d "user_identifier=0958757&department_id=1"
+ *      uud -o departments -m post -p identifier -d "identifier=0958757&department_id=1"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
- *      --data "user_identifier=0958757" \
+ *      --data "identifier=0958757" \
  *      --data "department_id=1" \
- *      --url https://databridge.sage.edu/api/v1/departments/user_identifier
+ *      --url https://databridge.sage.edu/api/v1/departments/identifier
  *
  * @apiUse AssignmentDepartmentUserIDParams
  */
@@ -333,10 +333,10 @@
  */
 
 /**
- * @api {post} /departments/code/user_identifier POST: Assign Code to Identifier
+ * @api {post} /departments/code/identifier POST: Assign Code to Identifier
  * @apiVersion 1.1.1
  * @apiGroup Departments
- * @apiDescription This method assigns a department to a user, using the user_identifier value and department code value.
+ * @apiDescription This method assigns a department to a user, using the identifier value and department code value.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -349,14 +349,14 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o departments -m post -p code/user_identifier -d "user_identifier=0958757&department_code=STUDENT"
+ *      uud -o departments -m post -p code/identifier -d "identifier=0958757&department_code=STUDENT"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
- *      --data "user_identifier=0958757" \
+ *      --data "identifier=0958757" \
  *      --data "department_code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/departments/code/user_identifier
+ *      --url https://databridge.sage.edu/api/v1/departments/code/identifier
  *
  * @apiUse AssignmentDepartmentCodeUserIDParams
  */
@@ -420,10 +420,10 @@
  */
 
 /**
- * @api {delete} /departments/user_identifier DELETE: Unassign from Identifier
+ * @api {delete} /departments/identifier DELETE: Unassign from Identifier
  * @apiVersion 1.1.1
  * @apiGroup Departments
- * @apiDescription This method unassigns a user from a department a user, using the user_identifier value and department database id value.
+ * @apiDescription This method unassigns a user from a department a user, using the identifier value and department database id value.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -436,14 +436,14 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o departments -m delete -p user_identifier -d "user_identifier=0958757&department_id=1"
+ *      uud -o departments -m delete -p identifier -d "identifier=0958757&department_id=1"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --data "user_identifier=0958757" \
+ *      --data "identifier=0958757" \
  *      --data "department_id=1" \
- *      --url https://databridge.sage.edu/api/v1/departments/user_identifier
+ *      --url https://databridge.sage.edu/api/v1/departments/identifier
  *
  * @apiUse AssignmentDepartmentUserIDParams
  */
@@ -507,10 +507,10 @@
  */
 
 /**
- * @api {delete} /departments/code/user_identifier DELETE: Unassign Code from Identifier
+ * @api {delete} /departments/code/identifier DELETE: Unassign Code from Identifier
  * @apiVersion 1.1.1
  * @apiGroup Departments
- * @apiDescription This method unassigns a user from a department a user, using the user_identifier value and department code value.
+ * @apiDescription This method unassigns a user from a department a user, using the identifier value and department code value.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -523,14 +523,14 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o departments -m delete -p code/user_identifier -d "user_identifier=0958757&department_code=STUDENT"
+ *      uud -o departments -m delete -p code/identifier -d "identifier=0958757&department_code=STUDENT"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --data "user_identifier=0958757" \
+ *      --data "identifier=0958757" \
  *      --data "department_code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/departments/code/user_identifier
+ *      --url https://databridge.sage.edu/api/v1/departments/code/identifier
  *
  * @apiUse AssignmentDepartmentCodeUserIDParams
  */

@@ -10,7 +10,7 @@
  * @api {post} /users POST: Create/Update User
  * @apiVersion 1.1.1
  * @apiGroup Users
- * @apiDescription This method creates a new user, or updates a user with the specified `user_identifier`.
+ * @apiDescription This method creates a new user, or updates a user with the specified `identifier`.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -19,12 +19,12 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o users -p post -d "user_identifier=0979659&name_prefix=MR.&name_first=Luke&name_last=Skywalker&username=skywal"
+ *      uud -o users -p post -d "identifier=0979659&name_prefix=MR.&name_first=Luke&name_last=Skywalker&username=skywal"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
- *      --data "user_identifier=0979659" \
+ *      --data "identifier=0979659" \
  *      --data "name_prefix=MR." \
  *      --data "name_first=Luke" \
  *      --data "name_last=Skywalker" \
@@ -88,26 +88,26 @@
  */
 
 /**
- * @api {delete} /users/user_id/:user_identifier DELETE: Destroy via Identifier
+ * @api {delete} /users/identifier/:identifier DELETE: Destroy via Identifier
  * @apiVersion 1.1.1
  * @apiGroup Users
- * @apiDescription This method deletes a User object, a user_identifier is supplied to the API.
+ * @apiDescription This method deletes a User object, a identifier is supplied to the API.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiSuccessExampleDestroy
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiUse InternalServerErrors
- * @apiParam {String} user_identifier The user's unique identifier string.
+ * @apiParam {String} identifier The user's unique identifier string.
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o users -m delete -p user_id/0979659
+ *      uud -o users -m delete -p identifier/0979659
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/users/user_id/0979659
+ *      --url https://databridge.sage.edu/api/v1/users/identifier/0979659
  *
  * @apiUse ModelNotFoundError
  */
@@ -187,23 +187,23 @@
  */
 
 /**
- * @api {get} /users/user_id/:user_identifier GET: Request via Identifier
+ * @api {get} /users/identifier/:identifier GET: Request via Identifier
  * @apiVersion 1.1.1
  * @apiGroup Users
- * @apiDescription This method returns a User object, a user_identifier is supplied to the API.
+ * @apiDescription This method returns a User object, a identifier is supplied to the API.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiUse InternalServerErrors
- * @apiParam {String} user_identifier The user's unique identifier string.
+ * @apiParam {String} identifier The user's unique identifier string.
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o users -p user_id/62223406
+ *      uud -o users -p identifier/62223406
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/user_id/6223406
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/identifier/6223406
  *
  * @apiUse UserSuccess
  * @apiUse GetUserSuccessResultExample

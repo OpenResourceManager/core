@@ -154,15 +154,15 @@ class EmailController extends ApiController
     }
 
     /**
-     * @param $user_id
+     * @param $identifier
      * @param Request $request
      * @return mixed
      */
-    public function userEmailsByUserId($user_id, Request $request)
+    public function userEmailsByIdentifier($identifier, Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
-        $result = User::where('user_identifier', $user_id)->firstOrFail()->emails()->paginate($this->limit);
+        $result = User::where('identifier', $identifier)->firstOrFail()->emails()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
     }
 
@@ -183,15 +183,15 @@ class EmailController extends ApiController
      * @param Request $request
      * @return mixed
      */
-    public function storeUserEmailByUserId(Request $request)
+    public function storeUserEmailByIdentifier(Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_id' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'identifier' => 'string|required|exists:users,identifier,deleted_at,NULL',
             'email' => 'email|required|unique:emails,deleted_at,NULL',
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::where('user_identifier', $request->input('user_id'))->firstOrFail();
+        $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $item = Email::updateOrCreate(['user_id' => $user->id], ['user_id' => $user->id, 'email' => Input::get('email')]);
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }

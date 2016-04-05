@@ -153,15 +153,15 @@ class AddressController extends ApiController
     }
 
     /**
-     * @param $user_id
+     * @param $identifier
      * @param Request $request
      * @return mixed
      */
-    public function userAddressesByUserId($user_id, Request $request)
+    public function userAddressesByIdentifier($identifier, Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
-        $result = User::where('user_identifier', $user_id)->firstOrFail()->addresses()->paginate($this->limit);
+        $result = User::where('identifier', $identifier)->firstOrFail()->addresses()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->addressTransformer->transformCollection($result->all()));
     }
 

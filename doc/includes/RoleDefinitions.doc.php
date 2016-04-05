@@ -27,7 +27,7 @@
 
 /**
  * @apiDefine AssignmentRoleUserIDParams
- * @apiParam user_identifier {String} The unique identifier string associated with a user.
+ * @apiParam identifier {String} The unique identifier string associated with a user.
  * @apiParam role_id {Integer} The database ID of the role.
  */
 
@@ -45,7 +45,7 @@
 
 /**
  * @apiDefine AssignmentRoleCodeUserIDParams
- * @apiParam user_identifier {String} The unique identifier string associated with a user.
+ * @apiParam identifier {String} The unique identifier string associated with a user.
  * @apiParam role_code {String} The unique code string of the role.
  */
 
