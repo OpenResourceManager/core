@@ -211,10 +211,80 @@
  * @apiUse ModelNotFoundError
  */
 
+/**
+ * @api {get} /departments/user/:id GET: By User ID
+ * @apiVersion 1.1.1
+ * @apiGroup Departments
+ * @apiDescription This method returns Department objects associated with the user's database id.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
+ * @apiParam {Integer} id The users unique ID.
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -p user/153
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments/user/153
+ *
+ * @apiUse DepartmentSuccess
+ * @apiUse GetDepartmentsSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
 
+/**
+ * @api {get} /departments/username/:username GET: By Username
+ * @apiVersion 1.1.1
+ * @apiGroup Departments
+ * @apiDescription This method returns Department objects associated with the Username that was supplied.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
+ * @apiParam {String} username The users unique username.
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -p username/skywal
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments/username/skywal
+ *
+ * @apiUse DepartmentSuccess
+ * @apiUse GetDepartmentsSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
 
-
-
+/**
+ * @api {get} /departments/identifier/:identifier GET: By User Identifier
+ * @apiVersion 1.1.1
+ * @apiGroup Departments
+ * @apiDescription This method returns Department objects associated with the Identifier that was supplied.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
+ * @apiParam {String} identifier The user's unique identifier string.
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o departments -p identifier/979659
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments/identifier/979659
+ *
+ * @apiUse DepartmentSuccess
+ * @apiUse GetDepartmentsSuccessResultExample
+ *
+ * @apiUse ModelNotFoundError
+ */
 
 /**
  * @api {post} /departments/user POST: Assign to User

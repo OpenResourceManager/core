@@ -138,6 +138,9 @@ Route::group(['prefix' => 'api'], function () {
 
 
         Route::resource('departments', 'DepartmentController'); // Documented
+        Route::get('departments/user/{id}', 'DepartmentController@userDepartments'); // Documented
+        Route::get('departments/username/{username}', 'DepartmentController@userDepartmentsByUsername'); // Documented
+        Route::get('departments/identifier/{identifier}', 'DepartmentController@userDepartmentsByIdentifier'); // Documented
         Route::get('departments/code/{code}', 'DepartmentController@showByCode'); // Documented
         Route::get('departments/course/{id}', 'DepartmentController@courseDepartment'); // Documented
         Route::get('departments/course/code/{code}', 'DepartmentController@courseDepartmentByCode'); // Documented

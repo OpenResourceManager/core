@@ -176,6 +176,47 @@ class DepartmentController extends ApiController
         return $this->respondSuccessWithPagination($request, $result, $this->departmentTransformer->transformCollection($result->all()));
     }
 
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return mixed
+     */
+    public function userDepartments($id, Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        parent::index($request);
+        $result = User::findOrFail($id)->departments()->paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->departmentTransformer->transformCollection($result->all()));
+    }
+
+    /**
+     * @param $identifier
+     * @param Request $request
+     * @return mixed
+     */
+    public function userDepartmentsByIdentifier($identifier, Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        parent::index($request);
+        $result = User::where('identifier', $identifier)->firstOrFail()->departments()->paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->departmentTransformer->transformCollection($result->all()));
+    }
+
+    /**
+     * @param $username
+     * @param Request $request
+     * @return mixed
+     */
+    public function userDepartmentsByUsername($username, Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        parent::index($request);
+        $result = User::where('username', $username)->firstOrFail()->departments()->paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->departmentTransformer->transformCollection($result->all()));
+    }
+
+
     /**
      * @param Request $request
      * @return mixed

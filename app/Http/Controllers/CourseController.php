@@ -204,6 +204,7 @@ class CourseController extends ApiController
 
     /**
      * @param $id
+     * @param Request $request
      * @return mixed
      */
     public function userCourses($id, Request $request)
@@ -236,7 +237,7 @@ class CourseController extends ApiController
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
-        $result = User::where('username', $username)->firstOrFail()->course()->paginate($this->limit);
+        $result = User::where('username', $username)->firstOrFail()->courses()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->courseTransformer->transformCollection($result->all()));
     }
 
