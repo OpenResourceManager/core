@@ -21,7 +21,7 @@ class User extends BaseModel
     protected $table = 'users';
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'user_identifier',
+        'identifier',
         'name_prefix',
         'name_first',
         'name_middle',

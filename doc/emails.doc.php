@@ -64,10 +64,10 @@
  */
 
 /**
- * @api {post} /emails/user_id POST: Create/Update Email by User Identifier
+ * @api {post} /emails/identifier POST: Create/Update Email by User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Emails
- * @apiDescription This method creates a new email, or updates an email object with the specified user_identifier.
+ * @apiDescription This method creates a new email, or updates an email object with the specified identifier.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -76,19 +76,19 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o emails -m post -p user_id -d "user_id=04986732&email=skywalker@yahoo.com"
+ *      uud -o emails -m post -p identifier -d "identifier=04986732&email=skywalker@yahoo.com"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
- *      --data "user_id=04986732" \
+ *      --data "identifier=04986732" \
  *      --data "email=skywalker@yahoo.com" \
- *      --url https://databridge.sage.edu/api/v1/emails/user_id
+ *      --url https://databridge.sage.edu/api/v1/emails/identifier
  *
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
- * @apiParam (Email Parameters) {String} user_id The user's unique identifier string.
+ * @apiParam (Email Parameters) {String} identifier The user's unique identifier string.
  * @apiParam (Email Parameters) {String} email The email address string.
  */
 
@@ -244,7 +244,7 @@
  */
 
 /**
- * @api {get} /emails/user_id/:user_identifier GET: By User Identifier
+ * @api {get} /emails/identifier/:identifier GET: By User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Emails
  * @apiDescription This method returns Email objects associated with the Identifier that was supplied.
@@ -253,14 +253,14 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiUse InternalServerErrors
- * @apiParam {String} user_identifier The user's unique identifier string.
+ * @apiParam {String} identifier The user's unique identifier string.
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o emails -p user_id/979659
+ *      uud -o emails -p identifier/979659
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/user_id/979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/identifier/979659
  *
  * @apiUse EmailSuccess
  * @apiUse GetUsersEmailsSuccessResultExample

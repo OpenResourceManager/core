@@ -35,7 +35,7 @@
 
 /**
  * @apiDefine AssignmentRoomUserIDParams
- * @apiParam user_id {String} The unique identifier string associated with a user.
+ * @apiParam identifier {String} The unique identifier string associated with a user.
  * @apiParam room {Integer} The database ID of the room.
  */
 
@@ -53,7 +53,7 @@
 
 /**
  * @apiDefine AssignmentRoomCodeUserIDParams
- * @apiParam user_id {String} The unique identifier string associated with a user.
+ * @apiParam identifier {String} The unique identifier string associated with a user.
  * @apiParam room {String} The unique code string of the room.
  */
 

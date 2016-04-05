@@ -244,7 +244,7 @@
  */
 
 /**
- * @api {get} /courses/user_id/:user_identifier GET: By User Identifier
+ * @api {get} /courses/identifier/:identifier GET: By User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Courses
  * @apiDescription This method returns Course objects associated with the Identifier that was supplied.
@@ -253,14 +253,14 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiUse InternalServerErrors
- * @apiParam {String} user_identifier The user's unique identifier string.
+ * @apiParam {String} identifier The user's unique identifier string.
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o courses -p user_id/979659
+ *      uud -o courses -p identifier/979659
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/user_id/979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/identifier/979659
  *
  * @apiUse CourseSuccess
  * @apiUse GetCoursesSuccessResultExample
@@ -348,10 +348,10 @@
  */
 
 /**
- * @api {post} /courses/user_identifier POST: Assign to Identifier
+ * @api {post} /courses/identifier POST: Assign to Identifier
  * @apiVersion 1.1.1
  * @apiGroup Courses
- * @apiDescription This method assigns a course to a user, using the user_identifier value and course database id value.
+ * @apiDescription This method assigns a course to a user, using the identifier value and course database id value.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -364,14 +364,14 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o courses -m post -p user_identifier -d "user_identifier=0958757&course_id=1"
+ *      uud -o courses -m post -p identifier -d "identifier=0958757&course_id=1"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
- *      --data "user_identifier=0958757" \
+ *      --data "identifier=0958757" \
  *      --data "course_id=1" \
- *      --url https://databridge.sage.edu/api/v1/courses/user_identifier
+ *      --url https://databridge.sage.edu/api/v1/courses/identifier
  *
  * @apiUse AssignmentCourseUserIDParams
  */
@@ -435,10 +435,10 @@
  */
 
 /**
- * @api {post} /courses/code/user_identifier POST: Assign Code to Identifier
+ * @api {post} /courses/code/identifier POST: Assign Code to Identifier
  * @apiVersion 1.1.1
  * @apiGroup Courses
- * @apiDescription This method assigns a course to a user, using the user_identifier value and course code value.
+ * @apiDescription This method assigns a course to a user, using the identifier value and course code value.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -451,14 +451,14 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o courses -m post -p code/user_identifier -d "user_identifier=0958757&course_code=STUDENT"
+ *      uud -o courses -m post -p code/identifier -d "identifier=0958757&course_code=STUDENT"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
- *      --data "user_identifier=0958757" \
+ *      --data "identifier=0958757" \
  *      --data "course_code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/courses/code/user_identifier
+ *      --url https://databridge.sage.edu/api/v1/courses/code/identifier
  *
  * @apiUse AssignmentCourseCodeUserIDParams
  */
@@ -522,10 +522,10 @@
  */
 
 /**
- * @api {delete} /courses/user_identifier DELETE: Unassign from Identifier
+ * @api {delete} /courses/identifier DELETE: Unassign from Identifier
  * @apiVersion 1.1.1
  * @apiGroup Courses
- * @apiDescription This method unassigns a user from a course a user, using the user_identifier value and course database id value.
+ * @apiDescription This method unassigns a user from a course a user, using the identifier value and course database id value.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -538,14 +538,14 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o courses -m delete -p user_identifier -d "user_identifier=0958757&course_id=1"
+ *      uud -o courses -m delete -p identifier -d "identifier=0958757&course_id=1"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --data "user_identifier=0958757" \
+ *      --data "identifier=0958757" \
  *      --data "course_id=1" \
- *      --url https://databridge.sage.edu/api/v1/courses/user_identifier
+ *      --url https://databridge.sage.edu/api/v1/courses/identifier
  *
  * @apiUse AssignmentCourseUserIDParams
  */
@@ -609,10 +609,10 @@
  */
 
 /**
- * @api {delete} /courses/code/user_identifier DELETE: Unassign Code from Identifier
+ * @api {delete} /courses/code/identifier DELETE: Unassign Code from Identifier
  * @apiVersion 1.1.1
  * @apiGroup Courses
- * @apiDescription This method unassigns a user from a course a user, using the user_identifier value and course code value.
+ * @apiDescription This method unassigns a user from a course a user, using the identifier value and course code value.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -625,14 +625,14 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o courses -m delete -p code/user_identifier -d "user_identifier=0958757&course_code=STUDENT"
+ *      uud -o courses -m delete -p code/identifier -d "identifier=0958757&course_code=STUDENT"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --data "user_identifier=0958757" \
+ *      --data "identifier=0958757" \
  *      --data "course_code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/courses/code/user_identifier
+ *      --url https://databridge.sage.edu/api/v1/courses/code/identifier
  *
  * @apiUse AssignmentCourseCodeUserIDParams
  */

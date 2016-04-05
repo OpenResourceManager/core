@@ -45,86 +45,86 @@ Route::group(['prefix' => 'api'], function () {
 
         Route::resource('rooms', 'RoomController'); // Documented
         Route::get('rooms/user/{id}', 'RoomController@userRooms'); // Documented
-        Route::get('rooms/user_id/{user_id}', 'RoomController@userRoomsByUserId'); // Documented
+        Route::get('rooms/identifier/{identifier}', 'RoomController@userRoomsByIdentifier'); // Documented
         Route::get('rooms/username/{username}', 'RoomController@userRoomsByUsername'); // Documented
         Route::get('rooms/campus/{id}', 'RoomController@campusRooms'); // Documented
         Route::get('rooms/campus/code/{code}', 'RoomController@campusRoomsByCode'); // Documented
         Route::get('rooms/building/{id}', 'RoomController@buildingRooms'); // Documented
         Route::get('rooms/building/code/{code}', 'RoomController@buildingRoomsByCode'); // Documented
         Route::post('rooms/user', 'RoomController@assignUserRoom'); // Documented
-        Route::post('rooms/user_id', 'RoomController@assignUserRoomByUserId'); // Documented
+        Route::post('rooms/identifier', 'RoomController@assignUserRoomByIdentifier'); // Documented
         Route::post('rooms/username', 'RoomController@assignUserRoomByUsername'); // Documented
         Route::post('rooms/code/user', 'RoomController@assignUserRoomCode'); // Documented
-        Route::post('rooms/code/user_id', 'RoomController@assignUserRoomCodeByUserId'); // Documented
+        Route::post('rooms/code/identifier', 'RoomController@assignUserRoomCodeByIdentifier'); // Documented
         Route::post('rooms/code/username', 'RoomController@assignUserRoomCodeByUsername'); // Documented
         Route::delete('rooms/user', 'RoomController@unassignUserRoom'); // Documented
-        Route::delete('rooms/user_id', 'RoomController@unassignUserRoomByUserId'); // Documented
+        Route::delete('rooms/identifier', 'RoomController@unassignUserRoomByIdentifier'); // Documented
         Route::delete('rooms/username', 'RoomController@unassignUserRoomByUsername'); // Documented
         Route::delete('rooms/code/user', 'RoomController@unassignUserRoomCode'); // Documented
-        Route::delete('rooms/code/user_id', 'RoomController@unassignUserRoomCodeByUserId'); // Documented
+        Route::delete('rooms/code/identifier', 'RoomController@unassignUserRoomCodeByIdentifier'); // Documented
         Route::delete('rooms/code/username', 'RoomController@unassignUserRoomCodeByUsername'); // Documented
         Route::delete('rooms/code/{code}', 'RoomController@destroyByCode'); // Documented
 
 
         Route::resource('users', 'UserController'); // Documented
-        Route::get('users/user_id/{user_id}', 'UserController@showByUserId'); // Documented
+        Route::get('users/identifier/{identifier}', 'UserController@showByIdentifier'); // Documented
         Route::get('users/username/{username}', 'UserController@showByUsername'); // Documented
         Route::get('users/role/{id}', 'UserController@roleUsers'); // Documented
         Route::get('users/role/code/{code}', 'UserController@roleUsersByCode'); // Documented
         Route::get('users/course/{id}', 'UserController@courseUsers'); // Documented
         Route::get('users/course/code/{code}', 'UserController@courseUsersByCode'); // Documented
         Route::get('users/room/{id}', 'UserController@roomUsers'); // Documented
-        Route::delete('users/user_id/{user_id}', 'UserController@destroyByUserId'); // Documented
+        Route::delete('users/identifier/{identifier}', 'UserController@destroyByIdentifier'); // Documented
         Route::delete('users/username/{username}', 'UserController@destroyByUsername'); // Documented
 
 
         Route::resource('roles', 'RoleController'); // Documented
         Route::get('roles/code/{code}', 'RoleController@showByCode'); // Documented
         Route::get('roles/user/{id}', 'RoleController@userRoles'); // Documented
-        Route::get('roles/user_id/{user_id}', 'RoleController@userRolesByUserId'); // Documented
+        Route::get('roles/identifier/{identifier}', 'RoleController@userRolesByIdentifier'); // Documented
         Route::get('roles/username/{username}', 'RoleController@userRolesByUsername'); // Documented
         Route::post('roles/user', 'RoleController@assignUserRole'); // Documented
-        Route::post('roles/user_identifier', 'RoleController@assignUserRoleByUserId'); // Documented
+        Route::post('roles/identifier', 'RoleController@assignUserRoleByIdentifier'); // Documented
         Route::post('roles/username', 'RoleController@assignUserRoleByUsername'); // Documented
         Route::post('roles/code/user', 'RoleController@assignUserRoleCode'); // Documented
-        Route::post('roles/code/user_identifier', 'RoleController@assignUserRoleCodeByUserId'); // Documented
+        Route::post('roles/code/identifier', 'RoleController@assignUserRoleCodeByIdentifier'); // Documented
         Route::post('roles/code/username', 'RoleController@assignUserRoleCodeByUsername'); // Documented
         Route::delete('roles/user', 'RoleController@unassignUserRole'); // Documented
-        Route::delete('roles/user_identifier', 'RoleController@unassignUserRoleByUserId'); // Documented
+        Route::delete('roles/identifier', 'RoleController@unassignUserRoleByIdentifier'); // Documented
         Route::delete('roles/username', 'RoleController@unassignUserRoleByUsername'); // Documented
         Route::delete('roles/code/user', 'RoleController@unassignUserRoleCode'); // Documented
-        Route::delete('roles/code/user_identifier', 'RoleController@unassignUserRoleCodeByUserId'); // Documented
+        Route::delete('roles/code/identifier', 'RoleController@unassignUserRoleCodeByIdentifier'); // Documented
         Route::delete('roles/code/username', 'RoleController@unassignUserRoleCodeByUsername'); // Documented
         Route::delete('roles/code/{code}', 'RoleController@destroyByCode'); // Documented
 
 
         Route::resource('emails', 'EmailController'); // Documented
         Route::get('emails/user/{id}', 'EmailController@userEmails'); // Documented
-        Route::get('emails/user_id/{user_id}', 'EmailController@userEmailsByUserId'); // Documented
+        Route::get('emails/identifier/{identifier}', 'EmailController@userEmailsByIdentifier'); // Documented
         Route::get('emails/username/{username}', 'EmailController@userEmailsByUsername'); // Documented
-        Route::post('emails/user_id', 'EmailController@storeUserEmailByUserId'); // Documented
+        Route::post('emails/identifier', 'EmailController@storeUserEmailByIdentifier'); // Documented
         Route::post('emails/username', 'EmailController@storeUserEmailByUsername'); // Documented
         Route::delete('emails/address', 'EmailController@destroyByAddress'); // Documented
 
 
         Route::resource('passwords', 'PasswordController'); // Documented
         Route::get('passwords/user/{id}', 'PasswordController@userPasswords'); // Documented
-        Route::get('passwords/user_id/{user_id}', 'PasswordController@userPasswordsByUserId'); // Documented
+        Route::get('passwords/identifier/{identifier}', 'PasswordController@userPasswordsByIdentifier'); // Documented
         Route::get('passwords/username/{username}', 'PasswordController@userPasswordsByUsername'); // Documented
-        Route::post('passwords/user_id', 'PasswordController@storeUserPasswordByUserId'); // Documented
+        Route::post('passwords/identifier', 'PasswordController@storeUserPasswordByIdentifier'); // Documented
         Route::post('passwords/username', 'PasswordController@storeUserPasswordByUsername'); // Documented
         Route::delete('passwords/user', 'PasswordController@deleteUserPassword'); // Documented
-        Route::delete('passwords/user_id', 'PasswordController@deleteUserPasswordByUserId'); // Documented
+        Route::delete('passwords/identifier', 'PasswordController@deleteUserPasswordByIdentifier'); // Documented
         Route::delete('passwords/username', 'PasswordController@deleteUserPasswordByUsername'); // Documented
 
         Route::resource('birthdates', 'BirthDateController'); // Documented
         Route::get('birthdates/user/{id}', 'BirthDateController@userBirthDates'); // Documented
-        Route::get('birthdates/user_id/{user_id}', 'BirthDateController@userBirthDatesByUserId'); // Documented
+        Route::get('birthdates/identifier/{identifier}', 'BirthDateController@userBirthDatesByIdentifier'); // Documented
         Route::get('birthdates/username/{username}', 'BirthDateController@userBirthDatesByUsername'); // Documented
-        Route::post('birthdates/user_id', 'BirthDateController@storeUserBirthDateByUserId'); // Documented
+        Route::post('birthdates/identifier', 'BirthDateController@storeUserBirthDateByIdentifier'); // Documented
         Route::post('birthdates/username', 'BirthDateController@storeUserBirthDateByUsername'); // Documented
         Route::delete('birthdates/user', 'BirthDateController@deleteUserBirthDate'); // Documented
-        Route::delete('birthdates/user_id', 'BirthDateController@deleteUserBirthDateByUserId'); // Documented
+        Route::delete('birthdates/identifier', 'BirthDateController@deleteUserBirthDateByIdentifier'); // Documented
         Route::delete('birthdates/username', 'BirthDateController@deleteUserBirthDateByUsername'); // Documented
 
         Route::resource('mobilecarriers', 'MobileCarrierController'); // Documented
@@ -133,7 +133,7 @@ Route::group(['prefix' => 'api'], function () {
 
         Route::resource('phones', 'PhoneController'); // Documented
         Route::get('phones/user/{id}', 'PhoneController@userPhones'); // Documented
-        Route::get('phones/user_id/{user_id}', 'PhoneController@userPhonesByUserId'); // Documented
+        Route::get('phones/identifier/{identifier}', 'PhoneController@userPhonesByIdentifier'); // Documented
         Route::get('phones/username/{username}', 'PhoneController@userPhonesByUsername'); // Documented
 
 
@@ -142,16 +142,16 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('departments/course/{id}', 'DepartmentController@courseDepartment'); // Documented
         Route::get('departments/course/code/{code}', 'DepartmentController@courseDepartmentByCode'); // Documented
         Route::post('departments/user', 'DepartmentController@assignUserDepartment'); // Documented
-        Route::post('departments/user_identifier', 'DepartmentController@assignUserDepartmentByUserId'); // Documented
+        Route::post('departments/identifier', 'DepartmentController@assignUserDepartmentByIdentifier'); // Documented
         Route::post('departments/username', 'DepartmentController@assignUserDepartmentByUsername'); // Documented
         Route::post('departments/code/user', 'DepartmentController@assignUserDepartmentCode'); // Documented
-        Route::post('departments/code/user_identifier', 'DepartmentController@assignUserDepartmentCodeByUserId'); // Documented
+        Route::post('departments/code/identifier', 'DepartmentController@assignUserDepartmentCodeByIdentifier'); // Documented
         Route::post('departments/code/username', 'DepartmentController@assignUserDepartmentCodeByUsername');
         Route::delete('departments/user', 'DepartmentController@unassignUserDepartment'); // Documented
-        Route::delete('departments/user_identifier', 'DepartmentController@unassignUserDepartmentByUserId'); // Documented
+        Route::delete('departments/identifier', 'DepartmentController@unassignUserDepartmentByIdentifier'); // Documented
         Route::delete('departments/username', 'DepartmentController@unassignUserDepartmentByUsername'); // Documented
         Route::delete('departments/code/user', 'DepartmentController@unassignUserDepartmentCode'); // Documented
-        Route::delete('departments/code/user_identifier', 'DepartmentController@unassignUserDepartmentCodeByUserId'); // Documented
+        Route::delete('departments/code/identifier', 'DepartmentController@unassignUserDepartmentCodeByIdentifier'); // Documented
         Route::delete('departments/code/username', 'DepartmentController@unassignUserDepartmentCodeByUsername'); // Documented
         Route::delete('departments/code/{code}', 'DepartmentController@destroyByCode'); // Documented
 
@@ -159,29 +159,29 @@ Route::group(['prefix' => 'api'], function () {
         Route::resource('courses', 'CourseController'); // Documented
         Route::get('courses/code/{code}', 'CourseController@showByCode'); // Documented
         Route::get('courses/user/{id}', 'CourseController@userCourses'); // Documented
-        Route::get('courses/user_id/{user_id}', 'CourseController@userCoursesByUserId'); // Documented
+        Route::get('courses/identifier/{identifier}', 'CourseController@userCoursesByIdentifier'); // Documented
         Route::get('courses/username/{username}', 'CourseController@userCoursesUsername'); // Documented
         Route::get('courses/department/{id}', 'CourseController@departmentCourses'); // Documented
         Route::get('courses/department/code/{code}', 'CourseController@departmentCoursesByCode'); // Documented
         Route::post('courses/department/code', 'CourseController@storeByDepartmentCode'); // Documented
         Route::post('courses/user', 'CourseController@assignUserCourse'); // Documented
-        Route::post('courses/user_identifier', 'CourseController@assignUserCourseByUserId'); // Documented
+        Route::post('courses/identifier', 'CourseController@assignUserCourseByIdentifier'); // Documented
         Route::post('courses/username', 'CourseController@assignUserCourseByUsername'); // Documented
         Route::post('courses/code/user', 'CourseController@assignUserCourseCode'); // Documented
-        Route::post('courses/code/user_identifier', 'CourseController@assignUserCourseCodeByUserId'); // Documented
+        Route::post('courses/code/identifier', 'CourseController@assignUserCourseCodeByIdentifier'); // Documented
         Route::post('courses/code/username', 'CourseController@assignUserCourseCodeByUsername'); // Documented
         Route::delete('courses/user', 'CourseController@unassignUserCourse'); // Documented
-        Route::delete('courses/user_identifier', 'CourseController@unassignUserCourseByUserId'); // Documented
+        Route::delete('courses/identifier', 'CourseController@unassignUserCourseByIdentifier'); // Documented
         Route::delete('courses/username', 'CourseController@unassignUserCourseByUsername'); // Documented
         Route::delete('courses/code/user', 'CourseController@unassignUserCourseCode'); // Documented
-        Route::delete('courses/code/user_identifier', 'CourseController@unassignUserCourseCodeByUserId'); // Documented
+        Route::delete('courses/code/identifier', 'CourseController@unassignUserCourseCodeByIdentifier'); // Documented
         Route::delete('courses/code/username', 'CourseController@unassignUserCourseCodeByUsername'); // Documented
         Route::delete('courses/code/{code}', 'CourseController@destroyByCode'); // Documented
 
 
         Route::resource('addresses', 'AddressController'); // Documented
         Route::get('addresses/user/{id}', 'AddressController@userCourses'); // Documented
-        Route::get('addresses/user_id/{user_id}', 'AddressController@userAddressesByUserId'); // Documented
+        Route::get('addresses/identifier/{identifier}', 'AddressController@userAddressesByIdentifier'); // Documented
         Route::get('addresses/username/{username}', 'AddressController@userAddressesByUsername'); // Documented
 
 

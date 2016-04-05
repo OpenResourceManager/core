@@ -161,7 +161,7 @@
  */
 
 /**
- * @api {get} /phones/user_id/:user_identifier GET: By User Identifier
+ * @api {get} /phones/identifier/:identifier GET: By User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Phones
  * @apiDescription This method returns Phone objects associated with the Identifier that was supplied.
@@ -170,14 +170,14 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiUse InternalServerErrors
- * @apiParam {String} user_identifier The user's unique identifier string.
+ * @apiParam {String} identifier The user's unique identifier string.
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o phones -p user_id/979659
+ *      uud -o phones -p identifier/979659
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/phones/user/user_id/979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/phones/user/identifier/979659
  *
  * @apiUse PhoneSuccess
  * @apiUse GetUsersPhonesSuccessResultExample

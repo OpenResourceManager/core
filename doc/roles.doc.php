@@ -209,7 +209,7 @@
  */
 
 /**
- * @api {get} /roles/user_id/:user_identifier GET: By User Identifier
+ * @api {get} /roles/identifier/:identifier GET: By User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Roles
  * @apiDescription This method returns Role objects associated with the Identifier that was supplied.
@@ -218,14 +218,14 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiUse InternalServerErrors
- * @apiParam {String} user_identifier The user's unique identifier string.
+ * @apiParam {String} identifier The user's unique identifier string.
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
  *      uud -o roles -p user_name/979659
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/user_id/979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/identifier/979659
  *
  * @apiUse RoleSuccess
  * @apiUse GetRolesSuccessResultExample
@@ -263,10 +263,10 @@
  */
 
 /**
- * @api {post} /roles/user_identifier POST: Assign to Identifier
+ * @api {post} /roles/identifier POST: Assign to Identifier
  * @apiVersion 1.1.1
  * @apiGroup Roles
- * @apiDescription This method assigns a role to a user, using the user_identifier value and role database id value.
+ * @apiDescription This method assigns a role to a user, using the identifier value and role database id value.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -279,14 +279,14 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o roles -m post -p user_identifier -d "user_identifier=0958757&role_id=1"
+ *      uud -o roles -m post -p identifier -d "identifier=0958757&role_id=1"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
- *      --data "user_identifier=0958757" \
+ *      --data "identifier=0958757" \
  *      --data "role_id=1" \
- *      --url https://databridge.sage.edu/api/v1/roles/user_identifier
+ *      --url https://databridge.sage.edu/api/v1/roles/identifier
  *
  * @apiUse AssignmentRoleUserIDParams
  */
@@ -350,10 +350,10 @@
  */
 
 /**
- * @api {post} /roles/code/user_identifier POST: Assign Code to Identifier
+ * @api {post} /roles/code/identifier POST: Assign Code to Identifier
  * @apiVersion 1.1.1
  * @apiGroup Roles
- * @apiDescription This method assigns a role to a user, using the user_identifier value and role code value.
+ * @apiDescription This method assigns a role to a user, using the identifier value and role code value.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -366,14 +366,14 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o roles -m post -p code/user_identifier -d "user_identifier=0958757&role_code=STUDENT"
+ *      uud -o roles -m post -p code/identifier -d "identifier=0958757&role_code=STUDENT"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
- *      --data "user_identifier=0958757" \
+ *      --data "identifier=0958757" \
  *      --data "role_code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/roles/code/user_identifier
+ *      --url https://databridge.sage.edu/api/v1/roles/code/identifier
  *
  * @apiUse AssignmentRoleCodeUserIDParams
  */
@@ -437,10 +437,10 @@
  */
 
 /**
- * @api {delete} /roles/user_identifier DELETE: Unassign from Identifier
+ * @api {delete} /roles/identifier DELETE: Unassign from Identifier
  * @apiVersion 1.1.1
  * @apiGroup Roles
- * @apiDescription This method unassigns a user from a role a user, using the user_identifier value and role database id value.
+ * @apiDescription This method unassigns a user from a role a user, using the identifier value and role database id value.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -453,14 +453,14 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o roles -m delete -p user_identifier -d "user_identifier=0958757&role_id=1"
+ *      uud -o roles -m delete -p identifier -d "identifier=0958757&role_id=1"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --data "user_identifier=0958757" \
+ *      --data "identifier=0958757" \
  *      --data "role_id=1" \
- *      --url https://databridge.sage.edu/api/v1/roles/user_identifier
+ *      --url https://databridge.sage.edu/api/v1/roles/identifier
  *
  * @apiUse AssignmentRoleUserIDParams
  */
@@ -524,10 +524,10 @@
  */
 
 /**
- * @api {delete} /roles/code/user_identifier DELETE: Unassign Code from Identifier
+ * @api {delete} /roles/code/identifier DELETE: Unassign Code from Identifier
  * @apiVersion 1.1.1
  * @apiGroup Roles
- * @apiDescription This method unassigns a user from a role a user, using the user_identifier value and role code value.
+ * @apiDescription This method unassigns a user from a role a user, using the identifier value and role code value.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -540,14 +540,14 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o roles -m delete -p code/user_identifier -d "user_identifier=0958757&role_code=STUDENT"
+ *      uud -o roles -m delete -p code/identifier -d "identifier=0958757&role_code=STUDENT"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --data "user_identifier=0958757" \
+ *      --data "identifier=0958757" \
  *      --data "role_code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/roles/code/user_identifier
+ *      --url https://databridge.sage.edu/api/v1/roles/code/identifier
  *
  * @apiUse AssignmentRoleCodeUserIDParams
  */

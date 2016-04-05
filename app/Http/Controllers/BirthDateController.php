@@ -143,15 +143,15 @@ class BirthDateController extends ApiController
     }
 
     /**
-     * @param $user_id
+     * @param $identifier
      * @param Request $request
      * @return mixed
      */
-    public function userBirthDatesByUserId($user_id, Request $request)
+    public function userBirthDatesByIdentifier($identifier, Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
-        $result = User::where('user_identifier', $user_id)->firstOrFail()->birth_date()->paginate($this->limit);
+        $result = User::where('identifier', $identifier)->firstOrFail()->birth_date()->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->birthDateTransformer->transformCollection($result->all()));
     }
 
@@ -172,16 +172,16 @@ class BirthDateController extends ApiController
      * @param Request $request
      * @return mixed
      */
-    public function storeUserBirthDateByUserId(Request $request)
+    public function storeUserBirthDateByIdentifier(Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'identifier' => 'string|required|exists:users,identifier,deleted_at,NULL',
             'birth_date' => 'date|required',
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $date = date('Y-m-d', strtotime(Input::get('birth_date')));
-        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $item = BirthDate::updateOrCreate(['user_id' => $user->id], ['user_id' => $user->id, 'birth_date' => $date]);
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
@@ -212,10 +212,10 @@ class BirthDateController extends ApiController
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user' => 'integer|required|exists:users,id,deleted_at,NULL'
+            'user_id' => 'integer|required|exists:users,id,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::findOrFail($request->input('user'));
+        $user = User::findOrFail($request->input('user_id'));
         BirthDate::where('user_id', $user->id)->firstOrFail()->delete();
         return $this->respondDestroySuccess();
     }
@@ -224,14 +224,14 @@ class BirthDateController extends ApiController
      * @param Request $request
      * @return mixed
      */
-    public function deleteUserBirthDateByUserId(Request $request)
+    public function deleteUserBirthDateByIdentifier(Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL'
+            'identifier' => 'string|required|exists:users,identifier,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         BirthDate::where('user_id', $user->id)->firstOrFail()->delete();
         return $this->respondDestroySuccess();
     }

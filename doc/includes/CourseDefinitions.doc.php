@@ -31,7 +31,7 @@
 
 /**
  * @apiDefine AssignmentCourseUserIDParams
- * @apiParam user_identifier {String} The unique identifier string associated with a user.
+ * @apiParam identifier {String} The unique identifier string associated with a user.
  * @apiParam course_id {Integer} The database ID of the course.
  */
 
@@ -49,7 +49,7 @@
 
 /**
  * @apiDefine AssignmentCourseCodeUserIDParams
- * @apiParam user_identifier {String} The unique identifier string associated with a user.
+ * @apiParam identifier {String} The unique identifier string associated with a user.
  * @apiParam course_code {String} The unique code string of the course.
  */
 

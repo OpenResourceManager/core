@@ -188,7 +188,7 @@
  */
 
 /**
- * @api {get} /rooms/user_id/:user_identifier GET: By User Identifier
+ * @api {get} /rooms/identifier/:identifier GET: By User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Rooms
  * @apiDescription This method returns Room objects associated with the Identifier that was supplied.
@@ -197,14 +197,14 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiUse InternalServerErrors
- * @apiParam {String} user_identifier The user's unique identifier string.
+ * @apiParam {String} identifier The user's unique identifier string.
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o rooms -p user_id/979659
+ *      uud -o rooms -p identifier/979659
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/user_id/979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/identifier/979659
  *
  * @apiUse RoomSuccess
  * @apiUse GetRoomsSuccessResultExample
@@ -342,10 +342,10 @@
  */
 
 /**
- * @api {post} /rooms/user_id POST: Assign to Identifier
+ * @api {post} /rooms/identifier POST: Assign to Identifier
  * @apiVersion 1.1.1
  * @apiGroup Rooms
- * @apiDescription This method assigns a room to a user, using the user_id value and room database id value.
+ * @apiDescription This method assigns a room to a user, using the identifier value and room database id value.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -358,14 +358,14 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o rooms -m post -d "user_id=0958757&room=1'
+ *      uud -o rooms -m post -d "identifier=0958757&room=1'
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
- *      --data "user_id=0958757" \
+ *      --data "identifier=0958757" \
  *      --data "room=1" \
- *      --url https://databridge.sage.edu/api/v1/rooms/user_id
+ *      --url https://databridge.sage.edu/api/v1/rooms/identifier
  *
  * @apiUse AssignmentRoomUserIDParams
  */
@@ -429,10 +429,10 @@
  */
 
 /**
- * @api {post} /rooms/code/user_id/ POST: Assign Code to Identifier
+ * @api {post} /rooms/code/identifier/ POST: Assign Code to Identifier
  * @apiVersion 1.1.1
  * @apiGroup Rooms
- * @apiDescription This method assigns a room to a user, using the user_id value and room code value.
+ * @apiDescription This method assigns a room to a user, using the identifier value and room code value.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -445,14 +445,14 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o rooms -m post -p code/user_id -d "user_id=0958757&code=STUDENT"
+ *      uud -o rooms -m post -p code/identifier -d "identifier=0958757&code=STUDENT"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
- *      --data "user_id=0958757" \
+ *      --data "identifier=0958757" \
  *      --data "code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/rooms/code/user_id/
+ *      --url https://databridge.sage.edu/api/v1/rooms/code/identifier/
  *
  * @apiUse AssignmentRoomCodeUserIDParams
  */
@@ -516,10 +516,10 @@
  */
 
 /**
- * @api {delete} /rooms/user_id DELETE: Unassign from Identifier
+ * @api {delete} /rooms/identifier DELETE: Unassign from Identifier
  * @apiVersion 1.1.1
  * @apiGroup Rooms
- * @apiDescription This method unassigns a user from a room a user, using the user_id value and room database id value.
+ * @apiDescription This method unassigns a user from a room a user, using the identifier value and room database id value.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -532,14 +532,14 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o rooms -m delete -p user_id -d "user_id=0958757&room=1"
+ *      uud -o rooms -m delete -p identifier -d "identifier=0958757&room=1"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --data "user_id=0958757" \
+ *      --data "identifier=0958757" \
  *      --data "room=1" \
- *      --url https://databridge.sage.edu/api/v1/rooms/user_id
+ *      --url https://databridge.sage.edu/api/v1/rooms/identifier
  *
  * @apiUse AssignmentRoomUserIDParams
  */
@@ -603,10 +603,10 @@
  */
 
 /**
- * @api {delete} /rooms/code/user_id DELETE: Unassign Code from Identifier
+ * @api {delete} /rooms/code/identifier DELETE: Unassign Code from Identifier
  * @apiVersion 1.1.1
  * @apiGroup Rooms
- * @apiDescription This method unassigns a user from a room a user, using the user_id value and room code value.
+ * @apiDescription This method unassigns a user from a room a user, using the identifier value and room code value.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -619,14 +619,14 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o rooms -m delete -p code/user_id -d "user_id=0958757&code=STUDENT"
+ *      uud -o rooms -m delete -p code/identifier -d "identifier=0958757&code=STUDENT"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --data "user_id=0958757" \
+ *      --data "identifier=0958757" \
  *      --data "code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/rooms/code/user_id
+ *      --url https://databridge.sage.edu/api/v1/rooms/code/identifier
  *
  * @apiUse AssignmentRoomCodeUserIDParams
  */

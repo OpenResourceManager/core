@@ -69,7 +69,7 @@ class UserController extends ApiController
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_identifier' => 'alpha_num|required|max:7|min:6',
+            'identifier' => 'alpha_num|required|max:7|min:6',
             'name_prefix' => 'string|max:7',
             'name_first' => 'string|required|min:1',
             'name_middle' => 'string',
@@ -85,7 +85,7 @@ class UserController extends ApiController
         if (Input::get('primary_role_code')) {
             $user['primary_role'] = Role::where('code', Input::get('primary_role_code'))->firstOrFail()->id;
         }
-        $item = User::updateOrCreate(['user_identifier' => Input::get('user_identifier')], $user);
+        $item = User::updateOrCreate(['identifier' => Input::get('identifier')], $user);
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
 
@@ -104,14 +104,14 @@ class UserController extends ApiController
     }
 
     /**
-     * @param $user_id
+     * @param $identifier
      * @return mixed
      */
-    public function showByUserId($user_id, Request $request)
+    public function showByIdentifier($identifier, Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
-        $result = User::where('user_identifier', $user_id)->firstOrFail();
+        $result = User::where('identifier', $identifier)->firstOrFail();
         return $this->respondWithSuccess($this->userTransformer->transform($result));
     }
 
@@ -166,13 +166,13 @@ class UserController extends ApiController
     }
 
     /**
-     * @param $user_id
+     * @param $identifier
      * @return \Illuminate\Http\Response
      */
-    public function destroyByUserId($user_id, Request $request)
+    public function destroyByIdentifier($identifier, Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
-        User::where('user_identifier', $user_id)->firstOrFail()->delete();
+        User::where('identifier', $identifier)->firstOrFail()->delete();
         return $this->respondDestroySuccess();
     }
 

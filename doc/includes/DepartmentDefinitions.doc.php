@@ -30,7 +30,7 @@
 
 /**
  * @apiDefine AssignmentDepartmentUserIDParams
- * @apiParam user_identifier {String} The unique identifier string associated with a user.
+ * @apiParam identifier {String} The unique identifier string associated with a user.
  * @apiParam department_id {Integer} The database ID of the department.
  */
 
@@ -48,7 +48,7 @@
 
 /**
  * @apiDefine AssignmentDepartmentCodeUserIDParams
- * @apiParam user_identifier {String} The unique identifier string associated with a user.
+ * @apiParam identifier {String} The unique identifier string associated with a user.
  * @apiParam department_code {String} The unique code string of the department.
  */
 

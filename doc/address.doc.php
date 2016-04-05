@@ -168,7 +168,7 @@
  */
 
 /**
- * @api {get} /addresses/user_id/:user_id GET: By User Identifier
+ * @api {get} /addresses/identifier/:identifier GET: By User Identifier
  * @apiVersion 1.1.1
  * @apiGroup Addresses
  * @apiDescription This method returns a Address objects, with the user's database id.
@@ -177,14 +177,14 @@
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiUse InternalServerErrors
- * @apiParam {String} user_id The user's unique identifier.
+ * @apiParam {String} identifier The user's unique identifier.
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o addresses -p user_id/9748523
+ *      uud -o addresses -p identifier/9748523
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/addresses/user_id/9748523
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/addresses/identifier/9748523
  *
  * @apiUse AddressSuccess
  * @apiUse GetAddressesSuccessResultExample

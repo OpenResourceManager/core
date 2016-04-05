@@ -17,7 +17,7 @@ class RoleTransformer extends Transformer
     public function transform($item)
     {
         return [
-            'id' => $item['id'],
+            'id' => (int)$item['id'],
             'code' => $item['code'],
             'name' => $item['name']
         ];

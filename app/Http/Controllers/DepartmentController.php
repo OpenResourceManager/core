@@ -192,9 +192,9 @@ class DepartmentController extends ApiController
         $department = Department::findOrFail($request->input('department_id'));
         if (!$user->departments->contains($department->id)) {
             $user->departments()->attach($department);
-            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         }
     }
 
@@ -202,21 +202,21 @@ class DepartmentController extends ApiController
      * @param Request $request
      * @return mixed
      */
-    public function assignUserDepartmentByUserId(Request $request)
+    public function assignUserDepartmentByIdentifier(Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'identifier' => 'string|required|exists:users,identifier,deleted_at,NULL',
             'department_id' => 'integer|required|exists:departments,id,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $department = Department::findOrFail($request->input('department_id'));
         if (!$user->departments->contains($department->id)) {
             $user->departments()->attach($department);
-            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         }
     }
 
@@ -236,9 +236,9 @@ class DepartmentController extends ApiController
         $department = Department::findOrFail($request->input('department_id'));
         if (!$user->departments->contains($department->id)) {
             $user->departments()->attach($department);
-            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         }
     }
 
@@ -258,9 +258,9 @@ class DepartmentController extends ApiController
         $department = Department::where('code', $request->input('department_code'))->firstOrFail();
         if (!$user->departments->contains($department->id)) {
             $user->departments()->attach($department);
-            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         }
     }
 
@@ -268,21 +268,21 @@ class DepartmentController extends ApiController
      * @param Request $request
      * @return mixed
      */
-    public function assignUserDepartmentCodeByUserId(Request $request)
+    public function assignUserDepartmentCodeByIdentifier(Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'identifier' => 'string|required|exists:users,identifier,deleted_at,NULL',
             'department_code' => 'string|required|exists:departments,code,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $department = Department::where('code', $request->input('department_code'))->firstOrFail();
         if (!$user->departments->contains($department->id)) {
             $user->departments()->attach($department);
-            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         }
     }
 
@@ -302,9 +302,9 @@ class DepartmentController extends ApiController
         $department = Department::where('code', $request->input('department_code'))->firstOrFail();
         if (!$user->departments->contains($department->id)) {
             $user->departments()->attach($department);
-            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Already Present', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         }
     }
 
@@ -324,9 +324,9 @@ class DepartmentController extends ApiController
         $department = Department::findOrFail($request->input('department_id'));
         if ($user->departments->contains($department->id)) {
             $user->departments()->detach($department);
-            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         }
     }
 
@@ -334,21 +334,21 @@ class DepartmentController extends ApiController
      * @param Request $request
      * @return mixed
      */
-    public function unassignUserDepartmentByUserId(Request $request)
+    public function unassignUserDepartmentByIdentifier(Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'identifier' => 'string|required|exists:users,identifier,deleted_at,NULL',
             'department_id' => 'integer|required|exists:departments,id,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $department = Department::findOrFail($request->input('department_id'));
         if ($user->departments->contains($department->id)) {
             $user->departments()->detach($department);
-            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         }
     }
 
@@ -368,9 +368,9 @@ class DepartmentController extends ApiController
         $department = Department::findOrFail($request->input('department_id'));
         if ($user->departments->contains($department->id)) {
             $user->departments()->detach($department);
-            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         }
     }
 
@@ -386,13 +386,13 @@ class DepartmentController extends ApiController
             'department_code' => 'string|required|exists:departments,code,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::findOrFail($request->input('user'));
+        $user = User::findOrFail($request->input('user_id'));
         $department = Department::where('code', $request->input('department_code'))->firstOrFail();
         if ($user->departments->contains($department->id)) {
             $user->departments()->detach($department);
-            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         }
     }
 
@@ -400,21 +400,21 @@ class DepartmentController extends ApiController
      * @param Request $request
      * @return mixed
      */
-    public function unassignUserDepartmentCodeByUserId(Request $request)
+    public function unassignUserDepartmentCodeByIdentifier(Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
-            'user_identifier' => 'string|required|exists:users,user_identifier,deleted_at,NULL',
+            'identifier' => 'string|required|exists:users,identifier,deleted_at,NULL',
             'department_code' => 'string|required|exists:departments,code,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        $user = User::where('user_identifier', $request->input('user_identifier'))->firstOrFail();
+        $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $department = Department::where('code', $request->input('department_code'))->firstOrFail();
         if ($user->departments->contains($department->id)) {
             $user->departments()->detach($department);
-            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         }
     }
 
@@ -434,9 +434,9 @@ class DepartmentController extends ApiController
         $department = Department::where('code', $request->input('department_code'))->firstOrFail();
         if ($user->departments->contains($department->id)) {
             $user->departments()->detach($department);
-            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         } else {
-            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user' => intval($user->id), 'department' => intval($department->id)]);
+            return $this->respondAssignmentSuccess($message = 'Assignment Not Present', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
         }
     }
 }
