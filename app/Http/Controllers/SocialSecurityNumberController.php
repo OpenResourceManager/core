@@ -227,8 +227,8 @@ class SocialSecurityNumberController extends ApiController
             'identifier' => 'string|required|exists:users,identifier,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        dd($request);
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
-        dd($user);
         SocialSecurityNumber::where('user_id', $user->id)->firstOrFail()->delete();
         return $this->respondDestroySuccess();
     }
