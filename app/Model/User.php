@@ -34,17 +34,17 @@ class User extends BaseModel
 
     public function password()
     {
-        return $this->hasOne('App\Model\Password');
+        return $this->belongsTo('App\Model\Password');
     }
 
     public function social_security_number()
     {
-        return $this->hasOne('App\Model\SocialSecurityNumber');
+        return $this->belongsTo('App\Model\SocialSecurityNumber');
     }
 
     public function birth_date()
     {
-        return $this->hasOne('App\Model\BirthDate');
+        return $this->belongsTo('App\Model\BirthDate');
     }
 
     public function emails()
