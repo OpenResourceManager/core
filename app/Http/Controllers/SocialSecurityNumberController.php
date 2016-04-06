@@ -72,6 +72,7 @@ class SocialSecurityNumberController extends ApiController
             'ssn' => 'string|required|min:4|max:4',
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        SocialSecurityNumber::where('user_id', Input::get('user_id'))->withTrashed()->restore();
         $item = SocialSecurityNumber::updateOrCreate(['user_id' => Input::get('user_id')], ['user_id' => Input::get('user_id'), 'social_security_number' => Crypt::encrypt(Input::get('ssn'))]);
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
@@ -179,6 +180,7 @@ class SocialSecurityNumberController extends ApiController
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
+        SocialSecurityNumber::where('user_id', $user->id)->withTrashed()->restore();
         $item = SocialSecurityNumber::updateOrCreate(['user_id' => $user->id], ['user_id' => $user->id, 'social_security_number' => Crypt::encrypt(Input::get('ssn'))]);
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
@@ -196,6 +198,7 @@ class SocialSecurityNumberController extends ApiController
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
+        SocialSecurityNumber::where('user_id', $user->id)->withTrashed()->restore();
         $item = SocialSecurityNumber::updateOrCreate(['user_id' => $user->id], ['user_id' => $user->id, 'social_security_number' => Crypt::encrypt(Input::get('ssn'))]);
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
