@@ -75,6 +75,7 @@ class BirthDateController extends ApiController
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $date = date('Y-m-d', strtotime(Input::get('birth_date')));
+        BirthDate::where('user_id', Input::get('user_id'))->onlyTrashed()->restore();
         $item = BirthDate::updateOrCreate(['user_id' => Input::get('user_id')], ['user_id' => Input::get('user_id'), 'birth_date' => $date]);
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
@@ -182,6 +183,7 @@ class BirthDateController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $date = date('Y-m-d', strtotime(Input::get('birth_date')));
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
+        BirthDate::where('user_id', $user->id)->onlyTrashed()->restore();
         $item = BirthDate::updateOrCreate(['user_id' => $user->id], ['user_id' => $user->id, 'birth_date' => $date]);
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
@@ -200,6 +202,7 @@ class BirthDateController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $date = date('Y-m-d', strtotime(Input::get('birth_date')));
         $user = User::where('username', $request->input('username'))->firstOrFail();
+        BirthDate::where('user_id', $user->id)->onlyTrashed()->restore();
         $item = BirthDate::updateOrCreate(['user_id' => $user->id], ['user_id' => $user->id, 'birth_date' => $date]);
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }

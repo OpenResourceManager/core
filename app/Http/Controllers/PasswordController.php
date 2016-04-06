@@ -71,6 +71,7 @@ class PasswordController extends ApiController
             'password' => 'string|required',
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        Password::where('user_id', Input::get('user_id'))->onlyTrashed()->restore();
         $item = Password::updateOrCreate(['user_id' => Input::get('user_id')], ['user_id' => Input::get('user_id'), 'password' => Crypt::encrypt(Input::get('password'))]);
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
@@ -177,6 +178,7 @@ class PasswordController extends ApiController
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
+        Password::where('user_id', $user->id)->onlyTrashed()->restore();
         $item = Password::updateOrCreate(['user_id' => $user->id], ['user_id' => $user->id, 'password' => Crypt::encrypt(Input::get('password'))]);
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
@@ -194,6 +196,7 @@ class PasswordController extends ApiController
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
+        Password::where('user_id', $user->id)->onlyTrashed()->restore();
         $item = Password::updateOrCreate(['user_id' => $user->id], ['user_id' => $user->id, 'password' => Crypt::encrypt(Input::get('password'))]);
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
