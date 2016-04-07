@@ -70,7 +70,7 @@ class StateTableSeeder extends Seeder
             array('name' => 'Wisconsin', 'code' => 'WI', 'country_id' => 226),
             array('name' => 'Wyoming', 'code' => 'WY', 'country_id' => 226),
             // Canada
-            array('name' => 'Alberta', 'code' => 'AB', 'country_id' => 38),
+/*            array('name' => 'Alberta', 'code' => 'AB', 'country_id' => 38),
             array('name' => 'British Columbia', 'code' => 'BC', 'country_id' => 38),
             array('name' => 'Manitoba', 'code' => 'MB', 'country_id' => 38),
             array('name' => 'New Brunswick', 'code' => 'NB', 'country_id' => 38),
@@ -82,7 +82,7 @@ class StateTableSeeder extends Seeder
             array('name' => 'Prince Edward Island', 'code' => 'PE', 'country_id' => 38),
             array('name' => 'Quebec', 'code' => 'PQ', 'country_id' => 38),
             array('name' => 'Saskatchewan', 'code' => 'SK', 'country_id' => 38),
-            array('name' => 'Yukon', 'code' => 'YT', 'country_id' => 38)
+            array('name' => 'Yukon', 'code' => 'YT', 'country_id' => 38)*/
         ];
         foreach ($states as $state) {
             State::create($state);
