@@ -158,6 +158,7 @@ return [
          */
         App\UUD\Providers\UUDServiceProvider::class,
         App\UUD\Providers\LdapServiceProvider::class,
+        Spatie\Tail\TailServiceProvider::class,
 
     ],
 

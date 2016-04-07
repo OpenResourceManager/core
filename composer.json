@@ -7,7 +7,8 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        "phpunit/phpunit": "^4.8"
+        "phpunit/phpunit": "^4.8",
+        "spatie/laravel-tail": "^1.1"
     },
     "require-dev": {
         "symfony/dom-crawler": "~3.0",
