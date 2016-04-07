@@ -18,8 +18,8 @@ class StateTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $usa_id = Country::where('code', 'USA')->get()->id;
-        $can_id = Country::where('code', 'CAN')->get()->id;
+        $usa_id = Country::where('code', 'USA')->first()->id;
+        $can_id = Country::where('code', 'CAN')->first()->id;
 
         $states = [
             array('name' => 'Alabama', 'code' => 'AL', 'country_id' => $usa_id),
