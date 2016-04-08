@@ -18,7 +18,7 @@ class CreatePivotActionTable extends Migration
             $table->unsignedInteger('id_2');
             $table->string('class_1');
             $table->string('class_2');
-            $table->string('action');
+            $table->boolean('assign');
             $table->timestamps();
             $table->softDeletes();
         });

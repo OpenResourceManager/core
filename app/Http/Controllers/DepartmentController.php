@@ -232,7 +232,7 @@ class DepartmentController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::findOrFail($request->input('user_id'));
         $department = Department::findOrFail($request->input('department_id'));
-        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'action' => 'assign']);
+        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'assign' => true]);
         if (!$user->departments->contains($department->id)) {
             $user->departments()->attach($department);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
@@ -255,7 +255,7 @@ class DepartmentController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $department = Department::findOrFail($request->input('department_id'));
-        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'action' => 'assign']);
+        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'assign' => true]);
         if (!$user->departments->contains($department->id)) {
             $user->departments()->attach($department);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
@@ -278,7 +278,7 @@ class DepartmentController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
         $department = Department::findOrFail($request->input('department_id'));
-        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'action' => 'assign']);
+        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'assign' => true]);
         if (!$user->departments->contains($department->id)) {
             $user->departments()->attach($department);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
@@ -301,7 +301,7 @@ class DepartmentController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::findOrFail($request->input('user_id'));
         $department = Department::where('code', $request->input('department_code'))->firstOrFail();
-        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'action' => 'assign']);
+        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'assign' => true]);
         if (!$user->departments->contains($department->id)) {
             $user->departments()->attach($department);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
@@ -324,7 +324,7 @@ class DepartmentController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $department = Department::where('code', $request->input('department_code'))->firstOrFail();
-        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'action' => 'assign']);
+        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'assign' => true]);
         if (!$user->departments->contains($department->id)) {
             $user->departments()->attach($department);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
@@ -347,7 +347,7 @@ class DepartmentController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
         $department = Department::where('code', $request->input('department_code'))->firstOrFail();
-        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'action' => 'assign']);
+        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'assign' => true]);
         if (!$user->departments->contains($department->id)) {
             $user->departments()->attach($department);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
@@ -370,7 +370,7 @@ class DepartmentController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::findOrFail($request->input('user_id'));
         $department = Department::findOrFail($request->input('department_id'));
-        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'action' => 'unassign']);
+        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'assign' => false]);
         if ($user->departments->contains($department->id)) {
             $user->departments()->detach($department);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
@@ -393,7 +393,7 @@ class DepartmentController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $department = Department::findOrFail($request->input('department_id'));
-        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'action' => 'unassign']);
+        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'assign' => false]);
         if ($user->departments->contains($department->id)) {
             $user->departments()->detach($department);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
@@ -416,7 +416,7 @@ class DepartmentController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
         $department = Department::findOrFail($request->input('department_id'));
-        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'action' => 'unassign']);
+        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'assign' => false]);
         if ($user->departments->contains($department->id)) {
             $user->departments()->detach($department);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
@@ -439,7 +439,7 @@ class DepartmentController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::findOrFail($request->input('user_id'));
         $department = Department::where('code', $request->input('department_code'))->firstOrFail();
-        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'action' => 'unassign']);
+        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'assign' => false]);
         if ($user->departments->contains($department->id)) {
             $user->departments()->detach($department);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
@@ -462,7 +462,7 @@ class DepartmentController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $department = Department::where('code', $request->input('department_code'))->firstOrFail();
-        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'action' => 'unassign']);
+        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'assign' => false]);
         if ($user->departments->contains($department->id)) {
             $user->departments()->detach($department);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
@@ -485,7 +485,7 @@ class DepartmentController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
         $department = Department::where('code', $request->input('department_code'))->firstOrFail();
-        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'action' => 'unassign']);
+        PivotAction::create(['id_1' => $department->id, 'id_2' => $user->id, 'class_1' => 'department', 'class_2' => 'user', 'assign' => false]);
         if ($user->departments->contains($department->id)) {
             $user->departments()->detach($department);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'department_id' => intval($department->id)]);
