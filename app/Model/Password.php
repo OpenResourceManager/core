@@ -16,6 +16,7 @@ class Password extends BaseModel
     protected $table = 'passwords';
     protected $dates = ['deleted_at'];
     protected $fillable = ['user_id', 'password'];
+    protected $touches = ['user'];
 
     public function user()
     {

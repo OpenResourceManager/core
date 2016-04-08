@@ -16,6 +16,7 @@ class SocialSecurityNumber extends BaseModel
     protected $table = 'social_security_numbers';
     protected $dates = ['deleted_at'];
     protected $fillable = ['user_id', 'social_security_number'];
+    protected $touches = ['user'];
 
     public function user()
     {

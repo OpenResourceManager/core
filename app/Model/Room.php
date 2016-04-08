@@ -23,6 +23,7 @@ class Room extends BaseModel
         'room_number',
         'room_name'
     ];
+    protected $touches = ['building'];
 
     public function building()
     {

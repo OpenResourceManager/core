@@ -16,6 +16,7 @@ class Email extends BaseModel
     protected $table = 'emails';
     protected $dates = ['deleted_at'];
     protected $fillable = ['user_id', 'email'];
+    protected $touches = ['user'];
 
     public function user()
     {

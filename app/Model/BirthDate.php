@@ -16,6 +16,7 @@ class BirthDate extends BaseModel
     protected $table = 'birth_dates';
     protected $dates = ['deleted_at'];
     protected $fillable = ['user_id', 'birth_date'];
+    protected $touches = ['user'];
 
     public function user()
     {

@@ -27,6 +27,7 @@ class Address extends BaseModel
         'latitude',
         'longitude'
     ];
+    protected $touches = ['user'];
 
     public function country()
     {

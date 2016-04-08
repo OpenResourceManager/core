@@ -16,6 +16,7 @@ class Building extends BaseModel
     protected $table = 'buildings';
     protected $dates = ['deleted_at'];
     protected $fillable = ['campus_id', 'code', 'name'];
+    protected $touches = ['campus'];
 
     public function rooms()
     {
