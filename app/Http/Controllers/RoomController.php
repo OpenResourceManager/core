@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Building;
 use App\Model\Campus;
+use App\Model\PivotAction;
 use App\Model\Room;
 use App\Model\User;
 use App\UUD\Transformers\RoomTransformer;
@@ -245,6 +246,7 @@ class RoomController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::findOrFail($request->input('user_id'));
         $room = Room::findOrFail($request->input('room'));
+        PivotAction::create(['id_1' => $room->id, 'id_2' => $user->id, 'class_1' => 'room', 'class_2' => 'user', 'action' => 'assign']);
         if (!$user->roles->contains($room->id)) {
             $user->rooms()->attach($room);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'room_id' => intval($room->id)]);
@@ -267,6 +269,7 @@ class RoomController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $room = Room::findOrFail($request->input('room'));
+        PivotAction::create(['id_1' => $room->id, 'id_2' => $user->id, 'class_1' => 'room', 'class_2' => 'user', 'action' => 'assign']);
         if (!$user->rooms->contains($room->id)) {
             $user->rooms()->attach($room);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'room_id' => intval($room->id)]);
@@ -289,6 +292,7 @@ class RoomController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
         $room = Room::findOrFail($request->input('room'));
+        PivotAction::create(['id_1' => $room->id, 'id_2' => $user->id, 'class_1' => 'room', 'class_2' => 'user', 'action' => 'assign']);
         if (!$user->rooms->contains($room->id)) {
             $user->rooms()->attach($room);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'room_id' => intval($room->id)]);
@@ -311,6 +315,7 @@ class RoomController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::findOrFail($request->input('user_id'));
         $room = Room::where('code', $request->input('code'))->firstOrFail();
+        PivotAction::create(['id_1' => $room->id, 'id_2' => $user->id, 'class_1' => 'room', 'class_2' => 'user', 'action' => 'assign']);
         if (!$user->rooms->contains($room->id)) {
             $user->rooms()->attach($room);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'room_id' => intval($room->id)]);
@@ -333,6 +338,7 @@ class RoomController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $room = Room::where('code', $request->input('code'))->firstOrFail();
+        PivotAction::create(['id_1' => $room->id, 'id_2' => $user->id, 'class_1' => 'room', 'class_2' => 'user', 'action' => 'assign']);
         if (!$user->rooms->contains($room->id)) {
             $user->rooms()->attach($room);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'room_id' => intval($room->id)]);
@@ -355,6 +361,7 @@ class RoomController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
         $room = Room::where('code', $request->input('code'))->firstOrFail();
+        PivotAction::create(['id_1' => $room->id, 'id_2' => $user->id, 'class_1' => 'room', 'class_2' => 'user', 'action' => 'assign']);
         if (!$user->rooms->contains($room->id)) {
             $user->rooms()->attach($room);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'room_id' => intval($room->id)]);
@@ -377,6 +384,7 @@ class RoomController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::findOrFail($request->input('user_id'));
         $room = Room::findOrFail($request->input('room'));
+        PivotAction::create(['id_1' => $room->id, 'id_2' => $user->id, 'class_1' => 'room', 'class_2' => 'user', 'action' => 'unassign']);
         if ($user->rooms->contains($room->id)) {
             $user->rooms()->detach($room);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'room_id' => intval($room->id)]);
@@ -399,6 +407,7 @@ class RoomController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $room = Room::findOrFail($request->input('room'));
+        PivotAction::create(['id_1' => $room->id, 'id_2' => $user->id, 'class_1' => 'room', 'class_2' => 'user', 'action' => 'unassign']);
         if ($user->rooms->contains($room->id)) {
             $user->rooms()->detach($room);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'room_id' => intval($room->id)]);
@@ -421,6 +430,7 @@ class RoomController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
         $room = Room::findOrFail($request->input('room'));
+        PivotAction::create(['id_1' => $room->id, 'id_2' => $user->id, 'class_1' => 'room', 'class_2' => 'user', 'action' => 'unassign']);
         if ($user->rooms->contains($room->id)) {
             $user->rooms()->detach($room);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'room_id' => intval($room->id)]);
@@ -443,6 +453,7 @@ class RoomController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::findOrFail($request->input('user_id'));
         $room = Room::where('code', $request->input('code'))->firstOrFail();
+        PivotAction::create(['id_1' => $room->id, 'id_2' => $user->id, 'class_1' => 'room', 'class_2' => 'user', 'action' => 'unassign']);
         if ($user->rooms->contains($room->id)) {
             $user->rooms()->detach($room);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'room_id' => intval($room->id)]);
@@ -465,6 +476,7 @@ class RoomController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $room = Room::where('code', $request->input('code'))->firstOrFail();
+        PivotAction::create(['id_1' => $room->id, 'id_2' => $user->id, 'class_1' => 'room', 'class_2' => 'user', 'action' => 'unassign']);
         if ($user->rooms->contains($room->id)) {
             $user->rooms()->detach($room);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'room_id' => intval($room->id)]);
@@ -487,6 +499,7 @@ class RoomController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
         $room = Room::where('code', $request->input('code'))->firstOrFail();
+        PivotAction::create(['id_1' => $room->id, 'id_2' => $user->id, 'class_1' => 'room', 'class_2' => 'user', 'action' => 'unassign']);
         if ($user->rooms->contains($room->id)) {
             $user->rooms()->detach($room);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'room_id' => intval($room->id)]);

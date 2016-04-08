@@ -6,6 +6,7 @@ use App\Model\Building;
 use App\Model\Campus;
 use App\Model\Course;
 use App\Model\Department;
+use App\Model\PivotAction;
 use App\Model\Role;
 use App\Model\User;
 use App\UUD\LDAP\UserBridge;
@@ -22,6 +23,11 @@ class LdapServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        PivotAction::creating(function ($pivot_action) {
+            Log::debug(json_encode($pivot_action));
+        });
+
         // While a User is being created
         User::creating(function ($user) {
             $time_start = microtime(true);

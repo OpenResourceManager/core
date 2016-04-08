@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Course;
 use App\Model\Department;
+use App\Model\PivotAction;
 use App\Model\User;
 use App\UUD\Transformers\CourseTransformer;
 use Illuminate\Http\Request;
@@ -257,6 +258,7 @@ class CourseController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::findOrFail($request->input('user_id'));
         $course = Course::findOrFail($request->input('course_id'));
+        PivotAction::create(['id_1' => $course->id, 'id_2' => $user->id, 'class_1' => 'course', 'class_2' => 'user', 'action' => 'assign']);
         if (!$user->courses->contains($course->id)) {
             $user->courses()->attach($course);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
@@ -279,6 +281,7 @@ class CourseController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $course = Course::findOrFail($request->input('course_id'));
+        PivotAction::create(['id_1' => $course->id, 'id_2' => $user->id, 'class_1' => 'course', 'class_2' => 'user', 'action' => 'assign']);
         if (!$user->courses->contains($course->id)) {
             $user->courses()->attach($course);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
@@ -301,6 +304,7 @@ class CourseController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
         $course = Course::findOrFail($request->input('course_id'));
+        PivotAction::create(['id_1' => $course->id, 'id_2' => $user->id, 'class_1' => 'course', 'class_2' => 'user', 'action' => 'assign']);
         if (!$user->courses->contains($course->id)) {
             $user->courses()->attach($course);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
@@ -323,6 +327,7 @@ class CourseController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::findOrFail($request->input('user_id'));
         $course = Course::where('code', $request->input('course_code'))->firstOrFail();
+        PivotAction::create(['id_1' => $course->id, 'id_2' => $user->id, 'class_1' => 'course', 'class_2' => 'user', 'action' => 'assign']);
         if (!$user->courses->contains($course->id)) {
             $user->courses()->attach($course);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
@@ -345,6 +350,7 @@ class CourseController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $course = Course::where('code', $request->input('course_code'))->firstOrFail();
+        PivotAction::create(['id_1' => $course->id, 'id_2' => $user->id, 'class_1' => 'course', 'class_2' => 'user', 'action' => 'assign']);
         if (!$user->courses->contains($course->id)) {
             $user->courses()->attach($course);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
@@ -367,6 +373,7 @@ class CourseController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
         $course = Course::where('code', $request->input('course_code'))->firstOrFail();
+        PivotAction::create(['id_1' => $course->id, 'id_2' => $user->id, 'class_1' => 'course', 'class_2' => 'user', 'action' => 'assign']);
         if (!$user->courses->contains($course->id)) {
             $user->courses()->attach($course);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
@@ -389,6 +396,7 @@ class CourseController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::findOrFail($request->input('user_id'));
         $course = Course::findOrFail($request->input('course_id'));
+        PivotAction::create(['id_1' => $course->id, 'id_2' => $user->id, 'class_1' => 'course', 'class_2' => 'user', 'action' => 'unassign']);
         if ($user->courses->contains($course->id)) {
             $user->courses()->detach($course);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
@@ -411,6 +419,7 @@ class CourseController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $course = Course::findOrFail($request->input('course_id'));
+        PivotAction::create(['id_1' => $course->id, 'id_2' => $user->id, 'class_1' => 'course', 'class_2' => 'user', 'action' => 'unassign']);
         if ($user->courses->contains($course->id)) {
             $user->courses()->detach($course);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
@@ -433,6 +442,7 @@ class CourseController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
         $course = Course::findOrFail($request->input('course_id'));
+        PivotAction::create(['id_1' => $course->id, 'id_2' => $user->id, 'class_1' => 'course', 'class_2' => 'user', 'action' => 'unassign']);
         if ($user->courses->contains($course->id)) {
             $user->courses()->detach($course);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
@@ -455,6 +465,7 @@ class CourseController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::findOrFail($request->input('user_id'));
         $course = Course::where('code', $request->input('course_code'))->firstOrFail();
+        PivotAction::create(['id_1' => $course->id, 'id_2' => $user->id, 'class_1' => 'course', 'class_2' => 'user', 'action' => 'unassign']);
         if ($user->courses->contains($course->id)) {
             $user->courses()->detach($course);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
@@ -477,6 +488,7 @@ class CourseController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $course = Course::where('code', $request->input('course_code'))->firstOrFail();
+        PivotAction::create(['id_1' => $course->id, 'id_2' => $user->id, 'class_1' => 'course', 'class_2' => 'user', 'action' => 'unassign']);
         if ($user->courses->contains($course->id)) {
             $user->courses()->detach($course);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);
@@ -499,6 +511,7 @@ class CourseController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
         $course = Course::where('code', $request->input('course_code'))->firstOrFail();
+        PivotAction::create(['id_1' => $course->id, 'id_2' => $user->id, 'class_1' => 'course', 'class_2' => 'user', 'action' => 'unassign']);
         if ($user->courses->contains($course->id)) {
             $user->courses()->detach($course);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'course_id' => intval($course->id)]);

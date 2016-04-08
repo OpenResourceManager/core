@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\PivotAction;
 use App\Model\Role;
 use App\Model\User;
 use App\UUD\Transformers\RoleTransformer;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -200,6 +200,7 @@ class RoleController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::findOrFail($request->input('user_id'));
         $role = Role::findOrFail($request->input('role_id'));
+        PivotAction::create(['id_1' => $role->id, 'id_2' => $user->id, 'class_1' => 'role', 'class_2' => 'user', 'action' => 'assign']);
         if (!$user->roles->contains($role->id)) {
             $user->roles()->attach($role);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'role_id' => intval($role->id)]);
@@ -222,6 +223,7 @@ class RoleController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $role = Role::findOrFail($request->input('role_id'));
+        PivotAction::create(['id_1' => $role->id, 'id_2' => $user->id, 'class_1' => 'role', 'class_2' => 'user', 'action' => 'assign']);
         if (!$user->roles->contains($role->id)) {
             $user->roles()->attach($role);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'role_id' => intval($role->id)]);
@@ -244,6 +246,7 @@ class RoleController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
         $role = Role::findOrFail($request->input('role_id'));
+        PivotAction::create(['id_1' => $role->id, 'id_2' => $user->id, 'class_1' => 'role', 'class_2' => 'user', 'action' => 'assign']);
         if (!$user->roles->contains($role->id)) {
             $user->roles()->attach($role);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'role_id' => intval($role->id)]);
@@ -266,6 +269,7 @@ class RoleController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::findOrFail($request->input('user_id'));
         $role = Role::where('code', $request->input('role_code'))->firstOrFail();
+        PivotAction::create(['id_1' => $role->id, 'id_2' => $user->id, 'class_1' => 'role', 'class_2' => 'user', 'action' => 'assign']);
         if (!$user->roles->contains($role->id)) {
             $user->roles()->attach($role);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'role_id' => intval($role->id)]);
@@ -288,6 +292,7 @@ class RoleController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $role = Role::where('code', $request->input('role_code'))->firstOrFail();
+        PivotAction::create(['id_1' => $role->id, 'id_2' => $user->id, 'class_1' => 'role', 'class_2' => 'user', 'action' => 'assign']);
         if (!$user->roles->contains($role->id)) {
             $user->roles()->attach($role);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'role_id' => intval($role->id)]);
@@ -310,6 +315,7 @@ class RoleController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
         $role = Role::where('code', $request->input('role_code'))->firstOrFail();
+        PivotAction::create(['id_1' => $role->id, 'id_2' => $user->id, 'class_1' => 'role', 'class_2' => 'user', 'action' => 'assign']);
         if (!$user->roles->contains($role->id)) {
             $user->roles()->attach($role);
             return $this->respondAssignmentSuccess($message = 'Assigned', $id = ['user_id' => intval($user->id), 'role_id' => intval($role->id)]);
@@ -332,6 +338,7 @@ class RoleController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::findOrFail($request->input('user_id'));
         $role = Role::findOrFail($request->input('role_id'));
+        PivotAction::create(['id_1' => $role->id, 'id_2' => $user->id, 'class_1' => 'role', 'class_2' => 'user', 'action' => 'unassign']);
         if ($user->roles->contains($role->id)) {
             $user->roles()->detach($role);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'role_id' => intval($role->id)]);
@@ -354,6 +361,7 @@ class RoleController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $role = Role::findOrFail($request->input('role_id'));
+        PivotAction::create(['id_1' => $role->id, 'id_2' => $user->id, 'class_1' => 'role', 'class_2' => 'user', 'action' => 'unassign']);
         if ($user->roles->contains($role->id)) {
             $user->roles()->detach($role);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'role_id' => intval($role->id)]);
@@ -376,6 +384,7 @@ class RoleController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
         $role = Role::findOrFail($request->input('role_id'));
+        PivotAction::create(['id_1' => $role->id, 'id_2' => $user->id, 'class_1' => 'role', 'class_2' => 'user', 'action' => 'unassign']);
         if ($user->roles->contains($role->id)) {
             $user->roles()->detach($role);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'role_id' => intval($role->id)]);
@@ -398,6 +407,7 @@ class RoleController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::findOrFail($request->input('user_id'));
         $role = Role::where('code', $request->input('role_code'))->firstOrFail();
+        PivotAction::create(['id_1' => $role->id, 'id_2' => $user->id, 'class_1' => 'role', 'class_2' => 'user', 'action' => 'unassign']);
         if ($user->roles->contains($role->id)) {
             $user->roles()->detach($role);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'role_id' => intval($role->id)]);
@@ -420,6 +430,7 @@ class RoleController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         $role = Role::where('code', $request->input('role_code'))->firstOrFail();
+        PivotAction::create(['id_1' => $role->id, 'id_2' => $user->id, 'class_1' => 'role', 'class_2' => 'user', 'action' => 'unassign']);
         if ($user->roles->contains($role->id)) {
             $user->roles()->detach($role);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'role_id' => intval($role->id)]);
@@ -442,6 +453,7 @@ class RoleController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
         $role = Role::where('code', $request->input('role_code'))->firstOrFail();
+        PivotAction::create(['id_1' => $role->id, 'id_2' => $user->id, 'class_1' => 'role', 'class_2' => 'user', 'action' => 'unassign']);
         if ($user->roles->contains($role->id)) {
             $user->roles()->detach($role);
             return $this->respondAssignmentSuccess($message = 'Unassigned', $id = ['user_id' => intval($user->id), 'role_id' => intval($role->id)]);
