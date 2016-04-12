@@ -481,7 +481,7 @@ class UserBridge extends Bridge
         // Gather variables for old CN & DN, and for potentially new info
         $new_dn = $this->distinguishedName_field($user);
         $old_dn = $this->preexisting_user['distinguishedname'];
-        $new_cn = $user->format_full_name();
+        $new_cn = $this->sAMAccountName_field($user);
         $old_cn = $this->preexisting_user['cn'];
         // If the user's DN has changed rename the the user.
         if ($new_dn != $old_dn || $new_cn != $old_cn) {
@@ -535,4 +535,43 @@ class UserBridge extends Bridge
         }
     }
 
+    /**
+     * @param User $user
+     * @param $group_name
+     * @param $group_class
+     */
+    public function add_user_to_group(User $user, $group_name, $group_class)
+    {
+        // Does the user exist?
+        $this->check_existing_user($user);
+        // If the user does exist.
+        if ($this->user_is_preexisting) {
+            // add the user to the group using our add to group function
+            $this->add_to_group($this->preexisting_user['distinguishedname'], $group_name, $group_class);
+        } else { // Otherwise throw an error
+            $this->perform_ldap_error('Could not add target user: '
+                . $user->username . ' to group: ' . $this->form_group_dn($group_name, $group_class)
+                . ' the user does not exist in LDAP!', __LINE__, __FILE__, __CLASS__);
+        }
+    }
+
+    /**
+     * @param User $user
+     * @param $group_name
+     * @param $group_class
+     */
+    public function del_user_from_group(User $user, $group_name, $group_class)
+    {
+        // Does the user exist?
+        $this->check_existing_user($user);
+        // If the user does exist.
+        if ($this->user_is_preexisting) {
+            // Remove the user from the group using out delete function
+            $this->del_from_group($this->preexisting_user['distinguishedname'], $group_name, $group_class);
+        } else { // Otherwise throw an error
+            $this->perform_ldap_error('Could not delete target user: '
+                . $user->username . ' from group: ' . $this->form_group_dn($group_name, $group_class)
+                . ' the user does not exist in LDAP!', __LINE__, __FILE__, __CLASS__);
+        }
+    }
 }

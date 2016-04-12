@@ -9,7 +9,7 @@
 use Illuminate\Database\Seeder;
 use App\Model\Course;
 use App\Model\User;
-use Illuminate\Support\Facades\DB;
+use App\Model\PivotAction;
 use Faker\Factory as Faker;
 
 class UserCourseTableSeeder extends Seeder
@@ -23,7 +23,9 @@ class UserCourseTableSeeder extends Seeder
 
         foreach (range(1, 150) as $index) {
             $user = User::find($faker->unique()->randomElement($userIds));
-            $user->courses()->attach($faker->randomElement($courseIds));
+            $course_id = $faker->randomElement($courseIds);
+            PivotAction::create(['id_1' => $course_id, 'id_2' => $user->id, 'class_1' => 'course', 'class_2' => 'user', 'assign' => true]);
+            $user->courses()->attach($course_id);
         }
     }
 

@@ -527,7 +527,7 @@ class Bridge
     public function test_user_ou()
     {
         if (!$this->test_ou($this->user_ou_dn)) {
-            $this->perform_ldap_error('The base OU for users could not be found');
+            $this->perform_ldap_error('The base OU for users could not be found', __LINE__, __FILE__, __CLASS__);
         }
     }
 
@@ -537,7 +537,7 @@ class Bridge
     public function test_group_ou()
     {
         if (!$this->test_ou($this->group_ou_dn)) {
-            $this->perform_ldap_error('The base OU for groups could not be found');
+            $this->perform_ldap_error('The base OU for groups could not be found', __LINE__, __FILE__, __CLASS__);
         }
     }
 
@@ -610,10 +610,70 @@ class Bridge
      */
     public function map_group($name, $class)
     {
-        $cn = (is_null($this->group_prefix) || empty($this->group_prefix)) ? $name : $this->group_prefix . $name;
-        $ou_dn = 'OU=' . $class . ',' . $this->group_ou_dn;
-        $group_dn = 'CN=' . $cn . ',' . $ou_dn;
+        $cn = $this->form_group_cn($name);
+        $ou_dn = $this->form_group_ou_dn($class);
+        $group_dn = $this->form_group_dn($name, $class);
         $this->create_ou($class, $ou_dn);
         $this->create_group($cn, $group_dn);
+    }
+
+    /**
+     * @param $name
+     * @return string
+     */
+    public function form_group_cn($name)
+    {
+        return (is_null($this->group_prefix) || empty($this->group_prefix)) ? $name : $this->group_prefix . $name;
+    }
+
+    /**
+     * @param $class
+     * @return string
+     */
+    public function form_group_ou_dn($class)
+    {
+        return 'OU=' . $class . ',' . $this->group_ou_dn;
+    }
+
+    /**
+     * @param $name
+     * @param $class
+     * @return string
+     */
+    public function form_group_dn($name, $class)
+    {
+        $cn = $this->form_group_cn($name);
+        $ou_dn = $this->form_group_ou_dn($class);
+        $group_dn = 'CN=' . $cn . ',' . $ou_dn;
+        return $group_dn;
+    }
+
+    /**
+     * @param $member_dn
+     * @param $group_name
+     * @param $group_class
+     */
+    public function add_to_group($member_dn, $group_name, $group_class)
+    {
+        $this->test_group($group_name) or $this->map_group($group_name, $group_class);
+        $group_dn = $this->form_group_dn($group_name, $group_class);
+        $member['member'] = $member_dn;
+        ldap_mod_add($this->connection, $group_dn, $member) or $this->perform_ldap_error('', __LINE__, __FILE__, __CLASS__);
+    }
+
+    /**
+     * @param $member_dn
+     * @param $group_name
+     * @param $group_class
+     */
+    public function del_from_group($member_dn, $group_name, $group_class)
+    {
+        if ($this->test_group($group_name)) {
+            $group_dn = $this->form_group_dn($group_name, $group_class);
+            $member['member'] = $member_dn;
+            ldap_mod_del($this->connection, $group_dn, $member) or $this->perform_ldap_error('', __LINE__, __FILE__, __CLASS__);
+        } else {
+            $this->perform_ldap_error('The target group: ' . $group_name . ' does not exist, no changes will be made!', __LINE__, __FILE__, __CLASS__);
+        }
     }
 }

@@ -8,6 +8,7 @@ use App\Model\Course;
 use App\Model\Department;
 use App\Model\PivotAction;
 use App\Model\Role;
+use App\Model\Room;
 use App\Model\User;
 use App\UUD\LDAP\UserBridge;
 use Illuminate\Support\Facades\Log;
@@ -23,9 +24,53 @@ class LdapServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        // Any pivot action.
         PivotAction::creating(function ($pivot_action) {
-            Log::debug(json_encode($pivot_action));
+            // Create a new bridge object
+            $bridge = new UserBridge();
+            // Is the bridge enabled?
+            if ($bridge->enabled) {
+                // Are we looking for user related models?
+                if ($pivot_action->class_2 == 'user') {
+                    // Get the user model by it's primary key
+                    $user = User::findOrFail($pivot_action->id_2);
+                    // Create the pivot var
+                    $pivot = null;
+                    $class = null;
+                    // Switch on the pivot
+                    switch ($pivot_action->class_1) {
+                        case 'course':
+                            $pivot = Course::findOrFail($pivot_action->id_1);
+                            $class = 'Courses';
+                            break;
+                        case 'department':
+                            $pivot = Department::findOrFail($pivot_action->id_1);
+                            $class = 'Departments';
+                            break;
+                        case 'role':
+                            $pivot = Role::findOrFail($pivot_action->id_1);
+                            $class = 'Roles';
+                            break;
+                        case 'room':
+                            $pivot = Room::findOrFail($pivot_action->id_1)->building();
+                            $class = 'Buildings';
+                            break;
+                        default:
+                            $bridge->perform_ldap_error('Unsupported `class_1` supplied: ' . json_encode($pivot_action), __LINE__, __FILE__, __CLASS__);
+                            break;
+                    }
+                    if (!empty($pivot)) {
+                        // Depending on the kind of action we need to either add a user to a group or remove the user from the group
+                        ($pivot_action->assign) ? $bridge->add_user_to_group($user, $pivot->name, $class) : $bridge->del_user_from_group($user, $pivot->name, $class);
+                    } else {
+                        $bridge->perform_ldap_error('Unsupported `class_1` supplied: ' . json_encode($pivot_action), __LINE__, __FILE__, __CLASS__);
+                    }
+                } else {
+                    $bridge->perform_ldap_error('Unsupported `class_2` supplied: ' . json_encode($pivot_action), __LINE__, __FILE__, __CLASS__);
+                }
+                // Close LDAP connection
+                $bridge->demolish();
+            }
         });
 
         // While a User is being created

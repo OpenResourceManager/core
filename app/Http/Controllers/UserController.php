@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Model\Building;
 use App\Model\Campus;
 use App\Model\Course;
+use App\Model\PivotAction;
 use App\Model\Role;
 use App\Model\Room;
 use App\Model\User;
@@ -81,11 +82,21 @@ class UserController extends ApiController
             'primary_role_code' => 'string|exists:roles,code,deleted_at,NULL',
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+
         $user = Input::all();
-        if (Input::get('primary_role_code')) {
-            $user['primary_role'] = Role::where('code', Input::get('primary_role_code'))->firstOrFail()->id;
+        $role = null;
+
+        if (Input::get('primary_role_code') && !empty(Input::get('primary_role_code'))) {
+            $role = Role::where('code', Input::get('primary_role_code'))->firstOrFail();
+            $user['primary_role'] = $role->id;
+        } else if (Input::get('primary_role') && !empty(Input::get('primary_role'))) {
+            $role = Role::findOrFail(Input::get('primary_role'));
+            $user['primary_role'] = $role->id;
         }
+        if (empty($role)) $this->respondUnprocessableEntity(['Please include a `primary_role` or `primary_role_code`!']);
         $item = User::updateOrCreate(['identifier' => Input::get('identifier')], $user);
+        PivotAction::create(['id_1' => $role->id, 'id_2' => $item->id, 'class_1' => 'role', 'class_2' => 'user', 'assign' => true]);
+        $item->roles()->attach($role->id);
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
 
