@@ -582,6 +582,18 @@ class Bridge
     }
 
     /**
+     * @param $dn
+     * @return bool|mixed
+     */
+    public function get_group($dn)
+    {
+        $filter = '(&(objectClass=top)(objectClass=group)(distinguishedName=' . $dn . '))';
+        $attributes = array('objectGUID');
+        $results = $this->query_ldap($filter, $attributes);
+        return ($results['count'] > 0) ? $results[0] : false;
+    }
+
+    /**
      * @param string $cn
      * @param string $dn
      * @return void
@@ -658,6 +670,9 @@ class Bridge
         $this->test_group($group_name) or $this->map_group($group_name, $group_class);
         $group_dn = $this->form_group_dn($group_name, $group_class);
         $member['member'] = $member_dn;
+        /**
+         * @todo Look at group members and determine if user is a member
+         */
         ldap_mod_add($this->connection, $group_dn, $member) or $this->perform_ldap_error('', __LINE__, __FILE__, __CLASS__);
     }
 
