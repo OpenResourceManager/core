@@ -552,6 +552,9 @@ class UserBridge extends Bridge
             $attributes['pwdLastSet'] = '-1';
             // Call the modify user function
             $this->modify_user($user, $attributes);
+            // Make sure that the user is not looking for a new password
+            $user->waiting_for_password = false;
+            $user->save();
         } else { // Otherwise throw an error
             $this->perform_ldap_error('Could not set password for: ' . $user->username . '! This the user does not seem to exist in LDAP!', __LINE__, __FILE__, __CLASS__);
         }
