@@ -173,7 +173,23 @@ class LdapServiceProvider extends ServiceProvider
             }
         });
 
+        // While a Password is creating
         Password::creating(function (Password $password) {
+            // Create a new bridge object
+            $bridge = new UserBridge();
+            // Is the bridge enabled?
+            if ($bridge->enabled) {
+                // Get the user associated with the password
+                $user = $password->user;
+                // If the user is waiting for their new password, set it.
+                if ($user->waiting_for_password) $bridge->set_user_password($user, $password);
+                // Close LDAP connection
+                $bridge->demolish();
+            }
+        });
+
+        // While a password is changing
+        Password::updating(function (Password $password) {
             // Create a new bridge object
             $bridge = new UserBridge();
             // Is the bridge enabled?
