@@ -29,7 +29,8 @@ class User extends BaseModel
         'name_postfix',
         'name_phonetic',
         'username',
-        'primary_role'
+        'primary_role',
+        'waiting_for_password'
     ];
 
     public function password()

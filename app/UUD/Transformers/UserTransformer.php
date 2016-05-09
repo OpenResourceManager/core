@@ -28,6 +28,7 @@ class UserTransformer extends Transformer
             'name_postfix' => $item['name_postfix'],
             'name_phonetic' => $item['name_phonetic'],
             'primary_role' => (int)$item['primary_role'],
+            'waiting_for_password' => (bool)$item['waiting_for_password'],
         ];
     }
 }

@@ -19,7 +19,7 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o users -p post -d "identifier=0979659&name_prefix=MR.&name_first=Luke&name_last=Skywalker&username=skywal"
+ *      uud -o users -p post -d "identifier=0979659&name_prefix=MR.&name_first=Luke&name_last=Skywalker&username=skywal&waiting_for_password=false"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
@@ -29,6 +29,7 @@
  *      --data "name_first=Luke" \
  *      --data "name_last=Skywalker" \
  *      --data "username=skywal" \
+ *      --data "waiting_for_password=false" \
  *      --url https://databridge.sage.edu/api/v1/users
  *
  * @apiUse CreateSuccessResultExample

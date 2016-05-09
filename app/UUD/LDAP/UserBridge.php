@@ -7,10 +7,12 @@
  * Time: 9:04 AM
  */
 
+use App\Model\Password;
 use App\Model\User;
 use App\Model\Role;
 use DateTime;
 
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Log;
 
 class UserBridge extends Bridge
@@ -495,18 +497,13 @@ class UserBridge extends Bridge
     }
 
     /**
-     * @param User $user
-     * @param array $attrs
+     * @param array $attributes
      */
-    public function create_user(User $user, $attrs = [])
+    public function create_user($attributes = [])
     {
         try {
-            // Add the user's DN to the attribute array
-            $attrs['distinguishedName'] = $this->distinguishedName_field($user);
-            // Generate a random unicode password
-            $attrs['unicodepwd'] = $this->unicodePassword_field();
             // Add the user account in LDAP
-            ldap_add($this->connection, $attrs['distinguishedName'], $attrs) or $this->perform_ldap_error('', __LINE__, __FILE__, __CLASS__);
+            ldap_add($this->connection, $attributes['distinguishedName'], $attributes) or $this->perform_ldap_error('', __LINE__, __FILE__, __CLASS__);
         } catch (\ErrorException $e) {
             // Catch any exceptions so HTML is not returned
             $this->perform_ldap_error('', __LINE__, __FILE__, __CLASS__);
@@ -530,8 +527,33 @@ class UserBridge extends Bridge
             // Call the modify user function
             $this->modify_user($user, $attributes);
         } else {
+            // Add the user's DN to the attribute array
+            $attributes['distinguishedName'] = $this->distinguishedName_field($user);
+            // Generate a random unicode password
+            $attributes['unicodepwd'] = $this->unicodePassword_field();
+            // The password was just set
+            $attributes['pwdLastSet'] = '-1';
             // Call the create user function
-            $this->create_user($user, $attributes);
+            $this->create_user($attributes);
+        }
+    }
+
+    public function set_user_password(User $user, Password $password)
+    {
+        // Does the user exist?
+        $this->check_existing_user($user);
+        // If the user does exist.
+        if ($this->user_is_preexisting) {
+            // Gather the user's attributes
+            $attributes = $this->check_attributes($this->form_user_attributes($user));
+            // Convert the password to unicode
+            $attributes['unicodepwd'] = $this->unicodePassword_field(Crypt::decrypt($password->password));
+            // The password was just set
+            $attributes['pwdLastSet'] = '-1';
+            // Call the modify user function
+            $this->modify_user($user, $attributes);
+        } else { // Otherwise throw an error
+            $this->perform_ldap_error('Could not set password for: ' . $user->username . '! This the user does not seem to exist in LDAP!', __LINE__, __FILE__, __CLASS__);
         }
     }
 

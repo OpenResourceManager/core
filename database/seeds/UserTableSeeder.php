@@ -34,7 +34,9 @@ class UserTableSeeder extends Seeder
                 'name_postfix' => $faker->optional()->title,
                 'name_phonetic' => $faker->optional()->firstName,
                 'username' => $faker->unique()->userName,
-                'primary_role' => $faker->randomElement($roleIds)
+                'primary_role' => $faker->randomElement($roleIds),
+                'waiting_for_password' => $faker->boolean()
+
             ]);
         }
     }

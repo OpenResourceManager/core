@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('name_phonetic')->nullable();
             $table->string('username')->unique();
             $table->integer('primary_role')->unsigned()->nullable();
+            $table->boolean('waiting_for_password')->default(false);
             $table->foreign('primary_role')->references('id')->on('roles')->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();

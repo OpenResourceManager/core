@@ -80,6 +80,7 @@ class UserController extends ApiController
             'username' => 'string|required|min:3|unique:users,deleted_at,NULL',
             'primary_role' => 'integer',
             'primary_role_code' => 'string|exists:roles,code,deleted_at,NULL',
+            'waiting_for_password' => 'boolean|required',
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
 

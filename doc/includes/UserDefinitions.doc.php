@@ -18,6 +18,7 @@
  * @apiParam (User Parameters) {String} username The user's username string.
  * @apiParam (User Parameters) {String} [primary_role] The id of the user's primary role. If not filled out, defaults to 1.
  * @apiParam (User Parameters) {String} [primary_role_code] The code of the user's primary role. This overrides the `primary_role` field.
+ * @apiParam (User Parameters) {Boolean} waiting_for_password Signifies if the user is waiting to have their password set by the next incoming password request associated with them.
  */
 
 
@@ -33,6 +34,7 @@
  * @apiSuccess (Success 2xx: User) {String} name_phonetic The user's phonetic name, if there is one.
  * @apiSuccess (Success 2xx: User) {String} username The user's username string.
  * @apiSuccess (Success 2xx: User) {String} primary_role The id of the user's primary role.
+ * @apiSuccess (Success 2xx: User) {Boolean} waiting_for_password Signifies if the user is waiting to have their password set by the next incoming password request associated with them.
  */
 
 /**
@@ -60,7 +62,8 @@
  *                  "name_last": "Fritsch",
  *                  "name_postfix": "Dr.",
  *                  "name_phonetic": null,
- *                  "primary_role": 1
+ *                  "primary_role": 1,
+ *                  "waiting_for_password": true
  *              },
  *              {
  *                  "id": 2,
@@ -72,7 +75,8 @@
  *                  "name_last": "Pfeffer",
  *                  "name_postfix": "Dr.",
  *                  "name_phonetic": null,
- *                  "primary_role": 3
+ *                  "primary_role": 3,
+ *                  "waiting_for_password": false
  *              },
  *              {
  *                  "id": 3,
@@ -84,7 +88,8 @@
  *                  "name_last": "Kirlin",
  *                  "name_postfix": "Mr.",
  *                  "name_phonetic": "Jerald",
- *                  "primary_role": 2
+ *                  "primary_role": 2,
+ *                  "waiting_for_password": false
  *              },
  *              {
  *                  "id": 4,
@@ -96,7 +101,8 @@
  *                  "name_last": "Aufderhar",
  *                  "name_postfix": "Prof.",
  *                  "name_phonetic": "Shanna",
- *                  "primary_role": 2
+ *                  "primary_role": 2,
+ *                  "waiting_for_password": true
  *              },
  *              {
  *                  "id": 5,
@@ -108,7 +114,8 @@
  *                  "name_last": "Lesch",
  *                  "name_postfix": "Dr.",
  *                  "name_phonetic": "Emanuel",
- *                  "primary_role": 1
+ *                  "primary_role": 1,
+ *                  "waiting_for_password": false
  *              }
  *          ]
  *      }
@@ -132,7 +139,8 @@
  *              "name_last": "Fritsch",
  *              "name_postfix": "Dr.",
  *              "name_phonetic": null,
- *              "primary_role": 1
+ *              "primary_role": 1,
+ *              "waiting_for_password": true
  *          }
  *      }
  */

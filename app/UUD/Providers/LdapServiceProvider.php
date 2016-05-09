@@ -6,6 +6,7 @@ use App\Model\Building;
 use App\Model\Campus;
 use App\Model\Course;
 use App\Model\Department;
+use App\Model\Password;
 use App\Model\PivotAction;
 use App\Model\Role;
 use App\Model\Room;
@@ -14,6 +15,7 @@ use App\UUD\LDAP\UserBridge;
 use Illuminate\Support\Facades\Log;
 use App\UUD\LDAP\Bridge;
 use Illuminate\Support\ServiceProvider;
+use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class LdapServiceProvider extends ServiceProvider
 {
@@ -25,7 +27,7 @@ class LdapServiceProvider extends ServiceProvider
     public function boot()
     {
         // Any pivot action.
-        PivotAction::creating(function ($pivot_action) {
+        PivotAction::creating(function (PivotAction $pivot_action) {
             // Create a new bridge object
             $bridge = new UserBridge();
             // Is the bridge enabled?
@@ -74,7 +76,7 @@ class LdapServiceProvider extends ServiceProvider
         });
 
         // While a User is being created
-        User::creating(function ($user) {
+        User::creating(function (User $user) {
             $time_start = microtime(true);
             // Create a new bridge object
             $bridge = new UserBridge();
@@ -89,7 +91,7 @@ class LdapServiceProvider extends ServiceProvider
             }
         });
 
-        User::updating(function ($user) {
+        User::updating(function (User $user) {
             $time_start = microtime(true);
             // Create a new bridge object
             $bridge = new UserBridge();
@@ -105,7 +107,7 @@ class LdapServiceProvider extends ServiceProvider
         });
 
         // While a Role is being created
-        Role::creating(function ($role) {
+        Role::creating(function (Role $role) {
             // Create a new bridge object
             $bridge = new Bridge();
             // Is the bridge enabled?
@@ -120,7 +122,7 @@ class LdapServiceProvider extends ServiceProvider
         });
 
         // While a Department is being created
-        Department::creating(function ($department) {
+        Department::creating(function (Department $department) {
             // Create a new bridge object
             $bridge = new Bridge();
             // Is the bridge enabled?
@@ -133,7 +135,7 @@ class LdapServiceProvider extends ServiceProvider
         });
 
         // While a Course is being created
-        Course::creating(function ($course) {
+        Course::creating(function (Course $course) {
             // Create a new bridge object
             $bridge = new Bridge();
             // Is the bridge enabled?
@@ -146,7 +148,7 @@ class LdapServiceProvider extends ServiceProvider
         });
 
         // While a Campus is being created
-        Campus::creating(function ($campus) {
+        Campus::creating(function (Campus $campus) {
             // Create a new bridge object
             $bridge = new Bridge();
             // Is the bridge enabled?
@@ -159,13 +161,27 @@ class LdapServiceProvider extends ServiceProvider
         });
 
         // While a Building is being created
-        Building::creating(function ($building) {
+        Building::creating(function (Building $building) {
             // Create a new bridge object
             $bridge = new Bridge();
             // Is the bridge enabled?
             if ($bridge->enabled) {
                 // Make a group for that building if needed
                 if ($bridge->create_groups && $bridge->buildings_are_groups) $bridge->map_group($building->name, 'Buildings');
+                // Close LDAP connection
+                $bridge->demolish();
+            }
+        });
+
+        Password::creating(function (Password $password) {
+            // Create a new bridge object
+            $bridge = new UserBridge();
+            // Is the bridge enabled?
+            if ($bridge->enabled) {
+                // Get the user associated with the password
+                $user = $password->user;
+                // If the user is waiting for their new password, set it.
+                if ($user->waiting_for_password) $bridge->set_user_password($user, $password);
                 // Close LDAP connection
                 $bridge->demolish();
             }
