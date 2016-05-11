@@ -69,8 +69,9 @@ class UserController extends ApiController
     public function store(Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
-        $validator = Validator::make($request->all(), [
-            'identifier' => 'alpha_num|required|max:7|min:6',
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'identifier' => 'alpha_num|required|max:7|min:6|unique:users,deleted_at,NULL',
             'name_prefix' => 'string|max:20',
             'name_first' => 'string|required|min:1',
             'name_middle' => 'string',
@@ -83,10 +84,11 @@ class UserController extends ApiController
             'waiting_for_password' => 'boolean|required',
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-
+        // If the user is trashed restore them first.
+        $user = User::onlyTrashed()->where('identifier', $data['identifier'])->first();
+        if ($user) $user->restore();
         $user = Input::all();
         $role = null;
-
         if (Input::get('primary_role_code') && !empty(Input::get('primary_role_code'))) {
             $role = Role::where('code', Input::get('primary_role_code'))->firstOrFail();
             $user['primary_role'] = $role->id;
@@ -95,6 +97,7 @@ class UserController extends ApiController
             $user['primary_role'] = $role->id;
         }
         if (empty($role)) $this->respondUnprocessableEntity(['Please include a `primary_role` or `primary_role_code`!']);
+
         $item = User::updateOrCreate(['identifier' => Input::get('identifier')], $user);
         PivotAction::create(['id_1' => $role->id, 'id_2' => $item->id, 'class_1' => 'role', 'class_2' => 'user', 'assign' => true]);
         $item->roles()->attach($role->id);
