@@ -104,7 +104,7 @@ class UserController extends ApiController
         if (empty($role)) $this->respondUnprocessableEntity(['Please include a `primary_role` or `primary_role_code`!']);
         $item = User::updateOrCreate(['identifier' => Input::get('identifier')], $user);
         dd($old_user);
-        if ($user['primary_role'] !== $old_user->primary_role) {
+        if ($user['primary_role'] !== $old_user->primary_role && !empty($old_user)) {
             PivotAction::create(['id_1' => $old_user->primary_role, 'id_2' => $item->id, 'class_1' => 'role', 'class_2' => 'user', 'assign' => false]);
             $item->roles()->detach($old_user->primary_role);
             PivotAction::create(['id_1' => $role->id, 'id_2' => $item->id, 'class_1' => 'role', 'class_2' => 'user', 'assign' => true]);
