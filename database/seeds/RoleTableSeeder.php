@@ -25,6 +25,8 @@ class RoleTableSeeder extends Seeder
             'FACULTY' => 'Faculty',
             'ADJUNCT' => 'Adjunct',
             'ALUMNI' => 'Alumni',
+            'GUEST' => 'Guest',
+            'TENANT' => 'Tenant'
         );
 
         // Loop over the array and save the data to the database
