@@ -87,7 +87,6 @@ class UserController extends ApiController
         // If the user is trashed restore them first.
         $user = User::onlyTrashed()->where('identifier', $data['identifier'])->first();
         if ($user) $user->restore();
-        $user->save();
         $user = Input::all();
         $role = null;
         if (Input::get('primary_role_code') && !empty(Input::get('primary_role_code'))) {
