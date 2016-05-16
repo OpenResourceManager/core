@@ -70,7 +70,7 @@ class UserController extends ApiController
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $data = $request->all();
-        $old_user = null;
+        $restore_user = null;
         $validator = Validator::make($data, [
             'identifier' => 'alpha_num|required|max:7|min:6|unique:users,deleted_at,NULL',
             'name_prefix' => 'string|max:20',
@@ -90,7 +90,7 @@ class UserController extends ApiController
 
         if ($user) {
             $user->restore();
-            $old_user = User::where('identifier', $data['identifier'])->first();
+            $restore_user = User::where('identifier', $data['identifier'])->first();
         }
         $user = Input::all();
         $role = null;
@@ -104,18 +104,20 @@ class UserController extends ApiController
         if (empty($role)) $this->respondUnprocessableEntity(['Please include a `primary_role` or `primary_role_code`!']);
         $item = User::updateOrCreate(['identifier' => Input::get('identifier')], $user);
 
-        if (!empty($old_user) && !$item->wasRecentlyCreated) {
-            if ($user['primary_role'] !== $old_user->primary_role) {
-                PivotAction::create(['id_1' => $old_user->primary_role, 'id_2' => $item->id, 'class_1' => 'role', 'class_2' => 'user', 'assign' => false]);
-                $item->roles()->detach($old_user->primary_role);
+        if (!empty($restore_user) && !$item->wasRecentlyCreated) {
+            if ($user['primary_role'] !== $restore_user->primary_role) {
+                PivotAction::create(['id_1' => $restore_user->primary_role, 'id_2' => $item->id, 'class_1' => 'role', 'class_2' => 'user', 'assign' => false]);
+                $item->roles()->detach($restore_user->primary_role);
                 PivotAction::create(['id_1' => $role->id, 'id_2' => $item->id, 'class_1' => 'role', 'class_2' => 'user', 'assign' => true]);
                 $item->roles()->attach($role->id);
             }
         } elseif ($item->wasRecentlyCreated) {
             PivotAction::create(['id_1' => $role->id, 'id_2' => $item->id, 'class_1' => 'role', 'class_2' => 'user', 'assign' => true]);
             $item->roles()->attach($role->id);
+        } elseif (empty($restore_user) && !$item->wasRecentlyCreated) {
+
         }
-        
+
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
 
