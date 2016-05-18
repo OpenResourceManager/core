@@ -27,11 +27,41 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
+ *      --data "campus_id=1" \
  *      --data "name=CAR469" \
  *      --data "code=Carter Turnpike Court" \
  *      --url https://databridge.sage.edu/api/v1/buildings/
  *
  * @apiUse BuildingParameters
+ */
+
+/**
+ * @api {post} /buildings/campus/code POST: Create/Update with Campus Code
+ * @apiVersion 1.1.1
+ * @apiGroup Buildings
+ * @apiDescription This method creates a new building, or updates a building with the specified `code`, a campus code is supplied instead of a campus id.
+ *
+ * @apiUse ApiSuccessFields
+ * @apiUse ApiErrorFields
+ * @apiUse AuthorizationHeader
+ * @apiUse InternalServerErrors
+ * @apiUse CreateSuccessResultExample
+ * @apiUse UpdateSuccessResultExample
+ * @apiUse UnprocessableEntityErrors
+ *
+ * @apiExample {bash} UUD Client
+ *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
+ *      uud -o buildings -m post -d "name=CAR469&code=Carter Turnpike Court"
+ *
+ * @apiExample {bash} Curl
+ *      curl -H "X-Authorization: <Your-API-Key>" \
+ *      -X "POST" \
+ *      --data "campus_code=TRY" \
+ *      --data "name=CAR469" \
+ *      --data "code=Carter Turnpike Court" \
+ *      --url https://databridge.sage.edu/api/v1/buildings/
+ *
+ * @apiUse BuildingParametersCampusCode
  */
 
 /**

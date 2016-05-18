@@ -139,6 +139,26 @@ class BuildingController extends ApiController
     }
 
     /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function storeBuildingByCampusCode(Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        $validator = Validator::make($request->all(), [
+            'campus_code' => 'string|required|exists:campuses,code,deleted_at,NULL',
+            'code' => 'string|required|max:10|min:3',
+            'name' => 'string|required|max:30|min:3'
+        ]);
+        if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        $data = $request->all();
+        $campus = Campus::where('code', $data['campus_code'])->firstOrFail();
+        $item = Building::updateOrCreate(['code' => Input::get('code')], ['campus_id' => $campus->id, 'code' => $data['code'], 'name' => $data['name']]);
+        return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
+
+    }
+
+    /**
      * @param $code
      * @param Request $request
      * @return mixed

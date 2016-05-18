@@ -40,6 +40,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('buildings/code/{code}', 'BuildingController@showByCode'); // Documented
         Route::get('buildings/campus/{id}', 'BuildingController@campusBuildings'); // Documented
         Route::get('buildings/campus/code/{code}', 'BuildingController@campusBuildingsByCode'); // Documented
+        Route::post('buildings/campus/code', 'BuildingController@storeBuildingByCampusCode'); // Documented
         Route::delete('buildings/code/{code}', 'BuildingController@destroyByCode'); // Documented
         Route::resource('buildings', 'BuildingController'); // Documented
 
