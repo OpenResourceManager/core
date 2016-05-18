@@ -422,13 +422,13 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o courses -m post -p code/user -d "user=25&course_code=STUDENT"
+ *      uud -o courses -m post -p code/user -d "user=25&course_code=SPAN101"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user=25" \
- *      --data "course_code=STUDENT" \
+ *      --data "course_code=SPAN101" \
  *      --url https://databridge.sage.edu/api/v1/courses/code/user
  *
  * @apiUse AssignmentCourseCodeUserParams
@@ -451,13 +451,13 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o courses -m post -p code/identifier -d "identifier=0958757&course_code=STUDENT"
+ *      uud -o courses -m post -p code/identifier -d "identifier=0958757&course_code=SPAN101"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "identifier=0958757" \
- *      --data "course_code=STUDENT" \
+ *      --data "course_code=SPAN101" \
  *      --url https://databridge.sage.edu/api/v1/courses/code/identifier
  *
  * @apiUse AssignmentCourseCodeUserIDParams
@@ -480,13 +480,13 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o courses -m post -p code/username -d "username=skywal&course_code=STUDENT"
+ *      uud -o courses -m post -p code/username -d "username=skywal&course_code=SPAN101"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "username=skywal" \
- *      --data "course_code=STUDENT" \
+ *      --data "course_code=SPAN101" \
  *      --url https://databridge.sage.edu/api/v1/courses/code/username
  *
  * @apiUse AssignmentCourseCodeUsernameIDParams
@@ -596,13 +596,13 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o courses -m delete -p code/user -d "user=25&course_code=STUDENT"
+ *      uud -o courses -m delete -p code/user -d "user=25&course_code=SPAN101"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user=25" \
- *      --data "course_code=STUDENT" \
+ *      --data "course_code=SPAN101" \
  *      --url https://databridge.sage.edu/api/v1/courses/code/user
  *
  * @apiUse AssignmentCourseCodeUserParams
@@ -625,13 +625,13 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o courses -m delete -p code/identifier -d "identifier=0958757&course_code=STUDENT"
+ *      uud -o courses -m delete -p code/identifier -d "identifier=0958757&course_code=SPAN101"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "identifier=0958757" \
- *      --data "course_code=STUDENT" \
+ *      --data "course_code=SPAN101" \
  *      --url https://databridge.sage.edu/api/v1/courses/code/identifier
  *
  * @apiUse AssignmentCourseCodeUserIDParams
@@ -654,13 +654,13 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o courses -m delete -p code/username -d "username=skywal&course_code=STUDENT"
+ *      uud -o courses -m delete -p code/username -d "username=skywal&course_code=SPAN101"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "username=skywal" \
- *      --data "course_code=STUDENT" \
+ *      --data "course_code=SPAN101" \
  *      --url https://databridge.sage.edu/api/v1/courses/code/username
  *
  * @apiUse AssignmentCourseCodeUsernameIDParams
