@@ -22,7 +22,7 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o buildings -m post -d "name=CAR469&code=Carter Turnpike Court"
+ *      uud -o buildings -m post -d "campus_id=1&name=CAR469&code=Carter Turnpike Court"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
@@ -51,7 +51,7 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o buildings -m post -d "name=CAR469&code=Carter Turnpike Court"
+ *      uud -o buildings -m post -p 'campus/code' -d "campus_code=TRY&name=CAR469&code=Carter Turnpike Court"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
