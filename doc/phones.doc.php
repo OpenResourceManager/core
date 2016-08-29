@@ -22,15 +22,16 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o phones -m post -d "user_id=151&number=15188573007&is_cell=1&carrier=Sprint"
+ *      uud -o phones -m post -d "user_id=151&number=15188573007&is_cell=1&mobile_carrier_id=3"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user_id=151" \
  *      --data "number=15188573007" \
+ *      --data "ext=355" \
  *      --data "is_cell=1" \
- *      --data "carrier=Sprint" \
+ *      --data "mobile_carrier_id=3" \
  *      --url https://databridge.sage.edu/api/v1/phones
  *
  * @apiUse PhoneParameters

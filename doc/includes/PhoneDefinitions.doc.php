@@ -12,7 +12,7 @@
  * @apiParam (Phone Parameters) {Integer} number The phone number.
  * @apiParam (Phone Parameters) {Integer} [ext] The phone number's extension, if there is one.
  * @apiParam (Phone Parameters) {Boolean} is_cell Signifies if the phone number is a mobile number.
- * @apiParam (Phone Parameters) {String} [carrier] The mobile carrier, if known.
+ * @apiParam (Phone Parameters) {Integer} [mobile_carrier_id] The mobile carrier id.
  */
 
 /**
@@ -22,7 +22,7 @@
  * @apiSuccess (Success 2xx: Phone) {Integer} number The phone number.
  * @apiSuccess (Success 2xx: Phone) {Integer} ext The phone number's extension, if there is one.
  * @apiSuccess (Success 2xx: Phone) {Boolean} is_cell Signifies if the phone number is a mobile number.
- * @apiSuccess (Success 2xx: Phone) {String} carrier The mobile carrier, if known.
+ * @apiSuccess (Success 2xx: Phone) {Integer} [mobile_carrier_id] The mobile carrier id.
  */
 
 /**
@@ -46,21 +46,21 @@
  *                  "number": 16441181126,
  *                  "ext": 0,
  *                  "is_cell": false,
- *                  "carrier": null
+ *                  "mobile_carrier_id": null
  *              },
  *              {
  *                  "id": 2,
  *                  "user_id": 83,
  *                  "number": 14235907536,
- *                  "ext": 0,
+ *                  "ext": 355,
  *                  "is_cell": false,
- *                  "carrier": null
+ *                  "mobile_carrier_id": null
  *              },
  *              {
  *                  "id": 3,
  *                  "user_id": 85,
  *                  "number": 13716372143,
- *                  "ext": 4165,
+ *                  "ext": null,
  *                  "is_cell": true,
  *                  "carrier": {
  *                      "id": 4,
@@ -72,7 +72,7 @@
  *                  "id": 4,
  *                  "user_id": 83,
  *                  "number": 11862830925,
- *                  "ext": 0,
+ *                  "ext": null,
  *                  "is_cell": true,
  *                  "carrier": {
  *                      "id": 1,
