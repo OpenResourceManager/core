@@ -9,8 +9,9 @@
 /**
  * @apiDefine PhoneParameters
  * @apiParam (Phone Parameters) {Integer} user_id The user that this phone belongs to.
- * @apiParam (Phone Parameters) {Integer} number The phone number.
- * @apiParam (Phone Parameters) {Integer} [ext] The phone number's extension, if there is one.
+ * @apiParam (Phone Parameters) {Number} number The phone number.
+ * @apiParam (Phone Parameters) {Number} [country_code] The phone numbers country code.
+ * @apiParam (Phone Parameters) {Number} [ext] The phone number's extension, if there is one.
  * @apiParam (Phone Parameters) {Boolean} is_cell Signifies if the phone number is a mobile number.
  * @apiParam (Phone Parameters) {Integer} [mobile_carrier_id] The mobile carrier id.
  */
@@ -19,10 +20,11 @@
  * @apiDefine PhoneSuccess
  * @apiSuccess (Success 2xx: Phone) {Integer} id The numeric id assigned to the email by the database.
  * @apiSuccess (Success 2xx: Phone) {Integer} user_id The user that this phone belongs to.
- * @apiSuccess (Success 2xx: Phone) {Integer} number The phone number.
- * @apiSuccess (Success 2xx: Phone) {Integer} ext The phone number's extension, if there is one.
+ * @apiSuccess (Success 2xx: Phone) {Number} number The phone number.
+ * @apiSuccess (Success 2xx: Phone) {Number} country_code The phone number's country code.
+ * @apiSuccess (Success 2xx: Phone) {Number} ext The phone number's extension, if there is one.
  * @apiSuccess (Success 2xx: Phone) {Boolean} is_cell Signifies if the phone number is a mobile number.
- * @apiSuccess (Success 2xx: Phone) {Integer} [mobile_carrier_id] The mobile carrier id.
+ * @apiSuccess (Success 2xx: Phone) {Object} carrier The mobile carrier that the phone number belongs to.
  */
 
 /**
@@ -43,23 +45,26 @@
  *              {
  *                  "id": 1,
  *                  "user_id": 67,
- *                  "number": 16441181126,
- *                  "ext": 0,
+ *                  "number": "6441181126",
+ *                  "country_code": "1",
+ *                  "ext": null,
  *                  "is_cell": false,
- *                  "mobile_carrier_id": null
+ *                  "carrier": null
  *              },
  *              {
  *                  "id": 2,
  *                  "user_id": 83,
- *                  "number": 14235907536,
- *                  "ext": 355,
+ *                  "number": "4235907536",
+ *                  "country_code": "1",
+ *                  "ext": "355",
  *                  "is_cell": false,
- *                  "mobile_carrier_id": null
+ *                  "carrier": null
  *              },
  *              {
  *                  "id": 3,
  *                  "user_id": 85,
- *                  "number": 13716372143,
+ *                  "number": "3716372143",
+ *                  "country_code": "1",
  *                  "ext": null,
  *                  "is_cell": true,
  *                  "carrier": {
@@ -71,7 +76,8 @@
  *              {
  *                  "id": 4,
  *                  "user_id": 83,
- *                  "number": 11862830925,
+ *                  "number": "1862830925",
+ *                  "country_code": "1",
  *                  "ext": null,
  *                  "is_cell": true,
  *                  "carrier": {
@@ -83,8 +89,9 @@
  *              {
  *                  "id": 5,
  *                  "user_id": 3,
- *                  "number": 19551878346,
- *                  "ext": 769,
+ *                  "number": "9551878346",
+ *                  "country_code": "1",
+ *                  "ext": "769",
  *                  "is_cell": false,
  *                  "carrier": null
  *              }
@@ -103,10 +110,15 @@
  *          "result": {
  *              "id": 1,
  *              "user_id": 67,
- *              "number": 16441181126,
- *              "ext": 0,
- *              "is_cell": false,
- *              "carrier": null
+ *              "number": "6441181126",
+ *              "country_code": "1",
+ *              "ext": null,
+ *              "is_cell": true,
+ *              "carrier": {
+ *                      "id": 1,
+ *                      "code": "VZW",
+ *                      "name": "Verizon Wireless"
+ *                  }
  *          }
  *      }
  */
