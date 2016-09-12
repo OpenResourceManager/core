@@ -8,7 +8,6 @@
 namespace App\UUD\Transformers;
 
 use App\Model\MobileCarrier;
-use App\Model\Phone;
 
 
 class PhoneTransformer extends Transformer
@@ -24,7 +23,11 @@ class PhoneTransformer extends Transformer
 
         if ((bool)$item['is_cell']) {
             $mobileCarrierTransformer = new MobileCarrierTransformer;
-            $carrier = $mobileCarrierTransformer->transform(MobileCarrier::find((object)$item->carrier));
+            $carrier = $mobileCarrierTransformer->transform(
+                MobileCarrier::find(
+                    $item['mobile_carrier_id']
+                )->get()
+            );
         }
 
         return [
