@@ -23,7 +23,7 @@ class PhoneTransformer extends Transformer
 
         if ((bool)$item['is_cell']) {
             $mobileCarrierTransformer = new MobileCarrierTransformer;
-            $carrier = $mobileCarrierTransformer->transform(MobileCarrier::find($item['mobile_carrier_id']));
+            $carrier = $mobileCarrierTransformer->transform(MobileCarrier::find($item['mobile_carrier_id'])->all());
         }
 
         return [
