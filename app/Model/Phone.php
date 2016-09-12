@@ -15,7 +15,7 @@ class Phone extends BaseModel
 
     protected $table = 'phones';
     protected $dates = ['deleted_at'];
-    protected $fillable = ['user_id', 'number', 'ext', 'country_code', 'is_cell', 'carrier'];
+    protected $fillable = ['user_id', 'number', 'ext', 'country_code', 'is_cell', 'mobile_carrier_id'];
     protected $touches = ['user'];
 
     public function user()
