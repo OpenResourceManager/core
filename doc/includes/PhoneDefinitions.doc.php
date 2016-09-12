@@ -122,3 +122,44 @@
  *          }
  *      }
  */
+
+/**
+ * @apiDefine GetUsersPhonesSuccessResultExample
+ * @apiSuccessExample {json} Success Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "success": true,
+ *          "status_code": 200,
+ *          "pagination": {
+ *              "total_pages": 1,
+ *              "current_page": 1,
+ *              "result_limit": 15,
+ *              "next_page": null,
+ *              "previous_page": null
+ *          },
+ *          "result": [
+ *              {
+ *                  "id": 504,
+ *                  "user_id": 153,
+ *                  "number": 6549758012,
+ *                  "country_code": "1",
+ *                  "ext": 0,
+ *                  "is_cell": true,
+ *                  "carrier": {
+ *                      "id": 1,
+ *                      "code": "VZW",
+ *                      "name": "Verizon Wireless"
+ *                  }
+ *              },
+ *              {
+ *                  "id": 504,
+ *                  "user_id": 153,
+ *                  "number": 569758012,
+ *                  "country_code": "1",
+ *                  "ext": 0,
+ *                  "is_cell": false,
+ *                  "carrier": null
+ *              }
+ *          ]
+ *      }
+ */
