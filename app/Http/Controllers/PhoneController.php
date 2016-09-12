@@ -65,9 +65,9 @@ class PhoneController extends ApiController
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
-            'number' => 'numeric|required|size:10',
-            'country_code' => 'numeric|min:1|max:4',
-            'ext' => 'numeric|max:5',
+            'number' => 'string|required|size:10',
+            'country_code' => 'string|min:1|max:4',
+            'ext' => 'string|max:5',
             'is_cell' => 'boolean|required',
             'mobile_carrier_id' => 'integer|required_if:is_cell,true|exists:mobile_carriers,id,deleted_at,NULL',
         ]);
