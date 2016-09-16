@@ -68,6 +68,7 @@ class CountryController extends ApiController
             'name' => 'string|required|max:50'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        Country::where('code', Input::get('code'))->onlyTrashed()->restore();
         $item = Country::updateOrCreate(['code' => Input::get('code')], Input::all());
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }

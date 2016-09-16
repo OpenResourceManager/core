@@ -72,6 +72,7 @@ class DepartmentController extends ApiController
 
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        Department::where('code', Input::get('code'))->onlyTrashed()->restore();
         $item = Department::updateOrCreate(['code' => Input::get('code')], Input::all());
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }

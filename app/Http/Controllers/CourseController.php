@@ -73,6 +73,7 @@ class CourseController extends ApiController
 
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        Course::where('code', Input::get('code'))->onlyTrashed()->restore();
         $item = Course::updateOrCreate(['code' => Input::get('code')], Input::all());
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
@@ -99,6 +100,7 @@ class CourseController extends ApiController
             'course_level' => Input::get('course_level'),
             'name' => Input::get('name')
         ];
+        Course::where('code', Input::get('code'))->onlyTrashed()->restore();
         $item = Course::updateOrCreate(['code' => Input::get('code')], $course);
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }

@@ -71,6 +71,7 @@ class EmailController extends ApiController
 
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        Email::where('email', Input::get('email'))->onlyTrashed()->restore();
         $item = Email::updateOrCreate(['email' => Input::get('email')], Input::all());
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
@@ -192,6 +193,7 @@ class EmailController extends ApiController
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
+        Email::where('email', Input::get('email'))->onlyTrashed()->restore();
         $item = Email::updateOrCreate(['email' => Input::get('email')], ['user_id' => $user->id, 'email' => Input::get('email')]);
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
@@ -209,6 +211,7 @@ class EmailController extends ApiController
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $user = User::where('username', $request->input('username'))->firstOrFail();
+        Email::where('email', Input::get('email'))->onlyTrashed()->restore();
         $item = Email::updateOrCreate(['email' => Input::get('email')], ['user_id' => $user->id, 'email' => Input::get('email')]);
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }

@@ -65,17 +65,14 @@ class PhoneController extends ApiController
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         $validator = Validator::make($request->all(), [
             'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
-            'number' => 'string|required|size:10',
+            'number' => 'string|required|size:10|unique:phones,deleted_at,NULL',
             'country_code' => 'string|min:1|max:4',
             'ext' => 'string|max:5',
             'is_cell' => 'boolean|required',
             'mobile_carrier_id' => 'integer|required_if:is_cell,true|exists:mobile_carriers,id,deleted_at,NULL',
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        // Check the trash and restore any items
         Phone::where('number', Input::get('number'))->onlyTrashed()->restore();
-
-        // Update or create the item
         $item = Phone::updateOrCreate(['number' => Input::get('number')], Input::all());
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }

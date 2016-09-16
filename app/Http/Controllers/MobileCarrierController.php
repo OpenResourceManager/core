@@ -69,6 +69,7 @@ class MobileCarrierController extends ApiController
 
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        MobileCarrier::where('code', Input::get('code'))->onlyTrashed()->restore();
         $item = MobileCarrier::updateOrCreate(['code' => Input::get('code')], Input::all());
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }

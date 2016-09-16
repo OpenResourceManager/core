@@ -71,6 +71,7 @@ class BuildingController extends ApiController
             'name' => 'string|required|max:30|min:3'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        Building::where('code', Input::get('code'))->onlyTrashed()->restore();
         $item = Building::updateOrCreate(['code' => Input::get('code')], Input::all());
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
@@ -153,6 +154,7 @@ class BuildingController extends ApiController
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         $data = $request->all();
         $campus = Campus::where('code', $data['campus_code'])->firstOrFail();
+        Building::where('code', Input::get('code'))->onlyTrashed()->restore();
         $item = Building::updateOrCreate(['code' => Input::get('code')], ['campus_id' => $campus->id, 'code' => $data['code'], 'name' => $data['name']]);
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
 
