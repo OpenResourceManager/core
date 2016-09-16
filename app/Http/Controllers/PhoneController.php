@@ -72,6 +72,9 @@ class PhoneController extends ApiController
             'mobile_carrier_id' => 'integer|required_if:is_cell,true|exists:mobile_carriers,id,deleted_at,NULL',
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+
+        Phone::where(['number' => Input::get('number')])->get()->onlyTrashed()->first()->restore();
+
         $item = Phone::updateOrCreate(['number' => Input::get('number')], Input::all());
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
     }
