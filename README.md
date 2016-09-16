@@ -9,3 +9,15 @@ The API key also has a boolean value that determines if the application can writ
 ## API Docs
 
 Check out the [API documentation](https://databridge.sage.edu/docs/).
+
+## Updating
+
+```
+git pull;
+git checkout $(git describe --tags $(git rev-list --tags --max-count=1));
+composer install;
+composer update;
+composer dump-autoload -o;
+php artisan migrate --force;
+chown -R nginx:nginx .;
+```
