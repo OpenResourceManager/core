@@ -19,13 +19,15 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o emails -m post -d "user_id=151&email=skywalker@yahoo.com"
+ *      uud -o emails -m post -d "user_id=151&email=skywalker@yahoo.com&verified=0&verification_token=fhu9e9fds3"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user_id=151" \
  *      --data "email=skywalker@yahoo.com" \
+ *      --data "verified=0" \
+ *      --data "verification_token=fhu9e9fds3" \
  *      --url https://databridge.sage.edu/api/v1/emails/
  *
  * @apiUse CreateSuccessResultExample
@@ -47,13 +49,15 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o emails -m post -p username -d "username=skywal&email=skywalker@yahoo.com"
+ *      uud -o emails -m post -p username -d "username=skywal&email=skywalker@yahoo.com&verified=0&verification_token=fhu9e9fds3"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "username=skywal" \
  *      --data "email=skywalker@yahoo.com" \
+ *      --data "verified=0" \
+ *      --data "verification_token=fhu9e9fds3" \
  *      --url https://databridge.sage.edu/api/v1/emails/username
  *
  * @apiUse CreateSuccessResultExample
@@ -76,13 +80,15 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o emails -m post -p identifier -d "identifier=04986732&email=skywalker@yahoo.com"
+ *      uud -o emails -m post -p identifier -d "identifier=04986732&email=skywalker@yahoo.com&verified=0&verification_token=fhu9e9fds3"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "identifier=04986732" \
  *      --data "email=skywalker@yahoo.com" \
+ *      --data "verified=0" \
+ *      --data "verification_token=fhu9e9fds3" \
  *      --url https://databridge.sage.edu/api/v1/emails/identifier
  *
  * @apiUse CreateSuccessResultExample

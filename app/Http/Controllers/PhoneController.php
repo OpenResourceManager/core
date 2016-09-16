@@ -69,6 +69,8 @@ class PhoneController extends ApiController
             'country_code' => 'string|min:1|max:4',
             'ext' => 'string|max:5',
             'is_cell' => 'boolean|required',
+            'verified' => 'boolean',
+            'verification_token' => 'string|max:6|min:3|unique:phones,deleted_at,NULL',
             'mobile_carrier_id' => 'integer|required_if:is_cell,true|exists:mobile_carriers,id,deleted_at,NULL',
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());

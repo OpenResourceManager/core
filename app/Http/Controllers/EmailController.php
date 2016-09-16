@@ -68,9 +68,14 @@ class EmailController extends ApiController
         $validator = Validator::make($request->all(), [
             'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
             'email' => 'email|required|unique:emails,deleted_at,NULL',
-
+            'verified' => 'boolean',
+            'verification_token' => 'string|max:6|min:3|unique:emails,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        // Get an array of excluded email domains
+        $excluded_domains = explode(',', env('EMAIL_MODEL_EXCLUDE_DOMAINS', ''));
+        $email_parts = explode('@', Input::get('email'));
+        if (in_array($email_parts[1], $excluded_domains)) return $this->respondUnprocessableEntity('The email address entered is a member of a forbidden domain: ' . $email_parts[1]);
         Email::where('email', Input::get('email'))->onlyTrashed()->restore();
         $item = Email::updateOrCreate(['email' => Input::get('email')], Input::all());
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
@@ -190,8 +195,14 @@ class EmailController extends ApiController
         $validator = Validator::make($request->all(), [
             'identifier' => 'string|required|exists:users,identifier,deleted_at,NULL',
             'email' => 'email|required|unique:emails,deleted_at,NULL',
+            'verified' => 'boolean',
+            'verification_token' => 'string|max:6|min:3|unique:emails,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        // Get an array of excluded email domains
+        $excluded_domains = explode(',', env('EMAIL_MODEL_EXCLUDE_DOMAINS', ''));
+        $email_parts = explode('@', Input::get('email'));
+        if (in_array($email_parts[1], $excluded_domains)) return $this->respondUnprocessableEntity('The email address entered is a member of a forbidden domain: ' . $email_parts[1]);
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         Email::where('email', Input::get('email'))->onlyTrashed()->restore();
         $item = Email::updateOrCreate(['email' => Input::get('email')], ['user_id' => $user->id, 'email' => Input::get('email')]);
@@ -208,8 +219,14 @@ class EmailController extends ApiController
         $validator = Validator::make($request->all(), [
             'username' => 'string|required|exists:users,username,deleted_at,NULL',
             'email' => 'email|required|unique:emails,deleted_at,NULL',
+            'verified' => 'boolean',
+            'verification_token' => 'string|max:6|min:3|unique:emails,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
+        // Get an array of excluded email domains
+        $excluded_domains = explode(',', env('EMAIL_MODEL_EXCLUDE_DOMAINS', ''));
+        $email_parts = explode('@', Input::get('email'));
+        if (in_array($email_parts[1], $excluded_domains)) return $this->respondUnprocessableEntity('The email address entered is a member of a forbidden domain: ' . $email_parts[1]);
         $user = User::where('username', $request->input('username'))->firstOrFail();
         Email::where('email', Input::get('email'))->onlyTrashed()->restore();
         $item = Email::updateOrCreate(['email' => Input::get('email')], ['user_id' => $user->id, 'email' => Input::get('email')]);

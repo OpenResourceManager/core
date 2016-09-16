@@ -13,6 +13,8 @@
  * @apiParam (Phone Parameters) {Number} [country_code] The phone numbers country code.
  * @apiParam (Phone Parameters) {Number} [ext] The phone number's extension, if there is one.
  * @apiParam (Phone Parameters) {Boolean} is_cell Signifies if the phone number is a mobile number.
+ * @apiParam (Phone Parameters) {Boolean} [verified] Signifies if the phone number is a verified number.
+ * @apiParam (Phone Parameters) {String} [verify_token] The verification token sent to an number used to verify them.
  * @apiParam (Phone Parameters) {Integer} [mobile_carrier_id] The mobile carrier id.
  */
 
@@ -24,6 +26,8 @@
  * @apiSuccess (Success 2xx: Phone) {Number} country_code The phone number's country code.
  * @apiSuccess (Success 2xx: Phone) {Number} ext The phone number's extension, if there is one.
  * @apiSuccess (Success 2xx: Phone) {Boolean} is_cell Signifies if the phone number is a mobile number.
+ * @apiSuccess (Success 2xx: Phone) {Boolean} verified Signifies if the phone number is a verified number.
+ * @apiSuccess (Success 2xx: Phone) {String} verify_token The verification token sent to an number used to verify them.
  * @apiSuccess (Success 2xx: Phone) {Object} carrier The mobile carrier that the phone number belongs to.
  */
 
@@ -49,6 +53,8 @@
  *                  "country_code": "1",
  *                  "ext": null,
  *                  "is_cell": false,
+ *                  "verified": false,
+ *                  "verify_token": null,
  *                  "carrier": null
  *              },
  *              {
@@ -58,6 +64,8 @@
  *                  "country_code": "1",
  *                  "ext": "355",
  *                  "is_cell": false,
+ *                  "verified": false,
+ *                  "verify_token": null,
  *                  "carrier": null
  *              },
  *              {
@@ -67,6 +75,8 @@
  *                  "country_code": "1",
  *                  "ext": null,
  *                  "is_cell": true,
+ *                  "verified": true,
+ *                  "verify_token": null,
  *                  "carrier": {
  *                      "id": 4,
  *                      "code": "TMO",
@@ -80,6 +90,8 @@
  *                  "country_code": "1",
  *                  "ext": null,
  *                  "is_cell": true,
+ *                  "verified": true,
+ *                  "verify_token": "jkfn98df89s3",
  *                  "carrier": {
  *                      "id": 1,
  *                      "code": "VZW",
@@ -93,6 +105,8 @@
  *                  "country_code": "1",
  *                  "ext": "769",
  *                  "is_cell": false,
+ *                  "verified": false,
+ *                  "verify_token": null,
  *                  "carrier": null
  *              }
  *          ]
@@ -114,6 +128,8 @@
  *              "country_code": "1",
  *              "ext": null,
  *              "is_cell": true,
+ *              "verified": false,
+ *              "verify_token": "mfknawj7efe",
  *              "carrier": {
  *                      "id": 1,
  *                      "code": "VZW",
@@ -145,6 +161,8 @@
  *                  "country_code": "1",
  *                  "ext": 0,
  *                  "is_cell": true,
+ *                  "verified": true,
+ *                  "verify_token": null,
  *                  "carrier": {
  *                      "id": 1,
  *                      "code": "VZW",
@@ -157,6 +175,8 @@
  *                  "number": 569758012,
  *                  "country_code": "1",
  *                  "ext": 0,
+ *                  "verified": false,
+ *                  "verify_token": null,
  *                  "is_cell": false,
  *                  "carrier": null
  *              }
