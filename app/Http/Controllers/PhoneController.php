@@ -73,7 +73,8 @@ class PhoneController extends ApiController
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
 
-        Phone::onlyTrashed()->where(['number' => Input::get('number')])->get()->first()->restore();
+        $phone = Phone::onlyTrashed()->where(['number' => Input::get('number')])->get()->first();
+        if ($phone) $phone->restore();
 
         $item = Phone::updateOrCreate(['number' => Input::get('number')], Input::all());
         return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
