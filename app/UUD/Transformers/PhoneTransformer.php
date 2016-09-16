@@ -30,7 +30,7 @@ class PhoneTransformer extends Transformer
             'id' => (int)$item['id'],
             'user_id' => (int)$item['user_id'],
             'number' => $item['number'],
-            //'country_code' => $item['country_code'],
+            'country_code' => $item['country_code'],
             'ext' => $item['ext'],
             'is_cell' => (bool)$item['is_cell'],
             'carrier' => $carrier
