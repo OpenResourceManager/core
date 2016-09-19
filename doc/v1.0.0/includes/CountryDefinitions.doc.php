@@ -7,14 +7,14 @@
  */
 
 /**
- * @apiDefine CountryParameters
+ * @apiDefine CountryParameters1.0.0
  * @apiParam (Country Parameters) {String} code The countries' name unique identifier string.
  * @apiParam (Country Parameters) {String} name The countries' name, this is a label.
  * @apiParam (Country Parameters) {String} abbreviation The countries' shortened name.
  */
 
 /**
- * @apiDefine CountrySuccess
+ * @apiDefine CountrySuccess1.0.0
  * @apiSuccess (Success 2xx: Country) {Integer} id The numeric id assigned to the country by the database.
  * @apiSuccess (Success 2xx: Country) {String} code The countries' unique identifier string.
  * @apiSuccess (Success 2xx: Country) {String} name The countries' name, this is a label.
@@ -22,7 +22,7 @@
  */
 
 /**
- * @apiDefine GetCountriesSuccessResultExample
+ * @apiDefine GetCountriesSuccessResultExample1.0.0
  * @apiSuccessExample {json} Success Response:
  *      HTTP/1.1 200 OK
  *      {
@@ -71,7 +71,7 @@
  */
 
 /**
- * @apiDefine GetCountrySuccessResultExample
+ * @apiDefine GetCountrySuccessResultExample1.0.0
  * @apiSuccessExample {json} Success Response:
  *      HTTP/1.1 200 OK
  *      {

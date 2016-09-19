@@ -4,10 +4,12 @@
  * User: melon
  * Date: 1/16/16
  * Time: 1:42 AM
+ *
+ * @todo Version all include method names so api docs can be versioned easily
  */
 
 /**
- * @apiDefine AddressParameters
+ * @apiDefine AddressParameters1.0.0
  * @apiParam (Address Parameters) {Integer} user_id The user who is associated with this address.
  * @apiParam (Address Parameters) {String} [addressee] The name of the addressee if different from the user's name.
  * @apiParam (Address Parameters) {String} [organization] The organization that the addressee belongs to.
@@ -22,7 +24,7 @@
  */
 
 /**
- * @apiDefine AddressSuccess
+ * @apiDefine AddressSuccess1.0.0
  * @apiSuccess (Success 2xx: Address) {Integer} id The numeric id assigned to the address by the database.
  * @apiSuccess (Success 2xx: Address) {Integer} user_id The user who is associated with this address.
  * @apiSuccess (Success 2xx: Address) {String} addressee The name of the addressee if different from the user's name.
@@ -38,7 +40,7 @@
  */
 
 /**
- * @apiDefine GetAddressesSuccessResultExample
+ * @apiDefine GetAddressesSuccessResultExample1.0.0
  * @apiSuccessExample {json} Success Response:
  *      HTTP/1.1 200 OK
  *      {
@@ -127,7 +129,7 @@
  */
 
 /**
- * @apiDefine GetAddressSuccessResultExample
+ * @apiDefine GetAddressSuccessResultExample1.0.0
  * @apiSuccessExample {json} Success Response:
  *      HTTP/1.1 200 OK
  *      {

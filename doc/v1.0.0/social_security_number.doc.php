@@ -8,7 +8,7 @@
 
 /**
  * @api {post} /ssn POST: Create/Update Social Security Number
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Social Security Numbers
  * @apiDescription This method creates a new social security number, or updates an social security number object with the specified user database id.
  *
@@ -36,7 +36,7 @@
 
 /**
  * @api {post} /ssn/username POST: Create/Update Social Security Number by Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Social Security Numbers
  * @apiDescription This method creates a new social security number, or updates an social security number object with the specified username.
  *
@@ -65,7 +65,7 @@
 
 /**
  * @api {post} /ssn/identifier POST: Create/Update Social Security Number by User Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Social Security Numbers
  * @apiDescription This method creates a new social security number, or updates an social security number object with the specified user identifier.
  *
@@ -94,7 +94,7 @@
 
 /**
  * @api {get} /ssn GET: Request Social Security Numbers
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Social Security Numbers
  * @apiDescription This method returns pages of SocialSecurityNumber objects.
  *
@@ -118,7 +118,7 @@
 
 /**
  * @api {get} /ssn/:id GET: Request Social Security Number
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Social Security Numbers
  * @apiDescription This method returns a SocialSecurityNumber object, an id is supplied to the API.
  *
@@ -143,7 +143,7 @@
 
 /**
  * @api {delete} /ssn/:id DELETE: Destroy Social Security Number
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Social Security Numbers
  * @apiDescription This method deletes a SocialSecurityNumber object, the database ID value is supplied to the API.
  *
@@ -169,7 +169,7 @@
 
 /**
  * @api {delete} /ssn/user DELETE: Destroy by User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Social Security Numbers
  * @apiDescription This method deletes a SocialSecurityNumber object, the database ID value of the user is supplied to the API.
  *
@@ -195,7 +195,7 @@
 
 /**
  * @api {delete} /ssn/identifier DELETE: Destroy by User Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Social Security Numbers
  * @apiDescription This method deletes a SocialSecurityNumber object, a user's unique identifier string is supplied.
  *
@@ -221,7 +221,7 @@
 
 /**
  * @api {delete} /ssn/username DELETE: Destroy by Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Social Security Numbers
  * @apiDescription This method deletes a SocialSecurityNumber object, a user's unique username string is supplied.
  *
@@ -247,7 +247,7 @@
 
 /**
  * @api {get} /ssn/user/:id GET: By User ID
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Social Security Numbers
  * @apiDescription This method returns SocialSecurityNumber objects associated with the user's database id.
  *
@@ -272,7 +272,7 @@
 
 /**
  * @api {get} /ssn/username/:username GET: By Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Social Security Numbers
  * @apiDescription This method returns SocialSecurityNumber objects associated with the Username that was supplied.
  *
@@ -297,7 +297,7 @@
 
 /**
  * @api {get} /ssn/identifier/:identifier GET: By User Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Social Security Numbers
  * @apiDescription This method returns SocialSecurityNumber objects associated with the Identifier that was supplied.
  *

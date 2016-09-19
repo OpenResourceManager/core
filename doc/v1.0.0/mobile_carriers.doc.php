@@ -9,7 +9,7 @@
 
 /**
  * @api {post} /mobilecarriers/ POST: Create/Update MobileCarrier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup MobileCarriers
  * @apiDescription This method creates a new mobile carrier, or updates a mobile carrier with the specified `code`.
  *
@@ -37,7 +37,7 @@
 
 /**
  * @api {delete} /mobilecarriers/:id DELETE: Destroy MobileCarrier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup MobileCarriers
  * @apiDescription This method deletes a MobileCarrier object, the database ID value is supplied to the API.
  *
@@ -62,7 +62,7 @@
 
 /**
  * @api {delete} /mobilecarriers/code/:code DELETE: Destroy by Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup MobileCarriers
  * @apiDescription This method deletes a MobileCarrier object, the objects unique `code` is supplied.
  *
@@ -87,7 +87,7 @@
 
 /**
  * @api {get} /mobilecarriers/ GET: Request MobileCarrieres
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup MobileCarriers
  * @apiDescription This method returns pages of MobileCarrier objects.
  *
@@ -111,7 +111,7 @@
 
 /**
  * @api {get} /mobilecarriers/:id GET: Request MobileCarrier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup MobileCarriers
  * @apiDescription This method returns a MobileCarrier object, an id is supplied to the API.
  *
@@ -136,7 +136,7 @@
 
 /**
  * @api {get} /mobilecarriers/code/:code GET: Request by Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup MobileCarriers
  * @apiDescription This method returns a MobileCarrier object, the objects unique `code` is supplied.
  *

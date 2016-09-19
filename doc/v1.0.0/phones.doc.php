@@ -8,7 +8,7 @@
 
 /**
  * @api {post} /phones POST: Create/Update Phone
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Phones
  * @apiDescription This method creates a new phone, or updates a phone with the specified `number`.
  *
@@ -22,7 +22,7 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o phones -m post -d "user_id=151&number=5188573007&is_cell=1&country_code=1&mobile_carrier_id=3&verified=0&verification_token=fhu9e9fds3"
+ *      uud -o phones -m post -d "user_id=151&number=5188573007&is_cell=1&country_code=1&mobile_carrier_id=3&verified=0"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
@@ -33,7 +33,6 @@
  *      --data "ext=355" \
  *      --data "is_cell=1" \
  *      --data "verified=0" \
- *      --data "verification_token=fhu9e9fds3" \
  *      --data "mobile_carrier_id=3" \
  *      --url https://databridge.sage.edu/api/v1/phones
  *
@@ -42,7 +41,7 @@
 
 /**
  * @api {delete} /phones/:id DELETE: Destroy Phone
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Phones
  * @apiDescription This method deletes a Phone object, the database ID value is supplied to the API.
  *
@@ -67,7 +66,7 @@
 
 /**
  * @api {get} /phones GET: Request Phones
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Phones
  * @apiDescription This method returns pages of Phone objects.
  *
@@ -91,7 +90,7 @@
 
 /**
  * @api {get} /phones/:id GET: Request Phone
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Phones
  * @apiDescription This method returns a Phone object, an id is supplied to the API.
  *
@@ -116,7 +115,7 @@
 
 /**
  * @api {get} /phones/user/:id GET: By User ID
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Phones
  * @apiDescription This method returns Phone objects associated with the user's database id.
  *
@@ -141,7 +140,7 @@
 
 /**
  * @api {get} /phones/username/:username GET: By Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Phones
  * @apiDescription This method returns Phone objects associated with the Username that was supplied.
  *
@@ -166,7 +165,7 @@
 
 /**
  * @api {get} /phones/identifier/:identifier GET: By User Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Phones
  * @apiDescription This method returns Phone objects associated with the Identifier that was supplied.
  *

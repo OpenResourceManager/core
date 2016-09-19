@@ -8,7 +8,7 @@
 
 /**
  * @api {post} /buildings/ POST: Create/Update Building
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Buildings
  * @apiDescription This method creates a new building, or updates a building with the specified `code`.
  *
@@ -32,12 +32,12 @@
  *      --data "code=Carter Turnpike Court" \
  *      --url https://databridge.sage.edu/api/v1/buildings/
  *
- * @apiUse BuildingParameters
+ * @apiUse BuildingParameters1.0.0
  */
 
 /**
  * @api {post} /buildings/campus/code POST: Create/Update with Campus Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Buildings
  * @apiDescription This method creates a new building, or updates a building with the specified `code`, a campus code is supplied instead of a campus id.
  *
@@ -61,12 +61,12 @@
  *      --data "code=Carter Turnpike Court" \
  *      --url https://databridge.sage.edu/api/v1/buildings/
  *
- * @apiUse BuildingParametersCampusCode
+ * @apiUse BuildingParametersCampusCode1.0.0
  */
 
 /**
  * @api {get} /buildings/campus/:id GET: By Campus ID
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Buildings
  * @apiDescription This method returns a Building object, a campus `id` is supplied.
  *
@@ -84,15 +84,15 @@
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/buildings/campus/2
  *
  * @apiUse PaginatedSuccess
- * @apiUse BuildingSuccess
- * @apiUse GetBuildingsSuccessResultExample
+ * @apiUse BuildingSuccess1.0.0
+ * @apiUse GetBuildingsSuccessResultExample1.0.0
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
  * @api {get} /buildings/campus/code/:code GET: By Campus Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Buildings
  * @apiDescription This method returns a Building object, a campus unique `code` is supplied.
  *
@@ -110,15 +110,15 @@
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/buildings/campus/code/TRY
  *
  * @apiUse PaginatedSuccess
- * @apiUse BuildingSuccess
- * @apiUse GetBuildingsSuccessResultExample
+ * @apiUse BuildingSuccess1.0.0
+ * @apiUse GetBuildingsSuccessResultExample1.0.0
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
  * @api {delete} /buildings/:id DELETE: Destroy Building
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Buildings
  * @apiDescription This method deletes a Building object, the database ID value is supplied to the API.
  *
@@ -143,7 +143,7 @@
 
 /**
  * @api {delete} /buildings/code/:code DELETE: Destroy by Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Buildings
  * @apiDescription This method deletes a Building object, the objects unique `code` is supplied.
  *
@@ -168,7 +168,7 @@
 
 /**
  * @api {get} /buildings/ GET: Request Buildings
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Buildings
  * @apiDescription This method returns pages of Building objects.
  *
@@ -186,13 +186,13 @@
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/buildings/
  *
  * @apiUse PaginatedSuccess
- * @apiUse BuildingSuccess
- * @apiUse GetBuildingsSuccessResultExample
+ * @apiUse BuildingSuccess1.0.0
+ * @apiUse GetBuildingsSuccessResultExample1.0.0
  */
 
 /**
  * @api {get} /buildings/:id GET: Request Building
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Buildings
  * @apiDescription This method returns a Building object, an id is supplied to the API.
  *
@@ -209,15 +209,15 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/buildings/14
  *
- * @apiUse BuildingSuccess
- * @apiUse GetBuildingSuccessResultExample
+ * @apiUse BuildingSuccess1.0.0
+ * @apiUse GetBuildingSuccessResultExample1.0.0
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
  * @api {get} /buildings/code/:code GET: Request by Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Buildings
  * @apiDescription This method returns a Building object, the objects unique `code` is supplied.
  *
@@ -234,8 +234,8 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/buildings/code/WES514
  *
- * @apiUse BuildingSuccess
- * @apiUse GetBuildingSuccessResultExample
+ * @apiUse BuildingSuccess1.0.0
+ * @apiUse GetBuildingSuccessResultExample1.0.0
  *
  * @apiUse ModelNotFoundError
  */

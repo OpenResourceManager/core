@@ -7,20 +7,20 @@
  */
 
 /**
- * @apiDefine BirthDateParameters
+ * @apiDefine BirthDateParameters1.0.0
  * @apiParam (BirthDate Parameters) {Integer} user_id The user that this password belongs to.
  * @apiParam (BirthDate Parameters) {Date} birth_date The user's birth date. In strtotime format: (https://secure.php.net/manual/en/function.strtotime.php).
  */
 
 /**
- * @apiDefine BirthDateSuccess
+ * @apiDefine BirthDateSuccess1.0.0
  * @apiSuccess (Success 2xx: BirthDate) {Integer} id The numeric id assigned to the password by the database.
  * @apiSuccess (Success 2xx: BirthDate) {Integer} user_id The user that this password belongs to.
  * @apiSuccess (Success 2xx: BirthDate) {Date} birth_date The user's birth date.
  */
 
 /**
- * @apiDefine GetBirthDatesSuccessResultExample
+ * @apiDefine GetBirthDatesSuccessResultExample1.0.0
  * @apiSuccessExample {json} Success Response:
  *      HTTP/1.1 200 OK
  *      {
@@ -64,7 +64,7 @@
  */
 
 /**
- * @apiDefine GetBirthDateSuccessResultExample
+ * @apiDefine GetBirthDateSuccessResultExample1.0.0
  * @apiSuccessExample {json} Success Response:
  *      HTTP/1.1 200 OK
  *      {

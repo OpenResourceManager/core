@@ -8,7 +8,7 @@
 
 /**
  * @api {post} /courses/ POST: Create/Update Course
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method creates a new course, or updates a course with the specified `number`.
  *
@@ -33,12 +33,12 @@
  *      --data "course_level=100" \
  *      --url https://databridge.sage.edu/api/v1/courses/
  *
- * @apiUse CourseParameters
+ * @apiUse CourseParameters1.0.0
  */
 
 /**
  * @api {post} /courses/department/code POST: Create/Update Course with Department Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method creates a new course, or updates a course with the specified Department code.
  *
@@ -71,7 +71,7 @@
 
 /**
  * @api {delete} /courses/:id DELETE: Destroy Course
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method deletes a Course object, the database ID value is supplied to the API.
  *
@@ -96,7 +96,7 @@
 
 /**
  * @api {delete} /courses/code/:code DELETE: Destroy By Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method deletes a Course object,  a courses' unique code is supplied.
  *
@@ -121,7 +121,7 @@
 
 /**
  * @api {get} /courses/ GET: Request Courses
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method returns pages of Course objects.
  *
@@ -139,13 +139,13 @@
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/
  *
  * @apiUse PaginatedSuccess
- * @apiUse CourseSuccess
+ * @apiUse CourseSuccess1.0.0
  * @apiUse GetCoursesSuccessResultExample
  */
 
 /**
  * @api {get} /courses/:id GET: Request Course
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method returns a Course object, an id is supplied to the API.
  *
@@ -162,7 +162,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/12
  *
- * @apiUse CourseSuccess
+ * @apiUse CourseSuccess1.0.0
  * @apiUse GetCourseSuccessResultExample
  *
  * @apiUse ModelNotFoundError
@@ -170,7 +170,7 @@
 
 /**
  * @api {get} /courses/code/:code GET: Course by Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method returns a Course object, a courses' unique code is supplied.
  *
@@ -187,7 +187,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/code/SPAN101
  *
- * @apiUse CourseSuccess
+ * @apiUse CourseSuccess1.0.0
  * @apiUse GetCourseSuccessResultExample
  *
  * @apiUse ModelNotFoundError
@@ -195,7 +195,7 @@
 
 /**
  * @api {get} /courses/user/:id GET: By User ID
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method returns Course objects associated with the user's database id.
  *
@@ -212,7 +212,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/user/153
  *
- * @apiUse CourseSuccess
+ * @apiUse CourseSuccess1.0.0
  * @apiUse GetCoursesSuccessResultExample
  *
  * @apiUse ModelNotFoundError
@@ -220,7 +220,7 @@
 
 /**
  * @api {get} /courses/username/:username GET: By Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method returns Course objects associated with the Username that was supplied.
  *
@@ -237,7 +237,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/username/skywal
  *
- * @apiUse CourseSuccess
+ * @apiUse CourseSuccess1.0.0
  * @apiUse GetCoursesSuccessResultExample
  *
  * @apiUse ModelNotFoundError
@@ -245,7 +245,7 @@
 
 /**
  * @api {get} /courses/identifier/:identifier GET: By User Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method returns Course objects associated with the Identifier that was supplied.
  *
@@ -262,7 +262,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/identifier/979659
  *
- * @apiUse CourseSuccess
+ * @apiUse CourseSuccess1.0.0
  * @apiUse GetCoursesSuccessResultExample
  *
  * @apiUse ModelNotFoundError
@@ -270,7 +270,7 @@
 
 /**
  * @api {get} /courses/department/:id GET: By Department ID
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method returns Course objects associated with the department's database id.
  *
@@ -287,7 +287,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/department/23
  *
- * @apiUse CourseSuccess
+ * @apiUse CourseSuccess1.0.0
  * @apiUse GetCoursesSuccessResultExample
  *
  * @apiUse ModelNotFoundError
@@ -295,7 +295,7 @@
 
 /**
  * @api {get} /courses/department/code/:code GET: By Department Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method returns Course objects associated with the department's code.
  *
@@ -312,7 +312,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/department/code/MIS
  *
- * @apiUse CourseSuccess
+ * @apiUse CourseSuccess1.0.0
  * @apiUse GetCoursesSuccessResultExample
  *
  * @apiUse ModelNotFoundError
@@ -320,7 +320,7 @@
 
 /**
  * @api {post} /courses/user POST: Assign to User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method assigns a course, using a user's database id and course database id values.
  *
@@ -344,12 +344,12 @@
  *      --data "course_id=1" \
  *      --url https://databridge.sage.edu/api/v1/courses/user
  *
- * @apiUse AssignmentCourseUserParams
+ * @apiUse AssignmentCourseUserParams1.0.0
  */
 
 /**
  * @api {post} /courses/identifier POST: Assign to Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method assigns a course, using a user's identifier value and course database id value.
  *
@@ -378,7 +378,7 @@
 
 /**
  * @api {post} /courses/username POST: Assign to Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method assigns a course, using a user's username value and course database id value.
  *
@@ -407,7 +407,7 @@
 
 /**
  * @api {post} /courses/code/user POST: Assign Code to User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method assigns a course, using a user's database id and course code value.
  *
@@ -436,7 +436,7 @@
 
 /**
  * @api {post} /courses/code/identifier POST: Assign Code to Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method assigns a course, using a user's identifier value and course code value.
  *
@@ -465,7 +465,7 @@
 
 /**
  * @api {post} /courses/code/username POST: Assign Code to Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method assigns a course, using a user's username value and course code value.
  *
@@ -494,7 +494,7 @@
 
 /**
  * @api {delete} /courses/user DELETE: Unassign User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method unassigns a user from a course, using the user id and course database id values.
  *
@@ -518,12 +518,12 @@
  *      --data "course_id=1" \
  *      --url https://databridge.sage.edu/api/v1/courses/user
  *
- * @apiUse AssignmentCourseUserParams
+ * @apiUse AssignmentCourseUserParams1.0.0
  */
 
 /**
  * @api {delete} /courses/identifier DELETE: Unassign from Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method unassigns a user from a course, using a user's identifier value and course database id value.
  *
@@ -552,7 +552,7 @@
 
 /**
  * @api {delete} /courses/username DELETE: Unassign from Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method unassigns a user from a course, using a user's username value and course database id value.
  *
@@ -581,7 +581,7 @@
 
 /**
  * @api {delete} /courses/code/user DELETE: Unassign Code from User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method unassigns a user from a course, using a user's database id and course code value.
  *
@@ -610,7 +610,7 @@
 
 /**
  * @api {delete} /courses/code/identifier DELETE: Unassign Code from Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method unassigns a user from a course, using a user's identifier value and course code value.
  *
@@ -639,7 +639,7 @@
 
 /**
  * @api {delete} /courses/code/username DELETE: Unassign Code from Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Courses
  * @apiDescription This method unassigns a user from a course, using a user's username value and course code value.
  *

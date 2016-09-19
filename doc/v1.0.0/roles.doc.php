@@ -8,7 +8,7 @@
 
 /**
  * @api {post} /roles POST: Create/Update Role
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method creates a new role, or updates a role with the specified `number`.
  *
@@ -36,7 +36,7 @@
 
 /**
  * @api {delete} /roles/:id DELETE: Destroy Role
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method deletes a Role object, the database ID value is supplied to the API.
  *
@@ -61,7 +61,7 @@
 
 /**
  * @api {delete} /roles/code/:code DELETE: Destroy By Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method deletes a Role object, a role's unique code is supplied.
  *
@@ -86,7 +86,7 @@
 
 /**
  * @api {get} /roles GET: Request Roles
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method returns pages of Role objects.
  *
@@ -110,7 +110,7 @@
 
 /**
  * @api {get} /roles/:id GET: Request Role
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method returns a Role object, an id is supplied to the API.
  *
@@ -135,7 +135,7 @@
 
 /**
  * @api {get} /roles/code/:code GET: Role by Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method returns a Role object, a role's unique code is supplied.
  *
@@ -160,7 +160,7 @@
 
 /**
  * @api {get} /roles/user/:id GET: By User ID
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method returns Role objects associated with the user's database id.
  *
@@ -185,7 +185,7 @@
 
 /**
  * @api {get} /roles/username/:username GET: By Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method returns Role objects associated with the Username that was supplied.
  *
@@ -210,7 +210,7 @@
 
 /**
  * @api {get} /roles/identifier/:identifier GET: By User Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method returns Role objects associated with the Identifier that was supplied.
  *
@@ -235,7 +235,7 @@
 
 /**
  * @api {post} /roles/user POST: Assign to User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method assigns a role to a user, using the user and role database id values.
  *
@@ -264,7 +264,7 @@
 
 /**
  * @api {post} /roles/identifier POST: Assign to Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method assigns a role to a user, using the identifier value and role database id value.
  *
@@ -293,7 +293,7 @@
 
 /**
  * @api {post} /roles/username POST: Assign to Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method assigns a role to a user, using the username value and role database id value.
  *
@@ -322,7 +322,7 @@
 
 /**
  * @api {post} /roles/code/user POST: Assign Code to User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method assigns a role to a user, using the user and role code value.
  *
@@ -351,7 +351,7 @@
 
 /**
  * @api {post} /roles/code/identifier POST: Assign Code to Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method assigns a role to a user, using the identifier value and role code value.
  *
@@ -380,7 +380,7 @@
 
 /**
  * @api {post} /roles/code/username POST: Assign Code to Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method assigns a role to a user, using the username value and role code value.
  *
@@ -409,7 +409,7 @@
 
 /**
  * @api {delete} /roles/user DELETE: Unassign User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method unassigns a user from a role a user, using the user and role database id values.
  *
@@ -438,7 +438,7 @@
 
 /**
  * @api {delete} /roles/identifier DELETE: Unassign from Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method unassigns a user from a role a user, using the identifier value and role database id value.
  *
@@ -467,7 +467,7 @@
 
 /**
  * @api {delete} /roles/username DELETE: Unassign from Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method unassigns a user from a role a user, using the username value and role database id value.
  *
@@ -496,7 +496,7 @@
 
 /**
  * @api {delete} /roles/code/user DELETE: Unassign Code from User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method unassigns a user from a role a user, using the user and role code value.
  *
@@ -525,7 +525,7 @@
 
 /**
  * @api {delete} /roles/code/identifier DELETE: Unassign Code from Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method unassigns a user from a role a user, using the identifier value and role code value.
  *
@@ -554,7 +554,7 @@
 
 /**
  * @api {delete} /roles/code/username DELETE: Unassign Code from Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Roles
  * @apiDescription This method unassigns a user from a role a user, using the username value and role code value.
  *

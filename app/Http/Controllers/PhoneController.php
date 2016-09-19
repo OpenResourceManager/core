@@ -6,9 +6,9 @@ use App\Model\User;
 use App\Model\Phone;
 use App\UUD\Transformers\PhoneTransformer;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use App\UUD\Helper;
 
 class PhoneController extends ApiController
 {
@@ -69,14 +69,24 @@ class PhoneController extends ApiController
             'country_code' => 'string|min:1|max:4',
             'ext' => 'string|max:5',
             'is_cell' => 'boolean|required',
-            'verified' => 'boolean',
-            'verification_token' => 'string|max:6|min:3|unique:phones,deleted_at,NULL',
             'mobile_carrier_id' => 'integer|required_if:is_cell,true|exists:mobile_carriers,id,deleted_at,NULL',
+            'verified' => 'boolean',
+            //'verification_token' => 'string|max:6|min:3|unique:phones,deleted_at,NULL|unique:emails,deleted_at,NULL',
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         Phone::where('number', Input::get('number'))->onlyTrashed()->restore();
         $item = Phone::updateOrCreate(['number' => Input::get('number')], Input::all());
-        return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
+        // If the item is not verified then generate a new verification token
+        if (!$item->verified) {
+            $item->verification_token = Helper::generateVerificationToken();
+            $item->save();
+        }
+
+        if (isset($item->verification_token)) {
+            return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated, $item->verification_token);
+        } else {
+            return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
+        }
     }
 
     /**

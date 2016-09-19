@@ -8,7 +8,7 @@
 
 /**
  * @api {post} /addresses/ POST: Create Address
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Addresses
  * @apiDescription This method creates a new address.
  *
@@ -40,12 +40,12 @@
  *      --data "longitude=-73.6964327" \
  *      --url https://databridge.sage.edu/api/v1/addresses/
  *
- * @apiUse AddressParameters
+ * @apiUse AddressParameters1.0.0
  */
 
 /**
  * @api {delete} /addresses/:id DELETE: Destroy Address
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Addresses
  * @apiDescription This method deletes a Address object, the database ID value is supplied to the API.
  *
@@ -70,7 +70,7 @@
 
 /**
  * @api {get} /addresses/ GET: Request Addresses
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Addresses
  * @apiDescription This method returns pages of Address objects.
  *
@@ -88,13 +88,13 @@
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/addresses/
  *
  * @apiUse PaginatedSuccess
- * @apiUse AddressSuccess
- * @apiUse GetAddressesSuccessResultExample
+ * @apiUse AddressSuccess1.0.0
+ * @apiUse GetAddressesSuccessResultExample1.0.0
  */
 
 /**
  * @api {get} /addresses/:id GET: Request Address
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Addresses
  * @apiDescription This method returns a Address object, an id is supplied to the API.
  *
@@ -111,15 +111,15 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/addresses/2
  *
- * @apiUse AddressSuccess
- * @apiUse GetAddressSuccessResultExample
+ * @apiUse AddressSuccess1.0.0
+ * @apiUse GetAddressSuccessResultExample1.0.0
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
  * @api {get} /addresses/user/:id GET: By user id
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Addresses
  * @apiDescription This method returns a Address objects, with the user's database id.
  *
@@ -136,15 +136,15 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/addresses/user/3
  *
- * @apiUse AddressSuccess
- * @apiUse GetAddressesSuccessResultExample
+ * @apiUse AddressSuccess1.0.0
+ * @apiUse GetAddressesSuccessResultExample1.0.0
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
  * @api {get} /addresses/username/:username GET: By Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Addresses
  * @apiDescription This method returns a Address objects, with the user's database id.
  *
@@ -161,15 +161,15 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/addresses/username/skywal
  *
- * @apiUse AddressSuccess
- * @apiUse GetAddressesSuccessResultExample
+ * @apiUse AddressSuccess1.0.0
+ * @apiUse GetAddressesSuccessResultExample1.0.0
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
  * @api {get} /addresses/identifier/:identifier GET: By User Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Addresses
  * @apiDescription This method returns a Address objects, with the user's database id.
  *
@@ -186,8 +186,8 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/addresses/identifier/9748523
  *
- * @apiUse AddressSuccess
- * @apiUse GetAddressesSuccessResultExample
+ * @apiUse AddressSuccess1.0.0
+ * @apiUse GetAddressesSuccessResultExample1.0.0
  *
  * @apiUse ModelNotFoundError
  */

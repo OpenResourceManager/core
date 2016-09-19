@@ -8,7 +8,7 @@
 
 /**
  * @api {post} /campuses/ POST: Create/Update Campus
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Campuses
  * @apiDescription This method creates a new campus, or updates a campus with the specified `code`.
  *
@@ -31,12 +31,12 @@
  *      --data "code=TRY" \
  *      --url https://databridge.sage.edu/api/v1/campuses/
  *
- * @apiUse CampusParameters
+ * @apiUse CampusParameters1.0.0
  */
 
 /**
  * @api {delete} /campuses/:id DELETE: Destroy Campus
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Campuses
  * @apiDescription This method deletes a Campus object, the database ID value is supplied to the API.
  *
@@ -61,7 +61,7 @@
 
 /**
  * @api {delete} /campuses/code/:code DELETE: Destroy by Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Campuses
  * @apiDescription This method deletes a Campus object, the objects unique `code` is supplied.
  *
@@ -86,7 +86,7 @@
 
 /**
  * @api {get} /campuses/ GET: Request Campuses
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Campuses
  * @apiDescription This method returns pages of Campus objects.
  *
@@ -104,13 +104,13 @@
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/campuses/
  *
  * @apiUse PaginatedSuccess
- * @apiUse CampusSuccess
- * @apiUse GetCampusesSuccessResultExample
+ * @apiUse CampusSuccess1.0.0
+ * @apiUse GetCampusesSuccessResultExample1.0.0
  */
 
 /**
  * @api {get} /campuses/:id GET: Request Campus
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Campuses
  * @apiDescription This method returns a Campus object, an id is supplied to the API.
  *
@@ -127,15 +127,15 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/campuses/2
  *
- * @apiUse CampusSuccess
- * @apiUse GetCampusSuccessResultExample
+ * @apiUse CampusSuccess1.0.0
+ * @apiUse GetCampusSuccessResultExample1.0.0
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
  * @api {get} /campuses/code/:code GET: Request by Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Campuses
  * @apiDescription This method returns a Campus object, the objects unique `code` is supplied.
  *
@@ -152,8 +152,8 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/campuses/code/TRY
  *
- * @apiUse CampusSuccess
- * @apiUse GetCampusSuccessResultExample
+ * @apiUse CampusSuccess1.0.0
+ * @apiUse GetCampusSuccessResultExample1.0.0
  *
  * @apiUse ModelNotFoundError
  */

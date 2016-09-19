@@ -8,7 +8,7 @@
 
 /**
  * @api {post} /states POST: Create/Update State
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup States
  * @apiDescription This method creates a new state, or updates a state with the specified `code`.
  *
@@ -37,7 +37,7 @@
 
 /**
  * @api {delete} /states/:id DELETE: Destroy State
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup States
  * @apiDescription This method deletes a State object, the database ID value is supplied to the API.
  *
@@ -62,7 +62,7 @@
 
 /**
  * @api {delete} /states/code/:code DELETE: Destroy by Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup States
  * @apiDescription This method deletes a State object, the objects unique `code` is supplied.
  *
@@ -87,7 +87,7 @@
 
 /**
  * @api {get} /states GET: Request States
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup States
  * @apiDescription This method returns pages of State objects.
  *
@@ -111,7 +111,7 @@
 
 /**
  * @api {get} /states/:id GET: Request State
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup States
  * @apiDescription This method returns a State object, an id is supplied to the API.
  *
@@ -136,7 +136,7 @@
 
 /**
  * @api {get} /states/code/:code GET: Request by Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup States
  * @apiDescription This method returns a State object, the objects unique `code` is supplied.
  *

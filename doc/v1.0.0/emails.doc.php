@@ -8,7 +8,7 @@
 
 /**
  * @api {post} /emails/ POST: Create/Update Email
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Emails
  * @apiDescription This method creates a new email, or updates an email object with the specified email address.
  *
@@ -19,7 +19,7 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o emails -m post -d "user_id=151&email=skywalker@yahoo.com&verified=0&verification_token=fhu9e9fds3"
+ *      uud -o emails -m post -d "user_id=151&email=skywalker@yahoo.com&verified=0"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
@@ -27,7 +27,6 @@
  *      --data "user_id=151" \
  *      --data "email=skywalker@yahoo.com" \
  *      --data "verified=0" \
- *      --data "verification_token=fhu9e9fds3" \
  *      --url https://databridge.sage.edu/api/v1/emails/
  *
  * @apiUse CreateSuccessResultExample
@@ -38,7 +37,7 @@
 
 /**
  * @api {post} /emails/username POST: Create/Update Email by Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Emails
  * @apiDescription This method creates a new email, or updates an email object with the specified username.
  *
@@ -49,7 +48,7 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o emails -m post -p username -d "username=skywal&email=skywalker@yahoo.com&verified=0&verification_token=fhu9e9fds3"
+ *      uud -o emails -m post -p username -d "username=skywal&email=skywalker@yahoo.com&verified=0"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
@@ -57,7 +56,6 @@
  *      --data "username=skywal" \
  *      --data "email=skywalker@yahoo.com" \
  *      --data "verified=0" \
- *      --data "verification_token=fhu9e9fds3" \
  *      --url https://databridge.sage.edu/api/v1/emails/username
  *
  * @apiUse CreateSuccessResultExample
@@ -69,7 +67,7 @@
 
 /**
  * @api {post} /emails/identifier POST: Create/Update Email by User Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Emails
  * @apiDescription This method creates a new email, or updates an email object with the specified identifier.
  *
@@ -80,7 +78,7 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o emails -m post -p identifier -d "identifier=04986732&email=skywalker@yahoo.com&verified=0&verification_token=fhu9e9fds3"
+ *      uud -o emails -m post -p identifier -d "identifier=04986732&email=skywalker@yahoo.com&verified=0"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
@@ -88,7 +86,6 @@
  *      --data "identifier=04986732" \
  *      --data "email=skywalker@yahoo.com" \
  *      --data "verified=0" \
- *      --data "verification_token=fhu9e9fds3" \
  *      --url https://databridge.sage.edu/api/v1/emails/identifier
  *
  * @apiUse CreateSuccessResultExample
@@ -101,7 +98,7 @@
 
 /**
  * @api {get} /emails/ GET: Request Emails
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Emails
  * @apiDescription This method returns pages of Email objects.
  *
@@ -125,7 +122,7 @@
 
 /**
  * @api {get} /emails/:id GET: Request Email
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Emails
  * @apiDescription This method returns a Email object, an id is supplied to the API.
  *
@@ -150,7 +147,7 @@
 
 /**
  * @api {delete} /emails/:id DELETE: Destroy Email
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Emails
  * @apiDescription This method deletes an Email object, the database ID value is supplied to the API.
  *
@@ -175,7 +172,7 @@
 
 /**
  * @api {delete} /emails/address DELETE: Destroy Email by Email Address
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Emails
  * @apiDescription This method deletes an Email object, the database ID value is supplied to the API.
  *
@@ -201,7 +198,7 @@
 
 /**
  * @api {get} /emails/user/:id GET: By User ID
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Emails
  * @apiDescription This method returns Email objects associated with the user's database id.
  *
@@ -226,7 +223,7 @@
 
 /**
  * @api {get} /emails/username/:username GET: By Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Emails
  * @apiDescription This method returns Email objects associated with the Username that was supplied.
  *
@@ -251,7 +248,7 @@
 
 /**
  * @api {get} /emails/identifier/:identifier GET: By User Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Emails
  * @apiDescription This method returns Email objects associated with the Identifier that was supplied.
  *

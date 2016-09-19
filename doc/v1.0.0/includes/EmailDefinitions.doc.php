@@ -11,7 +11,6 @@
  * @apiParam (Email Parameters) {Integer} user_id The user that this email address belongs to.
  * @apiParam (Email Parameters) {String} email The email address string.
  * @apiParam (Email Parameters) {Boolean} [verified] Signifies if the email address is verified.
- * @apiParam (Email Parameters) {String} [verify_token] The verification token sent to an address used to verify them.
  */
 
 /**

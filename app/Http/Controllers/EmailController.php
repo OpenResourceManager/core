@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Campus;
 use App\Model\Email;
 use App\Model\User;
 use App\UUD\Transformers\EmailTransformer;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use App\UUD\Helper;
 
 class EmailController extends ApiController
 {
@@ -69,7 +68,7 @@ class EmailController extends ApiController
             'user_id' => 'integer|required|exists:users,id,deleted_at,NULL',
             'email' => 'email|required|unique:emails,deleted_at,NULL',
             'verified' => 'boolean',
-            'verification_token' => 'string|max:6|min:3|unique:emails,deleted_at,NULL'
+            //'verification_token' => 'string|max:6|min:3|unique:emails,deleted_at,NULL|unique:phones,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         // Get an array of excluded email domains
@@ -78,7 +77,17 @@ class EmailController extends ApiController
         if (in_array($email_parts[1], $excluded_domains)) return $this->respondUnprocessableEntity('The email address entered is a member of a forbidden domain: ' . $email_parts[1]);
         Email::where('email', Input::get('email'))->onlyTrashed()->restore();
         $item = Email::updateOrCreate(['email' => Input::get('email')], Input::all());
-        return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
+        // If the item is not verified then generate a new verification token
+        if (!$item->verified) {
+            $item->verification_token = Helper::generateVerificationToken();
+            $item->save();
+        }
+
+        if (isset($item->verification_token)) {
+            return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated, $item->verification_token);
+        } else {
+            return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
+        }
     }
 
     /**
@@ -196,7 +205,7 @@ class EmailController extends ApiController
             'identifier' => 'string|required|exists:users,identifier,deleted_at,NULL',
             'email' => 'email|required|unique:emails,deleted_at,NULL',
             'verified' => 'boolean',
-            'verification_token' => 'string|max:6|min:3|unique:emails,deleted_at,NULL'
+            //'verification_token' => 'string|max:6|min:3|unique:emails,deleted_at,NULL|unique:phones,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         // Get an array of excluded email domains
@@ -206,7 +215,17 @@ class EmailController extends ApiController
         $user = User::where('identifier', $request->input('identifier'))->firstOrFail();
         Email::where('email', Input::get('email'))->onlyTrashed()->restore();
         $item = Email::updateOrCreate(['email' => Input::get('email')], ['user_id' => $user->id, 'email' => Input::get('email')]);
-        return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
+        // If the item is not verified then generate a new verification token
+        if (!$item->verified) {
+            $item->verification_token = Helper::generateVerificationToken();
+            $item->save();
+        }
+        
+        if (isset($item->verification_token)) {
+            return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated, $item->verification_token);
+        } else {
+            return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
+        }
     }
 
     /**
@@ -220,7 +239,7 @@ class EmailController extends ApiController
             'username' => 'string|required|exists:users,username,deleted_at,NULL',
             'email' => 'email|required|unique:emails,deleted_at,NULL',
             'verified' => 'boolean',
-            'verification_token' => 'string|max:6|min:3|unique:emails,deleted_at,NULL'
+            //'verification_token' => 'string|max:6|min:3|unique:emails,deleted_at,NULL|unique:phones,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
         // Get an array of excluded email domains
@@ -230,7 +249,17 @@ class EmailController extends ApiController
         $user = User::where('username', $request->input('username'))->firstOrFail();
         Email::where('email', Input::get('email'))->onlyTrashed()->restore();
         $item = Email::updateOrCreate(['email' => Input::get('email')], ['user_id' => $user->id, 'email' => Input::get('email')]);
-        return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
+        // If the item is not verified then generate a new verification token
+        if (!$item->verified) {
+            $item->verification_token = Helper::generateVerificationToken();
+            $item->save();
+        }
+
+        if (isset($item->verification_token)) {
+            return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated, $item->verification_token);
+        } else {
+            return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated);
+        }
     }
 
 }

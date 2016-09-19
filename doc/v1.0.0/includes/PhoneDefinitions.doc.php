@@ -14,7 +14,6 @@
  * @apiParam (Phone Parameters) {Number} [ext] The phone number's extension, if there is one.
  * @apiParam (Phone Parameters) {Boolean} is_cell Signifies if the phone number is a mobile number.
  * @apiParam (Phone Parameters) {Boolean} [verified] Signifies if the phone number is a verified number.
- * @apiParam (Phone Parameters) {String} [verify_token] The verification token sent to an number used to verify them.
  * @apiParam (Phone Parameters) {Integer} [mobile_carrier_id] The mobile carrier id.
  */
 

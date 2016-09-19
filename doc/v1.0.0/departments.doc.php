@@ -8,7 +8,7 @@
 
 /**
  * @api {post} /departments/ POST: Create/Update Department
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method creates a new department, or updates a department with the specified `code`.
  *
@@ -37,7 +37,7 @@
 
 /**
  * @api {delete} /departments/:id DELETE: Destroy Department
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method deletes a Department object, the database ID value is supplied to the API.
  *
@@ -62,7 +62,7 @@
 
 /**
  * @api {get} /departments/ GET: Request Departments
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method returns pages of Department objects.
  *
@@ -86,7 +86,7 @@
 
 /**
  * @api {get} /departments/:id GET: Department by ID
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method returns a Department object, an id is supplied to the API.
  *
@@ -111,7 +111,7 @@
 
 /**
  * @api {get} /departments/code/:code GET: Department by Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method returns a Department object, a department's unique code is supplied.
  *
@@ -136,7 +136,7 @@
 
 /**
  * @api {get} /departments/course/{id} GET: By Course ID
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method returns pages of Department objects, based on the course ID passed in.
  *
@@ -162,7 +162,7 @@
 
 /**
  * @api {get} /departments/course/code/{code} GET: By Course Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method returns pages of Department objects, based on the course ID passed in.
  *
@@ -188,7 +188,7 @@
 
 /**
  * @api {delete} /departments/code/:code DELETE: Destroy by Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method deletes a Department object, a department code is supplied to the API.
  *
@@ -213,7 +213,7 @@
 
 /**
  * @api {get} /departments/user/:id GET: By User ID
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method returns Department objects associated with the user's database id.
  *
@@ -238,7 +238,7 @@
 
 /**
  * @api {get} /departments/username/:username GET: By Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method returns Department objects associated with the Username that was supplied.
  *
@@ -263,7 +263,7 @@
 
 /**
  * @api {get} /departments/identifier/:identifier GET: By User Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method returns Department objects associated with the Identifier that was supplied.
  *
@@ -288,7 +288,7 @@
 
 /**
  * @api {post} /departments/user POST: Assign to User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method assigns a department to a user, using the user and department database id values.
  *
@@ -317,7 +317,7 @@
 
 /**
  * @api {post} /departments/identifier POST: Assign to Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method assigns a department to a user, using the identifier value and department database id value.
  *
@@ -346,7 +346,7 @@
 
 /**
  * @api {post} /departments/username POST: Assign to Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method assigns a department to a user, using the username value and department database id value.
  *
@@ -375,7 +375,7 @@
 
 /**
  * @api {post} /departments/code/user POST: Assign Code to User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method assigns a department to a user, using the user and department code value.
  *
@@ -404,7 +404,7 @@
 
 /**
  * @api {post} /departments/code/identifier POST: Assign Code to Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method assigns a department to a user, using the identifier value and department code value.
  *
@@ -433,7 +433,7 @@
 
 /**
  * @api {post} /departments/code/username POST: Assign Code to Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method assigns a department to a user, using the username value and department code value.
  *
@@ -462,7 +462,7 @@
 
 /**
  * @api {delete} /departments/user DELETE: Unassign User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method unassigns a user from a department a user, using the user and department database id values.
  *
@@ -491,7 +491,7 @@
 
 /**
  * @api {delete} /departments/identifier DELETE: Unassign from Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method unassigns a user from a department a user, using the identifier value and department database id value.
  *
@@ -520,7 +520,7 @@
 
 /**
  * @api {delete} /departments/username DELETE: Unassign from Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method unassigns a user from a department a user, using the username value and department database id value.
  *
@@ -549,7 +549,7 @@
 
 /**
  * @api {delete} /departments/code/user DELETE: Unassign Code from User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method unassigns a user from a department a user, using the user and department code value.
  *
@@ -578,7 +578,7 @@
 
 /**
  * @api {delete} /departments/code/identifier DELETE: Unassign Code from Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method unassigns a user from a department a user, using the identifier value and department code value.
  *
@@ -607,7 +607,7 @@
 
 /**
  * @api {delete} /departments/code/username DELETE: Unassign Code from Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Departments
  * @apiDescription This method unassigns a user from a department a user, using the username value and department code value.
  *

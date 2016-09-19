@@ -8,7 +8,7 @@
 
 /**
  * @api {post} /users POST: Create/Update User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Users
  * @apiDescription This method creates a new user, or updates a user with the specified `identifier`.
  *
@@ -40,7 +40,7 @@
 
 /**
  * @api {delete} /users/:id DELETE: Destroy User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Users
  * @apiDescription This method deletes a User object, the database ID value is supplied to the API.
  *
@@ -65,7 +65,7 @@
 
 /**
  * @api {delete} /users/username/:username DELETE: Destroy via Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Users
  * @apiDescription This method deletes a User object, a username value is supplied to the API.
  *
@@ -90,7 +90,7 @@
 
 /**
  * @api {delete} /users/identifier/:identifier DELETE: Destroy via Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Users
  * @apiDescription This method deletes a User object, a identifier is supplied to the API.
  *
@@ -115,7 +115,7 @@
 
 /**
  * @api {get} /users GET: Request Users
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Users
  * @apiDescription This method returns pages of User objects.
  *
@@ -139,7 +139,7 @@
 
 /**
  * @api {get} /users/:id GET: Request User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Users
  * @apiDescription This method returns a User object, an id is supplied to the API.
  *
@@ -164,7 +164,7 @@
 
 /**
  * @api {get} /users/username/:username GET: Request via Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Users
  * @apiDescription This method returns a User object, a username is supplied to the API.
  *
@@ -189,7 +189,7 @@
 
 /**
  * @api {get} /users/identifier/:identifier GET: Request via Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Users
  * @apiDescription This method returns a User object, a identifier is supplied to the API.
  *
@@ -214,7 +214,7 @@
 
 /**
  * @api {get} /users/room/:id GET: By Room ID
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Users
  * @apiDescription This method returns User objects, associated with the room ID.
  *
@@ -239,7 +239,7 @@
 
 /**
  * @api {get} /users/role/:id GET: By Role ID
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Users
  * @apiDescription This method returns User objects, associated with the role ID.
  *
@@ -264,7 +264,7 @@
 
 /**
  * @api {get} /users/role/code/:code GET: By Role Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Users
  * @apiDescription This method returns User objects, associated with the role code.
  *
@@ -289,7 +289,7 @@
 
 /**
  * @api {get} /users/course/:id GET: By Course ID
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Users
  * @apiDescription This method returns User objects, associated with the course ID.
  *
@@ -314,7 +314,7 @@
 
 /**
  * @api {get} /users/course/code/:code GET: By Course Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Users
  * @apiDescription This method returns User objects, associated with the course code.
  *

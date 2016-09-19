@@ -150,20 +150,23 @@ class ApiController extends Controller
     /**
      * @param string $message
      * @param int $id
+     * @param null $verification_code
      * @return mixed
      */
-    public function respondCreateSuccess($message = 'Created', $id = 0)
+    public function respondCreateSuccess($message = 'Created', $id = 0, $verification_code = null)
     {
-        return $this->setStatusCode(201)->respondWithSuccess(['message' => $message, 'id' => intval($id)]);
+        return $this->setStatusCode(201)->respondWithSuccess(['message' => $message, 'id' => intval($id), 'verification_code' => $verification_code]);
     }
 
     /**
      * @param string $message
+     * @param int $id
+     * @param null $verification_code
      * @return mixed
      */
-    public function respondUpdateSuccess($message = 'Updated', $id = 0)
+    public function respondUpdateSuccess($message = 'Updated', $id = 0, $verification_code = null)
     {
-        return $this->setStatusCode(200)->respondWithSuccess(['message' => $message, 'id' => intval($id)]);
+        return $this->setStatusCode(200)->respondWithSuccess(['message' => $message, 'id' => intval($id), 'verification_code' => $verification_code]);
     }
 
     /**
@@ -178,15 +181,16 @@ class ApiController extends Controller
 
     /**
      * @param int $id
-     * @param bool|true $recently
+     * @param bool $recently
+     * @param null $verification_code
      * @return mixed
      */
-    public function respondCreateUpdateSuccess($id = 0, $recently = true)
+    public function respondCreateUpdateSuccess($id = 0, $recently = true, $verification_code = null)
     {
         if ($recently) {
-            return $this->respondCreateSuccess('Created', $id);
+            return $this->respondCreateSuccess('Created', $id, $verification_code);
         } else {
-            return $this->respondUpdateSuccess('Updated', $id);
+            return $this->respondUpdateSuccess('Updated', $id, $verification_code);
         }
     }
 
@@ -267,7 +271,6 @@ class ApiController extends Controller
     {
         return Response::json($data, $this->getStatusCode(), $headers);
     }
-    
-    
+
 
 }

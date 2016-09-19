@@ -8,7 +8,7 @@
 
 /**
  * @api {post} /rooms POST: Create/Update Room
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method creates a new room, or updates an room object with the specified room address.
  *
@@ -40,7 +40,7 @@
 
 /**
  * @api {get} /rooms GET: Request Rooms
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method returns pages of Room objects.
  *
@@ -64,7 +64,7 @@
 
 /**
  * @api {get} /rooms/:id GET: Request Room
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method returns a Room object, an id is supplied to the API.
  *
@@ -89,7 +89,7 @@
 
 /**
  * @api {delete} /rooms/:id DELETE: Destroy Room
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method deletes an Room object, the database ID value is supplied to the API.
  *
@@ -114,7 +114,7 @@
 
 /**
  * @api {delete} /rooms/code/:code DELETE: Destroy By Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method deletes a Room object, a room's unique code is supplied.
  *
@@ -139,7 +139,7 @@
 
 /**
  * @api {get} /rooms/user/:id GET: By User ID
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method returns Room objects associated with the user's database id.
  *
@@ -164,7 +164,7 @@
 
 /**
  * @api {get} /rooms/username/:username GET: By Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method returns Room objects associated with the Username that was supplied.
  *
@@ -189,7 +189,7 @@
 
 /**
  * @api {get} /rooms/identifier/:identifier GET: By User Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method returns Room objects associated with the Identifier that was supplied.
  *
@@ -214,7 +214,7 @@
 
 /**
  * @api {get} /rooms/campus/:id GET: By Campus ID
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method returns Room objects associated with the campuses' database id.
  *
@@ -239,7 +239,7 @@
 
 /**
  * @api {get} /rooms/campus/code/:code GET: By Campus Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method returns Room objects associated with the campuses' unique code.
  *
@@ -264,7 +264,7 @@
 
 /**
  * @api {get} /rooms/building/:id GET: By Building ID
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method returns Room objects associated with the building's database id.
  *
@@ -289,7 +289,7 @@
 
 /**
  * @api {get} /rooms/building/code/:code GET: By Building Code
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method returns Room objects associated with the building's unique code.
  *
@@ -314,7 +314,7 @@
 
 /**
  * @api {post} /rooms/user POST: Assign to User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method assigns a room to a user, using the user and room database id values.
  *
@@ -343,7 +343,7 @@
 
 /**
  * @api {post} /rooms/identifier POST: Assign to Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method assigns a room to a user, using the identifier value and room database id value.
  *
@@ -372,7 +372,7 @@
 
 /**
  * @api {post} /rooms/username POST: Assign to Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method assigns a room to a user, using the username value and room database id value.
  *
@@ -401,7 +401,7 @@
 
 /**
  * @api {post} /rooms/code/user POST: Assign Code to User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method assigns a room to a user, using the user and room code value.
  *
@@ -430,7 +430,7 @@
 
 /**
  * @api {post} /rooms/code/identifier/ POST: Assign Code to Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method assigns a room to a user, using the identifier value and room code value.
  *
@@ -459,7 +459,7 @@
 
 /**
  * @api {post} /rooms/code/username POST: Assign Code to Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method assigns a room to a user, using the username value and room code value.
  *
@@ -488,7 +488,7 @@
 
 /**
  * @api {delete} /rooms/user DELETE: Unassign User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method unassigns a user from a room a user, using the user and room database id values.
  *
@@ -517,7 +517,7 @@
 
 /**
  * @api {delete} /rooms/identifier DELETE: Unassign from Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method unassigns a user from a room a user, using the identifier value and room database id value.
  *
@@ -546,7 +546,7 @@
 
 /**
  * @api {delete} /rooms/username DELETE: Unassign from Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method unassigns a user from a room a user, using the username value and room database id value.
  *
@@ -575,7 +575,7 @@
 
 /**
  * @api {delete} /rooms/code/user DELETE: Unassign Code from User
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method unassigns a user from a room a user, using the user and room code value.
  *
@@ -604,7 +604,7 @@
 
 /**
  * @api {delete} /rooms/code/identifier DELETE: Unassign Code from Identifier
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method unassigns a user from a room a user, using the identifier value and room code value.
  *
@@ -633,7 +633,7 @@
 
 /**
  * @api {delete} /rooms/code/username DELETE: Unassign Code from Username
- * @apiVersion 1.1.1
+ * @apiVersion 1.0.0
  * @apiGroup Rooms
  * @apiDescription This method unassigns a user from a room a user, using the username value and room code value.
  *

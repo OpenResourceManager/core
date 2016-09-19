@@ -7,9 +7,9 @@
  */
 
 /**
- * @api {post} /birthdates POST: Create/Update BirthDate
- * @apiVersion 1.1.1
- * @apiGroup BirthDates
+ * @api {post} /passwords POST: Create/Update Password
+ * @apiVersion 1.0.0
+ * @apiGroup Passwords
  * @apiDescription This method creates a new password, or updates an password object with the specified user database id.
  *
  * @apiUse ApiSuccessFields
@@ -19,25 +19,25 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o birthdates -m post -d "user_id=151&birth_date=1992-01-05"
+ *      uud -o passwords -m post -d "user_id=151&password=qwertyuiop1234567890"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user_id=151" \
- *      --data "birth_date=1992-01-05" \
- *      --url https://databridge.sage.edu/api/v1/birthdates/
+ *      --data "password=qwertyuiop1234567890" \
+ *      --url https://databridge.sage.edu/api/v1/passwords/
  *
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
- * @apiUse BirthDateParameters
+ * @apiUse PasswordParameters
  */
 
 /**
- * @api {post} /birthdates/username POST: Create/Update BirthDate by Username
- * @apiVersion 1.1.1
- * @apiGroup BirthDates
+ * @api {post} /passwords/username POST: Create/Update Password by Username
+ * @apiVersion 1.0.0
+ * @apiGroup Passwords
  * @apiDescription This method creates a new password, or updates an password object with the specified username.
  *
  * @apiUse ApiSuccessFields
@@ -47,26 +47,26 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o birthdates -m post -p username -d "username=skywal&birth_date=1992-01-05"
+ *      uud -o passwords -m post -p username -d "username=skywal&password=qwertyuiop1234567890"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "username=skywal" \
- *      --data "birth_date=1992-01-05" \
- *      --url https://databridge.sage.edu/api/v1/birthdates/username
+ *      --data "password=qwertyuiop1234567890" \
+ *      --url https://databridge.sage.edu/api/v1/passwords/username
  *
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
- * @apiParam (BirthDate Parameters) {String} username The user's unique username string.
- * @apiParam (BirthDate Parameters) {Date} birth_date The user's birth date. In strtotime format: (https://secure.php.net/manual/en/function.strtotime.php).
+ * @apiParam (Password Parameters) {String} username The user's unique username string.
+ * @apiParam (Password Parameters) {String} password The unencrypted password string.
  */
 
 /**
- * @api {post} /birthdates/identifier POST: Create/Update BirthDate by User Identifier
- * @apiVersion 1.1.1
- * @apiGroup BirthDates
+ * @api {post} /passwords/identifier POST: Create/Update Password by User Identifier
+ * @apiVersion 1.0.0
+ * @apiGroup Passwords
  * @apiDescription This method creates a new password, or updates an password object with the specified user identifier.
  *
  * @apiUse ApiSuccessFields
@@ -76,27 +76,27 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o birthdates -m post -p identifier -d "identifier=04986732&birth_date=1992-01-05"
+ *      uud -o passwords -m post -p identifier -d "identifier=04986732&password=qwertyuiop1234567890"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "identifier=04986732" \
- *      --data "birth_date=1992-01-05" \
- *      --url https://databridge.sage.edu/api/v1/birthdates/identifier
+ *      --data "password=qwertyuiop1234567890" \
+ *      --url https://databridge.sage.edu/api/v1/passwords/identifier
  *
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
- * @apiParam (BirthDate Parameters) {String} identifier The user's unique identifier string.
- * @apiParam (BirthDate Parameters) {Date} birth_date The user's birth date. In strtotime format: (https://secure.php.net/manual/en/function.strtotime.php).
+ * @apiParam (Password Parameters) {String} identifier The user's unique identifier string.
+ * @apiParam (Password Parameters) {String} password The unencrypted password string.
  */
 
 /**
- * @api {get} /birthdates GET: Request BirthDates
- * @apiVersion 1.1.1
- * @apiGroup BirthDates
- * @apiDescription This method returns pages of BirthDate objects.
+ * @api {get} /passwords GET: Request Passwords
+ * @apiVersion 1.0.0
+ * @apiGroup Passwords
+ * @apiDescription This method returns pages of Password objects.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -106,21 +106,21 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o birthdates
+ *      uud -o passwords
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/birthdates/
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/passwords/
  *
  * @apiUse PaginatedSuccess
- * @apiUse BirthDateSuccess
- * @apiUse GetBirthDatesSuccessResultExample
+ * @apiUse PasswordSuccess
+ * @apiUse GetPasswordsSuccessResultExample
  */
 
 /**
- * @api {get} /birthdates/:id GET: Request BirthDate
- * @apiVersion 1.1.1
- * @apiGroup BirthDates
- * @apiDescription This method returns a BirthDate object, an id is supplied to the API.
+ * @api {get} /passwords/:id GET: Request Password
+ * @apiVersion 1.0.0
+ * @apiGroup Passwords
+ * @apiDescription This method returns a Password object, an id is supplied to the API.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -130,22 +130,22 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o birthdates -p 501
+ *      uud -o passwords -p 501
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/birthdates/501
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/passwords/501
  *
- * @apiUse BirthDateSuccess
- * @apiUse GetBirthDateSuccessResultExample
+ * @apiUse PasswordSuccess
+ * @apiUse GetPasswordSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {delete} /birthdates/:id DELETE: Destroy BirthDate
- * @apiVersion 1.1.1
- * @apiGroup BirthDates
- * @apiDescription This method deletes a BirthDate object, the database ID value is supplied to the API.
+ * @api {delete} /passwords/:id DELETE: Destroy Password
+ * @apiVersion 1.0.0
+ * @apiGroup Passwords
+ * @apiDescription This method deletes a Password object, the database ID value is supplied to the API.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiSuccessExampleDestroy
@@ -156,22 +156,22 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o birthdates -m delete -p 501
+ *      uud -o passwords -m delete -p 501
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/birthdates/501
+ *      --url https://databridge.sage.edu/api/v1/passwords/501
  *
  * @apiUse ModelNotFoundError
  */
 
 
 /**
- * @api {delete} /birthdates/user DELETE: Destroy by User
- * @apiVersion 1.1.1
- * @apiGroup BirthDates
- * @apiDescription This method deletes a BirthDate object, the database ID value of the user is supplied to the API.
+ * @api {delete} /passwords/user DELETE: Destroy by User
+ * @apiVersion 1.0.0
+ * @apiGroup Passwords
+ * @apiDescription This method deletes a Password object, the database ID value of the user is supplied to the API.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiSuccessExampleDestroy
@@ -182,22 +182,22 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o birthdates -m delete -p user -d "user=151"
+ *      uud -o passwords -m delete -p user -d "user=151"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user=151" \
- *      --url https://databridge.sage.edu/api/v1/birthdates/user
+ *      --url https://databridge.sage.edu/api/v1/passwords/user
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {delete} /birthdates/identifier DELETE: Destroy by User Identifier
- * @apiVersion 1.1.1
- * @apiGroup BirthDates
- * @apiDescription This method deletes a BirthDate object, a user's unique identifier string is supplied.
+ * @api {delete} /passwords/identifier DELETE: Destroy by User Identifier
+ * @apiVersion 1.0.0
+ * @apiGroup Passwords
+ * @apiDescription This method deletes a Password object, a user's unique identifier string is supplied.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiSuccessExampleDestroy
@@ -208,22 +208,22 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o birthdates -m delete -p identifier -d "identifier=04986732"
+ *      uud -o passwords -m delete -p identifier -d "identifier=04986732"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "identifier=04986732" \
- *      --url https://databridge.sage.edu/api/v1/birthdates/identifier
+ *      --url https://databridge.sage.edu/api/v1/passwords/identifier
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {delete} /birthdates/username DELETE: Destroy by Username
- * @apiVersion 1.1.1
- * @apiGroup BirthDates
- * @apiDescription This method deletes a BirthDate object, a user's unique username string is supplied.
+ * @api {delete} /passwords/username DELETE: Destroy by Username
+ * @apiVersion 1.0.0
+ * @apiGroup Passwords
+ * @apiDescription This method deletes a Password object, a user's unique username string is supplied.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiSuccessExampleDestroy
@@ -234,22 +234,22 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o birthdates -m delete -p username -d "username=skywal"
+ *      uud -o passwords -m delete -p username -d "username=skywal"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "username=skywal" \
- *      --url https://databridge.sage.edu/api/v1/birthdates/username
+ *      --url https://databridge.sage.edu/api/v1/passwords/username
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {get} /birthdates/user/:id GET: By User ID
- * @apiVersion 1.1.1
- * @apiGroup BirthDates
- * @apiDescription This method returns BirthDate objects associated with the user's database id.
+ * @api {get} /passwords/user/:id GET: By User ID
+ * @apiVersion 1.0.0
+ * @apiGroup Passwords
+ * @apiDescription This method returns Password objects associated with the user's database id.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -259,22 +259,22 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o birthdates -p user/153
+ *      uud -o passwords -p user/153
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/birthdates/user/153
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/passwords/user/153
  *
- * @apiUse BirthDateSuccess
- * @apiUse GetBirthDateSuccessResultExample
+ * @apiUse PasswordSuccess
+ * @apiUse GetPasswordSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {get} /birthdates/username/:username GET: By Username
- * @apiVersion 1.1.1
- * @apiGroup BirthDates
- * @apiDescription This method returns BirthDate objects associated with the Username that was supplied.
+ * @api {get} /passwords/username/:username GET: By Username
+ * @apiVersion 1.0.0
+ * @apiGroup Passwords
+ * @apiDescription This method returns Password objects associated with the Username that was supplied.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -284,22 +284,22 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o birthdates -p username/skywal
+ *      uud -o passwords -p username/skywal
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/birthdates/username/skywal
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/passwords/username/skywal
  *
- * @apiUse BirthDateSuccess
- * @apiUse GetBirthDateSuccessResultExample
+ * @apiUse PasswordSuccess
+ * @apiUse GetPasswordSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {get} /birthdates/identifier/:identifier GET: By User Identifier
- * @apiVersion 1.1.1
- * @apiGroup BirthDates
- * @apiDescription This method returns BirthDate objects associated with the Identifier that was supplied.
+ * @api {get} /passwords/identifier/:identifier GET: By User Identifier
+ * @apiVersion 1.0.0
+ * @apiGroup Passwords
+ * @apiDescription This method returns Password objects associated with the Identifier that was supplied.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -309,13 +309,13 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o birthdates -p identifier/979659
+ *      uud -o passwords -p identifier/979659
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/birthdates/identifier/979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/passwords/identifier/979659
  *
- * @apiUse BirthDateSuccess
- * @apiUse GetBirthDateSuccessResultExample
+ * @apiUse PasswordSuccess
+ * @apiUse GetPasswordSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */
