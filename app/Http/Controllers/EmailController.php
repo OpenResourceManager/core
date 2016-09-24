@@ -167,6 +167,18 @@ class EmailController extends ApiController
     }
 
     /**
+     * @param $id
+     * @return mixed
+     */
+    public function userVerifiedEmails($id, Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        parent::index($request);
+        $result = User::findOrFail($id)->emails()->where('verified', true)->paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
+    }
+
+    /**
      * @param $identifier
      * @param Request $request
      * @return mixed
@@ -180,6 +192,19 @@ class EmailController extends ApiController
     }
 
     /**
+     * @param $identifier
+     * @param Request $request
+     * @return mixed
+     */
+    public function userVerifiedEmailsByIdentifier($identifier, Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        parent::index($request);
+        $result = User::where('identifier', $identifier)->firstOrFail()->emails()->where('verified', true)->paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
+    }
+
+    /**
      * @param $username
      * @param Request $request
      * @return mixed
@@ -189,6 +214,19 @@ class EmailController extends ApiController
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = User::where('username', $username)->firstOrFail()->emails()->paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
+    }
+
+    /**
+     * @param $username
+     * @param Request $request
+     * @return mixed
+     */
+    public function userVerifiedEmailsByUsername($username, Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        parent::index($request);
+        $result = User::where('username', $username)->firstOrFail()->emails()->where('verified', true)->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->emailTransformer->transformCollection($result->all()));
     }
 

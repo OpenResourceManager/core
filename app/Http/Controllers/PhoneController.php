@@ -151,6 +151,18 @@ class PhoneController extends ApiController
     }
 
     /**
+     * @param $id
+     * @return mixed
+     */
+    public function userVerifiedPhones($id, Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        parent::index($request);
+        $result = User::findOrFail($id)->phones()->where('verified', true)->paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->phoneTransformer->transformCollection($result->all()));
+    }
+
+    /**
      * @param $identifier
      * @param Request $request
      * @return mixed
@@ -164,6 +176,19 @@ class PhoneController extends ApiController
     }
 
     /**
+     * @param $identifier
+     * @param Request $request
+     * @return mixed
+     */
+    public function userVerifiedPhonesByIdentifier($identifier, Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        parent::index($request);
+        $result = User::where('identifier', $identifier)->firstOrFail()->phones()->where('verified', true)->paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->phoneTransformer->transformCollection($result->all()));
+    }
+
+    /**
      * @param $username
      * @param Request $request
      * @return mixed
@@ -173,6 +198,19 @@ class PhoneController extends ApiController
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
         parent::index($request);
         $result = User::where('username', $username)->firstOrFail()->phones()->paginate($this->limit);
+        return $this->respondSuccessWithPagination($request, $result, $this->phoneTransformer->transformCollection($result->all()));
+    }
+
+    /**
+     * @param $username
+     * @param Request $request
+     * @return mixed
+     */
+    public function userVerifiedPhonesByUsername($username, Request $request)
+    {
+        if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
+        parent::index($request);
+        $result = User::where('username', $username)->firstOrFail()->phones()->where('verified', true)->paginate($this->limit);
         return $this->respondSuccessWithPagination($request, $result, $this->phoneTransformer->transformCollection($result->all()));
     }
 }
