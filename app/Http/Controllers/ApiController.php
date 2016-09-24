@@ -164,6 +164,17 @@ class ApiController extends Controller
      * @param null $verification_code
      * @return mixed
      */
+    public function respondVerifySuccess($message = 'Verified', $id = 0, $verification_code = null)
+    {
+        return $this->setStatusCode(200)->respondWithSuccess(['message' => $message, 'id' => intval($id), 'verification_code' => $verification_code]);
+    }
+
+    /**
+     * @param string $message
+     * @param int $id
+     * @param null $verification_code
+     * @return mixed
+     */
     public function respondUpdateSuccess($message = 'Updated', $id = 0, $verification_code = null)
     {
         return $this->setStatusCode(200)->respondWithSuccess(['message' => $message, 'id' => intval($id), 'verification_code' => $verification_code]);

@@ -33,6 +33,8 @@ class PhoneTransformer extends Transformer
             'country_code' => $item['country_code'],
             'ext' => $item['ext'],
             'is_cell' => (bool)$item['is_cell'],
+            'verified' => (bool)$item['verified'],
+            'verification_token' => $item['verification_token'],
             'carrier' => $carrier
         ];
     }

@@ -26,12 +26,36 @@ class Helper
             // Pick a token length between 3 and 6
             $length = (int)rand(3, 6);
             $token = strtoupper(Str::random($length)); // Generate a token with the chosen length
-            if (strpos($token, 'O') === true) $token = str_replace('O', '0', $token);
-            $email_exist = Email::where('verification_token', $token)->first();
-            $phone_exists = Phone::where('verification_token', $token)->first();
+            if (strpos($token, 'O') !== false) $token = str_replace('O', '0', $token);
+            $email_exist = Email::where('verification_token', $token)->first(); // Get any emails with that token
+            $phone_exists = Phone::where('verification_token', $token)->first(); // Get any phones with that token
             if (!empty($email_exist) || !empty($phone_exists)) $exists = true;
         } while ($exists);
         return $token;
+    }
+
+    /**
+     * @param $token
+     * @return bool
+     */
+    public static function verifyToken($token)
+    {
+        $email = Email::where('verification_token', $token)->first(); // Get any emails with that token
+        $phone = Phone::where('verification_token', $token)->first(); // Get any phones with that token
+
+        if (!empty($email)) {
+            $email->verification_token = null;
+            $email->verified = true;
+            $email->save();
+            return $email;
+        } elseif (!empty($phone)) {
+            $phone->verification_token = null;
+            $phone->verified = true;
+            $phone->save();
+            return $phone;
+        } else {
+            return false;
+        }
     }
 
     /**

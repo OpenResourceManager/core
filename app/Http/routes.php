@@ -32,6 +32,8 @@ Route::group(['prefix' => 'api'], function () {
         });
 
 
+        Route::get('verify/{token}', 'TokenVerificationController@verify'); // @todo document this route
+
         Route::get('campuses/code/{code}', 'CampusController@showByCode'); // Documented
         Route::delete('campuses/code/{code}', 'CampusController@destroyByCode'); // Documented
         Route::resource('campuses', 'CampusController'); // Documented

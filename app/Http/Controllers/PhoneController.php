@@ -77,10 +77,8 @@ class PhoneController extends ApiController
         Phone::where('number', Input::get('number'))->onlyTrashed()->restore();
         $item = Phone::updateOrCreate(['number' => Input::get('number')], Input::all());
         // If the item is not verified then generate a new verification token
-        if (!$item->verified) {
-            $item->verification_token = Helper::generateVerificationToken();
-            $item->save();
-        }
+        $item->verification_token = ($item->verified) ? null : Helper::generateVerificationToken();
+        $item->save();
 
         if (isset($item->verification_token)) {
             return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated, $item->verification_token);

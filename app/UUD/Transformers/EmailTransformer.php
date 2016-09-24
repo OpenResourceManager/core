@@ -19,7 +19,9 @@ class EmailTransformer extends Transformer
         return [
             'id' => (int)$item['id'],
             'user_id' => (int)$item['user_id'],
-            'email' => $item['email']
+            'email' => $item['email'],
+            'verified' => (bool)$item['verified'],
+            'verification_token' => $item['verification_token'],
         ];
     }
 

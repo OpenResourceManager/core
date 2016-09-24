@@ -78,10 +78,8 @@ class EmailController extends ApiController
         Email::where('email', Input::get('email'))->onlyTrashed()->restore();
         $item = Email::updateOrCreate(['email' => Input::get('email')], Input::all());
         // If the item is not verified then generate a new verification token
-        if (!$item->verified) {
-            $item->verification_token = Helper::generateVerificationToken();
-            $item->save();
-        }
+        $item->verification_token = ($item->verified) ? null : Helper::generateVerificationToken();
+        $item->save();
 
         if (isset($item->verification_token)) {
             return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated, $item->verification_token);
@@ -216,11 +214,9 @@ class EmailController extends ApiController
         Email::where('email', Input::get('email'))->onlyTrashed()->restore();
         $item = Email::updateOrCreate(['email' => Input::get('email')], ['user_id' => $user->id, 'email' => Input::get('email')]);
         // If the item is not verified then generate a new verification token
-        if (!$item->verified) {
-            $item->verification_token = Helper::generateVerificationToken();
-            $item->save();
-        }
-        
+        $item->verification_token = ($item->verified) ? null : Helper::generateVerificationToken();
+        $item->save();
+
         if (isset($item->verification_token)) {
             return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated, $item->verification_token);
         } else {
@@ -250,10 +246,8 @@ class EmailController extends ApiController
         Email::where('email', Input::get('email'))->onlyTrashed()->restore();
         $item = Email::updateOrCreate(['email' => Input::get('email')], ['user_id' => $user->id, 'email' => Input::get('email')]);
         // If the item is not verified then generate a new verification token
-        if (!$item->verified) {
-            $item->verification_token = Helper::generateVerificationToken();
-            $item->save();
-        }
+        $item->verification_token = ($item->verified) ? null : Helper::generateVerificationToken();
+        $item->save();
 
         if (isset($item->verification_token)) {
             return $this->respondCreateUpdateSuccess($id = $item->id, $item->wasRecentlyCreated, $item->verification_token);
