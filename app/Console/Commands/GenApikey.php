@@ -195,7 +195,7 @@ class GenApikey extends Command
         if ($label && !empty($label) && !is_null($label)) {
 
             do {
-                $token = Str::quickRandom(64);
+                $token = Str::random(64);
                 $exists = Apikey::where('key', $token)->first();
             } while (!empty($exists));
 

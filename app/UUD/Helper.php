@@ -24,9 +24,9 @@ class Helper
         do {
             $exists = false;
             // Pick a token length between 3 and 6
-            $length_arr = range(3, 6);
-            $rand_keys = array_rand($length_arr, 1);
-            $token = strtoupper(Str::quickRandom($length_arr[$rand_keys[0]])); // Generate a token with the chosen length
+            $length = (int)rand(3, 6);
+            $token = strtoupper(Str::random($length)); // Generate a token with the chosen length
+            if (strpos($token, 'O') === true) $token = str_replace('O', '0', $token);
             $email_exist = Email::where('verification_token', $token)->first();
             $phone_exists = Phone::where('verification_token', $token)->first();
             if (!empty($email_exist) || !empty($phone_exists)) $exists = true;
