@@ -135,7 +135,11 @@ class EmailController extends ApiController
     public function destroy(Request $request, $id)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
-        Email::findOrFail($id)->delete();
+        $item = Email::findOrFail($id);
+        $item->verification_token = null;
+        $item->verified = false;
+        $item->save();
+        $item->delete();
         return $this->respondDestroySuccess();
     }
 
@@ -150,7 +154,11 @@ class EmailController extends ApiController
             'email' => 'email|required|exists:emails,email,deleted_at,NULL'
         ]);
         if ($validator->fails()) return $this->respondUnprocessableEntity($validator->errors()->all());
-        Email::where('email', $request->input('email'))->firstOrFail()->delete();
+        $item = Email::where('email', $request->input('email'))->firstOrFail();
+        $item->verification_token = null;
+        $item->verified = false;
+        $item->save();
+        $item->delete();
         return $this->respondDestroySuccess();
     }
 

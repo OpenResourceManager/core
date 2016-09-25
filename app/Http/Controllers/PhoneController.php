@@ -134,7 +134,11 @@ class PhoneController extends ApiController
     public function destroy($id, Request $request)
     {
         if (!$this->isAuthorized($request, $this->type)) return $this->respondNotAuthorized();
-        Phone::findOrFail($id)->delete();
+        $item = Phone::findOrFail($id);
+        $item->verification_token = null;
+        $item->verified = false;
+        $item->save();
+        $item->delete();
         return $this->respondDestroySuccess();
     }
 
