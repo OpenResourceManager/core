@@ -36,8 +36,8 @@ Route::group(['prefix' => 'api'], function () {
         Route::group(['prefix' => 'campuses'], function () {
             Route::get('code/{code}', 'CampusController@showByCode'); // Documented
             Route::delete('code/{code}', 'CampusController@destroyByCode'); // Documented
-            Route::resource('/', 'CampusController'); // Documented
         });
+        Route::resource('campuses', 'CampusController'); // Documented
 
         Route::group(['prefix' => 'buildings'], function () {
             Route::get('code/{code}', 'BuildingController@showByCode'); // Documented
@@ -45,8 +45,8 @@ Route::group(['prefix' => 'api'], function () {
             Route::get('campus/code/{code}', 'BuildingController@campusBuildingsByCode'); // Documented
             Route::post('campus/code', 'BuildingController@storeBuildingByCampusCode'); // Documented
             Route::delete('code/{code}', 'BuildingController@destroyByCode'); // Documented
-            Route::resource('/', 'BuildingController'); // Documented
         });
+        Route::resource('buildings', 'BuildingController'); // Documented
 
         Route::group(['prefix' => 'rooms'], function () {
             Route::get('user/{id}', 'RoomController@userRooms'); // Documented
@@ -69,8 +69,8 @@ Route::group(['prefix' => 'api'], function () {
             Route::delete('code/identifier', 'RoomController@unassignUserRoomCodeByIdentifier'); // Documented
             Route::delete('code/username', 'RoomController@unassignUserRoomCodeByUsername'); // Documented
             Route::delete('code/{code}', 'RoomController@destroyByCode'); // Documented
-            Route::resource('/', 'RoomController'); // Documented
         });
+        Route::resource('rooms', 'RoomController'); // Documented
 
         Route::group(['prefix' => 'users'], function () {
             Route::get('identifier/{identifier}', 'UserController@showByIdentifier'); // Documented
@@ -82,8 +82,8 @@ Route::group(['prefix' => 'api'], function () {
             Route::get('room/{id}', 'UserController@roomUsers'); // Documented
             Route::delete('identifier/{identifier}', 'UserController@destroyByIdentifier'); // Documented
             Route::delete('username/{username}', 'UserController@destroyByUsername'); // Documented
-            Route::resource('/', 'UserController'); // Documented
         });
+        Route::resource('users', 'UserController'); // Documented
 
         Route::group(['prefix' => 'roles'], function () {
             Route::get('code/{code}', 'RoleController@showByCode'); // Documented
@@ -103,8 +103,8 @@ Route::group(['prefix' => 'api'], function () {
             Route::delete('code/identifier', 'RoleController@unassignUserRoleCodeByIdentifier'); // Documented
             Route::delete('code/username', 'RoleController@unassignUserRoleCodeByUsername'); // Documented
             Route::delete('code/{code}', 'RoleController@destroyByCode'); // Documented
-            Route::resource('/', 'RoleController'); // Documented
         });
+        Route::resource('roles', 'RoleController'); // Documented
 
         Route::group(['prefix' => 'emails'], function () {
             Route::group(['prefix' => 'verified'], function () {
@@ -118,8 +118,8 @@ Route::group(['prefix' => 'api'], function () {
             Route::post('identifier', 'EmailController@storeUserEmailByIdentifier'); // Documented
             Route::post('username', 'EmailController@storeUserEmailByUsername'); // Documented
             Route::delete('address', 'EmailController@destroyByAddress'); // Documented
-            Route::resource('/', 'EmailController'); // Documented
         });
+        Route::resource('emails', 'EmailController'); // Documented
 
         Route::group(['prefix' => 'phones'], function () {
             Route::group(['prefix' => 'verified'], function () {
@@ -130,8 +130,8 @@ Route::group(['prefix' => 'api'], function () {
             Route::get('user/{id}', 'PhoneController@userPhones'); // Documented
             Route::get('identifier/{identifier}', 'PhoneController@userPhonesByIdentifier'); // Documented
             Route::get('username/{username}', 'PhoneController@userPhonesByUsername'); // Documented
-            Route::resource('/', 'PhoneController'); // Documented
         });
+        Route::resource('phones', 'PhoneController'); // Documented
 
         Route::group(['prefix' => 'passwords'], function () {
             Route::get('user/{id}', 'PasswordController@userPasswords'); // Documented
@@ -142,8 +142,8 @@ Route::group(['prefix' => 'api'], function () {
             Route::delete('user', 'PasswordController@deleteUserPassword'); // Documented
             Route::delete('identifier', 'PasswordController@deleteUserPasswordByIdentifier'); // Documented
             Route::delete('username', 'PasswordController@deleteUserPasswordByUsername'); // Documented
-            Route::resource('/', 'PasswordController'); // Documented
         });
+        Route::resource('passwords', 'PasswordController'); // Documented
 
         Route::group(['prefix' => 'ssn'], function () {
             Route::get('user/{id}', 'SocialSecurityNumberController@userSocialSecurityNumbers'); // Documented
@@ -154,8 +154,8 @@ Route::group(['prefix' => 'api'], function () {
             Route::delete('user', 'SocialSecurityNumberController@deleteUserSocialSecurityNumber'); // Documented
             Route::delete('identifier', 'SocialSecurityNumberController@deleteUserSocialSecurityNumberByIdentifier'); // Documented
             Route::delete('username', 'SocialSecurityNumberController@deleteUserSocialSecurityNumberByUsername'); // Documented
-            Route::resource('/', 'SocialSecurityNumberController'); // Documented
         });
+        Route::resource('ssn', 'SocialSecurityNumberController'); // Documented
 
         Route::group(['prefix' => 'birthdates'], function () {
             Route::get('user/{id}', 'BirthDateController@userBirthDates'); // Documented
@@ -166,14 +166,14 @@ Route::group(['prefix' => 'api'], function () {
             Route::delete('user', 'BirthDateController@deleteUserBirthDate'); // Documented
             Route::delete('identifier', 'BirthDateController@deleteUserBirthDateByIdentifier'); // Documented
             Route::delete('username', 'BirthDateController@deleteUserBirthDateByUsername'); // Documented
-            Route::resource('/', 'BirthDateController'); // Documented
         });
+        Route::resource('birthdates', 'BirthDateController'); // Documented
 
         Route::group(['prefix' => 'mobilecarriers'], function () {
             Route::get('code/{code}', 'MobileCarrierController@showByCode'); // Documented
             Route::delete('code/{code}', 'MobileCarrierController@destroyByCode'); // Documented
-            Route::resource('/', 'MobileCarrierController'); // Documented
         });
+        Route::resource('mobilecarriers', 'MobileCarrierController'); // Documented
 
         Route::group(['prefix' => 'departments'], function () {
             Route::get('user/{id}', 'DepartmentController@userDepartments'); // Documented
@@ -195,8 +195,8 @@ Route::group(['prefix' => 'api'], function () {
             Route::delete('code/identifier', 'DepartmentController@unassignUserDepartmentCodeByIdentifier'); // Documented
             Route::delete('code/username', 'DepartmentController@unassignUserDepartmentCodeByUsername'); // Documented
             Route::delete('code/{code}', 'DepartmentController@destroyByCode'); // Documented
-            Route::resource('/', 'DepartmentController'); // Documented
         });
+        Route::resource('departments', 'DepartmentController'); // Documented
 
         Route::group(['prefix' => 'courses'], function () {
             Route::get('code/{code}', 'CourseController@showByCode'); // Documented
@@ -219,26 +219,26 @@ Route::group(['prefix' => 'api'], function () {
             Route::delete('code/identifier', 'CourseController@unassignUserCourseCodeByIdentifier'); // Documented
             Route::delete('code/username', 'CourseController@unassignUserCourseCodeByUsername'); // Documented
             Route::delete('code/{code}', 'CourseController@destroyByCode'); // Documented
-            Route::resource('/', 'CourseController'); // Documented
         });
+        Route::resource('courses', 'CourseController'); // Documented
 
         Route::group(['prefix' => 'addresses'], function () {
             Route::get('user/{id}', 'AddressController@userCourses'); // Documented
             Route::get('identifier/{identifier}', 'AddressController@userAddressesByIdentifier'); // Documented
             Route::get('username/{username}', 'AddressController@userAddressesByUsername'); // Documented
-            Route::resource('/', 'AddressController'); // Documented
         });
+        Route::resource('addresses', 'AddressController'); // Documented
 
         Route::group(['prefix' => 'states'], function () {
             Route::get('code/{code}', 'StateController@showByCode'); // Documented
             Route::delete('code/{code}', 'StateController@destroyByCode'); // Documented
-            Route::resource('/', 'StateController'); // Documented
         });
+        Route::resource('states', 'StateController'); // Documented
 
         Route::group(['prefix' => 'countries'], function () {
             Route::get('code/{code}', 'CountryController@showByCode'); // Documented
             Route::delete('code/{code}', 'CountryController@destroyByCode'); // Documented
-            Route::resource('/', 'CountryController'); // Documented
         });
+        Route::resource('countries', 'CountryController'); // Documented
     });
 });
