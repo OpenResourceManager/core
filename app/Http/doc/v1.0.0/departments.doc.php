@@ -30,7 +30,7 @@
  *      --data "academic=0" \
  *      --data "code=MIS" \
  *      --data "name=Management Information Systems" \
- *      --url https://databridge.sage.edu/api/v1/departments
+ *      --url https://api.example.tld/api/v1/departments
  *
  * @apiUse DepartmentParameters
  */
@@ -55,7 +55,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/departments/4
+ *      --url https://api.example.tld/api/v1/departments/4
  *
  * @apiUse ModelNotFoundError
  */
@@ -77,7 +77,7 @@
  *      uud -o departments
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/departments
  *
  * @apiUse PaginatedSuccess
  * @apiUse DepartmentSuccess
@@ -101,7 +101,7 @@
  *      uud -o departments -p 12
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments/12
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/departments/12
  *
  * @apiUse DepartmentSuccess
  * @apiUse GetDepartmentSuccessResultExample
@@ -126,7 +126,7 @@
  *      uud -o departments -p code/MIS
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments/code/MIS
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/departments/code/MIS
  *
  * @apiUse DepartmentSuccess
  * @apiUse GetDepartmentSuccessResultExample
@@ -153,7 +153,7 @@
  *      uud -o departments -p course/3
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments/course/3
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/departments/course/3
  *
  * @apiUse PaginatedSuccess
  * @apiUse DepartmentSuccess
@@ -179,7 +179,7 @@
  *      uud -o departments -p course/code/SPAN101
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments/course/code/SPAN101
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/departments/course/code/SPAN101
  *
  * @apiUse PaginatedSuccess
  * @apiUse DepartmentSuccess
@@ -206,7 +206,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/departments/code/MSI
+ *      --url https://api.example.tld/api/v1/departments/code/MSI
  *
  * @apiUse ModelNotFoundError
  */
@@ -228,7 +228,7 @@
  *      uud -o departments -p user/153
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments/user/153
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/departments/user/153
  *
  * @apiUse DepartmentSuccess
  * @apiUse GetDepartmentsSuccessResultExample
@@ -253,7 +253,7 @@
  *      uud -o departments -p username/skywal
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments/username/skywal
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/departments/username/skywal
  *
  * @apiUse DepartmentSuccess
  * @apiUse GetDepartmentsSuccessResultExample
@@ -278,7 +278,7 @@
  *      uud -o departments -p identifier/979659
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/departments/identifier/979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/departments/identifier/979659
  *
  * @apiUse DepartmentSuccess
  * @apiUse GetDepartmentsSuccessResultExample
@@ -310,7 +310,7 @@
  *      -X "POST" \
  *      --data "user=25" \
  *      --data "department_id=1" \
- *      --url https://databridge.sage.edu/api/v1/departments/user
+ *      --url https://api.example.tld/api/v1/departments/user
  *
  * @apiUse AssignmentDepartmentUserParams
  */
@@ -339,7 +339,7 @@
  *      -X "POST" \
  *      --data "identifier=0958757" \
  *      --data "department_id=1" \
- *      --url https://databridge.sage.edu/api/v1/departments/identifier
+ *      --url https://api.example.tld/api/v1/departments/identifier
  *
  * @apiUse AssignmentDepartmentUserIDParams
  */
@@ -368,7 +368,7 @@
  *      -X "POST" \
  *      --data "username=skywal" \
  *      --data "department_id=1" \
- *      --url https://databridge.sage.edu/api/v1/departments/username
+ *      --url https://api.example.tld/api/v1/departments/username
  *
  * @apiUse AssignmentDepartmentUsernameIDParams
  */
@@ -397,7 +397,7 @@
  *      -X "POST" \
  *      --data "user=25" \
  *      --data "department_code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/departments/code/user
+ *      --url https://api.example.tld/api/v1/departments/code/user
  *
  * @apiUse AssignmentDepartmentCodeUserParams
  */
@@ -426,7 +426,7 @@
  *      -X "POST" \
  *      --data "identifier=0958757" \
  *      --data "department_code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/departments/code/identifier
+ *      --url https://api.example.tld/api/v1/departments/code/identifier
  *
  * @apiUse AssignmentDepartmentCodeUserIDParams
  */
@@ -455,7 +455,7 @@
  *      -X "POST" \
  *      --data "username=skywal" \
  *      --data "department_code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/departments/code/username
+ *      --url https://api.example.tld/api/v1/departments/code/username
  *
  * @apiUse AssignmentDepartmentCodeUsernameIDParams
  */
@@ -484,7 +484,7 @@
  *      -X "DELETE" \
  *      --data "user=25" \
  *      --data "department_id=1" \
- *      --url https://databridge.sage.edu/api/v1/departments/user
+ *      --url https://api.example.tld/api/v1/departments/user
  *
  * @apiUse AssignmentDepartmentUserParams
  */
@@ -513,7 +513,7 @@
  *      -X "DELETE" \
  *      --data "identifier=0958757" \
  *      --data "department_id=1" \
- *      --url https://databridge.sage.edu/api/v1/departments/identifier
+ *      --url https://api.example.tld/api/v1/departments/identifier
  *
  * @apiUse AssignmentDepartmentUserIDParams
  */
@@ -542,7 +542,7 @@
  *      -X "DELETE" \
  *      --data "username=skywal" \
  *      --data "department_id=1" \
- *      --url https://databridge.sage.edu/api/v1/departments/username
+ *      --url https://api.example.tld/api/v1/departments/username
  *
  * @apiUse AssignmentDepartmentUsernameIDParams
  */
@@ -571,7 +571,7 @@
  *      -X "DELETE" \
  *      --data "user=25" \
  *      --data "department_code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/departments/code/user
+ *      --url https://api.example.tld/api/v1/departments/code/user
  *
  * @apiUse AssignmentDepartmentCodeUserParams
  */
@@ -600,7 +600,7 @@
  *      -X "DELETE" \
  *      --data "identifier=0958757" \
  *      --data "department_code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/departments/code/identifier
+ *      --url https://api.example.tld/api/v1/departments/code/identifier
  *
  * @apiUse AssignmentDepartmentCodeUserIDParams
  */
@@ -629,7 +629,7 @@
  *      -X "DELETE" \
  *      --data "username=skywal" \
  *      --data "department_code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/departments/code/username
+ *      --url https://api.example.tld/api/v1/departments/code/username
  *
  * @apiUse AssignmentDepartmentCodeUsernameIDParams
  */

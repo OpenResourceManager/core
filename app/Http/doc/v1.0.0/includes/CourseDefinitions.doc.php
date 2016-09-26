@@ -7,7 +7,7 @@
  */
 
 /**
- * @apiDefine CourseParameters1.0.0
+ * @apiDefine CourseParameters
  * @apiParam (Course Parameters) {Integer} department_id The id number assigned to the parent department by the database.
  * @apiParam (Course Parameters) {String} code The courses' unique identifier string.
  * @apiParam (Course Parameters) {Integer} course_level The academic level of a course.
@@ -15,7 +15,7 @@
  */
 
 /**
- * @apiDefine CourseSuccess1.0.0
+ * @apiDefine CourseSuccess
  * @apiSuccess (Success 2xx: Course) {Integer} id The numeric id assigned to the course by the database.
  * @apiSuccess (Success 2xx: Course) {Integer} department_id The id number assigned to the parent department by the database.
  * @apiSuccess (Success 2xx: Course) {String} code The courses' unique identifier string.
@@ -24,7 +24,7 @@
  */
 
 /**
- * @apiDefine AssignmentCourseUserParams1.0.0
+ * @apiDefine AssignmentCourseUserParams
  * @apiParam user_id {Integer} The database ID of the user.
  * @apiParam course_id {Integer} The database ID of the course.
  */

@@ -34,7 +34,7 @@
  *      --data "is_cell=1" \
  *      --data "verified=0" \
  *      --data "mobile_carrier_id=3" \
- *      --url https://databridge.sage.edu/api/v1/phones
+ *      --url https://api.example.tld/api/v1/phones
  *
  * @apiUse PhoneParameters
  */
@@ -59,7 +59,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/phones/4
+ *      --url https://api.example.tld/api/v1/phones/4
  *
  * @apiUse ModelNotFoundError
  */
@@ -81,7 +81,7 @@
  *      uud -o phones
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/phones/
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/phones/
  *
  * @apiUse PaginatedSuccess
  * @apiUse PhoneSuccess
@@ -105,7 +105,7 @@
  *      uud -o phones -p 12
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/phones/12
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/phones/12
  *
  * @apiUse PhoneSuccess
  * @apiUse GetPhoneSuccessResultExample
@@ -130,7 +130,7 @@
  *      uud -o phones -p user/153
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/phones/user/153
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/phones/user/153
  *
  * @apiUse PhoneSuccess
  * @apiUse GetUsersPhonesSuccessResultExample
@@ -155,7 +155,7 @@
  *      uud -o phones -p username/skywal
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/phones/user/username/skywal
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/phones/user/username/skywal
  *
  * @apiUse PhoneSuccess
  * @apiUse GetUsersPhonesSuccessResultExample
@@ -180,7 +180,7 @@
  *      uud -o phones -p identifier/979659
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/phones/user/identifier/979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/phones/user/identifier/979659
  *
  * @apiUse PhoneSuccess
  * @apiUse GetUsersPhonesSuccessResultExample

@@ -31,9 +31,9 @@
  *      --data "code=SPAN101" \
  *      --data "name=Spanish 101" \
  *      --data "course_level=100" \
- *      --url https://databridge.sage.edu/api/v1/courses/
+ *      --url https://api.example.tld/api/v1/courses/
  *
- * @apiUse CourseParameters1.0.0
+ * @apiUse CourseParameters
  */
 
 /**
@@ -61,7 +61,7 @@
  *      --data "code=SPAN101" \
  *      --data "name=Spanish 101" \
  *      --data "course_level=100" \
- *      --url https://databridge.sage.edu/api/v1/courses/department/code
+ *      --url https://api.example.tld/api/v1/courses/department/code
  *
  * @apiParam (Course Parameters) {Integer} department_code The code assigned to the parent department.
  * @apiParam (Course Parameters) {String} code The courses' unique identifier string.
@@ -89,7 +89,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/courses/4
+ *      --url https://api.example.tld/api/v1/courses/4
  *
  * @apiUse ModelNotFoundError
  */
@@ -114,7 +114,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/courses/code/SPAN101
+ *      --url https://api.example.tld/api/v1/courses/code/SPAN101
  *
  * @apiUse ModelNotFoundError
  */
@@ -136,10 +136,10 @@
  *      uud -o courses
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/courses/
  *
  * @apiUse PaginatedSuccess
- * @apiUse CourseSuccess1.0.0
+ * @apiUse CourseSuccess
  * @apiUse GetCoursesSuccessResultExample
  */
 
@@ -160,9 +160,9 @@
  *      uud -o courses -p 12
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/12
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/courses/12
  *
- * @apiUse CourseSuccess1.0.0
+ * @apiUse CourseSuccess
  * @apiUse GetCourseSuccessResultExample
  *
  * @apiUse ModelNotFoundError
@@ -185,9 +185,9 @@
  *      uud -o courses -p code/SPAN101
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/code/SPAN101
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/courses/code/SPAN101
  *
- * @apiUse CourseSuccess1.0.0
+ * @apiUse CourseSuccess
  * @apiUse GetCourseSuccessResultExample
  *
  * @apiUse ModelNotFoundError
@@ -210,9 +210,9 @@
  *      uud -o courses -p user/153
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/user/153
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/courses/user/153
  *
- * @apiUse CourseSuccess1.0.0
+ * @apiUse CourseSuccess
  * @apiUse GetCoursesSuccessResultExample
  *
  * @apiUse ModelNotFoundError
@@ -235,9 +235,9 @@
  *      uud -o courses -p username/skywal
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/username/skywal
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/courses/username/skywal
  *
- * @apiUse CourseSuccess1.0.0
+ * @apiUse CourseSuccess
  * @apiUse GetCoursesSuccessResultExample
  *
  * @apiUse ModelNotFoundError
@@ -260,9 +260,9 @@
  *      uud -o courses -p identifier/979659
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/identifier/979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/courses/identifier/979659
  *
- * @apiUse CourseSuccess1.0.0
+ * @apiUse CourseSuccess
  * @apiUse GetCoursesSuccessResultExample
  *
  * @apiUse ModelNotFoundError
@@ -285,9 +285,9 @@
  *      uud -o courses -p department/23
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/department/23
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/courses/department/23
  *
- * @apiUse CourseSuccess1.0.0
+ * @apiUse CourseSuccess
  * @apiUse GetCoursesSuccessResultExample
  *
  * @apiUse ModelNotFoundError
@@ -310,9 +310,9 @@
  *      uud -o courses -m department/code/MIS
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/courses/department/code/MIS
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/courses/department/code/MIS
  *
- * @apiUse CourseSuccess1.0.0
+ * @apiUse CourseSuccess
  * @apiUse GetCoursesSuccessResultExample
  *
  * @apiUse ModelNotFoundError
@@ -342,9 +342,9 @@
  *      -X "POST" \
  *      --data "user_id=25" \
  *      --data "course_id=1" \
- *      --url https://databridge.sage.edu/api/v1/courses/user
+ *      --url https://api.example.tld/api/v1/courses/user
  *
- * @apiUse AssignmentCourseUserParams1.0.0
+ * @apiUse AssignmentCourseUserParams
  */
 
 /**
@@ -371,7 +371,7 @@
  *      -X "POST" \
  *      --data "identifier=0958757" \
  *      --data "course_id=1" \
- *      --url https://databridge.sage.edu/api/v1/courses/identifier
+ *      --url https://api.example.tld/api/v1/courses/identifier
  *
  * @apiUse AssignmentCourseUserIDParams
  */
@@ -400,7 +400,7 @@
  *      -X "POST" \
  *      --data "username=skywal" \
  *      --data "course_id=1" \
- *      --url https://databridge.sage.edu/api/v1/courses/username
+ *      --url https://api.example.tld/api/v1/courses/username
  *
  * @apiUse AssignmentCourseUsernameIDParams
  */
@@ -429,7 +429,7 @@
  *      -X "POST" \
  *      --data "user_id=25" \
  *      --data "course_code=SPAN101" \
- *      --url https://databridge.sage.edu/api/v1/courses/code/user
+ *      --url https://api.example.tld/api/v1/courses/code/user
  *
  * @apiUse AssignmentCourseCodeUserParams
  */
@@ -458,7 +458,7 @@
  *      -X "POST" \
  *      --data "identifier=0958757" \
  *      --data "course_code=SPAN101" \
- *      --url https://databridge.sage.edu/api/v1/courses/code/identifier
+ *      --url https://api.example.tld/api/v1/courses/code/identifier
  *
  * @apiUse AssignmentCourseCodeUserIDParams
  */
@@ -487,7 +487,7 @@
  *      -X "POST" \
  *      --data "username=skywal" \
  *      --data "course_code=SPAN101" \
- *      --url https://databridge.sage.edu/api/v1/courses/code/username
+ *      --url https://api.example.tld/api/v1/courses/code/username
  *
  * @apiUse AssignmentCourseCodeUsernameIDParams
  */
@@ -516,9 +516,9 @@
  *      -X "DELETE" \
  *      --data "user_id=25" \
  *      --data "course_id=1" \
- *      --url https://databridge.sage.edu/api/v1/courses/user
+ *      --url https://api.example.tld/api/v1/courses/user
  *
- * @apiUse AssignmentCourseUserParams1.0.0
+ * @apiUse AssignmentCourseUserParams
  */
 
 /**
@@ -545,7 +545,7 @@
  *      -X "DELETE" \
  *      --data "identifier=0958757" \
  *      --data "course_id=1" \
- *      --url https://databridge.sage.edu/api/v1/courses/identifier
+ *      --url https://api.example.tld/api/v1/courses/identifier
  *
  * @apiUse AssignmentCourseUserIDParams
  */
@@ -574,7 +574,7 @@
  *      -X "DELETE" \
  *      --data "username=skywal" \
  *      --data "course_id=1" \
- *      --url https://databridge.sage.edu/api/v1/courses/username
+ *      --url https://api.example.tld/api/v1/courses/username
  *
  * @apiUse AssignmentCourseUsernameIDParams
  */
@@ -603,7 +603,7 @@
  *      -X "DELETE" \
  *      --data "user_id=25" \
  *      --data "course_code=SPAN101" \
- *      --url https://databridge.sage.edu/api/v1/courses/code/user
+ *      --url https://api.example.tld/api/v1/courses/code/user
  *
  * @apiUse AssignmentCourseCodeUserParams
  */
@@ -632,7 +632,7 @@
  *      -X "DELETE" \
  *      --data "identifier=0958757" \
  *      --data "course_code=SPAN101" \
- *      --url https://databridge.sage.edu/api/v1/courses/code/identifier
+ *      --url https://api.example.tld/api/v1/courses/code/identifier
  *
  * @apiUse AssignmentCourseCodeUserIDParams
  */
@@ -661,7 +661,7 @@
  *      -X "DELETE" \
  *      --data "username=skywal" \
  *      --data "course_code=SPAN101" \
- *      --url https://databridge.sage.edu/api/v1/courses/code/username
+ *      --url https://api.example.tld/api/v1/courses/code/username
  *
  * @apiUse AssignmentCourseCodeUsernameIDParams
  */

@@ -7,20 +7,20 @@
  */
 
 /**
- * @apiDefine CampusParameters1.0.0
+ * @apiDefine CampusParameters
  * @apiParam (Campus Parameters) {String} code The campuses' name unique identifier string.
  * @apiParam (Campus Parameters) {String} name The campuses' name, this is a label.
  */
 
 /**
- * @apiDefine CampusSuccess1.0.0
+ * @apiDefine CampusSuccess
  * @apiSuccess (Success 2xx: Campus) {Integer} id The numeric id assigned to the course by the database.
  * @apiSuccess (Success 2xx: Campus) {String} code The campuses' unique identifier string.
  * @apiSuccess (Success 2xx: Campus) {String} name The campuses' name, this is a label.
  */
 
 /**
- * @apiDefine GetCampusesSuccessResultExample1.0.0
+ * @apiDefine GetCampusesSuccessResultExample
  * @apiSuccessExample {json} Success Response:
  *      HTTP/1.1 200 OK
  *      {
@@ -59,7 +59,7 @@
  */
 
 /**
- * @apiDefine GetCampusSuccessResultExample1.0.0
+ * @apiDefine GetCampusSuccessResultExample
  * @apiSuccessExample {json} Success Response:
  *      HTTP/1.1 200 OK
  *      {

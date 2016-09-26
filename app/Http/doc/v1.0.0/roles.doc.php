@@ -29,7 +29,7 @@
  *      -X "POST" \
  *      --data "code=EMP" \
  *      --data "name=Employee" \
- *      --url https://databridge.sage.edu/api/v1/roles/
+ *      --url https://api.example.tld/api/v1/roles/
  *
  * @apiUse RoleParameters
  */
@@ -54,7 +54,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/roles/4
+ *      --url https://api.example.tld/api/v1/roles/4
  *
  * @apiUse ModelNotFoundError
  */
@@ -79,7 +79,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/roles/code/EMP
+ *      --url https://api.example.tld/api/v1/roles/code/EMP
  *
  * @apiUse ModelNotFoundError
  */
@@ -101,7 +101,7 @@
  *      uud -o roles
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/roles/
  *
  * @apiUse PaginatedSuccess
  * @apiUse RoleSuccess
@@ -125,7 +125,7 @@
  *      uud -o roles -p 3
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/3
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/roles/3
  *
  * @apiUse RoleSuccess
  * @apiUse GetRoleSuccessResultExample
@@ -150,7 +150,7 @@
  *      uud -o roles -p code/EMP
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/EMP
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/roles/EMP
  *
  * @apiUse RoleSuccess
  * @apiUse GetRoleSuccessResultExample
@@ -175,7 +175,7 @@
  *      uud -o roles -p user/153
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/user/153
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/roles/user/153
  *
  * @apiUse RoleSuccess
  * @apiUse GetRolesSuccessResultExample
@@ -200,7 +200,7 @@
  *      uud -o roles -p username/skywal
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/username/skywal
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/roles/username/skywal
  *
  * @apiUse RoleSuccess
  * @apiUse GetRolesSuccessResultExample
@@ -225,7 +225,7 @@
  *      uud -o roles -p user_name/979659
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/roles/identifier/979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/roles/identifier/979659
  *
  * @apiUse RoleSuccess
  * @apiUse GetRolesSuccessResultExample
@@ -257,7 +257,7 @@
  *      -X "POST" \
  *      --data "user_id=25" \
  *      --data "role_id=1" \
- *      --url https://databridge.sage.edu/api/v1/roles/user
+ *      --url https://api.example.tld/api/v1/roles/user
  *
  * @apiUse AssignmentRoleUserParams
  */
@@ -286,7 +286,7 @@
  *      -X "POST" \
  *      --data "identifier=0958757" \
  *      --data "role_id=1" \
- *      --url https://databridge.sage.edu/api/v1/roles/identifier
+ *      --url https://api.example.tld/api/v1/roles/identifier
  *
  * @apiUse AssignmentRoleUserIDParams
  */
@@ -315,7 +315,7 @@
  *      -X "POST" \
  *      --data "username=skywal" \
  *      --data "role_id=1" \
- *      --url https://databridge.sage.edu/api/v1/roles/username
+ *      --url https://api.example.tld/api/v1/roles/username
  *
  * @apiUse AssignmentRoleUsernameIDParams
  */
@@ -344,7 +344,7 @@
  *      -X "POST" \
  *      --data "user_id=25" \
  *      --data "role_code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/roles/code/user
+ *      --url https://api.example.tld/api/v1/roles/code/user
  *
  * @apiUse AssignmentRoleCodeUserParams
  */
@@ -373,7 +373,7 @@
  *      -X "POST" \
  *      --data "identifier=0958757" \
  *      --data "role_code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/roles/code/identifier
+ *      --url https://api.example.tld/api/v1/roles/code/identifier
  *
  * @apiUse AssignmentRoleCodeUserIDParams
  */
@@ -402,7 +402,7 @@
  *      -X "POST" \
  *      --data "username=skywal" \
  *      --data "role_code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/roles/code/username
+ *      --url https://api.example.tld/api/v1/roles/code/username
  *
  * @apiUse AssignmentRoleCodeUsernameIDParams
  */
@@ -431,7 +431,7 @@
  *      -X "DELETE" \
  *      --data "user_id=25" \
  *      --data "role_id=1" \
- *      --url https://databridge.sage.edu/api/v1/roles/user
+ *      --url https://api.example.tld/api/v1/roles/user
  *
  * @apiUse AssignmentRoleUserParams
  */
@@ -460,7 +460,7 @@
  *      -X "DELETE" \
  *      --data "identifier=0958757" \
  *      --data "role_id=1" \
- *      --url https://databridge.sage.edu/api/v1/roles/identifier
+ *      --url https://api.example.tld/api/v1/roles/identifier
  *
  * @apiUse AssignmentRoleUserIDParams
  */
@@ -489,7 +489,7 @@
  *      -X "DELETE" \
  *      --data "username=skywal" \
  *      --data "role_id=1" \
- *      --url https://databridge.sage.edu/api/v1/roles/username
+ *      --url https://api.example.tld/api/v1/roles/username
  *
  * @apiUse AssignmentRoleUsernameIDParams
  */
@@ -518,7 +518,7 @@
  *      -X "DELETE" \
  *      --data "user_id=25" \
  *      --data "role_code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/roles/code/user
+ *      --url https://api.example.tld/api/v1/roles/code/user
  *
  * @apiUse AssignmentRoleCodeUserParams
  */
@@ -547,7 +547,7 @@
  *      -X "DELETE" \
  *      --data "identifier=0958757" \
  *      --data "role_code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/roles/code/identifier
+ *      --url https://api.example.tld/api/v1/roles/code/identifier
  *
  * @apiUse AssignmentRoleCodeUserIDParams
  */
@@ -576,7 +576,7 @@
  *      -X "DELETE" \
  *      --data "username=skywal" \
  *      --data "role_code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/roles/code/username
+ *      --url https://api.example.tld/api/v1/roles/code/username
  *
  * @apiUse AssignmentRoleCodeUsernameIDParams
  */

@@ -2,15 +2,15 @@
 /**
  * Created by PhpStorm.
  * User: melon
- * Date: 1/16/16
- * Time: 11:34 AM
+ * Date: 1/6/16
+ * Time: 9:50 PM
  */
 
 /**
- * @api {post} /countries/ POST: Create/Update Country
+ * @api {post} /campuses/ POST: Create/Update Campus
  * @apiVersion 1.0.0
- * @apiGroup Countries
- * @apiDescription This method creates a new country, or updates a country with the specified `code`.
+ * @apiGroup Campuses
+ * @apiDescription This method creates a new campus, or updates a campus with the specified `code`.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -22,74 +22,73 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o countries -m post -d "name=United States of America&code=USA&abbreviation=US"
+ *      uud -o campuses -m post -d "name=Troy&code=TRY"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
- *      --data "name=United States of America" \
- *      --data "code=USA" \
- *      --data "abbreviation=US" \
- *      --url https://databridge.sage.edu/api/v1/countries/
+ *      --data "name=Troy" \
+ *      --data "code=TRY" \
+ *      --url https://api.example.tld/api/v1/campuses/
  *
- * @apiUse CountryParameters1.0.0
+ * @apiUse CampusParameters
  */
 
 /**
- * @api {delete} /countries/:id DELETE: Destroy Country
+ * @api {delete} /campuses/:id DELETE: Destroy Campus
  * @apiVersion 1.0.0
- * @apiGroup Countries
- * @apiDescription This method deletes a Country object, the database ID value is supplied to the API.
+ * @apiGroup Campuses
+ * @apiDescription This method deletes a Campus object, the database ID value is supplied to the API.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiSuccessExampleDestroy
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiUse InternalServerErrors
- * @apiParam {Integer} id The country's unique ID.
+ * @apiParam {Integer} id The campuses' unique ID.
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o countries -m delete -p 4
+ *      uud -o campuses -p 4
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/countries/4
+ *      --url https://api.example.tld/api/v1/campuses/4
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {delete} /countries/code/:code DELETE: Destroy by Code
+ * @api {delete} /campuses/code/:code DELETE: Destroy by Code
  * @apiVersion 1.0.0
- * @apiGroup Countries
- * @apiDescription This method deletes a Country object, the objects unique `code` is supplied.
+ * @apiGroup Campuses
+ * @apiDescription This method deletes a Campus object, the objects unique `code` is supplied.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiSuccessExampleDestroy
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiUse InternalServerErrors
- * @apiParam {String} code The country's unique identifier string.
+ * @apiParam {String} code The campuses' unique identifier string.
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o countries -m delete -p code/USA
+ *      uud -o campuses -m delete -p code/TRY
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/countries/code/USA
+ *      --url https://api.example.tld/api/v1/campuses/code/TRY
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {get} /countries/ GET: Request Countries
+ * @api {get} /campuses/ GET: Request Campuses
  * @apiVersion 1.0.0
- * @apiGroup Countries
- * @apiDescription This method returns pages of Country objects.
+ * @apiGroup Campuses
+ * @apiDescription This method returns pages of Campus objects.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -99,62 +98,62 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o countries
+ *      uud -o campuses
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/countries/
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/campuses/
  *
  * @apiUse PaginatedSuccess
- * @apiUse CountrySuccess1.0.0
- * @apiUse GetCountriesSuccessResultExample1.0.0
+ * @apiUse CampusSuccess
+ * @apiUse GetCampusesSuccessResultExample
  */
 
 /**
- * @api {get} /countries/:id GET: Request Country
+ * @api {get} /campuses/:id GET: Request Campus
  * @apiVersion 1.0.0
- * @apiGroup Countries
- * @apiDescription This method returns a Country object, an id is supplied to the API.
+ * @apiGroup Campuses
+ * @apiDescription This method returns a Campus object, an id is supplied to the API.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiUse InternalServerErrors
- * @apiParam {Integer} id The country's unique ID.
+ * @apiParam {Integer} id The campuses' unique ID.
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o countries -p 2
+ *      uud -o campuses -p 2
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/countries/2
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/campuses/2
  *
- * @apiUse CountrySuccess1.0.0
- * @apiUse GetCountrySuccessResultExample1.0.0
+ * @apiUse CampusSuccess
+ * @apiUse GetCampusSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {get} /countries/code/:code GET: Request by Code
+ * @api {get} /campuses/code/:code GET: Request by Code
  * @apiVersion 1.0.0
- * @apiGroup Countries
- * @apiDescription This method returns a Country object, the objects unique `code` is supplied.
+ * @apiGroup Campuses
+ * @apiDescription This method returns a Campus object, the objects unique `code` is supplied.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiUse InternalServerErrors
- * @apiParam {String} code The country's unique identifier string.
+ * @apiParam {String} code The campuses' unique identifier string.
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o countries -p code/AFG
+ *      uud -o campuses -p code/TRY
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/countries/code/AFG
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/campuses/code/TRY
  *
- * @apiUse CountrySuccess1.0.0
- * @apiUse GetCountrySuccessResultExample1.0.0
+ * @apiUse CampusSuccess
+ * @apiUse GetCampusSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */

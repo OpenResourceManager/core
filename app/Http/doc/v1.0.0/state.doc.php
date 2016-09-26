@@ -30,7 +30,7 @@
  *      --data "name=New York" \
  *      --data "code=NY" \
  *      --data "country_id=226" \
- *      --url https://databridge.sage.edu/api/v1/states
+ *      --url https://api.example.tld/api/v1/states
  *
  * @apiUse StateParameters
  */
@@ -55,7 +55,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/states/4
+ *      --url https://api.example.tld/api/v1/states/4
  *
  * @apiUse ModelNotFoundError
  */
@@ -80,7 +80,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/states/code/NY
+ *      --url https://api.example.tld/api/v1/states/code/NY
  *
  * @apiUse ModelNotFoundError
  */
@@ -102,7 +102,7 @@
  *      uud -o states
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/states
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/states
  *
  * @apiUse PaginatedSuccess
  * @apiUse StateSuccess
@@ -126,7 +126,7 @@
  *      uud -o states -p 2
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/states/2
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/states/2
  *
  * @apiUse StateSuccess
  * @apiUse GetStateSuccessResultExample
@@ -151,7 +151,7 @@
  *      uud -o states -p code/NY
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/states/code/NY
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/states/code/NY
  *
  * @apiUse StateSuccess
  * @apiUse GetStateSuccessResultExample

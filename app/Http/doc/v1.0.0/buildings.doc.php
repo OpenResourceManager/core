@@ -30,9 +30,9 @@
  *      --data "campus_id=1" \
  *      --data "name=CAR469" \
  *      --data "code=Carter Turnpike Court" \
- *      --url https://databridge.sage.edu/api/v1/buildings/
+ *      --url https://api.example.tld/api/v1/buildings/
  *
- * @apiUse BuildingParameters1.0.0
+ * @apiUse BuildingParameters
  */
 
 /**
@@ -59,9 +59,9 @@
  *      --data "campus_code=TRY" \
  *      --data "name=CAR469" \
  *      --data "code=Carter Turnpike Court" \
- *      --url https://databridge.sage.edu/api/v1/buildings/
+ *      --url https://api.example.tld/api/v1/buildings/
  *
- * @apiUse BuildingParametersCampusCode1.0.0
+ * @apiUse BuildingParametersCampusCode
  */
 
 /**
@@ -81,11 +81,11 @@
  *      uud -o buildings -p campus/2
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/buildings/campus/2
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/buildings/campus/2
  *
  * @apiUse PaginatedSuccess
- * @apiUse BuildingSuccess1.0.0
- * @apiUse GetBuildingsSuccessResultExample1.0.0
+ * @apiUse BuildingSuccess
+ * @apiUse GetBuildingsSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */
@@ -107,11 +107,11 @@
  *      uud -o buildings -p campus/code/TRY
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/buildings/campus/code/TRY
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/buildings/campus/code/TRY
  *
  * @apiUse PaginatedSuccess
- * @apiUse BuildingSuccess1.0.0
- * @apiUse GetBuildingsSuccessResultExample1.0.0
+ * @apiUse BuildingSuccess
+ * @apiUse GetBuildingsSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */
@@ -136,7 +136,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/buildings/14
+ *      --url https://api.example.tld/api/v1/buildings/14
  *
  * @apiUse ModelNotFoundError
  */
@@ -161,7 +161,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/buildings/code/WES514
+ *      --url https://api.example.tld/api/v1/buildings/code/WES514
  *
  * @apiUse ModelNotFoundError
  */
@@ -183,11 +183,11 @@
  *      uud -o buildings
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/buildings/
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/buildings/
  *
  * @apiUse PaginatedSuccess
- * @apiUse BuildingSuccess1.0.0
- * @apiUse GetBuildingsSuccessResultExample1.0.0
+ * @apiUse BuildingSuccess
+ * @apiUse GetBuildingsSuccessResultExample
  */
 
 /**
@@ -207,10 +207,10 @@
  *      uud -o buildings -p 14
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/buildings/14
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/buildings/14
  *
- * @apiUse BuildingSuccess1.0.0
- * @apiUse GetBuildingSuccessResultExample1.0.0
+ * @apiUse BuildingSuccess
+ * @apiUse GetBuildingSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */
@@ -232,10 +232,10 @@
  *      uud -o buildings -p code/WES514
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/buildings/code/WES514
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/buildings/code/WES514
  *
- * @apiUse BuildingSuccess1.0.0
- * @apiUse GetBuildingSuccessResultExample1.0.0
+ * @apiUse BuildingSuccess
+ * @apiUse GetBuildingSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */

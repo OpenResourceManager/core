@@ -7,21 +7,21 @@
  */
 
 /**
- * @apiDefine BuildingParameters1.0.0
+ * @apiDefine BuildingParameters
  * @apiParam (Building Parameters) {Integer} campus_id The id number assigned to the parent campus by the database.
  * @apiParam (Building Parameters) {String} code The building's name unique identifier string.
  * @apiParam (Building Parameters) {String} name The building's name, this is a label.
  */
 
 /**
- * @apiDefine BuildingParametersCampusCode1.0.0
+ * @apiDefine BuildingParametersCampusCode
  * @apiParam (Building Parameters) {String} campus_code The code assigned to the parent campus.
  * @apiParam (Building Parameters) {String} code The building's name unique identifier string.
  * @apiParam (Building Parameters) {String} name The building's name, this is a label.
  */
 
 /**
- * @apiDefine BuildingSuccess1.0.0
+ * @apiDefine BuildingSuccess
  * @apiSuccess (Success 2xx: Building) {Integer} id The numeric id assigned to the building by the database.
  * @apiSuccess (Success 2xx: Building) {Integer} campus_id The id number assigned to the parent campus by the database.
  * @apiSuccess (Success 2xx: Building) {String} code The building's unique identifier string.
@@ -29,7 +29,7 @@
  */
 
 /**
- * @apiDefine GetBuildingsSuccessResultExample1.0.0
+ * @apiDefine GetBuildingsSuccessResultExample
  * @apiSuccessExample {json} Success Response:
  *      HTTP/1.1 200 OK
  *      {
@@ -78,7 +78,7 @@
  */
 
 /**
- * @apiDefine GetBuildingSuccessResultExample1.0.0
+ * @apiDefine GetBuildingSuccessResultExample
  * @apiSuccessExample {json} Success Response:
  *      HTTP/1.1 200 OK
  *      {

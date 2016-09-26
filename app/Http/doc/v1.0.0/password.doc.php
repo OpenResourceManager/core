@@ -7,10 +7,10 @@
  */
 
 /**
- * @api {post} /ssn POST: Create/Update Social Security Number
+ * @api {post} /passwords POST: Create/Update Password
  * @apiVersion 1.0.0
- * @apiGroup Social Security Numbers
- * @apiDescription This method creates a new social security number, or updates an social security number object with the specified user database id.
+ * @apiGroup Passwords
+ * @apiDescription This method creates a new password, or updates an password object with the specified user database id.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -19,26 +19,26 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o ssn -m post -d "user_id=151&ssn=qwertyuiop1234567890"
+ *      uud -o passwords -m post -d "user_id=151&password=qwertyuiop1234567890"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "user_id=151" \
- *      --data "ssn=qwertyuiop1234567890" \
- *      --url https://databridge.sage.edu/api/v1/ssn/
+ *      --data "password=qwertyuiop1234567890" \
+ *      --url https://api.example.tld/api/v1/passwords/
  *
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
- * @apiUse SSNParameters
+ * @apiUse PasswordParameters
  */
 
 /**
- * @api {post} /ssn/username POST: Create/Update Social Security Number by Username
+ * @api {post} /passwords/username POST: Create/Update Password by Username
  * @apiVersion 1.0.0
- * @apiGroup Social Security Numbers
- * @apiDescription This method creates a new social security number, or updates an social security number object with the specified username.
+ * @apiGroup Passwords
+ * @apiDescription This method creates a new password, or updates an password object with the specified username.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -47,27 +47,27 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o ssn -m post -p username -d "username=skywal&ssn=qwertyuiop1234567890"
+ *      uud -o passwords -m post -p username -d "username=skywal&password=qwertyuiop1234567890"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "username=skywal" \
- *      --data "ssn=qwertyuiop1234567890" \
- *      --url https://databridge.sage.edu/api/v1/ssn/username
+ *      --data "password=qwertyuiop1234567890" \
+ *      --url https://api.example.tld/api/v1/passwords/username
  *
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
- * @apiParam (SSN Parameters) {String} username The user's unique username string.
- * @apiParam (SSN Parameters) {String} ssn The unencrypted 4 digit social security number string.
+ * @apiParam (Password Parameters) {String} username The user's unique username string.
+ * @apiParam (Password Parameters) {String} password The unencrypted password string.
  */
 
 /**
- * @api {post} /ssn/identifier POST: Create/Update Social Security Number by User Identifier
+ * @api {post} /passwords/identifier POST: Create/Update Password by User Identifier
  * @apiVersion 1.0.0
- * @apiGroup Social Security Numbers
- * @apiDescription This method creates a new social security number, or updates an social security number object with the specified user identifier.
+ * @apiGroup Passwords
+ * @apiDescription This method creates a new password, or updates an password object with the specified user identifier.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -76,27 +76,27 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o ssn -m post -p identifier -d "identifier=04986732&ssn=qwertyuiop1234567890"
+ *      uud -o passwords -m post -p identifier -d "identifier=04986732&password=qwertyuiop1234567890"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "POST" \
  *      --data "identifier=04986732" \
- *      --data "ssn=qwertyuiop1234567890" \
- *      --url https://databridge.sage.edu/api/v1/ssn/identifier
+ *      --data "password=qwertyuiop1234567890" \
+ *      --url https://api.example.tld/api/v1/passwords/identifier
  *
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
  * @apiUse UnprocessableEntityErrors
- * @apiParam (SSN Parameters) {String} identifier The user's unique identifier string.
- * @apiParam (SSN Parameters) {String} ssn The unencrypted 4 digit social security number string.
+ * @apiParam (Password Parameters) {String} identifier The user's unique identifier string.
+ * @apiParam (Password Parameters) {String} password The unencrypted password string.
  */
 
 /**
- * @api {get} /ssn GET: Request Social Security Numbers
+ * @api {get} /passwords GET: Request Passwords
  * @apiVersion 1.0.0
- * @apiGroup Social Security Numbers
- * @apiDescription This method returns pages of SocialSecurityNumber objects.
+ * @apiGroup Passwords
+ * @apiDescription This method returns pages of Password objects.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -106,72 +106,72 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o ssn
+ *      uud -o passwords
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/ssn/
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/passwords/
  *
  * @apiUse PaginatedSuccess
- * @apiUse SSNSuccess
- * @apiUse GetSSNsSuccessResultExample
+ * @apiUse PasswordSuccess
+ * @apiUse GetPasswordsSuccessResultExample
  */
 
 /**
- * @api {get} /ssn/:id GET: Request Social Security Number
+ * @api {get} /passwords/:id GET: Request Password
  * @apiVersion 1.0.0
- * @apiGroup Social Security Numbers
- * @apiDescription This method returns a SocialSecurityNumber object, an id is supplied to the API.
+ * @apiGroup Passwords
+ * @apiDescription This method returns a Password object, an id is supplied to the API.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiUse InternalServerErrors
- * @apiParam {Integer} id The social security number's unique ID.
+ * @apiParam {Integer} id The password's unique ID.
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o ssn -p 501
+ *      uud -o passwords -p 501
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/ssn/501
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/passwords/501
  *
- * @apiUse SSNSuccess
- * @apiUse GetSSNSuccessResultExample
+ * @apiUse PasswordSuccess
+ * @apiUse GetPasswordSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {delete} /ssn/:id DELETE: Destroy Social Security Number
+ * @api {delete} /passwords/:id DELETE: Destroy Password
  * @apiVersion 1.0.0
- * @apiGroup Social Security Numbers
- * @apiDescription This method deletes a SocialSecurityNumber object, the database ID value is supplied to the API.
+ * @apiGroup Passwords
+ * @apiDescription This method deletes a Password object, the database ID value is supplied to the API.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiSuccessExampleDestroy
  * @apiUse ApiErrorFields
  * @apiUse AuthorizationHeader
  * @apiUse InternalServerErrors
- * @apiParam {Integer} id The social security number's unique ID.
+ * @apiParam {Integer} id The password's unique ID.
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o ssn -m delete -p 501
+ *      uud -o passwords -m delete -p 501
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/ssn/501
+ *      --url https://api.example.tld/api/v1/passwords/501
  *
  * @apiUse ModelNotFoundError
  */
 
 
 /**
- * @api {delete} /ssn/user DELETE: Destroy by User
+ * @api {delete} /passwords/user DELETE: Destroy by User
  * @apiVersion 1.0.0
- * @apiGroup Social Security Numbers
- * @apiDescription This method deletes a SocialSecurityNumber object, the database ID value of the user is supplied to the API.
+ * @apiGroup Passwords
+ * @apiDescription This method deletes a Password object, the database ID value of the user is supplied to the API.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiSuccessExampleDestroy
@@ -182,22 +182,22 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o ssn -m delete -p user -d "user=151"
+ *      uud -o passwords -m delete -p user -d "user=151"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "user=151" \
- *      --url https://databridge.sage.edu/api/v1/ssn/user
+ *      --url https://api.example.tld/api/v1/passwords/user
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {delete} /ssn/identifier DELETE: Destroy by User Identifier
+ * @api {delete} /passwords/identifier DELETE: Destroy by User Identifier
  * @apiVersion 1.0.0
- * @apiGroup Social Security Numbers
- * @apiDescription This method deletes a SocialSecurityNumber object, a user's unique identifier string is supplied.
+ * @apiGroup Passwords
+ * @apiDescription This method deletes a Password object, a user's unique identifier string is supplied.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiSuccessExampleDestroy
@@ -208,22 +208,22 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o ssn -m delete -p identifier -d "identifier=04986732"
+ *      uud -o passwords -m delete -p identifier -d "identifier=04986732"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "identifier=04986732" \
- *      --url https://databridge.sage.edu/api/v1/ssn/identifier
+ *      --url https://api.example.tld/api/v1/passwords/identifier
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {delete} /ssn/username DELETE: Destroy by Username
+ * @api {delete} /passwords/username DELETE: Destroy by Username
  * @apiVersion 1.0.0
- * @apiGroup Social Security Numbers
- * @apiDescription This method deletes a SocialSecurityNumber object, a user's unique username string is supplied.
+ * @apiGroup Passwords
+ * @apiDescription This method deletes a Password object, a user's unique username string is supplied.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiSuccessExampleDestroy
@@ -234,22 +234,22 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o ssn -m delete -p username -d "username=skywal"
+ *      uud -o passwords -m delete -p username -d "username=skywal"
  *
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "username=skywal" \
- *      --url https://databridge.sage.edu/api/v1/ssn/username
+ *      --url https://api.example.tld/api/v1/passwords/username
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {get} /ssn/user/:id GET: By User ID
+ * @api {get} /passwords/user/:id GET: By User ID
  * @apiVersion 1.0.0
- * @apiGroup Social Security Numbers
- * @apiDescription This method returns SocialSecurityNumber objects associated with the user's database id.
+ * @apiGroup Passwords
+ * @apiDescription This method returns Password objects associated with the user's database id.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -259,22 +259,22 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o ssn -p user/153
+ *      uud -o passwords -p user/153
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/ssn/user/153
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/passwords/user/153
  *
- * @apiUse SSNSuccess
- * @apiUse GetSSNSuccessResultExample
+ * @apiUse PasswordSuccess
+ * @apiUse GetPasswordSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {get} /ssn/username/:username GET: By Username
+ * @api {get} /passwords/username/:username GET: By Username
  * @apiVersion 1.0.0
- * @apiGroup Social Security Numbers
- * @apiDescription This method returns SocialSecurityNumber objects associated with the Username that was supplied.
+ * @apiGroup Passwords
+ * @apiDescription This method returns Password objects associated with the Username that was supplied.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -284,22 +284,22 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o ssn -p username/skywal
+ *      uud -o passwords -p username/skywal
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/ssn/username/skywal
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/passwords/username/skywal
  *
- * @apiUse SSNSuccess
- * @apiUse GetSSNSuccessResultExample
+ * @apiUse PasswordSuccess
+ * @apiUse GetPasswordSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */
 
 /**
- * @api {get} /ssn/identifier/:identifier GET: By User Identifier
+ * @api {get} /passwords/identifier/:identifier GET: By User Identifier
  * @apiVersion 1.0.0
- * @apiGroup Social Security Numbers
- * @apiDescription This method returns SocialSecurityNumber objects associated with the Identifier that was supplied.
+ * @apiGroup Passwords
+ * @apiDescription This method returns Password objects associated with the Identifier that was supplied.
  *
  * @apiUse ApiSuccessFields
  * @apiUse ApiErrorFields
@@ -309,13 +309,13 @@
  *
  * @apiExample {bash} UUD Client
  *      # This example uses the UUD Client: https://gitlab.sage.edu/UniversalUserData/uud-client
- *      uud -o ssn -p identifier/979659
+ *      uud -o passwords -p identifier/979659
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/ssn/identifier/979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/passwords/identifier/979659
  *
- * @apiUse SSNSuccess
- * @apiUse GetSSNSuccessResultExample
+ * @apiUse PasswordSuccess
+ * @apiUse GetPasswordSuccessResultExample
  *
  * @apiUse ModelNotFoundError
  */

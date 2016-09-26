@@ -30,7 +30,7 @@
  *      --data "name_last=Skywalker" \
  *      --data "username=skywal" \
  *      --data "waiting_for_password=false" \
- *      --url https://databridge.sage.edu/api/v1/users
+ *      --url https://api.example.tld/api/v1/users
  *
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
@@ -58,7 +58,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/users/151
+ *      --url https://api.example.tld/api/v1/users/151
  *
  * @apiUse ModelNotFoundError
  */
@@ -83,7 +83,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/users/username/skywal
+ *      --url https://api.example.tld/api/v1/users/username/skywal
  *
  * @apiUse ModelNotFoundError
  */
@@ -108,7 +108,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/users/identifier/0979659
+ *      --url https://api.example.tld/api/v1/users/identifier/0979659
  *
  * @apiUse ModelNotFoundError
  */
@@ -130,7 +130,7 @@
  *      uud -o users
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/users
  *
  * @apiUse PaginatedSuccess
  * @apiUse UserSuccess
@@ -154,7 +154,7 @@
  *      uud -o users -p 1
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/1
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/users/1
  *
  * @apiUse UserSuccess
  * @apiUse GetUserSuccessResultExample
@@ -179,7 +179,7 @@
  *      uud -o users -p username/skywal
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/username/skywal
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/users/username/skywal
  *
  * @apiUse UserSuccess
  * @apiUse GetUserSuccessResultExample
@@ -204,7 +204,7 @@
  *      uud -o users -p identifier/62223406
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/identifier/6223406
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/users/identifier/6223406
  *
  * @apiUse UserSuccess
  * @apiUse GetUserSuccessResultExample
@@ -229,7 +229,7 @@
  *      uud -o users -p room/31
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/room/31
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/users/room/31
  *
  * @apiUse UserSuccess
  * @apiUse GetUsersSuccessResultExample
@@ -254,7 +254,7 @@
  *      uud -o users -p role/2
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/role/2
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/users/role/2
  *
  * @apiUse UserSuccess
  * @apiUse GetUsersSuccessResultExample
@@ -279,7 +279,7 @@
  *      uud -o users -p role/code/STUDENT
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/role/code/STUDENT
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/users/role/code/STUDENT
  *
  * @apiUse UserSuccess
  * @apiUse GetUsersSuccessResultExample
@@ -304,7 +304,7 @@
  *      uud -o users -p course/13
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/course/13
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/users/course/13
  *
  * @apiUse UserSuccess
  * @apiUse GetUsersSuccessResultExample
@@ -329,7 +329,7 @@
  *      uud -o users -p course/code/Ab.427
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/users/course/code/Ab.427
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/users/course/code/Ab.427
  *
  * @apiUse UserSuccess
  * @apiUse GetUsersSuccessResultExample

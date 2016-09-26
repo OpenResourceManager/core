@@ -30,7 +30,7 @@
  *      -X "POST" \
  *      --data "name=T-Mobile" \
  *      --data "code=TMO" \
- *      --url https://databridge.sage.edu/api/v1/mobilecarriers/
+ *      --url https://api.example.tld/api/v1/mobilecarriers/
  *
  * @apiUse MobileCarrierParameters
  */
@@ -55,7 +55,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/mobilecarriers/4
+ *      --url https://api.example.tld/api/v1/mobilecarriers/4
  *
  * @apiUse ModelNotFoundError
  */
@@ -80,7 +80,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/mobilecarriers/code/TMO
+ *      --url https://api.example.tld/api/v1/mobilecarriers/code/TMO
  *
  * @apiUse ModelNotFoundError
  */
@@ -102,7 +102,7 @@
  *      uud -o carriers
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/mobilecarriers/
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/mobilecarriers/
  *
  * @apiUse PaginatedSuccess
  * @apiUse MobileCarrierSuccess
@@ -126,7 +126,7 @@
  *      uud -o carriers -p 2
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/mobilecarriers/2
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/mobilecarriers/2
  *
  * @apiUse MobileCarrierSuccess
  * @apiUse GetMobileCarrierSuccessResultExample
@@ -151,7 +151,7 @@
  *      uud -o carriers -p code/TMO
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/mobilecarriers/code/TMO
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/mobilecarriers/code/TMO
  *
  * @apiUse MobileCarrierSuccess
  * @apiUse GetMobileCarrierSuccessResultExample

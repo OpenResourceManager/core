@@ -30,7 +30,7 @@
  *      --data "floor_name=The Second Floor" \
  *      --data "room_number=204" \
  *      --data "room_name=West Mohawk Room" \
- *      --url https://databridge.sage.edu/api/v1/rooms
+ *      --url https://api.example.tld/api/v1/rooms
  *
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
@@ -55,7 +55,7 @@
  *      uud -o rooms
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/rooms
  *
  * @apiUse PaginatedSuccess
  * @apiUse RoomSuccess
@@ -79,7 +79,7 @@
  *      uud -o rooms -p 501
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/501
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/rooms/501
  *
  * @apiUse RoomSuccess
  * @apiUse GetRoomSuccessResultExample
@@ -107,7 +107,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/rooms/501
+ *      --url https://api.example.tld/api/v1/rooms/501
  *
  * @apiUse ModelNotFoundError
  */
@@ -132,7 +132,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/rooms/code/ACK303
+ *      --url https://api.example.tld/api/v1/rooms/code/ACK303
  *
  * @apiUse ModelNotFoundError
  */
@@ -154,7 +154,7 @@
  *      uud -o rooms -p user/153
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/user/153
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/rooms/user/153
  *
  * @apiUse RoomSuccess
  * @apiUse GetRoomsSuccessResultExample
@@ -179,7 +179,7 @@
  *      uud -o rooms -p username/skywal
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/username/skywal
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/rooms/username/skywal
  *
  * @apiUse RoomSuccess
  * @apiUse GetRoomsSuccessResultExample
@@ -204,7 +204,7 @@
  *      uud -o rooms -p identifier/979659
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/identifier/979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/rooms/identifier/979659
  *
  * @apiUse RoomSuccess
  * @apiUse GetRoomsSuccessResultExample
@@ -229,7 +229,7 @@
  *      uud -o rooms -p campus/3
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/campus/3
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/rooms/campus/3
  *
  * @apiUse RoomSuccess
  * @apiUse GetRoomsSuccessResultExample
@@ -254,7 +254,7 @@
  *      uud -o rooms -p campus/code/TRY
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/campus/code/TRY
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/rooms/campus/code/TRY
  *
  * @apiUse RoomSuccess
  * @apiUse GetRoomsSuccessResultExample
@@ -279,7 +279,7 @@
  *      uud -o rooms -p building/3
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/building/3
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/rooms/building/3
  *
  * @apiUse RoomSuccess
  * @apiUse GetRoomsSuccessResultExample
@@ -304,7 +304,7 @@
  *      uud -o rooms -p building/code/WES514
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/rooms/building/code/WES514
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/rooms/building/code/WES514
  *
  * @apiUse RoomSuccess
  * @apiUse GetRoomsSuccessResultExample
@@ -336,7 +336,7 @@
  *      -X "POST" \
  *      --data "user=25" \
  *      --data "room=1" \
- *      --url https://databridge.sage.edu/api/v1/rooms/user
+ *      --url https://api.example.tld/api/v1/rooms/user
  *
  * @apiUse AssignmentRoomUserParams
  */
@@ -365,7 +365,7 @@
  *      -X "POST" \
  *      --data "identifier=0958757" \
  *      --data "room=1" \
- *      --url https://databridge.sage.edu/api/v1/rooms/identifier
+ *      --url https://api.example.tld/api/v1/rooms/identifier
  *
  * @apiUse AssignmentRoomUserIDParams
  */
@@ -394,7 +394,7 @@
  *      -X "POST" \
  *      --data "username=skywal" \
  *      --data "room=1" \
- *      --url https://databridge.sage.edu/api/v1/rooms/username
+ *      --url https://api.example.tld/api/v1/rooms/username
  *
  * @apiUse AssignmentRoomUsernameIDParams
  */
@@ -423,7 +423,7 @@
  *      -X "POST" \
  *      --data "user=25" \
  *      --data "code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/rooms/code/user
+ *      --url https://api.example.tld/api/v1/rooms/code/user
  *
  * @apiUse AssignmentRoomCodeUserParams
  */
@@ -452,7 +452,7 @@
  *      -X "POST" \
  *      --data "identifier=0958757" \
  *      --data "code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/rooms/code/identifier/
+ *      --url https://api.example.tld/api/v1/rooms/code/identifier/
  *
  * @apiUse AssignmentRoomCodeUserIDParams
  */
@@ -481,7 +481,7 @@
  *      -X "POST" \
  *      --data "username=skywal" \
  *      --data "code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/rooms/code/username
+ *      --url https://api.example.tld/api/v1/rooms/code/username
  *
  * @apiUse AssignmentRoomCodeUsernameIDParams
  */
@@ -510,7 +510,7 @@
  *      -X "DELETE" \
  *      --data "user=25" \
  *      --data "room=1" \
- *      --url https://databridge.sage.edu/api/v1/rooms/user
+ *      --url https://api.example.tld/api/v1/rooms/user
  *
  * @apiUse AssignmentRoomUserParams
  */
@@ -539,7 +539,7 @@
  *      -X "DELETE" \
  *      --data "identifier=0958757" \
  *      --data "room=1" \
- *      --url https://databridge.sage.edu/api/v1/rooms/identifier
+ *      --url https://api.example.tld/api/v1/rooms/identifier
  *
  * @apiUse AssignmentRoomUserIDParams
  */
@@ -568,7 +568,7 @@
  *      -X "DELETE" \
  *      --data "username=skywal" \
  *      --data "room=1" \
- *      --url https://databridge.sage.edu/api/v1/rooms/username
+ *      --url https://api.example.tld/api/v1/rooms/username
  *
  * @apiUse AssignmentRoomUsernameIDParams
  */
@@ -597,7 +597,7 @@
  *      -X "DELETE" \
  *      --data "user=25" \
  *      --data "code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/rooms/code/user
+ *      --url https://api.example.tld/api/v1/rooms/code/user
  *
  * @apiUse AssignmentRoomCodeUserParams
  */
@@ -626,7 +626,7 @@
  *      -X "DELETE" \
  *      --data "identifier=0958757" \
  *      --data "code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/rooms/code/identifier
+ *      --url https://api.example.tld/api/v1/rooms/code/identifier
  *
  * @apiUse AssignmentRoomCodeUserIDParams
  */
@@ -655,7 +655,7 @@
  *      -X "DELETE" \
  *      --data "username=skywal" \
  *      --data "code=STUDENT" \
- *      --url https://databridge.sage.edu/api/v1/rooms/code/username
+ *      --url https://api.example.tld/api/v1/rooms/code/username
  *
  * @apiUse AssignmentRoomCodeUsernameIDParams
  */

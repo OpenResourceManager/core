@@ -27,7 +27,7 @@
  *      --data "user_id=151" \
  *      --data "email=skywalker@yahoo.com" \
  *      --data "verified=0" \
- *      --url https://databridge.sage.edu/api/v1/emails/
+ *      --url https://api.example.tld/api/v1/emails/
  *
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
@@ -56,7 +56,7 @@
  *      --data "username=skywal" \
  *      --data "email=skywalker@yahoo.com" \
  *      --data "verified=0" \
- *      --url https://databridge.sage.edu/api/v1/emails/username
+ *      --url https://api.example.tld/api/v1/emails/username
  *
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
@@ -86,7 +86,7 @@
  *      --data "identifier=04986732" \
  *      --data "email=skywalker@yahoo.com" \
  *      --data "verified=0" \
- *      --url https://databridge.sage.edu/api/v1/emails/identifier
+ *      --url https://api.example.tld/api/v1/emails/identifier
  *
  * @apiUse CreateSuccessResultExample
  * @apiUse UpdateSuccessResultExample
@@ -113,7 +113,7 @@
  *      uud -o emails
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/emails/
  *
  * @apiUse PaginatedSuccess
  * @apiUse EmailSuccess
@@ -137,7 +137,7 @@
  *      uud -o emails -p 501
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/501
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/emails/501
  *
  * @apiUse EmailSuccess
  * @apiUse GetEmailSuccessResultExample
@@ -165,7 +165,7 @@
  * @apiExample {bash} Curl
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
- *      --url https://databridge.sage.edu/api/v1/emails/501
+ *      --url https://api.example.tld/api/v1/emails/501
  *
  * @apiUse ModelNotFoundError
  */
@@ -191,7 +191,7 @@
  *      curl -H "X-Authorization: <Your-API-Key>" \
  *      -X "DELETE" \
  *      --data "email=skywalker@yahoo.com" \
- *      --url https://databridge.sage.edu/api/v1/emails/address
+ *      --url https://api.example.tld/api/v1/emails/address
  *
  * @apiUse ModelNotFoundError
  */
@@ -213,7 +213,7 @@
  *      uud -o emails -p user/153
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/user/153
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/emails/user/153
  *
  * @apiUse EmailSuccess
  * @apiUse GetUsersEmailsSuccessResultExample
@@ -238,7 +238,7 @@
  *      uud -o emails -p username/skywal
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/username/skywal
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/emails/username/skywal
  *
  * @apiUse EmailSuccess
  * @apiUse GetUsersEmailsSuccessResultExample
@@ -263,7 +263,7 @@
  *      uud -o emails -p identifier/979659
  *
  * @apiExample {bash} Curl
- *      curl -H "X-Authorization: <Your-API-Key>" --url https://databridge.sage.edu/api/v1/emails/identifier/979659
+ *      curl -H "X-Authorization: <Your-API-Key>" --url https://api.example.tld/api/v1/emails/identifier/979659
  *
  * @apiUse EmailSuccess
  * @apiUse GetUsersEmailsSuccessResultExample
