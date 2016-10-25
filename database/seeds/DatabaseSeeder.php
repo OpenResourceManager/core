@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,32 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
-
-        // Base Tables
-        $this->call('RoleTableSeeder');
-        $this->call('UserTableSeeder');
-        $this->call('PasswordTableSeeder');
-        $this->call('SocialSecurityNumberTableSeeder');
-        $this->call('BirthDateTableSeeder');
-        $this->call('EmailTableSeeder');
-        $this->call('MobileCarrierTableSeeder');
-        $this->call('PhoneTableSeeder');
-        $this->call('CampusTableSeeder');
-        $this->call('BuildingTableSeeder');
-        $this->call('RoomTableSeeder');
-        $this->call('CountryTableSeeder');
-        $this->call('StateTableSeeder');
-        $this->call('AddressTableSeeder');
-        $this->call('DepartmentTableSeeder');
-        $this->call('CourseTableSeeder');
-        $this->call('ApikeyTableSeeder');
-        // Pivot Tables
-        $this->call('UserDepartmentTableSeeder');
-        $this->call('UserCourseTableSeeder');
-        $this->call('UserRoleTableSeeder');
-        $this->call('UserRoomTableSeeder');
-
-        Model::reguard();
+        // $this->call(UsersTableSeeder::class);
     }
 }

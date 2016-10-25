@@ -5,21 +5,15 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.5.9",
-        "laravel/framework": "5.2.*",
-        "phpunit/phpunit": "^4.8",
-        "spatie/laravel-tail": "^1.1",
-        "predis/predis": "^1.0"
+        "php": ">=5.6.4",
+        "laravel/framework": "5.3.*"
     },
     "require-dev": {
-        "symfony/dom-crawler": "~3.0",
-        "symfony/css-selector": "~3.0",
-        "fzaninotto/faker": "^1.5",
+        "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpspec/phpspec": "~2.1",
-        "barryvdh/laravel-ide-helper": "^2.1",
-        "laracasts/generators": "^1.1",
-        "phpdocumentor/phpdocumentor": "2.*"
+        "phpunit/phpunit": "~5.0",
+        "symfony/css-selector": "3.1.*",
+        "symfony/dom-crawler": "3.1.*"
     },
     "autoload": {
         "classmap": [
@@ -31,27 +25,23 @@
     },
     "autoload-dev": {
         "classmap": [
-            "tests/TestCase.php",
-            "tests/UsersTest.php",
-            "tests/helpers"
+            "tests/TestCase.php"
         ]
     },
     "scripts": {
-        "post-install-cmd": [
-            "php artisan clear-compiled",
-            "php artisan optimize"
-        ],
-        "pre-update-cmd": [
-            "php artisan clear-compiled"
-        ],
-        "post-update-cmd": [
-            "php artisan optimize"
-        ],
         "post-root-package-install": [
-            "php -r \"copy('.env.example', '.env');\""
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
             "php artisan key:generate"
+        ],
+        "post-install-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postInstall",
+            "php artisan optimize"
+        ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "php artisan optimize"
         ]
     },
     "config": {
