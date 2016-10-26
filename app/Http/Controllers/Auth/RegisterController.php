@@ -42,7 +42,7 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -57,7 +57,7 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return User
      */
     protected function create(array $data)
@@ -67,5 +67,23 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    /**
+     * Overriding to disable registration
+     *
+     * @return mixed
+     */
+    public function showRegistrationForm()
+    {
+        return redirect('/');
+    }
+
+    /**
+     * Overriding to disable registration
+     */
+    public function register()
+    {
+        return redirect('/');
     }
 }
