@@ -100,4 +100,19 @@ class ApiController extends Controller
         ]);
     }
 
+    /**
+     * @return mixed
+     */
+    public function destroySuccessResponse()
+    {
+        return $this->response->array(['message' => 'destroyed', 'status_code' => 200])->setStatusCode(200);
+    }
+
+    /**
+     * @param string $resource
+     */
+    public function destroyFailure($resource = 'resource')
+    {
+        throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not delete ' . $resource . '.');
+    }
 }
