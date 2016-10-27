@@ -78,7 +78,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    SLERP
+                    {{config('app.name', 'SLERP Core')}}
                 </div>
 
                 <div class="links">

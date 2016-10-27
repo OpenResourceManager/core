@@ -9,6 +9,7 @@ class Account extends Model
 {
     use SoftDeletes;
     public $full_name;
+    protected $table = 'accounts';
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'identifier',
@@ -19,7 +20,7 @@ class Account extends Model
         'name_postfix',
         'name_phonetic',
         'username',
-        'primary_role',
+        'primary_duty',
         'waiting_for_password'
     ];
 
@@ -79,9 +80,9 @@ class Account extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function roles()
+    public function duties()
     {
-        return $this->belongsToMany(Role::class)->withTimestamps();
+        return $this->belongsToMany(Duty::class)->withTimestamps();
     }
 
 }

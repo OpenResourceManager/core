@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Http\Models\API\Account;
 
 class AccountsTableSeeder extends Seeder
 {
@@ -11,6 +12,6 @@ class AccountsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Http\Models\API\Account::class, 150)->create();
+        factory(Account::class, 150)->create();
     }
 }

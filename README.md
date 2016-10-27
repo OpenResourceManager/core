@@ -10,6 +10,13 @@ The API key also has a boolean value that determines if the application can writ
 
 Check out the [API documentation](https://databridge.sage.edu/docs/).
 
+## Install
+
+```
+php artisan key:generate
+php artisan jwt:generate
+```
+
 ## Updating
 
 ```

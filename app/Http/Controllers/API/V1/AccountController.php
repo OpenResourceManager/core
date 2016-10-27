@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Models\API\Account;
 use App\Http\Transformers\AccountTransformer;
+use Dingo\Api\Facade\API;
 
 class AccountController extends ApiController
 {
@@ -12,6 +13,8 @@ class AccountController extends ApiController
      */
     public function index()
     {
+        $user = API::user();
+
         $accounts = Account::paginate($this->resultLimit);
 
         return $this->response->paginator($accounts, new AccountTransformer);

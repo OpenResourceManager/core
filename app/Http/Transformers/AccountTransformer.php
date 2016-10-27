@@ -29,7 +29,7 @@ class AccountTransformer extends TransformerAbstract
             'name_last' => $account->name_last,
             'name_postfix' => $account->name_postfix,
             'name_phonetic' => $account->name_phonetic,
-            'primary_role' => $account->primary_role,
+            'primary_duty' => $account->primary_duty,
             'waiting_for_password' => $account->waiting_for_password,
             'created' => date('Y-m-d', strtotime($account->created_at)),
             'updated' => date('Y-m-d', strtotime($account->updated_at)),

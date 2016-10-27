@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Models\API\Role;
+use App\Http\Models\API\Duty;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,13 +19,14 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
     return [
         'name' => $faker->name,
+        'username' => $faker->unique()->userName,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
     ];
 });
 
-$factory->define(App\Http\Models\API\Role::class, function (Faker\Generator $faker) {
+$factory->define(App\Http\Models\API\Duty::class, function (Faker\Generator $faker) {
 
     $word = $faker->unique()->word;
 
@@ -36,7 +37,7 @@ $factory->define(App\Http\Models\API\Role::class, function (Faker\Generator $fak
 });
 
 $factory->define(App\Http\Models\API\Account::class, function (Faker\Generator $faker) {
-    $roleIds = Role::pluck('id')->all();
+    $dutyIds = Duty::pluck('id')->all();
     return [
         'identifier' => strval($faker->unique()->randomNumber($nbDigits = 7, $strict = true)),
         'name_prefix' => $faker->optional()->title,
@@ -46,7 +47,7 @@ $factory->define(App\Http\Models\API\Account::class, function (Faker\Generator $
         'name_postfix' => $faker->optional()->title,
         'name_phonetic' => $faker->optional()->firstName,
         'username' => $faker->unique()->userName,
-        'primary_role' => $faker->randomElement($roleIds),
+        'primary_duty' => $faker->randomElement($dutyIds),
         'waiting_for_password' => $faker->boolean()
     ];
 });

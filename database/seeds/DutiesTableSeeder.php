@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Http\Models\API\Role;
+use App\Http\Models\API\Duty;
 
-class RolesTableSeeder extends Seeder
+class DutiesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,8 +12,8 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        // Create an array of roles
-        $roles = array(
+        // Create an array of duties
+        $duties = array(
             'DEFAULT' => 'Default',
             'STUDENT' => 'Student',
             'EMPLOYEE' => 'Employee',
@@ -25,8 +25,8 @@ class RolesTableSeeder extends Seeder
         );
 
         // Loop over the array and save the data to the database
-        foreach ($roles as $code => $label) {
-            Role::create([
+        foreach ($duties as $code => $label) {
+            Duty::create([
                 'code' => $code,
                 'label' => $label
             ]);

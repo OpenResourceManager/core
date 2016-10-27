@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAccountRolePivotTable extends Migration
+class CreateAccountDutyPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateAccountRolePivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('account_role', function (Blueprint $table) {
-            $table->integer('role_id')->unsigned()->index();
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+        Schema::create('account_duty', function (Blueprint $table) {
+            $table->integer('duty_id')->unsigned()->index();
+            $table->foreign('duty_id')->references('id')->on('duties')->onDelete('cascade');
             $table->integer('account_id')->unsigned()->index();
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
-            $table->primary(['role_id', 'account_id']);
+            $table->primary(['duty_id', 'account_id']);
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateAccountRolePivotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account_role');
+        Schema::dropIfExists('account_duty');
     }
 }

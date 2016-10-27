@@ -15,17 +15,55 @@ $api->version('v1', function ($api) {
      */
     $api->group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], function ($api) {
 
-        $api->get('/', 'ApiController@index');
+        $api->get('/', [
+            'uses' => 'ApiController@index',
+            'as' => 'api.index'
+        ]);
 
-        $api->group(['prefix' => 'accounts'], function ($api) {
-            $api->get('/', 'AccountController@index');
-            $api->get('/{id}', 'AccountController@show');
+        $api->group(['prefix' => 'auth'], function ($api) {
+
+            $api->post('login', [
+                'uses' => 'ApiAuthenticationController@authenticate',
+                'as' => 'api.login'
+            ]);
+
+            $api->get('validate', [
+                'middleware' => 'api.auth',
+                'uses' => 'ApiAuthenticationController@validateToken',
+                'as' => 'api.validate_token'
+            ]);
+
         });
 
-        $api->group(['prefix' => 'roles'], function ($api) {
-            $api->get('/', 'RoleController@index');
-            $api->get('/{id}', 'RoleController@show');
-        });
+        /**
+         * Protected routes go in this middleware group
+         */
+        $api->group(['middleware' => 'api.auth'], function ($api) {
 
+            $api->group(['prefix' => 'accounts'], function ($api) {
+                $api->get('/', [
+                    'uses' => 'AccountController@index',
+                    'as' => 'api.accounts.index'
+                ]);
+
+                $api->get('/{id}', [
+                    'uses' => 'AccountController@show',
+                    'as' => 'api.accounts.show'
+                ]);
+            });
+
+            $api->group(['prefix' => 'duties'], function ($api) {
+                $api->get('/', [
+                    'uses' => 'DutyController@index',
+                    'as' => 'api.duties.index'
+                ]);
+
+                $api->get('/{id}', [
+                    'uses' => 'DutyController@show',
+                    'as' => 'api.duties.show'
+                ]);
+            });
+
+        });
     });
 });
