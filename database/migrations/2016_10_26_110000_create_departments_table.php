@@ -13,7 +13,14 @@ class CreateDepartmentsTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('departments', function (Blueprint $table) {
+            $table->increments('id');
+            $table->boolean('academic');
+            $table->string('code')->unique();
+            $table->string('label');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -23,6 +30,6 @@ class CreateDepartmentsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('departments');
     }
 }

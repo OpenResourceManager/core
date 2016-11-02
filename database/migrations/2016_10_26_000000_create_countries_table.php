@@ -13,7 +13,14 @@ class CreateCountriesTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('countries', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('code', 25)->unique();
+            $table->string('abbreviation', 3);
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -23,6 +30,6 @@ class CreateCountriesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('countries');
     }
 }

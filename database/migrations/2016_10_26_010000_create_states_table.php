@@ -13,7 +13,15 @@ class CreateStatesTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('states', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('country_id');
+            $table->string('name');
+            $table->string('code', 25)->unique();
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -23,6 +31,10 @@ class CreateStatesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('states', function (Blueprint $table) {
+            $table->dropForeign('states_country_id_foreign');
+        });
+
+        Schema::drop('states');
     }
 }

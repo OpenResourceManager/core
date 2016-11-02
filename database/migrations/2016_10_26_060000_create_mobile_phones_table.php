@@ -13,7 +13,19 @@ class CreateMobilePhonesTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('mobile_phones', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('account_id');
+            $table->string('number', 10)->unique();
+            $table->unsignedInteger('mobile_carrier_id')->nullable();
+            $table->string('country_code', 4)->nullable();
+            $table->boolean('verified')->default(false);
+            $table->string('verification_token', 8)->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
+            $table->foreign('mobile_carrier_id')->references('id')->on('mobile_carriers')->onDelete('cascade');
+        });
     }
 
     /**
@@ -23,6 +35,10 @@ class CreateMobilePhonesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('mobile_phones', function (Blueprint $table) {
+            $table->dropForeign('mobile_phones_account_id_foreign');
+            $table->dropForeign('mobile_phones_mobile_carrier_id_foreign');
+        });
+        Schema::drop('mobile_phones');
     }
 }

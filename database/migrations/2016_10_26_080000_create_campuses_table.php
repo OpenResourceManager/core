@@ -13,7 +13,13 @@ class CreateCampusesTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('campuses', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('code')->unique();
+            $table->string('label');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -23,6 +29,6 @@ class CreateCampusesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('campuses');
     }
 }
