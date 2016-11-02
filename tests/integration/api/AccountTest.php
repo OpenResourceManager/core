@@ -22,7 +22,27 @@ class AccountTest extends TestCase
             'name_phonetic',
             'username',
             'primary_duty',
-            'waiting_for_password',
+            'updated',
+            'created',
+
+        ]
+    ];
+
+    protected $itemStructureDeclassifiedResponse = [
+        'data' => [
+            'id',
+            'identifier',
+            'name_prefix',
+            'name_first',
+            'name_middle',
+            'name_last',
+            'name_postfix',
+            'name_phonetic',
+            'username',
+            'primary_duty',
+            'ssn',
+            'password',
+            'birth_date',
             'updated',
             'created',
 
@@ -57,7 +77,6 @@ class AccountTest extends TestCase
             'name_phonetic' => 'Luke Skywalker',
             'username' => 'skwall',
             'primary_duty' => Duty::firstOrFail()->id,
-            'waiting_for_password' => false
         ];
     }
 
@@ -275,4 +294,8 @@ class AccountTest extends TestCase
             ->assertResponseStatus(401)
             ->seeJsonStructure($this->errorStructure);
     }
+
+    /**
+     * @todo Test classified attribute access
+     */
 }

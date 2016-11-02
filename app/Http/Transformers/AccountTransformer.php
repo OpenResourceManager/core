@@ -19,7 +19,7 @@ class AccountTransformer extends TransformerAbstract
      */
     public function transform(Account $account)
     {
-        return [
+        $transformed = [
             'id' => $account->id,
             'identifier' => $account->identifier,
             'username' => $account->username,
@@ -29,11 +29,20 @@ class AccountTransformer extends TransformerAbstract
             'name_last' => $account->name_last,
             'name_postfix' => $account->name_postfix,
             'name_phonetic' => $account->name_phonetic,
-            'primary_duty' => $account->primary_duty,
-            'waiting_for_password' => (bool)$account->waiting_for_password,
-            'created' => date('Y-m-d - H:i:s', strtotime($account->created_at)),
-            'updated' => date('Y-m-d - H:i:s', strtotime($account->updated_at)),
+            'primary_duty' => $account->primary_duty
         ];
+
+        $user = auth()->user();
+
+        if ($user->can(['read-classified', 'write-classified'])) {
+            if (isset($account->ssn)) $transformed['created'] = decrypt($account->ssn);
+            if (isset($account->password)) $transformed['password'] = decrypt($account->password);
+            if (isset($account->birth_date)) $transformed['birth_date'] = decrypt($account->birth_date);
+        }
+
+        $transformed['created'] = date('Y-m-d - H:i:s', strtotime($account->created_at));
+        $transformed['updated'] = date('Y-m-d - H:i:s', strtotime($account->updated_at));
+        return $transformed;
     }
 
 }

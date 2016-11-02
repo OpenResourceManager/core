@@ -23,8 +23,10 @@ class CreateAccountsTable extends Migration
             $table->string('name_postfix')->nullable();
             $table->string('name_phonetic')->nullable();
             $table->string('username')->unique();
+            $table->string('password')->nullable();
+            $table->string('ssn')->nullable();
+            $table->date('birth_date')->nullable();
             $table->integer('primary_duty')->unsigned()->nullable();
-            $table->boolean('waiting_for_password')->default(false);
             $table->foreign('primary_duty')->references('id')->on('duties')->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();

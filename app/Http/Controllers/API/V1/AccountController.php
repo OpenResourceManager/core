@@ -94,9 +94,9 @@ class AccountController extends ApiController
             'name_phonetic' => 'string',
             'username' => 'string|required|min:3|unique:accounts,deleted_at,NULL',
             'primary_duty' => 'integer',
-            'primary_duty_code' => 'string|exists:duties,code,deleted_at,NULL',
-            'waiting_for_password' => 'boolean|required',
+            'primary_duty_code' => 'string|exists:duties,code,deleted_at,NULL'
         ]);
+
         if ($validator->fails()) {
             throw new StoreResourceFailedException('Could not store account.', $validator->errors());
         }

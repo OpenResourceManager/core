@@ -37,7 +37,10 @@ class ApiAuthenticationController extends ApiController
      */
     public function validateAuth()
     {
-        $user = API::user();
+        $user = auth()->user();
+
+        if (!$user) throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('You are not authorized.');
+
         return $this->response->array([
             'user' => $user->username,
             'message' => 'success',

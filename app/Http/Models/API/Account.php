@@ -3,6 +3,7 @@
 namespace App\Http\Models\API;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use League\Flysystem\Exception;
 
 class Account extends BaseApiModel
 {
@@ -20,10 +21,35 @@ class Account extends BaseApiModel
         'name_postfix',
         'name_phonetic',
         'username',
-        'primary_duty',
-        'waiting_for_password'
+        'primary_duty'
     ];
 
+    protected $classified = ['password', 'ssn', 'birth_date'];
+
+    /**
+     * If the current user cannot read or write classified attributes then hide them
+     */
+    public function setClassifiedVisibility($permitted = false)
+    {
+        if ($user = auth()->user()) {
+            try {
+                $permitted = $user->can(['read-classified', 'write-classified']);
+            } catch (Exception $e) {
+                $permitted = false;
+            }
+        }
+
+        if (!$permitted) $this->setHidden($this->classified);
+    }
+
+    /**
+     * Account constructor.
+     */
+    public function __construct($attributes = array(), $permitted = false)
+    {
+        parent::__construct($attributes);
+        $this->setClassifiedVisibility($permitted);
+    }
 
     /**
      * @return string
