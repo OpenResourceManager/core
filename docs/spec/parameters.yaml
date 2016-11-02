@@ -1,0 +1,14 @@
+limitsParam:
+  name: limit
+  in: quary
+  description: maximum number of results to return
+  required: false
+  type: integer
+  format: int32
+pagessParam:
+  name: page
+  in: quary
+  description: the page of results to return
+  required: false
+  type: integer
+  format: int32

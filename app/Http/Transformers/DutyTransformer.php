@@ -23,8 +23,8 @@ class DutyTransformer extends TransformerAbstract
             'id' => $duty->id,
             'code' => $duty->code,
             'name' => $duty->label,
-            'created' => date('Y-m-d', strtotime($duty->created_at)),
-            'updated' => date('Y-m-d', strtotime($duty->updated_at)),
+            'created' => date('Y-m-d - H:i:s', strtotime($duty->created_at)),
+            'updated' => date('Y-m-d - H:i:s', strtotime($duty->updated_at)),
         ];
     }
 

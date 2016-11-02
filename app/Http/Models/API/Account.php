@@ -82,7 +82,7 @@ class Account extends Model
      */
     public function duties()
     {
-        return $this->belongsToMany(Duty::class)->withTimestamps();
+        return $this->belongsToMany(Duty::class);
     }
 
 }

@@ -37,9 +37,9 @@ $api->version('v1', function ($api) {
 
                 $api->group(['middleware' => 'permission:write-account'], function ($api) {
                     $api->post('/', ['uses' => 'AccountController@store', 'as' => 'api.accounts.store']);
-                    $api->delete('/{id}', ['uses' => 'AccountController@destroy', 'as' => 'api.accounts.destroy']);
-                    $api->delete('/username/{username}', ['uses' => 'AccountController@destroyFromUsername', 'as' => 'api.accounts.destroy_from_username']);
-                    $api->delete('/identifier/{identifier}', ['uses' => 'AccountController@destroyFromIdentifier', 'as' => 'api.accounts.destroy_from_identifier']);
+                    $api->post('/duty', ['uses' => 'AccountController@assignDuty', 'as' => 'api.account.assign.duty']);
+                    $api->delete('/', ['uses' => 'AccountController@destroy', 'as' => 'api.accounts.destroy']);
+                    $api->delete('/duty', ['uses' => 'AccountController@detachDuty', 'as' => 'api.account.detach.duty']);
                 });
             });
 
@@ -52,8 +52,7 @@ $api->version('v1', function ($api) {
 
                 $api->group(['middleware' => 'permission:write-duty'], function ($api) {
                     $api->post('/', ['uses' => 'DutyController@store', 'as' => 'api.duties.store']);
-                    $api->delete('/{id}', ['uses' => 'DutyController@destroy', 'as' => 'api.duties.destroy']);
-                    $api->delete('/code/{code}', ['uses' => 'DutyController@destroyFromCode', 'as' => 'api.duties.destroy_from_code']);
+                    $api->delete('/', ['uses' => 'DutyController@destroy', 'as' => 'api.duties.destroy']);
                 });
             });
 

@@ -8,57 +8,56 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 
-/**
- * Class DutyController
- * @package App\Http\Controllers\API\V1
- *
- * @Resource("Duties", uri="/duties")
- */
 class DutyController extends ApiController
 {
     /**
-     * @return \Dingo\Api\Http\Response
+     * Show all Duty resources
      *
-     * @Get("/")
+     * Get a paginated array of Duties.
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function index()
     {
         $duties = Duty::paginate($this->resultLimit);
-
         return $this->response->paginator($duties, new DutyTransformer);
     }
 
     /**
+     * Show a Duty
+     *
+     * Display a Duty by providing it's ID attribute.
+     *
      * @param $id
      * @return \Dingo\Api\Http\Response
-     *
-     * @Get("/{id}")
      */
     public function show($id)
     {
         $duty = Duty::findOrFail($id);
-
         return $this->response->item($duty, new DutyTransformer);
     }
 
     /**
+     * Show Duty by Code
+     *
+     * Display a Duty by providing it's Code attribute.
+     *
      * @param $code
      * @return \Dingo\Api\Http\Response
-     *
-     * @Get("/code/{id}")
      */
     public function showFromCode($code)
     {
         $duty = Duty::where('code', $code)->firstOrFail();
-
         return $this->response->item($duty, new DutyTransformer);
     }
 
     /**
+     * Store/Save/Restore Duty
+     *
+     * Create or update duty information.
+     *
      * @param Request $request
      * @return \Dingo\Api\Http\Response
-     *
-     * @Post("/")
      */
     public function store(Request $request)
     {
@@ -77,33 +76,27 @@ class DutyController extends ApiController
         ];
 
         $item = Duty::updateOrCreate(['code' => Input::get('code')], $data);
-
         return $this->response->created(route('api.duties.show', ['id' => $item->id]), $item);
     }
 
     /**
-     * @param $id
-     * @return mixed|void
+     * Destroy Duty
      *
-     * @Delete("/{id}")
-     */
-    public function destroy($id)
-    {
-        $duty = Duty::findOrFail($id);
-
-        return ($duty->delete()) ? $this->destroySuccessResponse() : $this->destroyFailure('duty');
-    }
-
-    /**
-     * @param $code
-     * @return mixed|void
+     * Deletes the specified Duty by it's ID or Code attribute.
      *
-     * @Delete("/code/{code}")
+     * @return mixed|void
      */
-    public function destroyFromCode($code)
+    public function destroy(Request $request)
     {
-        $duty = Duty::where('code', $code)->firstOrFail();
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'code' => 'string|required_without:id|min:3|exists:duties,deleted_at,NULL',
+            'id' => 'integer|required_without:code|min:1|exists:duties,deleted_at,NULL'
+        ]);
 
+        if ($validator->fails()) throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy duty.', $validator->errors());
+
+        $duty = (array_key_exists('id', $data)) ? Duty::findOrFail($data['id']) : Duty::where('code', $data['code'])->firstOrFail();
         return ($duty->delete()) ? $this->destroySuccessResponse() : $this->destroyFailure('duty');
     }
 }

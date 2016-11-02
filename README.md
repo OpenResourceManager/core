@@ -13,6 +13,7 @@ Check out the [API documentation](https://databridge.sage.edu/docs/).
 ## Install
 
 ```
+composer install;
 php artisan key:generate
 php artisan jwt:generate
 ```

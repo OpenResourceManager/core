@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use Dingo\Api\Routing\Helpers;
 
+
 class ApiController extends Controller
 {
 
@@ -101,11 +102,11 @@ class ApiController extends Controller
     }
 
     /**
-     * @return mixed
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function destroySuccessResponse()
     {
-        return $this->response->array(['message' => 'destroyed', 'status_code' => 200])->setStatusCode(200);
+        return $this->response->noContent()->setStatusCode(204);
     }
 
     /**
@@ -114,5 +115,23 @@ class ApiController extends Controller
     public function destroyFailure($resource = 'resource')
     {
         throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not delete ' . $resource . '.');
+    }
+
+    /**
+     * @param string $resource1
+     * @param string $resource2
+     */
+    public function detachFailure($resource1 = 'resource', $resource2 = 'resource')
+    {
+        throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not detach ' . $resource1 . ' from ' . $resource2 . '.');
+    }
+
+    /**
+     * @param string $resource1
+     * @param string $resource2
+     */
+    public function assignFailure($resource1 = 'resource', $resource2 = 'resource')
+    {
+        throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not assign ' . $resource1 . ' to ' . $resource2 . '.');
     }
 }

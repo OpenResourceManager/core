@@ -1,0 +1,49 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: SLERP Core API
+  description: An API that houses ERP data, allowing open development around institutional data.
+  contact:
+    name: Alex Markessinis
+    url: https://github.com/MelonSmasher
+    email: markea125@gmail.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+host: example.slerp.io
+basePath: /api/v1
+schemes:
+  - http
+consumes:
+  - text/plain; charset=utf-8
+produces:
+  - application/json
+paths:
+  /accounts:
+    get:
+      description: Returns a paginated list of accounts.
+      parameters:
+        - $ref: 'parameters.yaml#/limitssParam'
+        - $ref: 'parameters.yaml#/pagessParam'
+      responses:
+        "200":
+          description: account list response
+            schema:
+              type: array
+              items:
+                $ref: 'Account.yaml'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '../common/Error.yaml'
+    post:
+      summary: |
+        Create/Update/Restore Account. Depending on the state of the account one of the following will happen.
+        Create: If the account does not exist yet, then the account will be created based on the parameters supplied with the request. Ensure that the `identifier` parameter does not match an already existing account. If it does the pre-existing account will be updated with the information supplied.
+        Update: If the account exists, it will be updated with the information supplied with the request. The account will be updated based on it's `identifier` parameter. If the `identifier` parameter does not match the `identifier` on the target account, a new account will be created.
+        Restore: If the account exists but is deleted, the account will be restored and updated. In order to restore an account provide the `identifier` of a deleted account. Previous account relationships are restored as well.
+      operationId: createAccount
+      parameters:
+        - name: account
+
+      responses:
