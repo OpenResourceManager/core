@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class AuthenticationTestCase extends TestCase
+class AuthenticationTest extends TestCase
 {
     use DatabaseTransactions;
 

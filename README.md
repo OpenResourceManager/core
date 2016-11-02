@@ -13,9 +13,11 @@ Check out the [API documentation](https://databridge.sage.edu/docs/).
 ## Install
 
 ```
-composer install;
-php artisan key:generate
-php artisan jwt:generate
+composer install --no-interaction;
+cp .env.example .env;
+php artisan key:generate;
+bash generate_jwt_key.sh;
+php artisan migrate --force;
 ```
 
 ## Updating

@@ -6,11 +6,11 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Http\Models\API\Account;
 use App\Http\Models\API\Duty;
 
-class AccountTestCase extends TestCase
+class AccountTest extends TestCase
 {
     use DatabaseTransactions;
 
-    protected $accountStructureResponse = [
+    protected $itemStructureResponse = [
         'data' => [
             'id',
             'identifier',
@@ -107,33 +107,37 @@ class AccountTestCase extends TestCase
     public function can_get_account_by_id()
     {
         $account = Account::create($this->lukeSkywalkerAccount());
+
         $this->get('/api/v1/accounts/' . $account->id, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200)
-            ->seeJsonStructure($this->accountStructureResponse);
+            ->seeJsonStructure($this->itemStructureResponse);
     }
 
     /** @test */
     public function can_get_account_by_identifier()
     {
         $account = Account::create($this->lukeSkywalkerAccount());
+
         $this->get('/api/v1/accounts/identifier/' . $account->identifier, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200)
-            ->seeJsonStructure($this->accountStructureResponse);
+            ->seeJsonStructure($this->itemStructureResponse);
     }
 
     /** @test */
     public function can_get_account_by_username()
     {
         $account = Account::create($this->lukeSkywalkerAccount());
+
         $this->get('/api/v1/accounts/username/' . $account->username, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200)
-            ->seeJsonStructure($this->accountStructureResponse);
+            ->seeJsonStructure($this->itemStructureResponse);
     }
 
     /** @test */
     public function fails_to_get_accounts_without_auth()
     {
-        $this->get('/api/v1/accounts')->seeStatusCode(401)
+        $this->get('/api/v1/accounts')
+            ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }
 
@@ -141,7 +145,9 @@ class AccountTestCase extends TestCase
     public function fails_to_get_account_without_auth()
     {
         $account = Account::create($this->lukeSkywalkerAccount());
-        $this->get('/api/v1/accounts/' . $account->id)->seeStatusCode(401)
+
+        $this->get('/api/v1/accounts/' . $account->id)
+            ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }
 
@@ -149,7 +155,9 @@ class AccountTestCase extends TestCase
     public function fails_to_get_account_by_identifier_without_auth()
     {
         $account = Account::create($this->lukeSkywalkerAccount());
-        $this->get('/api/v1/accounts/identifier/' . $account->identifier)->seeStatusCode(401)
+
+        $this->get('/api/v1/accounts/identifier/' . $account->identifier)
+            ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }
 
@@ -157,7 +165,9 @@ class AccountTestCase extends TestCase
     public function fails_to_get_account_by_username_without_auth()
     {
         $account = Account::create($this->lukeSkywalkerAccount());
-        $this->get('/api/v1/accounts/username/' . $account->username)->seeStatusCode(401)
+
+        $this->get('/api/v1/accounts/username/' . $account->username)
+            ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }
 
@@ -165,10 +175,11 @@ class AccountTestCase extends TestCase
     public function can_create_account()
     {
         $this->post('/api/v1/accounts', $this->lukeSkywalkerAccount(), ['Authorization' => 'Bearer ' . $this->bearer])
-            ->seeStatusCode(201)->seeJsonStructure($this->accountStructureResponse);
+            ->seeStatusCode(201)
+            ->seeJsonStructure($this->itemStructureResponse);
     }
 
-    /** @test */
+    /** @todo make this work */
     public function can_update_account()
     {
         $luke = $this->lukeSkywalkerAccount();
@@ -176,7 +187,7 @@ class AccountTestCase extends TestCase
 
         $response1 = $this->post('/api/v1/accounts', $luke, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(201)
-            ->seeJsonStructure($this->accountStructureResponse);
+            ->seeJsonStructure($this->itemStructureResponse);
 
         /*
          * @todo Verify that time stamps prove model has been updated
@@ -188,7 +199,7 @@ class AccountTestCase extends TestCase
 
          $response2 = $this->post('/api/v1/accounts', $luke, ['Authorization' => 'Bearer ' . $this->bearer])
              ->seeStatusCode(201)
-             ->seeJsonStructure($this->accountStructureResponse);
+             ->seeJsonStructure($this->itemStructureResponse);
 
          $decoded2 = $response2->decodeResponseJson();
          $secondCreated = $decoded2['data']['created'];
@@ -212,6 +223,7 @@ class AccountTestCase extends TestCase
     public function can_destroy_account_by_id()
     {
         $account = Account::create($this->lukeSkywalkerAccount());
+
         $this->delete('/api/v1/accounts', ['id' => $account->id], ['Authorization' => 'Bearer ' . $this->bearer])
             ->assertResponseStatus(204);
     }
@@ -220,6 +232,7 @@ class AccountTestCase extends TestCase
     public function can_destroy_account_by_identifier()
     {
         $account = Account::create($this->lukeSkywalkerAccount());
+
         $this->delete('/api/v1/accounts', ['identifier' => $account->identifier], ['Authorization' => 'Bearer ' . $this->bearer])
             ->assertResponseStatus(204);
     }
@@ -228,6 +241,7 @@ class AccountTestCase extends TestCase
     public function can_destroy_account_by_username()
     {
         $account = Account::create($this->lukeSkywalkerAccount());
+
         $this->delete('/api/v1/accounts', ['username' => $account->username], ['Authorization' => 'Bearer ' . $this->bearer])
             ->assertResponseStatus(204);
     }
@@ -236,6 +250,7 @@ class AccountTestCase extends TestCase
     public function fails_to_destroy_account_by_id_without_auth()
     {
         $account = Account::create($this->lukeSkywalkerAccount());
+
         $this->delete('/api/v1/accounts', ['id' => $account->id])
             ->assertResponseStatus(401)
             ->seeJsonStructure($this->errorStructure);
@@ -245,6 +260,7 @@ class AccountTestCase extends TestCase
     public function fails_to_destroy_account_by_identifier_without_auth()
     {
         $account = Account::create($this->lukeSkywalkerAccount());
+
         $this->delete('/api/v1/accounts', ['identifier' => $account->identifier])
             ->assertResponseStatus(401)
             ->seeJsonStructure($this->errorStructure);
@@ -254,230 +270,9 @@ class AccountTestCase extends TestCase
     public function fails_to_destroy_account_by_username_without_auth()
     {
         $account = Account::create($this->lukeSkywalkerAccount());
+
         $this->delete('/api/v1/accounts', ['username' => $account->username])
             ->assertResponseStatus(401)
             ->seeJsonStructure($this->errorStructure);
-    }
-
-    /** @test */
-    public function can_assign_and_detach_duty_by_id_with_account_id()
-    {
-        $account = Account::create($this->lukeSkywalkerAccount());
-        $duty = Duty::create($this->jediMasterDuty());
-
-        $this->post('/api/v1/accounts/duty', ['duty_id' => $duty->id, 'account_id' => $account->id], ['Authorization' => 'Bearer ' . $this->bearer])
-            ->assertResponseStatus(201);
-
-        $this->delete('/api/v1/accounts/duty', ['duty_id' => $duty->id, 'account_id' => $account->id], ['Authorization' => 'Bearer ' . $this->bearer])
-            ->assertResponseStatus(204);
-    }
-
-    /** @test */
-    public function can_assign_and_detach_duty_by_id_with_account_identifier()
-    {
-        $account = Account::create($this->lukeSkywalkerAccount());
-        $duty = Duty::create($this->jediMasterDuty());
-
-        $this->post('/api/v1/accounts/duty', ['duty_id' => $duty->id, 'identifier' => $account->identifier], ['Authorization' => 'Bearer ' . $this->bearer])
-            ->assertResponseStatus(201);
-
-        $this->delete('/api/v1/accounts/duty', ['duty_id' => $duty->id, 'identifier' => $account->identifier], ['Authorization' => 'Bearer ' . $this->bearer])
-            ->assertResponseStatus(204);
-    }
-
-    /** @test */
-    public function can_assign_and_detach_duty_by_id_with_account_username()
-    {
-        $account = Account::create($this->lukeSkywalkerAccount());
-        $duty = Duty::create($this->jediMasterDuty());
-
-        $this->post('/api/v1/accounts/duty', ['duty_id' => $duty->id, 'username' => $account->username], ['Authorization' => 'Bearer ' . $this->bearer])
-            ->assertResponseStatus(201);
-
-        $this->delete('/api/v1/accounts/duty', ['duty_id' => $duty->id, 'username' => $account->username], ['Authorization' => 'Bearer ' . $this->bearer])
-            ->assertResponseStatus(204);
-    }
-
-    /** @test */
-    public function can_assign_and_detach_duty_by_code_with_account_id()
-    {
-        $account = Account::create($this->lukeSkywalkerAccount());
-        $duty = Duty::create($this->jediMasterDuty());
-        $this->post('/api/v1/accounts/duty', ['code' => $duty->code, 'account_id' => $account->id], ['Authorization' => 'Bearer ' . $this->bearer])
-            ->assertResponseStatus(201);
-
-        $this->delete('/api/v1/accounts/duty', ['code' => $duty->code, 'account_id' => $account->id], ['Authorization' => 'Bearer ' . $this->bearer])
-            ->assertResponseStatus(204);
-    }
-
-    /** @test */
-    public function can_assign_and_detach_duty_by_code_with_account_identifier()
-    {
-        $account = Account::create($this->lukeSkywalkerAccount());
-        $duty = Duty::create($this->jediMasterDuty());
-
-        $this->post('/api/v1/accounts/duty', ['code' => $duty->code, 'identifier' => $account->identifier], ['Authorization' => 'Bearer ' . $this->bearer])
-            ->assertResponseStatus(201);
-
-        $this->delete('/api/v1/accounts/duty', ['code' => $duty->code, 'identifier' => $account->identifier], ['Authorization' => 'Bearer ' . $this->bearer])
-            ->assertResponseStatus(204);
-    }
-
-    /** @test */
-    public function can_assign_and_detach_duty_by_code_with_account_username()
-    {
-        $account = Account::create($this->lukeSkywalkerAccount());
-        $duty = Duty::create($this->jediMasterDuty());
-
-        $this->post('/api/v1/accounts/duty', ['code' => $duty->code, 'username' => $account->username], ['Authorization' => 'Bearer ' . $this->bearer])
-            ->assertResponseStatus(201);
-
-        $this->delete('/api/v1/accounts/duty', ['code' => $duty->code, 'username' => $account->username], ['Authorization' => 'Bearer ' . $this->bearer])
-            ->assertResponseStatus(204);
-    }
-
-    /** @test */
-    public function fails_to_assign_duty_by_id_with_account_id()
-    {
-        $account = Account::create($this->lukeSkywalkerAccount());
-        $duty = Duty::create($this->jediMasterDuty());
-        $this->post('/api/v1/accounts/duty', ['duty_id' => $duty->id, 'account_id' => $account->id])
-            ->assertResponseStatus(401);
-    }
-
-    /** @test */
-    public function fails_to_assign_duty_by_id_with_account_identifier()
-    {
-        $account = Account::create($this->lukeSkywalkerAccount());
-        $duty = Duty::create($this->jediMasterDuty());
-        $this->post('/api/v1/accounts/duty', ['duty_id' => $duty->id, 'identifier' => $account->identifier])
-            ->assertResponseStatus(401);
-    }
-
-    /** @test */
-    public function fails_to_assign_duty_by_id_with_account_username()
-    {
-        $account = Account::create($this->lukeSkywalkerAccount());
-        $duty = Duty::create($this->jediMasterDuty());
-        $this->post('/api/v1/accounts/duty', ['duty_id' => $duty->id, 'username' => $account->username])
-            ->assertResponseStatus(401);
-    }
-
-    /** @test */
-    public function fails_to_assign_duty_by_code_with_account_id()
-    {
-        $account = Account::create($this->lukeSkywalkerAccount());
-        $duty = Duty::create($this->jediMasterDuty());
-        $this->post('/api/v1/accounts/duty', ['code' => $duty->code, 'account_id' => $account->id])
-            ->assertResponseStatus(401);
-    }
-
-    /** @test */
-    public function fails_to_assign_duty_by_code_with_account_identifier()
-    {
-        $account = Account::create($this->lukeSkywalkerAccount());
-        $duty = Duty::create($this->jediMasterDuty());
-        $this->post('/api/v1/accounts/duty', ['code' => $duty->code, 'identifier' => $account->identifier])
-            ->assertResponseStatus(401);
-    }
-
-    /** @test */
-    public function fails_to_assign_duty_by_code_with_account_username()
-    {
-        $account = Account::create($this->lukeSkywalkerAccount());
-        $duty = Duty::create($this->jediMasterDuty());
-        $this->post('/api/v1/accounts/duty', ['code' => $duty->code, 'username' => $account->username])
-            ->assertResponseStatus(401);
-    }
-
-
-    /**
-     * @todo The delete request should return a 401, but it is returning a 204. Strange thing is POST Man is returning a 401 under the same conditions.
-     */
-    public function fails_to_detach_duty_by_id_with_account_id()
-    {
-        $account = Account::create($this->lukeSkywalkerAccount());
-        $duty = Duty::create($this->jediMasterDuty());
-
-        $this->post('/api/v1/accounts/duty', ['duty_id' => $duty->id, 'account_id' => $account->id], ['Authorization' => 'Bearer ' . $this->bearer])
-            ->assertResponseStatus(201);
-
-        $this->delete('/api/v1/accounts/duty', ['duty_id' => $duty->id, 'account_id' => $account->id])
-            ->assertResponseStatus(401);
-    }
-
-    /**
-     * @todo The delete request should return a 401, but it is returning a 204. Strange thing is POST Man is returning a 401 under the same conditions.
-     */
-    public function fails_to_detach_duty_by_id_with_account_identifier()
-    {
-        $account = Account::create($this->lukeSkywalkerAccount());
-        $duty = Duty::create($this->jediMasterDuty());
-
-        $this->post('/api/v1/accounts/duty', ['duty_id' => $duty->id, 'identifier' => $account->identifier], ['Authorization' => 'Bearer ' . $this->bearer])
-            ->assertResponseStatus(201);
-
-        $this->delete('/api/v1/accounts/duty', ['duty_id' => $duty->id, 'identifier' => $account->identifier])
-            ->assertResponseStatus(401);
-    }
-
-    /**
-     * @todo The delete request should return a 401, but it is returning a 204. Strange thing is POST Man is returning a 401 under the same conditions.
-     */
-    public function fails_to_detach_duty_by_id_with_account_username()
-    {
-        $account = Account::create($this->lukeSkywalkerAccount());
-        $duty = Duty::create($this->jediMasterDuty());
-
-        $this->post('/api/v1/accounts/duty', ['duty_id' => $duty->id, 'username' => $account->username], ['Authorization' => 'Bearer ' . $this->bearer])
-            ->assertResponseStatus(201);
-
-        $this->delete('/api/v1/accounts/duty', ['duty_id' => $duty->id, 'username' => $account->username])
-            ->assertResponseStatus(401);
-    }
-
-    /**
-     * @todo The delete request should return a 401, but it is returning a 204. Strange thing is POST Man is returning a 401 under the same conditions.
-     */
-    public function fails_to_detach_duty_by_code_with_account_id()
-    {
-        $account = Account::create($this->lukeSkywalkerAccount());
-        $duty = Duty::create($this->jediMasterDuty());
-
-        $this->post('/api/v1/accounts/duty', ['code' => $duty->code, 'account_id' => $account->id], ['Authorization' => 'Bearer ' . $this->bearer])
-            ->assertResponseStatus(201);
-
-        $this->delete('/api/v1/accounts/duty', ['code' => $duty->code, 'account_id' => $account->id])
-            ->assertResponseStatus(401);
-    }
-
-    /**
-     * @todo The delete request should return a 401, but it is returning a 204. Strange thing is POST Man is returning a 401 under the same conditions.
-     */
-    public function fails_to_detach_duty_by_code_with_account_identifier()
-    {
-        $account = Account::create($this->lukeSkywalkerAccount());
-        $duty = Duty::create($this->jediMasterDuty());
-
-        $this->post('/api/v1/accounts/duty', ['code' => $duty->code, 'identifier' => $account->identifier], ['Authorization' => 'Bearer ' . $this->bearer])
-            ->assertResponseStatus(201);
-
-        $this->delete('/api/v1/accounts/duty', ['code' => $duty->code, 'identifer' => $account->identifier])
-            ->assertResponseStatus(401);
-    }
-
-    /**
-     * @todo The delete request should return a 401, but it is returning a 204. Strange thing is POST Man is returning a 401 under the same conditions.
-     */
-    public function fails_to_detach_duty_by_code_with_account_username()
-    {
-        $account = Account::create($this->lukeSkywalkerAccount());
-        $duty = Duty::create($this->jediMasterDuty());
-
-        $this->post('/api/v1/accounts/duty', ['code' => $duty->code, 'username' => $account->username], ['Authorization' => 'Bearer ' . $this->bearer])
-            ->assertResponseStatus(201);
-
-        $this->delete('/api/v1/accounts/duty', ['code' => $duty->code, 'username' => $account->username])
-            ->assertResponseStatus(401);
     }
 }

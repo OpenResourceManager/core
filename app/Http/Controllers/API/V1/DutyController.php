@@ -6,7 +6,6 @@ use App\Http\Models\API\Duty;
 use App\Http\Transformers\DutyTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Input;
 
 class DutyController extends ApiController
 {
@@ -61,22 +60,26 @@ class DutyController extends ApiController
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
             'code' => 'string|required|min:3|unique:duties,deleted_at,NULL',
             'name' => 'string|required|max:25',
         ]);
 
-        if ($validator->fails()) throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store duty.', $validator->errors());
+        #if ($validator->fails()) throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store duty.', $validator->errors());
 
-        Duty::where('code', Input::get('code'))->onlyTrashed()->restore();
+        if ($toRestore = Duty::onlyTrashed()->where('code', $data['code'])->first()) {
+            $toRestore->restore();
+        }
 
-        $data = [
-            'label' => Input::get('name'),
-            'code' => Input::get('code')
-        ];
+        $trans = new DutyTransformer();
 
-        $item = Duty::updateOrCreate(['code' => Input::get('code')], $data);
-        return $this->response->created(route('api.duties.show', ['id' => $item->id]), $item);
+
+        $item = Duty::updateOrCreate(['code' => $data['code']], $data);
+        $item = $trans->transform($item);
+
+        return $this->response->created(route('api.duties.show', ['id' => $item->id]), ['data' => $item]);
     }
 
     /**
@@ -89,14 +92,16 @@ class DutyController extends ApiController
     public function destroy(Request $request)
     {
         $data = $request->all();
+
         $validator = Validator::make($data, [
             'code' => 'string|required_without:id|min:3|exists:duties,deleted_at,NULL',
             'id' => 'integer|required_without:code|min:1|exists:duties,deleted_at,NULL'
         ]);
 
-        if ($validator->fails()) throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy duty.', $validator->errors());
+        #if ($validator->fails()) throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy duty.', $validator->errors());
 
         $duty = (array_key_exists('id', $data)) ? Duty::findOrFail($data['id']) : Duty::where('code', $data['code'])->firstOrFail();
+
         return ($duty->delete()) ? $this->destroySuccessResponse() : $this->destroyFailure('duty');
     }
 }
