@@ -2,12 +2,12 @@
 
 namespace App\Http\Models\API;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Account extends Model
+class Account extends BaseApiModel
 {
     use SoftDeletes;
+
     public $full_name;
     protected $table = 'accounts';
     protected $dates = ['deleted_at'];
@@ -85,4 +85,11 @@ class Account extends Model
         return $this->belongsToMany(Duty::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function emails()
+    {
+        return $this->hasMany(Email::class);
+    }
 }
