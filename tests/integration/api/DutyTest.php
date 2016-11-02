@@ -82,7 +82,7 @@ class DutyTest extends TestCase
     {
         $duty = Duty::create($this->jediMasterDuty());
 
-        $this->get('/api/v1/duty/' . $duty->id, ['Authorization' => 'Bearer ' . $this->bearer])
+        $this->get('/api/v1/duties/' . $duty->id, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200)
             ->seeJsonStructure($this->itemStructureResponse);
     }
@@ -92,7 +92,7 @@ class DutyTest extends TestCase
     {
         $duty = Duty::create($this->jediMasterDuty());
 
-        $this->get('/api/v1/duty/code/' . $duty->code, ['Authorization' => 'Bearer ' . $this->bearer])
+        $this->get('/api/v1/duties/code/' . $duty->code, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200)
             ->seeJsonStructure($this->itemStructureResponse);
     }

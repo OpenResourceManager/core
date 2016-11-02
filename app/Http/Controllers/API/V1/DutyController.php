@@ -64,10 +64,10 @@ class DutyController extends ApiController
 
         $validator = Validator::make($data, [
             'code' => 'string|required|min:3|unique:duties,deleted_at,NULL',
-            'name' => 'string|required|max:25',
+            'label' => 'string|required|max:25',
         ]);
 
-        #if ($validator->fails()) throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store duty.', $validator->errors());
+        if ($validator->fails()) throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store duty.', $validator->errors());
 
         if ($toRestore = Duty::onlyTrashed()->where('code', $data['code'])->first()) {
             $toRestore->restore();
@@ -75,11 +75,11 @@ class DutyController extends ApiController
 
         $trans = new DutyTransformer();
 
-
         $item = Duty::updateOrCreate(['code' => $data['code']], $data);
+
         $item = $trans->transform($item);
 
-        return $this->response->created(route('api.duties.show', ['id' => $item->id]), ['data' => $item]);
+        return $this->response->created(route('api.duties.show', ['id' => $item['id']]), ['data' => $item]);
     }
 
     /**
@@ -97,7 +97,9 @@ class DutyController extends ApiController
             'code' => 'string|required_without:id|min:3|exists:duties,deleted_at,NULL',
             'id' => 'integer|required_without:code|min:1|exists:duties,deleted_at,NULL'
         ]);
-
+        /**
+         * @todo fix validation
+         */
         #if ($validator->fails()) throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy duty.', $validator->errors());
 
         $duty = (array_key_exists('id', $data)) ? Duty::findOrFail($data['id']) : Duty::where('code', $data['code'])->firstOrFail();
