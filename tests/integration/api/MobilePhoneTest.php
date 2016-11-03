@@ -36,11 +36,9 @@ class MobilePhoneTest extends TestCase
     /** @test */
     public function can_get_mobile_phone_pages()
     {
-        $response = $this->get('/api/v1/mobile-phones?page=2', ['Authorization' => 'Bearer ' . $this->bearer]);
-        #  ->seeStatusCode(200)
-        #  ->seeJsonStructure($this->paginatedStructure);
-
-        dd($response->decodeResponseJson());
+        $this->get('/api/v1/mobile-phones?page=2', ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(200)
+            ->seeJsonStructure($this->paginatedStructure);
     }
 
 }
