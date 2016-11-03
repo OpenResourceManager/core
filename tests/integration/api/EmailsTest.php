@@ -28,24 +28,6 @@ class EmailsTest extends TestCase
     /**
      * @return array
      */
-    public function lukeSkywalkerAccount()
-    {
-        return [
-            'identifier' => '9999999',
-            'name_prefix' => 'Mr.',
-            'name_first' => 'Luke',
-            'name_middle' => 'Cliegg',
-            'name_last' => 'Lars',
-            'name_postfix' => 'Jedi',
-            'name_phonetic' => 'Luke Skywalker',
-            'username' => 'skwall',
-            'primary_duty' => Duty::firstOrFail()->id,
-        ];
-    }
-
-    /**
-     * @return array
-     */
     public function jediMasterDuty()
     {
         return [
