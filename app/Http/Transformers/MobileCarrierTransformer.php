@@ -16,6 +16,8 @@ class MobileCarrierTransformer extends TransformerAbstract
     {
         return [
             'id' => (int)$item->id,
+            'label' => $item->label,
+            'code' => $item->code
         ];
     }
 

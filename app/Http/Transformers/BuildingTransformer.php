@@ -7,7 +7,7 @@ use App\Http\Models\API\Building;
 
 class BuildingTransformer extends TransformerAbstract
 {
-    
+
     /**
      * @param Building $item
      * @return array
@@ -16,6 +16,9 @@ class BuildingTransformer extends TransformerAbstract
     {
         return [
             'id' => (int)$item->id,
+            'campus_id' => (int)$item->campus_id,
+            'code' => $item->code,
+            'label' => $item->label
         ];
     }
 

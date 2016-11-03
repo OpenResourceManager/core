@@ -16,6 +16,12 @@ class RoomTransformer extends TransformerAbstract
     {
         return [
             'id' => (int)$item->id,
+            'code' => $item->code,
+            'building_id' => (int)$item->building_id,
+            'floor_number' => (int)$item->floor_number,
+            'floor_label' => $item->floor_label,
+            'room_number' => (int)$item->room_number,
+            'room_label' => $item->room_label
         ];
     }
 

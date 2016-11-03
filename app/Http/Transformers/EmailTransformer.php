@@ -14,17 +14,17 @@ use App\Http\Models\API\Email;
 class EmailTransformer extends TransformerAbstract
 {
     /**
-     * @param Email $email
+     * @param Email $item
      * @return array
      */
-    public function transform(Email $email)
+    public function transform(Email $item)
     {
         return [
-            'id' => $email->id,
-            'account_id' => $email->account_id,
-            'address' => $email->address,
-            'created' => date('Y-m-d - H:i:s', strtotime($email->created_at)),
-            'updated' => date('Y-m-d - H:i:s', strtotime($email->updated_at)),
+            'id' => $item->id,
+            'account_id' => $item->account_id,
+            'address' => $item->address,
+            'created' => date('Y-m-d - H:i:s', strtotime($item->created_at)),
+            'updated' => date('Y-m-d - H:i:s', strtotime($item->updated_at)),
         ];
     }
 

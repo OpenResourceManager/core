@@ -16,6 +16,10 @@ class CourseTransformer extends TransformerAbstract
     {
         return [
             'id' => (int)$item->id,
+            'department_id' => (int)$item->department_id,
+            'code' => $item->code,
+            'course_level' => $item->course_level,
+            'label' => $item->label
         ];
     }
 

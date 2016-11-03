@@ -14,17 +14,17 @@ use App\Http\Models\API\Duty;
 class DutyTransformer extends TransformerAbstract
 {
     /**
-     * @param Duty $duty
+     * @param Duty $item
      * @return array
      */
-    public function transform(Duty $duty)
+    public function transform(Duty $item)
     {
         return [
-            'id' => $duty->id,
-            'code' => $duty->code,
-            'label' => $duty->label,
-            'created' => date('Y-m-d - H:i:s', strtotime($duty->created_at)),
-            'updated' => date('Y-m-d - H:i:s', strtotime($duty->updated_at)),
+            'id' => $item->id,
+            'code' => $item->code,
+            'label' => $item->label,
+            'created' => date('Y-m-d - H:i:s', strtotime($item->created_at)),
+            'updated' => date('Y-m-d - H:i:s', strtotime($item->updated_at)),
         ];
     }
 

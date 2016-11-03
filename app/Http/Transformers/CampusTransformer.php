@@ -16,6 +16,8 @@ class CampusTransformer extends TransformerAbstract
     {
         return [
             'id' => (int)$item->id,
+            'code' => $item->code,
+            'label' => $item->label
         ];
     }
 

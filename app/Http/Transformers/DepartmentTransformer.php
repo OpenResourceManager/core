@@ -7,7 +7,7 @@ use App\Http\Models\API\Department;
 
 class DepartmentTransformer extends TransformerAbstract
 {
-    
+
     /**
      * @param Department $item
      * @return array
@@ -16,6 +16,9 @@ class DepartmentTransformer extends TransformerAbstract
     {
         return [
             'id' => (int)$item->id,
+            'academic' => (bool)$item->academic,
+            'code' => $item->code,
+            'label' => $item->label
         ];
     }
 

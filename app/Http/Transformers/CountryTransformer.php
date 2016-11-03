@@ -7,7 +7,7 @@ use App\Http\Models\API\Country;
 
 class CountryTransformer extends TransformerAbstract
 {
-    
+
     /**
      * @param Country $item
      * @return array
@@ -16,6 +16,9 @@ class CountryTransformer extends TransformerAbstract
     {
         return [
             'id' => (int)$item->id,
+            'label' => $item->label,
+            'code' => $item->code,
+            'abbreviation' => $item->abbreviation
         ];
     }
 
