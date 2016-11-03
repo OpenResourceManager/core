@@ -2,34 +2,28 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Http\Models\API\Campus;
 use Illuminate\Http\Request;
 
 class CampusController extends ApiController
 {
     /**
-     * Display a listing of the resource.
+     * Show all Campuses
      *
-     * @return \Illuminate\Http\Response
+     * Get a paginated array of Campuses.
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $accounts = Campus::paginate($this->resultLimit);
+        return $this->response->paginator($accounts, new CampusController);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -40,7 +34,7 @@ class CampusController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -49,32 +43,9 @@ class CampusController extends ApiController
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

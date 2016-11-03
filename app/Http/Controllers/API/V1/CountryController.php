@@ -2,28 +2,23 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Http\Models\API\Country;
+use App\Http\Transformers\CountryTransformer;
 use Illuminate\Http\Request;
 
 class CountryController extends ApiController
 {
     /**
-     * Display a listing of the resource.
+     * Show all Countries
      *
-     * @return \Illuminate\Http\Response
+     * Get a paginated array of Countries.
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $accounts = Country::paginate($this->resultLimit);
+        return $this->response->paginator($accounts, new CountryTransformer);
     }
 
     /**
@@ -33,40 +28,6 @@ class CountryController extends ApiController
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
     {
         //
     }

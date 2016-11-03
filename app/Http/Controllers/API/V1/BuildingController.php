@@ -2,34 +2,29 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Http\Models\API\Building;
+use App\Http\Transformers\BuildingTransformer;
 use Illuminate\Http\Request;
 
 class BuildingController extends ApiController
 {
     /**
-     * Display a listing of the resource.
+     * Show all Buildings
      *
-     * @return \Illuminate\Http\Response
+     * Get a paginated array of Buildings.
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $accounts = Building::paginate($this->resultLimit);
+        return $this->response->paginator($accounts, new BuildingTransformer);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -40,7 +35,7 @@ class BuildingController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -49,32 +44,9 @@ class BuildingController extends ApiController
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
