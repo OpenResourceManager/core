@@ -19,7 +19,7 @@
 * Combined various routes. Example there is now only one route to delete a model. You can supply a code/identifier/username/id and it will be deleted. The same idea applies to model assignments.
 
 ### Development
-* Travis CI integration.
+* Travis CI integration. [Builds are here](https://travis-ci.org/SLERP-ERP/SLERP_Core).
 * Hosting Project on GitHub & Private GitLab.
 * Using Dingo API framework. Makes development easier and faster.
 * Using  OpenAPI (FKA: Swagger) for API documentation. [The standard for API documentation.](http://swagger.io/introducing-the-open-api-initiative/)
