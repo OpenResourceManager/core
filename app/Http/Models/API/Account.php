@@ -4,11 +4,14 @@ namespace App\Http\Models\API;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use League\Flysystem\Exception;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 class Account extends BaseApiModel
 {
     use SoftDeletes;
-
     public $full_name;
     protected $table = 'accounts';
     protected $dates = ['deleted_at'];
@@ -104,7 +107,14 @@ class Account extends BaseApiModel
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     *
+     *
+     * Relationships
+     *
+     */
+
+    /**
+     * @return BelongsToMany
      */
     public function duties()
     {
@@ -112,10 +122,34 @@ class Account extends BaseApiModel
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return BelongsTo
+     */
+    public function primaryDuty()
+    {
+        return $this->belongsTo(Duty::class, 'primary_duty');
+    }
+
+    /**
+     * @return HasMany
      */
     public function emails()
     {
         return $this->hasMany(Email::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function mobilePhones()
+    {
+        return $this->hasMany(MobilePhone::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
     }
 }

@@ -3,24 +3,22 @@
 namespace App\Http\Models\API;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
-class State extends BaseApiModel
+class Country extends BaseApiModel
 {
     use SoftDeletes;
-    protected $table = 'states';
+    protected $table = 'countries';
     protected $dates = ['deleted_at'];
-    protected $fillable = ['country_id', 'label', 'code'];
-    protected $touches = [Country::class];
+    protected $fillable = ['label', 'code', 'abbreviation'];
 
     /**
-     * @return BelongsTo
+     * @return HasMany
      */
-    public function country()
+    public function states()
     {
-        return $this->belongsTo(Country::class);
+        return $this->hasMany(State::class);
     }
 
     /**
@@ -37,13 +35,5 @@ class State extends BaseApiModel
     public function accounts()
     {
         return $this->hasManyThrough(Account::class, Address::class);
-    }
-
-    /**
-     * @return HasManyThrough
-     */
-    public function inhabitants()
-    {
-        return $this->accounts();
     }
 }
