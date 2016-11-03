@@ -13,7 +13,7 @@ class State extends BaseApiModel
     protected $table = 'states';
     protected $dates = ['deleted_at'];
     protected $fillable = ['country_id', 'label', 'code'];
-    protected $touches = [Country::class];
+    protected $touches = ['country'];
 
     /**
      * @return BelongsTo

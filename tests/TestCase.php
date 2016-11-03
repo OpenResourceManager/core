@@ -19,6 +19,28 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     protected $bearer = '';
 
     /**
+     * The expected paginated structure
+     *
+     * @var array
+     */
+    protected $paginatedStructure = [
+        'data' => [],
+        'meta' => [
+            'pagination' => [
+                'total',
+                'count',
+                'per_page',
+                'current_page',
+                'total_pages',
+                'links' => [
+                    'next',
+                    'previous'
+                ]
+            ]
+        ]
+    ];
+
+    /**
      * Creates the application.
      *
      * @return \Illuminate\Foundation\Application
@@ -36,8 +58,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     {
         parent::setUp();
         Artisan::call('migrate:refresh');
-        Artisan::call('db:seed', ['--class' => 'EntrustTableSeeder']);
-        Artisan::call('db:seed', ['--class' => 'UsersTableSeeder']);
+        Artisan::call('db:seed');
     }
 
     public function tearDown()

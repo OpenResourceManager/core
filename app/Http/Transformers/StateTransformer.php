@@ -16,7 +16,7 @@ class StateTransformer extends TransformerAbstract
     {
         $countryTrans = new CountryTransformer();
 
-        $country = $countryTrans->transform($item->country()->get());
+        $country = $countryTrans->transform($item->country);
 
         return [
             'id' => (int)$item->id,

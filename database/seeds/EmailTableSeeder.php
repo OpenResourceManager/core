@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Http\Models\API\Email;
 
-class DatabaseSeeder extends Seeder
+class EmailTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(SystemEntitiesSeeder::class);
+        factory(Email::class, 500)->create();
     }
 }

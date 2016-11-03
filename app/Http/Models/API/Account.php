@@ -91,7 +91,7 @@ class Account extends BaseApiModel
     /**
      * @return string
      */
-    public function format_full_name()
+    public function format_full_name($proper = false)
     {
         if (empty($this->name_middle)) {
             // Form CN from first and last name since middle name is empty.
@@ -100,6 +100,12 @@ class Account extends BaseApiModel
             // Middle name exists
             $full_name = $this->format_first_name() . ' ' . $this->format_middle_name() . ' ' . $this->format_last_name();
         }
+
+        if ($proper) {
+            if (!empty($this->name_prefix)) $full_name = $this->name_prefix . ' ' . $full_name;
+            if (!empty($this->name_postfix)) $full_name = $full_name . ' ' . $this->name_postfix;
+        }
+
         // Return the name
         // Make sure that the first letter of the first and last name are capital
         $this->full_name = ucwords(strtolower($full_name), ' ');

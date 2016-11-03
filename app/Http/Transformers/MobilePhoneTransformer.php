@@ -18,7 +18,7 @@ class MobilePhoneTransformer extends TransformerAbstract
 
         $carrierTrans = new MobileCarrierTransformer();
 
-        $carrier = $carrierTrans->transform($item->mobileCarrier()->get());
+        $carrier = $carrierTrans->transform($item->mobileCarrier);
 
         return [
             'id' => (int)$item->id,

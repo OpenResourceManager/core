@@ -11,7 +11,7 @@ class Email extends BaseApiModel
     protected $table = 'emails';
     protected $dates = ['deleted_at'];
     protected $fillable = ['account_id', 'address', 'verified'];
-    protected $touches = [Account::class];
+    protected $touches = ['account'];
 
     /**
      * @return BelongsTo

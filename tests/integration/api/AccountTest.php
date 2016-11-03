@@ -57,38 +57,9 @@ class AccountTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        factory(Account::class, 150)->create();
         factory(Duty::class, 5)->create();
+        factory(Account::class, 150)->create();
         $this->logIn();
-    }
-
-    /**
-     * @return array
-     */
-    public function lukeSkywalkerAccount()
-    {
-        return [
-            'identifier' => '9999999',
-            'name_prefix' => 'Mr.',
-            'name_first' => 'Luke',
-            'name_middle' => 'Cliegg',
-            'name_last' => 'Lars',
-            'name_postfix' => 'Jedi',
-            'name_phonetic' => 'Luke Skywalker',
-            'username' => 'skwall',
-            'primary_duty' => Duty::firstOrFail()->id,
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function jediMasterDuty()
-    {
-        return [
-            'code' => 'JEDI',
-            'label' => 'Jedi Master'
-        ];
     }
 
     /**
@@ -104,28 +75,13 @@ class AccountTest extends TestCase
     {
         $this->get('/api/v1/accounts?page=2', ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200)
-            ->seeJsonStructure([
-                'data' => [],
-                'meta' => [
-                    'pagination' => [
-                        'total',
-                        'count',
-                        'per_page',
-                        'current_page',
-                        'total_pages',
-                        'links' => [
-                            'next',
-                            'previous'
-                        ]
-                    ]
-                ]
-            ]);
+            ->seeJsonStructure($this->paginatedStructure);
     }
 
     /** @test */
     public function can_get_account_by_id()
     {
-        $account = Account::create($this->lukeSkywalkerAccount());
+        $account = Account::create(lukeSkywalkerAccount());
 
         $this->get('/api/v1/accounts/' . $account->id, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200)
@@ -135,7 +91,7 @@ class AccountTest extends TestCase
     /** @test */
     public function can_get_account_by_identifier()
     {
-        $account = Account::create($this->lukeSkywalkerAccount());
+        $account = Account::create(lukeSkywalkerAccount());
 
         $this->get('/api/v1/accounts/identifier/' . $account->identifier, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200)
@@ -145,7 +101,7 @@ class AccountTest extends TestCase
     /** @test */
     public function can_get_account_by_username()
     {
-        $account = Account::create($this->lukeSkywalkerAccount());
+        $account = Account::create(lukeSkywalkerAccount());
 
         $this->get('/api/v1/accounts/username/' . $account->username, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200)
@@ -163,7 +119,7 @@ class AccountTest extends TestCase
     /** @test */
     public function fails_to_get_account_without_auth()
     {
-        $account = Account::create($this->lukeSkywalkerAccount());
+        $account = Account::create(lukeSkywalkerAccount());
 
         $this->get('/api/v1/accounts/' . $account->id)
             ->seeStatusCode(401)
@@ -173,7 +129,7 @@ class AccountTest extends TestCase
     /** @test */
     public function fails_to_get_account_by_identifier_without_auth()
     {
-        $account = Account::create($this->lukeSkywalkerAccount());
+        $account = Account::create(lukeSkywalkerAccount());
 
         $this->get('/api/v1/accounts/identifier/' . $account->identifier)
             ->seeStatusCode(401)
@@ -183,7 +139,7 @@ class AccountTest extends TestCase
     /** @test */
     public function fails_to_get_account_by_username_without_auth()
     {
-        $account = Account::create($this->lukeSkywalkerAccount());
+        $account = Account::create(lukeSkywalkerAccount());
 
         $this->get('/api/v1/accounts/username/' . $account->username)
             ->seeStatusCode(401)
@@ -193,7 +149,7 @@ class AccountTest extends TestCase
     /** @test */
     public function can_create_account()
     {
-        $this->post('/api/v1/accounts', $this->lukeSkywalkerAccount(), ['Authorization' => 'Bearer ' . $this->bearer])
+        $this->post('/api/v1/accounts', lukeSkywalkerAccount(), ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(201)
             ->seeJsonStructure($this->itemStructureResponse);
     }
@@ -201,8 +157,8 @@ class AccountTest extends TestCase
     /** @todo make this work */
     public function can_update_account()
     {
-        $luke = $this->lukeSkywalkerAccount();
-        $jedi = Duty::create($this->jediMasterDuty());
+        $luke = lukeSkywalkerAccount();
+        $jedi = Duty::create(jediMasterDuty());
 
         $response1 = $this->post('/api/v1/accounts', $luke, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(201)
@@ -233,7 +189,7 @@ class AccountTest extends TestCase
     /** @test */
     public function fails_to_create_account_without_auth()
     {
-        $this->post('/api/v1/accounts', $this->lukeSkywalkerAccount())
+        $this->post('/api/v1/accounts', lukeSkywalkerAccount())
             ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }
@@ -241,7 +197,7 @@ class AccountTest extends TestCase
     /** @test */
     public function can_destroy_account_by_id()
     {
-        $account = Account::create($this->lukeSkywalkerAccount());
+        $account = Account::create(lukeSkywalkerAccount());
 
         $this->delete('/api/v1/accounts', ['id' => $account->id], ['Authorization' => 'Bearer ' . $this->bearer])
             ->assertResponseStatus(204);
@@ -250,7 +206,7 @@ class AccountTest extends TestCase
     /** @test */
     public function can_destroy_account_by_identifier()
     {
-        $account = Account::create($this->lukeSkywalkerAccount());
+        $account = Account::create(lukeSkywalkerAccount());
 
         $this->delete('/api/v1/accounts', ['identifier' => $account->identifier], ['Authorization' => 'Bearer ' . $this->bearer])
             ->assertResponseStatus(204);
@@ -259,7 +215,7 @@ class AccountTest extends TestCase
     /** @test */
     public function can_destroy_account_by_username()
     {
-        $account = Account::create($this->lukeSkywalkerAccount());
+        $account = Account::create(lukeSkywalkerAccount());
 
         $this->delete('/api/v1/accounts', ['username' => $account->username], ['Authorization' => 'Bearer ' . $this->bearer])
             ->assertResponseStatus(204);
@@ -268,7 +224,7 @@ class AccountTest extends TestCase
     /** @test */
     public function fails_to_destroy_account_by_id_without_auth()
     {
-        $account = Account::create($this->lukeSkywalkerAccount());
+        $account = Account::create(lukeSkywalkerAccount());
 
         $this->delete('/api/v1/accounts', ['id' => $account->id])
             ->assertResponseStatus(401)
@@ -278,7 +234,7 @@ class AccountTest extends TestCase
     /** @test */
     public function fails_to_destroy_account_by_identifier_without_auth()
     {
-        $account = Account::create($this->lukeSkywalkerAccount());
+        $account = Account::create(lukeSkywalkerAccount());
 
         $this->delete('/api/v1/accounts', ['identifier' => $account->identifier])
             ->assertResponseStatus(401)
@@ -288,7 +244,7 @@ class AccountTest extends TestCase
     /** @test */
     public function fails_to_destroy_account_by_username_without_auth()
     {
-        $account = Account::create($this->lukeSkywalkerAccount());
+        $account = Account::create(lukeSkywalkerAccount());
 
         $this->delete('/api/v1/accounts', ['username' => $account->username])
             ->assertResponseStatus(401)

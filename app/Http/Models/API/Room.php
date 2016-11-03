@@ -18,7 +18,7 @@ class Room extends BaseApiModel
         'room_number',
         'room_label'
     ];
-    protected $touches = [Building::class];
+    protected $touches = ['building'];
 
     /**
      * @return BelongsTo

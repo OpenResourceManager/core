@@ -14,7 +14,7 @@ class Building extends BaseApiModel
     protected $table = 'buildings';
     protected $dates = ['deleted_at'];
     protected $fillable = ['campus_id', 'code', 'label'];
-    protected $touches = [Campus::class];
+    protected $touches = ['campus'];
 
     /**
      * @return HasMany

@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class MobilePhone extends BaseApiModel
 {
     use SoftDeletes;
-    protected $table = 'phones';
+    protected $table = 'mobile_phones';
     protected $dates = ['deleted_at'];
     protected $fillable = ['account_id', 'number', 'country_code', 'mobile_carrier_id', 'verified'];
-    protected $touches = [Account::class];
+    protected $touches = ['account'];
 
 
     /**

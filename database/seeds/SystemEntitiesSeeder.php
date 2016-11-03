@@ -1,10 +1,17 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Http\Models\API\Duty;
+use App\Http\Models\API\Country;
+use App\Http\Models\API\State;
+use App\Http\Models\API\MobileCarrier;
+use Illuminate\Database\Eloquent\Model;
+use App\User;
 use App\Role;
 use App\Permission;
 
-class EntrustTableSeeder extends Seeder
+
+class SystemEntitiesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +20,8 @@ class EntrustTableSeeder extends Seeder
      */
     public function run()
     {
+        Model::unguard();
+
         $readDuty = Permission::create([
             'name' => 'read-duty',
             'display_name' => 'Read Duty',
@@ -81,5 +90,20 @@ class EntrustTableSeeder extends Seeder
         ]);
 
         $admin->attachPermissions(Permission::all());
+
+        $adminUser = User::create([
+            'name' => 'Administrator',
+            'username' => 'admin',
+            'email' => 'admin@domain.tld',
+            'password' => bcrypt('Cascade')
+        ]);
+        $adminUser->attachRole(Role::where('name', 'admin')->first());
+
+        Country::insert(countryList());
+        State::insert(stateList());
+        MobileCarrier::insert(mobileCarrierList());
+        Duty::insert(defaultDuties());
+
+        Model::reguard();
     }
 }
