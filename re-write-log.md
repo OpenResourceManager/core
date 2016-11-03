@@ -24,7 +24,8 @@
 * Using Dingo API framework. Makes development easier and faster.
 * Using  OpenAPI (FKA: Swagger) for API documentation. [The standard for API documentation.](http://swagger.io/introducing-the-open-api-initiative/)
 * PHPUnit tests. Finally got this going! Super important.
+* Moved to Laravel 5.3
 
 ### Misc
 * Changing the name of this project to SLERP... "Sage's Lean ERP" or "Super Lean ERP" or "Super Light ERP"... not sure what it sands for yet :-)
-* Cleaned up alot of code.
+* Cleaned up a lot of code.
