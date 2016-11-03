@@ -10,7 +10,7 @@ class MobilePhone extends BaseApiModel
     use SoftDeletes;
     protected $table = 'phones';
     protected $dates = ['deleted_at'];
-    protected $fillable = ['account_id', 'number', 'ext', 'country_code', 'mobile_carrier_id', 'verified'];
+    protected $fillable = ['account_id', 'number', 'country_code', 'mobile_carrier_id', 'verified'];
     protected $touches = [Account::class];
 
 

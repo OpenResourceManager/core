@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API\V1;
 
 use Illuminate\Http\Request;
 
-class EmailController extends ApiController
+class DepartmentController extends ApiController
 {
     /**
      * Display a listing of the resource.

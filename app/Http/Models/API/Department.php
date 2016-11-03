@@ -10,7 +10,7 @@ class Department extends BaseApiModel
     use SoftDeletes;
     protected $table = 'departments';
     protected $dates = ['deleted_at'];
-    protected $fillable = ['academic', 'code', 'name'];
+    protected $fillable = ['academic', 'code', 'label'];
 
     /**
      * @return HasMany
