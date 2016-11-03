@@ -25,8 +25,8 @@ function generateVerificationToken($min_length = 3, $max_length = 6)
         $length = (int)rand($min_length, $max_length);
         $token = strtoupper(Illuminate\Support\Str::random($length)); // Generate a token with the chosen length
         if (strpos($token, 'O') !== false) $token = str_replace('O', '0', $token);
-        $email_exist = \App\Http\Models\Api\Email::where('verification_token', $token)->first(); // Get any emails with that token
-        $phone_exists = \App\Http\Models\Api\MobilePhone::where('verification_token', $token)->first(); // Get any phones with that token
+        $email_exist = App\Http\Models\Api\Email::where('verification_token', $token)->first(); // Get any emails with that token
+        $phone_exists = App\Http\Models\Api\MobilePhone::where('verification_token', $token)->first(); // Get any phones with that token
         if (!empty($email_exist) || !empty($phone_exists)) $exists = true;
     } while ($exists);
     return $token;
