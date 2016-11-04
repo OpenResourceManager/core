@@ -105,11 +105,11 @@ $api->version('v1', function ($api) {
              * Emails
              */
             $api->group(['prefix' => 'emails'], function ($api) {
-                $api->group(['middleware' => 'permission:read-account'], function ($api) {
+                $api->group(['middleware' => 'permission:read-account-ext'], function ($api) {
                     $api->get('/', ['uses' => 'EmailController@index', 'as' => 'api.emails.index']);
 
                 });
-                $api->group(['middleware' => 'permission:write-account'], function ($api) {
+                $api->group(['middleware' => 'permission:write-account-ext'], function ($api) {
 
                 });
             });
@@ -118,11 +118,11 @@ $api->version('v1', function ($api) {
              * Mobile Phones
              */
             $api->group(['prefix' => 'mobile-phones'], function ($api) {
-                $api->group(['middleware' => 'permission:read-account'], function ($api) {
+                $api->group(['middleware' => 'permission:read-account-ext'], function ($api) {
                     $api->get('/', ['uses' => 'MobilePhoneController@index', 'as' => 'api.mobile-phones.index']);
 
                 });
-                $api->group(['middleware' => 'permission:write-account'], function ($api) {
+                $api->group(['middleware' => 'permission:write-account-ext'], function ($api) {
 
                 });
             });
@@ -131,10 +131,11 @@ $api->version('v1', function ($api) {
              * Addresses
              */
             $api->group(['prefix' => 'addresses'], function ($api) {
-                $api->group(['middleware' => 'permission:read-account'], function ($api) {
+                $api->group(['middleware' => 'permission:read-account-ext'], function ($api) {
+                    $api->get('/', ['uses' => 'AddressController@index', 'as' => 'api.addresses.index']);
 
                 });
-                $api->group(['middleware' => 'permission:write-account'], function ($api) {
+                $api->group(['middleware' => 'permission:write-account-ext'], function ($api) {
 
                 });
             });
