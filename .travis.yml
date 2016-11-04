@@ -4,7 +4,6 @@ notifications:
 language: php
 os:
   - linux
-  - osx
 php:
   - '5.6'
   - '7.0'
