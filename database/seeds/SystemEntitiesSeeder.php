@@ -305,7 +305,7 @@ class SystemEntitiesSeeder extends Seeder
         ]);
 
         $adminRole->attachPermissions(Permission::all());
-        $serviceViewer->attachPermission([
+        $serviceViewer->attachPermissions([
             $readAccount,
             $readAddress,
             $readClassified,
@@ -319,9 +319,9 @@ class SystemEntitiesSeeder extends Seeder
             $readMobileCarrier,
             $readMobilePhone,
             $readRooms,
-            $readState
+            $readState,
         ]);
-        $accountAdmin->attachPermission([
+        $accountAdmin->attachPermissions([
             $readAccount,
             $writeAccount,
             $readMobilePhone,
@@ -332,9 +332,9 @@ class SystemEntitiesSeeder extends Seeder
             $writeEmail,
             $readClassified,
             $writeClassified,
-            $readDuty
+            $readDuty,
         ]);
-        $accountManager->attachPermission([
+        $accountManager->attachPermissions([
             $readAccount,
             $writeAccount,
             $readMobilePhone,
@@ -346,7 +346,7 @@ class SystemEntitiesSeeder extends Seeder
             $readClassified,
             $readDuty,
         ]);
-        $accountViewer->attachPermission([
+        $accountViewer->attachPermissions([
             $readAccount,
             $readMobilePhone,
             $readAddress,
@@ -354,22 +354,22 @@ class SystemEntitiesSeeder extends Seeder
             $readClassified,
             $readDuty,
         ]);
-        $accountBasic->attachPermission([
+        $accountBasic->attachPermissions([
             $readAccount,
             $readMobilePhone,
             $readAddress,
             $readEmail,
             $readDuty,
         ]);
-        $applicationManager->attachPermission([
+        $applicationManager->attachPermissions([
             $readCountry,
             $writeCountry,
             $readState,
             $writeState,
             $readMobileCarrier,
-            $writeMobileCarrier
+            $writeMobileCarrier,
         ]);
-        $institutionalManager->attachPermission([
+        $institutionalManager->attachPermissions([
             $readCampus,
             $writeCampus,
             $readBuilding,
@@ -382,11 +382,12 @@ class SystemEntitiesSeeder extends Seeder
             $writeDuty,
             $readRooms,
             $writeRooms,
-            $readAccount
+            $readAccount,
         ]);
-        $resourceViewer->attachPermission([
+        $resourceViewer->attachPermissions([
             $readCampus,
             $readBuilding,
+            $readRooms,
             $readDuty,
             $readDepartments,
             $readCourses,
@@ -408,6 +409,6 @@ class SystemEntitiesSeeder extends Seeder
         MobileCarrier::insert(mobileCarrierList());
         Duty::insert(defaultDuties());
 
-        Model::re();
+        Model::reguard();
     }
 }
