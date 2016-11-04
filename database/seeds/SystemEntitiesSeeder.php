@@ -46,16 +46,16 @@ class SystemEntitiesSeeder extends Seeder
         ]);
 
 
-        // This permission applies to user related objects ie: SSN & password
-        $readClassifiedExtended = Permission::create([
+        // This permission applies to account related objects ie: SSN & password
+        $readClassified = Permission::create([
             'name' => 'read-classified',
             'display_name' => 'Read Classified Attributes',
             'description' => 'Can write classified account attributes.',
         ]);
 
 
-        // This permission applies to user related objects ie: SSN & password
-        $writeClassifiedExtended = Permission::create([
+        // This permission applies to account related objects ie: SSN & password
+        $writeClassified = Permission::create([
             'name' => 'write-classified',
             'display_name' => 'Write Classified Attributes',
             'description' => 'Can write classified account attributes.',
@@ -256,29 +256,143 @@ class SystemEntitiesSeeder extends Seeder
             'description' => 'Has all permissions.'
         ]);
 
-        $serviceRole = Role::create([
-            'name' => 'service-admin',
-            'display_name' => 'Service Admin',
-            'description' => 'Has all permissions. Used for service accounts.'
+        $serviceViewer = Role::create([
+            'name' => 'service-viewer',
+            'display_name' => 'Service Viewer',
+            'description' => 'Has global read permissions. Used for service accounts.'
         ]);
 
         $accountAdmin = Role::create([
             'name' => 'account-admin',
-            'display_name' => 'Account Admin',
+            'display_name' => 'Account Administrator',
             'description' => 'Has permissions to manage account attributes, including classified attributes.'
         ]);
 
         $accountManager = Role::create([
             'name' => 'account-manager',
             'display_name' => 'Account Manager',
-            'description' => 'Has permissions to manage account attributes.'
+            'description' => 'Has permissions to manage account attributes and view classified data.'
         ]);
 
+        $accountViewer = Role::create([
+            'name' => 'account-viewer',
+            'display_name' => 'Account Viewer',
+            'description' => 'Has read only permissions to all account data including classified data.'
+        ]);
+
+        $accountBasic = Role::create([
+            'name' => 'account-basic',
+            'display_name' => 'Account Basic',
+            'description' => 'Has read only permissions to all account data, cannot view classified information.'
+        ]);
+
+        $applicationManager = Role::create([
+            'name' => 'application-manager',
+            'display_name' => 'Application Manager',
+            'description' => 'Has permissions to manage application resources.'
+        ]);
+
+        $institutionalManager = Role::create([
+            'name' => 'institution-manager',
+            'display_name' => 'Institution Manager',
+            'description' => 'Has permissions to control institutional resources.'
+        ]);
+
+        $resourceViewer = Role::create([
+            'name' => 'resource-viewer',
+            'display_name' => 'Resource Viewer',
+            'description' => 'Has permissions to view basic institution and application resources.'
+        ]);
 
         $adminRole->attachPermissions(Permission::all());
-        $serviceRole->attachPermission(Permission::all());
+        $serviceViewer->attachPermission([
+            $readAccount,
+            $readAddress,
+            $readClassified,
+            $readBuilding,
+            $readCampus,
+            $readCountry,
+            $readCourses,
+            $readDepartments,
+            $readDuty,
+            $readEmail,
+            $readMobileCarrier,
+            $readMobilePhone,
+            $readRooms,
+            $readState
+        ]);
         $accountAdmin->attachPermission([
-
+            $readAccount,
+            $writeAccount,
+            $readMobilePhone,
+            $writeMobilePhone,
+            $readAddress,
+            $writeAddress,
+            $readEmail,
+            $writeEmail,
+            $readClassified,
+            $writeClassified,
+            $readDuty
+        ]);
+        $accountManager->attachPermission([
+            $readAccount,
+            $writeAccount,
+            $readMobilePhone,
+            $writeMobilePhone,
+            $readAddress,
+            $writeAddress,
+            $readEmail,
+            $writeEmail,
+            $readClassified,
+            $readDuty,
+        ]);
+        $accountViewer->attachPermission([
+            $readAccount,
+            $readMobilePhone,
+            $readAddress,
+            $readEmail,
+            $readClassified,
+            $readDuty,
+        ]);
+        $accountBasic->attachPermission([
+            $readAccount,
+            $readMobilePhone,
+            $readAddress,
+            $readEmail,
+            $readDuty,
+        ]);
+        $applicationManager->attachPermission([
+            $readCountry,
+            $writeCountry,
+            $readState,
+            $writeState,
+            $readMobileCarrier,
+            $writeMobileCarrier
+        ]);
+        $institutionalManager->attachPermission([
+            $readCampus,
+            $writeCampus,
+            $readBuilding,
+            $writeBuilding,
+            $readDepartments,
+            $writeDepartments,
+            $writeCourses,
+            $readCourses,
+            $readDuty,
+            $writeDuty,
+            $readRooms,
+            $writeRooms,
+            $readAccount
+        ]);
+        $resourceViewer->attachPermission([
+            $readCampus,
+            $readBuilding,
+            $readDuty,
+            $readDepartments,
+            $readCourses,
+            $readCountry,
+            $readState,
+            $readMobileCarrier,
         ]);
 
         $adminUser = User::create([
