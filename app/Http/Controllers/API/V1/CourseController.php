@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Models\API\Course;
+use App\Http\Transformers\CourseTransformer;
 use Illuminate\Http\Request;
 
 class CourseController extends ApiController
@@ -17,7 +18,7 @@ class CourseController extends ApiController
     public function index()
     {
         $accounts = Course::paginate($this->resultLimit);
-        return $this->response->paginator($accounts, new CourseController);
+        return $this->response->paginator($accounts, new CourseTransformer);
     }
 
     /**

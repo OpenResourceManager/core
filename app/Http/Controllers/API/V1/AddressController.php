@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers\API\V1;
 
-use App\Http\Models\API\Campus;
-use App\Http\Transformers\CampusTransformer;
+use App\Http\Models\API\Address;
+use App\Http\Transformers\AddressTransformer;
 use Illuminate\Http\Request;
 
-class CampusController extends ApiController
+class AddressController extends ApiController
 {
     /**
-     * Show all Campuses
+     * Show all Addresses
      *
-     * Get a paginated array of Campuses.
+     * Get a paginated array of Addresses.
      *
      * @return \Dingo\Api\Http\Response
      */
     public function index()
     {
-        $accounts = Campus::paginate($this->resultLimit);
-        return $this->response->paginator($accounts, new CampusTransformer);
+        $accounts = Address::paginate($this->resultLimit);
+        return $this->response->paginator($accounts, new AddressTransformer);
     }
 
     /**
@@ -28,17 +28,6 @@ class CampusController extends ApiController
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
     {
         //
     }
