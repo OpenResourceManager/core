@@ -12,6 +12,7 @@ class DevelopmentSeeder extends Seeder
     public function run()
     {
         $this->call(SystemEntitiesSeeder::class);
+        $this->call(DevelopmentUserSeeder::class);
         $this->call(AccountsTableSeeder::class);
         $this->call(EmailTableSeeder::class);
         /**

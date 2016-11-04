@@ -402,6 +402,7 @@ class SystemEntitiesSeeder extends Seeder
             'email' => 'admin@domain.tld',
             'password' => bcrypt('Cascade')
         ]);
+
         $adminUser->attachRole(Role::where('name', 'admin')->first());
 
         Country::insert(countryList());
