@@ -22,6 +22,34 @@ class EmailController extends ApiController
     }
 
     /**
+     * Show a Email
+     *
+     * Display an Email by providing it's ID attribute.
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function show($id)
+    {
+        $item = Email::findOrFail($id);
+        return $this->response->item($item, new EmailTransformer);
+    }
+
+    /**
+     * Show Duty by Address
+     *
+     * Display an Email by providing it's Address attribute.
+     *
+     * @param $code
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showFromAddress($address)
+    {
+        $item = Email::where('address', $address)->firstOrFail();
+        return $this->response->item($item, new EmailTransformer);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request

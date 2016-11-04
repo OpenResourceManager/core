@@ -22,6 +22,20 @@ class MobilePhoneController extends ApiController
     }
 
     /**
+     * Show a MobilePhone
+     *
+     * Display a Mobile Phone by providing it's ID attribute.
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function show($id)
+    {
+        $item = MobilePhone::findOrFail($id);
+        return $this->response->item($item, new MobilePhoneTransformer);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request

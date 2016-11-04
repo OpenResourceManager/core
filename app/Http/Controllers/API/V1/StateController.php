@@ -22,6 +22,34 @@ class StateController extends ApiController
     }
 
     /**
+     * Show a State
+     *
+     * Display a State by providing it's ID attribute.
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function show($id)
+    {
+        $item = State::findOrFail($id);
+        return $this->response->item($item, new StateTransformer);
+    }
+
+    /**
+     * Show State by Code
+     *
+     * Display a State by providing it's Code attribute.
+     *
+     * @param $code
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showFromCode($code)
+    {
+        $item = State::where('code', $code)->firstOrFail();
+        return $this->response->item($item, new StateTransformer);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request

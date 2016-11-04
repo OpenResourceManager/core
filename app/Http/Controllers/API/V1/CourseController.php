@@ -22,6 +22,34 @@ class CourseController extends ApiController
     }
 
     /**
+     * Show a Course
+     *
+     * Display a Course by providing it's ID attribute.
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function show($id)
+    {
+        $item = Course::findOrFail($id);
+        return $this->response->item($item, new CourseTransformer);
+    }
+
+    /**
+     * Show Course by Code
+     *
+     * Display a Course by providing it's Code attribute.
+     *
+     * @param $code
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showFromCode($code)
+    {
+        $item = Course::where('code', $code)->firstOrFail();
+        return $this->response->item($item, new CourseTransformer);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request

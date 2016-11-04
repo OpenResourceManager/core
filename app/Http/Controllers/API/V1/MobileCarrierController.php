@@ -22,6 +22,34 @@ class MobileCarrierController extends ApiController
     }
 
     /**
+     * Show a MobileCarrier
+     *
+     * Display a Mobile Carrier by providing it's ID attribute.
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function show($id)
+    {
+        $item = MobileCarrier::findOrFail($id);
+        return $this->response->item($item, new MobileCarrierTransformer);
+    }
+
+    /**
+     * Show MobileCarrier by Code
+     *
+     * Display a Mobile Carrier by providing it's Code attribute.
+     *
+     * @param $code
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showFromCode($code)
+    {
+        $item = MobileCarrier::where('code', $code)->firstOrFail();
+        return $this->response->item($item, new MobileCarrierTransformer);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request

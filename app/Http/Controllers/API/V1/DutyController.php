@@ -32,8 +32,8 @@ class DutyController extends ApiController
      */
     public function show($id)
     {
-        $duty = Duty::findOrFail($id);
-        return $this->response->item($duty, new DutyTransformer);
+        $item = Duty::findOrFail($id);
+        return $this->response->item($item, new DutyTransformer);
     }
 
     /**
@@ -46,8 +46,8 @@ class DutyController extends ApiController
      */
     public function showFromCode($code)
     {
-        $duty = Duty::where('code', $code)->firstOrFail();
-        return $this->response->item($duty, new DutyTransformer);
+        $item = Duty::where('code', $code)->firstOrFail();
+        return $this->response->item($item, new DutyTransformer);
     }
 
     /**

@@ -16,6 +16,24 @@ class MobilePhoneTest extends TestCase
      */
     protected $errorStructure = ['message', 'status_code'];
 
+    /**
+     * @var array
+     */
+    protected $itemStructureResponse = [
+        'data' => [
+            'id',
+            'account_id',
+            'number',
+            'country_code',
+            'verified',
+            'verification_token',
+            'mobile_carrier',
+            'updated',
+            'created',
+
+        ]
+    ];
+
     public function setUp()
     {
         parent::setUp();
@@ -39,6 +57,14 @@ class MobilePhoneTest extends TestCase
         $this->get('/api/v1/mobile-phones?page=2', ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200)
             ->seeJsonStructure($this->paginatedStructure);
+    }
+
+    /** @test */
+    public function can_get_mobile_phone_by_id()
+    {
+        $this->get('/api/v1/mobile-phones/' . MobilePhone::get()->random()->id, ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(200)
+            ->seeJsonStructure($this->itemStructureResponse);
     }
 
 }

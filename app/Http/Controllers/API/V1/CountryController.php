@@ -22,6 +22,34 @@ class CountryController extends ApiController
     }
 
     /**
+     * Show a Country
+     *
+     * Display a Country by providing it's ID attribute.
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function show($id)
+    {
+        $item = Country::findOrFail($id);
+        return $this->response->item($item, new CountryTransformer);
+    }
+
+    /**
+     * Show Duty by Country
+     *
+     * Display a Country by providing it's Code attribute.
+     *
+     * @param $code
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showFromCode($code)
+    {
+        $item = Country::where('code', $code)->firstOrFail();
+        return $this->response->item($item, new CountryTransformer);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request

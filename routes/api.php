@@ -33,6 +33,8 @@ $api->version('v1', function ($api) {
             $api->group(['prefix' => 'countries'], function ($api) {
                 $api->group(['middleware' => 'permission:read-country'], function ($api) {
                     $api->get('/', ['uses' => 'CountryController@index', 'as' => 'api.countries.index']);
+                    $api->get('/{id}', ['uses' => 'CountryController@show', 'as' => 'api.countries.show']);
+                    $api->get('/code/{code}', ['uses' => 'CountryController@showFromCode', 'as' => 'api.countries.show_from_code']);
 
                 });
                 $api->group(['middleware' => 'permission:write-country'], function ($api) {
@@ -46,6 +48,8 @@ $api->version('v1', function ($api) {
             $api->group(['prefix' => 'states'], function ($api) {
                 $api->group(['middleware' => 'permission:read-state'], function ($api) {
                     $api->get('/', ['uses' => 'StateController@index', 'as' => 'api.states.index']);
+                    $api->get('/{id}', ['uses' => 'StateController@show', 'as' => 'api.states.show']);
+                    $api->get('/code/{code}', ['uses' => 'StateController@showFromCode', 'as' => 'api.states.show_from_code']);
 
                 });
                 $api->group(['middleware' => 'permission:write-state'], function ($api) {
@@ -59,6 +63,8 @@ $api->version('v1', function ($api) {
             $api->group(['prefix' => 'mobile-carriers'], function ($api) {
                 $api->group(['middleware' => 'permission:read-mobile-carrier'], function ($api) {
                     $api->get('/', ['uses' => 'MobileCarrierController@index', 'as' => 'api.mobile-carriers.index']);
+                    $api->get('/{id}', ['uses' => 'MobileCarrierController@show', 'as' => 'api.mobile-carriers.show']);
+                    $api->get('/code/{code}', ['uses' => 'MobileCarrierController@showFromCode', 'as' => 'api.mobile-carriers.show_from_code']);
 
                 });
                 $api->group(['middleware' => 'permission:write-mobile-carrier'], function ($api) {
@@ -107,6 +113,8 @@ $api->version('v1', function ($api) {
             $api->group(['prefix' => 'emails'], function ($api) {
                 $api->group(['middleware' => 'permission:read-email'], function ($api) {
                     $api->get('/', ['uses' => 'EmailController@index', 'as' => 'api.emails.index']);
+                    $api->get('/{id}', ['uses' => 'EmailController@show', 'as' => 'api.emails.show']);
+                    $api->get('/address/{address}', ['uses' => 'EmailController@showFromAddress', 'as' => 'api.emails.show_from_address']);
 
                 });
                 $api->group(['middleware' => 'permission:write-email'], function ($api) {
@@ -120,6 +128,8 @@ $api->version('v1', function ($api) {
             $api->group(['prefix' => 'mobile-phones'], function ($api) {
                 $api->group(['middleware' => 'permission:read-mobile-phone'], function ($api) {
                     $api->get('/', ['uses' => 'MobilePhoneController@index', 'as' => 'api.mobile-phones.index']);
+                    $api->get('/{id}', ['uses' => 'MobilePhoneController@show', 'as' => 'api.mobile-phones.show']);
+                    $api->get('/code/{code}', ['uses' => 'MobilePhoneController@showFromCode', 'as' => 'api.mobile-phones.show_from_code']);
 
                 });
                 $api->group(['middleware' => 'permission:write-mobile-phone'], function ($api) {
@@ -133,6 +143,7 @@ $api->version('v1', function ($api) {
             $api->group(['prefix' => 'addresses'], function ($api) {
                 $api->group(['middleware' => 'permission:read-addresses'], function ($api) {
                     $api->get('/', ['uses' => 'AddressController@index', 'as' => 'api.addresses.index']);
+                    $api->get('/{id}', ['uses' => 'AddressController@show', 'as' => 'api.addresses.show']);
 
                 });
                 $api->group(['middleware' => 'permission:write-addresses'], function ($api) {
@@ -146,6 +157,8 @@ $api->version('v1', function ($api) {
             $api->group(['prefix' => 'campuses'], function ($api) {
                 $api->group(['middleware' => 'permission:read-campuses'], function ($api) {
                     $api->get('/', ['uses' => 'CampusController@index', 'as' => 'api.campuses.index']);
+                    $api->get('/{id}', ['uses' => 'CampusController@show', 'as' => 'api.campuses.show']);
+                    $api->get('/code/{code}', ['uses' => 'CampusController@showFromCode', 'as' => 'api.campuses.show_from_code']);
 
                 });
                 $api->group(['middleware' => 'permission:write-campuses'], function ($api) {
@@ -159,6 +172,8 @@ $api->version('v1', function ($api) {
             $api->group(['prefix' => 'buildings'], function ($api) {
                 $api->group(['middleware' => 'permission:read-building'], function ($api) {
                     $api->get('/', ['uses' => 'BuildingController@index', 'as' => 'api.buildings.index']);
+                    $api->get('/{id}', ['uses' => 'BuildingController@show', 'as' => 'api.buildings.show']);
+                    $api->get('/code/{code}', ['uses' => 'BuildingController@showFromCode', 'as' => 'api.buildings.show_from_code']);
 
                 });
                 $api->group(['middleware' => 'permission:write-building'], function ($api) {
@@ -172,6 +187,8 @@ $api->version('v1', function ($api) {
             $api->group(['prefix' => 'rooms'], function ($api) {
                 $api->group(['middleware' => 'permission:read-room'], function ($api) {
                     $api->get('/', ['uses' => 'RoomController@index', 'as' => 'api.rooms.index']);
+                    $api->get('/{id}', ['uses' => 'RoomController@show', 'as' => 'api.room.show']);
+                    $api->get('/code/{code}', ['uses' => 'RoomController@showFromCode', 'as' => 'api.room.show_from_code']);
 
                 });
                 $api->group(['middleware' => 'permission:write-room'], function ($api) {
@@ -185,6 +202,8 @@ $api->version('v1', function ($api) {
             $api->group(['prefix' => 'departments'], function ($api) {
                 $api->group(['middleware' => 'permission:read-department'], function ($api) {
                     $api->get('/', ['uses' => 'DepartmentController@index', 'as' => 'api.departments.index']);
+                    $api->get('/{id}', ['uses' => 'DepartmentController@show', 'as' => 'api.departments.show']);
+                    $api->get('/code/{code}', ['uses' => 'DepartmentController@showFromCode', 'as' => 'api.departments.show_from_code']);
 
                 });
                 $api->group(['middleware' => 'permission:write-department'], function ($api) {
@@ -198,6 +217,8 @@ $api->version('v1', function ($api) {
             $api->group(['prefix' => 'courses'], function ($api) {
                 $api->group(['middleware' => 'permission:read-courses'], function ($api) {
                     $api->get('/', ['uses' => 'CourseController@index', 'as' => 'api.courses.index']);
+                    $api->get('/{id}', ['uses' => 'CourseController@show', 'as' => 'api.courses.show']);
+                    $api->get('/code/{code}', ['uses' => 'CourseController@showFromCode', 'as' => 'api.courses.show_from_code']);
 
                 });
                 $api->group(['middleware' => 'permission:write-courses'], function ($api) {

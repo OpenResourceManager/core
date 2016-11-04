@@ -492,3 +492,13 @@ function jediMasterDuty()
         'label' => 'Jedi Master'
     ];
 }
+
+function jediMasterEmail()
+{
+    return [
+        'account_id' => \App\Http\Models\API\Account::where('identifier', '9999999')->where('username', 'skwall')->firstOrFail()->id,
+        'address' => 'JediMaster@gmail.com',
+        'verified' => false,
+        'verification_token' => generateVerificationToken()
+    ];
+}

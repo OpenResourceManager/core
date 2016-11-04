@@ -22,6 +22,34 @@ class RoomController extends ApiController
     }
 
     /**
+     * Show a Room
+     *
+     * Display a Room by providing it's ID attribute.
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function show($id)
+    {
+        $item = Room::findOrFail($id);
+        return $this->response->item($item, new RoomTransformer);
+    }
+
+    /**
+     * Show Room by Code
+     *
+     * Display a Room by providing it's Code attribute.
+     *
+     * @param $code
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showFromCode($code)
+    {
+        $item = Room::where('code', $code)->firstOrFail();
+        return $this->response->item($item, new RoomTransformer);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request

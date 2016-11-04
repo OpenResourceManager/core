@@ -22,6 +22,20 @@ class AddressController extends ApiController
     }
 
     /**
+     * Show an Address
+     *
+     * Display an Address by providing it's ID attribute.
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function show($id)
+    {
+        $item = Address::findOrFail($id);
+        return $this->response->item($item, new AddressTransformer);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
@@ -40,6 +54,6 @@ class AddressController extends ApiController
      */
     public function destroy($id)
     {
-        //
+
     }
 }

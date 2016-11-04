@@ -16,6 +16,22 @@ class EmailsTest extends TestCase
      */
     protected $errorStructure = ['message', 'status_code'];
 
+    /**
+     * @var array
+     */
+    protected $itemStructureResponse = [
+        'data' => [
+            'id',
+            'account_id',
+            'address',
+            'verified',
+            'verification_token',
+            'updated',
+            'created',
+
+        ]
+    ];
+
     public function setUp()
     {
         parent::setUp();
@@ -50,6 +66,17 @@ class EmailsTest extends TestCase
         $this->get('/api/v1/emails?page=2', ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200)
             ->seeJsonStructure($this->paginatedStructure);
+    }
+
+    /** @test */
+    public function can_get_email_by_id()
+    {
+        Account::create(lukeSkywalkerAccount());
+        $email = Email::create(jediMasterEmail());
+
+        $this->get('/api/v1/emails/' . $email->id, ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(200)
+            ->seeJsonStructure($this->itemStructureResponse);
     }
 
 }
