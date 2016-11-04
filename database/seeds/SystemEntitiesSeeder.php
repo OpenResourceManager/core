@@ -34,6 +34,67 @@ class SystemEntitiesSeeder extends Seeder
             'description' => 'Can write duty attributes.',
         ]);
 
+        $readCampus = Permission::create([
+            'name' => 'read-campus',
+            'display_name' => 'Read Campuses',
+            'description' => 'Can read campus attributes.',
+        ]);
+
+        $writeCampus = Permission::create([
+            'name' => 'write-campus',
+            'display_name' => 'Write Campuses',
+            'description' => 'Can write campus attributes.',
+        ]);
+
+        $readBuilding = Permission::create([
+            'name' => 'read-building',
+            'display_name' => 'Read Buildings',
+            'description' => 'Can read building attributes.',
+        ]);
+
+        $writeBuilding = Permission::create([
+            'name' => 'write-building',
+            'display_name' => 'Write Buildings',
+            'description' => 'Can write building attributes.',
+        ]);
+
+        $readRooms = Permission::create([
+            'name' => 'read-rooms',
+            'display_name' => 'Read Rooms',
+            'description' => 'Can read rooms attributes.',
+        ]);
+
+        $writeRooms = Permission::create([
+            'name' => 'write-rooms',
+            'display_name' => 'Write Rooms',
+            'description' => 'Can write rooms attributes.',
+        ]);
+
+        $readDepartments = Permission::create([
+            'name' => 'read-departments',
+            'display_name' => 'Read Departments',
+            'description' => 'Can read departments attributes.',
+        ]);
+
+        $writeDepartments = Permission::create([
+            'name' => 'write-departments',
+            'display_name' => 'Write Departments',
+            'description' => 'Can write departments attributes.',
+        ]);
+
+        $readCourses = Permission::create([
+            'name' => 'read-courses',
+            'display_name' => 'Read Courses',
+            'description' => 'Can read courses attributes.',
+        ]);
+
+        $writeCourses = Permission::create([
+            'name' => 'write-courses',
+            'display_name' => 'Write Courses',
+            'description' => 'Can write courses attributes.',
+        ]);
+
+
         $readAccount = Permission::create([
             'name' => 'read-account',
             'display_name' => 'Read Account',
@@ -47,7 +108,7 @@ class SystemEntitiesSeeder extends Seeder
         ]);
 
         /**
-         * This permission applies to user related objects ie phone numbers, emails
+         * This permission applies to user related objects ie phone numbers, emails, address
          */
         $readAccountExtended = Permission::create([
             'name' => 'read-account-ext',
@@ -104,6 +165,6 @@ class SystemEntitiesSeeder extends Seeder
         MobileCarrier::insert(mobileCarrierList());
         Duty::insert(defaultDuties());
 
-        Model::reguard();
+        Model::re();
     }
 }
