@@ -1,11 +1,14 @@
 <?php
 
 /**
+ * Formats a phone number
+ *
+ * Returns a human readable phone number.
+ *
  * @param string $number
  * @param string $country_code
  * @return string
  */
-
 function formatPhoneNumber($number, $country_code = false)
 {
     $formatted = "(" . substr($number, 0, 3) . ") " . substr($number, 3, 3) . "-" . substr($number, 6);
@@ -14,6 +17,10 @@ function formatPhoneNumber($number, $country_code = false)
 }
 
 /**
+ * Generate a Verification Token
+ *
+ * Generates a unique token for phone and email verifications.
+ *
  * @param int $min_length
  * @param int $max_length
  * @return mixed|string
@@ -33,6 +40,10 @@ function generateVerificationToken($min_length = 3, $max_length = 6)
 }
 
 /**
+ * Verifies a resource with token
+ *
+ * Verifies phone numbers and emails via the token passed in.
+ *
  * @param $token
  * @return bool
  */
@@ -59,6 +70,10 @@ function verifyToken($token)
 }
 
 /**
+ * Returns an array of countries
+ *
+ * This is used to pre-seed the database with production data.
+ *
  * @return array
  */
 function countryList()
@@ -66,7 +81,6 @@ function countryList()
     $now = Carbon\Carbon::now('utc')->toDateTimeString();
 
     return [
-
         ['label' => 'Afghanistan', 'code' => 'AFG', 'abbreviation' => 'AF', 'created_at' => $now, 'updated_at' => $now],
         ['label' => 'Albania', 'code' => 'ALB', 'abbreviation' => 'AL', 'created_at' => $now, 'updated_at' => $now],
         ['label' => 'Algeria', 'code' => 'DZA', 'abbreviation' => 'DZ', 'created_at' => $now, 'updated_at' => $now],
@@ -311,6 +325,10 @@ function countryList()
 }
 
 /**
+ * Returns an array of states
+ *
+ * This is used to pre-seed the database with production data.
+ *
  * @return array
  */
 function stateList()
@@ -390,6 +408,8 @@ function stateList()
 }
 
 /**
+ * Returns an array of Mobile Carriers
+ *
  * @return array
  */
 function mobileCarrierList()
@@ -412,6 +432,13 @@ function mobileCarrierList()
     ];
 }
 
+/**
+ * Returns an array of Duties
+ *
+ * This is used to pre-seed the database with production data.
+ *
+ * @return array
+ */
 function defaultDuties()
 {
     $now = Carbon\Carbon::now('utc')->toDateTimeString();
@@ -429,6 +456,10 @@ function defaultDuties()
 }
 
 /**
+ * Array of building name endings
+ *
+ * Returns an array of building name postfixes used for generating dummy data.
+ *
  * @return array
  */
 function buildingPostfixes()
@@ -445,6 +476,10 @@ function buildingPostfixes()
 }
 
 /**
+ * Array of geographic directions.
+ *
+ * Used for generating dummy data.
+ *
  * @return array
  */
 function directions()
@@ -458,6 +493,10 @@ function directions()
 }
 
 /**
+ * Array of floor names
+ *
+ * Used for generating dummy data.
+ *
  * @return array
  */
 function roomFloorLabels()
@@ -470,6 +509,11 @@ function roomFloorLabels()
     ];
 }
 
+/**
+ * Dummy account data
+ *
+ * @return array
+ */
 function lukeSkywalkerAccount()
 {
     return [
@@ -485,6 +529,11 @@ function lukeSkywalkerAccount()
     ];
 }
 
+/**
+ * Dummy Duty data
+ *
+ * @return array
+ */
 function jediMasterDuty()
 {
     return [
@@ -493,6 +542,11 @@ function jediMasterDuty()
     ];
 }
 
+/**
+ * Dummy email data
+ *
+ * @return array
+ */
 function jediMasterEmail()
 {
     return [
