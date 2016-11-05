@@ -38,7 +38,8 @@ $api->version('v1', function ($api) {
 
                 });
                 $api->group(['middleware' => 'permission:write-country'], function ($api) {
-
+                    $api->post('/', ['uses' => 'CountryController@store', 'as' => 'api.countries.store']);
+                    $api->delete('/', ['uses' => 'CountryController@destroy', 'as' => 'api.countries.destroy']);
                 });
             });
 
@@ -53,7 +54,8 @@ $api->version('v1', function ($api) {
 
                 });
                 $api->group(['middleware' => 'permission:write-state'], function ($api) {
-
+                    $api->post('/', ['uses' => 'StateController@store', 'as' => 'api.states.store']);
+                    $api->delete('/', ['uses' => 'StateController@destroy', 'as' => 'api.states.destroy']);
                 });
             });
 
@@ -68,7 +70,8 @@ $api->version('v1', function ($api) {
 
                 });
                 $api->group(['middleware' => 'permission:write-mobile-carrier'], function ($api) {
-
+                    $api->post('/', ['uses' => 'MobileCarrierController@store', 'as' => 'api.mobile-carriers.store']);
+                    $api->delete('/', ['uses' => 'MobileCarrierController@destroy', 'as' => 'api.mobile-carriers.destroy']);
                 });
             });
 
@@ -118,7 +121,8 @@ $api->version('v1', function ($api) {
 
                 });
                 $api->group(['middleware' => 'permission:write-email'], function ($api) {
-
+                    $api->post('/', ['uses' => 'EmailController@store', 'as' => 'api.emails.store']);
+                    $api->delete('/', ['uses' => 'EmailController@destroy', 'as' => 'api.emails.destroy']);
                 });
             });
 
@@ -133,7 +137,8 @@ $api->version('v1', function ($api) {
 
                 });
                 $api->group(['middleware' => 'permission:write-mobile-phone'], function ($api) {
-
+                    $api->post('/', ['uses' => 'MobilePhoneController@store', 'as' => 'api.mobile-phones.store']);
+                    $api->delete('/', ['uses' => 'MobilePhoneController@destroy', 'as' => 'api.mobile-phones.destroy']);
                 });
             });
 
@@ -147,7 +152,8 @@ $api->version('v1', function ($api) {
 
                 });
                 $api->group(['middleware' => 'permission:write-addresses'], function ($api) {
-
+                    $api->post('/', ['uses' => 'AddressController@store', 'as' => 'api.addresses.store']);
+                    $api->delete('/', ['uses' => 'AddressController@destroy', 'as' => 'api.addresses.destroy']);
                 });
             });
 
@@ -162,7 +168,8 @@ $api->version('v1', function ($api) {
 
                 });
                 $api->group(['middleware' => 'permission:write-campuses'], function ($api) {
-
+                    $api->post('/', ['uses' => 'CampusController@store', 'as' => 'api.campuses.store']);
+                    $api->delete('/', ['uses' => 'CampusController@destroy', 'as' => 'api.campuses.destroy']);
                 });
             });
 
@@ -177,7 +184,8 @@ $api->version('v1', function ($api) {
 
                 });
                 $api->group(['middleware' => 'permission:write-building'], function ($api) {
-
+                    $api->post('/', ['uses' => 'BuildingController@store', 'as' => 'api.buildings.store']);
+                    $api->delete('/', ['uses' => 'BuildingController@destroy', 'as' => 'api.buildings.destroy']);
                 });
             });
 
@@ -192,7 +200,8 @@ $api->version('v1', function ($api) {
 
                 });
                 $api->group(['middleware' => 'permission:write-room'], function ($api) {
-
+                    $api->post('/', ['uses' => 'RoomController@store', 'as' => 'api.rooms.store']);
+                    $api->delete('/', ['uses' => 'RoomController@destroy', 'as' => 'api.rooms.destroy']);
                 });
             });
 
@@ -207,7 +216,8 @@ $api->version('v1', function ($api) {
 
                 });
                 $api->group(['middleware' => 'permission:write-department'], function ($api) {
-
+                    $api->post('/', ['uses' => 'DepartmentController@store', 'as' => 'api.departments.store']);
+                    $api->delete('/', ['uses' => 'DepartmentController@destroy', 'as' => 'api.departments.destroy']);
                 });
             });
 
@@ -222,7 +232,8 @@ $api->version('v1', function ($api) {
 
                 });
                 $api->group(['middleware' => 'permission:write-courses'], function ($api) {
-
+                    $api->post('/', ['uses' => 'CourseController@store', 'as' => 'api.courses.store']);
+                    $api->delete('/', ['uses' => 'CourseController@destroy', 'as' => 'api.courses.destroy']);
                 });
             });
 

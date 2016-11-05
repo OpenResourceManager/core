@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Input;
 
 class AccountController extends ApiController
 {
+
+    /**
+     * AccountController constructor.
+     */
+    public function __construct()
+    {
+        $this->noun = 'account';
+    }
+
     /**
      * Show all Accounts
      *
@@ -85,20 +94,20 @@ class AccountController extends ApiController
         $account = Input::all();
 
         $validator = Validator::make($data, [
-            'identifier' => 'alpha_num|required|max:7|min:6|unique:accounts,deleted_at,NULL',
+            'identifier' => 'alpha_num|required|max:7|min:6',
             'name_prefix' => 'string|max:20',
             'name_first' => 'string|required|min:1',
             'name_middle' => 'string',
             'name_last' => 'string|required|min:1',
             'name_postfix' => 'string|max:20',
             'name_phonetic' => 'string',
-            'username' => 'string|required|min:3|unique:accounts,deleted_at,NULL',
+            'username' => 'string|required|min:3',
             'primary_duty' => 'integer',
             'primary_duty_code' => 'string|exists:duties,code,deleted_at,NULL'
         ]);
 
         if ($validator->fails()) {
-            throw new StoreResourceFailedException('Could not store account.', $validator->errors());
+            throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
         }
 
         if (!empty(Input::get('primary_duty_code'))) {
@@ -108,7 +117,7 @@ class AccountController extends ApiController
             $duty = Duty::findOrFail(Input::get('primary_duty'));
             $account['primary_duty'] = $duty->id;
         } else {
-            throw new StoreResourceFailedException('Could not store account.', ['Neither a "primary_duty_code" or "primary_duty" value was provided.']);
+            throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', ['Neither a "primary_duty_code" or "primary_duty" value was provided.']);
         }
         // If the account is trashed restore them first.
         if ($accountToRestore = Account::onlyTrashed()->where('identifier', $data['identifier'])->first()) {
@@ -168,7 +177,7 @@ class AccountController extends ApiController
             $account = Account::where('username', $data['username'])->firstOrFail();
         } else {
             // The validator should throw something like this, but it's here just in case.
-            throw new StoreResourceFailedException('Could not assign duty to account.', ['You must supply one of the following parameters "account_id", "identifier", or "username".']);
+            throw new StoreResourceFailedException('Could not assign duty to ' . $this->noun . '.', ['You must supply one of the following parameters "account_id", "identifier", or "username".']);
         }
 
         if (array_key_exists('duty_id', $data)) {
@@ -177,7 +186,7 @@ class AccountController extends ApiController
             $duty = Duty::where('code', $data['code'])->firstOrFail();
         } else {
             // The validator should throw something like this, but it's here just in case.
-            throw new StoreResourceFailedException('Could not assign duty to account.', ['You must supply a "duty_id" or "code" parameter.']);
+            throw new StoreResourceFailedException('Could not assign duty to ' . $this->noun . '.', ['You must supply a "duty_id" or "code" parameter.']);
         }
 
         $account->duties()->attach($duty->id);
@@ -217,7 +226,7 @@ class AccountController extends ApiController
             $account = Account::where('username', $data['username'])->firstOrFail();
         } else {
             // The validator should throw something like this, but it's here just in case.
-            throw new DeleteResourceFailedException('Could not destroy account.', ['You must supply one of the following fields "id", "identifier", or "username".']);
+            throw new DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', ['You must supply one of the following fields "id", "identifier", or "username".']);
         }
 
         return ($account->delete()) ? $this->destroySuccessResponse() : $this->destroyFailure('account');
@@ -246,7 +255,7 @@ class AccountController extends ApiController
 
         /*
          * @todo Fix validator, right now it is causing: "Undefined offset: 1" error
-        if ($validator->fails()) throw new DeleteResourceFailedException('Could not destroy account.', $validator->errors());
+        if ($validator->fails()) throw new DeleteResourceFailedException('Could not destroy '.$this->noun.'.', $validator->errors());
         */
 
         if (array_key_exists('account_id', $data)) {
@@ -257,7 +266,7 @@ class AccountController extends ApiController
             $account = Account::where('username', $data['username'])->firstOrFail();
         } else {
             // The validator should throw something like this, but it's here just in case.
-            throw new DeleteResourceFailedException('Could not detach account from duty.', ['You must supply one of the following parameters "account_id", "identifier", or "username".']);
+            throw new DeleteResourceFailedException('Could not detach ' . $this->noun . ' from duty.', ['You must supply one of the following parameters "account_id", "identifier", or "username".']);
         }
 
         if (array_key_exists('duty_id', $data)) {
@@ -266,7 +275,7 @@ class AccountController extends ApiController
             $duty = Duty::where('code', $data['code'])->firstOrFail();
         } else {
             // The validator should throw something like this, but it's here just in case.
-            throw new DeleteResourceFailedException('Could not detach account from duty.', ['You must supply a "duty_id" or "code" parameter.']);
+            throw new DeleteResourceFailedException('Could not detach ' . $this->noun . ' from duty.', ['You must supply a "duty_id" or "code" parameter.']);
         }
 
         $account->duties()->detach($duty->id);

@@ -5,9 +5,18 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Models\API\MobilePhone;
 use App\Http\Transformers\MobilePhoneTransformer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class MobilePhoneController extends ApiController
 {
+    /**
+     * MobilePhoneController constructor.
+     */
+    public function __construct()
+    {
+        $this->noun = 'mobile phone';
+    }
+
     /**
      * Show all MobilePhones
      *
@@ -36,24 +45,60 @@ class MobilePhoneController extends ApiController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store Mobile Phone
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * Create Mobile Phone entry.
+     *
+     * @param Request $request
+     * @return \Dingo\Api\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'account_id' => 'integer|required|exists:accounts,id,deleted_at,NULL',
+            'number' => 'string|required|size:10',
+            'country_code' => 'string|min:1|max:4',
+            'mobile_carrier_id' => 'integer|min:1|required_without:mobile_carrier_code|exists:mobile_carriers,id,deleted_at,NULL',
+            'mobile_carrier_code' => 'string|min:3|required_without:mobile_carrier_id|exists:mobile_carriers,code,deleted_at,NULL',
+            'verified' => 'boolean'
+        ]);
+
+        if ($validator->fails()) throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+
+        $trans = new MobilePhoneTransformer();
+
+        $item = MobilePhone::create($data);
+
+        $item->verification_token = ($item->verified) ? null : generateVerificationToken();
+
+        $item->save();
+
+        $item = $trans->transform($item);
+
+        return $this->response->created(route('api.mobile-phones.show', ['id' => $item['id']]), ['data' => $item]);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Destroy Mobile Phone
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * Deletes the specified Mobile Phone by it's ID or Code attribute.
+     *
+     * @return mixed|void
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'id' => 'integer|required|min:1|exists:mobile_phones,deleted_at,NULL'
+        ]);
+
+        if ($validator->fails()) throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());
+
+        $item = MobilePhone::findOrFail($data['id']);
+
+        return ($item->delete()) ? $this->destroySuccessResponse() : $this->destroyFailure($this->noun);
     }
 }

@@ -5,9 +5,18 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Models\API\Room;
 use App\Http\Transformers\RoomTransformer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class RoomController extends ApiController
 {
+    /**
+     * RoomController constructor.
+     */
+    public function __construct()
+    {
+        $this->noun = 'room';
+    }
+
     /**
      * Show all Rooms
      *
@@ -50,24 +59,60 @@ class RoomController extends ApiController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store/Update/Restore Room
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * Create or update Room information.
+     *
+     * @param Request $request
+     * @return \Dingo\Api\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'code' => 'string|required|min:3',
+            'floor_number' => 'integer',
+            'floor_name' => 'string|max:20',
+            'room_number' => 'integer|required',
+            'room_name' => 'string|max:50',
+            'building_id' => 'integer|required_without:building_code|exists:buildings,id,deleted_at,NULL',
+            'building_code' => 'integer|required_without:building_id|exists:buildings,code,deleted_at,NULL'
+        ]);
+
+        if ($validator->fails()) throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+
+        if ($toRestore = Room::onlyTrashed()->where('code', $data['code'])->first()) $toRestore->restore();
+
+        $trans = new RoomTransformer();
+
+        $item = Room::updateOrCreate(['code' => $data['code']], $data);
+
+        $item = $trans->transform($item);
+
+        return $this->response->created(route('api.rooms.show', ['id' => $item['id']]), ['data' => $item]);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Destroy Room
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * Deletes the specified Room by it's ID or Code attribute.
+     *
+     * @return mixed|void
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'code' => 'string|required_without:id|min:3|exists:rooms,deleted_at,NULL',
+            'id' => 'integer|required_without:code|min:1|exists:rooms,deleted_at,NULL'
+        ]);
+
+        if ($validator->fails()) throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());
+
+        $item = (array_key_exists('id', $data)) ? Room::findOrFail($data['id']) : Room::where('code', $data['code'])->firstOrFail();
+
+        return ($item->delete()) ? $this->destroySuccessResponse() : $this->destroyFailure($this->noun);
     }
 }

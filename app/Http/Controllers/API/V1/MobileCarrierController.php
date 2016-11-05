@@ -5,9 +5,18 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Models\API\MobileCarrier;
 use App\Http\Transformers\MobileCarrierTransformer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class MobileCarrierController extends ApiController
 {
+    /**
+     * MobileCarrierController constructor.
+     */
+    public function __construct()
+    {
+        $this->noun = 'mobile carrier';
+    }
+
     /**
      * Show all MobileCarriers
      *
@@ -50,24 +59,55 @@ class MobileCarrierController extends ApiController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store/Update/Restore Mobile Carrier
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * Create or update Mobile Carrier information.
+     *
+     * @param Request $request
+     * @return \Dingo\Api\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'code' => 'string|required|min:3',
+            'label' => 'string|required|max:25',
+        ]);
+
+        if ($validator->fails()) throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+
+        if ($toRestore = MobileCarrier::onlyTrashed()->where('code', $data['code'])->first()) $toRestore->restore();
+
+        $trans = new MobileCarrierTransformer();
+
+        $item = MobileCarrier::updateOrCreate(['code' => $data['code']], $data);
+
+        $item = $trans->transform($item);
+
+        return $this->response->created(route('api.mobile-carriers.show', ['id' => $item['id']]), ['data' => $item]);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Destroy Mobile Carrier
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * Deletes the specified Mobile Carrier by it's ID or Code attribute.
+     *
+     * @return mixed|void
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'code' => 'string|required_without:id|min:3|exists:mobile_carriers,deleted_at,NULL',
+            'id' => 'integer|required_without:code|min:1|exists:mobile_carriers,deleted_at,NULL'
+        ]);
+
+        if ($validator->fails()) throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());
+
+        $item = (array_key_exists('id', $data)) ? MobileCarrier::findOrFail($data['id']) : MobileCarrier::where('code', $data['code'])->firstOrFail();
+
+        return ($item->delete()) ? $this->destroySuccessResponse() : $this->destroyFailure($this->noun);
     }
 }

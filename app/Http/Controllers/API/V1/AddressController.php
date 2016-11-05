@@ -5,9 +5,19 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Models\API\Address;
 use App\Http\Transformers\AddressTransformer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AddressController extends ApiController
 {
+
+    /**
+     * AddressController constructor.
+     */
+    public function __construct()
+    {
+        $this->noun = 'address';
+    }
+
     /**
      * Show all Addresses
      *
@@ -36,24 +46,59 @@ class AddressController extends ApiController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store Address
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * Store an Account's Address.
+     *
+     * @param Request $request
+     * @return \Dingo\Api\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'account_id' => 'integer|required|exists:accounts,id,deleted_at,NULL',
+            'addressee' => 'string|max:50',
+            'organization' => 'string|max:50',
+            'line_1' => 'string|required|max:50',
+            'line_2' => 'string|max:50',
+            'city' => 'string|max:50',
+            'state_id' => 'integer|required|exists:states,id,deleted_at,NULL',
+            'zip' => 'numeric|max:11',
+            'country_id' => 'integer|required|exists:countries,id,deleted_at,NULL',
+            'latitude' => 'numeric',
+            'longitude' => 'numeric'
+        ]);
+
+        if ($validator->fails()) throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+
+        $trans = new AddressTransformer();
+
+        $item = Address::create($data);
+
+        $item = $trans->transform($item);
+
+        return $this->response->created(route('api.addresses.show', ['id' => $item['id']]), ['data' => $item]);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Destroy Address
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * Deletes the specified Address by it's ID.
+     *
+     * @return mixed|void
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
+        $data = $request->all();
 
+        $validator = Validator::make($data, ['id' => 'integer|required|min:1|exists:addresses,deleted_at,NULL']);
+
+        if ($validator->fails()) throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());
+
+        $item = Address::findOrFail($data['id']);
+
+        return ($item->delete()) ? $this->destroySuccessResponse() : $this->destroyFailure($this->noun);
     }
 }

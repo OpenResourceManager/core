@@ -5,9 +5,18 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Models\API\Email;
 use App\Http\Transformers\EmailTransformer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class EmailController extends ApiController
 {
+    /**
+     * EmailController constructor.
+     */
+    public function __construct()
+    {
+        $this->noun = 'email';
+    }
+
     /**
      * Show all Emails
      *
@@ -50,24 +59,76 @@ class EmailController extends ApiController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store/Update/Restore Email
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * Create or update Email information.
+     *
+     * @param Request $request
+     * @return \Dingo\Api\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'account_id' => 'integer|required|exists:accounts,id,deleted_at,NULL',
+            'address' => 'email|required',
+            'verified' => 'boolean'
+        ]);
+
+        if ($validator->fails()) {
+            throw new \Dingo\Api\Exception\StoreResourceFailedException(
+                'Could not store ' . $this->noun . '.',
+                $validator->errors()
+            );
+        }
+
+        $excluded_domains = explode(',', env('EMAIL_MODEL_EXCLUDE_DOMAINS', ''));
+        $email_domain = explode('@', $data['address'])[1];
+
+        if (!empty($excluded_domains)) {
+            if (in_array($email_domain, $excluded_domains)) {
+                throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', [
+                    'The email address entered is a member of a forbidden domain: ' . $email_domain
+                ]);
+            }
+        }
+
+        if ($toRestore = Email::onlyTrashed()->where('address', $data['address'])->first()) $toRestore->restore();
+
+        $trans = new EmailTransformer();
+
+        $item = Email::updateOrCreate(['address' => $data['address']], $data);
+
+        $item->verification_token = ($item->verified) ? null : generateVerificationToken();
+
+        $item->save();
+
+        $item = $trans->transform($item);
+
+        return $this->response->created(route('api.emails.show', ['id' => $item['id']]), ['data' => $item]);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Destroy Email
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * Deletes the specified Email by it's ID or Address attribute.
+     *
+     * @return mixed|void
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'address' => 'string|required_without:id|exists:emails,deleted_at,NULL',
+            'id' => 'integer|required_without:address|min:1|exists:emails,deleted_at,NULL'
+        ]);
+
+        if ($validator->fails()) throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());
+
+        $item = (array_key_exists('id', $data)) ? Email::findOrFail($data['id']) : Email::where('address', $data['address'])->firstOrFail();
+
+        return ($item->delete()) ? $this->destroySuccessResponse() : $this->destroyFailure($this->noun);
     }
 }

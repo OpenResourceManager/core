@@ -12,6 +12,14 @@ class ApiController extends Controller
     use Helpers;
 
     /**
+     * A name describing the model that this controller relates to.
+     * Makes it easier to dynamically provide contextual errors.
+     *
+     * @var string
+     */
+    protected $noun = 'resource';
+
+    /**
      * @var int
      */
     protected $statusCode = 200;

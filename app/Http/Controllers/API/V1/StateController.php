@@ -5,9 +5,18 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Models\API\State;
 use App\Http\Transformers\StateTransformer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class StateController extends ApiController
 {
+    /**
+     * StateController constructor.
+     */
+    public function __construct()
+    {
+        $this->noun = 'state';
+    }
+
     /**
      * Show all States
      *
@@ -50,24 +59,56 @@ class StateController extends ApiController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store/Update/Restore State
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * Create or update State information.
+     *
+     * @param Request $request
+     * @return \Dingo\Api\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'country_id' => 'integer|required|exists:countries,id,deleted_at,NULL',
+            'code' => 'string|required|max:5',
+            'label' => 'string|required|max:50'
+        ]);
+
+        if ($validator->fails()) throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+
+        if ($toRestore = State::onlyTrashed()->where('code', $data['code'])->first()) $toRestore->restore();
+
+        $trans = new StateTransformer();
+
+        $item = State::updateOrCreate(['code' => $data['code']], $data);
+
+        $item = $trans->transform($item);
+
+        return $this->response->created(route('api.states.show', ['id' => $item['id']]), ['data' => $item]);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Destroy State
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * Deletes the specified State by it's ID or Code attribute.
+     *
+     * @return mixed|void
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'code' => 'string|required_without:id|min:3|exists:states,deleted_at,NULL',
+            'id' => 'integer|required_without:code|min:1|exists:states,deleted_at,NULL'
+        ]);
+
+        if ($validator->fails()) throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());
+
+        $item = (array_key_exists('id', $data)) ? State::findOrFail($data['id']) : State::where('code', $data['code'])->firstOrFail();
+
+        return ($item->delete()) ? $this->destroySuccessResponse() : $this->destroyFailure($this->noun);
     }
 }
