@@ -32,7 +32,7 @@ class AccountController extends ApiController
      */
     public function index()
     {
-        $accounts = Account::paginate($this->resultLimit);
+        $accounts = Account::with(['emails', 'mobilePhones', 'addresses'])->paginate($this->resultLimit);
         return $this->response->paginator($accounts, new AccountTransformer);
     }
 
@@ -46,7 +46,7 @@ class AccountController extends ApiController
      */
     public function show($id)
     {
-        $account = Account::findOrFail($id);
+        $account = Account::with(['emails', 'mobilePhones', 'addresses'])->findOrFail($id);
         return $this->response->item($account, new AccountTransformer);
     }
 
@@ -60,7 +60,7 @@ class AccountController extends ApiController
      */
     public function showFromUsername($username)
     {
-        $account = Account::where('username', $username)->firstOrFail();
+        $account = Account::where('username', $username)->with(['emails', 'mobilePhones', 'addresses'])->firstOrFail();
         return $this->response->item($account, new AccountTransformer);
     }
 
@@ -74,7 +74,7 @@ class AccountController extends ApiController
      */
     public function showFromIdentifier($identifier)
     {
-        $account = Account::where('identifier', $identifier)->firstOrFail();
+        $account = Account::where('identifier', $identifier)->with(['emails', 'mobile_phones', 'addresses'])->firstOrFail();
         return $this->response->item($account, new AccountTransformer);
     }
 
