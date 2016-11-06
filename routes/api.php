@@ -151,12 +151,12 @@ $api->version('v1', function ($api) {
              * Addresses
              */
             $api->group(['prefix' => 'addresses'], function ($api) {
-                $api->group(['middleware' => 'permission:read-addresses'], function ($api) {
+                $api->group(['middleware' => 'permission:read-address'], function ($api) {
                     $api->get('/', ['uses' => 'AddressController@index', 'as' => 'api.addresses.index']);
                     $api->get('/{id}', ['uses' => 'AddressController@show', 'as' => 'api.addresses.show']);
 
                 });
-                $api->group(['middleware' => 'permission:write-addresses'], function ($api) {
+                $api->group(['middleware' => 'permission:write-address'], function ($api) {
                     $api->post('/', ['uses' => 'AddressController@store', 'as' => 'api.addresses.store']);
                     $api->delete('/', ['uses' => 'AddressController@destroy', 'as' => 'api.addresses.destroy']);
                 });

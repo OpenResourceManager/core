@@ -22,7 +22,7 @@ class AddressTransformer extends TransformerAbstract
 
         return [
             'id' => (int)$item->id,
-            'user_id' => (int)$item->account_id,
+            'account_id' => (int)$item->account_id,
             'addressee' => $item->addressee,
             'organization' => $item->organization,
             'line_1' => $item->line_1,
@@ -30,7 +30,7 @@ class AddressTransformer extends TransformerAbstract
             'city' => $item->city,
             'state' => $state,
             'zip' => $item->zip,
-            'country_id' => $country,
+            'country' => $country,
             'latitude' => (float)$item->latitude,
             'longitude' => (float)$item->longitude,
             'created' => date('Y-m-d - H:i:s', strtotime($item->created_at)),
