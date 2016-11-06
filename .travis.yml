@@ -29,19 +29,19 @@ before_script:
   - bash generate_jwt_key.sh
   - php artisan migrate
 script:
-  - vendor/bin/phpunit --verbose --debug --filter {AuthenticationTest}
-  - vendor/bin/phpunit --verbose --debug --filter {AccountTest}
-  - vendor/bin/phpunit --verbose --debug --filter {AddressTest}
-  - vendor/bin/phpunit --verbose --debug --filter {BuildingTest}
-  - vendor/bin/phpunit --verbose --debug --filter {CampusTest}
-  - vendor/bin/phpunit --verbose --debug --filter {CountryTest}
-  - vendor/bin/phpunit --verbose --debug --filter {CourseTest}
-  - vendor/bin/phpunit --verbose --debug --filter {DepartmentTest}
-  - vendor/bin/phpunit --verbose --debug --filter {DutyTest}
-  - vendor/bin/phpunit --verbose --debug --filter {EmailTest}
-  - vendor/bin/phpunit --verbose --debug --filter {MobileCarrierTest}
-  - vendor/bin/phpunit --verbose --debug --filter {MobilePhoneTest}
-  - vendor/bin/phpunit --verbose --debug --filter {RoomTest}
-  - vendor/bin/phpunit --verbose --debug --filter {StateTest}
-  - vendor/bin/phpunit --verbose --debug --filter {DutyAccountAssignmentTest}
+  - vendor/bin/phpunit --filter {AuthenticationTest}
+  - vendor/bin/phpunit --filter {AccountTest}
+  - vendor/bin/phpunit --filter {AddressTest}
+  - vendor/bin/phpunit --filter {BuildingTest}
+  - vendor/bin/phpunit --filter {CampusTest}
+  - vendor/bin/phpunit --filter {CountryTest}
+  - vendor/bin/phpunit --filter {CourseTest}
+  - vendor/bin/phpunit --filter {DepartmentTest}
+  - vendor/bin/phpunit --filter {DutyTest}
+  - vendor/bin/phpunit --filter {EmailTest}
+  - vendor/bin/phpunit --filter {MobileCarrierTest}
+  - vendor/bin/phpunit --filter {MobilePhoneTest}
+  - vendor/bin/phpunit --filter {RoomTest}
+  - vendor/bin/phpunit --filter {StateTest}
+  - vendor/bin/phpunit --filter {DutyAccountAssignmentTest}
 
