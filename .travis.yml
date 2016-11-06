@@ -24,6 +24,7 @@ install:
 before_script:
   - cp .env.travis .env
   - php artisan key:generate
+  - cat .env
   - bash generate_jwt_key.sh
   - php artisan migrate
 script:
