@@ -260,7 +260,7 @@ class MobilePhoneTest extends TestCase
 
         $this->post('/api/v1/mobile-phones/', $phone)
             ->seeStatusCode(201)
-            ->seeJsonStructure($this->itemStructureResponse);
+            ->seeJsonStructure($this->errorStructure);
     }
 
     /** @test */
@@ -276,15 +276,15 @@ class MobilePhoneTest extends TestCase
     }
 
     /** @test */
-    public function fails_to_can_create_a_mobile_phone_with_identifier_without_auth()
+    public function fails_to_create_a_mobile_phone_with_identifier_without_auth()
     {
         Account::create(lukeSkywalkerAccount());
         MobileCarrier::create(jediMasterMobileCarrier());
         $phone = jediMasterMobilePhone(false, false, true);
 
         $this->post('/api/v1/mobile-phones/', $phone)
-            ->seeStatusCode(201)
-            ->seeJsonStructure($this->itemStructureResponse);
+            ->seeStatusCode(401)
+            ->seeJsonStructure($this->errorStructure);
     }
 
     /** @test */
@@ -297,7 +297,7 @@ class MobilePhoneTest extends TestCase
     }
 
     /** @test */
-    public function fails_to_can_delete_mobile_phone_without_auth()
+    public function fails_to_delete_mobile_phone_without_auth()
     {
         $id = MobilePhone::get()->random()->id;
         $this->delete('/api/v1/mobile-phones', ['id' => $id])
