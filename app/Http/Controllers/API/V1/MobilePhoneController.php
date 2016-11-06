@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Http\Models\API\MobileCarrier;
 use App\Http\Models\API\MobilePhone;
 use App\Http\Transformers\MobilePhoneTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Models\API\Account;
+use Dingo\Api\Exception\StoreResourceFailedException;
 
 class MobilePhoneController extends ApiController
 {
@@ -45,6 +48,76 @@ class MobilePhoneController extends ApiController
     }
 
     /**
+     * Show Mobile Phones by Account ID
+     *
+     * Display Mobile Phone by providing an Account ID attribute.
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showFromAccountId($id)
+    {
+        $phones = Account::findOrFail($id)->mobilePhones()->paginate($this->resultLimit);
+        return $this->response->paginator($phones, new MobilePhoneTransformer);
+    }
+
+    /**
+     * Show Mobile Phones by Account Identifier
+     *
+     * Display Mobile Phone by providing an Account Identifier attribute.
+     *
+     * @param $identifier
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showFromAccountIdentifier($identifier)
+    {
+        $phones = Account::where('identifier', $identifier)->firstOrFail()->mobilePhones()->paginate($this->resultLimit);
+        return $this->response->paginator($phones, new MobilePhoneTransformer);
+    }
+
+    /**
+     * Show Mobile Phones by Account Username
+     *
+     * Display Mobile Phone by providing an Account Username attribute.
+     *
+     * @param $username
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showFromAccountUsername($username)
+    {
+        $phones = Account::where('username', $username)->firstOrFail()->mobilePhones()->paginate($this->resultLimit);
+        return $this->response->paginator($phones, new MobilePhoneTransformer);
+    }
+
+    /**
+     * Show Mobile Phones by Mobile Carrier ID
+     *
+     * Display Mobile Phones by providing an Mobile Carrier ID attribute.
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showFromMobileCarrierId($id)
+    {
+        $phones = MobileCarrier::findOrFail($id)->mobilePhones()->paginate($this->resultLimit);
+        return $this->response->paginator($phones, new MobilePhoneTransformer);
+    }
+
+    /**
+     * Show Mobile Phones by Mobile Carrier Code
+     *
+     * Display Mobile Phones by providing an Mobile Carrier Code attribute.
+     *
+     * @param $code
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showFromMobileCarrierCode($code)
+    {
+        $phones = MobileCarrier::where('code', $code)->firstOrFail()->mobilePhones()->paginate($this->resultLimit);
+        return $this->response->paginator($phones, new MobilePhoneTransformer);
+    }
+
+    /**
      * Store Mobile Phone
      *
      * Create Mobile Phone entry.
@@ -57,26 +130,51 @@ class MobilePhoneController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'account_id' => 'integer|required|exists:accounts,id,deleted_at,NULL',
+            'identifier' => 'alpha_num|required_without_all:account_id,username|max:7|min:6|exists:accounts,identifier,deleted_at,NULL',
+            'username' => 'string|required_without_all:identifier,account_id|min:3|exists:accounts,username,deleted_at,NULL',
+            'account_id' => 'integer|required_without_all:identifier,username|min:1|exists:accounts,id,deleted_at,NULL',
             'number' => 'string|required|size:10',
-            'country_code' => 'string|min:1|max:4',
+            'country_code' => 'string|max:4',
             'mobile_carrier_id' => 'integer|min:1|required_without:mobile_carrier_code|exists:mobile_carriers,id,deleted_at,NULL',
             'mobile_carrier_code' => 'string|min:3|required_without:mobile_carrier_id|exists:mobile_carriers,code,deleted_at,NULL',
             'verified' => 'boolean'
         ]);
 
-        if ($validator->fails()) throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+        if ($validator->fails())
+            throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+
+        /**
+         * Translate account identifier or username to an id if needed
+         */
+        if (!array_key_exists('account_id', $data)) {
+            if (array_key_exists('identifier', $data)) {
+                $account = Account::where('identifier', $data['identifier'])->firstOrFail();
+            } elseif (array_key_exists('username', $data)) {
+                $account = Account::where('username', $data['username'])->firstOrFail();
+            } else {
+                // The validator should throw something like this, but it's here just in case.
+                throw new StoreResourceFailedException('Could not store ' . $this->noun, ['You must supply one of the following parameters "account_id", "identifier", or "username".']);
+            }
+            $data['account_id'] = $account->id;
+        }
+
+        /**
+         * Translate mobile carrier code to an id if needed
+         */
+        if (!array_key_exists('mobile_carrier_id', $data)) {
+            if (array_key_exists('mobile_carrier_code', $data)) {
+                $data['mobile_carrier_id'] = MobileCarrier::where('code', $data['mobile_carrier_code'])->firstOrFail()->id;
+            } else {
+                // The validator should throw something like this, but it's here just in case.
+                throw new StoreResourceFailedException('Could not store ' . $this->noun, ['You must supply one of the following parameters "mobile_carrier_id" or "mobile_carrier_code".']);
+            }
+        }
 
         $trans = new MobilePhoneTransformer();
-
         $item = MobilePhone::create($data);
-
         $item->verification_token = ($item->verified) ? null : generateVerificationToken();
-
         $item->save();
-
         $item = $trans->transform($item);
-
         return $this->response->created(route('api.mobile-phones.show', ['id' => $item['id']]), ['data' => $item]);
     }
 

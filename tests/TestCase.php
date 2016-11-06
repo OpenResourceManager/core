@@ -41,6 +41,11 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     ];
 
     /**
+     * @var array
+     */
+    protected $errorStructure = ['message', 'status_code'];
+
+    /**
      * Creates the application.
      *
      * @return \Illuminate\Foundation\Application

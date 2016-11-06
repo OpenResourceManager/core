@@ -25,4 +25,12 @@ class AuthenticationTest extends TestCase
                 'status_code' => 202
             ]);
     }
+
+    /** @test */
+    public function authentication_fails_with_wrong_credentials()
+    {
+        $this->post('/api/v1/auth/login', ['username' => 'admin', 'password' => 'Saz'])
+            ->seeStatusCode(401)
+            ->seeJsonStructure($this->errorStructure);
+    }
 }

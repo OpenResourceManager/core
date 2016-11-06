@@ -14,11 +14,6 @@ class EmailTest extends TestCase
     /**
      * @var array
      */
-    protected $errorStructure = ['message', 'status_code'];
-
-    /**
-     * @var array
-     */
     protected $itemStructureResponse = [
         'data' => [
             'id',
@@ -121,9 +116,9 @@ class EmailTest extends TestCase
     {
         $account = Account::create(lukeSkywalkerAccount());
         Email::create(jediMasterEmail());
-        $this->get('/api/v1/emails/account/' . $account->id, ['Authorization' => 'Bearer ' . $this->bearer])
+        $this->get('/api/v1/emails/account/id/' . $account->id, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200);
-            #->seeJsonStructure($this->paginatedStructure); # @todo define this structure
+        #->seeJsonStructure($this->paginatedStructure); # @todo define this structure
     }
 
     /** @test */
@@ -131,7 +126,7 @@ class EmailTest extends TestCase
     {
         $account = Account::create(lukeSkywalkerAccount());
         Email::create(jediMasterEmail());
-        $this->get('/api/v1/emails/account/' . $account->id)
+        $this->get('/api/v1/emails/account/id/' . $account->id)
             ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }
@@ -141,9 +136,9 @@ class EmailTest extends TestCase
     {
         $account = Account::create(lukeSkywalkerAccount());
         Email::create(jediMasterEmail());
-        $this->get('/api/v1/emails/identifier/' . $account->identifier, ['Authorization' => 'Bearer ' . $this->bearer])
+        $this->get('/api/v1/emails/account/identifier/' . $account->identifier, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200);
-            #->seeJsonStructure($this->paginatedStructure); # @todo define this structure
+        #->seeJsonStructure($this->paginatedStructure); # @todo define this structure
     }
 
     /** @test */
@@ -151,7 +146,7 @@ class EmailTest extends TestCase
     {
         $account = Account::create(lukeSkywalkerAccount());
         Email::create(jediMasterEmail());
-        $this->get('/api/v1/emails/identifier/' . $account->identifier)
+        $this->get('/api/v1/emails/account/identifier/' . $account->identifier)
             ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }
@@ -161,9 +156,9 @@ class EmailTest extends TestCase
     {
         $account = Account::create(lukeSkywalkerAccount());
         Email::create(jediMasterEmail());
-        $this->get('/api/v1/emails/username/' . $account->username, ['Authorization' => 'Bearer ' . $this->bearer])
+        $this->get('/api/v1/emails/account/username/' . $account->username, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200);
-            #->seeJsonStructure($this->paginatedStructure); # @todo define this structure
+        #->seeJsonStructure($this->paginatedStructure); # @todo define this structure
     }
 
     /** @test */
@@ -171,7 +166,7 @@ class EmailTest extends TestCase
     {
         $account = Account::create(lukeSkywalkerAccount());
         Email::create(jediMasterEmail());
-        $this->get('/api/v1/emails/username/' . $account->username)
+        $this->get('/api/v1/emails/account/username/' . $account->username)
             ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }
@@ -190,6 +185,42 @@ class EmailTest extends TestCase
     {
         Account::create(lukeSkywalkerAccount());
         $this->post('/api/v1/emails', jediMasterEmail())
+            ->seeStatusCode(401)
+            ->seeJsonStructure($this->errorStructure);
+    }
+
+    /** @test */
+    public function can_create_an_email_with_username()
+    {
+        Account::create(lukeSkywalkerAccount());
+        $this->post('/api/v1/emails', jediMasterEmail(true, false), ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(201)
+            ->seeJsonStructure($this->itemStructureResponse);
+    }
+
+    /** @test */
+    public function fails_to_create_an_email_with_username_without_auth()
+    {
+        Account::create(lukeSkywalkerAccount());
+        $this->post('/api/v1/emails', jediMasterEmail(true, false))
+            ->seeStatusCode(401)
+            ->seeJsonStructure($this->errorStructure);
+    }
+
+    /** @test */
+    public function can_create_an_email_with_identifier()
+    {
+        Account::create(lukeSkywalkerAccount());
+        $this->post('/api/v1/emails', jediMasterEmail(false, true), ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(201)
+            ->seeJsonStructure($this->itemStructureResponse);
+    }
+
+    /** @test */
+    public function fails_to_create_an_email_with_identifier_without_auth()
+    {
+        Account::create(lukeSkywalkerAccount());
+        $this->post('/api/v1/emails', jediMasterEmail(false, true))
             ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }

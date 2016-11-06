@@ -542,17 +542,63 @@ function jediMasterDuty()
     ];
 }
 
+function jediMasterMobileCarrier()
+{
+    return [
+        'code' => 'FORCE',
+        'label' => 'The Force Wireless'
+    ];
+}
+
 /**
  * Dummy email data
  *
  * @return array
  */
-function jediMasterEmail()
+function jediMasterEmail($username = false, $identifier = false)
 {
-    return [
-        'account_id' => \App\Http\Models\API\Account::where('identifier', '9999999')->where('username', 'skwall')->firstOrFail()->id,
+    $array = [
         'address' => 'JediMaster@gmail.com',
         'verified' => false,
         'verification_token' => generateVerificationToken()
     ];
+
+    if ($username) {
+        $array['username'] = 'skwall';
+    } elseif ($identifier) {
+        $array['identifier'] = '9999999';
+    } else {
+        $array['account_id'] = \App\Http\Models\API\Account::where('identifier', '9999999')->where('username', 'skwall')->firstOrFail()->id;
+    }
+
+    return $array;
+}
+
+/*
+ * Dummy Mobile Phone data
+ *
+ * @return array
+ */
+function jediMasterMobilePhone($useCode = false, $username = false, $identifier = false)
+{
+    $array = [
+        'number' => '9998887777',
+        'verified' => false
+    ];
+
+    if ($useCode) {
+        $array['mobile_carrier_code'] = 'FORCE';
+    } else {
+        $array['mobile_carrier_id'] = \App\Http\Models\API\MobileCarrier::where('code', 'FORCE')->firstOrFail()->id;
+    }
+
+    if ($username) {
+        $array['username'] = 'skwall';
+    } elseif ($identifier) {
+        $array['identifier'] = '9999999';
+    } else {
+        $array['account_id'] = \App\Http\Models\API\Account::where('identifier', '9999999')->where('username', 'skwall')->firstOrFail()->id;
+    }
+
+    return $array;
 }

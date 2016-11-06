@@ -7,6 +7,7 @@ use App\Http\Models\API\Email;
 use App\Http\Transformers\EmailTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Dingo\Api\Exception\StoreResourceFailedException;
 
 class EmailController extends ApiController
 {
@@ -114,41 +115,44 @@ class EmailController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'account_id' => 'integer|required|exists:accounts,id,deleted_at,NULL',
+            'identifier' => 'alpha_num|required_without_all:account_id,username|max:7|min:6|exists:accounts,identifier,deleted_at,NULL',
+            'username' => 'string|required_without_all:identifier,account_id|min:3|exists:accounts,username,deleted_at,NULL',
+            'account_id' => 'integer|required_without_all:identifier,username|min:1|exists:accounts,id,deleted_at,NULL',
             'address' => 'email|required',
             'verified' => 'boolean'
         ]);
+        if ($validator->fails())
+            throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
 
-        if ($validator->fails()) {
-            throw new \Dingo\Api\Exception\StoreResourceFailedException(
-                'Could not store ' . $this->noun . '.',
-                $validator->errors()
-            );
-        }
 
         $excluded_domains = explode(',', env('EMAIL_MODEL_EXCLUDE_DOMAINS', ''));
         $email_domain = explode('@', $data['address'])[1];
-
         if (!empty($excluded_domains)) {
-            if (in_array($email_domain, $excluded_domains)) {
-                throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', [
-                    'The email address entered is a member of a forbidden domain: ' . $email_domain
-                ]);
+            if (in_array($email_domain, $excluded_domains))
+                throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', ['The email address entered is a member of a forbidden domain: ' . $email_domain]);
+        }
+
+        /**
+         * Translate account identifier or username to an id if needed
+         */
+        if (!array_key_exists('account_id', $data)) {
+            if (array_key_exists('identifier', $data)) {
+                $account = Account::where('identifier', $data['identifier'])->firstOrFail();
+            } elseif (array_key_exists('username', $data)) {
+                $account = Account::where('username', $data['username'])->firstOrFail();
+            } else {
+                // The validator should throw something like this, but it's here just in case.
+                throw new StoreResourceFailedException('Could not store ' . $this->noun, ['You must supply one of the following parameters "account_id", "identifier", or "username".']);
             }
+            $data['account_id'] = $account->id;
         }
 
         if ($toRestore = Email::onlyTrashed()->where('address', $data['address'])->first()) $toRestore->restore();
-
         $trans = new EmailTransformer();
-
         $item = Email::updateOrCreate(['address' => $data['address']], $data);
-
         $item->verification_token = ($item->verified) ? null : generateVerificationToken();
-
         $item->save();
-
         $item = $trans->transform($item);
-
         return $this->response->created(route('api.emails.show', ['id' => $item['id']]), ['data' => $item]);
     }
 

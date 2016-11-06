@@ -29,11 +29,6 @@ class DutyAccountAssignmentTest extends TestCase
         ]
     ];
 
-    /**
-     * @var array
-     */
-    protected $errorStructure = ['message', 'status_code'];
-
     public function setUp()
     {
         parent::setUp();

@@ -118,9 +118,9 @@ $api->version('v1', function ($api) {
                     $api->get('/', ['uses' => 'EmailController@index', 'as' => 'api.emails.index']);
                     $api->get('/{id}', ['uses' => 'EmailController@show', 'as' => 'api.emails.show']);
                     $api->get('/address/{address}', ['uses' => 'EmailController@showFromAddress', 'as' => 'api.emails.show_from_address']);
-                    $api->get('/account/{id}', ['uses' => 'EmailController@showFromAccountId', 'as' => 'api.emails.show_from_account_id']);
-                    $api->get('/identifier/{identifier}', ['uses' => 'EmailController@showFromAccountIdentifier', 'as' => 'api.emails.show_from_account_identifier']);
-                    $api->get('/username/{username}', ['uses' => 'EmailController@showFromAccountUsername', 'as' => 'api.emails.show_from_account_username']);
+                    $api->get('/account/id/{id}', ['uses' => 'EmailController@showFromAccountId', 'as' => 'api.emails.show_from_account_id']);
+                    $api->get('/account/identifier/{identifier}', ['uses' => 'EmailController@showFromAccountIdentifier', 'as' => 'api.emails.show_from_account_identifier']);
+                    $api->get('/account/username/{username}', ['uses' => 'EmailController@showFromAccountUsername', 'as' => 'api.emails.show_from_account_username']);
                 });
                 $api->group(['middleware' => 'permission:write-email'], function ($api) {
                     $api->post('/', ['uses' => 'EmailController@store', 'as' => 'api.emails.store']);
@@ -135,8 +135,11 @@ $api->version('v1', function ($api) {
                 $api->group(['middleware' => 'permission:read-mobile-phone'], function ($api) {
                     $api->get('/', ['uses' => 'MobilePhoneController@index', 'as' => 'api.mobile-phones.index']);
                     $api->get('/{id}', ['uses' => 'MobilePhoneController@show', 'as' => 'api.mobile-phones.show']);
-                    $api->get('/code/{code}', ['uses' => 'MobilePhoneController@showFromCode', 'as' => 'api.mobile-phones.show_from_code']);
-
+                    $api->get('/account/id/{id}', ['uses' => 'MobilePhoneController@showFromAccountId', 'as' => 'api.mobile-phones.show_from_account_id']);
+                    $api->get('/account/identifier/{identifier}', ['uses' => 'MobilePhoneController@showFromAccountIdentifier', 'as' => 'api.mobile-phones.show_from_account_identifier']);
+                    $api->get('/account/username/{username}', ['uses' => 'MobilePhoneController@showFromAccountUsername', 'as' => 'api.mobile-phones.show_from_account_username']);
+                    $api->get('/mobile-carrier/id/{id}', ['uses' => 'MobilePhoneController@showFromMobileCarrierId', 'as' => 'api.mobile-phones.show_from_mobile-carrier_id']);
+                    $api->get('/mobile-carrier/code/{code}', ['uses' => 'MobilePhoneController@showFromMobileCarrierCode', 'as' => 'api.mobile-phones.show_from_mobile-carrier_code']);
                 });
                 $api->group(['middleware' => 'permission:write-mobile-phone'], function ($api) {
                     $api->post('/', ['uses' => 'MobilePhoneController@store', 'as' => 'api.mobile-phones.store']);

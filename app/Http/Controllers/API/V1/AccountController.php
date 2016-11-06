@@ -155,19 +155,16 @@ class AccountController extends ApiController
     {
         $data = $request->all();
         $validator = Validator::make($data, [
-            'identifier' => 'alpha_num|required_without_all:account_id,username|max:7|min:6|exists:accounts,deleted_at,NULL',
-            'username' => 'string|required_without_all:identifier,account_id|min:3|exists:accounts,deleted_at,NULL',
+            'identifier' => 'alpha_num|required_without_all:account_id,username|max:7|min:6|exists:accounts,identifier,deleted_at,NULL',
+            'username' => 'string|required_without_all:identifier,account_id|min:3|exists:accounts,username,deleted_at,NULL',
             'account_id' => 'integer|required_without_all:identifier,username|min:1|exists:accounts,id,deleted_at,NULL',
-            'code' => 'string|required_without:duty_id|min:3|exists:duties,deleted_at,NULL',
+            'code' => 'string|required_without:duty_id|min:3|exists:duties,code,deleted_at,NULL',
             'duty_id' => 'integer|required_without:code|min:1|exists:duties,id,deleted_at,NULL'
         ]);
 
-        /*
-         * @todo Fix validator, right now it is causing: "Undefined offset: 1" error
-        if ($validator->fails()) {
+
+        if ($validator->fails())
             throw new StoreResourceFailedException('Could not assign duty to account.', $validator->errors());
-        }
-        */
 
         if (array_key_exists('account_id', $data)) {
             $account = Account::findOrFail($data['account_id']);
@@ -243,17 +240,16 @@ class AccountController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'identifier' => 'alpha_num|required_without_all:account_id,username|max:7|min:6|exists:accounts,deleted_at,NULL',
-            'username' => 'string|required_without_all:identifier,account_id|min:3|exists:accounts,deleted_at,NULL',
+            'identifier' => 'alpha_num|required_without_all:account_id,username|max:7|min:6|exists:accounts,identifier,deleted_at,NULL',
+            'username' => 'string|required_without_all:identifier,account_id|min:3|exists:accounts,username,deleted_at,NULL',
             'account_id' => 'integer|required_without_all:identifier,username|min:1|exists:accounts,id,deleted_at,NULL',
-            'code' => 'string|required_without:duty_id|min:3|exists:duties,deleted_at,NULL',
+            'code' => 'string|required_without:duty_id|min:3|exists:duties,code,deleted_at,NULL',
             'duty_id' => 'integer|required_without:code|min:1|exists:duties,id,deleted_at,NULL'
         ]);
 
-        /*
-         * @todo Fix validator, right now it is causing: "Undefined offset: 1" error
-        if ($validator->fails()) throw new DeleteResourceFailedException('Could not destroy '.$this->noun.'.', $validator->errors());
-        */
+        if ($validator->fails())
+            throw new DeleteResourceFailedException('Could not detach ' . $this->noun . ' from duty.', $validator->errors());
+
 
         if (array_key_exists('account_id', $data)) {
             $account = Account::findOrFail($data['account_id']);
