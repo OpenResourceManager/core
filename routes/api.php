@@ -118,7 +118,9 @@ $api->version('v1', function ($api) {
                     $api->get('/', ['uses' => 'EmailController@index', 'as' => 'api.emails.index']);
                     $api->get('/{id}', ['uses' => 'EmailController@show', 'as' => 'api.emails.show']);
                     $api->get('/address/{address}', ['uses' => 'EmailController@showFromAddress', 'as' => 'api.emails.show_from_address']);
-
+                    $api->get('/account/{id}', ['uses' => 'EmailController@showFromAccountId', 'as' => 'api.emails.show_from_account_id']);
+                    $api->get('/identifier/{identifier}', ['uses' => 'EmailController@showFromAccountIdentifier', 'as' => 'api.emails.show_from_account_identifier']);
+                    $api->get('/username/{username}', ['uses' => 'EmailController@showFromAccountUsername', 'as' => 'api.emails.show_from_account_username']);
                 });
                 $api->group(['middleware' => 'permission:write-email'], function ($api) {
                     $api->post('/', ['uses' => 'EmailController@store', 'as' => 'api.emails.store']);

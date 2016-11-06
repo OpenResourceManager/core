@@ -101,17 +101,15 @@ class DutyController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'code' => 'string|required_without:id|min:3|exists:duties,deleted_at,NULL',
-            'id' => 'integer|required_without:code|min:1|exists:duties,deleted_at,NULL'
+            'code' => 'string|required_without:id|min:3|exists:duties,code,deleted_at,NULL',
+            'id' => 'integer|required_without:code|min:1|exists:duties,id,deleted_at,NULL'
         ]);
 
-        /**
-         * @todo fix del duty validator
-         */
-        #if ($validator->fails()) throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors()->all());
+        if ($validator->fails())
+            throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors()->all());
 
-        $item = (array_key_exists('id', $data)) ? Duty::findOrFail($data['id']) : Duty::where('code', $data['code'])->firstOrFail();
+        $deleted = (array_key_exists('id', $data)) ? Duty::destroy($data['id']) : Duty::where('code', $data['code'])->firstOrFail()->delete();
 
-        return ($item->delete()) ? $this->destroySuccessResponse() : $this->destroyFailure($this->noun);
+        return ($deleted) ? $this->destroySuccessResponse() : $this->destroyFailure($this->noun);
     }
 }

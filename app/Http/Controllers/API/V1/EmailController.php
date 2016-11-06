@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Http\Models\API\Account;
 use App\Http\Models\API\Email;
 use App\Http\Transformers\EmailTransformer;
 use Illuminate\Http\Request;
@@ -45,17 +46,59 @@ class EmailController extends ApiController
     }
 
     /**
-     * Show Duty by Address
+     * Show Email by Address
      *
      * Display an Email by providing it's Address attribute.
      *
-     * @param $code
+     * @param $address
      * @return \Dingo\Api\Http\Response
      */
     public function showFromAddress($address)
     {
         $item = Email::where('address', $address)->firstOrFail();
         return $this->response->item($item, new EmailTransformer);
+    }
+
+    /**
+     * Show Email by Account ID
+     *
+     * Display Emails by providing an Account ID attribute.
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showFromAccountId($id)
+    {
+        $emails = Account::findOrFail($id)->emails()->paginate($this->resultLimit);
+        return $this->response->paginator($emails, new EmailTransformer);
+    }
+
+    /**
+     * Show Email by Account Identifier
+     *
+     * Display Emails by providing an Account Identifier attribute.
+     *
+     * @param $identifier
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showFromAccountIdentifier($identifier)
+    {
+        $emails = Account::where('identifier', $identifier)->firstOrFail()->emails()->paginate($this->resultLimit);
+        return $this->response->paginator($emails, new EmailTransformer);
+    }
+
+    /**
+     * Show Email by Account Username
+     *
+     * Display Emails by providing an Account Username attribute.
+     *
+     * @param $username
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showFromAccountUsername($username)
+    {
+        $emails = Account::where('username', $username)->firstOrFail()->emails()->paginate($this->resultLimit);
+        return $this->response->paginator($emails, new EmailTransformer);
     }
 
     /**
@@ -119,16 +162,16 @@ class EmailController extends ApiController
     public function destroy(Request $request)
     {
         $data = $request->all();
-
         $validator = Validator::make($data, [
-            'address' => 'string|required_without:id|exists:emails,deleted_at,NULL',
-            'id' => 'integer|required_without:address|min:1|exists:emails,deleted_at,NULL'
+            'address' => 'email|required_without:id|exists:emails,address,deleted_at,NULL',
+            'id' => 'integer|required_without:address|exists:emails,id,deleted_at,NULL'
         ]);
 
-        if ($validator->fails()) throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());
+        if ($validator->fails())
+            throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());
 
-        $item = (array_key_exists('id', $data)) ? Email::findOrFail($data['id']) : Email::where('address', $data['address'])->firstOrFail();
+        $deleted = (array_key_exists('id', $data)) ? Email::destroy($data['id']) : Email::where('address', $data['address'])->firstOrFail()->delete();
 
-        return ($item->delete()) ? $this->destroySuccessResponse() : $this->destroyFailure($this->noun);
+        return ($deleted) ? $this->destroySuccessResponse() : $this->destroyFailure($this->noun);
     }
 }

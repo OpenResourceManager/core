@@ -79,4 +79,73 @@ class EmailsTest extends TestCase
             ->seeJsonStructure($this->itemStructureResponse);
     }
 
+    /** @test */
+    public function can_get_email_by_address()
+    {
+        Account::create(lukeSkywalkerAccount());
+        $email = Email::create(jediMasterEmail());
+
+        $this->get('/api/v1/emails/address/' . $email->address, ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(200)
+            ->seeJsonStructure($this->itemStructureResponse);
+    }
+
+    /** @test */
+    public function can_get_emails_by_account_id()
+    {
+        $account = Account::create(lukeSkywalkerAccount());
+        Email::create(jediMasterEmail());
+        $this->get('/api/v1/emails/account/' . $account->id, ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(200);
+        #->seeJsonStructure($this->paginatedStructure); @todo define this
+    }
+
+    /** @test */
+    public function can_get_emails_by_account_identifier()
+    {
+        $account = Account::create(lukeSkywalkerAccount());
+        Email::create(jediMasterEmail());
+        $this->get('/api/v1/emails/identifier/' . $account->identifier, ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(200);
+        #->seeJsonStructure($this->paginatedStructure); @todo define this
+    }
+
+    /** @test */
+    public function can_get_emails_by_account_username()
+    {
+        $account = Account::create(lukeSkywalkerAccount());
+
+        $this->get('/api/v1/emails/username/' . $account->username, ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(200);
+        #->seeJsonStructure($this->paginatedStructure); @todo define this
+    }
+
+    /** @test */
+    public function can_create_and_email()
+    {
+        Account::create(lukeSkywalkerAccount());
+        $this->post('/api/v1/emails', jediMasterEmail(), ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(201)
+            ->seeJsonStructure($this->itemStructureResponse);
+    }
+
+    /** @test */
+    public function can_can_destroy_email_by_id()
+    {
+        Account::create(lukeSkywalkerAccount());
+        $email = Email::create(jediMasterEmail());
+        $this->delete('/api/v1/emails', ['id' => $email->id], ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(204);
+
+        #dd($response);
+    }
+
+    /** @test */
+    public function can_can_destroy_email_by_address()
+    {
+        Account::create(lukeSkywalkerAccount());
+        $email = Email::create(jediMasterEmail());
+        $this->delete('/api/v1/emails', ['address' => $email->address], ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(204);
+    }
 }

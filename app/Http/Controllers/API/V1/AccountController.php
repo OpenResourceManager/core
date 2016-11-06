@@ -207,29 +207,26 @@ class AccountController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'identifier' => 'alpha_num|required_without_all:id,username|max:7|min:6|exists:accounts,deleted_at,NULL',
-            'username' => 'string|required_without_all:identifier,id|min:3|exists:accounts,deleted_at,NULL',
-            'id' => 'integer|required_without_all:identifier,username|min:1|exists:accounts,deleted_at,NULL'
+            'identifier' => 'alpha_num|required_without_all:id,username|max:7|min:6|exists:accounts,identifier,deleted_at,NULL',
+            'username' => 'string|required_without_all:identifier,id|min:3|exists:accounts,username,deleted_at,NULL',
+            'id' => 'integer|required_without_all:identifier,username|min:1|exists:accounts,id,deleted_at,NULL'
         ]);
 
-        /*
-         * @todo Fix validator, right now it is causing: "Undefined offset: 1" error
-        if ($validator->fails()) {
-             throw new DeleteResourceFailedException('Could not destroy account.', $validator->errors()->all());
-         } */
+        if ($validator->fails())
+            throw new DeleteResourceFailedException('Could not destroy account.', $validator->errors()->all());
 
         if (array_key_exists('id', $data)) {
-            $account = Account::findOrFail($data['id']);
+            $deleted = Account::destroy($data['id']);
         } elseif (array_key_exists('identifier', $data)) {
-            $account = Account::where('identifier', $data['identifier'])->firstOrFail();
+            $deleted = Account::where('identifier', $data['identifier'])->firstOrFail()->delete();
         } elseif (array_key_exists('username', $data)) {
-            $account = Account::where('username', $data['username'])->firstOrFail();
+            $deleted = Account::where('username', $data['username'])->firstOrFail()->delete();
         } else {
             // The validator should throw something like this, but it's here just in case.
             throw new DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', ['You must supply one of the following fields "id", "identifier", or "username".']);
         }
 
-        return ($account->delete()) ? $this->destroySuccessResponse() : $this->destroyFailure('account');
+        return ($deleted) ? $this->destroySuccessResponse() : $this->destroyFailure('account');
     }
 
     /**

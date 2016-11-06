@@ -95,10 +95,11 @@ class AddressController extends ApiController
 
         $validator = Validator::make($data, ['id' => 'integer|required|min:1|exists:addresses,deleted_at,NULL']);
 
-        if ($validator->fails()) throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());
+        if ($validator->fails())
+            throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());
 
-        $item = Address::findOrFail($data['id']);
+        $deleted = Address::destroy($data['id']);
 
-        return ($item->delete()) ? $this->destroySuccessResponse() : $this->destroyFailure($this->noun);
+        return ($deleted) ? $this->destroySuccessResponse() : $this->destroyFailure($this->noun);
     }
 }

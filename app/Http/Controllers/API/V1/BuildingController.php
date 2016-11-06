@@ -102,14 +102,15 @@ class BuildingController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'code' => 'string|required_without:id|min:3|exists:buildings,deleted_at,NULL',
-            'id' => 'integer|required_without:code|min:1|exists:buildings,deleted_at,NULL'
+            'code' => 'string|required_without:id|min:3|exists:buildings,code,deleted_at,NULL',
+            'id' => 'integer|required_without:code|min:1|exists:buildings,id,deleted_at,NULL'
         ]);
 
-        if ($validator->fails()) throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());
+        if ($validator->fails())
+            throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());
 
-        $item = (array_key_exists('id', $data)) ? Building::findOrFail($data['id']) : Building::where('code', $data['code'])->firstOrFail();
+        $deleted = (array_key_exists('id', $data)) ? Building::destroy($data['id']) : Building::where('code', $data['code'])->firstOrFail()->deleted();
 
-        return ($item->delete()) ? $this->destroySuccessResponse() : $this->destroyFailure($this->noun);
+        return ($deleted) ? $this->destroySuccessResponse() : $this->destroyFailure($this->noun);
     }
 }
