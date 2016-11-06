@@ -98,8 +98,8 @@ class CampusController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'code' => 'string|required_without:id|min:3|exists:campuses,code,deleted_at,NULL',
-            'id' => 'integer|required_without:code|min:1|exists:campuses,id,deleted_at,NULL'
+            'code' => 'string|required_without:id|exists:campuses,code,deleted_at,NULL',
+            'id' => 'integer|required_without:code|exists:campuses,id,deleted_at,NULL'
         ]);
 
         if ($validator->fails())

@@ -204,9 +204,9 @@ class AccountController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'identifier' => 'alpha_num|required_without_all:id,username|max:7|min:6|exists:accounts,identifier,deleted_at,NULL',
-            'username' => 'string|required_without_all:identifier,id|min:3|exists:accounts,username,deleted_at,NULL',
-            'id' => 'integer|required_without_all:identifier,username|min:1|exists:accounts,id,deleted_at,NULL'
+            'identifier' => 'alpha_num|required_without_all:id,username|exists:accounts,identifier,deleted_at,NULL',
+            'username' => 'string|required_without_all:identifier,id|exists:accounts,username,deleted_at,NULL',
+            'id' => 'integer|required_without_all:identifier,username|exists:accounts,id,deleted_at,NULL'
         ]);
 
         if ($validator->fails())
@@ -240,11 +240,11 @@ class AccountController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'identifier' => 'alpha_num|required_without_all:account_id,username|max:7|min:6|exists:accounts,identifier,deleted_at,NULL',
-            'username' => 'string|required_without_all:identifier,account_id|min:3|exists:accounts,username,deleted_at,NULL',
-            'account_id' => 'integer|required_without_all:identifier,username|min:1|exists:accounts,id,deleted_at,NULL',
-            'code' => 'string|required_without:duty_id|min:3|exists:duties,code,deleted_at,NULL',
-            'duty_id' => 'integer|required_without:code|min:1|exists:duties,id,deleted_at,NULL'
+            'identifier' => 'alpha_num|required_without_all:account_id,username|exists:accounts,identifier,deleted_at,NULL',
+            'username' => 'string|required_without_all:identifier,account_id|exists:accounts,username,deleted_at,NULL',
+            'account_id' => 'integer|required_without_all:identifier,username|exists:accounts,id,deleted_at,NULL',
+            'code' => 'string|required_without:duty_id|exists:duties,code,deleted_at,NULL',
+            'duty_id' => 'integer|required_without:code|exists:duties,id,deleted_at,NULL'
         ]);
 
         if ($validator->fails())

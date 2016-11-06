@@ -190,7 +190,7 @@ class MobilePhoneController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'id' => 'integer|required|min:1|exists:mobile_phones,id,deleted_at,NULL'
+            'id' => 'integer|required|exists:mobile_phones,id,deleted_at,NULL'
         ]);
 
         if ($validator->fails())

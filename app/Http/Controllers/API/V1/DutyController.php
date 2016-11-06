@@ -98,8 +98,8 @@ class DutyController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'code' => 'string|required_without:id|min:3|exists:duties,code,deleted_at,NULL',
-            'id' => 'integer|required_without:code|min:1|exists:duties,id,deleted_at,NULL'
+            'code' => 'string|required_without:id|exists:duties,code,deleted_at,NULL',
+            'id' => 'integer|required_without:code|exists:duties,id,deleted_at,NULL'
         ]);
 
         if ($validator->fails())

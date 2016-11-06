@@ -99,8 +99,8 @@ class DepartmentController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'code' => 'string|required_without:id|min:3|exists:departments,code,deleted_at,NULL',
-            'id' => 'integer|required_without:code|min:1|exists:departments,id,deleted_at,NULL'
+            'code' => 'string|required_without:id|exists:departments,code,deleted_at,NULL',
+            'id' => 'integer|required_without:code|exists:departments,id,deleted_at,NULL'
         ]);
 
         if ($validator->fails())

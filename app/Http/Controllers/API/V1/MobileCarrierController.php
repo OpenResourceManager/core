@@ -97,8 +97,8 @@ class MobileCarrierController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'code' => 'string|required_without:id|min:3|exists:mobile_carriers,code,deleted_at,NULL',
-            'id' => 'integer|required_without:code|min:1|exists:mobile_carriers,id,deleted_at,NULL'
+            'code' => 'string|required_without:id|exists:mobile_carriers,code,deleted_at,NULL',
+            'id' => 'integer|required_without:code|exists:mobile_carriers,id,deleted_at,NULL'
         ]);
 
         if ($validator->fails())

@@ -100,8 +100,8 @@ class CourseController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'code' => 'string|required_without:id|min:3|exists:countries,code,deleted_at,NULL',
-            'id' => 'integer|required_without:code|min:1|exists:countries,id,deleted_at,NULL'
+            'code' => 'string|required_without:id|exists:countries,code,deleted_at,NULL',
+            'id' => 'integer|required_without:code|exists:countries,id,deleted_at,NULL'
         ]);
 
         if ($validator->fails())
