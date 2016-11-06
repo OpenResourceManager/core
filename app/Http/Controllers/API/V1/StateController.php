@@ -74,7 +74,7 @@ class StateController extends ApiController
 
         $validator = Validator::make($data, [
             'country_id' => 'integer|required_without:country_code|exists:countries,id,deleted_at,NULL',
-            'country_code' => 'integer|required_without:country_id|exists:countries,code,deleted_at,NULL',
+            'country_code' => 'string|required_without:country_id|exists:countries,code,deleted_at,NULL',
             'code' => 'string|required|max:5',
             'label' => 'string|required|max:50'
         ]);
@@ -113,8 +113,8 @@ class StateController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'code' => 'string|required_without:id|min:3|exists:states,code,deleted_at,NULL',
-            'id' => 'integer|required_without:code|min:1|exists:states,id,deleted_at,NULL'
+            'code' => 'string|required_without:id|exists:states,code,deleted_at,NULL',
+            'id' => 'integer|required_without:code|exists:states,id,deleted_at,NULL'
         ]);
 
         if ($validator->fails())
