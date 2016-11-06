@@ -196,7 +196,7 @@ class MobilePhoneTest extends TestCase
 
         $this->get('/api/v1/mobile-phones/mobile-carrier/code/' . $carrier->code)
             ->seeStatusCode(401)
-            ->seeJsonStructure($this->paginatedStructure);
+            ->seeJsonStructure($this->errorStructure);
     }
 
     /** @test */
@@ -259,7 +259,7 @@ class MobilePhoneTest extends TestCase
         $phone = jediMasterMobilePhone(false, true, false);
 
         $this->post('/api/v1/mobile-phones/', $phone)
-            ->seeStatusCode(201)
+            ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }
 
