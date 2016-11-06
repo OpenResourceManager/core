@@ -21,7 +21,9 @@ class RoomTransformer extends TransformerAbstract
             'floor_number' => (int)$item->floor_number,
             'floor_label' => $item->floor_label,
             'room_number' => (int)$item->room_number,
-            'room_label' => $item->room_label
+            'room_label' => $item->room_label,
+            'created' => date('Y-m-d - H:i:s', strtotime($item->created_at)),
+            'updated' => date('Y-m-d - H:i:s', strtotime($item->updated_at)),
         ];
     }
 

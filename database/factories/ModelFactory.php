@@ -65,6 +65,14 @@ $factory->define(Account::class, function (Faker\Generator $faker) {
 
 
     $dutyIds = Duty::pluck('id')->all();
+    $ssn = $faker->optional()->numberBetween(1000, 9999);
+    $pass = $faker->optional()->password(6);
+    $birth_date = $faker->optional()->date('Y-m-d');
+
+    if (!empty($ssn)) $ssn = encrypt($ssn);
+    if (!empty($pass)) $pass = encrypt($pass);
+    if (!empty($birth_date)) $birth_date = encrypt($birth_date);
+
     return [
         'identifier' => strval($faker->unique()->randomNumber($nbDigits = 7, $strict = true)),
         'name_prefix' => $faker->optional()->title,
@@ -74,6 +82,9 @@ $factory->define(Account::class, function (Faker\Generator $faker) {
         'name_postfix' => $faker->optional()->title,
         'name_phonetic' => $faker->optional()->firstName,
         'username' => $faker->unique()->userName,
+        'ssn' => $ssn,
+        'password' => $pass,
+        'birth_date' => $birth_date,
         'primary_duty' => $faker->randomElement($dutyIds)
     ];
 });
@@ -115,15 +126,11 @@ $factory->define(MobilePhone::class, function (Faker\Generator $faker) {
 $factory->define(Address::class, function (Faker\Generator $faker) {
 
     $state = $faker->randomElement(State::get()->all());
-    $account = $faker->randomElement(Account::all()->all());
+    $account = $faker->randomElement(Account::get()->all());
     $addressee = $account->format_full_name($faker->boolean());
-    $lat_long = [[$faker->randomFloat(), $faker->randomFloat()]];
-    $latlng_pick = $faker->optional()->randomElement($lat_long);
-    $lat = (is_null($latlng_pick)) ? null : $latlng_pick[0];
-    $lng = (is_null($latlng_pick)) ? null : $latlng_pick[1];
 
     return [
-        'user_id' => $account->id,
+        'account_id' => $account->id,
         'addressee' => $addressee,
         'organization' => $faker->optional()->company,
         'line_1' => $faker->address,
@@ -132,8 +139,6 @@ $factory->define(Address::class, function (Faker\Generator $faker) {
         'state_id' => $state->id,
         'zip' => $faker->randomNumber(),
         'country_id' => $state->country_id,
-        'latitude' => $lat,
-        'longitude' => $lng
     ];
 
 });

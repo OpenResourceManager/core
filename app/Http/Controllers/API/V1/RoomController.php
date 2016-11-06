@@ -80,16 +80,13 @@ class RoomController extends ApiController
             'building_code' => 'integer|required_without:building_id|exists:buildings,code,deleted_at,NULL'
         ]);
 
-        if ($validator->fails()) throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+        if ($validator->fails())
+            throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
 
         if ($toRestore = Room::onlyTrashed()->where('code', $data['code'])->first()) $toRestore->restore();
-
         $trans = new RoomTransformer();
-
         $item = Room::updateOrCreate(['code' => $data['code']], $data);
-
         $item = $trans->transform($item);
-
         return $this->response->created(route('api.rooms.show', ['id' => $item['id']]), ['data' => $item]);
     }
 
@@ -113,7 +110,6 @@ class RoomController extends ApiController
             throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());
 
         $deleted = (array_key_exists('id', $data)) ? Room::destroy($data['id']) : Room::where('code', $data['code'])->firstOrFail()->delete();
-
         return ($deleted) ? $this->destroySuccessResponse() : $this->destroyFailure($this->noun);
     }
 }

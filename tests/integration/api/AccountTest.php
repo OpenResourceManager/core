@@ -22,6 +22,12 @@ class AccountTest extends TestCase
             'name_phonetic',
             'username',
             'primary_duty',
+            'ssn',
+            'password',
+            'birth_date',
+            'emails',
+            'mobile_phones',
+            'addresses',
             'updated',
             'created',
 

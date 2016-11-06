@@ -24,7 +24,10 @@ class Account extends BaseApiModel
         'name_postfix',
         'name_phonetic',
         'username',
-        'primary_duty'
+        'primary_duty',
+        'ssn',
+        'password',
+        'birth_date'
     ];
 
     protected $classified = ['password', 'ssn', 'birth_date'];

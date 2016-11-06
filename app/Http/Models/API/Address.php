@@ -23,7 +23,6 @@ class Address extends BaseApiModel
         'latitude',
         'longitude'
     ];
-    protected $touches = [Account::class];
 
     /**
      * @return BelongsTo

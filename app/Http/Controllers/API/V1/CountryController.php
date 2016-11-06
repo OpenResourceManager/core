@@ -76,16 +76,13 @@ class CountryController extends ApiController
             'label' => 'string|required|max:50|min:3'
         ]);
 
-        if ($validator->fails()) throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+        if ($validator->fails())
+            throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
 
         if ($toRestore = Country::onlyTrashed()->where('code', $data['code'])->first()) $toRestore->restore();
-
         $trans = new CountryTransformer();
-
         $item = Country::updateOrCreate(['code' => $data['code']], $data);
-
         $item = $trans->transform($item);
-
         return $this->response->created(route('api.countries.show', ['id' => $item['id']]), ['data' => $item]);
     }
 
@@ -107,9 +104,7 @@ class CountryController extends ApiController
 
         if ($validator->fails())
             throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());
-
         $deleted = (array_key_exists('id', $data)) ? Country::destroy($data['id']) : Country::where('code', $data['code'])->firstOrFail()->delete();
-
         return ($deleted) ? $this->destroySuccessResponse() : $this->destroyFailure($this->noun);
     }
 }

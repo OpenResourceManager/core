@@ -18,7 +18,9 @@ class CountryTransformer extends TransformerAbstract
             'id' => (int)$item->id,
             'label' => $item->label,
             'code' => $item->code,
-            'abbreviation' => $item->abbreviation
+            'abbreviation' => $item->abbreviation,
+            'created' => date('Y-m-d - H:i:s', strtotime($item->created_at)),
+            'updated' => date('Y-m-d - H:i:s', strtotime($item->updated_at)),
         ];
     }
 

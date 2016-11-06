@@ -18,7 +18,9 @@ class BuildingTransformer extends TransformerAbstract
             'id' => (int)$item->id,
             'campus_id' => (int)$item->campus_id,
             'code' => $item->code,
-            'label' => $item->label
+            'label' => $item->label,
+            'created' => date('Y-m-d - H:i:s', strtotime($item->created_at)),
+            'updated' => date('Y-m-d - H:i:s', strtotime($item->updated_at)),
         ];
     }
 

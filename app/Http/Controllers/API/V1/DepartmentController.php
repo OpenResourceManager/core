@@ -77,16 +77,13 @@ class DepartmentController extends ApiController
             'label' => 'string|required|max:25',
         ]);
 
-        if ($validator->fails()) throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+        if ($validator->fails())
+            throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
 
         if ($toRestore = Department::onlyTrashed()->where('code', $data['code'])->first()) $toRestore->restore();
-
         $trans = new DepartmentTransformer();
-
         $item = Department::updateOrCreate(['code' => $data['code']], $data);
-
         $item = $trans->transform($item);
-
         return $this->response->created(route('api.departments.show', ['id' => $item['id']]), ['data' => $item]);
     }
 

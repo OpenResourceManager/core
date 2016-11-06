@@ -93,7 +93,7 @@ class AddressController extends ApiController
     {
         $data = $request->all();
 
-        $validator = Validator::make($data, ['id' => 'integer|required|min:1|exists:addresses,deleted_at,NULL']);
+        $validator = Validator::make($data, ['id' => 'integer|required|min:1|exists:addresses,id,deleted_at,NULL']);
 
         if ($validator->fails())
             throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());

@@ -66,10 +66,11 @@ class CourseController extends ApiController
             'label' => 'string|required|min:5',
         ]);
 
-        if ($validator->fails()) throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+        if ($validator->fails())
+            throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
 
-        if (!key_exists('department_id', $data)) {
-            if (key_exists('department_code', $data)) {
+        if (!array_key_exists('department_id', $data)) {
+            if (array_key_exists('department_code', $data)) {
                 $data['department_id'] = Department::where('code', $data['department_code'])->firstOrFail()->id;
             } else {
                 throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', [
@@ -81,13 +82,9 @@ class CourseController extends ApiController
         }
 
         if ($toRestore = Course::onlyTrashed()->where('code', $data['code'])->first()) $toRestore->restore();
-
         $trans = new CourseTransformer();
-
         $item = Course::updateOrCreate(['code' => $data['code']], $data);
-
         $item = $trans->transform($item);
-
         return $this->response->created(route('api.courses.show', ['id' => $item['id']]), ['data' => $item]);
     }
 

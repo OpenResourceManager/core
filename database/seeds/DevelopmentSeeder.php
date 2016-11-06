@@ -15,6 +15,8 @@ class DevelopmentSeeder extends Seeder
         $this->call(DevelopmentUserSeeder::class);
         $this->call(AccountsTableSeeder::class);
         $this->call(EmailTableSeeder::class);
+        $this->call(DevelopmentMobilePhoneSeeder::class);
+        $this->call(DevelopmentAddressSeeder::class);
         /**
          * Pivots
          */

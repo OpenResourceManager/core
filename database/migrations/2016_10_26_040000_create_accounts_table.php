@@ -25,7 +25,7 @@ class CreateAccountsTable extends Migration
             $table->string('username')->unique();
             $table->string('password')->nullable();
             $table->string('ssn')->nullable();
-            $table->date('birth_date')->nullable();
+            $table->string('birth_date')->nullable();
             $table->integer('primary_duty')->unsigned()->nullable();
             $table->foreign('primary_duty')->references('id')->on('duties')->onDelete('set null');
             $table->timestamps();

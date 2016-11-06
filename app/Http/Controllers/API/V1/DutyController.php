@@ -76,16 +76,13 @@ class DutyController extends ApiController
             'label' => 'string|required|max:25',
         ]);
 
-        if ($validator->fails()) throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+        if ($validator->fails())
+            throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
 
         if ($toRestore = Duty::onlyTrashed()->where('code', $data['code'])->first()) $toRestore->restore();
-
         $trans = new DutyTransformer();
-
         $item = Duty::updateOrCreate(['code' => $data['code']], $data);
-
         $item = $trans->transform($item);
-
         return $this->response->created(route('api.duties.show', ['id' => $item['id']]), ['data' => $item]);
     }
 

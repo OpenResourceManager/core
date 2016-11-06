@@ -76,16 +76,13 @@ class CampusController extends ApiController
             'label' => 'string|required|max:30|min:3'
         ]);
 
-        if ($validator->fails()) throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+        if ($validator->fails())
+            throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
 
         if ($toRestore = Campus::onlyTrashed()->where('code', $data['code'])->first()) $toRestore->restore();
-
         $trans = new CampusTransformer();
-
         $item = Campus::updateOrCreate(['code' => $data['code']], $data);
-
         $item = $trans->transform($item);
-
         return $this->response->created(route('api.campuses.show', ['id' => $item['id']]), ['data' => $item]);
     }
 

@@ -17,7 +17,9 @@ class CampusTransformer extends TransformerAbstract
         return [
             'id' => (int)$item->id,
             'code' => $item->code,
-            'label' => $item->label
+            'label' => $item->label,
+            'created' => date('Y-m-d - H:i:s', strtotime($item->created_at)),
+            'updated' => date('Y-m-d - H:i:s', strtotime($item->updated_at)),
         ];
     }
 

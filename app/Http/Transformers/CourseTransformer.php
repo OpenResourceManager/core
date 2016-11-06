@@ -19,7 +19,9 @@ class CourseTransformer extends TransformerAbstract
             'department_id' => (int)$item->department_id,
             'code' => $item->code,
             'course_level' => $item->course_level,
-            'label' => $item->label
+            'label' => $item->label,
+            'created' => date('Y-m-d - H:i:s', strtotime($item->created_at)),
+            'updated' => date('Y-m-d - H:i:s', strtotime($item->updated_at)),
         ];
     }
 

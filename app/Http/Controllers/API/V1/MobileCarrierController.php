@@ -75,16 +75,13 @@ class MobileCarrierController extends ApiController
             'label' => 'string|required|max:25',
         ]);
 
-        if ($validator->fails()) throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+        if ($validator->fails())
+            throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
 
         if ($toRestore = MobileCarrier::onlyTrashed()->where('code', $data['code'])->first()) $toRestore->restore();
-
         $trans = new MobileCarrierTransformer();
-
         $item = MobileCarrier::updateOrCreate(['code' => $data['code']], $data);
-
         $item = $trans->transform($item);
-
         return $this->response->created(route('api.mobile-carriers.show', ['id' => $item['id']]), ['data' => $item]);
     }
 

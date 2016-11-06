@@ -17,7 +17,9 @@ class MobileCarrierTransformer extends TransformerAbstract
         return [
             'id' => (int)$item->id,
             'label' => $item->label,
-            'code' => $item->code
+            'code' => $item->code,
+            'created' => date('Y-m-d - H:i:s', strtotime($item->created_at)),
+            'updated' => date('Y-m-d - H:i:s', strtotime($item->updated_at)),
         ];
     }
 

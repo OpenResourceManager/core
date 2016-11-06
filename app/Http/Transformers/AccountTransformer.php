@@ -35,9 +35,33 @@ class AccountTransformer extends TransformerAbstract
         $user = auth()->user();
 
         if ($user->can(['read-classified', 'write-classified'])) {
-            if (isset($item->ssn)) $transformed['created'] = decrypt($item->ssn);
-            if (isset($item->password)) $transformed['password'] = decrypt($item->password);
-            if (isset($item->birth_date)) $transformed['birth_date'] = decrypt($item->birth_date);
+            $transformed['ssn'] = (!empty($item->ssn)) ? decrypt($item->ssn) : null;
+            $transformed['password'] = (!empty($item->password)) ? decrypt($item->password) : null;
+            $transformed['birth_date'] = (!empty($item->birth_date)) ? decrypt($item->birth_date) : null;
+        }
+
+        if ($user->can(['read-email'])) {
+            $transformed['emails'] = array();
+            $emailTrans = new EmailTransformer();
+            foreach ($item->emails as $email) {
+                $transformed['emails'][] = $emailTrans->transform($email);
+            }
+        }
+
+        if ($user->can(['read-mobile-phone'])) {
+            $transformed['mobile_phones'] = array();
+            $phoneTrans = new MobilePhoneTransformer();
+            foreach ($item->mobilePhones as $mobilePhone) {
+                $transformed['mobile_phones'][] = $phoneTrans->transform($mobilePhone);
+            }
+        }
+
+        if ($user->can(['read-address'])) {
+            $transformed['addresses'] = array();
+            $addressTrans = new AddressTransformer();
+            foreach ($item->addresses as $address) {
+                $transformed['addresses'][] = $addressTrans->transform($address);
+            }
         }
 
         $transformed['created'] = date('Y-m-d - H:i:s', strtotime($item->created_at));
