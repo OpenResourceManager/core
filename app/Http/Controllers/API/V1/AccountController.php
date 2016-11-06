@@ -74,7 +74,7 @@ class AccountController extends ApiController
      */
     public function showFromIdentifier($identifier)
     {
-        $account = Account::where('identifier', $identifier)->with(['emails', 'mobile_phones', 'addresses'])->firstOrFail();
+        $account = Account::where('identifier', $identifier)->with(['emails', 'mobilePhones', 'addresses'])->firstOrFail();
         return $this->response->item($account, new AccountTransformer);
     }
 
