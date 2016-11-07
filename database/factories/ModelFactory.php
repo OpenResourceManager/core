@@ -68,7 +68,6 @@ $factory->define(Account::class, function (Faker\Generator $faker) {
     $ssn = $faker->optional()->numberBetween(1000, 9999);
     $pass = $faker->optional()->password(6);
     $birth_date = $faker->optional()->date('Y-m-d');
-
     if (!empty($ssn)) $ssn = encrypt($ssn);
     if (!empty($pass)) $pass = encrypt($pass);
     if (!empty($birth_date)) $birth_date = encrypt($birth_date);
@@ -145,12 +144,12 @@ $factory->define(Address::class, function (Faker\Generator $faker) {
 
 $factory->define(Campus::class, function (Faker\Generator $faker) {
 
-    $city = $faker->unique()->city;
-    $num = $faker->unique()->randomDigitNotNull;
+    $city = ($faker->boolean()) ? $faker->unique()->city : $faker->unique()->word;
+    $num = $faker->randomDigitNotNull;
 
     return [
-        'code' => strtoupper(trim(substr($city, 0, 3))) . $num,
-        'name' => $city
+        'code' => strtoupper(trim(substr($city, 0, 5))) . $num,
+        'label' => $city
     ];
 });
 

@@ -166,13 +166,13 @@ $api->version('v1', function ($api) {
              * Campuses
              */
             $api->group(['prefix' => 'campuses'], function ($api) {
-                $api->group(['middleware' => 'permission:read-campuses'], function ($api) {
+                $api->group(['middleware' => 'permission:read-campus'], function ($api) {
                     $api->get('/', ['uses' => 'CampusController@index', 'as' => 'api.campuses.index']);
                     $api->get('/{id}', ['uses' => 'CampusController@show', 'as' => 'api.campuses.show']);
                     $api->get('/code/{code}', ['uses' => 'CampusController@showFromCode', 'as' => 'api.campuses.show_from_code']);
 
                 });
-                $api->group(['middleware' => 'permission:write-campuses'], function ($api) {
+                $api->group(['middleware' => 'permission:write-campus'], function ($api) {
                     $api->post('/', ['uses' => 'CampusController@store', 'as' => 'api.campuses.store']);
                     $api->delete('/', ['uses' => 'CampusController@destroy', 'as' => 'api.campuses.destroy']);
                 });

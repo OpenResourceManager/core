@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 class Campus extends BaseApiModel
 {
     use SoftDeletes;
-    protected $table = 'addresses';
+    protected $table = 'campuses';
     protected $dates = ['deleted_at'];
     protected $fillable = ['code', 'label'];
 
