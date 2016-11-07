@@ -8,6 +8,8 @@ use App\Http\Models\API\MobileCarrier;
 class MobileCarrierTest extends TestCase
 {
 
+    use DatabaseTransactions;
+
     /**
      * The expected paginated structure
      *

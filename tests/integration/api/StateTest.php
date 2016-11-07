@@ -9,6 +9,8 @@ use App\Http\Models\API\Country;
 class StateTest extends TestCase
 {
 
+    use DatabaseTransactions;
+
     /**
      * The expected paginated structure
      *

@@ -56,11 +56,27 @@ class BuildingTest extends TestCase
     }
 
     /** @test */
+    public function fails_to_get_building_by_id_without_auth()
+    {
+        $this->get('/api/v1/buildings/' . Building::get()->random()->id)
+            ->seeStatusCode(401)
+            ->seeJsonStructure($this->errorStructure);
+    }
+
+    /** @test */
     public function can_get_building_by_code()
     {
         $this->get('/api/v1/buildings/code/' . Building::get()->random()->code, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200)
             ->seeJsonStructure($this->itemStructureResponse);
+    }
+
+    /** @test */
+    public function fails_to_get_building_by_code_without_wuth()
+    {
+        $this->get('/api/v1/buildings/code/' . Building::get()->random()->code)
+            ->seeStatusCode(401)
+            ->seeJsonStructure($this->errorStructure);
     }
 
     /** @test */
@@ -72,11 +88,27 @@ class BuildingTest extends TestCase
     }
 
     /** @test */
+    public function fails_to_create_building_without_auth()
+    {
+        $this->post('/api/v1/buildings', ['label' => 'The Building', 'campus_id' => Campus::get()->random()->id, 'code' => 'CODZE1234'])
+            ->seeStatusCode(401)
+            ->seeJsonStructure($this->errorStructure);
+    }
+
+    /** @test */
     public function can_create_building_with_campus_code()
     {
         $this->post('/api/v1/buildings', ['label' => 'The Building', 'campus_code' => Campus::get()->random()->code, 'code' => 'CODZE1234'], ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(201)
             ->seeJsonStructure($this->itemStructureResponse);
+    }
+
+    /** @test */
+    public function fails_to_create_building_with_campus_code_without_auth()
+    {
+        $this->post('/api/v1/buildings', ['label' => 'The Building', 'campus_code' => Campus::get()->random()->code, 'code' => 'CODZE1234'])
+            ->seeStatusCode(401)
+            ->seeJsonStructure($this->errorStructure);
     }
 
     /** @test */
@@ -87,9 +119,25 @@ class BuildingTest extends TestCase
     }
 
     /** @test */
+    public function fails_to_delete_building_by_id_without_auth()
+    {
+        $this->delete('/api/v1/buildings', ['id' => Building::get()->random()->id])
+            ->seeStatusCode(401)
+            ->seeJsonStructure($this->errorStructure);
+    }
+
+    /** @test */
     public function can_delete_building_by_code()
     {
         $this->delete('/api/v1/buildings', ['code' => Building::get()->random()->code], ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(204);
+    }
+
+    /** @test */
+    public function fails_to_delete_building_by_code_without_auth()
+    {
+        $this->delete('/api/v1/buildings', ['code' => Building::get()->random()->code])
+            ->seeStatusCode(401)
+            ->seeJsonStructure($this->errorStructure);
     }
 }

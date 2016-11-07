@@ -56,11 +56,27 @@ class CampusTest extends TestCase
     }
 
     /** @test */
+    public function fails_to_get_campus_by_id_without_auth()
+    {
+        $this->get('/api/v1/campuses/' . Campus::get()->random()->id)
+            ->seeStatusCode(401)
+            ->seeJsonStructure($this->errorStructure);
+    }
+
+    /** @test */
     public function can_get_campus_by_code()
     {
         $this->get('/api/v1/campuses/code/' . Campus::get()->random()->code, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200)
             ->seeJsonStructure($this->itemStructureResponse);
+    }
+
+    /** @test */
+    public function fails_to_get_campus_by_code_without_auth()
+    {
+        $this->get('/api/v1/campuses/code/' . Campus::get()->random()->code)
+            ->seeStatusCode(401)
+            ->seeJsonStructure($this->errorStructure);
     }
 
     /** @test */
@@ -72,6 +88,14 @@ class CampusTest extends TestCase
     }
 
     /** @test */
+    public function fails_to_create_campus_without_auth()
+    {
+        $this->post('/api/v1/campuses', ['label' => 'The Campus', 'code' => 'CODZE1234'])
+            ->seeStatusCode(401)
+            ->seeJsonStructure($this->errorStructure);
+    }
+
+    /** @test */
     public function can_delete_campus_by_id()
     {
         $this->delete('/api/v1/campuses', ['id' => Campus::get()->random()->id], ['Authorization' => 'Bearer ' . $this->bearer])
@@ -79,9 +103,25 @@ class CampusTest extends TestCase
     }
 
     /** @test */
+    public function fails_to_delete_campus_by_id_without_auth()
+    {
+        $this->delete('/api/v1/campuses', ['id' => Campus::get()->random()->id])
+            ->seeStatusCode(401)
+            ->seeJsonStructure($this->errorStructure);
+    }
+
+    /** @test */
     public function can_delete_campus_by_code()
     {
         $this->delete('/api/v1/campuses', ['code' => Campus::get()->random()->code], ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(204);
+    }
+
+    /** @test */
+    public function fails_to_delete_campus_by_code_without_auth()
+    {
+        $this->delete('/api/v1/campuses', ['code' => Campus::get()->random()->code])
+            ->seeStatusCode(401)
+            ->seeJsonStructure($this->errorStructure);
     }
 }

@@ -6,6 +6,9 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CourseTest extends TestCase
 {
+
+    use DatabaseTransactions;
+
     /**
      * A basic test example.
      *

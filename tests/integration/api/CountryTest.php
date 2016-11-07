@@ -7,6 +7,7 @@ use App\Http\Models\API\Country;
 
 class CountryTest extends TestCase
 {
+    use DatabaseTransactions;
 
     /**
      * @var array
