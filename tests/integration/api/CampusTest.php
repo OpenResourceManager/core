@@ -8,6 +8,8 @@ use App\Http\Models\API\Campus;
 class CampusTest extends TestCase
 {
 
+    use DatabaseTransactions;
+
     /**
      * @var array
      */
