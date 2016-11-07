@@ -24,36 +24,17 @@ class CampusTest extends TestCase
         ]
     ];
 
-    /**
-     * The expected paginated structure
-     *
-     * @var array
-     */
-    protected $paginatedStructure = [
-        'data' => [],
-        'meta' => [
-            'pagination' => [
-                'total',
-                'count',
-                'per_page',
-                'current_page',
-                'total_pages',
-                'links' => []
-            ]
-        ]
-    ];
-
     public function setUp()
     {
         parent::setUp();
-        factory(Campus::class, 10)->create();
+        factory(Campus::class, 250)->create();
         $this->logIn();
     }
 
     /** @test */
     public function can_get_campus_pages()
     {
-        $this->get('/api/v1/campuses', ['Authorization' => 'Bearer ' . $this->bearer])
+        $this->get('/api/v1/campuses?page=2', ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200)
             ->seeJsonStructure($this->paginatedStructure);
     }
@@ -61,7 +42,7 @@ class CampusTest extends TestCase
     /** @test */
     public function fails_to_get_campus_pages_without_auth()
     {
-        $this->get('/api/v1/campuses')
+        $this->get('/api/v1/campuses?page=2')
             ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }

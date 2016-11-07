@@ -145,7 +145,7 @@ $factory->define(Address::class, function (Faker\Generator $faker) {
 $factory->define(Campus::class, function (Faker\Generator $faker) {
 
     $city = ($faker->boolean()) ? $faker->unique()->city : $faker->unique()->word;
-    $num = $faker->unique()->randomDigitNotNull;
+    $num = $faker->unique()->numberBetween(1, 99999999);
 
     return [
         'code' => strtoupper(trim($city)) . $num,
@@ -157,14 +157,14 @@ $factory->define(Building::class, function (Faker\Generator $faker) {
 
     $campusIds = Campus::pluck('id')->all();
 
-    $label = preg_replace('/\s\s+/', ' ', $faker->unique()->randomElement([
-        trim($faker->optional()->firstName . ' ' . $faker->unique()->lastName . ' ' . $faker->randomElement(buildingPostfixes())),
+    $label = preg_replace('/\s\s+/', ' ', $faker->randomElement([
+        trim($faker->optional()->firstName . ' ' . $faker->lastName . ' ' . $faker->randomElement(buildingPostfixes())),
         trim($faker->streetName . ' ' . $faker->randomElement(buildingPostfixes())),
         trim($faker->randomElement(directions()) . ' ' . $faker->optional()->lastName . ' ' . $faker->randomElement(buildingPostfixes()))
     ]));
 
-    $num = $faker->unique()->randomNumber($nbDigits = 4);
-    $code = strtoupper(trim(substr($label, 0, 6)) . $num);
+    $num = $faker->unique()->numberBetween(1, 99999999);
+    $code = strtoupper(trim($label) . $num);
 
     return [
         'campus_id' => $faker->randomElement($campusIds),

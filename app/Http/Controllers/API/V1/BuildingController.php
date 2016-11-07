@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Models\API\Building;
+use App\Http\Models\API\Campus;
 use App\Http\Transformers\BuildingTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Dingo\Api\Exception\StoreResourceFailedException;
 
 class BuildingController extends ApiController
 {
@@ -73,21 +75,31 @@ class BuildingController extends ApiController
 
         $validator = Validator::make($data, [
             'campus_id' => 'integer|required_without:campus_code|exists:campuses,id,deleted_at,NULL',
-            'campus_code' => 'integer|required_without:campus_id|exists:campuses,code,deleted_at,NULL',
+            'campus_code' => 'string|required_without:campus_id|exists:campuses,code,deleted_at,NULL',
             'code' => 'string|required|max:10|min:3',
             'label' => 'string|required|max:30|min:3'
         ]);
 
-        if ($validator->fails()) throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+        if ($validator->fails())
+            throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
 
         if ($toRestore = Building::onlyTrashed()->where('code', $data['code'])->first()) $toRestore->restore();
 
+        /**
+         * Translate campus code to an id if needed
+         */
+        if (!array_key_exists('campus_id', $data)) {
+            if (array_key_exists('campus_code', $data)) {
+                $data['campus_id'] = Campus::where('code', $data['campus_code'])->firstOrFail()->id;
+            } else {
+                // The validator should throw something like this, but it's here just in case.
+                throw new StoreResourceFailedException('Could not store ' . $this->noun, ['You must supply one of the following parameters "campus_id" or "campus_code".']);
+            }
+        }
+
         $trans = new BuildingTransformer();
-
         $item = Building::updateOrCreate(['code' => $data['code']], $data);
-
         $item = $trans->transform($item);
-
         return $this->response->created(route('api.buildings.show', ['id' => $item['id']]), ['data' => $item]);
     }
 
@@ -109,9 +121,7 @@ class BuildingController extends ApiController
 
         if ($validator->fails())
             throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());
-
-        $deleted = (array_key_exists('id', $data)) ? Building::destroy($data['id']) : Building::where('code', $data['code'])->firstOrFail()->deleted();
-
+        $deleted = (array_key_exists('id', $data)) ? Building::destroy($data['id']) : Building::where('code', $data['code'])->firstOrFail()->delete();
         return ($deleted) ? $this->destroySuccessResponse() : $this->destroyFailure($this->noun);
     }
 }
