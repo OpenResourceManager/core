@@ -163,8 +163,8 @@ $factory->define(Building::class, function (Faker\Generator $faker) {
         trim($faker->randomElement(directions()) . ' ' . $faker->optional()->lastName . ' ' . $faker->randomElement(buildingPostfixes()))
     ]));
 
-    $num = $faker->unique()->randomNumber($nbDigits = 3);
-    $code = strtoupper(trim(substr($label, 0, 3)) . $num);
+    $num = $faker->unique()->randomNumber($nbDigits = 4);
+    $code = strtoupper(trim(substr($label, 0, 6)) . $num);
 
     return [
         'campus_id' => $faker->randomElement($campusIds),
