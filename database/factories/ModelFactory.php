@@ -145,10 +145,10 @@ $factory->define(Address::class, function (Faker\Generator $faker) {
 $factory->define(Campus::class, function (Faker\Generator $faker) {
 
     $city = ($faker->boolean()) ? $faker->unique()->city : $faker->unique()->word;
-    $num = $faker->randomDigitNotNull;
+    $num = $faker->unique()->randomDigitNotNull;
 
     return [
-        'code' => strtoupper(trim(substr($city, 0, 5))) . $num,
+        'code' => strtoupper(trim($city)) . $num,
         'label' => $city
     ];
 });
