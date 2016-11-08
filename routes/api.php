@@ -200,8 +200,8 @@ $api->version('v1', function ($api) {
             $api->group(['prefix' => 'rooms'], function ($api) {
                 $api->group(['middleware' => 'permission:read-room'], function ($api) {
                     $api->get('/', ['uses' => 'RoomController@index', 'as' => 'api.rooms.index']);
-                    $api->get('/{id}', ['uses' => 'RoomController@show', 'as' => 'api.room.show']);
-                    $api->get('/code/{code}', ['uses' => 'RoomController@showFromCode', 'as' => 'api.room.show_from_code']);
+                    $api->get('/{id}', ['uses' => 'RoomController@show', 'as' => 'api.rooms.show']);
+                    $api->get('/code/{code}', ['uses' => 'RoomController@showFromCode', 'as' => 'api.rooms.show_from_code']);
 
                 });
                 $api->group(['middleware' => 'permission:write-room'], function ($api) {

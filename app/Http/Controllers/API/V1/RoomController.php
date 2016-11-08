@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Http\Models\API\Building;
 use App\Http\Models\API\Room;
 use App\Http\Transformers\RoomTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Dingo\Api\Exception\StoreResourceFailedException;
 
 class RoomController extends ApiController
 {
@@ -77,11 +79,23 @@ class RoomController extends ApiController
             'room_number' => 'integer|required',
             'room_name' => 'string|max:50',
             'building_id' => 'integer|required_without:building_code|exists:buildings,id,deleted_at,NULL',
-            'building_code' => 'integer|required_without:building_id|exists:buildings,code,deleted_at,NULL'
+            'building_code' => 'string|required_without:building_id|exists:buildings,code,deleted_at,NULL'
         ]);
 
         if ($validator->fails())
-            throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+            throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+
+        /**
+         * Translate building code to an id if needed
+         */
+        if (!array_key_exists('building_id', $data)) {
+            if (array_key_exists('building_code', $data)) {
+                $data['building_id'] = Building::where('code', $data['building_code'])->firstOrFail()->id;
+            } else {
+                // The validator should throw something like this, but it's here just in case.
+                throw new StoreResourceFailedException('Could not store ' . $this->noun, ['You must supply one of the following parameters "building_id" or "building_code".']);
+            }
+        }
 
         if ($toRestore = Room::onlyTrashed()->where('code', $data['code'])->first()) $toRestore->restore();
         $trans = new RoomTransformer();

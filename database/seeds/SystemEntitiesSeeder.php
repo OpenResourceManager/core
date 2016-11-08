@@ -125,13 +125,13 @@ class SystemEntitiesSeeder extends Seeder
          * Course
          */
         $readCourses = Permission::create([
-            'name' => 'read-courses',
+            'name' => 'read-course',
             'display_name' => 'Read Courses',
             'description' => 'Can read courses attributes.',
         ]);
 
         $writeCourses = Permission::create([
-            'name' => 'write-courses',
+            'name' => 'write-course',
             'display_name' => 'Write Courses',
             'description' => 'Can write courses attributes.',
         ]);
@@ -140,13 +140,13 @@ class SystemEntitiesSeeder extends Seeder
          * Department
          */
         $readDepartments = Permission::create([
-            'name' => 'read-departments',
+            'name' => 'read-department',
             'display_name' => 'Read Departments',
             'description' => 'Can read departments attributes.',
         ]);
 
         $writeDepartments = Permission::create([
-            'name' => 'write-departments',
+            'name' => 'write-department',
             'display_name' => 'Write Departments',
             'description' => 'Can write departments attributes.',
         ]);
@@ -215,13 +215,13 @@ class SystemEntitiesSeeder extends Seeder
          * Room
          */
         $readRooms = Permission::create([
-            'name' => 'read-rooms',
+            'name' => 'read-room',
             'display_name' => 'Read Rooms',
             'description' => 'Can read rooms attributes.',
         ]);
 
         $writeRooms = Permission::create([
-            'name' => 'write-rooms',
+            'name' => 'write-room',
             'display_name' => 'Write Rooms',
             'description' => 'Can write rooms attributes.',
         ]);
