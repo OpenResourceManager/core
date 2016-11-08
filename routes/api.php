@@ -230,13 +230,13 @@ $api->version('v1', function ($api) {
              * Courses
              */
             $api->group(['prefix' => 'courses'], function ($api) {
-                $api->group(['middleware' => 'permission:read-courses'], function ($api) {
+                $api->group(['middleware' => 'permission:read-course'], function ($api) {
                     $api->get('/', ['uses' => 'CourseController@index', 'as' => 'api.courses.index']);
                     $api->get('/{id}', ['uses' => 'CourseController@show', 'as' => 'api.courses.show']);
                     $api->get('/code/{code}', ['uses' => 'CourseController@showFromCode', 'as' => 'api.courses.show_from_code']);
 
                 });
-                $api->group(['middleware' => 'permission:write-courses'], function ($api) {
+                $api->group(['middleware' => 'permission:write-course'], function ($api) {
                     $api->post('/', ['uses' => 'CourseController@store', 'as' => 'api.courses.store']);
                     $api->delete('/', ['uses' => 'CourseController@destroy', 'as' => 'api.courses.destroy']);
                 });

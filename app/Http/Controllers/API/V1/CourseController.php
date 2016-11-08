@@ -47,6 +47,20 @@ class CourseController extends ApiController
     }
 
     /**
+     * Show a Course from Code
+     *
+     * Display a Course by providing it's Code attribute.
+     *
+     * @param $code
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showFromCode($code)
+    {
+        $item = Course::where('code', $code)->firstOrFail();
+        return $this->response->item($item, new CourseTransformer);
+    }
+
+    /**
      * Store/Update/Restore Course
      *
      * Create or update Course information.
@@ -59,8 +73,8 @@ class CourseController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'department_id' => 'integer|min:1|required_without:department_code|exists:departments,code,deleted_at,NULL',
-            'department_code' => 'string|min:3|required_without:department_id|exists:departments,id,deleted_at,NULL',
+            'department_id' => 'integer|min:1|required_without:department_code|exists:departments,id,deleted_at,NULL',
+            'department_code' => 'string|min:3|required_without:department_id|exists:departments,code,deleted_at,NULL',
             'code' => 'string|required|min:3',
             'course_level' => 'integer|required',
             'label' => 'string|required|min:5',
@@ -100,8 +114,8 @@ class CourseController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'code' => 'string|required_without:id|exists:countries,code,deleted_at,NULL',
-            'id' => 'integer|required_without:code|exists:countries,id,deleted_at,NULL'
+            'code' => 'string|required_without:id|exists:courses,code,deleted_at,NULL',
+            'id' => 'integer|required_without:code|exists:courses,id,deleted_at,NULL'
         ]);
 
         if ($validator->fails())

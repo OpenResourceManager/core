@@ -225,7 +225,7 @@ $factory->define(Department::class, function (Faker\Generator $faker) {
     return [
         'academic' => $faker->boolean(40),
         'code' => $faker->unique()->text(7),
-        'name' => $faker->unique()->randomElement($labels),
+        'label' => $faker->unique()->randomElement($labels),
     ];
 
 });
@@ -234,11 +234,21 @@ $factory->define(Course::class, function (Faker\Generator $faker) {
 
     $deptIds = Department::where('academic', true)->pluck('id')->all();
 
+    $labels = [
+        $faker->word . ' ' . $faker->word,
+        $faker->word . ' ' . $faker->word . $faker->word . ' ' . $faker->word,
+        implode(' ', $faker->words) . ' ' . $faker->word,
+    ];
+
+    $label = $faker->unique()->randomElement($labels);
+    $level = $faker->randomElement([100, 200, 300, 400, 500]);
+    $code = $label . $level;
+
     return [
         'department_id' => $faker->randomElement($deptIds),
-        'code' => $faker->unique()->text(7) . $faker->randomNumber(3, true),
-        'course_level' => $faker->randomElement([100, 200, 300, 400, 500]),
-        'name' => $faker->unique()->word
+        'code' => $code,
+        'course_level' => $level,
+        'label' => $label
     ];
 
 });
