@@ -22,6 +22,9 @@ $api->version('v1', function ($api) {
             $api->get('validate', ['uses' => 'ApiAuthenticationController@validateAuth', 'as' => 'api.validate_auth', 'middleware' => 'api.auth']);
         });
 
+        $api->get('verify/{token}', ['uses' => 'TokenVerificationController@verify', 'as' => 'api.send.verify.token']);
+        $api->post('verify', ['uses' => 'TokenVerificationController@verify', 'as' => 'api.post.verify.token']);
+
         /**
          * Protected routes go in this middleware group
          */

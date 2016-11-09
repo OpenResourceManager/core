@@ -15,7 +15,8 @@ class CourseAccountAssignmentTest extends TestCase
     {
         parent::setUp();
         factory(Account::class, 150)->create();
-        factory(Department::class, 5)->create();
+        Department::create(jediMasterDepartment());
+        factory(Department::class, 15)->create();
         factory(Course::class, 5)->create();
         $this->logIn();
     }
@@ -24,7 +25,6 @@ class CourseAccountAssignmentTest extends TestCase
     public function can_assign_and_detach_course_by_id_with_account_id()
     {
         $account = Account::create(lukeSkywalkerAccount());
-        Department::create(jediMasterDepartment());
         $course = Course::create(jediMasterCourse());
 
         $this->post('/api/v1/accounts/course', ['course_id' => $course->id, 'account_id' => $account->id], ['Authorization' => 'Bearer ' . $this->bearer])
@@ -38,7 +38,6 @@ class CourseAccountAssignmentTest extends TestCase
     public function can_assign_and_detach_course_by_id_with_account_identifier()
     {
         $account = Account::create(lukeSkywalkerAccount());
-        Department::create(jediMasterDepartment());
         $course = Course::create(jediMasterCourse());
 
         $this->post('/api/v1/accounts/course', ['course_id' => $course->id, 'identifier' => $account->identifier], ['Authorization' => 'Bearer ' . $this->bearer])
@@ -52,7 +51,6 @@ class CourseAccountAssignmentTest extends TestCase
     public function can_assign_and_detach_course_by_id_with_account_username()
     {
         $account = Account::create(lukeSkywalkerAccount());
-        Department::create(jediMasterDepartment());
         $course = Course::create(jediMasterCourse());
 
         $this->post('/api/v1/accounts/course', ['course_id' => $course->id, 'username' => $account->username], ['Authorization' => 'Bearer ' . $this->bearer])
@@ -66,7 +64,6 @@ class CourseAccountAssignmentTest extends TestCase
     public function can_assign_and_detach_course_by_code_with_account_id()
     {
         $account = Account::create(lukeSkywalkerAccount());
-        Department::create(jediMasterDepartment());
         $course = Course::create(jediMasterCourse());
 
         $this->post('/api/v1/accounts/course', ['code' => $course->code, 'account_id' => $account->id], ['Authorization' => 'Bearer ' . $this->bearer])
@@ -80,7 +77,6 @@ class CourseAccountAssignmentTest extends TestCase
     public function can_assign_and_detach_course_by_code_with_account_identifier()
     {
         $account = Account::create(lukeSkywalkerAccount());
-        Department::create(jediMasterDepartment());
         $course = Course::create(jediMasterCourse());
 
         $this->post('/api/v1/accounts/course', ['code' => $course->code, 'identifier' => $account->identifier], ['Authorization' => 'Bearer ' . $this->bearer])
@@ -94,7 +90,6 @@ class CourseAccountAssignmentTest extends TestCase
     public function can_assign_and_detach_course_by_code_with_account_username()
     {
         $account = Account::create(lukeSkywalkerAccount());
-        Department::create(jediMasterDepartment());
         $course = Course::create(jediMasterCourse());
 
         $this->post('/api/v1/accounts/course', ['code' => $course->code, 'username' => $account->username], ['Authorization' => 'Bearer ' . $this->bearer])
@@ -108,7 +103,6 @@ class CourseAccountAssignmentTest extends TestCase
     public function fails_to_assign_course_by_id_with_account_id()
     {
         $account = Account::create(lukeSkywalkerAccount());
-        Department::create(jediMasterDepartment());
         $course = Course::create(jediMasterCourse());
 
         $this->post('/api/v1/accounts/course', ['course_id' => $course->id, 'account_id' => $account->id])
@@ -119,7 +113,6 @@ class CourseAccountAssignmentTest extends TestCase
     public function fails_to_assign_course_by_id_with_account_identifier()
     {
         $account = Account::create(lukeSkywalkerAccount());
-        Department::create(jediMasterDepartment());
         $course = Course::create(jediMasterCourse());
 
         $this->post('/api/v1/accounts/course', ['course_id' => $course->id, 'identifier' => $account->identifier])
@@ -130,7 +123,6 @@ class CourseAccountAssignmentTest extends TestCase
     public function fails_to_assign_course_by_id_with_account_username()
     {
         $account = Account::create(lukeSkywalkerAccount());
-        Department::create(jediMasterDepartment());
         $course = Course::create(jediMasterCourse());
 
         $this->post('/api/v1/accounts/course', ['course_id' => $course->id, 'username' => $account->username])
@@ -141,7 +133,6 @@ class CourseAccountAssignmentTest extends TestCase
     public function fails_to_assign_course_by_code_with_account_id()
     {
         $account = Account::create(lukeSkywalkerAccount());
-        Department::create(jediMasterDepartment());
         $course = Course::create(jediMasterCourse());
 
         $this->post('/api/v1/accounts/course', ['code' => $course->code, 'account_id' => $account->id])
@@ -152,7 +143,6 @@ class CourseAccountAssignmentTest extends TestCase
     public function fails_to_assign_course_by_code_with_account_identifier()
     {
         $account = Account::create(lukeSkywalkerAccount());
-        Department::create(jediMasterDepartment());
         $course = Course::create(jediMasterCourse());
 
         $this->post('/api/v1/accounts/course', ['code' => $course->code, 'identifier' => $account->identifier])
@@ -163,7 +153,6 @@ class CourseAccountAssignmentTest extends TestCase
     public function fails_to_assign_course_by_code_with_account_username()
     {
         $account = Account::create(lukeSkywalkerAccount());
-        Department::create(jediMasterDepartment());
         $course = Course::create(jediMasterCourse());
 
         $this->post('/api/v1/accounts/course', ['code' => $course->code, 'username' => $account->username])
@@ -177,7 +166,6 @@ class CourseAccountAssignmentTest extends TestCase
     public function fails_to_detach_course_by_id_with_account_id()
     {
         $account = Account::create(lukeSkywalkerAccount());
-        Department::create(jediMasterDepartment());
         $course = Course::create(jediMasterCourse());
 
         $this->post('/api/v1/accounts/course', ['course_id' => $course->id, 'account_id' => $account->id], ['Authorization' => 'Bearer ' . $this->bearer])
@@ -193,7 +181,6 @@ class CourseAccountAssignmentTest extends TestCase
     public function fails_to_detach_course_by_id_with_account_identifier()
     {
         $account = Account::create(lukeSkywalkerAccount());
-        Department::create(jediMasterDepartment());
         $course = Course::create(jediMasterCourse());
 
         $this->post('/api/v1/accounts/course', ['course_id' => $course->id, 'identifier' => $account->identifier], ['Authorization' => 'Bearer ' . $this->bearer])
@@ -209,7 +196,6 @@ class CourseAccountAssignmentTest extends TestCase
     public function fails_to_detach_course_by_id_with_account_username()
     {
         $account = Account::create(lukeSkywalkerAccount());
-        Department::create(jediMasterDepartment());
         $course = Course::create(jediMasterCourse());
 
         $this->post('/api/v1/accounts/course', ['course_id' => $course->id, 'username' => $account->username], ['Authorization' => 'Bearer ' . $this->bearer])
@@ -225,7 +211,6 @@ class CourseAccountAssignmentTest extends TestCase
     public function fails_to_detach_course_by_code_with_account_id()
     {
         $account = Account::create(lukeSkywalkerAccount());
-        Department::create(jediMasterDepartment());
         $course = Course::create(jediMasterCourse());
 
         $this->post('/api/v1/accounts/course', ['code' => $course->code, 'account_id' => $account->id], ['Authorization' => 'Bearer ' . $this->bearer])
@@ -241,7 +226,6 @@ class CourseAccountAssignmentTest extends TestCase
     public function fails_to_detach_course_by_code_with_account_identifier()
     {
         $account = Account::create(lukeSkywalkerAccount());
-        Department::create(jediMasterDepartment());
         $course = Course::create(jediMasterCourse());
 
         $this->post('/api/v1/accounts/course', ['code' => $course->code, 'identifier' => $account->identifier], ['Authorization' => 'Bearer ' . $this->bearer])
@@ -257,7 +241,6 @@ class CourseAccountAssignmentTest extends TestCase
     public function fails_to_detach_course_by_code_with_account_username()
     {
         $account = Account::create(lukeSkywalkerAccount());
-        Department::create(jediMasterDepartment());
         $course = Course::create(jediMasterCourse());
 
         $this->post('/api/v1/accounts/course', ['code' => $course->code, 'username' => $account->username], ['Authorization' => 'Bearer ' . $this->bearer])
