@@ -602,3 +602,50 @@ function jediMasterMobilePhone($useCode = false, $username = false, $identifier 
 
     return $array;
 }
+
+/**
+ * Dummy Department
+ *
+ * @return array
+ */
+function jediMasterDepartment()
+{
+    return [
+        'academic' => true,
+        'code' => 'jediKnights',
+        'label' => 'Jedi Knights'
+    ];
+}
+
+/**
+ * Dummy Course
+ *
+ * @return array
+ */
+function jediMasterCourse()
+{
+    return [
+        'code' => 'FORCE500',
+        'label' => 'The Force',
+        'department_id' => \App\Http\Models\API\Department::where('code', 'jediKnights')->firstOrFail()->id,
+        'course_level' => 500
+    ];
+}
+
+/**
+ * Dummy Room
+ *
+ * @return array
+ */
+function jediMasterRoom()
+{
+    return [
+        'code' => 'AROOMFORAJEDI',
+        'building_id' => \App\Http\Models\API\Building::get()->random()->id,
+        'floor_number' => 3,
+        'floor_label' => 'Third Floor',
+        'room_number' => 306,
+        'room_label' => 'Jedi Dorm 306'
+    ];
+
+}

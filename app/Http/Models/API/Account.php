@@ -161,4 +161,28 @@ class Account extends BaseApiModel
     {
         return $this->hasMany(Address::class);
     }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function rooms()
+    {
+        return $this->belongsToMany(Room::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function departments()
+    {
+        return $this->belongsToMany(Department::class);
+    }
 }

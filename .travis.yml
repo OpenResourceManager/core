@@ -44,4 +44,7 @@ script:
   - vendor/bin/phpunit --filter {RoomTest}
   - vendor/bin/phpunit --filter {StateTest}
   - vendor/bin/phpunit --filter {DutyAccountAssignmentTest}
+  - vendor/bin/phpunit --filter {RoomAccountAssignmentTest}
+  - vendor/bin/phpunit --filter {CourseAccountAssignmentTest}
+  - vendor/bin/phpunit --filter {DepartmentAccountAssignmentTest}
 

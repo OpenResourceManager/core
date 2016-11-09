@@ -2,6 +2,7 @@
 
 namespace App\Http\Models\API;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -29,15 +30,15 @@ class Room extends BaseApiModel
     }
 
     /**
-     * @return BelongsTo
+     * @return HasMany
      */
     public function accounts()
     {
-        return $this->belongsTo(Account::class)->withTimestamps();
+        return $this->hasMany(Account::class)->withTimestamps();
     }
 
     /**
-     * @return BelongsTo
+     * @return HasMany
      */
     public function inhabitants()
     {

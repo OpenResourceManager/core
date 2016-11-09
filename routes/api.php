@@ -104,9 +104,19 @@ $api->version('v1', function ($api) {
 
                 $api->group(['middleware' => 'permission:write-account'], function ($api) {
                     $api->post('/', ['uses' => 'AccountController@store', 'as' => 'api.accounts.store']);
-                    $api->post('/duty', ['uses' => 'AccountController@assignDuty', 'as' => 'api.account.assign.duty']);
                     $api->delete('/', ['uses' => 'AccountController@destroy', 'as' => 'api.accounts.destroy']);
+
+                    $api->post('/duty', ['uses' => 'AccountController@assignDuty', 'as' => 'api.account.assign.duty']);
                     $api->delete('/duty', ['uses' => 'AccountController@detachDuty', 'as' => 'api.account.detach.duty']);
+
+                    $api->post('/course', ['uses' => 'AccountController@assignCourse', 'as' => 'api.account.assign.course']);
+                    $api->delete('/course', ['uses' => 'AccountController@detachCourse', 'as' => 'api.account.detach.course']);
+
+                    $api->post('/department', ['uses' => 'AccountController@assignDepartment', 'as' => 'api.account.assign.department']);
+                    $api->delete('/department', ['uses' => 'AccountController@detachDepartment', 'as' => 'api.account.detach.department']);
+
+                    $api->post('/room', ['uses' => 'AccountController@assignRoom', 'as' => 'api.account.assign.room']);
+                    $api->delete('/room', ['uses' => 'AccountController@detachRoom', 'as' => 'api.account.detach.room']);
                 });
             });
 

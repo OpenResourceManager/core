@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Models\API\Account;
+use App\Http\Models\API\Course;
+use App\Http\Models\API\Department;
 use App\Http\Models\API\Duty;
+use App\Http\Models\API\Room;
 use App\Http\Transformers\AccountTransformer;
 use Dingo\Api\Exception\DeleteResourceFailedException;
 use Dingo\Api\Exception\StoreResourceFailedException;
@@ -144,55 +147,6 @@ class AccountController extends ApiController
     }
 
     /**
-     * Assign Account to Duty
-     *
-     * Creates the relationship between an Account and Duty.
-     *
-     * @param Request $request
-     * @return \Dingo\Api\Http\Response|void
-     */
-    public function assignDuty(Request $request)
-    {
-        $data = $request->all();
-        $validator = Validator::make($data, [
-            'identifier' => 'alpha_num|required_without_all:account_id,username|max:7|min:6|exists:accounts,identifier,deleted_at,NULL',
-            'username' => 'string|required_without_all:identifier,account_id|min:3|exists:accounts,username,deleted_at,NULL',
-            'account_id' => 'integer|required_without_all:identifier,username|min:1|exists:accounts,id,deleted_at,NULL',
-            'code' => 'string|required_without:duty_id|min:3|exists:duties,code,deleted_at,NULL',
-            'duty_id' => 'integer|required_without:code|min:1|exists:duties,id,deleted_at,NULL'
-        ]);
-
-
-        if ($validator->fails())
-            throw new StoreResourceFailedException('Could not assign duty to account.', $validator->errors());
-
-        if (array_key_exists('account_id', $data)) {
-            $account = Account::findOrFail($data['account_id']);
-        } elseif (array_key_exists('identifier', $data)) {
-            $account = Account::where('identifier', $data['identifier'])->firstOrFail();
-        } elseif (array_key_exists('username', $data)) {
-            $account = Account::where('username', $data['username'])->firstOrFail();
-        } else {
-            // The validator should throw something like this, but it's here just in case.
-            throw new StoreResourceFailedException('Could not assign duty to ' . $this->noun . '.', ['You must supply one of the following parameters "account_id", "identifier", or "username".']);
-        }
-
-        if (array_key_exists('duty_id', $data)) {
-            $duty = Duty::findOrFail($data['duty_id']);
-        } elseif (array_key_exists('code', $data)) {
-            $duty = Duty::where('code', $data['code'])->firstOrFail();
-        } else {
-            // The validator should throw something like this, but it's here just in case.
-            throw new StoreResourceFailedException('Could not assign duty to ' . $this->noun . '.', ['You must supply a "duty_id" or "code" parameter.']);
-        }
-
-        $account->duties()->attach($duty->id);
-
-        return $this->response->created();
-    }
-
-
-    /**
      * Destroy Account
      *
      * Deletes the specified Account by it's ID, Identifier, or Username attribute.
@@ -225,6 +179,56 @@ class AccountController extends ApiController
 
         return ($deleted) ? $this->destroySuccessResponse() : $this->destroyFailure('account');
     }
+
+
+    /**
+     * Assign Account to Duty
+     *
+     * Creates the relationship between an Account and Duty.
+     *
+     * @param Request $request
+     * @return \Dingo\Api\Http\Response|void
+     */
+    public function assignDuty(Request $request)
+    {
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'identifier' => 'alpha_num|required_without_all:account_id,username|exists:accounts,identifier,deleted_at,NULL',
+            'username' => 'string|required_without_all:identifier,account_id|exists:accounts,username,deleted_at,NULL',
+            'account_id' => 'integer|required_without_all:identifier,username|exists:accounts,id,deleted_at,NULL',
+            'code' => 'string|required_without:duty_id|exists:duties,code,deleted_at,NULL',
+            'duty_id' => 'integer|required_without:code|exists:duties,id,deleted_at,NULL'
+        ]);
+
+
+        if ($validator->fails())
+            throw new StoreResourceFailedException('Could not assign duty to account.', $validator->errors());
+
+        if (array_key_exists('account_id', $data)) {
+            $account = Account::findOrFail($data['account_id']);
+        } elseif (array_key_exists('identifier', $data)) {
+            $account = Account::where('identifier', $data['identifier'])->firstOrFail();
+        } elseif (array_key_exists('username', $data)) {
+            $account = Account::where('username', $data['username'])->firstOrFail();
+        } else {
+            // The validator should throw something like this, but it's here just in case.
+            throw new StoreResourceFailedException('Could not assign duty to ' . $this->noun . '.', ['You must supply one of the following parameters "account_id", "identifier", or "username".']);
+        }
+
+        if (!array_key_exists('duty_id', $data)) {
+            if (array_key_exists('code', $data)) {
+                $data['duty_id'] = Duty::where('code', $data['code'])->firstOrFail()->id;
+            } else {
+                // The validator should throw something like this, but it's here just in case.
+                throw new StoreResourceFailedException('Could not assign duty to ' . $this->noun . '.', ['You must supply a "duty_id" or "code" parameter.']);
+            }
+        }
+
+        $account->duties()->attach($data['duty_id']);
+
+        return $this->response->created();
+    }
+
 
     /**
      * Detach Duty from Account
@@ -262,22 +266,320 @@ class AccountController extends ApiController
             throw new DeleteResourceFailedException('Could not detach ' . $this->noun . ' from duty.', ['You must supply one of the following parameters "account_id", "identifier", or "username".']);
         }
 
-        if (array_key_exists('duty_id', $data)) {
-            $duty = Duty::findOrFail($data['duty_id']);
-        } elseif (array_key_exists('code', $data)) {
-            $duty = Duty::where('code', $data['code'])->firstOrFail();
-        } else {
-            // The validator should throw something like this, but it's here just in case.
-            throw new DeleteResourceFailedException('Could not detach ' . $this->noun . ' from duty.', ['You must supply a "duty_id" or "code" parameter.']);
+        if (!array_key_exists('duty_id', $data)) {
+            if (array_key_exists('code', $data)) {
+                $data['duty_id'] = Duty::where('code', $data['code'])->firstOrFail()->id;
+            } else {
+                // The validator should throw something like this, but it's here just in case.
+                throw new StoreResourceFailedException('Could not detach ' . $this->noun . ' from duty.', ['You must supply a "duty_id" or "code" parameter.']);
+            }
         }
 
-        $account->duties()->detach($duty->id);
+        $account->duties()->detach($data['duty_id']);
 
-        if ($duty->id === $account->primary_duty) {
+        if ($data['duty_id'] === $account->primary_duty) {
             $account->primary_duty = null;
             $account->save();
         }
 
         return $this->destroySuccessResponse();
     }
+
+
+    /**
+     * Assign Account to Course
+     *
+     * Creates the relationship between an Account and Course.
+     *
+     * @param Request $request
+     * @return \Dingo\Api\Http\Response|void
+     */
+    public function assignCourse(Request $request)
+    {
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'identifier' => 'alpha_num|required_without_all:account_id,username|exists:accounts,identifier,deleted_at,NULL',
+            'username' => 'string|required_without_all:identifier,account_id|exists:accounts,username,deleted_at,NULL',
+            'account_id' => 'integer|required_without_all:identifier,username|exists:accounts,id,deleted_at,NULL',
+            'code' => 'string|required_without:course_id|exists:courses,code,deleted_at,NULL',
+            'course_id' => 'integer|required_without:code|exists:courses,id,deleted_at,NULL'
+        ]);
+
+
+        if ($validator->fails())
+            throw new StoreResourceFailedException('Could not assign course to account.', $validator->errors());
+
+        if (array_key_exists('account_id', $data)) {
+            $account = Account::findOrFail($data['account_id']);
+        } elseif (array_key_exists('identifier', $data)) {
+            $account = Account::where('identifier', $data['identifier'])->firstOrFail();
+        } elseif (array_key_exists('username', $data)) {
+            $account = Account::where('username', $data['username'])->firstOrFail();
+        } else {
+            // The validator should throw something like this, but it's here just in case.
+            throw new StoreResourceFailedException('Could not assign course to ' . $this->noun . '.', ['You must supply one of the following parameters "account_id", "identifier", or "username".']);
+        }
+
+        if (!array_key_exists('course_id', $data)) {
+            if (array_key_exists('code', $data)) {
+                $data['course_id'] = Course::where('code', $data['code'])->firstOrFail()->id;
+            } else {
+                // The validator should throw something like this, but it's here just in case.
+                throw new StoreResourceFailedException('Could not assign course to ' . $this->noun . '.', ['You must supply a "course_id" or "code" parameter.']);
+            }
+        }
+
+        $account->courses()->attach($data['course_id']);
+
+        return $this->response->created();
+    }
+
+    /**
+     * Detach Course from Account
+     *
+     * Destroys the relationship between an Account and Course.
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function detachCourse(Request $request)
+    {
+
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'identifier' => 'alpha_num|required_without_all:account_id,username|exists:accounts,identifier,deleted_at,NULL',
+            'username' => 'string|required_without_all:identifier,account_id|exists:accounts,username,deleted_at,NULL',
+            'account_id' => 'integer|required_without_all:identifier,username|exists:accounts,id,deleted_at,NULL',
+            'code' => 'string|required_without:course_id|exists:courses,code,deleted_at,NULL',
+            'course_id' => 'integer|required_without:code|exists:courses,id,deleted_at,NULL'
+        ]);
+
+        if ($validator->fails())
+            throw new DeleteResourceFailedException('Could not detach ' . $this->noun . ' from course.', $validator->errors());
+
+
+        if (array_key_exists('account_id', $data)) {
+            $account = Account::findOrFail($data['account_id']);
+        } elseif (array_key_exists('identifier', $data)) {
+            $account = Account::where('identifier', $data['identifier'])->firstOrFail();
+        } elseif (array_key_exists('username', $data)) {
+            $account = Account::where('username', $data['username'])->firstOrFail();
+        } else {
+            // The validator should throw something like this, but it's here just in case.
+            throw new DeleteResourceFailedException('Could not detach ' . $this->noun . ' from course.', ['You must supply one of the following parameters "account_id", "identifier", or "username".']);
+        }
+
+        if (!array_key_exists('course_id', $data)) {
+            if (array_key_exists('code', $data)) {
+                $data['course_id'] = Course::where('code', $data['code'])->firstOrFail()->id;
+            } else {
+                // The validator should throw something like this, but it's here just in case.
+                throw new StoreResourceFailedException('Could not detach ' . $this->noun . ' from course.', ['You must supply a "course_id" or "code" parameter.']);
+            }
+        }
+
+        $account->courses()->detach($data['course_id']);
+
+        return $this->destroySuccessResponse();
+    }
+
+
+    /**
+     * Assign Account to Department
+     *
+     * Creates the relationship between an Account and Department.
+     *
+     * @param Request $request
+     * @return \Dingo\Api\Http\Response|void
+     */
+    public function assignDepartment(Request $request)
+    {
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'identifier' => 'alpha_num|required_without_all:account_id,username|exists:accounts,identifier,deleted_at,NULL',
+            'username' => 'string|required_without_all:identifier,account_id|exists:accounts,username,deleted_at,NULL',
+            'account_id' => 'integer|required_without_all:identifier,username|exists:accounts,id,deleted_at,NULL',
+            'code' => 'string|required_without:department_id|exists:departments,code,deleted_at,NULL',
+            'department_id' => 'integer|required_without:code|exists:departments,id,deleted_at,NULL'
+        ]);
+
+
+        if ($validator->fails())
+            throw new StoreResourceFailedException('Could not assign department to account.', $validator->errors());
+
+        if (array_key_exists('account_id', $data)) {
+            $account = Account::findOrFail($data['account_id']);
+        } elseif (array_key_exists('identifier', $data)) {
+            $account = Account::where('identifier', $data['identifier'])->firstOrFail();
+        } elseif (array_key_exists('username', $data)) {
+            $account = Account::where('username', $data['username'])->firstOrFail();
+        } else {
+            // The validator should throw something like this, but it's here just in case.
+            throw new StoreResourceFailedException('Could not assign department to ' . $this->noun . '.', ['You must supply one of the following parameters "account_id", "identifier", or "username".']);
+        }
+
+        if (!array_key_exists('department_id', $data)) {
+            if (array_key_exists('code', $data)) {
+                $data['department_id'] = Department::where('code', $data['code'])->firstOrFail()->id;
+            } else {
+                // The validator should throw something like this, but it's here just in case.
+                throw new StoreResourceFailedException('Could not assign department to ' . $this->noun . '.', ['You must supply a "department_id" or "code" parameter.']);
+            }
+        }
+
+        $account->departments()->attach($data['department_id']);
+
+        return $this->response->created();
+    }
+
+    /**
+     * Detach Department from Account
+     *
+     * Destroys the relationship between an Account and Department.
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function detachDepartment(Request $request)
+    {
+
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'identifier' => 'alpha_num|required_without_all:account_id,username|exists:accounts,identifier,deleted_at,NULL',
+            'username' => 'string|required_without_all:identifier,account_id|exists:accounts,username,deleted_at,NULL',
+            'account_id' => 'integer|required_without_all:identifier,username|exists:accounts,id,deleted_at,NULL',
+            'code' => 'string|required_without:department_id|exists:departments,code,deleted_at,NULL',
+            'department_id' => 'integer|required_without:code|exists:departments,id,deleted_at,NULL'
+        ]);
+
+        if ($validator->fails())
+            throw new DeleteResourceFailedException('Could not detach ' . $this->noun . ' from department.', $validator->errors());
+
+
+        if (array_key_exists('account_id', $data)) {
+            $account = Account::findOrFail($data['account_id']);
+        } elseif (array_key_exists('identifier', $data)) {
+            $account = Account::where('identifier', $data['identifier'])->firstOrFail();
+        } elseif (array_key_exists('username', $data)) {
+            $account = Account::where('username', $data['username'])->firstOrFail();
+        } else {
+            // The validator should throw something like this, but it's here just in case.
+            throw new DeleteResourceFailedException('Could not detach ' . $this->noun . ' from department.', ['You must supply one of the following parameters "account_id", "identifier", or "username".']);
+        }
+
+        if (!array_key_exists('department_id', $data)) {
+            if (array_key_exists('code', $data)) {
+                $data['department_id'] = Department::where('code', $data['code'])->firstOrFail()->id;
+            } else {
+                // The validator should throw something like this, but it's here just in case.
+                throw new StoreResourceFailedException('Could not detach ' . $this->noun . ' from department.', ['You must supply a "department_id" or "code" parameter.']);
+            }
+        }
+
+        $account->departments()->detach($data['department_id']);
+
+        return $this->destroySuccessResponse();
+    }
+
+
+    /**
+     * Assign Account to Room
+     *
+     * Creates the relationship between an Account and Room.
+     *
+     * @param Request $request
+     * @return \Dingo\Api\Http\Response|void
+     */
+    public function assignRoom(Request $request)
+    {
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'identifier' => 'alpha_num|required_without_all:account_id,username|exists:accounts,identifier,deleted_at,NULL',
+            'username' => 'string|required_without_all:identifier,account_id|exists:accounts,username,deleted_at,NULL',
+            'account_id' => 'integer|required_without_all:identifier,username|exists:accounts,id,deleted_at,NULL',
+            'code' => 'string|required_without:room_id|exists:rooms,code,deleted_at,NULL',
+            'room_id' => 'integer|required_without:code|exists:rooms,id,deleted_at,NULL'
+        ]);
+
+
+        if ($validator->fails())
+            throw new StoreResourceFailedException('Could not assign room to account.', $validator->errors());
+
+        if (array_key_exists('account_id', $data)) {
+            $account = Account::findOrFail($data['account_id']);
+        } elseif (array_key_exists('identifier', $data)) {
+            $account = Account::where('identifier', $data['identifier'])->firstOrFail();
+        } elseif (array_key_exists('username', $data)) {
+            $account = Account::where('username', $data['username'])->firstOrFail();
+        } else {
+            // The validator should throw something like this, but it's here just in case.
+            throw new StoreResourceFailedException('Could not assign room to ' . $this->noun . '.', ['You must supply one of the following parameters "account_id", "identifier", or "username".']);
+        }
+
+        if (!array_key_exists('room_id', $data)) {
+            if (array_key_exists('code', $data)) {
+                $data['room_id'] = Room::where('code', $data['code'])->firstOrFail()->id;
+            } else {
+                // The validator should throw something like this, but it's here just in case.
+                throw new StoreResourceFailedException('Could not assign room to ' . $this->noun . '.', ['You must supply a "room_id" or "code" parameter.']);
+            }
+        }
+
+        $account->rooms()->attach($data['room_id']);
+
+        return $this->response->created();
+    }
+
+    /**
+     * Detach Room from Account
+     *
+     * Destroys the relationship between an Account and Room.
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function detachRoom(Request $request)
+    {
+
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'identifier' => 'alpha_num|required_without_all:account_id,username|exists:accounts,identifier,deleted_at,NULL',
+            'username' => 'string|required_without_all:identifier,account_id|exists:accounts,username,deleted_at,NULL',
+            'account_id' => 'integer|required_without_all:identifier,username|exists:accounts,id,deleted_at,NULL',
+            'code' => 'string|required_without:room_id|exists:rooms,code,deleted_at,NULL',
+            'room_id' => 'integer|required_without:code|exists:rooms,id,deleted_at,NULL'
+        ]);
+
+        if ($validator->fails())
+            throw new DeleteResourceFailedException('Could not detach ' . $this->noun . ' from room.', $validator->errors());
+
+
+        if (array_key_exists('account_id', $data)) {
+            $account = Account::findOrFail($data['account_id']);
+        } elseif (array_key_exists('identifier', $data)) {
+            $account = Account::where('identifier', $data['identifier'])->firstOrFail();
+        } elseif (array_key_exists('username', $data)) {
+            $account = Account::where('username', $data['username'])->firstOrFail();
+        } else {
+            // The validator should throw something like this, but it's here just in case.
+            throw new DeleteResourceFailedException('Could not detach ' . $this->noun . ' from room.', ['You must supply one of the following parameters "account_id", "identifier", or "username".']);
+        }
+
+        if (!array_key_exists('room_id', $data)) {
+            if (array_key_exists('code', $data)) {
+                $data['room_id'] = Room::where('code', $data['code'])->firstOrFail()->id;
+            } else {
+                // The validator should throw something like this, but it's here just in case.
+                throw new StoreResourceFailedException('Could not detach ' . $this->noun . ' from room.', ['You must supply a "room_id" or "code" parameter.']);
+            }
+        }
+
+        $account->rooms()->detach($data['room_id']);
+
+        return $this->destroySuccessResponse();
+    }
+
 }
