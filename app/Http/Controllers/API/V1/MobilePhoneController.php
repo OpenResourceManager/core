@@ -29,8 +29,34 @@ class MobilePhoneController extends ApiController
      */
     public function index()
     {
-        $accounts = MobilePhone::paginate($this->resultLimit);
-        return $this->response->paginator($accounts, new MobilePhoneTransformer);
+        $mobilePhones = MobilePhone::paginate($this->resultLimit);
+        return $this->response->paginator($mobilePhones, new MobilePhoneTransformer);
+    }
+
+    /**
+     * Show verified Mobile Phones
+     *
+     * Show a paginated array of Mobile Phones that are verified.
+     *
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showVerified()
+    {
+        $mobilePhones = MobilePhone::where('verified', true)->paginate($this->resultLimit);
+        return $this->response->paginator($mobilePhones, new MobilePhoneTransformer);
+    }
+
+    /**
+     * Show unverified Mobile Phones
+     *
+     * Show a paginated array of Mobile Phones that are not verified.
+     *
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showUnverified()
+    {
+        $mobilePhones = MobilePhone::where('verified', false)->paginate($this->resultLimit);
+        return $this->response->paginator($mobilePhones, new MobilePhoneTransformer);
     }
 
     /**

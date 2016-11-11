@@ -64,6 +64,20 @@ class EmailTest extends TestCase
     }
 
     /** @test */
+    public function can_get_verified_email_pages()
+    {
+        $this->get('/api/v1/emails/verified', ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(200);
+    }
+
+    /** @test */
+    public function can_get_unverified_email_pages()
+    {
+        $this->get('/api/v1/emails/unverified', ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(200);
+    }
+
+    /** @test */
     public function fails_to_get_email_pages_without_auth()
     {
         $this->get('/api/v1/emails?page=2')

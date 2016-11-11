@@ -56,6 +56,20 @@ class MobilePhoneTest extends TestCase
     }
 
     /** @test */
+    public function can_get_verified_mobile_phone_pages()
+    {
+        $this->get('/api/v1/mobile-phones/verified', ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(200);
+    }
+
+    /** @test */
+    public function can_get_unverified_mobile_phone_pages()
+    {
+        $this->get('/api/v1/mobile-phones/unverified', ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(200);
+    }
+
+    /** @test */
     public function fails_to_get_mobile_phone_pages_without_auth()
     {
         $this->get('/api/v1/mobile-phones?page=2')

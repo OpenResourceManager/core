@@ -28,8 +28,35 @@ class EmailController extends ApiController
      */
     public function index()
     {
-        $accounts = Email::paginate($this->resultLimit);
-        return $this->response->paginator($accounts, new EmailTransformer);
+        $emails = Email::paginate($this->resultLimit);
+        return $this->response->paginator($emails, new EmailTransformer);
+    }
+
+    /**
+     * Show verified Emails
+     *
+     * Show a paginated array of Emails that are verified.
+     *
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showVerified()
+    {
+        $emails = Email::where('verified', true)->paginate($this->resultLimit);
+        return $this->response->paginator($emails, new EmailTransformer);
+
+    }
+
+    /**
+     * Show unverified Emails
+     *
+     * Show a paginated array of Emails that are not verified.
+     *
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showUnverified()
+    {
+        $emails = Email::where('verified', false)->paginate($this->resultLimit);
+        return $this->response->paginator($emails, new EmailTransformer);
     }
 
     /**
