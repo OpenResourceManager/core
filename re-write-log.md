@@ -5,6 +5,7 @@
 * Using Entrust for `User` permissions.
 * The `User` model is now used for authenticating with the API with JWT.
 * Independent models like (`ssn`, `birth_date`, & `password`) have been removed. They are now classified properties of the `Account` model. Only `User` accounts authenticated with JWT with proper entrust permissions can see them.
+* API rate limiting through laravel's built in middleware. This will prevent one client from hogging resources on the API.
 
 ### Logistical
 * `User` model is now `Account` model.

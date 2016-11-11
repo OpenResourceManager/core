@@ -29,13 +29,15 @@ class AccountTransformer extends TransformerAbstract
             'name_last' => $item->name_last,
             'name_postfix' => $item->name_postfix,
             'name_phonetic' => $item->name_phonetic,
-            'primary_duty' => $item->primary_duty
         ];
+
+        $dutyTrans = new DutyTransformer();
+        $transformed['primary_duty'] = $dutyTrans->transform($item->primaryDuty);
 
         $user = auth()->user();
 
         if ($user->can(['read-classified', 'write-classified'])) {
-            $transformed['ssn'] = (!empty($item->ssn)) ? decrypt($item->ssn) : null;
+            $transformed['ssn'] = (!empty($item->ssn)) ? strval(decrypt($item->ssn)) : null;
             $transformed['password'] = (!empty($item->password)) ? decrypt($item->password) : null;
             $transformed['birth_date'] = (!empty($item->birth_date)) ? decrypt($item->birth_date) : null;
         }

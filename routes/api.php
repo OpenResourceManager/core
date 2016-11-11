@@ -3,8 +3,12 @@
 use Illuminate\Http\Request;
 
 $api = app('Dingo\Api\Routing\Router');
-
-$api->version('v1', function ($api) {
+/**
+ *
+ * The API raye limits IP addresses at 500 requests per minute
+ *
+ */
+$api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' => 1], function ($api) {
     /**
      * The route group below is used to jam the version number into the URL.
      * This is not the Dingo way of doing things.
@@ -15,7 +19,7 @@ $api->version('v1', function ($api) {
      */
     $api->group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], function ($api) {
 
-        $api->get('/', ['middleware' => 'api.throttle', 'uses' => 'ApiController@index', 'as' => 'api.index']);
+        $api->get('/', ['uses' => 'ApiController@index', 'as' => 'api.index']);
 
         $api->group(['prefix' => 'auth'], function ($api) {
             $api->post('login', ['uses' => 'ApiAuthenticationController@login', 'as' => 'api.login']);
