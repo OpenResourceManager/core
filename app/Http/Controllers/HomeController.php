@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class HomeController extends Controller
 {
@@ -18,7 +19,7 @@ class HomeController extends Controller
     }
 
     /**
-     * @return $this
+     * @return View
      */
     public function index()
     {
@@ -28,4 +29,5 @@ class HomeController extends Controller
 
         return view('home')->with(['roles' => $roles]);
     }
+
 }

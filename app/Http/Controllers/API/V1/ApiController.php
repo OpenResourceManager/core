@@ -5,7 +5,29 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use Dingo\Api\Routing\Helpers;
 
-
+/**
+ * @SWG\Swagger(
+ *   schemes={"http"},
+ *   host="localhost:8000",
+ *   basePath="/api/v1",
+ *  @SWG\Info(
+ *     title="SLERP Core API",
+ *     version="1.0.0",
+ *     description="An API that houses ERP data, allowing open development around institutional data.",
+ *     @SWG\Contact(
+ *          email="markea125@gmail.com",
+ *          name="Alex Markessinis",
+ *          url="https://github.com/SLERP-ERP/SLERP_Core"
+ *     ),
+ *     @SWG\License(
+ *          name="MIT",
+ *          url="https://opensource.org/licenses/MIT"
+ *     )
+ *   )
+ *  )
+ * )
+ *
+ */
 class ApiController extends Controller
 {
 

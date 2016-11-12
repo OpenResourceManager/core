@@ -22,7 +22,7 @@
 
 ### Development
 * Using Dingo API framework. Makes development easier and faster.
-* Using  OpenAPI (FKA: Swagger) for API documentation. [The standard for API documentation.](http://swagger.io/introducing-the-open-api-initiative/)
+* Using  OpenAPI (FKA: Swagger) for API documentation. [The open standard for API documentation.](http://swagger.io/introducing-the-open-api-initiative/)
 * PHPUnit tests. Finally got this going!
     * All API routes are tested in CI.
 * Moved to Laravel 5.3

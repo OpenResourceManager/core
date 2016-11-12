@@ -31,6 +31,18 @@ class AccountController extends ApiController
      *
      * Get a paginated array of Accounts.
      *
+     * @SWG\Get(
+     *   path="/accounts",
+     *   tags={"Accounts"},
+     *   summary="list accounts",
+     *   description="Return a paginated list of accounts.",
+     *   @SWG\Response(
+     *     response=200,
+     *     description="A list of accounts"
+     *   )
+     * )
+     *
+     *
      * @return \Dingo\Api\Http\Response
      */
     public function index()

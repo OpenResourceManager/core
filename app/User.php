@@ -6,6 +6,14 @@ use Illuminate\Notifications\Notifiable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * @SWG\Definition(required={
+ *     "name",
+ *     "email",
+ *     "username",
+ *     "password"
+ * }, @SWG\Xml(name="User"))
+ */
 class User extends Authenticatable
 {
     use Notifiable;
