@@ -18,7 +18,7 @@ return [
         |--------------------------------------------------------------------------
         */
 
-        'auth_token' => env('L5_SWAGGER_API_AUTH_TOKEN', 'Bearer {jwt-token-here}'),
+        'auth_token' => env('L5_SWAGGER_API_AUTH_TOKEN', false),
 
         /*
         |--------------------------------------------------------------------------

@@ -8,15 +8,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-/**
- * @SWG\Definition(required={
- *     "identifier",
- *     "username",
- *     "name_first",
- *     "name_last",
- *     "primary_duty",
- * }, @SWG\Xml(name="Account"))
- */
 class Account extends BaseApiModel
 {
     use SoftDeletes;

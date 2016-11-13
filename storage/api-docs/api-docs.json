@@ -20,26 +20,12 @@
         "http"
     ],
     "paths": {
-        "/accounts": {
-            "get": {
-                "tags": [
-                    "Accounts"
-                ],
-                "summary": "list accounts",
-                "description": "Return a paginated list of accounts.",
-                "responses": {
-                    "200": {
-                        "description": "A list of accounts"
-                    }
-                }
-            }
-        },
         "/auth/login": {
             "post": {
                 "tags": [
                     "Authentication"
                 ],
-                "summary": "Login to API.",
+                "summary": "Authenticate with API.",
                 "description": "Authenticate with the API by sending your credentials and receive a JWT in response.",
                 "consumes": [
                     "application/x-www-form-urlencoded"
@@ -65,7 +51,15 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "A list of accounts"
+                        "description": "A list of accounts",
+                        "schema": {
+                            "properties": {
+                                "token": {
+                                    "description": "Login\n\nEndpoint for credentials to be posted. Returns a JWT.",
+                                    "type": "string"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": "none"
@@ -76,29 +70,48 @@
                 "tags": [
                     "Authentication"
                 ],
-                "summary": "Verify Session",
+                "summary": "Verify authenticated session.",
                 "description": "Verifies the JWT token.",
                 "responses": {
                     "200": {
-                        "description": "Token is valid."
+                        "description": "Token is valid.",
+                        "schema": {
+                            "properties": {
+                                "user": {
+                                    "description": "Validate Session\n\nValidate JWT by hitting this end point.",
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "description": "Validate Session\n\nValidate JWT by hitting this end point.",
+                                    "type": "string"
+                                },
+                                "status_code": {
+                                    "description": "Validate Session\n\nValidate JWT by hitting this end point.",
+                                    "type": "number",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts": {
+            "get": {
+                "tags": [
+                    "Accounts"
+                ],
+                "summary": "List accounts in a paginated format.",
+                "description": "Return a paginated list of accounts.",
+                "responses": {
+                    "200": {
+                        "description": "A list of accounts"
                     }
                 }
             }
         }
     },
     "definitions": {
-        "Account": {
-            "required": [
-                "identifier",
-                "username",
-                "name_first",
-                "name_last",
-                "primary_duty"
-            ],
-            "xml": {
-                "name": "Account"
-            }
-        },
         "User": {
             "required": [
                 "name",

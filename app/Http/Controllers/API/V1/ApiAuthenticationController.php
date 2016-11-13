@@ -14,35 +14,6 @@ class ApiAuthenticationController extends ApiController
      *
      * Endpoint for credentials to be posted. Returns a JWT.
      *
-     *
-     * @SWG\Post(
-     *   path="/auth/login",
-     *   tags={"Authentication"},
-     *   summary="Login to API.",
-     *   description="Authenticate with the API by sending your credentials and receive a JWT in response.",
-     *   produces={"application/json"},
-     *   consumes={"application/x-www-form-urlencoded"},
-     *   security="none",
-     *   @SWG\Parameter(
-     *     in="formData",
-     *     name="username",
-     *     description="The API consumers username.",
-     *     type="string",
-     *     required=true
-     *   ),
-     *   @SWG\Parameter(
-     *     in="formData",
-     *     name="password",
-     *     description="The API consumers password.",
-     *     type="string",
-     *     required=true
-     *   ),
-     *   @SWG\Response(
-     *     response=200,
-     *     description="A list of accounts"
-     *   )
-     * )
-     *
      * @return array
      */
     public function login()
@@ -61,17 +32,6 @@ class ApiAuthenticationController extends ApiController
      * Validate Session
      *
      * Validate JWT by hitting this end point.
-     *
-     * @SWG\Get(
-     *   path="/auth/validate",
-     *   tags={"Authentication"},
-     *   summary="Verify Session",
-     *   description="Verifies the JWT token.",
-     *   @SWG\Response(
-     *     response=200,
-     *     description="Token is valid."
-     *   )
-     * )
      *
      * @return mixed
      */
