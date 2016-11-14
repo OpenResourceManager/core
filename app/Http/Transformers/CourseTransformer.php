@@ -14,14 +14,16 @@ class CourseTransformer extends TransformerAbstract
      */
     public function transform(Course $item)
     {
+        $deptTrans = new DepartmentTransformer();
+
         return [
             'id' => (int)$item->id,
-            'department_id' => (int)$item->department_id,
             'code' => $item->code,
             'course_level' => $item->course_level,
             'label' => $item->label,
             'created' => date('Y-m-d - H:i:s', strtotime($item->created_at)),
             'updated' => date('Y-m-d - H:i:s', strtotime($item->updated_at)),
+            'department' => $deptTrans->transform($item->department),
         ];
     }
 

@@ -18,11 +18,11 @@ class CourseTest extends TestCase
         'data' => [
             'id',
             'code',
-            'department_id',
             'course_level',
             'label',
             'updated',
             'created',
+            'department',
 
         ]
     ];
