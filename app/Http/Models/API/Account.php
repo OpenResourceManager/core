@@ -23,7 +23,7 @@ class Account extends BaseApiModel
         'name_postfix',
         'name_phonetic',
         'username',
-        'primary_duty',
+        'primary_duty_id',
         'ssn',
         'password',
         'birth_date'
@@ -134,7 +134,7 @@ class Account extends BaseApiModel
      */
     public function primaryDuty()
     {
-        return $this->belongsTo(Duty::class, 'primary_duty');
+        return $this->belongsTo(Duty::class, 'primary_duty_id');
     }
 
     /**

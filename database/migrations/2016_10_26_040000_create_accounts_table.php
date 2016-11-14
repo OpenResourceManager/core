@@ -26,8 +26,8 @@ class CreateAccountsTable extends Migration
             $table->string('password')->nullable();
             $table->string('ssn')->nullable();
             $table->string('birth_date')->nullable();
-            $table->integer('primary_duty')->unsigned()->nullable();
-            $table->foreign('primary_duty')->references('id')->on('duties')->onDelete('set null');
+            $table->integer('primary_duty_id')->unsigned()->nullable();
+            $table->foreign('primary_duty_id')->references('id')->on('duties')->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -41,7 +41,7 @@ class CreateAccountsTable extends Migration
     public function down()
     {
         Schema::table('accounts', function (Blueprint $table) {
-            $table->dropForeign('accounts_primary_duty_foreign');
+            $table->dropForeign('accounts_primary_duty_id_foreign');
         });
         Schema::dropIfExists('accounts');
     }

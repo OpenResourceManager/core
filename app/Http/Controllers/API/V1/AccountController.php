@@ -105,7 +105,7 @@ class AccountController extends ApiController
             'name_postfix' => 'string|max:20',
             'name_phonetic' => 'string',
             'username' => 'string|required|min:3',
-            'primary_duty' => 'integer',
+            'primary_duty_id' => 'integer',
             'primary_duty_code' => 'string|exists:duties,code,deleted_at,NULL'
         ]);
 
@@ -115,12 +115,12 @@ class AccountController extends ApiController
 
         if (!empty(Input::get('primary_duty_code'))) {
             $duty = Duty::where('code', Input::get('primary_duty_code'))->firstOrFail();
-            $account['primary_duty'] = $duty->id;
-        } else if (!empty(Input::get('primary_duty'))) {
-            $duty = Duty::findOrFail(Input::get('primary_duty'));
-            $account['primary_duty'] = $duty->id;
+            $account['primary_duty_id'] = $duty->id;
+        } else if (!empty(Input::get('primary_duty_id'))) {
+            $duty = Duty::findOrFail(Input::get('primary_duty_id'));
+            $account['primary_duty_id'] = $duty->id;
         } else {
-            throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', ['Neither a "primary_duty_code" or "primary_duty" value was provided.']);
+            throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', ['Neither a "primary_duty_code" or "primary_duty_id" value was provided.']);
         }
         // If the account is trashed restore them first.
         if ($accountToRestore = Account::onlyTrashed()->where('identifier', $data['identifier'])->first()) {

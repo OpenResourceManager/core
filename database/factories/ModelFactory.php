@@ -84,7 +84,7 @@ $factory->define(Account::class, function (Faker\Generator $faker) {
         'ssn' => $ssn,
         'password' => $pass,
         'birth_date' => $birth_date,
-        'primary_duty' => $faker->randomElement($dutyIds)
+        'primary_duty_id' => $faker->randomElement($dutyIds)
     ];
 });
 

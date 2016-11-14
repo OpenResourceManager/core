@@ -525,7 +525,7 @@ function lukeSkywalkerAccount()
         'name_postfix' => 'Jedi',
         'name_phonetic' => 'Luke Skywalker',
         'username' => 'skwall',
-        'primary_duty' => \App\Http\Models\API\Duty::firstOrFail()->id,
+        'primary_duty_id' => \App\Http\Models\API\Duty::firstOrFail()->id,
     ];
 }
 
