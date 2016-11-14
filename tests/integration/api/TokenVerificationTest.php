@@ -13,34 +13,11 @@ class TokenVerificationTest extends TestCase
     /**
      * @var array
      */
-    protected $itemEmailStructureResponse = [
-        'data' => [
+    protected $itemStructureResponse = [
+        [
             'id',
-            'account_id',
-            'address',
-            'verified',
-            'verification_token',
-            'updated',
-            'created',
-
-        ]
-    ];
-
-    /**
-     * @var array
-     */
-    protected $itemMobilePhoneStructureResponse = [
-        'data' => [
-            'id',
-            'account_id',
-            'number',
-            'country_code',
-            'verified',
-            'verification_token',
-            'mobile_carrier',
-            'updated',
-            'created',
-
+            'type',
+            'message'
         ]
     ];
 
@@ -58,14 +35,14 @@ class TokenVerificationTest extends TestCase
 
         $email_response = $this->post('/api/v1/emails', jediMasterEmail(), ['Authorization' => 'Bearer ' . $this->bearer]);
         $email_response->seeStatusCode(201);
-        $email_response->seeJsonStructure($this->itemEmailStructureResponse);
+        $email_response->seeJsonStructure($this->itemStructureResponse);
 
         $data = $email_response->decodeResponseJson()['data'];
         $token = $data['verification_token'];
 
         $verify_response = $this->get('/api/v1/verify/' . $token);
         $verify_response->seeStatusCode(202);
-        $verify_response->seeJsonStructure($this->itemEmailStructureResponse);
+        $verify_response->seeJsonStructure($this->itemStructureResponse);
         $verify_response->seeHeader('location', 'http://localhost/api/v1/emails/' . $data['id']);
 
     }
@@ -78,14 +55,14 @@ class TokenVerificationTest extends TestCase
 
         $phone_response = $this->post('/api/v1/mobile-phones', jediMasterMobilePhone(), ['Authorization' => 'Bearer ' . $this->bearer]);
         $phone_response->seeStatusCode(201);
-        $phone_response->seeJsonStructure($this->itemMobilePhoneStructureResponse);
+        $phone_response->seeJsonStructure($this->itemStructureResponse);
 
         $data = $phone_response->decodeResponseJson()['data'];
         $token = $data['verification_token'];
 
         $verify_response = $this->get('/api/v1/verify/' . $token);
         $verify_response->seeStatusCode(202);
-        $verify_response->seeJsonStructure($this->itemMobilePhoneStructureResponse);
+        $verify_response->seeJsonStructure($this->itemStructureResponse);
         $verify_response->seeHeader('location', 'http://localhost/api/v1/mobile-phones/' . $data['id']);
 
     }
@@ -97,14 +74,14 @@ class TokenVerificationTest extends TestCase
 
         $email_response = $this->post('/api/v1/emails', jediMasterEmail(), ['Authorization' => 'Bearer ' . $this->bearer]);
         $email_response->seeStatusCode(201);
-        $email_response->seeJsonStructure($this->itemEmailStructureResponse);
+        $email_response->seeJsonStructure($this->itemStructureResponse);
 
         $data = $email_response->decodeResponseJson()['data'];
         $token = $data['verification_token'];
 
         $verify_response = $this->post('/api/v1/verify', ['token' => $token]);
         $verify_response->seeStatusCode(202);
-        $verify_response->seeJsonStructure($this->itemEmailStructureResponse);
+        $verify_response->seeJsonStructure($this->itemStructureResponse);
         $verify_response->seeHeader('location', 'http://localhost/api/v1/emails/' . $data['id']);
     }
 
@@ -116,14 +93,14 @@ class TokenVerificationTest extends TestCase
 
         $phone_response = $this->post('/api/v1/mobile-phones', jediMasterMobilePhone(), ['Authorization' => 'Bearer ' . $this->bearer]);
         $phone_response->seeStatusCode(201);
-        $phone_response->seeJsonStructure($this->itemMobilePhoneStructureResponse);
+        $phone_response->seeJsonStructure($this->itemStructureResponse);
 
         $data = $phone_response->decodeResponseJson()['data'];
         $token = $data['verification_token'];
 
         $verify_response = $this->post('/api/v1/verify', ['token' => $token]);
         $verify_response->seeStatusCode(202);
-        $verify_response->seeJsonStructure($this->itemMobilePhoneStructureResponse);
+        $verify_response->seeJsonStructure($this->itemStructureResponse);
         $verify_response->seeHeader('location', 'http://localhost/api/v1/mobile-phones/' . $data['id']);
 
     }
