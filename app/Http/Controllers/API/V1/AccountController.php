@@ -10,6 +10,7 @@ use App\Http\Models\API\Room;
 use App\Http\Transformers\AccountTransformer;
 use Dingo\Api\Exception\DeleteResourceFailedException;
 use Dingo\Api\Exception\StoreResourceFailedException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
@@ -93,8 +94,30 @@ class AccountController extends ApiController
     {
         $data = $request->all();
         $restore_account = null;
-        $duty = null;
-        $account = Input::all();
+
+        if (array_key_exists('ssn', $data)
+            || array_key_exists('password', $data)
+            || array_key_exists('birth_date', $data)
+        ) {
+            $user = auth()->user();
+            if ($user->can('write-classified')) {
+                $classifiedValidator = Validator::make($data, [
+                    'ssn' => 'size:4|nullable',
+                    'password' => 'string|min:6|nullable',
+                    'should_propagate_password' => 'boolean|nullable',
+                    'birth_date' => 'date|nullable'
+                ]);
+                if ($classifiedValidator->fails()) {
+                    throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $classifiedValidator->errors());
+                }
+            } else {
+                throw new UnauthorizedHttpException('You are not authorized to write classified information. Hint: request greater access or remove any `ssn`, `password`, or `birth_date` references in your post data.');
+            }
+            // Encrypt any ssns, passwords, or birth dates.
+            if (array_key_exists('ssn', $data)) $data['ssn'] = encrypt($data['ssn']);
+            if (array_key_exists('password', $data)) $data['password'] = encrypt($data['password']);
+            if (array_key_exists('birth_date', $data)) $data['birth_date'] = encrypt($data['birth_date']);
+        }
 
         $validator = Validator::make($data, [
             'identifier' => 'alpha_num|required|max:7|min:6',
@@ -105,44 +128,45 @@ class AccountController extends ApiController
             'name_postfix' => 'string|max:20',
             'name_phonetic' => 'string',
             'username' => 'string|required|min:3',
-            'primary_duty_id' => 'integer',
-            'primary_duty_code' => 'string|exists:duties,code,deleted_at,NULL'
+            'primary_duty_id' => 'integer|required_without:primary_duty_code|exists:duties,id,deleted_at,NULL',
+            'primary_duty_code' => 'string|required_without:primary_duty_id|exists:duties,code,deleted_at,NULL'
         ]);
 
         if ($validator->fails()) {
             throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
         }
 
-        if (!empty(Input::get('primary_duty_code'))) {
-            $duty = Duty::where('code', Input::get('primary_duty_code'))->firstOrFail();
-            $account['primary_duty_id'] = $duty->id;
-        } else if (!empty(Input::get('primary_duty_id'))) {
-            $duty = Duty::findOrFail(Input::get('primary_duty_id'));
-            $account['primary_duty_id'] = $duty->id;
-        } else {
-            throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', ['Neither a "primary_duty_code" or "primary_duty_id" value was provided.']);
+        // Convert the primary_duty_code to an id if needed
+        if (!array_key_exists('primary_duty_id', $data)) {
+            if (array_key_exists('primary_duty_code', $data)) {
+                $data['primary_duty_id'] = Duty::where('code', $data['primary_duty_code'])->firstOrFail()->id;
+            } else {
+                throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', ['Neither a "primary_duty_code" or "primary_duty_id" value was provided.']);
+            }
         }
+
         // If the account is trashed restore them first.
         if ($accountToRestore = Account::onlyTrashed()->where('identifier', $data['identifier'])->first()) {
             $accountToRestore->restore();
             $restore_account = Account::where('identifier', $data['identifier'])->first();
         }
 
-        $item = Account::updateOrCreate(['identifier' => Input::get('identifier')], $account);
+        $item = Account::updateOrCreate(['identifier' => $data['identifier']], $data);
 
+        // If the item was restored detach it's old duty and attach it to it's new duty
+        // If it's a new account just attach it to it's primary duty
         if (!empty($restore_account) && !$item->wasRecentlyCreated) {
-            if ($account['primary_duty'] !== $restore_account->primary_duty) {
+            if ($data['primary_duty_id'] !== $restore_account->primary_duty_id) {
                 // @todo Broadcast with redis to notify the event server
-                $item->duties()->detach($restore_account->primary_duty);
-                $item->duties()->attach($account['primary_duty']);
+                $item->duties()->detach($restore_account->primary_duty_id);
+                $item->duties()->attach($data['primary_duty_id']);
             } elseif ($item->wasRecentlyCreated) {
-                $item->duties()->attach($account['primary_duty']);
+                $item->duties()->attach($data['primary_duty_id']);
             }
         }
 
         $trans = new AccountTransformer();
         $item = $trans->transform($item);
-
         return $this->response->created(route('api.accounts.show', ['id' => $item['id']]), ['data' => $item]);
     }
 

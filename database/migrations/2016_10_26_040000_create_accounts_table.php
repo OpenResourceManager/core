@@ -24,6 +24,7 @@ class CreateAccountsTable extends Migration
             $table->string('name_phonetic')->nullable();
             $table->string('username')->unique();
             $table->string('password')->nullable();
+            $table->boolean('should_propagate_password')->default(false);
             $table->string('ssn')->nullable();
             $table->string('birth_date')->nullable();
             $table->integer('primary_duty_id')->unsigned()->nullable();

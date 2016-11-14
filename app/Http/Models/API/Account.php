@@ -26,6 +26,7 @@ class Account extends BaseApiModel
         'primary_duty_id',
         'ssn',
         'password',
+        'should_propagate_password',
         'birth_date'
     ];
 
