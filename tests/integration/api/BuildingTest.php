@@ -16,10 +16,9 @@ class BuildingTest extends TestCase
             'id',
             'code',
             'label',
-            'campus_id',
             'updated',
             'created',
-
+            'campus',
         ]
     ];
 

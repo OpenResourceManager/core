@@ -14,13 +14,15 @@ class BuildingTransformer extends TransformerAbstract
      */
     public function transform(Building $item)
     {
+        $campusTrans = new CampusTransformer();
+
         return [
             'id' => (int)$item->id,
-            'campus_id' => (int)$item->campus_id,
             'code' => $item->code,
             'label' => $item->label,
             'created' => date('Y-m-d - H:i:s', strtotime($item->created_at)),
             'updated' => date('Y-m-d - H:i:s', strtotime($item->updated_at)),
+            'campus' => $campusTrans->transform($item->campus),
         ];
     }
 

@@ -19,14 +19,13 @@ class RoomTest extends TestCase
         'data' => [
             'id',
             'code',
-            'building_id',
             'floor_number',
             'floor_label',
             'room_number',
             'room_label',
             'updated',
             'created',
-
+            'building',
         ]
     ];
 
