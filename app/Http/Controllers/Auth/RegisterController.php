@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Krucas\Settings\Facades\Settings;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -20,7 +22,10 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    use RegistersUsers {
+        showRegistrationForm as showRegistrationFormParent;
+        register as registerParent;
+    }
 
     /**
      * Where to redirect users after login / registration.
@@ -76,14 +81,22 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return redirect('/');
+        if (Settings::get('enable-registration', false)) {
+            return $this->showRegistrationFormParent();
+        } else {
+            return redirect('/');
+        }
     }
 
     /**
      * Overriding to disable registration
      */
-    public function register()
+    public function register(Request $request)
     {
-        return redirect('/');
+        if (Settings::get('enable-registration', false)) {
+            return $this->registerParent($request);
+        } else {
+            return redirect('/');
+        }
     }
 }

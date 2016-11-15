@@ -23,3 +23,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+Route::group(['middleware' => 'permission:modify-system'], function () {
+    Route::get('/settings', 'HomeController@getSettings');
+    Route::post('/settings', 'HomeController@saveSettings');
+});
+

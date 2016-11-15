@@ -72,6 +72,10 @@
                         <a id="home" href="{{ url('/home') }}">Home</a>
                     @else
                         <a id="login" href="{{ url('/login') }}">Login</a>
+
+                        @if(settings('enable-registration', $default = false))
+                            <a id="register" href="{{ url('/register') }}">Register</a>
+                        @endif
                     @endif
                 </div>
             @endif
