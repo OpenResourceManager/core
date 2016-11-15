@@ -2250,7 +2250,7 @@ paths:
           in: formData
           required: false
           default: false
-          type: string
+          type: boolean
           description: Determines if this email has been verified. By default it assumes the email has not been verified.
       responses:
         201:
@@ -2829,7 +2829,7 @@ paths:
           in: formData
           required: false
           default: false
-          type: string
+          type: boolean
           description: Determines if this mobile phone has been verified. By default it assumes the mobile phone has not been verified.
       responses:
         201:
