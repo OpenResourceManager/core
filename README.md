@@ -1,5 +1,10 @@
 # SLERP Core API
 
+## Requirements:
+
+* php >= 5.6
+* Redis
+
 ## Install
 
 ```
@@ -19,5 +24,9 @@ composer install;
 composer update;
 composer dump-autoload -o;
 php artisan migrate --force;
-chown -R nginx:nginx .;
 ```
+
+## Documentation
+
+* [API Documentation](https://demo-slerp.sage.edu/api/documentation)
+

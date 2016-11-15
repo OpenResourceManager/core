@@ -13,7 +13,8 @@
         "zizaco/entrust": "5.2.x-dev",
         "zircote/swagger-php": "^2.0",
         "mpociot/laravel-apidoc-generator": "^1.6",
-        "darkaonline/l5-swagger": "~3.0"
+        "darkaonline/l5-swagger": "~3.0",
+        "edvinaskrucas/settings": "2.0.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

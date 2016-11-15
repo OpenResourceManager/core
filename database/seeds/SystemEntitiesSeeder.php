@@ -6,6 +6,7 @@ use App\Http\Models\API\Country;
 use App\Http\Models\API\State;
 use App\Http\Models\API\MobileCarrier;
 use Illuminate\Database\Eloquent\Model;
+use Krucas\Settings\Facades\Settings;
 use App\User;
 use App\Role;
 use App\Permission;
@@ -29,6 +30,18 @@ class SystemEntitiesSeeder extends Seeder
          *
          *
          */
+
+        $modifySystem = Permission::create([
+            'name' => 'modify-system',
+            'display_name' => 'Modify System',
+            'description' => 'Can modify system settings.',
+        ]);
+
+        $manageUsers = Permission::create([
+            'name' => 'manage-users',
+            'display_name' => 'Manage Users',
+            'description' => 'Can manage API user\'s.',
+        ]);
 
         /**
          * Account
@@ -409,6 +422,9 @@ class SystemEntitiesSeeder extends Seeder
         State::insert(stateList());
         MobileCarrier::insert(mobileCarrierList());
         Duty::insert(defaultDuties());
+
+        Settings::set('enable-registration', false);
+        Settings::set('excluded-email-domains', []);
 
         Model::reguard();
     }
