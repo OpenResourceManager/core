@@ -2,10 +2,6 @@
 
 namespace App\Providers;
 
-use App\Model\Building;
-use App\Model\Campus;
-use App\Model\Room;
-use App\Model\User;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,8 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if ($this->app->environment() == 'local') {
-            $this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
-        }
+        //
     }
 }
