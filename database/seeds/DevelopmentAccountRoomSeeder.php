@@ -2,11 +2,10 @@
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
-use App\Http\Models\API\Duty;
 use App\Http\Models\API\Account;
+use App\Http\Models\API\Room;
 
-
-class AccountDutyTableSeeder extends Seeder
+class DevelopmentAccountRoomSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,13 +16,13 @@ class AccountDutyTableSeeder extends Seeder
     {
         $faker = Faker::create();
         $accountIds = Account::pluck('id')->all();
-        $dutyIds = Duty::pluck('id')->all();
+        $roomIds = Room::pluck('id')->all();
 
-        foreach (range(1, 150) as $index) {
+        foreach (range(1, 75) as $index) {
             $account = Account::find($faker->unique()->randomElement($accountIds));
-            $dutyId = $faker->randomElement($dutyIds);
-            // Should broadcast an attachment here for 3rd party connections
-            $account->duties()->attach($dutyId);
+            $roomId = $faker->randomElement($roomIds);
+            // Should broadcast an attachment here $deptIds 3rd party connections
+            $account->rooms()->attach($roomId);
         }
     }
 }

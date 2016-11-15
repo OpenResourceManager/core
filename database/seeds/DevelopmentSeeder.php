@@ -25,6 +25,9 @@ class DevelopmentSeeder extends Seeder
         /**
          * Pivots
          */
-        $this->call(AccountDutyTableSeeder::class);
+        $this->call(DevelopmentAccountCourseSeeder::class);
+        $this->call(DevelopmentAccountDepartmentSeeder::class);
+        $this->call(DevelopmentAccountDutySeeder::class);
+        $this->call(DevelopmentAccountRoomSeeder::class);
     }
 }
