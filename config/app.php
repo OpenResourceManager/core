@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('APP_LOCALE', 'en'),
 
     /*
     |--------------------------------------------------------------------------
@@ -90,7 +90,18 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
+
+	/*
+    |--------------------------------------------------------------------------
+    | PHP Locale Code
+    |--------------------------------------------------------------------------
+    |
+    | The PHP locale determines the default locale that will be used
+    | by the Carbon library when setting Carbon's localization.
+    |
+    */
+	'locale_php' => env('APP_LOCALE_PHP', 'en_US'),
 
     /*
     |--------------------------------------------------------------------------
@@ -120,7 +131,7 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env('APP_LOG', 'daily'),
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
@@ -166,21 +177,36 @@ return [
         /*
          * Package Service Providers...
          */
-        Krucas\Settings\Providers\SettingsServiceProvider::class,
+		Arcanedev\LogViewer\LogViewerServiceProvider::class,
+		Arcanedev\NoCaptcha\NoCaptchaServiceProvider::class,
+		Collective\Html\HtmlServiceProvider::class,
+		Creativeorange\Gravatar\GravatarServiceProvider::class,
+		DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
+		HieuLe\Active\ActiveServiceProvider::class,
+		Laravel\Socialite\SocialiteServiceProvider::class,
+		Yajra\Datatables\DatatablesServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
-        Zizaco\Entrust\EntrustServiceProvider::class,
         L5Swagger\L5SwaggerServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
-        /*
+		/*
+		 * Has to override the Collective\Html\HtmlServiceProvider form singleton
+		 */
+		App\Providers\MacroServiceProvider::class,
+
+		/*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-
+		App\Providers\AccessServiceProvider::class,
+		App\Providers\AppServiceProvider::class,
+		App\Providers\AuthServiceProvider::class,
+		App\Providers\BladeServiceProvider::class,
+		//App\Providers\BroadcastServiceProvider::class,
+		App\Providers\ComposerServiceProvider::class,
+		App\Providers\EventServiceProvider::class,
+		App\Providers\HistoryServiceProvider::class,
+		App\Providers\RouteServiceProvider::class,
     ],
 
     /*
@@ -200,7 +226,6 @@ return [
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
         'Blade' => Illuminate\Support\Facades\Blade::class,
-        'Bus' => Illuminate\Support\Facades\Bus::class,
         'Cache' => Illuminate\Support\Facades\Cache::class,
         'Config' => Illuminate\Support\Facades\Config::class,
         'Cookie' => Illuminate\Support\Facades\Cookie::class,
@@ -228,11 +253,18 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Settings' => Krucas\Settings\Facades\Settings::class,
-        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
-        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
-        'Entrust'   => Zizaco\Entrust\EntrustFacade::class
 
+		/*
+         * Third Party Aliases
+         */
+		'Active'      => HieuLe\Active\Facades\Active::class,
+		'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
+		'Captcha'     => Arcanedev\NoCaptcha\Facades\NoCaptcha::class,
+		'Form'        => Collective\Html\FormFacade::class,
+		'Gravatar'    => Creativeorange\Gravatar\Facades\Gravatar::class,
+		'Html'        => Collective\Html\HtmlFacade::class,
+		'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
+        'JWTAuth'     => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory'  => Tymon\JWTAuth\Facades\JWTFactory::class,
     ],
-
 ];

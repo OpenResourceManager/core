@@ -77,9 +77,9 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
      * @param string $password
      * @return string $token
      */
-    public function logIn($username = 'admin', $password = 'Cascade')
+    public function logIn($email = 'admin@example.com', $password = 'Cascade')
     {
-        $response = $this->post('/api/v1/auth/login', ['username' => $username, 'password' => $password])
+        $response = $this->post('/api/v1/auth/login', ['email' => $email, 'password' => $password])
             ->seeStatusCode(200)
             ->decodeResponseJson();
 

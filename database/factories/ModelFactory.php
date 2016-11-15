@@ -1,5 +1,7 @@
 <?php
 
+use Faker\Generator;
+use App\Models\Access\User\User;
 use App\Http\Models\API\Country;
 use App\Http\Models\API\State;
 use App\Http\Models\API\MobileCarrier;
@@ -13,7 +15,6 @@ use App\Http\Models\API\Building;
 use App\Http\Models\API\Room;
 use App\Http\Models\API\Department;
 use App\Http\Models\API\Course;
-use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,14 +27,12 @@ use App\User;
 |
 */
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
         'name' => $faker->name,
-        'username' => $faker->unique()->userName,
-        'email' => $faker->unique()->safeEmail,
+        'email' => $faker->safeEmail,
         'password' => $password ?: $password = encrypt($faker->unique()->word),
         'remember_token' => str_random(10),
     ];

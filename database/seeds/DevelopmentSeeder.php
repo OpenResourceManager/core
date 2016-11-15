@@ -11,8 +11,8 @@ class DevelopmentSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(SystemEntitiesSeeder::class);
-        $this->call(DevelopmentUserSeeder::class);
+
+        $this->call(DatabaseSeeder::class);
         $this->call(DevelopmentAccountsSeeder::class);
         $this->call(DevelopmentEmailSeeder::class);
         $this->call(DevelopmentMobilePhoneSeeder::class);

@@ -2,7 +2,7 @@
 
 ### Security
 * Using JWT authentication. [tymondesigns/jwt-auth](https://github.com/tymondesigns/jwt-auth)
-* Using [Zizaco/entrust](https://github.com/Zizaco/entrust) for `User` permissions and roles.
+* Using [rappasoft/laravel-5-boilerplate](https://github.com/rappasoft/laravel-5-boilerplate) for `User` permissions and roles.
 * The `User` model is now used for authenticating with the API with JWT. It is NOT a data container for institutional accounts.
 * Independent models like (`ssn`, `birth_date`, & `password`) have been removed. They are now classified properties of the `Account` model. Only `User` accounts authenticated with JWT with proper entrust permissions can see them.
 * API rate limiting through Dingo's built in middleware. This will prevent one client from hogging resources on the API.
@@ -15,7 +15,7 @@
 
 ### Features
 * JWT Auth with Username/Password login (no more api keys!)
-* API Manager front end
+* API Manager front end using [rappasoft/laravel-5-boilerplate](https://github.com/rappasoft/laravel-5-boilerplate).
     * API user's can reset password and view request metrics.
 * Broadcasting model events through Redis to event server. The event server will take care of 3rd party integrations like LDAP, Google, & WebHooks.
 * Combined various routes. Example there is now only one route to delete a model. You can supply a code/identifier/username/id and it will be deleted. The same idea applies to model assignments. 
