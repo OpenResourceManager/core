@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Http\Models\API\Account;
+use App\Http\Models\API\Email;
 
-class AccountsTableSeeder extends Seeder
+class DevelopmentEmailSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class AccountsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Account::class, 150)->create();
+        factory(Email::class, 500)->create();
     }
 }

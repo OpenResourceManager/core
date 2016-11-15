@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Http\Models\API\Email;
+use App\Http\Models\API\Room;
 
-class EmailTableSeeder extends Seeder
+class DevelopmentRoomSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class EmailTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Email::class, 500)->create();
+        factory(Room::class, 251)->create();
     }
 }

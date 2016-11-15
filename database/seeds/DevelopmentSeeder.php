@@ -13,10 +13,15 @@ class DevelopmentSeeder extends Seeder
     {
         $this->call(SystemEntitiesSeeder::class);
         $this->call(DevelopmentUserSeeder::class);
-        $this->call(AccountsTableSeeder::class);
-        $this->call(EmailTableSeeder::class);
+        $this->call(DevelopmentAccountsSeeder::class);
+        $this->call(DevelopmentEmailSeeder::class);
         $this->call(DevelopmentMobilePhoneSeeder::class);
         $this->call(DevelopmentAddressSeeder::class);
+        $this->call(DevelopmentCampusSeeder::class);
+        $this->call(DevelopmentBuildingSeeder::class);
+        $this->call(DevelopmentRoomSeeder::class);
+        $this->call(DevelopmentDepartmentSeeder::class);
+        $this->call(DevelopmentCourseSeeder::class);
         /**
          * Pivots
          */
