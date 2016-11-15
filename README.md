@@ -1,5 +1,7 @@
 # SLERP Core API
 
+[![Build Status](https://travis-ci.org/SLERP-ERP/SLERP_Core.svg?branch=master)](https://travis-ci.org/SLERP-ERP/SLERP_Core)
+
 ## Requirements:
 
 * php >= 5.6
