@@ -7,15 +7,15 @@ info:
   contact:
     name: Alex Markessinis
     url: 'https://github.com/SLERP-ERP/SLERP_Core'
-    email: markea125@gmail.com
+    email: markea@sage.edu
   license:
     name: MIT
     url: 'https://opensource.org/licenses/MIT'
   version: 1.0.0
-host: 'localhost:8000'
+host: 'demo-slerp.sage.edu'
 basePath: /api/v1
 schemes:
-  - http
+  - https
 consumes:
   - application/x-www-form-urlencoded
 produces:

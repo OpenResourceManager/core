@@ -82,8 +82,8 @@
                 </div>
 
                 <div class="links">
-                    <a href="{{URL::to('/')}}/docs">Documentation</a>
-                    <a href="https://github.com">Source</a>
+                    <a href="{{URL::to('/')}}/api/documentation">Documentation</a>
+                    <a href="https://github.com/SLERP-ERP/SLERP_Core">Source</a>
                 </div>
             </div>
         </div>
