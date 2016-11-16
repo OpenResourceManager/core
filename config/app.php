@@ -92,7 +92,7 @@ return [
 
     'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | PHP Locale Code
     |--------------------------------------------------------------------------
@@ -101,7 +101,7 @@ return [
     | by the Carbon library when setting Carbon's localization.
     |
     */
-	'locale_php' => env('APP_LOCALE_PHP', 'en_US'),
+    'locale_php' => env('APP_LOCALE_PHP', 'en_US'),
 
     /*
     |--------------------------------------------------------------------------
@@ -116,7 +116,7 @@ return [
 
     'key' => env('APP_KEY'),
 
-    'cipher' => 'AES-256-CBC',
+    'cipher' => env('APP_CIPHER', 'AES-256-CBC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -177,37 +177,37 @@ return [
         /*
          * Package Service Providers...
          */
-		Arcanedev\LogViewer\LogViewerServiceProvider::class,
-		Arcanedev\NoCaptcha\NoCaptchaServiceProvider::class,
-		Collective\Html\HtmlServiceProvider::class,
-		Creativeorange\Gravatar\GravatarServiceProvider::class,
-		DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
-		HieuLe\Active\ActiveServiceProvider::class,
-		Laravel\Socialite\SocialiteServiceProvider::class,
-		Yajra\Datatables\DatatablesServiceProvider::class,
+        Arcanedev\LogViewer\LogViewerServiceProvider::class,
+        Arcanedev\NoCaptcha\NoCaptchaServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
+        Creativeorange\Gravatar\GravatarServiceProvider::class,
+        DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
+        HieuLe\Active\ActiveServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        Yajra\Datatables\DatatablesServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         L5Swagger\L5SwaggerServiceProvider::class,
         Krucas\Settings\Providers\SettingsServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
-		/*
-		 * Has to override the Collective\Html\HtmlServiceProvider form singleton
-		 */
-		App\Providers\MacroServiceProvider::class,
+        /*
+         * Has to override the Collective\Html\HtmlServiceProvider form singleton
+         */
+        App\Providers\MacroServiceProvider::class,
 
-		/*
+        /*
          * Application Service Providers...
          */
-		App\Providers\AccessServiceProvider::class,
-		App\Providers\AppServiceProvider::class,
-		App\Providers\AuthServiceProvider::class,
-		App\Providers\BladeServiceProvider::class,
-		//App\Providers\BroadcastServiceProvider::class,
-		App\Providers\ComposerServiceProvider::class,
-		App\Providers\EventServiceProvider::class,
-		App\Providers\HistoryServiceProvider::class,
-		App\Providers\RouteServiceProvider::class,
+        App\Providers\AccessServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        App\Providers\BladeServiceProvider::class,
+        //App\Providers\BroadcastServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\HistoryServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
     ],
 
     /*
@@ -255,18 +255,18 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-		/*
+        /*
          * Third Party Aliases
          */
-		'Active'      => HieuLe\Active\Facades\Active::class,
-		'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
-		'Captcha'     => Arcanedev\NoCaptcha\Facades\NoCaptcha::class,
-		'Form'        => Collective\Html\FormFacade::class,
-		'Gravatar'    => Creativeorange\Gravatar\Facades\Gravatar::class,
-		'Html'        => Collective\Html\HtmlFacade::class,
-		'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
-        'JWTAuth'     => Tymon\JWTAuth\Facades\JWTAuth::class,
-        'JWTFactory'  => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'Active' => HieuLe\Active\Facades\Active::class,
+        'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
+        'Captcha' => Arcanedev\NoCaptcha\Facades\NoCaptcha::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Settings' => Krucas\Settings\Facades\Settings::class,
     ],
 ];
