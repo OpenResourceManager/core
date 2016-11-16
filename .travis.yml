@@ -21,10 +21,10 @@ before_install:
   - mysql -e "FLUSH PRIVILEGES;" -uroot
 install:
   - composer self-update
-  - composer install --no-interaction
-before_script:
   - cp .env.travis .env
   - php artisan key:generate
+  - composer install --no-interaction
+before_script:
   - cat .env
   - bash generate_jwt_key.sh
   - php artisan migrate
