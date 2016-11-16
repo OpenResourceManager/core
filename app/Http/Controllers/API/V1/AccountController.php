@@ -13,7 +13,8 @@ use Dingo\Api\Exception\StoreResourceFailedException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Input;
+use App\Events\Api\Account\AccountsViewed;
+use App\Events\Api\Account\AccountViewed;
 
 
 class AccountController extends ApiController
@@ -37,6 +38,7 @@ class AccountController extends ApiController
     public function index()
     {
         $accounts = Account::with(['emails', 'mobilePhones', 'addresses'])->paginate($this->resultLimit);
+        event(new AccountsViewed($accounts->pluck('id')->toArray()));
         return $this->response->paginator($accounts, new AccountTransformer);
     }
 
@@ -51,6 +53,7 @@ class AccountController extends ApiController
     public function show($id)
     {
         $account = Account::with(['emails', 'mobilePhones', 'addresses'])->findOrFail($id);
+        event(new AccountViewed($account));
         return $this->response->item($account, new AccountTransformer);
     }
 
@@ -65,6 +68,7 @@ class AccountController extends ApiController
     public function showFromUsername($username)
     {
         $account = Account::where('username', $username)->with(['emails', 'mobilePhones', 'addresses'])->firstOrFail();
+        event(new AccountViewed($account));
         return $this->response->item($account, new AccountTransformer);
     }
 
@@ -79,6 +83,7 @@ class AccountController extends ApiController
     public function showFromIdentifier($identifier)
     {
         $account = Account::where('identifier', $identifier)->with(['emails', 'mobilePhones', 'addresses'])->firstOrFail();
+        event(new AccountViewed($account));
         return $this->response->item($account, new AccountTransformer);
     }
 
