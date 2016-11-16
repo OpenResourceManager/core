@@ -10,6 +10,7 @@ namespace App\Http\Transformers;
 
 use League\Fractal\TransformerAbstract;
 use App\Http\Models\API\Account;
+use App\Models\Access\Permission\Permission;
 
 class AccountTransformer extends TransformerAbstract
 {
@@ -36,13 +37,18 @@ class AccountTransformer extends TransformerAbstract
 
         $user = auth()->user();
 
-        if ($user->can(['read-classified', 'write-classified'])) {
+        $readClassified = Permission::where('name', 'read-classified')->firstOrFail();
+        $writeClassified = Permission::where('name', 'write-classified')->firstOrFail();
+
+        if ($user->hasPermissions([$readClassified, $writeClassified])) {
             $transformed['ssn'] = (!empty($item->ssn)) ? strval(decrypt($item->ssn)) : null;
             $transformed['password'] = (!empty($item->password)) ? decrypt($item->password) : null;
             $transformed['birth_date'] = (!empty($item->birth_date)) ? decrypt($item->birth_date) : null;
         }
 
-        if ($user->can(['read-email'])) {
+
+
+        if ($user->hasPermission(Permission::where('name', 'read-email')->firstOrFail())) {
             $transformed['emails'] = array();
             $emailTrans = new EmailTransformer();
             foreach ($item->emails as $email) {
@@ -50,7 +56,7 @@ class AccountTransformer extends TransformerAbstract
             }
         }
 
-        if ($user->can(['read-mobile-phone'])) {
+        if ($user->hasPermission(Permission::where('name', 'read-mobile-phone')->firstOrFail())) {
             $transformed['mobile_phones'] = array();
             $phoneTrans = new MobilePhoneTransformer();
             foreach ($item->mobilePhones as $mobilePhone) {
@@ -58,7 +64,7 @@ class AccountTransformer extends TransformerAbstract
             }
         }
 
-        if ($user->can(['read-address'])) {
+        if ($user->hasPermission(Permission::where('name', 'read-address')->firstOrFail())) {
             $transformed['addresses'] = array();
             $addressTrans = new AddressTransformer();
             foreach ($item->addresses as $address) {

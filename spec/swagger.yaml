@@ -92,9 +92,9 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: username
+        - name: email
           in: formData
-          description: The API consumers username.
+          description: The API consumers email address.
           required: true
           type: string
         - name: password

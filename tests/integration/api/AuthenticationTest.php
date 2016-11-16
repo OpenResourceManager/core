@@ -20,7 +20,7 @@ class AuthenticationTest extends TestCase
         $this->get('/api/v1/auth/validate', ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(202)
             ->seeJsonEquals([
-                'user' => 'admin',
+                'user' => 'admin@example.com',
                 'message' => 'success',
                 'status_code' => 202
             ]);
@@ -29,7 +29,7 @@ class AuthenticationTest extends TestCase
     /** @test */
     public function authentication_fails_with_wrong_credentials()
     {
-        $this->post('/api/v1/auth/login', ['username' => 'admin', 'password' => 'Saz'])
+        $this->post('/api/v1/auth/login', ['email' => 'admin@example.com', 'password' => 'Saz'])
             ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }

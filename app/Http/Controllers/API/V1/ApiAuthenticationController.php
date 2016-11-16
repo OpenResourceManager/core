@@ -18,7 +18,7 @@ class ApiAuthenticationController extends ApiController
      */
     public function login()
     {
-        $credentials = Input::only('username', 'password');
+        $credentials = Input::only('email', 'password');
         try {
             if (!$token = JWTAuth::attempt($credentials)) throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('Invalid credentials were supplied.');
         } catch (JWTException $e) {
@@ -42,7 +42,7 @@ class ApiAuthenticationController extends ApiController
         if (!$user) throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('You are not authorized.');
 
         return $this->response->array([
-            'user' => $user->username,
+            'user' => $user->email,
             'message' => 'success',
             'status_code' => 202
         ])->setStatusCode(202);
