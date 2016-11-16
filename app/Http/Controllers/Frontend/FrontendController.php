@@ -25,4 +25,12 @@ class FrontendController extends Controller
 	{
 		return view('frontend.macros');
 	}
+
+    /**
+     * @return View
+     */
+    public function welcome()
+    {
+        return view('welcome');
+    }
 }

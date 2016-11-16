@@ -10,7 +10,7 @@ Route::get('lang/{lang}', 'LanguageController@swap');
 
 /* ----------------------------------------------------------------------- */
 
-Route::get('/docs', 'HomeController@docs');
+Route::get('/docs', 'MiscController@docs');
 
 
 /**
