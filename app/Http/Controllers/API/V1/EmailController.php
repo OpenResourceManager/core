@@ -153,7 +153,7 @@ class EmailController extends ApiController
             throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
 
 
-        $excluded_domains = [];#Settings::get('excluded-email-domains', '');
+        $excluded_domains = Settings::get('excluded-email-domains', []);
         $email_domain = explode('@', $data['address'])[1];
         if (!empty($excluded_domains)) {
             if (in_array($email_domain, $excluded_domains))

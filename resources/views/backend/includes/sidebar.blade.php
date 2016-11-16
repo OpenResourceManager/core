@@ -70,6 +70,13 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="{{ Active::pattern('admin/settings/*') }}">
+                <a href="{{ url('/admin/settings') }}">
+                    <i class="fa fa-wrench"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
         </ul><!-- /.sidebar-menu -->
     </section><!-- /.sidebar -->
 </aside>

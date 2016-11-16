@@ -1,7 +1,7 @@
 <table class="table table-striped table-hover">
     <tr>
         <th>{{ trans('labels.frontend.user.profile.avatar') }}</th>
-        <td><img src="{{ $logged_in_user->picture }}" class="user-profile-image" /></td>
+        <td><a target="_blank" href="https://en.gravatar.com/"> <img width="80px" src="{{ $logged_in_user->picture }}" class="user-profile-image" /></a></td>
     </tr>
     <tr>
         <th>{{ trans('labels.frontend.user.profile.name') }}</th>

@@ -188,6 +188,7 @@ return [
         Dingo\Api\Provider\LaravelServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         L5Swagger\L5SwaggerServiceProvider::class,
+        Krucas\Settings\Providers\SettingsServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
 		/*
@@ -266,5 +267,6 @@ return [
 		'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
         'JWTAuth'     => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory'  => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'Settings' => Krucas\Settings\Facades\Settings::class,
     ],
 ];

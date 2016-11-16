@@ -6,14 +6,14 @@ return [
 		// By default, images are presented at 80px by 80px if no size parameter is supplied.
 		// You may request a specific image size, which will be dynamically delivered from Gravatar
 		// by passing a single pixel dimension (since the images are square):
-		'size'   => 80,
+		'size'   => 240,
 
 		// the fallback image, can be a string or a url
 		// for more info, visit: http://en.gravatar.com/site/implement/images/#default-image
 		'fallback' => 'mm',
 
 		// would you like to return a https://... image
-		'secure' => false,
+		'secure' => true,
 
 		// Gravatar allows users to self-rate their images so that they can indicate if an image
 		// is appropriate for a certain audience. By default, only 'G' rated images are displayed

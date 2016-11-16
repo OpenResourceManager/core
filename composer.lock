@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0b421b54f72da94941ace7007a346170",
-    "content-hash": "596ae8ae1197b6a10329dfd839217e41",
+    "hash": "f71a1652df1f72436e39b9f84e11348e",
+    "content-hash": "d846c9ec8b9e740d8dac1c1b27ecd003",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -912,6 +912,57 @@
             "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
             "homepage": "https://github.com/dompdf/dompdf",
             "time": "2016-05-11 00:36:29"
+        },
+        {
+            "name": "edvinaskrucas/settings",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/edvinaskrucas/settings.git",
+                "reference": "23f2a912ca8f5b6ba550721a6fc0e6d1acaa9022"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/edvinaskrucas/settings/zipball/23f2a912ca8f5b6ba550721a6fc0e6d1acaa9022",
+                "reference": "23f2a912ca8f5b6ba550721a6fc0e6d1acaa9022",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^5.2",
+                "illuminate/database": "^5.2",
+                "illuminate/filesystem": "^5.2",
+                "illuminate/support": "^5.2",
+                "php": "^5.5|^7.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Krucas\\Settings\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Edvinas Kručas",
+                    "email": "edv.krucas@gmail.com"
+                }
+            ],
+            "description": "Persistent settings package for Laravel framework.",
+            "keywords": [
+                "Settings",
+                "laravel",
+                "persistent settings"
+            ],
+            "time": "2016-01-19 13:50:39"
         },
         {
             "name": "guzzlehttp/guzzle",
