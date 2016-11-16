@@ -22,9 +22,9 @@ before_install:
 install:
   - composer self-update
   - cp .env.travis .env
-  - php artisan key:generate
   - composer install --no-interaction
 before_script:
+  - php artisan key:generate
   - cat .env
   - bash generate_jwt_key.sh
   - php artisan migrate
