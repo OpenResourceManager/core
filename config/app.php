@@ -191,6 +191,7 @@ return [
         Krucas\Settings\Providers\SettingsServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
+
 		/*
 		 * Has to override the Collective\Html\HtmlServiceProvider form singleton
 		 */
@@ -203,11 +204,16 @@ return [
 		App\Providers\AppServiceProvider::class,
 		App\Providers\AuthServiceProvider::class,
 		App\Providers\BladeServiceProvider::class,
-		//App\Providers\BroadcastServiceProvider::class,
+		App\Providers\BroadcastServiceProvider::class,
 		App\Providers\ComposerServiceProvider::class,
 		App\Providers\EventServiceProvider::class,
 		App\Providers\HistoryServiceProvider::class,
 		App\Providers\RouteServiceProvider::class,
+
+        /**
+         * Custom service providers
+         */
+        App\Providers\ApiEventProvider::class,
     ],
 
     /*
