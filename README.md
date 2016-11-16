@@ -8,7 +8,7 @@ SLERP is a REST API designed to house ERP data and act as an intermediate betwee
 
 SLERP came about as a way to move away from flat file feeds that were sent from our existing ERP infrastructure to a wide spread array of different applications and scripts.
 
-I
+
 ##### Advantages
  
 * Near real time data propagation:
@@ -36,6 +36,7 @@ I
 * Mobile Phone and Email verification - `In Development`
 * API metrics and statistics - `In Development`
 * API Event broadcast to event manager for 3rd party applications - `In Development`
+* Interactive documentation using OpenAPI fka(Swagger) - `Implemented`
 
 ## Documentation
 
