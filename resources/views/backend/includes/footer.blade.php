@@ -1,9 +1,8 @@
 <!-- Main Footer -->
 <footer class="main-footer">
-    <!-- To the right -->
-    <div class="pull-right hidden-xs">
-        <a href="http://laravel-boilerplate.com" target="_blank">{{ trans('strings.backend.general.boilerplate_link') }}</a>
+
+    <div class="center-div">
+        <strong><a target="_blank" href="https://github.com/SLERP-ERP/SLERP_Core">{{ app_name() }}</a></strong> <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>
     </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; {{ date('Y') }} <a href="#">{{ app_name() }}</a>.</strong> {{ trans('strings.backend.general.all_rights_reserved') }}
+
 </footer>
