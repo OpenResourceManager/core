@@ -5,9 +5,7 @@
  * All route names are prefixed with 'frontend.'
  */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
 
 /**

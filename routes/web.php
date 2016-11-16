@@ -10,9 +10,7 @@ Route::get('lang/{lang}', 'LanguageController@swap');
 
 /* ----------------------------------------------------------------------- */
 
-Route::get('/docs', function () {
-    return view('vendor.l5-swagger.index');
-});
+Route::get('/docs', 'HomeController@docs');
 
 
 /**
