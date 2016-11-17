@@ -20,6 +20,7 @@
 * Broadcasting model events through Redis to event server. The event server will take care of 3rd party integrations like LDAP, Google, & WebHooks.
 * Combined various routes. Example there is now only one route to delete a model. You can supply a code/identifier/username/id and it will be deleted. The same idea applies to model assignments. 
 * Implemented a front end to API settings allowing admins to control them from a GUI. Using [edvinaskrucas/settings](https://github.com/edvinaskrucas/settings) to manage settings. 
+* Dingo API framework means no more errors in HTML! All errors are returned in a standard JSON format. 
 
 ### Development
 * Using [Dingo API](https://github.com/dingo/api) framework. Makes development easier, faster, more secure.
