@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Events\Api\Authentication\AuthenticationFailure;
+use App\Events\Api\Authentication\AuthenticationSuccess;
+use Dingo\Api\Http\Request;
 use App\Models\Access\User\User;
 use Illuminate\Support\Facades\Input;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -18,15 +21,25 @@ class ApiAuthenticationController extends ApiController
      *
      * @return array
      */
-    public function login()
+    public function login(Request $request)
     {
         $credentials = Input::only('email', 'password');
 
         try {
-            if (!$token = JWTAuth::attempt($credentials)) throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('Invalid credentials were supplied.');
+            if (!$token = JWTAuth::attempt($credentials)) {
+                event(new AuthenticationFailure($request));
+                throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('Invalid credentials were supplied.');
+            }
         } catch (JWTException $e) {
+            event(new AuthenticationFailure($request));
             throw new \Symfony\Component\HttpKernel\Exception\HttpException('Could not create new token.', $e);
         }
+        $user = User::where('email', $credentials['email'])->first();
+        if (!$user) {
+            event(new AuthenticationFailure($request));
+            throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('Invalid credentials were supplied.');
+        }
+        event(new AuthenticationSuccess($user));
         // Return success.
         return compact('token');
     }
@@ -38,16 +51,24 @@ class ApiAuthenticationController extends ApiController
      *
      * @return array
      */
-    public function secretLogin()
+    public function secretLogin(Request $request)
     {
         $secret = Input::only('secret');
-        $user = User::where('api_secret', strtoupper($secret['secret']))->firstOrFail();
-
         try {
-            if (!$token = JWTAuth::fromUser($user)) throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('Invalid credentials were supplied.');
+            $user = User::where('api_secret', strtoupper($secret['secret']))->first();
+            if (!$user) {
+                event(new AuthenticationFailure($request));
+                throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('Invalid credentials were supplied.');
+            }
+            if (!$token = JWTAuth::fromUser($user)) {
+                event(new AuthenticationFailure($request));
+                throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('Invalid credentials were supplied.');
+            }
         } catch (JWTException $e) {
+            event(new AuthenticationFailure($request));
             throw new \Symfony\Component\HttpKernel\Exception\HttpException('Could not create new token.', $e);
         }
+        event(new AuthenticationSuccess($user));
         // Return success.
         return compact('token');
 

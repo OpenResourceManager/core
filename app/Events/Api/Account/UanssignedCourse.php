@@ -3,6 +3,7 @@
 namespace App\Events\Api\Account;
 
 use App\Http\Models\API\Account;
+use App\Http\Models\API\Course;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -13,38 +14,43 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Events\Event;
 
 
-class AccountCreated extends Event implements ShouldBroadcast
+class UnassignedCourse extends Event implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var Account
+     * @var string
      */
-    public $account;
+    public $info;
 
     /**
      * AddressCreated constructor.
      * @param Account $account
+     * @param Course $course
      */
-    public function __construct(Account $account)
+    public function __construct(Account $account, Course $course)
     {
-        Log::info('Account Created:', [
-            'id' => $account->id,
+        $info = [
+            'account_id' => $account->id,
             'identifier' => $account->identifier,
             'username' => $account->username,
-            'name' => $account->format_full_name(true)
-        ]);
-        $trans = $account->toArray();
-        $trans['name_full'] = $account->format_full_name(true);
-        $this->account = json_encode($trans);
+            'name' => $account->format_full_name(true),
+            'course_id' => $course->id,
+            'course_code' => $course->code,
+            'course_label' => $course->label
+        ];
+
+        Log::info('Account removed from Course:', $info);
+
+        $this->info = json_encode($info);
 
         if (auth()->user()) {
             history()->log(
-                'Account',
-                'created a new account for ' . $account->format_full_name() . ' [' . $account->identifier . ']',
+                'Assignment',
+                'removed ' . $account->format_full_name() . ' from course: "' . $course->label.'"',
                 $account->id,
-                'user',
-                'bg-green'
+                'graduation-cap',
+                'bg-yellow'
             );
         }
     }
@@ -56,6 +62,6 @@ class AccountCreated extends Event implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('account-events');
+        return new PrivateChannel('course-enrollment');
     }
 }
