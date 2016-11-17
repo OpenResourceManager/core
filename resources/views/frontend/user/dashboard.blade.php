@@ -2,18 +2,6 @@
 
 @section('content')
 
-    <input type="hidden" readonly="readonly" id="account_count_total" name="account_count_total"
-           value="{{$accountCount}}">
-
-    <input type="hidden" readonly="readonly" id="course_count_total" name="course_count_total"
-           value="{{$courseCount}}">
-
-    <input type="hidden" readonly="readonly" id="mobile_phone_count_total" name="mobile_phone_count_total"
-           value="{{$mobilePhoneCount}}">
-
-    <input type="hidden" readonly="readonly" id="email_count_total" name="email_count_total"
-           value="{{$emailCount}}">
-
     <input type="hidden" readonly="readonly" id="api_requests_count_total" name="api_requests_count_total"
            value="{{$apiQueries}}">
 
@@ -90,6 +78,10 @@
                             </div><!--row-->
 
                             <div class="row">
+                                @permission('read-account')
+                                <input type="hidden" readonly="readonly" id="account_count_total"
+                                       name="account_count_total"
+                                       value="{{$accountCount}}">
                                 <div class="col-md-6">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
@@ -100,7 +92,11 @@
                                         </div><!--panel-body-->
                                     </div><!--panel-->
                                 </div><!--col-md-6-->
-
+                                @endauth
+                                @permission('read-course')
+                                <input type="hidden" readonly="readonly" id="course_count_total"
+                                       name="course_count_total"
+                                       value="{{$courseCount}}">
                                 <div class="col-md-6">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
@@ -111,7 +107,10 @@
                                         </div><!--panel-body-->
                                     </div><!--panel-->
                                 </div><!--col-md-6-->
-
+                                @endauth
+                                @permission('read-email')
+                                <input type="hidden" readonly="readonly" id="email_count_total" name="email_count_total"
+                                       value="{{$emailCount}}">
                                 <div class="col-md-6">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
@@ -122,17 +121,23 @@
                                         </div><!--panel-body-->
                                     </div><!--panel-->
                                 </div><!--col-md-6-->
-
+                                @endauth
+                                @permission('read-mobile-phone')
+                                <input type="hidden" readonly="readonly" id="mobile_phone_count_total"
+                                       name="mobile_phone_count_total"
+                                       value="{{$mobilePhoneCount}}">
                                 <div class="col-md-6">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h4>Mobile Phone Count</h4>
                                         </div><!--panel-heading-->
                                         <div class="panel-body">
-                                            <h2 class="center-div" id="mobile_phone_count" name="mobile_phone_count">0</h2>
+                                            <h2 class="center-div" id="mobile_phone_count" name="mobile_phone_count">
+                                                0</h2>
                                         </div><!--panel-body-->
                                     </div><!--panel-->
                                 </div><!--col-md-6-->
+                                @endauth
 
                             </div><!--row-->
 
@@ -158,10 +163,21 @@
         var email_count = $('#email_count_total').val();
         var mobile_phone_count = $('#mobile_phone_count_total').val();
 
-        $('#api_requests').animateNumber({number: api_requests_count});
-        $('#account_count').animateNumber({number: account_count});
-        $('#course_count').animateNumber({number: course_count});
-        $('#email_count').animateNumber({number: email_count});
-        $('#mobile_phone_count').animateNumber({number: mobile_phone_count});
+        if (api_requests) {
+            $('#api_requests').animateNumber({number: api_requests_count});
+        }
+        if (account_count) {
+            $('#account_count').animateNumber({number: account_count});
+        }
+        if (course_count) {
+            $('#course_count').animateNumber({number: course_count});
+        }
+        if (email_count) {
+            $('#email_count').animateNumber({number: email_count});
+        }
+        if (mobile_phone_count) {
+            $('#mobile_phone_count').animateNumber({number: mobile_phone_count});
+        }
     </script>
 @endsection
+
