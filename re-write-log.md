@@ -14,7 +14,7 @@
 * Abstracting LDAP portion to a separate server.
 
 ### Features
-* JWT Auth with Username/Password login (no more api keys!)
+* JWT Auth with API Secret or Username/Password
 * API Manager front end using [rappasoft/laravel-5-boilerplate](https://github.com/rappasoft/laravel-5-boilerplate).
     * API user's can reset password and view request metrics.
 * Broadcasting model events through Redis to event server. The event server will take care of 3rd party integrations like LDAP, Google, & WebHooks.

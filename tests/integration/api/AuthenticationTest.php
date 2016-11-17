@@ -26,6 +26,20 @@ class AuthenticationTest extends TestCase
             ]);
     }
 
+    /** @token */
+    public function users_can_login_with_api_secret()
+    {
+        $token = $this->logInWithSecret();
+
+        $this->get('/api/v1/auth/validate', ['Authorization' => 'Bearer ' . $token])
+            ->seeStatusCode(202)
+            ->seeJsonEquals([
+                'user' => 'admin@example.com',
+                'message' => 'success',
+                'status_code' => 202
+            ]);
+    }
+
     /** @test */
     public function authentication_fails_with_wrong_credentials()
     {

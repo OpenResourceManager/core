@@ -47,6 +47,7 @@
         @yield('before-scripts-end')
         {!! Html::script(elixir('js/frontend.js')) !!}
         @yield('after-scripts-end')
+        @yield('scripts')
 
         @include('includes.partials.ga')
     </body>

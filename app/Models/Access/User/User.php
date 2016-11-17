@@ -18,19 +18,19 @@ use App\Models\Access\User\Traits\Relationship\UserRelationship;
 class User extends Authenticatable
 {
     use UserScope,
-		UserAccess,
-		Notifiable,
-		SoftDeletes,
-		UserAttribute,
-		UserRelationship,
-		UserSendPasswordReset;
+        UserAccess,
+        Notifiable,
+        SoftDeletes,
+        UserAttribute,
+        UserRelationship,
+        UserSendPasswordReset;
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table;
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table;
 
     /**
      * The attributes that are mass assignable.
@@ -44,19 +44,32 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['password', 'remember_token', 'api_secret'];
 
     /**
      * @var array
      */
     protected $dates = ['deleted_at'];
 
-	/**
-	 * @param array $attributes
-	 */
-	public function __construct(array $attributes = [])
-	{
-		parent::__construct($attributes);
-		$this->table = config('access.users_table');
-	}
+    /**
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->table = config('access.users_table');
+    }
+
+    /**
+     * Generates a new secret and saves it to the model.
+     *
+     * @return mixed|string
+     */
+    public function newSecret()
+    {
+        $secret = generateApiSecret();
+        $this->api_secret = $secret;
+        $this->save();
+        return $secret;
+    }
 }

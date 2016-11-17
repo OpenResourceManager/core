@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Artisan;
+use App\Models\Access\User\User;
 
 abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
@@ -80,6 +81,24 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     public function logIn($email = 'admin@example.com', $password = 'Cascade')
     {
         $response = $this->post('/api/v1/auth/login', ['email' => $email, 'password' => $password])
+            ->seeStatusCode(200)
+            ->decodeResponseJson();
+
+        $this->assertArrayHasKey('token', $response);
+
+        $this->bearer = $response['token'];
+
+        return $response['token'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function logInWithSecret()
+    {
+        $user = User::where('email', 'admin@example.com')->firstOrFail();
+
+        $response = $this->post('/api/v1/auth', ['secret' => $user->api_secret])
             ->seeStatusCode(200)
             ->decodeResponseJson();
 

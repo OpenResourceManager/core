@@ -27,6 +27,10 @@ elixir((mix) => {
         'node_modules/bootstrap-sass/assets/fonts/bootstrap',
         'public/build/fonts/bootstrap'
     )
+    .copy(
+        'node_modules/bootstrap-show-password/bootstrap-show-password.min.js',
+        'resources/assets/js/plugin/bsshowhidepassword/'
+    )
 
     /**
      * Process frontend SCSS stylesheets
@@ -55,7 +59,9 @@ elixir((mix) => {
     .scripts([
         'dist/frontend.js',
         'plugin/sweetalert/sweetalert.min.js',
-        'plugins.js'
+        'plugins.js',
+        'plugin/bsshowhidepassword/bootstrap-show-password.min.js',
+        'plugin/animatenumber/jquery.animateNumber.min.js'
     ], 'public/js/frontend.js')
 
     /**

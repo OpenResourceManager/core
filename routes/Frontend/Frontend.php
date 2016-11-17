@@ -14,6 +14,8 @@ Route::get('/', 'FrontendController@welcome');
  */
 Route::group(['middleware' => 'auth'], function () {
 
+    Route::get('/secret/refresh', 'FrontendController@newSecret');
+
     Route::get('macros', 'FrontendController@macros')->name('macros');
 
     Route::get('home', 'FrontendController@index')->name('index');

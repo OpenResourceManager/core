@@ -24,5 +24,4 @@ class MiscController extends Controller
     {
         return view('vendor.l5-swagger.index');
     }
-
 }

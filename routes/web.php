@@ -12,7 +12,6 @@ Route::get('lang/{lang}', 'LanguageController@swap');
 
 Route::get('/docs', 'MiscController@docs');
 
-
 /**
  * Frontend Routes
  * Namespaces indicate folder structure

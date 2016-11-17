@@ -3,18 +3,19 @@
 use Carbon\Carbon as Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\Access\User\User;
 
 /**
  * Class UserTableSeeder
  */
 class UserTableSeeder extends Seeder
 {
-	/**
-	 * Run the database seed.
-	 *
-	 * @return void
-	 */
-	public function run()
+    /**
+     * Run the database seed.
+     *
+     * @return void
+     */
+    public function run()
     {
         if (DB::connection()->getDriverName() == 'mysql') {
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
@@ -32,17 +33,19 @@ class UserTableSeeder extends Seeder
         //Add the master administrator, user id of 1
         $users = [
             [
-                'name'              => 'The Admin',
-                'email'             => 'admin@example.com',
-                'password'          => bcrypt('Cascade'),
+                'name' => 'The Admin',
+                'email' => 'admin@example.com',
+                'password' => bcrypt('Cascade'),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
-                'confirmed'         => true,
-                'created_at'        => Carbon::now(),
-                'updated_at'        => Carbon::now(),
+                'confirmed' => true,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]
         ];
 
         DB::table(config('access.users_table'))->insert($users);
+
+        User::where('email', 'admin@example.com')->firstOrFail()->newSecret();
 
         if (DB::connection()->getDriverName() == 'mysql') {
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');

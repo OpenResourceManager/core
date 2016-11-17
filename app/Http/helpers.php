@@ -17,6 +17,26 @@ function formatPhoneNumber($number, $country_code = false)
 }
 
 /**
+ * Generate an API Secret
+ *
+ * Generates a unique API secret
+ *
+ * @param int $min_length
+ * @param int $max_length
+ * @return mixed|string
+ */
+function generateApiSecret($min_length = 12, $max_length = 64)
+{
+    do {
+        $length = (int)rand($min_length, $max_length);
+        $token = strtoupper(Illuminate\Support\Str::random($length)); // Generate a token with the chosen length
+        if (strpos($token, 'O') !== false) $token = str_replace('O', '0', $token);
+        $secret_exists =  \App\Models\Access\User\User::where('api_secret', $token)->first(); // Get any accounts where that token is
+    } while ($secret_exists);
+    return $token;
+}
+
+/**
  * Generate a Verification Token
  *
  * Generates a unique token for phone and email verifications.

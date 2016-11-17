@@ -1,6 +1,22 @@
 @extends('frontend.layouts.app')
 
 @section('content')
+
+    <input type="hidden" readonly="readonly" id="account_count_total" name="account_count_total"
+           value="{{$accountCount}}">
+
+    <input type="hidden" readonly="readonly" id="course_count_total" name="course_count_total"
+           value="{{$courseCount}}">
+
+    <input type="hidden" readonly="readonly" id="mobile_phone_count_total" name="mobile_phone_count_total"
+           value="{{$mobilePhoneCount}}">
+
+    <input type="hidden" readonly="readonly" id="email_count_total" name="email_count_total"
+           value="{{$emailCount}}">
+
+    <input type="hidden" readonly="readonly" id="api_requests_count_total" name="api_requests_count_total"
+           value="{{$apiQueries}}">
+
     <div class="row">
 
         <div class="col-xs-12">
@@ -41,25 +57,13 @@
 
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h4>Sidebar Item</h4>
+                                    <h4>Your API Requests</h4>
                                 </div><!--panel-heading-->
-
                                 <div class="panel-body">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis deleniti
-                                    expedita fuga ipsum numquam aperiam itaque cum maxime.
+                                    <h2 class="center-div" id="api_requests_count" name="api_requests_count">0</h2>
                                 </div><!--panel-body-->
                             </div><!--panel-->
 
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4>Sidebar Item</h4>
-                                </div><!--panel-heading-->
-
-                                <div class="panel-body">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis deleniti
-                                    expedita fuga ipsum numquam aperiam itaque cum maxime.
-                                </div><!--panel-body-->
-                            </div><!--panel-->
                         </div><!--col-md-4-->
 
                         <div class="col-md-8 col-md-pull-4">
@@ -67,12 +71,19 @@
                                 <div class="col-xs-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            <h4>Item</h4>
+                                            <h4>API Secret</h4>
                                         </div><!--panel-heading-->
-
                                         <div class="panel-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis
-                                                deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.</p>
+                                            <p>This is your API Secret. Keep it safe and treat it like a password!</p>
+                                            <div class="form-group">
+                                                <div class="col-md-10">
+                                                    <input id="secret" class="form-control" type="password"
+                                                           data-toggle="password" readonly="readonly"
+                                                           value="{{$secret}}">
+                                                </div>
+                                                <a href="/secret/refresh" class="btn btn-danger">New Secret
+                                                </a>
+                                            </div>
                                         </div><!--panel-body-->
                                     </div><!--panel-->
                                 </div><!--col-xs-12-->
@@ -82,12 +93,10 @@
                                 <div class="col-md-6">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            <h4>Item</h4>
+                                            <h4>API Accounts</h4>
                                         </div><!--panel-heading-->
-
                                         <div class="panel-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis
-                                                deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.</p>
+                                            <h2 class="center-div" id="account_count" name="account_count">0</h2>
                                         </div><!--panel-body-->
                                     </div><!--panel-->
                                 </div><!--col-md-6-->
@@ -95,12 +104,10 @@
                                 <div class="col-md-6">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            <h4>Item</h4>
+                                            <h4>Course Count</h4>
                                         </div><!--panel-heading-->
-
                                         <div class="panel-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis
-                                                deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.</p>
+                                            <h2 class="center-div" id="course_count" name="course_count">0</h2>
                                         </div><!--panel-body-->
                                     </div><!--panel-->
                                 </div><!--col-md-6-->
@@ -108,12 +115,10 @@
                                 <div class="col-md-6">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            <h4>Item</h4>
+                                            <h4>Email Count</h4>
                                         </div><!--panel-heading-->
-
                                         <div class="panel-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis
-                                                deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.</p>
+                                            <h2 class="center-div" id="email_count" name="email_count">0</h2>
                                         </div><!--panel-body-->
                                     </div><!--panel-->
                                 </div><!--col-md-6-->
@@ -121,12 +126,10 @@
                                 <div class="col-md-6">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            <h4>Item</h4>
+                                            <h4>Mobile Phone Count</h4>
                                         </div><!--panel-heading-->
-
                                         <div class="panel-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non qui facilis
-                                                deleniti expedita fuga ipsum numquam aperiam itaque cum maxime.</p>
+                                            <h2 class="center-div" id="mobile_phone_count" name="mobile_phone_count">0</h2>
                                         </div><!--panel-body-->
                                     </div><!--panel-->
                                 </div><!--col-md-6-->
@@ -144,4 +147,21 @@
         </div><!-- col-md-10 -->
 
     </div><!-- row -->
+
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        var api_requests = $('#api_requests_count_total').val();
+        var account_count = $('#account_count_total').val();
+        var course_count = $('#course_count_total').val();
+        var email_count = $('#email_count_total').val();
+        var mobile_phone_count = $('#mobile_phone_count_total').val();
+
+        $('#api_requests').animateNumber({number: api_requests_count});
+        $('#account_count').animateNumber({number: account_count});
+        $('#course_count').animateNumber({number: course_count});
+        $('#email_count').animateNumber({number: email_count});
+        $('#mobile_phone_count').animateNumber({number: mobile_phone_count});
+    </script>
 @endsection

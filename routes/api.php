@@ -22,6 +22,7 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
         $api->get('/', ['uses' => 'ApiController@index', 'as' => 'api.index']);
 
         $api->group(['prefix' => 'auth'], function ($api) {
+            $api->post('/', ['uses' => 'ApiAuthenticationController@secretLogin', 'as' => 'api.login.secret']);
             $api->post('login', ['uses' => 'ApiAuthenticationController@login', 'as' => 'api.login']);
             $api->get('validate', ['uses' => 'ApiAuthenticationController@validateAuth', 'as' => 'api.validate_auth', 'middleware' => 'api.auth']);
         });
