@@ -28,6 +28,8 @@ before_script:
   - cat .env
   - bash generate_jwt_key.sh
   - php artisan migrate
+  - php artisan route:cache
+  - php artisan api:cache
 script:
   - vendor/bin/phpunit --filter {AuthenticationTest}
   - vendor/bin/phpunit --filter {AccountTest}

@@ -56,10 +56,13 @@
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
+            "composer dump-autoload -o",
             "php artisan optimize"
+
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "composer dump-autoload -o",
             "php artisan optimize"
         ]
     },
