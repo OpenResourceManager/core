@@ -26,7 +26,7 @@ class AuthenticationTest extends TestCase
             ]);
     }
 
-    /** @token */
+    /** @test */
     public function users_can_login_with_api_secret()
     {
         $token = $this->logInWithSecret();

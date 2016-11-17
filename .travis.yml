@@ -19,17 +19,17 @@ before_install:
   - mysql -e "create database IF NOT EXISTS slerp_core;" -uroot
   - mysql -e "grant all on slerp_core.* to 'travis'@'localhost';" -uroot
   - mysql -e "FLUSH PRIVILEGES;" -uroot
+  - cp .env.travis .env
 install:
   - composer self-update
-  - cp .env.travis .env
   - composer install --no-interaction
 before_script:
   - php artisan key:generate
-  - cat .env
   - bash generate_jwt_key.sh
   - php artisan migrate
   - php artisan route:cache
   - php artisan api:cache
+  - cat .env
 script:
   - vendor/bin/phpunit --filter {AuthenticationTest}
   - vendor/bin/phpunit --filter {AccountTest}
