@@ -29,24 +29,25 @@ class UnassignedDepartment extends Event implements ShouldBroadcast
      */
     public function __construct(Account $account, Department $department)
     {
-        $info = [
-            'account_id' => $account->id,
-            'identifier' => $account->identifier,
-            'username' => $account->username,
-            'name' => $account->format_full_name(true),
-            'department_id' => $department->id,
-            'department_code' => $department->code,
-            'department_label' => $department->label
-        ];
-
-        Log::info('Account unassigned Department:', $info);
-
-        $this->info = json_encode($info);
-
         if (auth()->user()) {
+
+            $info = [
+                'account_id' => $account->id,
+                'identifier' => $account->identifier,
+                'username' => $account->username,
+                'name' => $account->format_full_name(true),
+                'department_id' => $department->id,
+                'department_code' => $department->code,
+                'department_label' => $department->label
+            ];
+
+            Log::info('Account unassigned Department:', $info);
+
+            $this->info = json_encode($info);
+
             history()->log(
                 'Assignment',
-                'unassigned ' . $account->format_full_name() . ' from department: "' . $department->label.'"',
+                'unassigned ' . $account->format_full_name() . ' from department: "' . $department->label . '"',
                 $account->id,
                 'university',
                 'bg-yellow'

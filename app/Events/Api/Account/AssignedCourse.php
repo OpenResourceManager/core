@@ -26,49 +26,50 @@ class AssignedCourse extends Event
      */
     public function __construct(Account $account, Course $course)
     {
-        $info = [
-            'account_id' => $account->id,
-            'identifier' => $account->identifier,
-            'username' => $account->username,
-            'name' => $account->format_full_name(true),
-            'course_id' => $course->id,
-            'course_code' => $course->code,
-            'course_label' => $course->label
-        ];
-
-        Log::info('Account assigned Course:', $info);
-
-        $account->primary_duty = $account->primaryDuty;
-        $trans = $account->toArray();
-        $trans['name_full'] = $account->format_full_name(true);
-        unset($trans['password']);
-        $trans['username'] = strtolower($trans['username']);
-
-        $data_to_secure = json_encode([
-            'data' => [
-                'account' => $account,
-                'course' => $course->toArray()
-            ],
-            'conf' => [
-                'ldap' => ldap_config()
-            ]
-        ]);
-
-        $secure_data = encrypt_broadcast_data($data_to_secure);
-
-        $message = [
-            'event' => 'assigned',
-            'type' => 'course',
-            'to' => 'account',
-            'encrypted' => $secure_data
-        ];
-
-        Redis::publish('events', json_encode($message));
-
         if (auth()->user()) {
+
+            $info = [
+                'account_id' => $account->id,
+                'identifier' => $account->identifier,
+                'username' => $account->username,
+                'name' => $account->format_full_name(true),
+                'course_id' => $course->id,
+                'course_code' => $course->code,
+                'course_label' => $course->label
+            ];
+
+            Log::info('Account assigned Course:', $info);
+
+            $account->primary_duty = $account->primaryDuty;
+            $trans = $account->toArray();
+            $trans['name_full'] = $account->format_full_name(true);
+            unset($trans['password']);
+            $trans['username'] = strtolower($trans['username']);
+
+            $data_to_secure = json_encode([
+                'data' => [
+                    'account' => $account,
+                    'course' => $course->toArray()
+                ],
+                'conf' => [
+                    'ldap' => ldap_config()
+                ]
+            ]);
+
+            $secure_data = encrypt_broadcast_data($data_to_secure);
+
+            $message = [
+                'event' => 'assigned',
+                'type' => 'course',
+                'to' => 'account',
+                'encrypted' => $secure_data
+            ];
+
+            Redis::publish('events', json_encode($message));
+
             history()->log(
                 'Assignment',
-                'enrolled ' . $account->format_full_name() . ' in course: "' . $course->label.'"',
+                'enrolled ' . $account->format_full_name() . ' in course: "' . $course->label . '"',
                 $account->id,
                 'graduation-cap',
                 'bg-olive'

@@ -17,33 +17,34 @@ class CampusCreated extends Event
      */
     public function __construct(Campus $campus)
     {
-        Log::info('Campus Created:', [
-            'id' => $campus->id,
-            'code' => $campus->code,
-            'label' => $campus->label
-        ]);
-
-        $data_to_secure = json_encode([
-            'data' => $campus->toArray(),
-            'conf' => [
-                'ldap' => ldap_config()
-            ]
-        ]);
-
-        $secure_data = encrypt_broadcast_data($data_to_secure);
-
-        $message = [
-            'event' => 'created',
-            'type' => 'campus',
-            'encrypted' => $secure_data
-        ];
-
-        Redis::publish('events', json_encode($message));
-
         if (auth()->user()) {
+
+            Log::info('Campus Created:', [
+                'id' => $campus->id,
+                'code' => $campus->code,
+                'label' => $campus->label
+            ]);
+
+            $data_to_secure = json_encode([
+                'data' => $campus->toArray(),
+                'conf' => [
+                    'ldap' => ldap_config()
+                ]
+            ]);
+
+            $secure_data = encrypt_broadcast_data($data_to_secure);
+
+            $message = [
+                'event' => 'created',
+                'type' => 'campus',
+                'encrypted' => $secure_data
+            ];
+
+            Redis::publish('events', json_encode($message));
+
             history()->log(
                 'Campus',
-                'created a new campus: ' . $campus,
+                'created a new campus: ' . $campus->label,
                 $campus->id,
                 'university',
                 'bg-green'

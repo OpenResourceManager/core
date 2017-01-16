@@ -543,7 +543,7 @@ function lukeSkywalkerAccount()
         'name_prefix' => 'Mr.',
         'name_first' => 'Luke',
         'name_middle' => 'Cliegg',
-        'name_last' => 'Lars',
+        'name_last' => 'Skywalker',
         'name_postfix' => 'Jedi',
         'name_phonetic' => 'Luke Skywalker',
         'username' => 'skwall',

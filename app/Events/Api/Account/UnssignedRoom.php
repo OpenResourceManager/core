@@ -25,46 +25,47 @@ class UnassignedRoom extends Event
      */
     public function __construct(Account $account, Room $room)
     {
-        $info = [
-            'account_id' => $account->id,
-            'identifier' => $account->identifier,
-            'username' => $account->username,
-            'name' => $account->format_full_name(true),
-            '$room_id' => $room->id,
-            'room_number' => $room->room_number,
-            'building_label' => $room->building->label
-        ];
-
-        Log::info('Account unassigned Room:', $info);
-
-        $account->primary_duty = $account->primaryDuty;
-        $trans = $account->toArray();
-        $trans['name_full'] = $account->format_full_name(true);
-        unset($trans['password']);
-        $trans['username'] = strtolower($trans['username']);
-
-        $data_to_secure = json_encode([
-            'data' => [
-                'account' => $account,
-                'room' => $room->toArray()
-            ],
-            'conf' => [
-                'ldap' => ldap_config()
-            ]
-        ]);
-
-        $secure_data = encrypt_broadcast_data($data_to_secure);
-
-        $message = [
-            'event' => 'unassigned',
-            'type' => 'room',
-            'to' => 'account',
-            'encrypted' => $secure_data
-        ];
-
-        Redis::publish('events', json_encode($message));
-
         if (auth()->user()) {
+
+            $info = [
+                'account_id' => $account->id,
+                'identifier' => $account->identifier,
+                'username' => $account->username,
+                'name' => $account->format_full_name(true),
+                '$room_id' => $room->id,
+                'room_number' => $room->room_number,
+                'building_label' => $room->building->label
+            ];
+
+            Log::info('Account unassigned Room:', $info);
+
+            $account->primary_duty = $account->primaryDuty;
+            $trans = $account->toArray();
+            $trans['name_full'] = $account->format_full_name(true);
+            unset($trans['password']);
+            $trans['username'] = strtolower($trans['username']);
+
+            $data_to_secure = json_encode([
+                'data' => [
+                    'account' => $account,
+                    'room' => $room->toArray()
+                ],
+                'conf' => [
+                    'ldap' => ldap_config()
+                ]
+            ]);
+
+            $secure_data = encrypt_broadcast_data($data_to_secure);
+
+            $message = [
+                'event' => 'unassigned',
+                'type' => 'room',
+                'to' => 'account',
+                'encrypted' => $secure_data
+            ];
+
+            Redis::publish('events', json_encode($message));
+
             history()->log(
                 'Assignment',
                 'unassigned ' . $account->format_full_name() . ' room ' . $room->room_number . ' in ' . $room->building->label,

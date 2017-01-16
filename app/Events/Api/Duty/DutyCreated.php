@@ -24,34 +24,34 @@ class DutyCreated extends Event
      */
     public function __construct(Duty $duty)
     {
-
-        Log::info('Duty Created:', [
-            'id' => $duty->id,
-            'code' => $duty->code,
-            'label' => $duty->label
-        ]);
-
-        $data_to_secure = json_encode([
-            'data' => $duty->toArray(),
-            'conf' => [
-                'ldap' => ldap_config()
-            ]
-        ]);
-
-        $secure_data = encrypt_broadcast_data($data_to_secure);
-
-        $message = [
-            'event' => 'created',
-            'type' => 'duty',
-            'encrypted' => $secure_data
-        ];
-
-        Redis::publish('events', json_encode($message));
-
         if (auth()->user()) {
+
+            Log::info('Duty Created:', [
+                'id' => $duty->id,
+                'code' => $duty->code,
+                'label' => $duty->label
+            ]);
+
+            $data_to_secure = json_encode([
+                'data' => $duty->toArray(),
+                'conf' => [
+                    'ldap' => ldap_config()
+                ]
+            ]);
+
+            $secure_data = encrypt_broadcast_data($data_to_secure);
+
+            $message = [
+                'event' => 'created',
+                'type' => 'duty',
+                'encrypted' => $secure_data
+            ];
+
+            Redis::publish('events', json_encode($message));
+
             history()->log(
                 'Duty',
-                'created a new duty: ' . $duty,
+                'created a new duty: ' . $duty->label,
                 $duty->id,
                 'university',
                 'bg-green'

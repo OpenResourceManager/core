@@ -24,33 +24,33 @@ class CourseCreated extends Event
      */
     public function __construct(Course $course)
     {
-        Log::info('Course Created:', [
-            'id' => $course->id,
-            'code' => $course->code,
-            'label' => $course->label
-        ]);
-
-        $course->department;
-
-        $data_to_secure = json_encode([
-            'data' => $course->toArray(),
-            'conf' => [
-                'ldap' => ldap_config()
-            ]
-        ]);
-
-        $secure_data = encrypt_broadcast_data($data_to_secure);
-
-        $message = [
-            'event' => 'created',
-            'type' => 'course',
-            'encrypted' => $secure_data
-        ];
-
-        Redis::publish('events', json_encode($message));
-
-
         if (auth()->user()) {
+
+            Log::info('Course Created:', [
+                'id' => $course->id,
+                'code' => $course->code,
+                'label' => $course->label
+            ]);
+
+            $course->department;
+
+            $data_to_secure = json_encode([
+                'data' => $course->toArray(),
+                'conf' => [
+                    'ldap' => ldap_config()
+                ]
+            ]);
+
+            $secure_data = encrypt_broadcast_data($data_to_secure);
+
+            $message = [
+                'event' => 'created',
+                'type' => 'course',
+                'encrypted' => $secure_data
+            ];
+
+            Redis::publish('events', json_encode($message));
+
             history()->log(
                 'Course',
                 'created a new course: ' . $course->label,
