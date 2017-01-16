@@ -11,13 +11,13 @@ use Dingo\Api\Routing\Helpers;
  *   host="localhost:8000",
  *   basePath="/api/v1",
  *  @SWG\Info(
- *     title="SLERP Core API",
+ *     title="ORM Core",
  *     version="1.0.0",
  *     description="An API that houses ERP data, allowing open development around institutional data.",
  *     @SWG\Contact(
  *          email="markea125@gmail.com",
  *          name="Alex Markessinis",
- *          url="https://github.com/SLERP-ERP/SLERP_Core"
+ *          url="https://github.com/OpenResourceManager/Core"
  *     ),
  *     @SWG\License(
  *          name="MIT",

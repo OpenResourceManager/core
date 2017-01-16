@@ -28,10 +28,10 @@
 * PHPUnit tests. Finally got this going!
     * All API routes are tested in CI.
 * Moved to Laravel 5.3
-* Travis CI integration. [Builds are here](https://travis-ci.org/SLERP-ERP/SLERP_Core).
+* Travis CI integration. [Builds are here](https://travis-ci.org/OpenResourceManager/Core).
 * Hosting Project on GitHub & Private GitLab.
 
 ### Misc
 * API conforms to [rfc6838 standards](https://tools.ietf.org/html/rfc6838)
-* Changing the name of this project to SLERP... "Sage's Lean ERP" or "Super Lean ERP" or "Super Light ERP"... not sure what it sands for yet :-)
+* Changing the name of this project to ORM... Open Resource Manager.
 * Cleaned up a lot of code.

@@ -1,18 +1,18 @@
 swagger: '2.0'
 info:
-  title: SLERP Core API
+  title: ORM Core
   description: >-
     An API that houses ERP data, allowing open development around institutional
     data.
   contact:
     name: Alex Markessinis
-    url: 'https://github.com/SLERP-ERP/SLERP_Core'
+    url: 'https://github.com/OpenResourceManager/Core'
     email: markea@sage.edu
   license:
     name: MIT
     url: 'https://opensource.org/licenses/MIT'
   version: 1.0.0
-host: 'demo-slerp.sage.edu'
+host: 'demo-orm.sage.edu'
 basePath: /api/v1
 schemes:
   - https

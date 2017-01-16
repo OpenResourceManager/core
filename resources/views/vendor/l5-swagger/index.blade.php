@@ -131,7 +131,7 @@ if (app()->environment() != 'testing') {
 <body class="swagger-section">
 <div id='header'>
     <div class="swagger-ui-wrap">
-        <a id="logo" href="https://github.com/SLERP-ERP/SLERP_Core">SLERP Core</a>
+        <a id="logo" href="https://github.com/OpenResourceManager/Core">ORM Core</a>
         <form id='api_selector'>
             <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
             <div class='input'><input placeholder="JSON Web Token" id="input_apiKey" name="apiKey" type="text"/></div>

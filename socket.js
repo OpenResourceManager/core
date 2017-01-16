@@ -11,7 +11,6 @@ env(__dirname + '/.env');
 
 ioRedis.subscribe('events');
 
-
 function handleCreate(type, data) {
     switch (type) {
         case 'account':

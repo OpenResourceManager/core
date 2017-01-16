@@ -81,12 +81,12 @@
 
     <div class="content">
         <div class="title m-b-md">
-            {{config('app.name', 'SLERP Core')}}
+            {{config('app.name', 'ORM Core')}}
         </div>
 
         <div class="links">
             <a href="{{URL::to('/')}}/api/documentation">Documentation</a>
-            <a href="https://github.com/SLERP-ERP/SLERP_Core">Source</a>
+            <a href="https://github.com/OpenResourceManager/Core">Source</a>
         </div>
     </div>
 </div>

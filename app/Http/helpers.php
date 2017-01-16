@@ -739,7 +739,7 @@ function encrypt_broadcast_data($data, $key = null, $iv = null)
     $iv = (empty($iv)) ? base64_decode(generate_iv()) : base64_decode($iv);
 
     if (empty($key))
-        throw new \Illuminate\Contracts\Encryption\EncryptException('No BC_KEY defined. Please generate a BC_KEY and ensure it is in your .env file. Hint: `php artisan slerp:bckey`');
+        throw new \Illuminate\Contracts\Encryption\EncryptException('No BC_KEY defined. Please generate a BC_KEY and ensure it is in your .env file. Hint: `php artisan orm:bckey`');
 
     $encrypted_data = openssl_encrypt($data, 'aes-256-cbc', $key, 0, $iv);
     return $encrypted_data . ':' . base64_encode($iv);

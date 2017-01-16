@@ -16,8 +16,8 @@ services:
 addons:
   mariadb: '10.1'
 before_install:
-  - mysql -e "create database IF NOT EXISTS slerp_core;" -uroot
-  - mysql -e "grant all on slerp_core.* to 'travis'@'localhost';" -uroot
+  - mysql -e "create database IF NOT EXISTS orm_core;" -uroot
+  - mysql -e "grant all on orm_core.* to 'travis'@'localhost';" -uroot
   - mysql -e "FLUSH PRIVILEGES;" -uroot
   - cp .env.travis .env
 install:
@@ -25,7 +25,7 @@ install:
   - composer install --no-interaction
 before_script:
   - php artisan key:generate
-  - php artisan slerp:bckey
+  - php artisan orm:bckey
   - bash generate_jwt_key.sh
   - php artisan migrate
   - php artisan route:cache

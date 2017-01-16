@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\SlerpBroadcastKey::class
+        Commands\ORMBroadcastKey::class
     ];
 
     /**
