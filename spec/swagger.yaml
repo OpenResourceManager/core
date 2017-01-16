@@ -13,8 +13,6 @@ info:
     url: 'https://opensource.org/licenses/MIT'
   version: 1.0.0
 basePath: /api/v1
-schemes:
-  - https
 consumes:
   - application/x-www-form-urlencoded
 produces:
