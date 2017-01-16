@@ -5,18 +5,13 @@ namespace App\Events\Api\Account;
 use App\Http\Models\API\Account;
 use App\Http\Models\API\Department;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Events\Event;
+use Illuminate\Support\Facades\Redis;
 
 
-class AssignedDepartment extends Event implements ShouldBroadcast
+class AssignedDepartment extends Event
 {
-    use InteractsWithSockets, SerializesModels;
 
     /**
      * @var String
@@ -42,7 +37,32 @@ class AssignedDepartment extends Event implements ShouldBroadcast
 
         Log::info('Account assigned Department:', $info);
 
-        $this->info = json_encode($info);
+        $account->primary_duty = $account->primaryDuty;
+        $trans = $account->toArray();
+        $trans['name_full'] = $account->format_full_name(true);
+        unset($trans['password']);
+        $trans['username'] = strtolower($trans['username']);
+
+        $data_to_secure = json_encode([
+            'data' => [
+                'account' => $account,
+                'department' => $department->toArray()
+            ],
+            'conf' => [
+                'ldap' => ldap_config()
+            ]
+        ]);
+
+        $secure_data = encrypt_broadcast_data($data_to_secure);
+
+        $message = [
+            'event' => 'assigned',
+            'type' => 'department',
+            'to' => 'account',
+            'encrypted' => $secure_data
+        ];
+
+        Redis::publish('events', json_encode($message));
 
         if (auth()->user()) {
             history()->log(
@@ -60,8 +80,8 @@ class AssignedDepartment extends Event implements ShouldBroadcast
      *
      * @return Channel|array
      */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('department-membership');
-    }
+//    public function broadcastOn()
+//    {
+//        return new PrivateChannel('department-membership');
+//    }
 }

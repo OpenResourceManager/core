@@ -3,23 +3,17 @@
 namespace App\Events\Api\Account;
 
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Events\Event;
+use Illuminate\Support\Facades\Redis;
 use App\Http\Models\API\Account;
 use Illuminate\Support\Facades\Log;
 
-class AccountDeleted extends Event implements ShouldBroadcast
+class AccountDeleted extends Event
 {
-    use InteractsWithSockets, SerializesModels;
-
     /**
      * @var string
      */
-    public $account;
+    public $message;
 
     /**
      * Create a new event instance.
@@ -37,7 +31,24 @@ class AccountDeleted extends Event implements ShouldBroadcast
 
         $trans = $account->toArray();
         $trans['name_full'] = $account->format_full_name(true);
-        $this->account = json_encode($trans);
+        $trans['username'] = strtolower($trans['username']);
+
+        $data_to_secure = json_encode([
+            'data' => $trans,
+            'conf' => [
+                'ldap' => ldap_config()
+            ]
+        ]);
+
+        $secure_data = encrypt_broadcast_data($data_to_secure);
+
+        $message = [
+            'event' => 'deleted',
+            'type' => 'account',
+            'encrypted' => $secure_data
+        ];
+
+        Redis::publish('events', json_encode($message));
 
         if (auth()->user()) {
             history()->log(
@@ -55,8 +66,8 @@ class AccountDeleted extends Event implements ShouldBroadcast
      *
      * @return Channel|array
      */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('account-events');
-    }
+//    public function broadcastOn()
+//    {
+//        return new PrivateChannel('account-events');
+//    }
 }

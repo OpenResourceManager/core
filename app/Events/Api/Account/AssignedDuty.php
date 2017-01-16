@@ -5,18 +5,14 @@ namespace App\Events\Api\Account;
 use App\Http\Models\API\Account;
 use App\Http\Models\API\Duty;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Events\Event;
+use Illuminate\Support\Facades\Redis;
 
 
-class AssignedDuty extends Event implements ShouldBroadcast
+class AssignedDuty extends Event
 {
-    use InteractsWithSockets, SerializesModels;
+
 
     /**
      * @var String
@@ -24,15 +20,16 @@ class AssignedDuty extends Event implements ShouldBroadcast
     public $info;
 
     /**
-     * AddressCreated constructor.
+     * AssignedDuty constructor.
      * @param Account $account
+     * @param Duty $duty
      */
     public function __construct(Account $account, Duty $duty)
     {
         $info = [
             'account_id' => $account->id,
             'identifier' => $account->identifier,
-            'username' => $account->username,
+            'username' => strtolower($account->username),
             'name' => $account->format_full_name(true),
             'duty_id' => $duty->id,
             'duty_code' => $duty->code,
@@ -41,12 +38,37 @@ class AssignedDuty extends Event implements ShouldBroadcast
 
         Log::info('Account assigned Duty:', $info);
 
-        $this->info = json_encode($info);
+        $account->primary_duty = $account->primaryDuty;
+        $trans = $account->toArray();
+        $trans['name_full'] = $account->format_full_name(true);
+        unset($trans['password']);
+        $trans['username'] = strtolower($trans['username']);
+
+        $data_to_secure = json_encode([
+            'data' => [
+                'account' => $account,
+                'duty' => $duty->toArray()
+            ],
+            'conf' => [
+                'ldap' => ldap_config()
+            ]
+        ]);
+
+        $secure_data = encrypt_broadcast_data($data_to_secure);
+
+        $message = [
+            'event' => 'assigned',
+            'type' => 'duty',
+            'to' => 'account',
+            'encrypted' => $secure_data
+        ];
+
+        Redis::publish('events', json_encode($message));
 
         if (auth()->user()) {
             history()->log(
                 'Assignment',
-                'assigned ' . $account->format_full_name() . ' to duty: "' . $duty->label.'"',
+                'assigned ' . $account->format_full_name() . ' to duty: "' . $duty->label . '"',
                 $account->id,
                 'university',
                 'bg-olive'
@@ -59,8 +81,8 @@ class AssignedDuty extends Event implements ShouldBroadcast
      *
      * @return Channel|array
      */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('duty-membership');
-    }
+//    public function broadcastOn()
+//    {
+//        return new PrivateChannel('duty-membership');
+//    }
 }

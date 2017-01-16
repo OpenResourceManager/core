@@ -5,18 +5,13 @@ namespace App\Events\Api\Account;
 use App\Http\Models\API\Account;
 use App\Http\Models\API\Duty;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Events\Event;
 
 
-class UnassignedDuty extends Event implements ShouldBroadcast
+class UnassignedDuty extends Event
 {
-    use InteractsWithSockets, SerializesModels;
 
     /**
      * @var String
@@ -24,8 +19,9 @@ class UnassignedDuty extends Event implements ShouldBroadcast
     public $info;
 
     /**
-     * AddressCreated constructor.
+     * UnassignedDuty constructor.
      * @param Account $account
+     * @param Duty $duty
      */
     public function __construct(Account $account, Duty $duty)
     {
@@ -41,12 +37,37 @@ class UnassignedDuty extends Event implements ShouldBroadcast
 
         Log::info('Account unassigned Duty:', $info);
 
-        $this->info = json_encode($info);
+        $account->primary_duty = $account->primaryDuty;
+        $trans = $account->toArray();
+        $trans['name_full'] = $account->format_full_name(true);
+        unset($trans['password']);
+        $trans['username'] = strtolower($trans['username']);
+
+        $data_to_secure = json_encode([
+            'data' => [
+                'account' => $account,
+                'duty' => $duty->toArray()
+            ],
+            'conf' => [
+                'ldap' => ldap_config()
+            ]
+        ]);
+
+        $secure_data = encrypt_broadcast_data($data_to_secure);
+
+        $message = [
+            'event' => 'unassigned',
+            'type' => 'duty',
+            'to' => 'account',
+            'encrypted' => $secure_data
+        ];
+
+        Redis::publish('events', json_encode($message));
 
         if (auth()->user()) {
             history()->log(
                 'Assignment',
-                'unassigned ' . $account->format_full_name() . ' from duty: "' . $duty->label.'"',
+                'unassigned ' . $account->format_full_name() . ' from duty: "' . $duty->label . '"',
                 $account->id,
                 'university',
                 'bg-yellow'
@@ -59,8 +80,8 @@ class UnassignedDuty extends Event implements ShouldBroadcast
      *
      * @return Channel|array
      */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('duty-membership');
-    }
+//    public function broadcastOn()
+//    {
+//        return new PrivateChannel('duty-membership');
+//    }
 }

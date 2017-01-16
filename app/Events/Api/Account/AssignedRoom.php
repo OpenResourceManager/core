@@ -5,19 +5,13 @@ namespace App\Events\Api\Account;
 use App\Http\Models\API\Account;
 use App\Http\Models\API\Room;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Events\Event;
+use Illuminate\Support\Facades\Redis;
 
 
-class AssignedRoom extends Event implements ShouldBroadcast
+class AssignedRoom extends Event
 {
-    use InteractsWithSockets, SerializesModels;
-
     /**
      * @var String
      */
@@ -41,7 +35,32 @@ class AssignedRoom extends Event implements ShouldBroadcast
 
         Log::info('Account assigned Room:', $info);
 
-        $this->info = json_encode($info);
+        $account->primary_duty = $account->primaryDuty;
+        $trans = $account->toArray();
+        $trans['name_full'] = $account->format_full_name(true);
+        unset($trans['password']);
+        $trans['username'] = strtolower($trans['username']);
+
+        $data_to_secure = json_encode([
+            'data' => [
+                'account' => $account,
+                'room' => $room->toArray()
+            ],
+            'conf' => [
+                'ldap' => ldap_config()
+            ]
+        ]);
+
+        $secure_data = encrypt_broadcast_data($data_to_secure);
+
+        $message = [
+            'event' => 'assigned',
+            'type' => 'room',
+            'to' => 'account',
+            'encrypted' => $secure_data
+        ];
+
+        Redis::publish('events', json_encode($message));
 
         if (auth()->user()) {
             history()->log(
@@ -59,8 +78,8 @@ class AssignedRoom extends Event implements ShouldBroadcast
      *
      * @return Channel|array
      */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('room-assignment');
-    }
+//    public function broadcastOn()
+//    {
+//        return new PrivateChannel('room-assignment');
+//    }
 }

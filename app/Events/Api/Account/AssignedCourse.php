@@ -5,18 +5,14 @@ namespace App\Events\Api\Account;
 use App\Http\Models\API\Account;
 use App\Http\Models\API\Course;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Events\Event;
+use Illuminate\Support\Facades\Redis;
 
 
-class AssignedCourse extends Event implements ShouldBroadcast
+class AssignedCourse extends Event
 {
-    use InteractsWithSockets, SerializesModels;
+
 
     /**
      * @var string
@@ -42,7 +38,32 @@ class AssignedCourse extends Event implements ShouldBroadcast
 
         Log::info('Account assigned Course:', $info);
 
-        $this->info = json_encode($info);
+        $account->primary_duty = $account->primaryDuty;
+        $trans = $account->toArray();
+        $trans['name_full'] = $account->format_full_name(true);
+        unset($trans['password']);
+        $trans['username'] = strtolower($trans['username']);
+
+        $data_to_secure = json_encode([
+            'data' => [
+                'account' => $account,
+                'course' => $course->toArray()
+            ],
+            'conf' => [
+                'ldap' => ldap_config()
+            ]
+        ]);
+
+        $secure_data = encrypt_broadcast_data($data_to_secure);
+
+        $message = [
+            'event' => 'assigned',
+            'type' => 'course',
+            'to' => 'account',
+            'encrypted' => $secure_data
+        ];
+
+        Redis::publish('events', json_encode($message));
 
         if (auth()->user()) {
             history()->log(
@@ -60,8 +81,8 @@ class AssignedCourse extends Event implements ShouldBroadcast
      *
      * @return Channel|array
      */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('course-enrollment');
-    }
+//    public function broadcastOn()
+//    {
+//        return new PrivateChannel('course-enrollment');
+//    }
 }

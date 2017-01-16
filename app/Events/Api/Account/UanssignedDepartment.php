@@ -16,7 +16,6 @@ use App\Events\Event;
 
 class UnassignedDepartment extends Event implements ShouldBroadcast
 {
-    use InteractsWithSockets, SerializesModels;
 
     /**
      * @var String
@@ -24,7 +23,7 @@ class UnassignedDepartment extends Event implements ShouldBroadcast
     public $info;
 
     /**
-     * AddressCreated constructor.
+     * UnassignedDepartment constructor.
      * @param Account $account
      * @param Department $department
      */

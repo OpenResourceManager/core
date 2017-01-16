@@ -188,3 +188,4 @@ fabric.properties
 error.log
 Todo.rtf
 /_ide_helper.php
+/config/ldap.php

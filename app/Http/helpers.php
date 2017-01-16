@@ -1,5 +1,7 @@
 <?php
 
+use Krucas\Settings\Facades\Settings;
+
 /**
  * Formats a phone number
  *
@@ -31,7 +33,7 @@ function generateApiSecret($min_length = 12, $max_length = 64)
         $length = (int)rand($min_length, $max_length);
         $token = strtoupper(Illuminate\Support\Str::random($length)); // Generate a token with the chosen length
         if (strpos($token, 'O') !== false) $token = str_replace('O', '0', $token);
-        $secret_exists =  \App\Models\Access\User\User::where('api_secret', $token)->first(); // Get any accounts where that token is
+        $secret_exists = \App\Models\Access\User\User::where('api_secret', $token)->first(); // Get any accounts where that token is
     } while ($secret_exists);
     return $token;
 }
@@ -668,4 +670,77 @@ function jediMasterRoom()
         'room_label' => 'Jedi Dorm 306'
     ];
 
+}
+
+/**
+ * Returns the LDAP configuration
+ *
+ * @return array
+ */
+function ldap_config()
+{
+    return [
+        'enabled' => Settings::get('ldap-enabled', false),
+        'hosts' => Settings::get('ldap-hosts', []),
+        'bind_user' => Settings::get('ldap-bind-user', ''),
+        'bind_password' => Settings::get('ldap-bind-password', ''),
+        'tree_base' => Settings::get('ldap-tree-base', ''),
+        'base_user_ou_dn' => Settings::get('ldap-base-user-dn', ''),
+        'base_group_ou_dn' => Settings::get('ldap-base-group-dn', ''),
+        'delete_users' => Settings::get('ldap-delete-users', false),
+        'duties_map_to_ou' => Settings::get('ldap-duties-map-to-ou', true),
+        'home_drive_letter' => Settings::get('ldap-home-drive-letter', ''),
+        'home_drive_path_pattern' => Settings::get('ldap-home-drive-path-pattern', ''),
+        'email_domain' => Settings::get('ldap-email-domain', ''),
+    ];
+}
+
+/**
+ * Generates random bytes and base 64 encodes them
+ *
+ * @param int $length
+ * @return string
+ */
+function generate_random_encoded_bytes($length = 32)
+{
+    if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
+        // We are on php 7 or higher so we can use new more secure function
+        return base64_encode(random_bytes($length));
+    } else {
+        // We are not on php 7 and have to fall back on openssl_random_pseudo_bytes
+        return base64_encode(openssl_random_pseudo_bytes($length));
+    }
+}
+
+
+/**
+ * Generates an IV for encryption
+ *
+ * @return string
+ */
+function generate_iv()
+{
+    return generate_random_encoded_bytes(openssl_cipher_iv_length('aes-256-cbc'));
+}
+
+/**
+ * Encrypts broadcast data string
+ *
+ * Returns a string with the IV appended to encrypted data deliminated by a colon
+ *
+ * @param $data
+ * @param null $key
+ * @param null $iv
+ * @return string
+ */
+function encrypt_broadcast_data($data, $key = null, $iv = null)
+{
+    $key = (empty($key)) ? base64_decode(env('BC_KEY')) : base64_decode($key);
+    $iv = (empty($iv)) ? base64_decode(generate_iv()) : base64_decode($iv);
+
+    if (empty($key))
+        throw new \Illuminate\Contracts\Encryption\EncryptException('No BC_KEY defined. Please generate a BC_KEY and ensure it is in your .env file. Hint: `php artisan slerp:bckey`');
+
+    $encrypted_data = openssl_encrypt($data, 'aes-256-cbc', $key, 0, $iv);
+    return $encrypted_data . ':' . base64_encode($iv);
 }

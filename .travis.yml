@@ -25,6 +25,7 @@ install:
   - composer install --no-interaction
 before_script:
   - php artisan key:generate
+  - php artisan slerp:bckey
   - bash generate_jwt_key.sh
   - php artisan migrate
   - php artisan route:cache

@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Events\Api\Account\AccountsViewed;
 use App\Events\Api\Account\AccountViewed;
+use App\Models\Access\Permission\Permission;
 
 
 class AccountController extends ApiController
@@ -113,7 +114,7 @@ class AccountController extends ApiController
             || array_key_exists('birth_date', $data)
         ) {
             $user = auth()->user();
-            if ($user->can('write-classified')) {
+            if ($user->hasPermission(Permission::where('name', 'write-classified')->firstOrFail())) {
                 $classifiedValidator = Validator::make($data, [
                     'ssn' => 'size:4|nullable',
                     'password' => 'string|min:6|nullable',

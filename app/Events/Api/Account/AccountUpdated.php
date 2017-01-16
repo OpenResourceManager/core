@@ -37,6 +37,7 @@ class AccountUpdated extends Event implements ShouldBroadcast
 
         $trans = $account->toArray();
         $trans['name_full'] = $account->format_full_name(true);
+        $trans['username'] = strtolower($trans['username']);
         $this->account = json_encode($trans);
 
         if (auth()->user()) {
