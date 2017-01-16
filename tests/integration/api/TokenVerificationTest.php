@@ -14,11 +14,9 @@ class TokenVerificationTest extends TestCase
      * @var array
      */
     protected $itemStructureResponse = [
-        [
-            'id',
-            'type',
-            'message'
-        ]
+        'id',
+        'type',
+        'message'
     ];
 
     public function setUp()
@@ -35,7 +33,6 @@ class TokenVerificationTest extends TestCase
 
         $email_response = $this->post('/api/v1/emails', jediMasterEmail(), ['Authorization' => 'Bearer ' . $this->bearer]);
         $email_response->seeStatusCode(201);
-        $email_response->seeJsonStructure($this->itemStructureResponse);
 
         $data = $email_response->decodeResponseJson()['data'];
         $token = $data['verification_token'];
@@ -55,7 +52,6 @@ class TokenVerificationTest extends TestCase
 
         $phone_response = $this->post('/api/v1/mobile-phones', jediMasterMobilePhone(), ['Authorization' => 'Bearer ' . $this->bearer]);
         $phone_response->seeStatusCode(201);
-        $phone_response->seeJsonStructure($this->itemStructureResponse);
 
         $data = $phone_response->decodeResponseJson()['data'];
         $token = $data['verification_token'];
@@ -74,7 +70,6 @@ class TokenVerificationTest extends TestCase
 
         $email_response = $this->post('/api/v1/emails', jediMasterEmail(), ['Authorization' => 'Bearer ' . $this->bearer]);
         $email_response->seeStatusCode(201);
-        $email_response->seeJsonStructure($this->itemStructureResponse);
 
         $data = $email_response->decodeResponseJson()['data'];
         $token = $data['verification_token'];
@@ -93,7 +88,6 @@ class TokenVerificationTest extends TestCase
 
         $phone_response = $this->post('/api/v1/mobile-phones', jediMasterMobilePhone(), ['Authorization' => 'Bearer ' . $this->bearer]);
         $phone_response->seeStatusCode(201);
-        $phone_response->seeJsonStructure($this->itemStructureResponse);
 
         $data = $phone_response->decodeResponseJson()['data'];
         $token = $data['verification_token'];
