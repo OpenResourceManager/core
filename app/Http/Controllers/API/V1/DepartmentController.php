@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Events\Api\Department\DepartmentsViewed;
 use App\Http\Models\API\Department;
 use App\Http\Transformers\DepartmentTransformer;
 use Illuminate\Http\Request;
@@ -27,8 +28,9 @@ class DepartmentController extends ApiController
      */
     public function index()
     {
-        $accounts = Department::paginate($this->resultLimit);
-        return $this->response->paginator($accounts, new DepartmentTransformer);
+        $departments = Department::paginate($this->resultLimit);
+        event(new DepartmentsViewed($departments->pluck('id')->toArray()));
+        return $this->response->paginator($departments, new DepartmentTransformer);
     }
 
     /**

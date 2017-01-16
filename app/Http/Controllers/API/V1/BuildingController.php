@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Events\Api\Building\BuildingsViewed;
 use App\Http\Models\API\Building;
 use App\Http\Models\API\Campus;
 use App\Http\Transformers\BuildingTransformer;
@@ -29,8 +30,9 @@ class BuildingController extends ApiController
      */
     public function index()
     {
-        $accounts = Building::paginate($this->resultLimit);
-        return $this->response->paginator($accounts, new BuildingTransformer);
+        $buildings = Building::paginate($this->resultLimit);
+        event(new BuildingsViewed($buildings->pluck('id')->toArray()));
+        return $this->response->paginator($buildings, new BuildingTransformer);
     }
 
     /**

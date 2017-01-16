@@ -1,6 +1,12 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: melon
+ * Date: 1/16/17
+ * Time: 4:37 PM
+ */
 
-namespace App\Events\Api\Account;
+namespace App\Events\Api\Room;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -8,20 +14,20 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 
-class AccountsViewed extends Event
+class RoomsViewed extends Event
 {
     use InteractsWithSockets, SerializesModels;
 
     /**
      * @var array
      */
-    public $accountIds;
+    public $roomIds;
 
     /**
-     * AccountsViewed constructor.
-     * @param array $accountIds
+     * RoomViewed constructor.
+     * @param array $roomIds
      */
-    public function __construct($accountIds = [])
+    public function __construct($roomIds = [])
     {
         $user_name = 'System';
 
@@ -30,8 +36,8 @@ class AccountsViewed extends Event
             $user_name = $user->name;
 
             history()->log(
-                'Account',
-                'viewed ' . count($accountIds) . ' accounts',
+                'Room',
+                'viewed ' . count($roomIds) . ' rooms',
                 $user->id,
                 'eye',
                 'bg-aqua'
@@ -39,7 +45,7 @@ class AccountsViewed extends Event
 
         }
 
-        Log::info($user_name . ' viewed ' . count($accountIds) . ' accounts', $accountIds);
+        Log::info($user_name . ' viewed ' . count($roomIds) . ' rooms', $roomIds);
     }
 
     /**

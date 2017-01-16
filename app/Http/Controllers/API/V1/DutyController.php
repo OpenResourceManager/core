@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Events\Api\Duty\DutiesViewed;
 use App\Http\Models\API\Duty;
 use App\Http\Transformers\DutyTransformer;
 use Illuminate\Http\Request;
@@ -28,6 +29,7 @@ class DutyController extends ApiController
     public function index()
     {
         $duties = Duty::paginate($this->resultLimit);
+        event(new DutiesViewed($duties->pluck('id')->toArray()));
         return $this->response->paginator($duties, new DutyTransformer);
     }
 

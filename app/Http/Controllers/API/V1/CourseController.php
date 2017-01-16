@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Events\Api\Course\CoursesViewed;
 use App\Http\Models\API\Course;
 use App\Http\Models\API\Department;
 use App\Http\Transformers\CourseTransformer;
@@ -28,8 +29,9 @@ class CourseController extends ApiController
      */
     public function index()
     {
-        $accounts = Course::paginate($this->resultLimit);
-        return $this->response->paginator($accounts, new CourseTransformer);
+        $courses = Course::paginate($this->resultLimit);
+        event(new CoursesViewed($courses->pluck('id')->toArray()));
+        return $this->response->paginator($courses, new CourseTransformer);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Events\Api\Room\RoomsViewed;
 use App\Http\Models\API\Building;
 use App\Http\Models\API\Room;
 use App\Http\Transformers\RoomTransformer;
@@ -28,8 +29,9 @@ class RoomController extends ApiController
      */
     public function index()
     {
-        $accounts = Room::paginate($this->resultLimit);
-        return $this->response->paginator($accounts, new RoomTransformer);
+        $rooms = Room::paginate($this->resultLimit);
+        event(new RoomsViewed($rooms->pluck('id')->toArray()));
+        return $this->response->paginator($rooms, new RoomTransformer);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Events\Api\Campus\CampusesViewed;
 use App\Http\Models\API\Campus;
 use App\Http\Transformers\CampusTransformer;
 use Illuminate\Http\Request;
@@ -27,8 +28,9 @@ class CampusController extends ApiController
      */
     public function index()
     {
-        $accounts = Campus::paginate($this->resultLimit);
-        return $this->response->paginator($accounts, new CampusTransformer);
+        $campuses = Campus::paginate($this->resultLimit);
+        event(new CampusesViewed($campuses->pluck('id')->toArray()));
+        return $this->response->paginator($campuses, new CampusTransformer);
     }
 
     /**
