@@ -50,7 +50,7 @@ ORM Core is a REST API designed to house institutional data and act as an interm
 
 PHP Packages:
 
-* php-redis
+* php-pecl-redis
 * php-pdo
 * php-mysqlnd
 * php-mcrypt
@@ -60,6 +60,32 @@ PHP Packages:
 * php-fpm (Nginx only)
 
 ## Install
+
+* Step 1: [Install NGINX](https://github.com/MelonSmasher/NginxInstaller)
+
+* Step 2: Install MariaDB
+
+* Step 3: Install Redis
+
+* Step 4: Install NPM
+
+* Step 5: Install Yarn
+
+```
+npm -g install yarn
+```
+
+* Step 6: Install PHP and extensions
+
+* Step 7: Initialize the DB
+
+```mysql
+create database orm;
+CREATE USER 'orm'@'localhost' IDENTIFIED BY 'SOMESTRONGPASSWORD';
+FLUSH PRIVILEGES;
+```
+
+* Step 8: Initialize ORM
 
 ```shell
 # Create a vendor dir
@@ -71,25 +97,23 @@ git clone https://github.com/OpenResourceManager/Core.git; cd Core;
 # Check out to the latest tag
 git checkout $(git describe --tags $(git rev-list --tags --max-count=1));
 
-# Install composer dependancies
-composer install --no-interaction;
-
-# Install node dependancies
-yarn install
-
 # Create a new envorinment file
 cp .env.example .env;
-```
 
-Open the `.env` file in your favorite editor and configure it.
+# Install composer dependancies
+composer install --no-interaction --no-scripts --no-dev;
 
+# Install node dependancies
+yarn install;
 
-```shell
+# Generate optimaized class loader
+composer dump-autoload -o
+
 # Generate a new application key
 php artisan key:generate;
 
 # Generate a boradcast key
-php artisan orm:bckey
+php artisan orm:bckey;
 
 # Generate a new JWT key
 bash generate_jwt_key.sh;
@@ -110,6 +134,10 @@ php artisan route:cache;
 php artisan api:cache;
 ```
 
+* Step 9: Open the `.env` file in your favorite editor and configure it.
+
+ ---
+ 
 ## Update
 
 ```shell
