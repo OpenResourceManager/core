@@ -107,7 +107,7 @@ composer install --no-interaction --no-scripts --no-dev;
 yarn install;
 
 # Generate optimaized class loader
-composer dump-autoload -o
+composer dump-autoload -o;
 
 # Generate a new application key
 php artisan key:generate;
@@ -120,6 +120,9 @@ bash generate_jwt_key.sh;
 
 # Run DB Migrations
 php artisan migrate --force;
+
+# Seed DB With Default Assets
+php artisan db:seed --force;
 
 # Clear any compiled assets
 php artisan clear-compiled;
