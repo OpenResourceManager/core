@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Events\Api\Campus\CampusesViewed;
+use App\Events\Api\Campus\CampusRestored;
 use App\Events\Api\Campus\CampusViewed;
 use App\Http\Models\API\Campus;
 use App\Http\Transformers\CampusTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Dingo\Api\Exception\StoreResourceFailedException;
+use Dingo\Api\Exception\DeleteResourceFailedException;
 
 class CampusController extends ApiController
 {
@@ -82,9 +85,11 @@ class CampusController extends ApiController
         ]);
 
         if ($validator->fails())
-            throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+            throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
 
-        if ($toRestore = Campus::onlyTrashed()->where('code', $data['code'])->first()) $toRestore->restore();
+        if ($toRestore = Campus::onlyTrashed()->where('code', $data['code'])->first()) {
+            if ($toRestore->restore()) event(new CampusRestored($toRestore));
+        }
         $trans = new CampusTransformer();
         $item = Campus::updateOrCreate(['code' => $data['code']], $data);
         $item = $trans->transform($item);
@@ -92,11 +97,8 @@ class CampusController extends ApiController
     }
 
     /**
-     * Destroy Campus
-     *
-     * Deletes the specified Campus by it's ID or Code attribute.
-     *
-     * @return mixed|void
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function destroy(Request $request)
     {
@@ -108,7 +110,7 @@ class CampusController extends ApiController
         ]);
 
         if ($validator->fails())
-            throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());
+            throw new DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());
 
         $deleted = (array_key_exists('id', $data)) ? Campus::destroy($data['id']) : Campus::where('code', $data['code'])->firstOrFail()->delete();
 
