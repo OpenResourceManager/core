@@ -30,7 +30,7 @@ class UnassignedRoom extends Event
 
         Log::info('Account unassigned Room:', $info);
 
-        if (auth()->user()) {
+        if ($user = auth()->user()) {
 
             $account->primary_duty = $account->primaryDuty;
             $trans = $account->toArray();
@@ -62,7 +62,7 @@ class UnassignedRoom extends Event
             history()->log(
                 'Assignment',
                 'unassigned ' . $account->format_full_name() . ' room ' . $room->room_number . ' in ' . $room->building->label,
-                $account->id,
+                $user->id,
                 'building-o',
                 'bg-yellow'
             );

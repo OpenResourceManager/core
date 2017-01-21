@@ -31,7 +31,7 @@ class UnassignedDepartment extends Event
 
         Log::info('Account unassigned Department:', $info);
 
-        if (auth()->user()) {
+        if ($user = auth()->user()) {
 
             $account->primary_duty = $account->primaryDuty;
             $trans = $account->toArray();
@@ -63,7 +63,7 @@ class UnassignedDepartment extends Event
             history()->log(
                 'Assignment',
                 'unassigned ' . $account->format_full_name() . ' from department: "' . $department->label . '"',
-                $account->id,
+                $user->id,
                 'cubes',
                 'bg-yellow'
             );

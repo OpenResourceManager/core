@@ -30,7 +30,7 @@ class AssignedCourse extends Event
 
         Log::info('Account assigned Course:', $info);
 
-        if (auth()->user()) {
+        if ($user = auth()->user()) {
 
             $account->primary_duty = $account->primaryDuty;
             $trans = $account->toArray();
@@ -62,7 +62,7 @@ class AssignedCourse extends Event
             history()->log(
                 'Assignment',
                 'enrolled ' . $account->format_full_name() . ' in course: "' . $course->label . '"',
-                $account->id,
+                $user->id,
                 'graduation-cap',
                 'bg-olive'
             );

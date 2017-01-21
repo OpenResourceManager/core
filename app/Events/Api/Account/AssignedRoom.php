@@ -29,7 +29,7 @@ class AssignedRoom extends Event
 
         Log::info('Account assigned Room:', $info);
 
-        if (auth()->user()) {
+        if ($user = auth()->user()) {
 
             $account->primary_duty = $account->primaryDuty;
             $trans = $account->toArray();
@@ -61,7 +61,7 @@ class AssignedRoom extends Event
             history()->log(
                 'Assignment',
                 'assigned ' . $account->format_full_name() . ' room ' . $room->room_number . ' in ' . $room->building->label,
-                $account->id,
+                $user->id,
                 'building-o',
                 'bg-olive'
             );

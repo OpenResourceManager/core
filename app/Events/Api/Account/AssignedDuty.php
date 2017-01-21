@@ -30,7 +30,7 @@ class AssignedDuty extends Event
 
         Log::info('Account assigned Duty:', $info);
 
-        if (auth()->user()) {
+        if ($user = auth()->user()) {
 
             $account->primary_duty = $account->primaryDuty;
             $trans = $account->toArray();
@@ -62,7 +62,7 @@ class AssignedDuty extends Event
             history()->log(
                 'Assignment',
                 'assigned ' . $account->format_full_name() . ' to duty: "' . $duty->label . '"',
-                $account->id,
+                $user->id,
                 'cube',
                 'bg-olive'
             );

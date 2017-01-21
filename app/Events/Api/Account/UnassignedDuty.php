@@ -30,7 +30,7 @@ class UnassignedDuty extends Event
 
         Log::info('Account unassigned Duty:', $info);
 
-        if (auth()->user()) {
+        if ($user = auth()->user()) {
 
             $account->primary_duty = $account->primaryDuty;
             $trans = $account->toArray();
@@ -62,7 +62,7 @@ class UnassignedDuty extends Event
             history()->log(
                 'Assignment',
                 'unassigned ' . $account->format_full_name() . ' from duty: "' . $duty->label . '"',
-                $account->id,
+                $user->id,
                 'cube',
                 'bg-yellow'
             );

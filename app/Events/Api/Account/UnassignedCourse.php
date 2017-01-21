@@ -30,7 +30,7 @@ class UnassignedCourse extends Event
 
         Log::info('Account removed from Course:', $info);
 
-        if (auth()->user()) {
+        if ($user = auth()->user()) {
 
             $account->primary_duty = $account->primaryDuty;
             $trans = $account->toArray();
@@ -62,7 +62,7 @@ class UnassignedCourse extends Event
             history()->log(
                 'Assignment',
                 'removed ' . $account->format_full_name() . ' from course: "' . $course->label . '"',
-                $account->id,
+                $user->id,
                 'graduation-cap',
                 'bg-yellow'
             );
