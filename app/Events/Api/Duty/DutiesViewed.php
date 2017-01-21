@@ -39,7 +39,7 @@ class DutiesViewed extends Event
                 'Duty',
                 'viewed ' . count($dutyIds) . ' duties',
                 $user->id,
-                'eye',
+                'cube',
                 'bg-aqua'
             );
 

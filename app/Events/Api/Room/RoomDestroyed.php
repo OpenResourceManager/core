@@ -55,7 +55,7 @@ class RoomDestroyed extends Event
                 'Room',
                 'deleted room ' . $room->room_number . ' in ' . $building->label,
                 $room->id,
-                'university',
+                'building-o',
                 'bg-red'
             );
         }

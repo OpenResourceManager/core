@@ -39,7 +39,7 @@ class DepartmentsViewed extends Event
                 'Department',
                 'viewed ' . count($departmentIds) . ' departments',
                 $user->id,
-                'eye',
+                'cubes',
                 'bg-aqua'
             );
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Events\Api\Course\CoursesViewed;
+use App\Events\Api\Course\CourseViewed;
 use App\Http\Models\API\Course;
 use App\Http\Models\API\Department;
 use App\Http\Transformers\CourseTransformer;
@@ -45,6 +46,7 @@ class CourseController extends ApiController
     public function show($id)
     {
         $item = Course::findOrFail($id);
+        event(new CourseViewed($item));
         return $this->response->item($item, new CourseTransformer);
     }
 
@@ -59,6 +61,7 @@ class CourseController extends ApiController
     public function showFromCode($code)
     {
         $item = Course::where('code', $code)->firstOrFail();
+        event(new CourseViewed($item));
         return $this->response->item($item, new CourseTransformer);
     }
 

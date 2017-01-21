@@ -53,7 +53,7 @@ class DutyCreated extends Event
                 'Duty',
                 'created a new duty: ' . $duty->label,
                 $duty->id,
-                'university',
+                'cube',
                 'bg-green'
             );
         }

@@ -71,7 +71,7 @@ class UnassignedDuty extends Event
                 'Assignment',
                 'unassigned ' . $account->format_full_name() . ' from duty: "' . $duty->label . '"',
                 $account->id,
-                'university',
+                'cube',
                 'bg-yellow'
             );
         }

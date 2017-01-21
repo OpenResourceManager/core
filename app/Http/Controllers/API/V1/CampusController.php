@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Events\Api\Campus\CampusesViewed;
+use App\Events\Api\Campus\CampusViewed;
 use App\Http\Models\API\Campus;
 use App\Http\Transformers\CampusTransformer;
 use Illuminate\Http\Request;
@@ -44,6 +45,7 @@ class CampusController extends ApiController
     public function show($id)
     {
         $item = Campus::findOrFail($id);
+        event(new CampusViewed($item));
         return $this->response->item($item, new CampusTransformer);
     }
 
@@ -58,6 +60,7 @@ class CampusController extends ApiController
     public function showFromCode($code)
     {
         $item = Campus::where('code', $code)->firstOrFail();
+        event(new CampusViewed($item));
         return $this->response->item($item, new CampusTransformer);
     }
 

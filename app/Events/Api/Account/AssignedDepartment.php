@@ -70,7 +70,7 @@ class AssignedDepartment extends Event
                 'Assignment',
                 'assigned ' . $account->format_full_name() . ' to department: "' . $department->label . '"',
                 $account->id,
-                'university',
+                'cubes',
                 'bg-olive'
             );
         }

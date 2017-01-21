@@ -39,7 +39,7 @@ class RoomsViewed extends Event
                 'Room',
                 'viewed ' . count($roomIds) . ' rooms',
                 $user->id,
-                'eye',
+                'building-o',
                 'bg-aqua'
             );
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Events\Api\Department\DepartmentsViewed;
+use App\Events\Api\Department\DepartmentViewed;
 use App\Http\Models\API\Department;
 use App\Http\Transformers\DepartmentTransformer;
 use Illuminate\Http\Request;
@@ -44,6 +45,7 @@ class DepartmentController extends ApiController
     public function show($id)
     {
         $item = Department::findOrFail($id);
+        event(new DepartmentViewed($item));
         return $this->response->item($item, new DepartmentTransformer);
     }
 
@@ -58,6 +60,7 @@ class DepartmentController extends ApiController
     public function showFromCode($code)
     {
         $item = Department::where('code', $code)->firstOrFail();
+        event(new DepartmentViewed($item));
         return $this->response->item($item, new DepartmentTransformer);
     }
 

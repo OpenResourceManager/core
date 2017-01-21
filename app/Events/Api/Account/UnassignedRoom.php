@@ -70,7 +70,7 @@ class UnassignedRoom extends Event
                 'Assignment',
                 'unassigned ' . $account->format_full_name() . ' room ' . $room->room_number . ' in ' . $room->building->label,
                 $account->id,
-                'building',
+                'building-o',
                 'bg-yellow'
             );
         }

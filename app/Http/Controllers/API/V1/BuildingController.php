@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Events\Api\Building\BuildingsViewed;
+use App\Events\Api\Building\BuildingViewed;
 use App\Http\Models\API\Building;
 use App\Http\Models\API\Campus;
 use App\Http\Transformers\BuildingTransformer;
@@ -46,6 +47,7 @@ class BuildingController extends ApiController
     public function show($id)
     {
         $item = Building::findOrFail($id);
+        event(new BuildingViewed($item));
         return $this->response->item($item, new BuildingTransformer);
     }
 
@@ -60,6 +62,7 @@ class BuildingController extends ApiController
     public function showFromCode($code)
     {
         $item = Building::where('code', $code)->firstOrFail();
+        event(new BuildingViewed($item));
         return $this->response->item($item, new BuildingTransformer);
     }
 

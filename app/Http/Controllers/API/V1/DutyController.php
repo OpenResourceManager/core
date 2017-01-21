@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Events\Api\Duty\DutiesViewed;
+use App\Events\Api\Duty\DutyViewed;
 use App\Http\Models\API\Duty;
 use App\Http\Transformers\DutyTransformer;
 use Illuminate\Http\Request;
@@ -44,6 +45,7 @@ class DutyController extends ApiController
     public function show($id)
     {
         $item = Duty::findOrFail($id);
+        event(new DutyViewed($item));
         return $this->response->item($item, new DutyTransformer);
     }
 
@@ -58,6 +60,7 @@ class DutyController extends ApiController
     public function showFromCode($code)
     {
         $item = Duty::where('code', $code)->firstOrFail();
+        event(new DutyViewed($item));
         return $this->response->item($item, new DutyTransformer);
     }
 

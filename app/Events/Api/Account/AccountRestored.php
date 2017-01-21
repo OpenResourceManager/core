@@ -62,7 +62,7 @@ class AccountRestored extends Event
                 'Account',
                 'restored an account for ' . $account->format_full_name() . ' [' . $account->identifier . ']',
                 $account->id,
-                'user',
+                'user-circle',
                 'bg-lime'
             );
         }

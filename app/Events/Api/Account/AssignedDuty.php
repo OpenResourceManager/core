@@ -71,7 +71,7 @@ class AssignedDuty extends Event
                 'Assignment',
                 'assigned ' . $account->format_full_name() . ' to duty: "' . $duty->label . '"',
                 $account->id,
-                'university',
+                'cube',
                 'bg-olive'
             );
         }

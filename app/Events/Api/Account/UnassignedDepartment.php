@@ -49,7 +49,7 @@ class UnassignedDepartment extends Event implements ShouldBroadcast
                 'Assignment',
                 'unassigned ' . $account->format_full_name() . ' from department: "' . $department->label . '"',
                 $account->id,
-                'university',
+                'cubes',
                 'bg-yellow'
             );
         }

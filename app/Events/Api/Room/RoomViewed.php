@@ -1,34 +1,25 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: melon
- * Date: 1/16/17
- * Time: 4:37 PM
- */
 
-namespace App\Events\Api\Course;
+namespace App\Events\Api\Room;
 
+use App\Http\Models\API\Duty;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Support\Facades\Log;
 use App\Events\Event;
+use Illuminate\Support\Facades\Log;
 
-class CoursesViewed extends Event
+class RoomViewed extends Event
 {
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var array
+     * RoomViewed constructor.
+     * @param Duty $duty
      */
-    public $courseIds;
-
-    /**
-     * CoursesViewed constructor.
-     * @param array $courseIds
-     */
-    public function __construct($courseIds = [])
+    public function __construct(Duty $duty)
     {
+
         $user_name = 'System';
 
         if ($user = auth()->user()) {
@@ -36,16 +27,15 @@ class CoursesViewed extends Event
             $user_name = $user->name;
 
             history()->log(
-                'Course',
-                'viewed ' . count($courseIds) . ' courses',
+                'Room',
+                'viewed ' . $duty->label . '.',
                 $user->id,
-                'graduation-cap',
+                'building-o',
                 'bg-aqua'
             );
-
         }
 
-        Log::info($user_name . ' viewed ' . count($courseIds) . ' courses', $courseIds);
+        Log::info($user_name . ' viewed ' . $duty->label . '.');
     }
 
     /**

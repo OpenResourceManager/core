@@ -39,7 +39,7 @@ class CampusesViewed extends Event
                 'Campus',
                 'viewed ' . count($campusIds) . ' campuses',
                 $user->id,
-                'eye',
+                'university',
                 'bg-aqua'
             );
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Events\Api\Room\RoomsViewed;
+use App\Events\Api\Room\RoomViewed;
 use App\Http\Models\API\Building;
 use App\Http\Models\API\Room;
 use App\Http\Transformers\RoomTransformer;
@@ -45,6 +46,7 @@ class RoomController extends ApiController
     public function show($id)
     {
         $item = Room::findOrFail($id);
+        event(new RoomViewed($item));
         return $this->response->item($item, new RoomTransformer);
     }
 
@@ -59,6 +61,7 @@ class RoomController extends ApiController
     public function showFromCode($code)
     {
         $item = Room::where('code', $code)->firstOrFail();
+        event(new RoomViewed($item));
         return $this->response->item($item, new RoomTransformer);
     }
 

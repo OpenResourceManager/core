@@ -55,7 +55,7 @@ class RoomCreated extends Event
                 'Room',
                 'created room ' . $room->room_number . ' in ' . $building->label,
                 $room->id,
-                'university',
+                'building-o',
                 'bg-green'
             );
         }

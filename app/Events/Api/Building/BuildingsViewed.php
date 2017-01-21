@@ -39,7 +39,7 @@ class BuildingsViewed extends Event
                 'Building',
                 'viewed ' . count($buildingIds) . ' buildings',
                 $user->id,
-                'eye',
+                'building',
                 'bg-aqua'
             );
 

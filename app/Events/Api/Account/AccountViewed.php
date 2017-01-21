@@ -4,10 +4,7 @@ namespace App\Events\Api\Account;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Events\Event;
 use Illuminate\Support\Facades\Log;
 use App\Http\Models\API\Account;
@@ -17,24 +14,28 @@ class AccountViewed extends Event
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * Create a new event instance.
-     *
-     * @return void
+     * AccountViewed constructor.
+     * @param Account $account
      */
     public function __construct(Account $account)
     {
+        $user_name = 'System';
+
         if ($user = auth()->user()) {
-            Log::info($user->name . ' viewed ' . $account->format_full_name() . '\'s account [' . $account->identifier . ']');
+
+            $user_name = $user->name;
+
             history()->log(
                 'Account',
                 'viewed ' . $account->format_full_name() . '\'s account [' . $account->identifier . ']',
                 $account->id,
-                'eye',
+                'user-circle',
                 'bg-aqua'
             );
-        } else {
-            Log::info('System viewed ' . $account->format_full_name() . '\'s account [' . $account->identifier . ']');
         }
+
+        Log::info($user_name . ' viewed ' . $account->format_full_name() . '\'s account [' . $account->identifier . ']');
+
     }
 
     /**

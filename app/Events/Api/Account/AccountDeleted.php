@@ -56,7 +56,7 @@ class AccountDeleted extends Event
                 'Account',
                 'deleted an account for ' . $account->format_full_name() . ' [' . $account->identifier . ']',
                 $account->id,
-                'user',
+                'user-circle',
                 'bg-red'
             );
         }

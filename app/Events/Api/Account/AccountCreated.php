@@ -63,7 +63,7 @@ class AccountCreated extends Event
                 'Account',
                 'created a new account for ' . $account->format_full_name() . ' [' . $account->identifier . ']',
                 $account->id,
-                'user',
+                'user-circle',
                 'bg-green'
             );
         }

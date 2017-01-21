@@ -46,8 +46,8 @@ class AccountUpdated extends Event implements ShouldBroadcast
                 'Account',
                 'updated an account for ' . $account->format_full_name() . ' [' . $account->identifier . ']',
                 $account->id,
-                'user',
-                'bg-blue'
+                'user-circle',
+                'bg-lime'
             );
         }
     }

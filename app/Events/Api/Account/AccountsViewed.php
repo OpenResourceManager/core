@@ -33,7 +33,7 @@ class AccountsViewed extends Event
                 'Account',
                 'viewed ' . count($accountIds) . ' accounts',
                 $user->id,
-                'eye',
+                'users',
                 'bg-aqua'
             );
 

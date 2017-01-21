@@ -54,7 +54,7 @@ class DutyDestroyed extends Event
                 'Duty',
                 'deleted a duty: ' . $duty->label,
                 $duty->id,
-                'university',
+                'cube',
                 'bg-red'
             );
         }
