@@ -18,19 +18,19 @@ class UnassignedRoom extends Event
      */
     public function __construct(Account $account, Room $room)
     {
+        $info = [
+            'account_id' => $account->id,
+            'identifier' => $account->identifier,
+            'username' => $account->username,
+            'name' => $account->format_full_name(true),
+            '$room_id' => $room->id,
+            'room_number' => $room->room_number,
+            'building_label' => $room->building->label
+        ];
+
+        Log::info('Account unassigned Room:', $info);
+
         if (auth()->user()) {
-
-            $info = [
-                'account_id' => $account->id,
-                'identifier' => $account->identifier,
-                'username' => $account->username,
-                'name' => $account->format_full_name(true),
-                '$room_id' => $room->id,
-                'room_number' => $room->room_number,
-                'building_label' => $room->building->label
-            ];
-
-            Log::info('Account unassigned Room:', $info);
 
             $account->primary_duty = $account->primaryDuty;
             $trans = $account->toArray();

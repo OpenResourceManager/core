@@ -18,19 +18,19 @@ class AssignedDuty extends Event
      */
     public function __construct(Account $account, Duty $duty)
     {
+        $info = [
+            'account_id' => $account->id,
+            'identifier' => $account->identifier,
+            'username' => strtolower($account->username),
+            'name' => $account->format_full_name(true),
+            'duty_id' => $duty->id,
+            'duty_code' => $duty->code,
+            'duty_label' => $duty->label
+        ];
+
+        Log::info('Account assigned Duty:', $info);
+
         if (auth()->user()) {
-
-            $info = [
-                'account_id' => $account->id,
-                'identifier' => $account->identifier,
-                'username' => strtolower($account->username),
-                'name' => $account->format_full_name(true),
-                'duty_id' => $duty->id,
-                'duty_code' => $duty->code,
-                'duty_label' => $duty->label
-            ];
-
-            Log::info('Account assigned Duty:', $info);
 
             $account->primary_duty = $account->primaryDuty;
             $trans = $account->toArray();

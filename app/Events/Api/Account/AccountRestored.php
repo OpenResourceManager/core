@@ -17,14 +17,14 @@ class AccountRestored extends Event
      */
     public function __construct(Account $account)
     {
-        if (auth()->user()) {
+        Log::info('Account Restored:', [
+            'id' => $account->id,
+            'identifier' => $account->identifier,
+            'username' => $account->username,
+            'name' => $account->format_full_name(true)
+        ]);
 
-            Log::info('Account Restored:', [
-                'id' => $account->id,
-                'identifier' => $account->identifier,
-                'username' => $account->username,
-                'name' => $account->format_full_name(true)
-            ]);
+        if (auth()->user()) {
 
             $account->primary_duty = $account->primaryDuty;
             $trans = $account->toArray();

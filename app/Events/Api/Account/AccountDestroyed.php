@@ -17,14 +17,14 @@ class AccountDestroyed extends Event
      */
     public function __construct(Account $account)
     {
-        if (auth()->user()) {
+        Log::info('Account Deleted:', [
+            'id' => $account->id,
+            'identifier' => $account->identifier,
+            'username' => $account->username,
+            'name' => $account->format_full_name(true)
+        ]);
 
-            Log::info('Account Deleted:', [
-                'id' => $account->id,
-                'identifier' => $account->identifier,
-                'username' => $account->username,
-                'name' => $account->format_full_name(true)
-            ]);
+        if (auth()->user()) {
 
             $trans = $account->toArray();
             $trans['name_full'] = $account->format_full_name(true);

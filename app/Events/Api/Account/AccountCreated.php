@@ -3,7 +3,6 @@
 namespace App\Events\Api\Account;
 
 use App\Http\Models\API\Account;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
@@ -17,23 +16,22 @@ class AccountCreated extends Event
      */
     public function __construct(Account $account)
     {
+        Log::info('Account Created:', [
+            'id' => $account->id,
+            'identifier' => $account->identifier,
+            'username' => $account->username,
+            'name' => $account->format_full_name(true)
+        ]);
+
         if (auth()->user()) {
 
-            Log::info('Account Created:', [
-                'id' => $account->id,
-                'identifier' => $account->identifier,
-                'username' => $account->username,
-                'name' => $account->format_full_name(true)
-            ]);
-
             $account->primary_duty = $account->primaryDuty;
+
             $trans = $account->toArray();
             $trans['name_full'] = $account->format_full_name(true);
-
             if (array_key_exists('password', $trans)) {
                 $trans['password'] = decrypt($trans['password']);
             }
-
             $trans['username'] = strtolower($trans['username']);
 
             $data_to_secure = json_encode([

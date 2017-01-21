@@ -19,19 +19,19 @@ class AssignedDepartment extends Event
      */
     public function __construct(Account $account, Department $department)
     {
+        $info = [
+            'account_id' => $account->id,
+            'identifier' => $account->identifier,
+            'username' => $account->username,
+            'name' => $account->format_full_name(true),
+            'department_id' => $department->id,
+            'department_code' => $department->code,
+            'department_label' => $department->label
+        ];
+
+        Log::info('Account assigned Department:', $info);
+
         if (auth()->user()) {
-
-            $info = [
-                'account_id' => $account->id,
-                'identifier' => $account->identifier,
-                'username' => $account->username,
-                'name' => $account->format_full_name(true),
-                'department_id' => $department->id,
-                'department_code' => $department->code,
-                'department_label' => $department->label
-            ];
-
-            Log::info('Account assigned Department:', $info);
 
             $account->primary_duty = $account->primaryDuty;
             $trans = $account->toArray();

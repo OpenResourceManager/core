@@ -18,19 +18,19 @@ class AssignedCourse extends Event
      */
     public function __construct(Account $account, Course $course)
     {
+        $info = [
+            'account_id' => $account->id,
+            'identifier' => $account->identifier,
+            'username' => $account->username,
+            'name' => $account->format_full_name(true),
+            'course_id' => $course->id,
+            'course_code' => $course->code,
+            'course_label' => $course->label
+        ];
+
+        Log::info('Account assigned Course:', $info);
+
         if (auth()->user()) {
-
-            $info = [
-                'account_id' => $account->id,
-                'identifier' => $account->identifier,
-                'username' => $account->username,
-                'name' => $account->format_full_name(true),
-                'course_id' => $course->id,
-                'course_code' => $course->code,
-                'course_label' => $course->label
-            ];
-
-            Log::info('Account assigned Course:', $info);
 
             $account->primary_duty = $account->primaryDuty;
             $trans = $account->toArray();
