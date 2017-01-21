@@ -2,29 +2,15 @@
 
 namespace App\Events\Api\Account;
 
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Events\Event;
 use Illuminate\Support\Facades\Log;
 use App\Http\Models\API\Account;
 
-class AccountUpdated extends Event implements ShouldBroadcast
+class AccountUpdated extends Event
 {
-    use InteractsWithSockets, SerializesModels;
-
     /**
-     * @var Account
-     */
-    public $account;
-
-    /**
-     * Create a new event instance.
-     *
-     * @return void
+     * AccountUpdated constructor.
+     * @param Account $account
      */
     public function __construct(Account $account)
     {
@@ -50,16 +36,5 @@ class AccountUpdated extends Event implements ShouldBroadcast
                 'bg-lime'
             );
         }
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-    public
-    function broadcastOn()
-    {
-        return new PrivateChannel('account-events');
     }
 }

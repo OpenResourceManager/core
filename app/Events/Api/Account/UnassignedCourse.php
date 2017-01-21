@@ -4,7 +4,6 @@ namespace App\Events\Api\Account;
 
 use App\Http\Models\API\Account;
 use App\Http\Models\API\Course;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
@@ -12,12 +11,6 @@ use Illuminate\Support\Facades\Redis;
 
 class UnassignedCourse extends Event
 {
-
-    /**
-     * @var string
-     */
-    public $info;
-
     /**
      * UnassignedCourse constructor.
      * @param Account $account
@@ -66,7 +59,6 @@ class UnassignedCourse extends Event
 
             Redis::publish('events', json_encode($message));
 
-
             history()->log(
                 'Assignment',
                 'removed ' . $account->format_full_name() . ' from course: "' . $course->label . '"',
@@ -76,14 +68,4 @@ class UnassignedCourse extends Event
             );
         }
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-//    public function broadcastOn()
-//    {
-//        return new PrivateChannel('course-enrollment');
-//    }
 }

@@ -4,7 +4,6 @@ namespace App\Events\Api\Account;
 
 use App\Http\Models\API\Account;
 use App\Http\Models\API\Duty;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
@@ -12,12 +11,6 @@ use App\Events\Event;
 
 class UnassignedDuty extends Event
 {
-
-    /**
-     * @var String
-     */
-    public $info;
-
     /**
      * UnassignedDuty constructor.
      * @param Account $account
@@ -66,7 +59,6 @@ class UnassignedDuty extends Event
 
             Redis::publish('events', json_encode($message));
 
-
             history()->log(
                 'Assignment',
                 'unassigned ' . $account->format_full_name() . ' from duty: "' . $duty->label . '"',
@@ -76,14 +68,4 @@ class UnassignedDuty extends Event
             );
         }
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-//    public function broadcastOn()
-//    {
-//        return new PrivateChannel('duty-membership');
-//    }
 }

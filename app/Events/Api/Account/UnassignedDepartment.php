@@ -4,23 +4,13 @@ namespace App\Events\Api\Account;
 
 use App\Http\Models\API\Account;
 use App\Http\Models\API\Department;
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Events\Event;
 
 
-class UnassignedDepartment extends Event implements ShouldBroadcast
+class UnassignedDepartment extends Event
 {
 
-    /**
-     * @var String
-     */
-    public $info;
 
     /**
      * UnassignedDepartment constructor.
@@ -53,15 +43,5 @@ class UnassignedDepartment extends Event implements ShouldBroadcast
                 'bg-yellow'
             );
         }
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('department-membership');
     }
 }

@@ -4,7 +4,6 @@ namespace App\Events\Api\Account;
 
 use App\Http\Models\API\Account;
 use App\Http\Models\API\Department;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
@@ -12,11 +11,6 @@ use Illuminate\Support\Facades\Redis;
 
 class AssignedDepartment extends Event
 {
-
-    /**
-     * @var String
-     */
-    public $info;
 
     /**
      * AddressCreated constructor.
@@ -75,14 +69,4 @@ class AssignedDepartment extends Event
             );
         }
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-//    public function broadcastOn()
-//    {
-//        return new PrivateChannel('department-membership');
-//    }
 }

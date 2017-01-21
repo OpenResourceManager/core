@@ -10,10 +10,6 @@ use Illuminate\Support\Facades\Log;
 
 class AccountDestroyed extends Event
 {
-    /**
-     * @var string
-     */
-    public $message;
 
     /**
      * AccountDestroyed constructor.
@@ -60,14 +56,4 @@ class AccountDestroyed extends Event
             );
         }
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-//    public function broadcastOn()
-//    {
-//        return new PrivateChannel('account-events');
-//    }
 }

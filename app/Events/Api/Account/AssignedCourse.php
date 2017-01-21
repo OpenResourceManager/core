@@ -4,7 +4,6 @@ namespace App\Events\Api\Account;
 
 use App\Http\Models\API\Account;
 use App\Http\Models\API\Course;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
@@ -12,13 +11,6 @@ use Illuminate\Support\Facades\Redis;
 
 class AssignedCourse extends Event
 {
-
-
-    /**
-     * @var string
-     */
-    public $info;
-
     /**
      * AddressCreated constructor.
      * @param Account $account
@@ -76,14 +68,4 @@ class AssignedCourse extends Event
             );
         }
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-//    public function broadcastOn()
-//    {
-//        return new PrivateChannel('course-enrollment');
-//    }
 }

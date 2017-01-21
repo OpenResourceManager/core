@@ -3,20 +3,11 @@
 namespace App\Events\Api\Account;
 
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 
 class AccountsViewed extends Event
 {
-    use InteractsWithSockets, SerializesModels;
-
-    /**
-     * @var array
-     */
-    public $accountIds;
-
     /**
      * AccountsViewed constructor.
      * @param array $accountIds
@@ -41,15 +32,4 @@ class AccountsViewed extends Event
 
         Log::info($user_name . ' viewed ' . count($accountIds) . ' accounts', $accountIds);
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     *
-     * public function broadcastOn()
-     * {
-     * return new PrivateChannel('channel-name');
-     * }
-     */
 }

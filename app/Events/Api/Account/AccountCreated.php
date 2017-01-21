@@ -11,12 +11,6 @@ use Illuminate\Support\Facades\Redis;
 
 class AccountCreated extends Event
 {
-
-    /**
-     * @var array
-     */
-    public $message;
-
     /**
      * AddressCreated constructor.
      * @param Account $account
@@ -68,14 +62,4 @@ class AccountCreated extends Event
             );
         }
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-//    public function broadcastOn()
-//    {
-//        return 'events';
-//    }
 }
