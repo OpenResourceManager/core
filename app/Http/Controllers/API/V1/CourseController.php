@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Events\Api\Course\CourseRestored;
 use App\Events\Api\Course\CoursesViewed;
 use App\Events\Api\Course\CourseViewed;
 use App\Http\Models\API\Course;
@@ -100,7 +101,9 @@ class CourseController extends ApiController
             }
         }
 
-        if ($toRestore = Course::onlyTrashed()->where('code', $data['code'])->first()) $toRestore->restore();
+        if ($toRestore = Course::onlyTrashed()->where('code', $data['code'])->first()) {
+            if ($toRestore->restore()) event(new CourseRestored($toRestore));
+        }
         $trans = new CourseTransformer();
         $item = Course::updateOrCreate(['code' => $data['code']], $data);
         $item = $trans->transform($item);
