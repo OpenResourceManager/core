@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Events\Api\Department\DepartmentRestored;
 use App\Events\Api\Department\DepartmentsViewed;
 use App\Events\Api\Department\DepartmentViewed;
 use App\Http\Models\API\Department;
@@ -85,7 +86,9 @@ class DepartmentController extends ApiController
         if ($validator->fails())
             throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
 
-        if ($toRestore = Department::onlyTrashed()->where('code', $data['code'])->first()) $toRestore->restore();
+        if ($toRestore = Department::onlyTrashed()->where('code', $data['code'])->first()) {
+            if ($toRestore->restore()) event(new DepartmentRestored($toRestore));
+        }
         $trans = new DepartmentTransformer();
         $item = Department::updateOrCreate(['code' => $data['code']], $data);
         $item = $trans->transform($item);
