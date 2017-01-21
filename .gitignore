@@ -222,3 +222,4 @@ Todo.rtf
 
 # Yarn Integrity file
 .yarn-integrity
+/db.sqlite
