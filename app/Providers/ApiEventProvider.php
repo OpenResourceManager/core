@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\Api\Building\BuildingCreated;
 use App\Events\Api\Building\BuildingDestroyed;
+use App\Events\Api\Building\BuildingUpdated;
 use App\Events\Api\Campus\CampusCreated;
 use App\Events\Api\Campus\CampusDestroyed;
 use App\Events\Api\Course\CourseCreated;
@@ -70,6 +71,10 @@ class ApiEventProvider extends ServiceProvider
 
         Building::created(function (Building $building) {
             event(new BuildingCreated($building));
+        });
+
+        Building::updated(function (Building $building) {
+            event(new BuildingUpdated($building));
         });
 
         Building::deleted(function (Building $building) {
