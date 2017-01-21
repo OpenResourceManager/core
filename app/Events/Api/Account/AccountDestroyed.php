@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Redis;
 use App\Http\Models\API\Account;
 use Illuminate\Support\Facades\Log;
 
-class AccountDeleted extends Event
+class AccountDestroyed extends Event
 {
     /**
      * @var string
@@ -16,9 +16,8 @@ class AccountDeleted extends Event
     public $message;
 
     /**
-     * Create a new event instance.
-     *
-     * @return void
+     * AccountDestroyed constructor.
+     * @param Account $account
      */
     public function __construct(Account $account)
     {

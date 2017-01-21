@@ -17,9 +17,8 @@ class AccountRestored extends Event
     public $account;
 
     /**
-     * Create a new event instance.
-     *
-     * @return void
+     * AccountRestored constructor.
+     * @param Account $account
      */
     public function __construct(Account $account)
     {

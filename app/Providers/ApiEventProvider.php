@@ -23,7 +23,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Http\Models\API\Account;
 use App\Events\Api\Account\AccountCreated;
 use App\Events\Api\Account\AccountUpdated;
-use App\Events\Api\Account\AccountDeleted;
+use App\Events\Api\Account\AccountDestroyed;
 use App\Events\Api\Account\AccountRestored;
 use App\Events\Api\Duty\DutyCreated;
 
@@ -45,7 +45,7 @@ class ApiEventProvider extends ServiceProvider
         });
 
         Account::deleted(function (Account $account) {
-            event(new AccountDeleted($account));
+            event(new AccountDestroyed($account));
         });
 
         Account::restored(function (Account $account) {
