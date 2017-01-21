@@ -2,7 +2,6 @@
 
 namespace App\Events\Api\Campus;
 
-use App\Http\Models\API\Building;
 use App\Http\Models\API\Campus;
 use Illuminate\Broadcasting\Channel;
 use App\Events\Event;
@@ -11,7 +10,10 @@ use Illuminate\Support\Facades\Log;
 
 class CampusRestored extends Event
 {
-
+    /**
+     * CampusRestored constructor.
+     * @param Campus $campus
+     */
     public function __construct(Campus $campus)
     {
         if (auth()->user()) {
