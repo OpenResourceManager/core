@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Events\Api\Building\BuildingRestored;
 use App\Events\Api\Building\BuildingsViewed;
 use App\Events\Api\Building\BuildingViewed;
 use App\Http\Models\API\Building;
@@ -88,7 +89,9 @@ class BuildingController extends ApiController
         if ($validator->fails())
             throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
 
-        if ($toRestore = Building::onlyTrashed()->where('code', $data['code'])->first()) $toRestore->restore();
+        if ($toRestore = Building::onlyTrashed()->where('code', $data['code'])->first()) {
+            if ($toRestore->restore()) event(new BuildingRestored($toRestore));
+        }
 
         /**
          * Translate campus code to an id if needed
