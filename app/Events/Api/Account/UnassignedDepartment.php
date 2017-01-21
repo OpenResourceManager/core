@@ -33,7 +33,32 @@ class UnassignedDepartment extends Event
 
         if (auth()->user()) {
 
-            $this->info = json_encode($info);
+            $account->primary_duty = $account->primaryDuty;
+            $trans = $account->toArray();
+            $trans['name_full'] = $account->format_full_name(true);
+            unset($trans['password']);
+            $trans['username'] = strtolower($trans['username']);
+
+            $data_to_secure = json_encode([
+                'data' => [
+                    'account' => $account,
+                    'department' => $department->toArray()
+                ],
+                'conf' => [
+                    'ldap' => ldap_config()
+                ]
+            ]);
+
+            $secure_data = encrypt_broadcast_data($data_to_secure);
+
+            $message = [
+                'event' => 'unassigned',
+                'type' => 'department',
+                'to' => 'account',
+                'encrypted' => $secure_data
+            ];
+
+            Redis::publish('events', json_encode($message));
 
             history()->log(
                 'Assignment',
