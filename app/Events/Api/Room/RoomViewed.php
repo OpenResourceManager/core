@@ -2,7 +2,7 @@
 
 namespace App\Events\Api\Room;
 
-use App\Http\Models\API\Duty;
+use App\Http\Models\API\Room;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -15,9 +15,9 @@ class RoomViewed extends Event
 
     /**
      * RoomViewed constructor.
-     * @param Duty $duty
+     * @param Room $room
      */
-    public function __construct(Duty $duty)
+    public function __construct(Room $room)
     {
 
         $user_name = 'System';
@@ -28,14 +28,14 @@ class RoomViewed extends Event
 
             history()->log(
                 'Room',
-                'viewed ' . $duty->label . '.',
+                'viewed ' . $room->label . '.',
                 $user->id,
                 'building-o',
                 'bg-aqua'
             );
         }
 
-        Log::info($user_name . ' viewed ' . $duty->label . '.');
+        Log::info($user_name . ' viewed ' . $room->label . '.');
     }
 
     /**
