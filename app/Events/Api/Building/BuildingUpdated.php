@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Log;
 class BuildingUpdated extends Event
 {
 
-
+    /**
+     * BuildingUpdated constructor.
+     * @param Building $building
+     */
     public function __construct(Building $building)
     {
         Log::info('Building Updated:', [
