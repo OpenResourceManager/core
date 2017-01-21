@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Events\Api\Duty\DutiesViewed;
+use App\Events\Api\Duty\DutyRestored;
 use App\Events\Api\Duty\DutyViewed;
 use App\Http\Models\API\Duty;
 use App\Http\Transformers\DutyTransformer;
@@ -84,7 +85,9 @@ class DutyController extends ApiController
         if ($validator->fails())
             throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
 
-        if ($toRestore = Duty::onlyTrashed()->where('code', $data['code'])->first()) $toRestore->restore();
+        if ($toRestore = Duty::onlyTrashed()->where('code', $data['code'])->first()) {
+            if ($toRestore->restore()) event(new DutyRestored($toRestore));
+        }
         $trans = new DutyTransformer();
         $item = Duty::updateOrCreate(['code' => $data['code']], $data);
         $item = $trans->transform($item);
