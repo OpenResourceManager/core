@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Events\Api\Room\RoomRestored;
 use App\Events\Api\Room\RoomsViewed;
 use App\Events\Api\Room\RoomViewed;
 use App\Http\Models\API\Building;
@@ -102,7 +103,9 @@ class RoomController extends ApiController
             }
         }
 
-        if ($toRestore = Room::onlyTrashed()->where('code', $data['code'])->first()) $toRestore->restore();
+        if ($toRestore = Room::onlyTrashed()->where('code', $data['code'])->first()) {
+            if ($toRestore->restore()) event(new RoomRestored($toRestore));
+        }
         $trans = new RoomTransformer();
         $item = Room::updateOrCreate(['code' => $data['code']], $data);
         $item = $trans->transform($item);
