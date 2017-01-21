@@ -3,7 +3,6 @@
 namespace App\Events\Api\Building;
 
 use App\Http\Models\API\Building;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use App\Events\Event;
@@ -37,15 +36,4 @@ class BuildingViewed extends Event
 
         Log::info($user_name . ' viewed ' . $building->label . '.');
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     *
-     * public function broadcastOn()
-     * {
-     * return new PrivateChannel('channel-name');
-     * }
-     */
 }

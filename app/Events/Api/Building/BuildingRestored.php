@@ -3,7 +3,6 @@
 namespace App\Events\Api\Building;
 
 use App\Http\Models\API\Building;
-use Illuminate\Broadcasting\Channel;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Log;
@@ -49,14 +48,4 @@ class BuildingRestored extends Event
             );
         }
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-//    public function broadcastOn()
-//    {
-//        return new PrivateChannel('account-events');
-//    }
 }

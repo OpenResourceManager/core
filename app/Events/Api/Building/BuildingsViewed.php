@@ -8,7 +8,6 @@
 
 namespace App\Events\Api\Building;
 
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Support\Facades\Log;
@@ -47,15 +46,4 @@ class BuildingsViewed extends Event
 
         Log::info($user_name . ' viewed ' . count($buildingIds) . ' buildings', $buildingIds);
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     *
-     * public function broadcastOn()
-     * {
-     * return new PrivateChannel('channel-name');
-     * }
-     */
 }
