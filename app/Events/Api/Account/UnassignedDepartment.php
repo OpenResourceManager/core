@@ -5,6 +5,7 @@ namespace App\Events\Api\Account;
 use App\Http\Models\API\Account;
 use App\Http\Models\API\Department;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
 use App\Events\Event;
 
 

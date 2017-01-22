@@ -516,8 +516,10 @@ class AccountController extends ApiController
             }
         }
 
-        $account->departments()->detach($data['department_id']);
-        event($account, new UnassignedDepartment($account, Department::find($data['department_id'])));
+        if ($account->departments()->detach($data['department_id'])) {
+            event($account, new UnassignedDepartment($account, Department::find($data['department_id'])));
+        }
+
         return $this->destroySuccessResponse();
     }
 
