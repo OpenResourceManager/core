@@ -2,8 +2,7 @@
 
 namespace App\Events\Api\Course;
 
-use App\Http\Models\API\Campus;
-use Illuminate\Broadcasting\Channel;
+use App\Http\Models\API\Course;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Log;
@@ -17,13 +16,13 @@ class CourseRestored extends Event
      */
     public function __construct(Course $course)
     {
-        if (auth()->user()) {
+        Log::info('Course Restored:', [
+            'id' => $course->id,
+            'code' => $course->code,
+            'label' => $course->label
+        ]);
 
-            Log::info('Course Restored:', [
-                'id' => $course->id,
-                'code' => $course->code,
-                'label' => $course->label
-            ]);
+        if ($user = auth()->user()) {
 
             $course->campus;
 
@@ -53,14 +52,4 @@ class CourseRestored extends Event
             );
         }
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-//    public function broadcastOn()
-//    {
-//        return new PrivateChannel('account-events');
-//    }
 }

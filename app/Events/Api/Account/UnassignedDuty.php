@@ -62,7 +62,7 @@ class UnassignedDuty extends Event
             history()->log(
                 'Assignment',
                 'unassigned ' . $account->format_full_name() . ' from duty: "' . $duty->label . '"',
-                $user->id,
+                $account->id,
                 'cube',
                 'bg-yellow'
             );

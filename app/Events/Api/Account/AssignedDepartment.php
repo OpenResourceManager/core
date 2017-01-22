@@ -63,7 +63,7 @@ class AssignedDepartment extends Event
             history()->log(
                 'Assignment',
                 'assigned ' . $account->format_full_name() . ' to department: "' . $department->label . '"',
-                $user->id,
+                $account->id,
                 'cubes',
                 'bg-olive'
             );

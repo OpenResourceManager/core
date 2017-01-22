@@ -8,20 +8,11 @@
 
 namespace App\Events\Api\Building;
 
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 
 class BuildingsViewed extends Event
 {
-    use InteractsWithSockets, SerializesModels;
-
-    /**
-     * @var array
-     */
-    public $buildingIds;
-
     /**
      * BuildingsViewed constructor.
      * @param array $buildingIds

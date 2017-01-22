@@ -4,33 +4,25 @@ namespace App\Events\Api\Course;
 
 use App\Http\Models\API\Course;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 
 class CourseDestroyed extends Event
 {
-    use InteractsWithSockets, SerializesModels;
-
     /**
-     * Create a new event instance.
-     *
-     * @return void
+     * CourseDestroyed constructor.
+     * @param Course $course
      */
     public function __construct(Course $course)
     {
-        if (auth()->user()) {
+        Log::info('Course Destroyed:', [
+            'id' => $course->id,
+            'code' => $course->code,
+            'label' => $course->label
+        ]);
 
-            Log::info('Course Destroyed:', [
-                'id' => $course->id,
-                'code' => $course->code,
-                'label' => $course->label
-            ]);
+        if ($user = auth()->user()) {
 
             $course->department;
 
@@ -60,14 +52,4 @@ class CourseDestroyed extends Event
             );
         }
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-    #public function broadcastOn()
-    #{
-    #    return new PrivateChannel('channel-name');
-    #}
 }

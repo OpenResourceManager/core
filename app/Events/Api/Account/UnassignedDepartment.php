@@ -64,7 +64,7 @@ class UnassignedDepartment extends Event
             history()->log(
                 'Assignment',
                 'unassigned ' . $account->format_full_name() . ' from department: "' . $department->label . '"',
-                $user->id,
+                $account->id,
                 'cubes',
                 'bg-yellow'
             );

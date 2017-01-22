@@ -62,7 +62,7 @@ class AssignedDuty extends Event
             history()->log(
                 'Assignment',
                 'assigned ' . $account->format_full_name() . ' to duty: "' . $duty->label . '"',
-                $user->id,
+                $account->id,
                 'cube',
                 'bg-olive'
             );

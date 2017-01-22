@@ -3,34 +3,25 @@
 namespace App\Events\Api\Room;
 
 use App\Http\Models\API\Room;
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 
 class RoomCreated extends Event
 {
-    use InteractsWithSockets, SerializesModels;
-
     /**
-     * Create a new event instance.
-     *
-     * @return void
+     * RoomCreated constructor.
+     * @param Room $room
      */
     public function __construct(Room $room)
     {
-        if (auth()->user()) {
+        Log::info('Room Created:', [
+            'id' => $room->id,
+            'code' => $room->code,
+            'label' => $room->label
+        ]);
 
-            Log::info('Room Created:', [
-                'id' => $room->id,
-                'code' => $room->code,
-                'label' => $room->label
-            ]);
+        if ($user = auth()->user()) {
 
             $building = $room->building;
 
@@ -60,14 +51,4 @@ class RoomCreated extends Event
             );
         }
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-    #public function broadcastOn()
-    #{
-    #    return new PrivateChannel('channel-name');
-    #}
 }

@@ -9,16 +9,19 @@ use Illuminate\Support\Facades\Log;
 
 class BuildingRestored extends Event
 {
-
+    /**
+     * BuildingRestored constructor.
+     * @param Building $building
+     */
     public function __construct(Building $building)
     {
-        if (auth()->user()) {
+        Log::info('Building Restored:', [
+            'id' => $building->id,
+            'code' => $building->code,
+            'label' => $building->label
+        ]);
 
-            Log::info('Building Restored:', [
-                'id' => $building->id,
-                'code' => $building->code,
-                'label' => $building->label
-            ]);
+        if ($user = auth()->user()) {
 
             $building->campus;
 

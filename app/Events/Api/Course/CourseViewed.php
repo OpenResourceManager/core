@@ -3,16 +3,11 @@
 namespace App\Events\Api\Course;
 
 use App\Http\Models\API\Course;
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\InteractsWithSockets;
 use App\Events\Event;
 use Illuminate\Support\Facades\Log;
 
 class CourseViewed extends Event
 {
-    use InteractsWithSockets, SerializesModels;
-
     /**
      * DepartmentViewed constructor.
      * @param Course $course
@@ -29,7 +24,7 @@ class CourseViewed extends Event
             history()->log(
                 'Course',
                 'viewed ' . $course->label . '.',
-                $user->id,
+                $course->id,
                 'graduation-cap',
                 'bg-aqua'
             );
@@ -37,15 +32,4 @@ class CourseViewed extends Event
 
         Log::info($user_name . ' viewed ' . $course->label . '.');
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     *
-     * public function broadcastOn()
-     * {
-     * return new PrivateChannel('channel-name');
-     * }
-     */
 }

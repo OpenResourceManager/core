@@ -8,21 +8,11 @@
 
 namespace App\Events\Api\Campus;
 
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 
 class CampusesViewed extends Event
 {
-    use InteractsWithSockets, SerializesModels;
-
-    /**
-     * @var array
-     */
-    public $campusIds;
-
     /**
      * CampusesViewed constructor.
      * @param array $campusIds
@@ -42,20 +32,7 @@ class CampusesViewed extends Event
                 'university',
                 'bg-aqua'
             );
-
         }
-
         Log::info($user_name . ' viewed ' . count($campusIds) . ' campuses', $campusIds);
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     *
-     * public function broadcastOn()
-     * {
-     * return new PrivateChannel('channel-name');
-     * }
-     */
 }

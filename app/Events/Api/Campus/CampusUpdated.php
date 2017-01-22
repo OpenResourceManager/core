@@ -5,6 +5,7 @@ namespace App\Events\Api\Building;
 use App\Events\Event;
 use App\Http\Models\API\Campus;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
 
 class CampusUpdated extends Event
 {
@@ -21,7 +22,7 @@ class CampusUpdated extends Event
             'label' => $campus->label
         ]);
 
-        if (auth()->user()) {
+        if ($user = auth()->user()) {
 
             $data_to_secure = json_encode([
                 'data' => $campus->toArray(),

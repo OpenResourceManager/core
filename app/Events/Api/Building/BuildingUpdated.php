@@ -5,6 +5,7 @@ namespace App\Events\Api\Building;
 use App\Events\Event;
 use App\Http\Models\API\Building;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
 
 class BuildingUpdated extends Event
 {
@@ -21,7 +22,7 @@ class BuildingUpdated extends Event
             'label' => $building->label
         ]);
 
-        if (auth()->user()) {
+        if ($user = auth()->user()) {
 
             $building->campus;
 

@@ -3,7 +3,6 @@
 namespace App\Events\Api\Duty;
 
 use App\Http\Models\API\Duty;
-use Illuminate\Broadcasting\Channel;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Log;
@@ -17,13 +16,13 @@ class DutyRestored extends Event
      */
     public function __construct(Duty $duty)
     {
-        if (auth()->user()) {
+        Log::info('Duty Restored:', [
+            'id' => $duty->id,
+            'code' => $duty->code,
+            'label' => $duty->label
+        ]);
 
-            Log::info('Duty Restored:', [
-                'id' => $duty->id,
-                'code' => $duty->code,
-                'label' => $duty->label
-            ]);
+        if ($user = auth()->user()) {
 
             $duty->campus;
 
@@ -53,14 +52,4 @@ class DutyRestored extends Event
             );
         }
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-//    public function broadcastOn()
-//    {
-//        return new PrivateChannel('account-events');
-//    }
 }

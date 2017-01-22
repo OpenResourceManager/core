@@ -3,34 +3,25 @@
 namespace App\Events\Api\Department;
 
 use App\Http\Models\API\Department;
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 
 class DepartmentDestroyed extends Event
 {
-    use InteractsWithSockets, SerializesModels;
-
     /**
-     * Create a new event instance.
-     *
-     * @return void
+     * DepartmentDestroyed constructor.
+     * @param Department $department
      */
     public function __construct(Department $department)
     {
-        if (auth()->user()) {
+        Log::info('Department Destroyed:', [
+            'id' => $department->id,
+            'code' => $department->code,
+            'label' => $department->label
+        ]);
 
-            Log::info('Department Destroyed:', [
-                'id' => $department->id,
-                'code' => $department->code,
-                'label' => $department->label
-            ]);
+        if ($user = auth()->user()) {
 
             $data_to_secure = json_encode([
                 'data' => $department->toArray(),
@@ -58,14 +49,4 @@ class DepartmentDestroyed extends Event
             );
         }
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-    #public function broadcastOn()
-    #{
-    #    return new PrivateChannel('channel-name');
-    #}
 }

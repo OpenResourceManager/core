@@ -8,21 +8,11 @@
 
 namespace App\Events\Api\Duty;
 
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 
 class DutiesViewed extends Event
 {
-    use InteractsWithSockets, SerializesModels;
-
-    /**
-     * @var array
-     */
-    public $dutyIds;
-
     /**
      * DutiesViewed constructor.
      * @param array $dutyIds
@@ -42,20 +32,7 @@ class DutiesViewed extends Event
                 'cube',
                 'bg-aqua'
             );
-
         }
-
         Log::info($user_name . ' viewed ' . count($dutyIds) . ' duties', $dutyIds);
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     *
-     * public function broadcastOn()
-     * {
-     * return new PrivateChannel('channel-name');
-     * }
-     */
 }

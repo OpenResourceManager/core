@@ -16,13 +16,14 @@ class BuildingCreated extends Event
      */
     public function __construct(Building $building)
     {
-        if (auth()->user()) {
 
-            Log::info('Building Created:', [
-                'id' => $building->id,
-                'code' => $building->code,
-                'label' => $building->label
-            ]);
+        Log::info('Building Created:', [
+            'id' => $building->id,
+            'code' => $building->code,
+            'label' => $building->label
+        ]);
+
+        if ($user = auth()->user()) {
 
             $building->campus;
 

@@ -8,21 +8,11 @@
 
 namespace App\Events\Api\Room;
 
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 
 class RoomsViewed extends Event
 {
-    use InteractsWithSockets, SerializesModels;
-
-    /**
-     * @var array
-     */
-    public $roomIds;
-
     /**
      * RoomViewed constructor.
      * @param array $roomIds
@@ -47,15 +37,4 @@ class RoomsViewed extends Event
 
         Log::info($user_name . ' viewed ' . count($roomIds) . ' rooms', $roomIds);
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     *
-     * public function broadcastOn()
-     * {
-     * return new PrivateChannel('channel-name');
-     * }
-     */
 }

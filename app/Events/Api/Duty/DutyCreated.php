@@ -3,34 +3,25 @@
 namespace App\Events\Api\Duty;
 
 use App\Http\Models\API\Duty;
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 
 class DutyCreated extends Event
 {
-    use InteractsWithSockets, SerializesModels;
-
     /**
-     * Create a new event instance.
-     *
-     * @return void
+     * DutyCreated constructor.
+     * @param Duty $duty
      */
     public function __construct(Duty $duty)
     {
-        if (auth()->user()) {
+        Log::info('Duty Created:', [
+            'id' => $duty->id,
+            'code' => $duty->code,
+            'label' => $duty->label
+        ]);
 
-            Log::info('Duty Created:', [
-                'id' => $duty->id,
-                'code' => $duty->code,
-                'label' => $duty->label
-            ]);
+        if ($user = auth()->user()) {
 
             $data_to_secure = json_encode([
                 'data' => $duty->toArray(),
@@ -59,14 +50,4 @@ class DutyCreated extends Event
         }
 
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-    #public function broadcastOn()
-    #{
-    #    return new PrivateChannel('channel-name');
-    #}
 }

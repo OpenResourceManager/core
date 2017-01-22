@@ -3,7 +3,6 @@
 namespace App\Events\Api\Campus;
 
 use App\Http\Models\API\Campus;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
@@ -17,13 +16,13 @@ class CampusCreated extends Event
      */
     public function __construct(Campus $campus)
     {
-        if (auth()->user()) {
+        Log::info('Campus Created:', [
+            'id' => $campus->id,
+            'code' => $campus->code,
+            'label' => $campus->label
+        ]);
 
-            Log::info('Campus Created:', [
-                'id' => $campus->id,
-                'code' => $campus->code,
-                'label' => $campus->label
-            ]);
+        if ($user = auth()->user()) {
 
             $data_to_secure = json_encode([
                 'data' => $campus->toArray(),
@@ -51,14 +50,4 @@ class CampusCreated extends Event
             );
         }
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-//    public function broadcastOn()
-//    {
-//        return new PrivateChannel('channel-name');
-//    }
 }

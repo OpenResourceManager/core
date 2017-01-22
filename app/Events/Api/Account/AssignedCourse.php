@@ -62,7 +62,7 @@ class AssignedCourse extends Event
             history()->log(
                 'Assignment',
                 'enrolled ' . $account->format_full_name() . ' in course: "' . $course->label . '"',
-                $user->id,
+                $account->id,
                 'graduation-cap',
                 'bg-olive'
             );

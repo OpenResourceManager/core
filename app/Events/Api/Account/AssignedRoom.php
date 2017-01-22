@@ -61,7 +61,7 @@ class AssignedRoom extends Event
             history()->log(
                 'Assignment',
                 'assigned ' . $account->format_full_name() . ' room ' . $room->room_number . ' in ' . $room->building->label,
-                $user->id,
+                $account->id,
                 'building-o',
                 'bg-olive'
             );

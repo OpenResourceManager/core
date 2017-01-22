@@ -3,7 +3,6 @@
 namespace App\Events\Api\Department;
 
 use App\Http\Models\API\Department;
-use Illuminate\Broadcasting\Channel;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Log;
@@ -17,13 +16,13 @@ class DepartmentRestored extends Event
      */
     public function __construct(Department $department)
     {
-        if (auth()->user()) {
+        Log::info('Department Restored:', [
+            'id' => $department->id,
+            'code' => $department->code,
+            'label' => $department->label
+        ]);
 
-            Log::info('Department Restored:', [
-                'id' => $department->id,
-                'code' => $department->code,
-                'label' => $department->label
-            ]);
+        if ($user = auth()->user()) {
 
             $department->campus;
 
@@ -44,6 +43,7 @@ class DepartmentRestored extends Event
 
             Redis::publish('events', json_encode($message));
 
+
             history()->log(
                 'Department',
                 'restored a department: ' . $department->label() . '.',
@@ -53,14 +53,4 @@ class DepartmentRestored extends Event
             );
         }
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-//    public function broadcastOn()
-//    {
-//        return new PrivateChannel('account-events');
-//    }
 }

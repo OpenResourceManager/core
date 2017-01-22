@@ -62,7 +62,7 @@ class UnassignedCourse extends Event
             history()->log(
                 'Assignment',
                 'removed ' . $account->format_full_name() . ' from course: "' . $course->label . '"',
-                $user->id,
+                $account->id,
                 'graduation-cap',
                 'bg-yellow'
             );
