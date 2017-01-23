@@ -225,7 +225,7 @@ class AccountController extends ApiController
      * Creates the relationship between an Account and Duty.
      *
      * @param Request $request
-     * @return \Dingo\Api\Http\Response|void
+     * @return \Dingo\Api\Http\Response
      */
     public function assignDuty(Request $request)
     {
@@ -262,8 +262,9 @@ class AccountController extends ApiController
             }
         }
 
-        $account->duties()->attach($data['duty_id']);
-        event(new AssignedDuty($account, Duty::find($data['duty_id'])));
+        if ($account->duties()->attach($data['duty_id'])) {
+            event(new AssignedDuty($account, Duty::find($data['duty_id'])));
+        }
         return $this->response->created();
     }
 
@@ -330,7 +331,7 @@ class AccountController extends ApiController
      * Creates the relationship between an Account and Course.
      *
      * @param Request $request
-     * @return \Dingo\Api\Http\Response|void
+     * @return \Dingo\Api\Http\Response
      */
     public function assignCourse(Request $request)
     {
@@ -367,8 +368,9 @@ class AccountController extends ApiController
             }
         }
 
-        $account->courses()->attach($data['course_id']);
-        event(new AssignedCourse($account, Course::find($data['course_id'])));
+        if ($account->courses()->attach($data['course_id'])) {
+            event(new AssignedCourse($account, Course::find($data['course_id'])));
+        }
         return $this->response->created();
     }
 
@@ -417,8 +419,9 @@ class AccountController extends ApiController
             }
         }
 
-        $account->courses()->detach($data['course_id']);
-        event(new UnassignedCourse($account, Course::find($data['course_id'])));
+        if ($account->courses()->detach($data['course_id'])) {
+            event(new UnassignedCourse($account, Course::find($data['course_id'])));
+        }
         return $this->destroySuccessResponse();
     }
 
@@ -466,8 +469,9 @@ class AccountController extends ApiController
             }
         }
 
-        $account->departments()->attach($data['department_id']);
-        event($account, new AssignedDepartment($account, Department::find($data['department_id'])));
+        if ($account->departments()->attach($data['department_id'])) {
+            event($account, new AssignedDepartment($account, Department::find($data['department_id'])));
+        }
         return $this->response->created();
     }
 
@@ -519,7 +523,6 @@ class AccountController extends ApiController
         if ($account->departments()->detach($data['department_id'])) {
             event($account, new UnassignedDepartment($account, Department::find($data['department_id'])));
         }
-
         return $this->destroySuccessResponse();
     }
 
@@ -567,8 +570,9 @@ class AccountController extends ApiController
             }
         }
 
-        $account->rooms()->attach($data['room_id']);
-        event($account, new AssignedRoom($account, Room::find($data['room_id'])));
+        if ($account->rooms()->attach($data['room_id'])) {
+            event($account, new AssignedRoom($account, Room::find($data['room_id'])));
+        }
         return $this->response->created();
     }
 
@@ -617,8 +621,9 @@ class AccountController extends ApiController
             }
         }
 
-        $account->rooms()->detach($data['room_id']);
-        event($account, new UnassignedRoom($account, Room::find($data['room_id'])));
+        if ($account->rooms()->detach($data['room_id'])) {
+            event($account, new UnassignedRoom($account, Room::find($data['room_id'])));
+        }
         return $this->destroySuccessResponse();
     }
 

@@ -90,7 +90,7 @@ class BuildingController extends ApiController
             throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
 
         if ($toRestore = Building::onlyTrashed()->where('code', $data['code'])->first()) {
-            if ($toRestore->restore()) event(new BuildingRestored($toRestore));
+            $toRestore->restore();
         }
 
         /**

@@ -87,7 +87,7 @@ class DepartmentController extends ApiController
             throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
 
         if ($toRestore = Department::onlyTrashed()->where('code', $data['code'])->first()) {
-            if ($toRestore->restore()) event(new DepartmentRestored($toRestore));
+            $toRestore->restore();
         }
         $trans = new DepartmentTransformer();
         $item = Department::updateOrCreate(['code' => $data['code']], $data);

@@ -86,7 +86,7 @@ class DutyController extends ApiController
             throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
 
         if ($toRestore = Duty::onlyTrashed()->where('code', $data['code'])->first()) {
-            if ($toRestore->restore()) event(new DutyRestored($toRestore));
+            $toRestore->restore();
         }
         $trans = new DutyTransformer();
         $item = Duty::updateOrCreate(['code' => $data['code']], $data);

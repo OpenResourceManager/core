@@ -102,7 +102,7 @@ class CourseController extends ApiController
         }
 
         if ($toRestore = Course::onlyTrashed()->where('code', $data['code'])->first()) {
-            if ($toRestore->restore()) event(new CourseRestored($toRestore));
+            $toRestore->restore();
         }
         $trans = new CourseTransformer();
         $item = Course::updateOrCreate(['code' => $data['code']], $data);

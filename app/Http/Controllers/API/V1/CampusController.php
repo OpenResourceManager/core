@@ -88,7 +88,7 @@ class CampusController extends ApiController
             throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
 
         if ($toRestore = Campus::onlyTrashed()->where('code', $data['code'])->first()) {
-            if ($toRestore->restore()) event(new CampusRestored($toRestore));
+            $toRestore->restore();
         }
         $trans = new CampusTransformer();
         $item = Campus::updateOrCreate(['code' => $data['code']], $data);

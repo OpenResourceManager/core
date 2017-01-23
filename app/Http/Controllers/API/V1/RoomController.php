@@ -104,7 +104,7 @@ class RoomController extends ApiController
         }
 
         if ($toRestore = Room::onlyTrashed()->where('code', $data['code'])->first()) {
-            if ($toRestore->restore()) event(new RoomRestored($toRestore));
+            $toRestore->restore();
         }
         $trans = new RoomTransformer();
         $item = Room::updateOrCreate(['code' => $data['code']], $data);
