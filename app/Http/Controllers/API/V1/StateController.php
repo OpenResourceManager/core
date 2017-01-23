@@ -13,10 +13,11 @@ class StateController extends ApiController
 {
     /**
      * StateController constructor.
+     * @param Request $request
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
         $this->noun = 'state';
     }
 

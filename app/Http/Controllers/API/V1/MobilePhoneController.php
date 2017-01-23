@@ -12,12 +12,10 @@ use Dingo\Api\Exception\StoreResourceFailedException;
 
 class MobilePhoneController extends ApiController
 {
-    /**
-     * MobilePhoneController constructor.
-     */
-    public function __construct()
+
+    public function __construct(Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
         $this->noun = 'mobile phone';
     }
 
