@@ -4,17 +4,27 @@ namespace App\Providers;
 
 use App\Events\Api\Building\BuildingCreated;
 use App\Events\Api\Building\BuildingDestroyed;
+use App\Events\Api\Building\BuildingRestored;
 use App\Events\Api\Building\BuildingUpdated;
-use App\Events\Api\Building\CampusUpdated;
+use App\Events\Api\Campus\CampusUpdated;
 use App\Events\Api\Campus\CampusCreated;
 use App\Events\Api\Campus\CampusDestroyed;
+use App\Events\Api\Campus\CampusRestored;
 use App\Events\Api\Course\CourseCreated;
 use App\Events\Api\Course\CourseDestroyed;
+use App\Events\Api\Course\CourseRestored;
+use App\Events\Api\Course\CourseUpdated;
 use App\Events\Api\Department\DepartmentCreated;
 use App\Events\Api\Department\DepartmentDestroyed;
+use App\Events\Api\Department\DepartmentRestored;
+use App\Events\Api\Department\DepartmentUpdated;
 use App\Events\Api\Duty\DutyDestroyed;
+use App\Events\Api\Duty\DutyRestored;
+use App\Events\Api\Duty\DutyUpdated;
 use App\Events\Api\Room\RoomCreated;
 use App\Events\Api\Room\RoomDestroyed;
+use App\Events\Api\Room\RoomRestored;
+use App\Events\Api\Room\RoomUpdated;
 use App\Http\Models\API\Building;
 use App\Http\Models\API\Campus;
 use App\Http\Models\API\Course;
@@ -38,6 +48,9 @@ class ApiEventProvider extends ServiceProvider
      */
     public function boot()
     {
+        /**
+         * Account Events
+         */
         Account::created(function (Account $account) {
             event(new AccountCreated($account));
         });
@@ -54,16 +67,34 @@ class ApiEventProvider extends ServiceProvider
             event(new AccountRestored($account));
         });
 
-        Duty::created(function (Duty $duty) {
-            event(new DutyCreated($duty));
+        /**
+         * Building Events
+         */
+        Building::created(function (Building $building) {
+            event(new BuildingCreated($building));
         });
 
-        Duty::deleted(function (Duty $duty) {
-            event(new DutyDestroyed($duty));
+        Building::updated(function (Building $building) {
+            event(new BuildingUpdated($building));
         });
 
+        Building::restored(function (Building $building) {
+            event(new BuildingRestored($building));
+        });
+
+        Building::deleted(function (Building $building) {
+            event(new BuildingDestroyed($building));
+        });
+
+        /**
+         * Campus Events
+         */
         Campus::created(function (Campus $campus) {
             event(new CampusCreated($campus));
+        });
+
+        Campus::restored(function (Campus $campus) {
+            event(new CampusRestored($campus));
         });
 
         Campus::updated(function (Campus $campus) {
@@ -74,26 +105,28 @@ class ApiEventProvider extends ServiceProvider
             event(new CampusDestroyed($campus));
         });
 
-        Building::created(function (Building $building) {
-            event(new BuildingCreated($building));
+        /**
+         * Course Events
+         */
+        Course::created(function (Course $course) {
+            event(new CourseCreated($course));
         });
 
-        Building::updated(function (Building $building) {
-            event(new BuildingUpdated($building));
+        Course::deleted(function (Course $course) {
+            event(new CourseDestroyed($course));
         });
 
-        Building::deleted(function (Building $building) {
-            event(new BuildingDestroyed($building));
+        Course::updated(function (Course $course) {
+            event(new CourseUpdated($course));
         });
 
-        Room::created(function (Room $room) {
-            event(new RoomCreated($room));
+        Course::restored(function (Course $course) {
+            event(new CourseRestored($course));
         });
 
-        Room::deleted(function (Room $room) {
-            event(new RoomDestroyed($room));
-        });
-
+        /**
+         * Department Events
+         */
         Department::created(function (Department $department) {
             event(new DepartmentCreated($department));
         });
@@ -102,12 +135,50 @@ class ApiEventProvider extends ServiceProvider
             event(new DepartmentDestroyed($department));
         });
 
-        Course::created(function (Course $course) {
-            event(new CourseCreated($course));
+        Department::restored(function (Department $department) {
+            event(new DepartmentRestored($department));
         });
 
-        Course::deleted(function (Course $course) {
-            event(new CourseDestroyed($course));
+        Department::updated(function (Department $department) {
+            event(new DepartmentUpdated($department));
+        });
+
+        /**
+         * Duty Events
+         */
+        Duty::created(function (Duty $duty) {
+            event(new DutyCreated($duty));
+        });
+
+        Duty::restored(function (Duty $duty) {
+            event(new DutyRestored($duty));
+        });
+
+        Duty::updated(function (Duty $duty) {
+            event(new DutyUpdated($duty));
+        });
+
+        Duty::deleted(function (Duty $duty) {
+            event(new DutyDestroyed($duty));
+        });
+
+        /**
+         * Room Events
+         */
+        Room::created(function (Room $room) {
+            event(new RoomCreated($room));
+        });
+
+        Room::deleted(function (Room $room) {
+            event(new RoomDestroyed($room));
+        });
+
+        Room::updated(function (Room $room) {
+            event(new RoomUpdated($room));
+        });
+
+        Room::restored(function (Room $room) {
+            event(new RoomRestored($room));
         });
     }
 
