@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use Dingo\Api\Routing\Helpers;
 use App\Events\Api\ApiRequestEvent;
-use App\Http\Requests\Request;
+use Illuminate\Http\Request;
 
 /**
  * @SWG\Swagger(
