@@ -32,7 +32,7 @@ class CreateApiRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::table('account_room', function (Blueprint $table) {
+        Schema::table('api_requests', function (Blueprint $table) {
             $table->dropForeign('api_requests_user_id_foreign');
             $table->drop();
         });
