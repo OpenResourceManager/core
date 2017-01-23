@@ -1,31 +1,31 @@
 <?php
 
-namespace App\Events\Api\Campus;
+namespace App\Events\Api\Room;
 
 use App\Events\Event;
-use App\Http\Models\API\Campus;
+use App\Http\Models\API\Room;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 
-class CampusUpdated extends Event
+class RoomUpdated extends Event
 {
 
     /**
-     * CampusUpdated constructor.
-     * @param Campus $campus
+     * RoomUpdated constructor.
+     * @param Room $room
      */
-    public function __construct(Campus $campus)
+    public function __construct(Room $room)
     {
-        Log::info('Campus Updated:', [
-            'id' => $campus->id,
-            'code' => $campus->code,
-            'label' => $campus->label
+        Log::info('Room Updated:', [
+            'id' => $room->id,
+            'code' => $room->code,
+            'label' => $room->label
         ]);
 
         if ($user = auth()->user()) {
 
             $data_to_secure = json_encode([
-                'data' => $campus->toArray(),
+                'data' => $room->toArray(),
                 'conf' => [
                     'ldap' => ldap_config()
                 ]
@@ -35,17 +35,17 @@ class CampusUpdated extends Event
 
             $message = [
                 'event' => 'updated',
-                'type' => 'campus',
+                'type' => 'room',
                 'encrypted' => $secure_data
             ];
 
             Redis::publish('events', json_encode($message));
 
             history()->log(
-                'Campus',
-                'updated the campus: ' . $campus->label() . '.',
-                $campus->id,
-                'university',
+                'Room',
+                'updated the room: ' . $room->label() . '.',
+                $room->id,
+                'building-o',
                 'bg-lime'
             );
         }

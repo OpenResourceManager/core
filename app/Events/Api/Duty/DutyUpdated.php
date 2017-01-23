@@ -1,31 +1,31 @@
 <?php
 
-namespace App\Events\Api\Campus;
+namespace App\Events\Api\Duty;
 
 use App\Events\Event;
-use App\Http\Models\API\Campus;
+use App\Http\Models\API\Duty;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 
-class CampusUpdated extends Event
+class DutyUpdated extends Event
 {
 
     /**
-     * CampusUpdated constructor.
-     * @param Campus $campus
+     * RoomUpdated constructor.
+     * @param Duty $duty
      */
-    public function __construct(Campus $campus)
+    public function __construct(Duty $duty)
     {
-        Log::info('Campus Updated:', [
-            'id' => $campus->id,
-            'code' => $campus->code,
-            'label' => $campus->label
+        Log::info('Duty Updated:', [
+            'id' => $duty->id,
+            'code' => $duty->code,
+            'label' => $duty->label
         ]);
 
         if ($user = auth()->user()) {
 
             $data_to_secure = json_encode([
-                'data' => $campus->toArray(),
+                'data' => $duty->toArray(),
                 'conf' => [
                     'ldap' => ldap_config()
                 ]
@@ -35,17 +35,17 @@ class CampusUpdated extends Event
 
             $message = [
                 'event' => 'updated',
-                'type' => 'campus',
+                'type' => 'duty',
                 'encrypted' => $secure_data
             ];
 
             Redis::publish('events', json_encode($message));
 
             history()->log(
-                'Campus',
-                'updated the campus: ' . $campus->label() . '.',
-                $campus->id,
-                'university',
+                'Duty',
+                'updated the duty: ' . $duty->label() . '.',
+                $duty->id,
+                'cube',
                 'bg-lime'
             );
         }
