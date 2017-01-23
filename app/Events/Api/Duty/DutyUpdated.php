@@ -6,6 +6,7 @@ use App\Events\Event;
 use App\Http\Models\API\Duty;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
+use Krucas\Settings\Facades\Settings;
 
 class DutyUpdated extends Event
 {
@@ -24,22 +25,25 @@ class DutyUpdated extends Event
 
         if ($user = auth()->user()) {
 
-            $data_to_secure = json_encode([
-                'data' => $duty->toArray(),
-                'conf' => [
-                    'ldap' => ldap_config()
-                ]
-            ]);
+            if (Settings::get('broadcast-events', false)) {
 
-            $secure_data = encrypt_broadcast_data($data_to_secure);
+                $data_to_secure = json_encode([
+                    'data' => $duty->toArray(),
+                    'conf' => [
+                        'ldap' => ldap_config()
+                    ]
+                ]);
 
-            $message = [
-                'event' => 'updated',
-                'type' => 'duty',
-                'encrypted' => $secure_data
-            ];
+                $secure_data = encrypt_broadcast_data($data_to_secure);
 
-            Redis::publish('events', json_encode($message));
+                $message = [
+                    'event' => 'updated',
+                    'type' => 'duty',
+                    'encrypted' => $secure_data
+                ];
+
+                Redis::publish('events', json_encode($message));
+            }
 
             history()->log(
                 'Duty',

@@ -7,6 +7,7 @@ use App\Http\Models\API\Room;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
+use Krucas\Settings\Facades\Settings;
 
 
 class UnassignedRoom extends Event
@@ -32,32 +33,35 @@ class UnassignedRoom extends Event
 
         if ($user = auth()->user()) {
 
-            $account->primary_duty = $account->primaryDuty;
-            $trans = $account->toArray();
-            $trans['name_full'] = $account->format_full_name(true);
-            unset($trans['password']);
-            $trans['username'] = strtolower($trans['username']);
+            if (Settings::get('broadcast-events', false)) {
 
-            $data_to_secure = json_encode([
-                'data' => [
-                    'account' => $account,
-                    'room' => $room->toArray()
-                ],
-                'conf' => [
-                    'ldap' => ldap_config()
-                ]
-            ]);
+                $account->primary_duty = $account->primaryDuty;
+                $trans = $account->toArray();
+                $trans['name_full'] = $account->format_full_name(true);
+                unset($trans['password']);
+                $trans['username'] = strtolower($trans['username']);
 
-            $secure_data = encrypt_broadcast_data($data_to_secure);
+                $data_to_secure = json_encode([
+                    'data' => [
+                        'account' => $account,
+                        'room' => $room->toArray()
+                    ],
+                    'conf' => [
+                        'ldap' => ldap_config()
+                    ]
+                ]);
 
-            $message = [
-                'event' => 'unassigned',
-                'type' => 'room',
-                'to' => 'account',
-                'encrypted' => $secure_data
-            ];
+                $secure_data = encrypt_broadcast_data($data_to_secure);
 
-            Redis::publish('events', json_encode($message));
+                $message = [
+                    'event' => 'unassigned',
+                    'type' => 'room',
+                    'to' => 'account',
+                    'encrypted' => $secure_data
+                ];
+
+                Redis::publish('events', json_encode($message));
+            }
 
             history()->log(
                 'Assignment',

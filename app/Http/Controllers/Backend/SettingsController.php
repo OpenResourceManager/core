@@ -17,7 +17,11 @@ class SettingsController extends Controller
     {
         $allow_reg = Settings::get('enable-registration', false);
         $checked_allow_reg = ($allow_reg) ? 'checked' : '';
+
         $email_blacklist = join(',', Settings::get('excluded-email-domains', []));
+
+        $bc_events = Settings::get('broadcast-events', false);
+        $bc_events_checked = ($bc_events) ? 'checked' : '';
 
 
         $ldap_enabled = Settings::get('ldap-enabled', false);
@@ -39,6 +43,8 @@ class SettingsController extends Controller
         return view('backend.settings', [
             'allow_reg' => (int)$allow_reg,
             'checked_allow_reg' => $checked_allow_reg,
+            'bc_events' => (int)$bc_events,
+            'bc_events_checked' => $bc_events_checked,
             'email_blacklist' => $email_blacklist,
             'ldap_enabled' => $ldap_enabled,
             'checked_enable_ldap' => $checked_enable_ldap,
@@ -69,6 +75,7 @@ class SettingsController extends Controller
 
         $validator = Validator::make($data, [
             'allow_reg' => 'nullable|integer|min:0|max:1',
+            'bc_events' => 'nullable|integer|min:0|max:1',
             'email_blacklist' => 'nullable|string',
             'ldap_enabled' => 'nullable|integer|min:0|max:1',
             'ldap_hosts' => 'required_with:ldap_enabled',
@@ -90,6 +97,7 @@ class SettingsController extends Controller
 
         Settings::set('enable-registration', array_key_exists('allow_reg', $data));
         Settings::set('excluded-email-domains', array_map('trim', explode(',', $data['email_blacklist'])));
+        Settings::set('broadcast-events', array_key_exists('bc_events', $data));
 
         /**
          * If this is set to false, the LDAP bridge service is disabled.

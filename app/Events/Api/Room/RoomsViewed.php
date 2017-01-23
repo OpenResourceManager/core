@@ -10,6 +10,7 @@ namespace App\Events\Api\Room;
 
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
+use Krucas\Settings\Facades\Settings;
 
 class RoomsViewed extends Event
 {
@@ -24,6 +25,10 @@ class RoomsViewed extends Event
         if ($user = auth()->user()) {
 
             $user_name = $user->name;
+
+            if (Settings::get('broadcast-events', false)) {
+                // @todo bc view event
+            }
 
             history()->log(
                 'Room',

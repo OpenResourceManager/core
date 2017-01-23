@@ -41,6 +41,20 @@
                             @endif
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Broadcast Events</label>
+                        <div class="col-md-6">
+                            <div class="material-switch pull-left">
+                                <input type="checkbox" id="bc_events" name="bc_events"
+                                       value="{{$bc_events}}" {{$bc_events_checked}}>
+                                <label for="bc_events" class="label-primary"></label>
+                            </div>
+                            <div class="text-center">
+                                <p>Required for LDAP and other 3rd party delegates.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group">

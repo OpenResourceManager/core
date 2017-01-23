@@ -3,7 +3,7 @@
 namespace App\Events\Api\Course;
 
 use App\Http\Models\API\Course;
-use Illuminate\Broadcasting\Channel;
+use Krucas\Settings\Facades\Settings;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
@@ -24,24 +24,27 @@ class CourseDestroyed extends Event
 
         if ($user = auth()->user()) {
 
-            $course->department;
+            if (Settings::get('broadcast-events', false)) {
 
-            $data_to_secure = json_encode([
-                'data' => $course->toArray(),
-                'conf' => [
-                    'ldap' => ldap_config()
-                ]
-            ]);
+                $course->department;
 
-            $secure_data = encrypt_broadcast_data($data_to_secure);
+                $data_to_secure = json_encode([
+                    'data' => $course->toArray(),
+                    'conf' => [
+                        'ldap' => ldap_config()
+                    ]
+                ]);
 
-            $message = [
-                'event' => 'deleted',
-                'type' => 'course',
-                'encrypted' => $secure_data
-            ];
+                $secure_data = encrypt_broadcast_data($data_to_secure);
 
-            Redis::publish('events', json_encode($message));
+                $message = [
+                    'event' => 'deleted',
+                    'type' => 'course',
+                    'encrypted' => $secure_data
+                ];
+
+                Redis::publish('events', json_encode($message));
+            }
 
             history()->log(
                 'Course',

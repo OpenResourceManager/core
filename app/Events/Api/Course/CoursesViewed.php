@@ -8,7 +8,7 @@
 
 namespace App\Events\Api\Course;
 
-use Illuminate\Broadcasting\Channel;
+use Krucas\Settings\Facades\Settings;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 
@@ -25,6 +25,10 @@ class CoursesViewed extends Event
         if ($user = auth()->user()) {
 
             $user_name = $user->name;
+
+            if (Settings::get('broadcast-events', false)) {
+                // @todo bc view event
+            }
 
             history()->log(
                 'Course',

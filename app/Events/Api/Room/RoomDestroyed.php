@@ -6,6 +6,7 @@ use App\Http\Models\API\Room;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
+use Krucas\Settings\Facades\Settings;
 
 class RoomDestroyed extends Event
 {
@@ -19,24 +20,27 @@ class RoomDestroyed extends Event
 
         if ($user = auth()->user()) {
 
-            $building = $room->building;
+            if (Settings::get('broadcast-events', false)) {
 
-            $data_to_secure = json_encode([
-                'data' => $room->toArray(),
-                'conf' => [
-                    'ldap' => ldap_config()
-                ]
-            ]);
+                $building = $room->building;
 
-            $secure_data = encrypt_broadcast_data($data_to_secure);
+                $data_to_secure = json_encode([
+                    'data' => $room->toArray(),
+                    'conf' => [
+                        'ldap' => ldap_config()
+                    ]
+                ]);
 
-            $message = [
-                'event' => 'deleted',
-                'type' => 'room',
-                'encrypted' => $secure_data
-            ];
+                $secure_data = encrypt_broadcast_data($data_to_secure);
 
-            Redis::publish('events', json_encode($message));
+                $message = [
+                    'event' => 'deleted',
+                    'type' => 'room',
+                    'encrypted' => $secure_data
+                ];
+
+                Redis::publish('events', json_encode($message));
+            }
 
             history()->log(
                 'Room',

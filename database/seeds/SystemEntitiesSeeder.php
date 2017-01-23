@@ -31,6 +31,7 @@ class SystemEntitiesSeeder extends Seeder
 
         Settings::set('enable-registration', false);
         Settings::set('excluded-email-domains', []);
+        Settings::set('broadcast-events', false);
 
         ###################################################################
         #                                                                 #

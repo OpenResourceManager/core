@@ -10,6 +10,7 @@ namespace App\Events\Api\Duty;
 
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
+use Krucas\Settings\Facades\Settings;
 
 class DutiesViewed extends Event
 {
@@ -24,6 +25,10 @@ class DutiesViewed extends Event
         if ($user = auth()->user()) {
 
             $user_name = $user->name;
+
+            if (Settings::get('broadcast-events', false)) {
+                // @todo bc view event
+            }
 
             history()->log(
                 'Duty',

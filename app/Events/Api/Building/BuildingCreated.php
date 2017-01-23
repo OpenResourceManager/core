@@ -6,6 +6,7 @@ use App\Http\Models\API\Building;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
+use Krucas\Settings\Facades\Settings;
 
 class BuildingCreated extends Event
 {
@@ -25,24 +26,27 @@ class BuildingCreated extends Event
 
         if ($user = auth()->user()) {
 
-            $building->campus;
+            if (Settings::get('broadcast-events', false)) {
 
-            $data_to_secure = json_encode([
-                'data' => $building->toArray(),
-                'conf' => [
-                    'ldap' => ldap_config()
-                ]
-            ]);
+                $building->campus;
 
-            $secure_data = encrypt_broadcast_data($data_to_secure);
+                $data_to_secure = json_encode([
+                    'data' => $building->toArray(),
+                    'conf' => [
+                        'ldap' => ldap_config()
+                    ]
+                ]);
 
-            $message = [
-                'event' => 'created',
-                'type' => 'building',
-                'encrypted' => $secure_data
-            ];
+                $secure_data = encrypt_broadcast_data($data_to_secure);
 
-            Redis::publish('events', json_encode($message));
+                $message = [
+                    'event' => 'created',
+                    'type' => 'building',
+                    'encrypted' => $secure_data
+                ];
+
+                Redis::publish('events', json_encode($message));
+            }
 
             history()->log(
                 'Building',

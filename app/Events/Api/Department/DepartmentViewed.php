@@ -5,6 +5,7 @@ namespace App\Events\Api\Department;
 use App\Http\Models\API\Department;
 use App\Events\Event;
 use Illuminate\Support\Facades\Log;
+use Krucas\Settings\Facades\Settings;
 
 class DepartmentViewed extends Event
 {
@@ -21,6 +22,10 @@ class DepartmentViewed extends Event
         if ($user = auth()->user()) {
 
             $user_name = $user->name;
+
+            if (Settings::get('broadcast-events', false)) {
+                // @todo bc view event
+            }
 
             history()->log(
                 'Department',
