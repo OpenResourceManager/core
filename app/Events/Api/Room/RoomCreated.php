@@ -24,9 +24,9 @@ class RoomCreated extends Event
 
         if ($user = auth()->user()) {
 
-            if (Settings::get('broadcast-events', false)) {
+            $building = $room->building;
 
-                $building = $room->building;
+            if (Settings::get('broadcast-events', false)) {
 
                 $data_to_secure = json_encode([
                     'data' => $room->toArray(),
