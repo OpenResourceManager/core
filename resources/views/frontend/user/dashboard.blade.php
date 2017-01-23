@@ -48,7 +48,7 @@
                                     <h4>Your API Requests</h4>
                                 </div><!--panel-heading-->
                                 <div class="panel-body">
-                                    <h2 class="center-div" id="api_requests_count" name="api_requests_count">0</h2>
+                                    <h2 class="center-div" id="api_requests_count" name="api_requests_count">{{$apiQueries}}</h2>
                                 </div><!--panel-body-->
                             </div><!--panel-->
 

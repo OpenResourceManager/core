@@ -19,6 +19,7 @@ class CourseController extends ApiController
      */
     public function __construct()
     {
+        parent::__construct();
         $this->noun = 'course';
     }
 
@@ -115,7 +116,7 @@ class CourseController extends ApiController
      *
      * Deletes the specified Course by it's ID or Code attribute.
      *
-     * @return mixed|void
+     * @return mixed
      */
     public function destroy(Request $request)
     {

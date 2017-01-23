@@ -13,6 +13,7 @@ class TokenVerificationController extends ApiController
      */
     public function __construct()
     {
+        parent::__construct();
         $this->noun = 'token';
     }
 

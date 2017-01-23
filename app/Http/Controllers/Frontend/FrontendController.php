@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Models\API\Account;
+use App\Http\Models\API\ApiRequest;
 use App\Http\Models\API\Course;
 use App\Http\Models\API\Email;
 use App\Http\Models\API\MobilePhone;
@@ -27,7 +28,8 @@ class FrontendController extends Controller
         $courseCount = Course::count();
         $mobilePhoneCount = MobilePhone::where('verified', true)->count();
         $emailCount = Email::where('verified', true)->count();
-        $apiQueries = History::where('user_id', $user->id)->count();
+        $apiQueries = ApiRequest::where('user_id', $user->id)->count();
+        if (empty($apiQueries)) $apiQueries = 0;
 
         return view('frontend.user.dashboard')
             ->with('secret', strtolower($secret))

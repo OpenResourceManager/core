@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use Dingo\Api\Routing\Helpers;
+use App\Events\Api\ApiRequestEvent;
+use App\Http\Requests\Request;
 
 /**
  * @SWG\Swagger(
@@ -30,6 +32,14 @@ use Dingo\Api\Routing\Helpers;
  */
 class ApiController extends Controller
 {
+    /**
+     * ApiController constructor.
+     * @param Request $request
+     */
+    public function __construct(Request $request)
+    {
+        $this->recordApiRequestEvent($request);
+    }
 
     use Helpers;
 
@@ -163,5 +173,14 @@ class ApiController extends Controller
     public function assignFailure($resource1 = 'resource', $resource2 = 'resource')
     {
         throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not assign ' . $resource1 . ' to ' . $resource2 . '.');
+    }
+
+    /**
+     * @param Request $request
+     * @return array|null
+     */
+    public function recordApiRequestEvent(Request $request)
+    {
+        return event(new ApiRequestEvent(auth()->user(), $request->url()));
     }
 }

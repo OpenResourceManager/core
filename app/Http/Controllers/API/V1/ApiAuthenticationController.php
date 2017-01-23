@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Events\Api\Authentication\AuthenticationFailure;
 use App\Events\Api\Authentication\AuthenticationSuccess;
 use Dingo\Api\Http\Request;
@@ -9,11 +10,18 @@ use App\Models\Access\User\User;
 use Illuminate\Support\Facades\Input;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use Dingo\Api\Facade\API;
-use Illuminate\Support\Facades\Hash;
 
 class ApiAuthenticationController extends ApiController
 {
+
+    /**
+     * ApiAuthenticationController constructor.
+     */
+    public function __construct()
+    {
+
+    }
+
     /**
      * Login
      *
@@ -39,6 +47,7 @@ class ApiAuthenticationController extends ApiController
             event(new AuthenticationFailure($request));
             throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('Invalid credentials were supplied.');
         }
+        event(new ApiRequestEvent($user, $request->url()));
         event(new AuthenticationSuccess($user));
         // Return success.
         return compact('token');
@@ -68,6 +77,7 @@ class ApiAuthenticationController extends ApiController
             event(new AuthenticationFailure($request));
             throw new \Symfony\Component\HttpKernel\Exception\HttpException('Could not create new token.', $e);
         }
+        event(new ApiRequestEvent($user, $request->url()));
         event(new AuthenticationSuccess($user));
         // Return success.
         return compact('token');
@@ -79,13 +89,16 @@ class ApiAuthenticationController extends ApiController
      *
      * Validate JWT by hitting this end point.
      *
+     * @param Request $request
      * @return mixed
      */
-    public function validateAuth()
+    public function validateAuth(Request $request)
     {
         $user = auth()->user();
 
         if (!$user) throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('You are not authorized.');
+
+        event(new ApiRequestEvent($user, $request->url()));
 
         return $this->response->array([
             'user' => $user->email,

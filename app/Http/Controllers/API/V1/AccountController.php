@@ -25,7 +25,6 @@ use App\Events\Api\Account\AccountsViewed;
 use App\Events\Api\Account\AccountViewed;
 use App\Models\Access\Permission\Permission;
 
-
 class AccountController extends ApiController
 {
 
@@ -34,6 +33,7 @@ class AccountController extends ApiController
      */
     public function __construct()
     {
+        parent::__construct();
         $this->noun = 'account';
     }
 

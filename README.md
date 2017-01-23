@@ -23,21 +23,22 @@ ORM Core is a REST API designed to house institutional data and act as an interm
 ##### Features
 
 * REST API interface - `Implemented`
-* API manager front end - `In Development`
+* API manager front end - `Implemented`
+* API manager admin back end - `Implemented`
 * API Accounts for different applications - `Implemented`
 * Account permissions and access control - `Implemented`
 * JWT authentication - `Implemented`
 * API rate limit/throttle - `Implemented`
-* API event history - `In Development`
+* API event history - `Implemented`
 * Log viewer - `Implemented`
 * Mobile Phone and Email verification - `In Development`
-* API metrics and statistics - `In Development`
-* API Event broadcast to event manager for 3rd party applications - `In Development`
+* API metrics and statistics - `Implemented`
+* API Event broadcast to event manager for 3rd party applications - `Implemented`
 * Interactive documentation using OpenAPI fka(Swagger) - `Implemented`
 
 ## Documentation
 
-* [API Documentation](https://orm-demo.sage.edu/api/documentation)
+* [API Documentation](https://demo-orm.sage.edu/api/documentation)
 
 ## Requirements:
 
@@ -82,6 +83,7 @@ npm -g install yarn
 ```mysql
 create database orm;
 CREATE USER 'orm'@'localhost' IDENTIFIED BY 'SOMESTRONGPASSWORD';
+GRANT ALL PRIVILEGES ON orm.* To 'orm'@'localhost';
 FLUSH PRIVILEGES;
 ```
 

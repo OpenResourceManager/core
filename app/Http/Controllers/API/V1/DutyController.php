@@ -18,6 +18,7 @@ class DutyController extends ApiController
      */
     public function __construct()
     {
+        parent::__construct();
         $this->noun = 'duty';
     }
 

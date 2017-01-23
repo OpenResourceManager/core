@@ -13,7 +13,7 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
      * The route group below is used to jam the version number into the URL.
      * This is not the Dingo way of doing things.
      * Eventually we will need to migrate to an accept header
-     *
+     * @todo
      * https://stackoverflow.com/questions/38664222/dingo-api-how-to-add-version-number-in-url/
      * https://github.com/dingo/api/issues/1221
      */
