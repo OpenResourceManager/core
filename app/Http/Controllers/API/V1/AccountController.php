@@ -171,11 +171,16 @@ class AccountController extends ApiController
         // If it's a new account just attach it to it's primary duty
         if (!empty($restore_account) && !$item->wasRecentlyCreated) {
             if ($data['primary_duty_id'] !== $restore_account->primary_duty_id) {
-                // @todo Broadcast with redis to notify the event server
-                $item->duties()->detach($restore_account->primary_duty_id);
-                $item->duties()->attach($data['primary_duty_id']);
+                if ($item->duties()->detach($restore_account->primary_duty_id)) {
+                    event(new UnassignedDuty($item, Duty::find($restore_account->primary_duty_id)));
+                }
+                if ($item->duties()->attach($data['primary_duty_id'])) {
+                    event(new AssignedDuty($item, Duty::find($data['primary_duty_id'])));
+                }
             } elseif ($item->wasRecentlyCreated) {
-                $item->duties()->attach($data['primary_duty_id']);
+                if ($item->duties()->attach($data['primary_duty_id'])) {
+                    event(new AssignedDuty($item, Duty::find($data['primary_duty_id'])));
+                }
             }
         }
 
