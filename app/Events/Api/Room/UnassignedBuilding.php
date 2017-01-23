@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events\Api\Building;
+namespace App\Events\Api\Room;
 
 use App\Http\Models\API\Building;
 use App\Http\Models\API\Room;
