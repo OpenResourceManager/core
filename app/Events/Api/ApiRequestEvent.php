@@ -14,12 +14,14 @@ class ApiRequestEvent extends Event
      * ApiRequestEvent constructor.
      * @param User $user
      * @param string $uri
+     * @param string $method
      */
-    public function __construct(User $user, $uri = '')
+    public function __construct(User $user, $uri = '', $method = '')
     {
         $request = ApiRequest::create([
             'user_id' => $user->id,
-            'url' => $uri
+            'url' => $uri,
+            'method' => $method
         ]);
 
         Log::info('API Request From: ', [
@@ -27,7 +29,8 @@ class ApiRequestEvent extends Event
             'email' => $user->email,
             'name' => $user->name,
             'request_id' => $request->id,
-            'url' => $uri
+            'url' => $uri,
+            'method' => $method
         ]);
     }
 }

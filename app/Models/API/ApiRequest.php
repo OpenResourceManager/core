@@ -10,7 +10,7 @@ class ApiRequest extends BaseApiModel
     use SoftDeletes;
     protected $table = 'api_requests';
     protected $dates = ['deleted_at'];
-    protected $fillable = ['user_id', 'url'];
+    protected $fillable = ['user_id', 'url', 'method'];
 
     public function user()
     {

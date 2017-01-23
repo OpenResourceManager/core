@@ -182,7 +182,7 @@ class ApiController extends Controller
     public function recordApiRequestEvent(Request $request)
     {
         if(auth()->user()) {
-            return event(new ApiRequestEvent(auth()->user(), $request->url()));
+            return event(new ApiRequestEvent(auth()->user(), $request->url(), $request->method()));
         }
     }
 }
