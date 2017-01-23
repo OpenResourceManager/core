@@ -44,7 +44,7 @@ class RoomDestroyed extends Event
 
             history()->log(
                 'Room',
-                'deleted room ' . $room->room_number . ' in ' . $building->label,
+                'deleted room ' . (empty($room->label)) ? $room->code : $room->label . ' in ' . $building->label,
                 $room->id,
                 'building-o',
                 'bg-red'

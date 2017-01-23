@@ -29,13 +29,13 @@ class RoomViewed extends Event
 
             history()->log(
                 'Room',
-                'viewed ' . $room->label . '.',
+                'viewed ' . (empty($room->label)) ? $room->code : $room->label . '.',
                 $room->id,
                 'building-o',
                 'bg-aqua'
             );
         }
 
-        Log::info($user_name . ' viewed ' . $room->label . '.');
+        Log::info($user_name . ' viewed ' . (empty($room->label)) ? $room->code : $room->label . '.');
     }
 }

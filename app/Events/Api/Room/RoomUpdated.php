@@ -47,7 +47,7 @@ class RoomUpdated extends Event
 
             history()->log(
                 'Room',
-                'updated the room: ' . $room->label() . '.',
+                'updated the room: ' . (empty($room->label)) ? $room->code : $room->label . '.',
                 $room->id,
                 'building-o',
                 'bg-lime'

@@ -48,7 +48,7 @@ class RoomCreated extends Event
 
             history()->log(
                 'Room',
-                'created room ' . $room->room_number . ' in ' . $building->label,
+                'created room ' . (empty($room->label)) ? $room->code : $room->label . ' in ' . $building->label,
                 $room->id,
                 'building-o',
                 'bg-green'

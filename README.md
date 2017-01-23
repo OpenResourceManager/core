@@ -104,7 +104,7 @@ cp .env.example .env;
 composer install --no-interaction --no-scripts --no-dev;
 
 # Install node dependancies
-yarn install;
+yarn install --prod;
 
 # Generate optimaized class loader
 composer dump-autoload -o;
@@ -154,7 +154,7 @@ git checkout $(git describe --tags $(git rev-list --tags --max-count=1));
 composer update;
 
 # Install/Update node dependancies
-yarn install
+yarn install --prod;
 
 # Run DB Migrations
 php artisan migrate --force;

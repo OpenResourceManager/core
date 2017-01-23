@@ -45,7 +45,7 @@ class RoomRestored extends Event
 
             history()->log(
                 'Room',
-                'restored a room: ' . $room->label() . '.',
+                'restored a room: ' . (empty($room->label)) ? $room->code : $room->label . '.',
                 $room->id,
                 'building-o',
                 'bg-lime'
