@@ -751,3 +751,13 @@ function encrypt_broadcast_data($data, $key = null, $iv = null)
     $encrypted_data = openssl_encrypt($data, 'aes-256-cbc', $key, 0, $iv);
     return $encrypted_data . ':' . base64_encode($iv);
 }
+
+/**
+ * @param string $path
+ * @return mixed|string
+ */
+function fixPath($path = '')
+{
+    $path = str_replace('\\', '/', trim($path));
+    return (substr($path, -1) != '/') ? $path .= '/' : $path;
+}

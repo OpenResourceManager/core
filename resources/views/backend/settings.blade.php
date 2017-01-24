@@ -34,9 +34,33 @@
                                    value="{{ $email_blacklist }}"
                                    placeholder="example.com, example.tld (Comma Separated)">
 
+                            <div class="text-center">
+                                <p>Email domains that are not allowed for external email addresses.</p>
+                            </div>
+
                             @if ($errors->has('email_blacklist'))
                                 <span class="help-block">
                                         <strong>{{ $errors->first('email_blacklist') }}</strong>
+                                    </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group{{ $errors->has('confirmation_from_address') ? ' has-error' : '' }}">
+                        <label class="col-md-4 control-label">Confirmation From Address</label>
+
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="confirmation_from_address"
+                                   value="{{ $confirmation_from_address }}"
+                                   placeholder="confirmation@domain.tld">
+
+                            <div class="text-center">
+                                <p>The email address that users will see when confirming their email.</p>
+                            </div>
+
+                            @if ($errors->has('confirmation_from_address'))
+                                <span class="help-block">
+                                        <strong>{{ $errors->first('confirmation_from_address') }}</strong>
                                     </span>
                             @endif
                         </div>
@@ -50,9 +74,33 @@
                                    value="{{ $asset_verification_server_url }}"
                                    placeholder="https://verify.domain.com">
 
+                            <div class="text-center">
+                                <p>Web address of the ORM Asset Verification Server.</p>
+                            </div>
+
                             @if ($errors->has('asset_verification_server_url'))
                                 <span class="help-block">
                                         <strong>{{ $errors->first('asset_verification_server_url') }}</strong>
+                                    </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group{{ $errors->has('logo_url') ? ' has-error' : '' }}">
+                        <label class="col-md-4 control-label">Logo URL</label>
+
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="logo_url"
+                                   value="{{ $logo_url }}"
+                                   placeholder="https://www.domain.com/img/logo.png">
+
+                            <div class="text-center">
+                                <p>Web address of a logo for emails.</p>
+                            </div>
+
+                            @if ($errors->has('logo_url'))
+                                <span class="help-block">
+                                        <strong>{{ $errors->first('logo_url') }}</strong>
                                     </span>
                             @endif
                         </div>

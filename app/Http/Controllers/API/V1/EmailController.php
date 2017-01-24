@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Dingo\Api\Exception\StoreResourceFailedException;
 use Krucas\Settings\Facades\Settings;
+use Snowfire\Beautymail\Beautymail;
 
 class EmailController extends ApiController
 {
@@ -182,6 +183,30 @@ class EmailController extends ApiController
         $item = Email::updateOrCreate(['address' => $data['address']], $data);
         $item->verification_token = ($item->verified) ? null : generateVerificationToken();
         $item->save();
+
+        // If the email is not verified
+        if (!$item->verified) {
+            // Are we set up to verify emails?
+            $verification_url = Settings::get('asset-verification-server-url', '');
+            $confirmation_from_address = Settings::get('confirmation-from-address', '');
+            $logo = ['path' => Settings::get('logo-url', ''), 'width' => 400, 'height' => ''];
+
+            if (!empty($verification_url) && !empty($confirmation_from_address)) {
+                // Build the verification url
+                $verification_url = fixPath(fixPath($verification_url) . 'verify/' . $item->verification_token);
+                // Build the mail class
+                $beautymail = app()->make(Beautymail::class);
+                // Send the message
+                $beautymail->send('emails.confirm', ['logo' => $logo, 'url' => $verification_url, 'token' => $item->verification_token],
+                    function ($message) use ($item, $confirmation_from_address) {
+                        $message
+                            ->from($confirmation_from_address)
+                            ->to($item->address, $item->account->format_full_name())
+                            ->subject('Welcome! Verify your email.');
+                    });
+            }
+        }
+
         $item = $trans->transform($item);
         return $this->response->created(route('api.emails.show', ['id' => $item['id']]), ['data' => $item]);
     }

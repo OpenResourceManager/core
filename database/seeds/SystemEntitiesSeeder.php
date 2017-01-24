@@ -32,6 +32,8 @@ class SystemEntitiesSeeder extends Seeder
         Settings::set('enable-registration', false);
         Settings::set('excluded-email-domains', []);
         Settings::set('asset-verification-server-url', '');
+        Settings::set('confirmation-from-address', '');
+        Settings::set('logo-url', '');
         Settings::set('broadcast-events', false);
 
         ###################################################################

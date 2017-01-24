@@ -17,13 +17,12 @@ class SettingsController extends Controller
     {
         $allow_reg = Settings::get('enable-registration', false);
         $checked_allow_reg = ($allow_reg) ? 'checked' : '';
-
         $email_blacklist = join(',', Settings::get('excluded-email-domains', []));
-
         $bc_events = Settings::get('broadcast-events', false);
         $bc_events_checked = ($bc_events) ? 'checked' : '';
-
         $asset_verification_server_url = Settings::get('asset-verification-server-url', '');
+        $confirmation_from_address = Settings::get('confirmation-from-address', '');
+        $logo_url = Settings::get('logo-url', '');
 
         $ldap_enabled = Settings::get('ldap-enabled', false);
         $checked_enable_ldap = ($ldap_enabled) ? 'checked' : '';
@@ -47,7 +46,9 @@ class SettingsController extends Controller
             'bc_events' => (int)$bc_events,
             'bc_events_checked' => $bc_events_checked,
             'asset_verification_server_url' => $asset_verification_server_url,
+            'confirmation_from_address' => $confirmation_from_address,
             'email_blacklist' => $email_blacklist,
+            'logo_url' => $logo_url,
             'ldap_enabled' => $ldap_enabled,
             'checked_enable_ldap' => $checked_enable_ldap,
             'ldap_hosts' => $ldap_hosts,
@@ -79,6 +80,8 @@ class SettingsController extends Controller
             'allow_reg' => 'nullable|integer|min:0|max:1',
             'bc_events' => 'nullable|integer|min:0|max:1',
             'email_blacklist' => 'nullable|string',
+            'confirmation_from_address' => 'nullable|email',
+            'logo_url' => 'nullable|url',
             'asset_verification_server_url' => 'nullable|url',
             'ldap_enabled' => 'nullable|integer|min:0|max:1',
             'ldap_hosts' => 'required_with:ldap_enabled',
@@ -103,6 +106,8 @@ class SettingsController extends Controller
         Settings::set('broadcast-events', array_key_exists('bc_events', $data));
 
         Settings::set('asset-verification-server-url', $data['asset_verification_server_url']);
+        Settings::set('confirmation-from-address', $data['confirmation_from_address']);
+        $logo_url = Settings::set('logo-url', $data['logo_url']);
 
         /**
          * If this is set to false, the LDAP bridge service is disabled.
