@@ -35,7 +35,6 @@ class MobilePhoneTest extends TestCase
         factory(Duty::class, 5)->create();
         factory(Account::class, 150)->create();
         factory(MobilePhone::class, 200)->create();
-        Country::insert(countryList());
         $this->logIn();
     }
 

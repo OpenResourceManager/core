@@ -46,7 +46,6 @@ class MobileCarrierTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        Country::insert(countryList());
         $this->logIn();
     }
 
