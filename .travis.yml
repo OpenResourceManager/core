@@ -5,7 +5,7 @@ language: php
 sudo: required
 os:
   - linux
-  - osx
+  #- osx
 php:
   - 5.6
   - 7.0

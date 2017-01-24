@@ -31,7 +31,7 @@ ORM Core is a REST API designed to house institutional data and act as an interm
 * API rate limit/throttle - `Implemented`
 * API event history - `Implemented`
 * Log viewer - `Implemented`
-* Mobile Phone and Email verification - `In Development`
+* Mobile Phone and Email verification - `Implemented`
 * API metrics and statistics - `Implemented`
 * API Event broadcast to event manager for 3rd party applications - `Implemented`
 * Interactive documentation using OpenAPI fka(Swagger) - `Implemented`

@@ -445,18 +445,18 @@ function mobileCarrierList()
         ['country_id' => $usa_id, 'label' => 'Air Fire Mobile', 'code' => 'airfiremobile', 'created_at' => $now, 'updated_at' => $now],
         ['country_id' => $usa_id, 'label' => 'Alaska Communicates', 'code' => 'alaskacommunicates', 'created_at' => $now, 'updated_at' => $now],
         ['country_id' => $usa_id, 'label' => 'Ameritech', 'code' => 'ameritech', 'created_at' => $now, 'updated_at' => $now],
-        ['country_id' => $usa_id, 'label' => '	Boost Mobile', 'code' => 'moostmobile', 'created_at' => $now, 'updated_at' => $now],
-        ['country_id' => $usa_id, 'label' => '	Clear Talk', 'code' => 'cleartalk', 'created_at' => $now, 'updated_at' => $now],
-        ['country_id' => $usa_id, 'label' => '	Cricket', 'code' => 'cricket', 'created_at' => $now, 'updated_at' => $now],
-        ['country_id' => $usa_id, 'label' => '	Metro PCS', 'code' => 'metropcs', 'created_at' => $now, 'updated_at' => $now],
-        ['country_id' => $usa_id, 'label' => '	NexTech', 'code' => 'nextech', 'created_at' => $now, 'updated_at' => $now],
-        ['country_id' => $usa_id, 'label' => '	Project Fi', 'code' => 'projectfi', 'created_at' => $now, 'updated_at' => $now],
-        ['country_id' => $can_id, 'label' => '	Rogers Wireless', 'code' => 'rogerswireless', 'created_at' => $now, 'updated_at' => $now],
-        ['country_id' => $usa_id, 'label' => '	Unicel', 'code' => 'unicel', 'created_at' => $now, 'updated_at' => $now],
-        ['country_id' => $usa_id, 'label' => '	Verizon Wireless', 'code' => 'verizonwireless', 'created_at' => $now, 'updated_at' => $now],
-        ['country_id' => $usa_id, 'label' => '	Virgin Mobile', 'code' => 'virginmobile', 'created_at' => $now, 'updated_at' => $now],
-        ['country_id' => $usa_id, 'label' => '	Sprint', 'code' => 'sprint', 'created_at' => $now, 'updated_at' => $now],
-        ['country_id' => $usa_id, 'label' => '	T-Mobile', 'code' => 'tmobile', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => 'Boost Mobile', 'code' => 'moostmobile', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => 'Clear Talk', 'code' => 'cleartalk', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => 'Cricket', 'code' => 'cricket', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => 'Metro PCS', 'code' => 'metropcs', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => 'NexTech', 'code' => 'nextech', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => 'Project Fi', 'code' => 'projectfi', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $can_id, 'label' => 'Rogers Wireless', 'code' => 'rogerswireless', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => 'Unicel', 'code' => 'unicel', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => 'Verizon Wireless', 'code' => 'verizonwireless', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => 'Virgin Mobile', 'code' => 'virginmobile', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => 'Sprint', 'code' => 'sprint', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => 'T-Mobile', 'code' => 'tmobile', 'created_at' => $now, 'updated_at' => $now],
     ];
 }
 
@@ -572,9 +572,11 @@ function jediMasterDuty()
 
 function jediMasterMobileCarrier()
 {
+    $countryid = \App\Http\Models\API\Country::where('code', 'USA')->first()->id;
+
     return [
         'code' => 'FORCE',
-        'country_code' => 'USA',
+        'country_id' => $countryid,
         'label' => 'The Force Wireless'
     ];
 }

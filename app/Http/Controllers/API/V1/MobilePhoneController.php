@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Models\API\Account;
 use Dingo\Api\Exception\StoreResourceFailedException;
+use SimpleSoftwareIO\SMS\Facades\SMS;
+use Krucas\Settings\Facades\Settings;
 
 class MobilePhoneController extends ApiController
 {
@@ -199,6 +201,22 @@ class MobilePhoneController extends ApiController
         $item = MobilePhone::create($data);
         $item->verification_token = ($item->verified) ? null : generateVerificationToken();
         $item->save();
+
+        $verification_url = Settings::get('asset-verification-server-url', '');
+
+        if (!$item->verified && !empty($item->verification_token) && !empty($verification_url)) {
+
+            $message = "Welcome!\nYour code is: " . $item->verification_token . "\nTo verify this number visit:\n" . fixPath(fixPath($verification_url) . 'verify/' . $item->verification_token);
+
+            SMS::send($message, [], function ($sms) use ($item) {
+                if (env('SMS_DRIVER', 'email') === 'email') {
+                    $sms->to('+1' . $item->number, $item->carrier->code);
+                } else {
+                    $sms->to('+1' . $item->number);
+                }
+            });
+        }
+
         $item = $trans->transform($item);
         return $this->response->created(route('api.mobile-phones.show', ['id' => $item['id']]), ['data' => $item]);
     }
