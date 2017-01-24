@@ -208,6 +208,7 @@ class MobilePhoneController extends ApiController
 
             $message = "Welcome!\nYour code is: " . $item->verification_token . "\nTo verify this number visit:\n" . fixPath(fixPath($verification_url) . 'verify/' . $item->verification_token);
 
+            // @todo this should be queued at some point
             SMS::send($message, [], function ($sms) use ($item) {
                 if (env('SMS_DRIVER', 'email') === 'email') {
                     $sms->to('+1' . $item->number, $item->carrier->code);
