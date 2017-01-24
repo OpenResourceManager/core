@@ -21,7 +21,8 @@
         "edvinaskrucas/settings": "2.0.0",
         "darkaonline/l5-swagger": "~3.0",
         "barryvdh/laravel-ide-helper": "^2.2",
-        "simplesoftwareio/simple-sms": "3.0.*"
+        "simplesoftwareio/simple-sms": "3.0.*",
+        "snowfire/beautymail": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -191,6 +191,7 @@ return [
         Krucas\Settings\Providers\SettingsServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         SimpleSoftwareIO\SMS\SMSServiceProvider::class,
+        Snowfire\Beautymail\BeautymailServiceProvider::class,
 
 
 		/*

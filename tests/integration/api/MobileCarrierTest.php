@@ -1,7 +1,6 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Http\Models\API\Country;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Http\Models\API\MobileCarrier;
 
@@ -47,6 +46,7 @@ class MobileCarrierTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+        Country::insert(countryList());
         $this->logIn();
     }
 

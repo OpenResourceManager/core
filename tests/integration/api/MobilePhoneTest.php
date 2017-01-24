@@ -1,7 +1,6 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Http\Models\API\Country;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Http\Models\API\Account;
 use App\Http\Models\API\MobilePhone;
@@ -36,6 +35,7 @@ class MobilePhoneTest extends TestCase
         factory(Duty::class, 5)->create();
         factory(Account::class, 150)->create();
         factory(MobilePhone::class, 200)->create();
+        Country::insert(countryList());
         $this->logIn();
     }
 
