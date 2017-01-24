@@ -42,6 +42,22 @@
                         </div>
                     </div>
 
+                    <div class="form-group{{ $errors->has('asset_verification_server_url') ? ' has-error' : '' }}">
+                        <label class="col-md-4 control-label">Asset Verification Server URL</label>
+
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="asset_verification_server_url"
+                                   value="{{ $asset_verification_server_url }}"
+                                   placeholder="https://verify.domain.com">
+
+                            @if ($errors->has('asset_verification_server_url'))
+                                <span class="help-block">
+                                        <strong>{{ $errors->first('asset_verification_server_url') }}</strong>
+                                    </span>
+                            @endif
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label class="col-md-4 control-label">Broadcast Events</label>
                         <div class="col-md-6">
