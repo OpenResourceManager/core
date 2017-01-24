@@ -437,20 +437,26 @@ function stateList()
 function mobileCarrierList()
 {
     $now = Carbon\Carbon::now('utc')->toDateTimeString();
+    $usa_id = App\Http\Models\API\Country::where('code', 'USA')->first()->id;
+    $can_id = App\Http\Models\API\Country::where('code', 'CAN')->first()->id;
 
     return [
-        ['label' => 'Verizon Wireless', 'code' => 'VZW', 'created_at' => $now, 'updated_at' => $now],
-        ['label' => 'AT&T', 'code' => 'ATT', 'created_at' => $now, 'updated_at' => $now],
-        ['label' => 'T-Mobile', 'code' => 'TMO', 'created_at' => $now, 'updated_at' => $now],
-        ['label' => 'Sprint', 'code' => 'SPR', 'created_at' => $now, 'updated_at' => $now],
-        ['label' => 'U.S Cellular', 'code' => 'USC', 'created_at' => $now, 'updated_at' => $now],
-        ['label' => 'Virgin Mobile', 'code' => 'VGM', 'created_at' => $now, 'updated_at' => $now],
-        ['label' => 'Boost Mobile', 'code' => 'BTM', 'created_at' => $now, 'updated_at' => $now],
-        ['label' => 'Rodgers Wireless', 'code' => 'RGS', 'created_at' => $now, 'updated_at' => $now],
-        ['label' => 'Cricket Wireless', 'code' => 'CRK', 'created_at' => $now, 'updated_at' => $now],
-        ['label' => 'MetroPCS', 'code' => 'MPCS', 'created_at' => $now, 'updated_at' => $now],
-        ['label' => 'Straight Talk', 'code' => 'STW', 'created_at' => $now, 'updated_at' => $now],
-        ['label' => 'Republic Wireless', 'code' => 'RBW', 'created_at' => $now, 'updated_at' => $now]
+        ['country_id' => $usa_id, 'label' => 'AT&T', 'code' => 'att', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => 'Air Fire Mobile', 'code' => 'airfiremobile', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => 'Alaska Communicates', 'code' => 'alaskacommunicates', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => 'Ameritech', 'code' => 'ameritech', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => '	Boost Mobile', 'code' => 'moostmobile', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => '	Clear Talk', 'code' => 'cleartalk', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => '	Cricket', 'code' => 'cricket', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => '	Metro PCS', 'code' => 'metropcs', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => '	NexTech', 'code' => 'nextech', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => '	Project Fi', 'code' => 'projectfi', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $can_id, 'label' => '	Rogers Wireless', 'code' => 'rogerswireless', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => '	Unicel', 'code' => 'unicel', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => '	Verizon Wireless', 'code' => 'verizonwireless', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => '	Virgin Mobile', 'code' => 'virginmobile', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => '	Sprint', 'code' => 'sprint', 'created_at' => $now, 'updated_at' => $now],
+        ['country_id' => $usa_id, 'label' => '	T-Mobile', 'code' => 'tmobile', 'created_at' => $now, 'updated_at' => $now],
     ];
 }
 

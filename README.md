@@ -90,6 +90,9 @@ FLUSH PRIVILEGES;
 * Step 8: Initialize ORM
 
 ```shell
+# change dir the NGINX web root
+cd /usr/share/nginx/html/
+
 # Create a vendor dir
 mkdir OpenResourceManager/; cd OpenResourceManager;
 

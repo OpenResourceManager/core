@@ -2667,6 +2667,16 @@ paths:
       consumes:
         - application/x-www-form-urlencoded
       parameters:
+        - name: country_id
+          in: formData
+          required: false
+          type: integer
+          description: The id of a country that this mobile carreier operateses in. This is required without the `country_code` parameter.
+        - name: country_code
+          in: formData
+          required: false
+          type: string
+          description: The code of a country that this mobile carreier operates in. This is required without the `country_id` parame
         - name: code
           in: formData
           required: true
@@ -3510,12 +3520,12 @@ paths:
           in: formData
           required: false
           type: integer
-          description: The id of a country that this states resides in. This is required without the `country_code` parameter.
+          description: The id of a country that this state resides in. This is required without the `country_code` parameter.
         - name: country_code
           in: formData
           required: false
           type: string
-          description: The code of a country that this states resides in. This is required without the `country_id` parameter.
+          description: The code of a country that this state resides in. This is required without the `country_id` parameter.
         - name: code
           in: formData
           required: true
@@ -3952,9 +3962,12 @@ definitions:
   MobileCarrier:
     type: object
     required:
+      - country_id
       - code
       - label
     properties:
+      country_id:
+        type: integer
       code:
         type: string
       label:
@@ -4223,6 +4236,8 @@ definitions:
         type: string
       label:
         type: string
+      country:
+        $ref: '#/definitions/transformedCountry'
       updated:
         type: string
       created:

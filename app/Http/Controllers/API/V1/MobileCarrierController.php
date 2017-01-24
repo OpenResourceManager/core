@@ -5,7 +5,10 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Models\API\MobileCarrier;
 use App\Http\Transformers\MobileCarrierTransformer;
 use Illuminate\Http\Request;
+use App\Http\Models\API\Country;
 use Illuminate\Support\Facades\Validator;
+use Dingo\Api\Exception\DeleteResourceFailedException;
+use Dingo\Api\Exception\StoreResourceFailedException;
 
 class MobileCarrierController extends ApiController
 {
@@ -73,12 +76,26 @@ class MobileCarrierController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
+            'country_id' => 'integer|required_without:country_code|exists:countries,id,deleted_at,NULL',
+            'country_code' => 'string|required_without:country_id|exists:countries,code,deleted_at,NULL',
             'code' => 'string|required|min:3',
             'label' => 'string|required|max:25',
         ]);
 
         if ($validator->fails())
-            throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+            throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+
+        /**
+         * Translate country code to an id if needed
+         */
+        if (!array_key_exists('country_id', $data)) {
+            if (array_key_exists('country_code', $data)) {
+                $data['country_id'] = Country::where('code', $data['country_code'])->firstOrFail()->id;
+            } else {
+                // The validator should throw something like this, but it's here just in case.
+                throw new StoreResourceFailedException('Could not store ' . $this->noun, ['You must supply one of the following parameters "country_id" or "country_code".']);
+            }
+        }
 
         if ($toRestore = MobileCarrier::onlyTrashed()->where('code', $data['code'])->first()) $toRestore->restore();
         $trans = new MobileCarrierTransformer();
@@ -104,7 +121,7 @@ class MobileCarrierController extends ApiController
         ]);
 
         if ($validator->fails())
-            throw new \Dingo\Api\Exception\DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());
+            throw new DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', $validator->errors());
 
         $deleted = (array_key_exists('id', $data)) ? MobileCarrier::destroy($data['id']) : MobileCarrier::where('code', $data['code'])->firstOrFail()->delete();
 

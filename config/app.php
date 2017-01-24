@@ -190,6 +190,7 @@ return [
         L5Swagger\L5SwaggerServiceProvider::class,
         Krucas\Settings\Providers\SettingsServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        SimpleSoftwareIO\SMS\SMSServiceProvider::class,
 
 
 		/*
@@ -274,5 +275,6 @@ return [
         'JWTAuth'     => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory'  => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Settings' => Krucas\Settings\Facades\Settings::class,
+        'SMS' => SimpleSoftwareIO\SMS\Facades\SMS::class,
     ],
 ];

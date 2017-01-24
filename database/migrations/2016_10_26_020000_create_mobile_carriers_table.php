@@ -15,8 +15,10 @@ class CreateMobileCarriersTable extends Migration
     {
         Schema::create('mobile_carriers', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('country_id');
             $table->string('code')->unique();
             $table->string('label');
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +31,10 @@ class CreateMobileCarriersTable extends Migration
      */
     public function down()
     {
+        Schema::table('mobile_carriers', function (Blueprint $table) {
+            $table->dropForeign('mobile_carriers_country_id_foreign');
+        });
+
         Schema::drop('mobile_carriers');
     }
 }

@@ -30,6 +30,14 @@ class Country extends BaseApiModel
     }
 
     /**
+     * @return HasMany
+     */
+    public function mobileCarriers()
+    {
+        return $this->hasMany(MobileCarrier::class);
+    }
+
+    /**
      * @return HasManyThrough
      */
     public function accounts()

@@ -20,7 +20,8 @@
         "tymon/jwt-auth": "0.5.*",
         "edvinaskrucas/settings": "2.0.0",
         "darkaonline/l5-swagger": "~3.0",
-        "barryvdh/laravel-ide-helper": "^2.2"
+        "barryvdh/laravel-ide-helper": "^2.2",
+        "simplesoftwareio/simple-sms": "3.0.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
