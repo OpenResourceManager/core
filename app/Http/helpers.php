@@ -574,6 +574,7 @@ function jediMasterMobileCarrier()
 {
     return [
         'code' => 'FORCE',
+        'country_code' => 'USA',
         'label' => 'The Force Wireless'
     ];
 }

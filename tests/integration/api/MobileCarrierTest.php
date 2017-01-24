@@ -37,6 +37,7 @@ class MobileCarrierTest extends TestCase
             'id',
             'code',
             'label',
+            'country',
             'updated',
             'created',
 
