@@ -33,7 +33,7 @@ return [
     |
     */
 
-    'subtype' => env('API_SUBTYPE', 'uud_core'),
+    'subtype' => env('API_SUBTYPE', 'orm_core'),
 
     /*
     |--------------------------------------------------------------------------
@@ -83,7 +83,7 @@ return [
     |
     */
 
-    'name' => env('API_NAME', 'UUD Core'),
+    'name' => env('API_NAME', 'ORM Core'),
 
     /*
     |--------------------------------------------------------------------------
