@@ -32,10 +32,21 @@ class AccountTransformer extends TransformerAbstract
             'name_phonetic' => $item->name_phonetic,
         ];
 
-        $dutyTrans = new DutyTransformer();
-        $transformed['primary_duty'] = $dutyTrans->transform($item->primaryDuty);
+
+
 
         $user = auth()->user();
+
+
+        if ($user->hasPermission(Permission::where('name', 'read-duty')->firstOrFail())) {
+            $dutyTrans = new DutyTransformer();
+            $transformed['primary_duty'] = $dutyTrans->transform($item->primaryDuty);
+            $transformed['duties'] = array();
+            foreach ($item->duties as $duty) {
+                $transformed['duties'][] = $dutyTrans->transform($duty);
+            }
+        }
+
 
         $readClassified = Permission::where('name', 'read-classified')->firstOrFail();
         $writeClassified = Permission::where('name', 'write-classified')->firstOrFail();
@@ -47,6 +58,21 @@ class AccountTransformer extends TransformerAbstract
         }
 
 
+        if ($user->hasPermission(Permission::where('name', 'read-email')->firstOrFail())) {
+            $transformed['emails'] = array();
+            $emailTrans = new EmailTransformer();
+            foreach ($item->emails as $email) {
+                $transformed['emails'][] = $emailTrans->transform($email);
+            }
+        }
+
+        if ($user->hasPermission(Permission::where('name', 'read-course')->firstOrFail())) {
+            $transformed['courses'] = array();
+            $courseTrans = new CourseTransformer();
+            foreach ($item->courses as $course) {
+                $transformed['courses'][] = $courseTrans->transform($course);
+            }
+        }
 
         if ($user->hasPermission(Permission::where('name', 'read-email')->firstOrFail())) {
             $transformed['emails'] = array();
