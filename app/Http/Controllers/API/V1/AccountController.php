@@ -47,7 +47,7 @@ class AccountController extends ApiController
      */
     public function index()
     {
-        $accounts = Account::with(['emails', 'mobilePhones', 'addresses',  'duties', 'courses'])->paginate($this->resultLimit);
+        $accounts = Account::with(['emails', 'mobilePhones', 'addresses',  'duties', 'courses.department', 'departments'])->paginate($this->resultLimit);
         event(new AccountsViewed($accounts->pluck('id')->toArray()));
         return $this->response->paginator($accounts, new AccountTransformer);
     }
@@ -62,7 +62,7 @@ class AccountController extends ApiController
      */
     public function show($id)
     {
-        $account = Account::with(['emails', 'mobilePhones', 'addresses',  'duties', 'courses'])->findOrFail($id);
+        $account = Account::with(['emails', 'mobilePhones', 'addresses',  'duties', 'courses.department', 'departments'])->findOrFail($id);
         event(new AccountViewed($account));
         return $this->response->item($account, new AccountTransformer);
     }
@@ -77,7 +77,7 @@ class AccountController extends ApiController
      */
     public function showFromUsername($username)
     {
-        $account = Account::where('username', $username)->with(['emails', 'mobilePhones', 'addresses',  'duties', 'courses'])->firstOrFail();
+        $account = Account::where('username', $username)->with(['emails', 'mobilePhones', 'addresses',  'duties', 'courses.department', 'departments'])->firstOrFail();
         event(new AccountViewed($account));
         return $this->response->item($account, new AccountTransformer);
     }
@@ -92,7 +92,7 @@ class AccountController extends ApiController
      */
     public function showFromIdentifier($identifier)
     {
-        $account = Account::where('identifier', $identifier)->with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses'])->firstOrFail();
+        $account = Account::where('identifier', $identifier)->with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments'])->firstOrFail();
         event(new AccountViewed($account));
         return $this->response->item($account, new AccountTransformer);
     }

@@ -33,8 +33,6 @@ class AccountTransformer extends TransformerAbstract
         ];
 
 
-
-
         $user = auth()->user();
 
 
@@ -63,6 +61,14 @@ class AccountTransformer extends TransformerAbstract
             $emailTrans = new EmailTransformer();
             foreach ($item->emails as $email) {
                 $transformed['emails'][] = $emailTrans->transform($email);
+            }
+        }
+
+        if ($user->hasPermission(Permission::where('name', 'read-department')->firstOrFail())) {
+            $transformed['departments'] = array();
+            $departmentTrans = new DepartmentTransformer();
+            foreach ($item->departments as $department) {
+                $transformed['departments'][] = $departmentTrans->transform($department);
             }
         }
 
