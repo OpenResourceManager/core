@@ -290,7 +290,9 @@ paths:
         - name: should_propagate_password
           in: formData
           required: false
-          type: boolean
+          type: integer
+          minimum: 0
+          maximum: 1
           description: "If this is set to true and a `password` paramater is supplied third party integrations such as Active Directory will use this password for the account within their systems."
         - name: birth_date
           in: formData
@@ -1906,7 +1908,9 @@ paths:
         - name: academic
           in: formData
           required: true
-          type: boolean
+          type: integer
+          minimum: 0
+          maximum: 1
           description: Is the department academic? If so it can have courses.
       responses:
         201:
@@ -2294,7 +2298,9 @@ paths:
           in: formData
           required: false
           default: false
-          type: boolean
+          type: integer
+          minimum: 0
+          maximum: 1
           description: Determines if this email has been verified. By default it assumes the email has not been verified.
       responses:
         201:
@@ -2882,8 +2888,10 @@ paths:
         - name: verified
           in: formData
           required: false
-          default: false
-          type: boolean
+          default: 0
+          type: integer
+          minimum: 0
+          maximum: 1
           description: Determines if this mobile phone has been verified. By default it assumes the mobile phone has not been verified.
       responses:
         201:
@@ -4084,6 +4092,7 @@ definitions:
         type: integer
       academic:
         type: boolean
+        format: int32
       code:
         type: string
       label:
@@ -4332,6 +4341,18 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/transformedEmail'
+      departments:
+        type: array
+        items:
+          $ref: '#/definitions/transformedDepartment'
+      courses:
+        type: array
+        items:
+          $ref: '#/definitions/transformedCourse'
+      duties:
+        type: array
+        items:
+          $ref: '#/definitions/transformedDuty'
       mobile_phones:
         type: array
         items:
