@@ -73,7 +73,7 @@ class CountryController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'code' => 'string|required|max:5|min:3',
+            'code' => 'string|required|max:15|min:3',
             'abbreviation' => 'string|required|max:3|min:2',
             'label' => 'string|required|max:50|min:3'
         ]);

@@ -82,8 +82,8 @@ class CampusController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'code' => 'string|required|max:10|min:3',
-            'label' => 'string|required|max:30|min:3'
+            'code' => 'string|required|max:15|min:3',
+            'label' => 'string|required|max:50|min:3'
         ]);
 
         if ($validator->fails())

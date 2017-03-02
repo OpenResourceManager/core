@@ -81,11 +81,11 @@ class RoomController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'code' => 'string|required|min:3',
+            'code' => 'string|required|min:3|max:15',
             'floor_number' => 'integer',
-            'floor_label' => 'string|max:20',
+            'floor_label' => 'string|max:50|min:3',
             'room_number' => 'integer|required',
-            'room_label' => 'string|max:50',
+            'room_label' => 'string|max:50|min:3',
             'building_id' => 'integer|required_without:building_code|exists:buildings,id,deleted_at,NULL',
             'building_code' => 'string|required_without:building_id|exists:buildings,code,deleted_at,NULL'
         ]);

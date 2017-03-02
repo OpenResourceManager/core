@@ -80,8 +80,8 @@ class DutyController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'code' => 'string|required|min:3',
-            'label' => 'string|required|max:25',
+            'code' => 'string|required|min:3|max:15',
+            'label' => 'string|required|max:50|min:3',
         ]);
 
         if ($validator->fails())
