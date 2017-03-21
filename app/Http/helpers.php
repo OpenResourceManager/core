@@ -479,7 +479,8 @@ function defaultDuties()
         ['code' => 'ADJUNCT', 'label' => 'Adjunct', 'created_at' => $now, 'updated_at' => $now],
         ['code' => 'ALUMNI', 'label' => 'Alumni', 'created_at' => $now, 'updated_at' => $now],
         ['code' => 'GUEST', 'label' => 'Guest', 'created_at' => $now, 'updated_at' => $now],
-        ['code' => 'TENANT', 'label' => 'Tenant', 'created_at' => $now, 'updated_at' => $now]
+        ['code' => 'TENANT', 'label' => 'Tenant', 'created_at' => $now, 'updated_at' => $now],
+        ['code' => 'CONTRACTOR', 'label' => 'Contractor', 'created_at' => $now, 'updated_at' => $now]
     ];
 }
 
