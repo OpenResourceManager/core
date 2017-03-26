@@ -65,9 +65,12 @@ $factory->define(Account::class, function (Faker\Generator $faker) {
 
     $dutyIds = Duty::pluck('id')->all();
     $ssn = $faker->optional()->numberBetween(1000, 9999);
-    $pass = $faker->optional()->password(6);
+    $pass = $faker->optional()->passwordaccount_duty(6);
     $birth_date = $faker->optional()->date('Y-m-d');
-    $expires_at = $faker->dateTimeBetween('+1 days', '+2 years');
+    $expires_at = null;
+    if ($faker->boolean) {
+        $expires_at = $faker->dateTimeBetween('+1 days', '+2 years');
+    }
     $disabled = $faker->boolean;
     $should_propagate_password = false;
     if (!empty($ssn)) $ssn = encrypt($ssn);
