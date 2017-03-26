@@ -293,7 +293,18 @@ paths:
           type: integer
           minimum: 0
           maximum: 1
-          description: "If this is set to true and a `password` paramater is supplied third party integrations such as Active Directory will use this password for the account within their systems."
+          description: "If this is set to true and a `password` parameter is supplied third party integrations such as Active Directory will use this password for the account within their systems."
+        - name: expires_at
+          in: formData
+          required: false
+          type: string
+          description: The acount's expiration date in string format`(yyyy-mm-dd hh:mm) or (yyyy-mm-dd)`.
+        - name: disabled
+          in: formData
+          type: integer
+          minimum: 0
+          maximum: 1
+          description: Determinines if this account is disabled.
         - name: birth_date
           in: formData
           required: false
@@ -3832,7 +3843,11 @@ definitions:
         type: string
       birth_date:
         type: string
-
+      expires_at:
+        type: string
+      disabled:
+        type: boolean
+        format: int32
   Address:
     type: object
     required:
@@ -4333,6 +4348,14 @@ definitions:
         $ref: '#/definitions/transformedDuty'
       ssn:
         type: string
+      expires_at:
+        type: string
+      expired:
+        type: boolean
+        format: int32
+      disabled:
+        type: boolean
+        format: int32
       password:
         type: string
       birth_date:

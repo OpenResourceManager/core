@@ -67,10 +67,12 @@ $factory->define(Account::class, function (Faker\Generator $faker) {
     $ssn = $faker->optional()->numberBetween(1000, 9999);
     $pass = $faker->optional()->password(6);
     $birth_date = $faker->optional()->date('Y-m-d');
+    $expires_at = $faker->dateTimeBetween('+1 days', '+2 years');
+    $disabled = $faker->boolean;
     $should_propagate_password = false;
     if (!empty($ssn)) $ssn = encrypt($ssn);
     if (!empty($pass)) $pass = encrypt($pass);
-    if(!empty($pass)) $should_propagate_password = $faker->boolean;
+    if (!empty($pass)) $should_propagate_password = $faker->boolean;
     if (!empty($birth_date)) $birth_date = encrypt($birth_date);
 
     return [
@@ -86,6 +88,8 @@ $factory->define(Account::class, function (Faker\Generator $faker) {
         'password' => $pass,
         'should_propagate_password' => $should_propagate_password,
         'birth_date' => $birth_date,
+        'expires_at' => $expires_at,
+        'disabled' => $disabled,
         'primary_duty_id' => $faker->randomElement($dutyIds)
     ];
 });

@@ -143,6 +143,8 @@ class AccountController extends ApiController
             'name_postfix' => 'string|max:20',
             'name_phonetic' => 'string',
             'username' => 'string|required|min:3',
+            'expires_at' => 'date|after:now|nullable',
+            'disabled' => 'boolean|nullable',
             'primary_duty_id' => 'integer|required_without:primary_duty_code|exists:duties,id,deleted_at,NULL',
             'primary_duty_code' => 'string|required_without:primary_duty_id|exists:duties,code,deleted_at,NULL'
         ]);

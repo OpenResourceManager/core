@@ -8,6 +8,7 @@ use League\Flysystem\Exception;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Carbon\Carbon;
 
 class Account extends BaseApiModel
 {
@@ -28,7 +29,9 @@ class Account extends BaseApiModel
         'ssn',
         'password',
         'should_propagate_password',
-        'birth_date'
+        'birth_date',
+        'expires_at',
+        'disabled'
     ];
 
     protected $classified = ['password', 'ssn', 'birth_date'];
@@ -119,6 +122,28 @@ class Account extends BaseApiModel
     }
 
     /**
+     * @return bool
+     */
+    public function expired()
+    {
+        // If the expires_at value does not exists, the account never expires
+        if ($this->expires_at == false || is_null($this->expires_at)) {
+            // Account is NOT expired
+            return false;
+        } else {
+            // Check to see if the date is in the future
+            $e = new Carbon($this->expires_at);
+            if ($e >= Carbon::now()) {
+                // Account is NOT expired
+                return false;
+            } else {
+                // Account IS expired
+                return true;
+            }
+        }
+    }
+
+    /**
      *
      *
      * Relationships
@@ -128,7 +153,8 @@ class Account extends BaseApiModel
     /**
      * @return BelongsToMany
      */
-    public function duties()
+    public
+    function duties()
     {
         return $this->belongsToMany(Duty::class);
     }
@@ -136,7 +162,8 @@ class Account extends BaseApiModel
     /**
      * @return BelongsTo
      */
-    public function primaryDuty()
+    public
+    function primaryDuty()
     {
         return $this->belongsTo(Duty::class, 'primary_duty_id');
     }
@@ -144,7 +171,8 @@ class Account extends BaseApiModel
     /**
      * @return HasMany
      */
-    public function emails()
+    public
+    function emails()
     {
         return $this->hasMany(Email::class);
     }
@@ -152,7 +180,8 @@ class Account extends BaseApiModel
     /**
      * @return HasMany
      */
-    public function mobilePhones()
+    public
+    function mobilePhones()
     {
         return $this->hasMany(MobilePhone::class);
     }
@@ -160,7 +189,8 @@ class Account extends BaseApiModel
     /**
      * @return HasMany
      */
-    public function addresses()
+    public
+    function addresses()
     {
         return $this->hasMany(Address::class);
     }
@@ -168,7 +198,8 @@ class Account extends BaseApiModel
     /**
      * @return BelongsToMany
      */
-    public function rooms()
+    public
+    function rooms()
     {
         return $this->belongsToMany(Room::class);
     }
@@ -176,7 +207,8 @@ class Account extends BaseApiModel
     /**
      * @return BelongsToMany
      */
-    public function courses()
+    public
+    function courses()
     {
         return $this->belongsToMany(Course::class);
     }
@@ -184,7 +216,8 @@ class Account extends BaseApiModel
     /**
      * @return BelongsToMany
      */
-    public function departments()
+    public
+    function departments()
     {
         return $this->belongsToMany(Department::class);
     }

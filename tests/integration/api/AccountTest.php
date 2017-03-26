@@ -31,6 +31,9 @@ class AccountTest extends TestCase
             'emails',
             'mobile_phones',
             'addresses',
+            'disabled',
+            'expires_at',
+            'expired',
             'updated',
             'created',
 
@@ -55,6 +58,9 @@ class AccountTest extends TestCase
             'ssn',
             'password',
             'birth_date',
+            'disabled',
+            'expires_at',
+            'expired',
             'updated',
             'created',
 
