@@ -7,10 +7,10 @@ info:
   contact:
     name: Alex Markessinis
     url: 'https://github.com/OpenResourceManager/Core'
-    email: markea@sage.edu
+    email: markea125@gmail.com
   license:
     name: MIT
-    url: 'https://opensource.org/licenses/MIT'
+    url: 'https://raw.githubusercontent.com/OpenResourceManager/Core/master/LICENSE'
   version: 1.0.0
 basePath: /api/v1
 consumes:
