@@ -36,6 +36,7 @@ class AccountCreated extends Event
                     $trans['password'] = decrypt($trans['password']);
                 }
                 $trans['username'] = strtolower($trans['username']);
+                $trans['expired'] = $account->expired();
 
                 $data_to_secure = json_encode([
                     'data' => $trans,

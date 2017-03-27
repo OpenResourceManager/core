@@ -27,6 +27,8 @@ class CreateAccountsTable extends Migration
             $table->boolean('should_propagate_password')->default(false);
             $table->string('ssn')->nullable();
             $table->string('birth_date')->nullable();
+            $table->dateTime('expires_at')->nullable();
+            $table->boolean('disabled')->default(false);
             $table->integer('primary_duty_id')->unsigned()->nullable();
             $table->foreign('primary_duty_id')->references('id')->on('duties')->onDelete('set null');
             $table->timestamps();

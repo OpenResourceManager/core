@@ -30,6 +30,9 @@ class AccountTransformer extends TransformerAbstract
             'name_last' => $item->name_last,
             'name_postfix' => $item->name_postfix,
             'name_phonetic' => $item->name_phonetic,
+            'disabled' => $item->disabled,
+            'expires_at' => $item->expires_at,
+            'expired' => $item->expired(),
         ];
 
 
