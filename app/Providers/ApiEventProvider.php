@@ -33,7 +33,7 @@ use App\Http\Models\API\Duty;
 use App\Http\Models\API\Room;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Models\API\Account;
-use App\Events\Api\Account\AccountCreated;
+use App\Events\Api\Account\AliasAccountCreated;
 use App\Events\Api\Account\AccountUpdated;
 use App\Events\Api\Account\AccountDestroyed;
 use App\Events\Api\Account\AccountRestored;
@@ -52,7 +52,7 @@ class ApiEventProvider extends ServiceProvider
          * Account Events
          */
         Account::created(function (Account $account) {
-            event(new AccountCreated($account));
+            event(new AliasAccountCreated($account));
         });
 
         Account::updated(function (Account $account) {

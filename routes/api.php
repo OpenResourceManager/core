@@ -129,6 +129,23 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
             });
 
             /**
+             * Alias Accounts
+             */
+            $api->group(['prefix' => 'alias-accounts'], function ($api) {
+                $api->group(['middleware' => 'access.routeNeedsPermission:read-alias-account'], function ($api) {
+                    $api->get('/', ['uses' => 'AliasAccountController@index', 'as' => 'api.alias-accounts.index']);
+                    $api->get('/{id}', ['uses' => 'AliasAccountController@show', 'as' => 'api.alias-accounts.show']);
+                    $api->get('/username/{username}', ['uses' => 'AliasAccountController@showFromUsername', 'as' => 'api.alias-accounts.show_from_username']);
+                    $api->get('/identifier/{identifier}', ['uses' => 'AliasAccountController@showFromIdentifier', 'as' => 'api.alias-accounts.show_from_identifier']);
+                });
+
+                $api->group(['middleware' => 'access.routeNeedsPermission:write-alias-account'], function ($api) {
+                    $api->post('/', ['uses' => 'AliasAccountController@store', 'as' => 'api.alias-accounts.store']);
+                    $api->delete('/', ['uses' => 'AliasAccountController@destroy', 'as' => 'api.alias-accounts.destroy']);
+                });
+            });
+
+            /**
              * Emails
              */
             $api->group(['prefix' => 'emails'], function ($api) {

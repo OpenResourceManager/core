@@ -29,15 +29,10 @@ class AccountTransformer extends TransformerAbstract
             'name_middle' => $item->name_middle,
             'name_last' => $item->name_last,
             'name_postfix' => $item->name_postfix,
-            'name_phonetic' => $item->name_phonetic,
-            'disabled' => $item->disabled,
-            'expires_at' => $item->expires_at,
-            'expired' => $item->expired(),
+            'name_phonetic' => $item->name_phonetic
         ];
 
-
         $user = auth()->user();
-
 
         if ($user->hasPermission(Permission::where('name', 'read-duty')->firstOrFail())) {
             $dutyTrans = new DutyTransformer();
@@ -48,7 +43,6 @@ class AccountTransformer extends TransformerAbstract
             }
         }
 
-
         $readClassified = Permission::where('name', 'read-classified')->firstOrFail();
         $writeClassified = Permission::where('name', 'write-classified')->firstOrFail();
 
@@ -57,7 +51,6 @@ class AccountTransformer extends TransformerAbstract
             $transformed['password'] = (!empty($item->password)) ? decrypt($item->password) : null;
             $transformed['birth_date'] = (!empty($item->birth_date)) ? decrypt($item->birth_date) : null;
         }
-
 
         if ($user->hasPermission(Permission::where('name', 'read-email')->firstOrFail())) {
             $transformed['emails'] = array();
@@ -107,6 +100,13 @@ class AccountTransformer extends TransformerAbstract
             }
         }
 
+        $transformed['disabled'] = $item->disabled;
+        $transformed['expired'] = $item->expired();
+        if (!is_null($item->expires_at) && !empty($item->expires_at)) {
+            $transformed['expires'] = date('Y-m-d - H:i:s', strtotime($item->expires_at));
+        } else {
+            $transformed['expires'] = $item->expires_at;
+        }
         $transformed['created'] = date('Y-m-d - H:i:s', strtotime($item->created_at));
         $transformed['updated'] = date('Y-m-d - H:i:s', strtotime($item->updated_at));
         return $transformed;

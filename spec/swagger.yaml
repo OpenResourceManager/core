@@ -4348,14 +4348,6 @@ definitions:
         $ref: '#/definitions/transformedDuty'
       ssn:
         type: string
-      expires_at:
-        type: string
-      expired:
-        type: boolean
-        format: int32
-      disabled:
-        type: boolean
-        format: int32
       password:
         type: string
       birth_date:
@@ -4384,6 +4376,14 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/transformedAddress'
+      disabled:
+        type: boolean
+        format: int32
+      expired:
+        type: boolean
+        format: int32
+      expires:
+        type: string
       updated:
         type: string
       created:

@@ -47,7 +47,7 @@ class AccountController extends ApiController
      */
     public function index()
     {
-        $accounts = Account::with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments'])->paginate($this->resultLimit);
+        $accounts = Account::with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments', 'aliasAccounts'])->paginate($this->resultLimit);
         event(new AccountsViewed($accounts->pluck('id')->toArray()));
         return $this->response->paginator($accounts, new AccountTransformer);
     }

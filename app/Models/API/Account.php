@@ -33,7 +33,6 @@ class Account extends BaseApiModel
         'expires_at',
         'disabled'
     ];
-
     protected $classified = ['password', 'ssn', 'birth_date'];
 
     /**
@@ -56,6 +55,8 @@ class Account extends BaseApiModel
 
     /**
      * Account constructor.
+     * @param array $attributes
+     * @param bool $permitted
      */
     public function __construct($attributes = array(), $permitted = false)
     {
@@ -153,8 +154,7 @@ class Account extends BaseApiModel
     /**
      * @return BelongsToMany
      */
-    public
-    function duties()
+    public function duties()
     {
         return $this->belongsToMany(Duty::class);
     }
@@ -162,8 +162,7 @@ class Account extends BaseApiModel
     /**
      * @return BelongsTo
      */
-    public
-    function primaryDuty()
+    public function primaryDuty()
     {
         return $this->belongsTo(Duty::class, 'primary_duty_id');
     }
@@ -171,8 +170,7 @@ class Account extends BaseApiModel
     /**
      * @return HasMany
      */
-    public
-    function emails()
+    public function emails()
     {
         return $this->hasMany(Email::class);
     }
@@ -180,8 +178,7 @@ class Account extends BaseApiModel
     /**
      * @return HasMany
      */
-    public
-    function mobilePhones()
+    public function mobilePhones()
     {
         return $this->hasMany(MobilePhone::class);
     }
@@ -189,17 +186,23 @@ class Account extends BaseApiModel
     /**
      * @return HasMany
      */
-    public
-    function addresses()
+    public function addresses()
     {
         return $this->hasMany(Address::class);
     }
 
     /**
+     * @return HasMany
+     */
+    public function aliasAccounts()
+    {
+        return $this->hasMany(AliasAccount::class);
+    }
+
+    /**
      * @return BelongsToMany
      */
-    public
-    function rooms()
+    public function rooms()
     {
         return $this->belongsToMany(Room::class);
     }
@@ -207,8 +210,7 @@ class Account extends BaseApiModel
     /**
      * @return BelongsToMany
      */
-    public
-    function courses()
+    public function courses()
     {
         return $this->belongsToMany(Course::class);
     }
@@ -216,9 +218,10 @@ class Account extends BaseApiModel
     /**
      * @return BelongsToMany
      */
-    public
-    function departments()
+    public function departments()
     {
         return $this->belongsToMany(Department::class);
     }
+
+
 }

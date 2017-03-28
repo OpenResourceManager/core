@@ -94,6 +94,22 @@ class PermissionTableSeeder extends Seeder
                 'display_name' => 'API: Write Classified Attributes',
             ],
             [
+                'name' => 'read-alias-account',
+                'display_name' => 'API: Read Alias Account',
+            ],
+            [
+                'name' => 'write-alias-account',
+                'display_name' => 'API: Write Alias Account',
+            ],
+            [
+                'name' => 'read-alias-classified',
+                'display_name' => 'API: Read Classified Attributes on Alias Accounts',
+            ],
+            [
+                'name' => 'write-alias-classified',
+                'display_name' => 'API: Write Classified Attributes on Alias Accounts',
+            ],
+            [
                 'name' => 'read-address',
                 'display_name' => 'API: Read Address',
             ],
