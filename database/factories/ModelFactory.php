@@ -102,6 +102,7 @@ $factory->define(AliasAccount::class, function (Faker\Generator $faker) {
     $accountIds = Account::pluck('id')->all();
     $pass = $faker->optional()->password(6);
     $expires_at = null;
+    if (!empty($pass)) $pass = encrypt($pass);
 
     if ($faker->boolean) {
         $expires_at = $faker->dateTimeBetween('+1 days', '+2 years');
