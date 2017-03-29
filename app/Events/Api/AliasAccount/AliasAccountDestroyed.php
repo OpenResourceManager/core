@@ -44,7 +44,7 @@ class AliasAccountDestroyed extends Event
 
                 $message = [
                     'event' => 'deleted',
-                    'type' => 'account',
+                    'type' => 'alias-account',
                     'encrypted' => $secure_data
                 ];
 

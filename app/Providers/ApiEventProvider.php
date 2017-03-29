@@ -25,6 +25,7 @@ use App\Events\Api\Room\RoomCreated;
 use App\Events\Api\Room\RoomDestroyed;
 use App\Events\Api\Room\RoomRestored;
 use App\Events\Api\Room\RoomUpdated;
+use App\Http\Models\API\AliasAccount;
 use App\Http\Models\API\Building;
 use App\Http\Models\API\Campus;
 use App\Http\Models\API\Course;
@@ -33,11 +34,15 @@ use App\Http\Models\API\Duty;
 use App\Http\Models\API\Room;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Models\API\Account;
-use App\Events\Api\Account\AliasAccountCreated;
+use App\Events\Api\Account\AccountCreated;
 use App\Events\Api\Account\AccountUpdated;
 use App\Events\Api\Account\AccountDestroyed;
 use App\Events\Api\Account\AccountRestored;
 use App\Events\Api\Duty\DutyCreated;
+use App\Events\Api\AliasAccount\AliasAccountCreated;
+use App\Events\Api\AliasAccount\AliasAccountUpdated;
+use App\Events\Api\AliasAccount\AliasAccountRestored;
+use App\Events\Api\AliasAccount\AliasAccountDestroyed;
 
 class ApiEventProvider extends ServiceProvider
 {
@@ -52,7 +57,7 @@ class ApiEventProvider extends ServiceProvider
          * Account Events
          */
         Account::created(function (Account $account) {
-            event(new AliasAccountCreated($account));
+            event(new AccountCreated($account));
         });
 
         Account::updated(function (Account $account) {
@@ -65,6 +70,25 @@ class ApiEventProvider extends ServiceProvider
 
         Account::restored(function (Account $account) {
             event(new AccountRestored($account));
+        });
+
+        /**
+         * Alias Account Events
+         */
+        AliasAccount::created(function (AliasAccount $account) {
+            event(new AliasAccountCreated($account));
+        });
+
+        AliasAccount::updated(function (AliasAccount $account) {
+            event(new AliasAccountUpdated($account));
+        });
+
+        AliasAccount::deleted(function (AliasAccount $account) {
+            event(new AliasAccountDestroyed($account));
+        });
+
+        AliasAccount::restored(function (AliasAccount $account) {
+            event(new AliasAccountRestored($account));
         });
 
         /**

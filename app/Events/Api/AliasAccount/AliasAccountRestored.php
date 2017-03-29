@@ -49,7 +49,7 @@ class AliasAccountRestored extends Event
 
                 $message = [
                     'event' => 'restored',
-                    'type' => 'account',
+                    'type' => 'alias-account',
                     'encrypted' => $secure_data
                 ];
 

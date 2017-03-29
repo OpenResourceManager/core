@@ -28,14 +28,12 @@ class AliasAccountUpdated extends Event
 
             if (Settings::get('broadcast-events', false)) {
 
-                $account->primary_duty = $account->primaryDuty;
-
                 $trans = $account->toArray();
-                $trans['name_full'] = $account->format_full_name(true);
                 if (array_key_exists('password', $trans)) {
                     $trans['password'] = decrypt($trans['password']);
                 }
                 $trans['username'] = strtolower($trans['username']);
+                $trans['expired'] = $account->expired();
 
                 $data_to_secure = json_encode([
                     'data' => $trans,
@@ -48,7 +46,7 @@ class AliasAccountUpdated extends Event
 
                 $message = [
                     'event' => 'updated',
-                    'type' => 'account',
+                    'type' => 'alias-account',
                     'encrypted' => $secure_data
                 ];
 
