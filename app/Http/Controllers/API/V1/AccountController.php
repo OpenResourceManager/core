@@ -47,7 +47,7 @@ class AccountController extends ApiController
      */
     public function index()
     {
-        $accounts = Account::with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments'])->paginate($this->resultLimit);
+        $accounts = Account::with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments', 'aliasAccounts'])->paginate($this->resultLimit);
         event(new AccountsViewed($accounts->pluck('id')->toArray()));
         return $this->response->paginator($accounts, new AccountTransformer);
     }
@@ -135,14 +135,14 @@ class AccountController extends ApiController
         }
 
         $validator = Validator::make($data, [
-            'identifier' => 'alpha_num|required|max:7|min:6',
+            'identifier' => 'alpha_num|required|max:7|min:6|unique:alias_accounts,identifier',
             'name_prefix' => 'string|max:20',
             'name_first' => 'string|required|min:1',
             'name_middle' => 'string',
             'name_last' => 'string|required|min:1',
             'name_postfix' => 'string|max:20',
             'name_phonetic' => 'string',
-            'username' => 'string|required|min:3',
+            'username' => 'string|required|min:3|unique:alias_accounts,username',
             'expires_at' => 'date|after:now|nullable',
             'disabled' => 'boolean|nullable',
             'primary_duty_id' => 'integer|required_without:primary_duty_code|exists:duties,id,deleted_at,NULL',

@@ -875,6 +875,271 @@ paths:
         429:
           $ref: '#/responses/429'
 
+  ##################
+  # Alias Accounts #
+  ##################
+  /alias-accounts:
+    post:
+      tags:
+        - Alias Accounts
+      summary: Create/Update/Restore alias account.
+      description: Store alias account information. Creates, updates, restores, an alias account based on it's current status
+      produces:
+        - application/json
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: identifier
+          in: formData
+          required: true
+          type: string
+          description: Unique identifier for alias account.
+        - name: username
+          in: formData
+          required: true
+          type: string
+          description: Unqiue username for alias account.
+        - name: password
+          in: formData
+          required: false
+          type: string
+          description: The inital password assigned to this alias account when it is created. This is only availble to API consumers who have classified permissions.
+        - name: should_propagate_password
+          in: formData
+          required: false
+          type: integer
+          minimum: 0
+          maximum: 1
+          description: "If this is set to true and a `password` parameter is supplied third party integrations such as Google Apps will use this password for the alias account within their systems."
+        - name: account_id
+          in: formData
+          required: false
+          type: integer
+          description: Unique primary key of alias account owner. This is required without the `account_identifier` or `account_username` parameters.
+        - name: account_identifier
+          in: formData
+          required: false
+          type: string
+          description: Unique identifier string of the alias account owner. This is required without the `account_id` or `account_username` parameters.
+        - name: account_username
+          in: formData
+          required: false
+          type: string
+          description: Unique username string of the alias account owner. This is required without the `account_id` or `account_identifier` parameters.
+        - name: expires_at
+          in: formData
+          required: false
+          type: string
+          description: The alias acount's expiration date in string format`(yyyy-mm-dd hh:mm) or (yyyy-mm-dd)`.
+        - name: disabled
+          in: formData
+          type: integer
+          minimum: 0
+          maximum: 1
+          description: Determinines if this alias account is disabled.
+      responses:
+        201:
+          description: Alias Account Created. The alias account information has been stored and the alias account was either created, updated, or restored based on the information that was provided.
+          headers:
+            location:
+              description: A URL to the new object.
+              type: string
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds left in the current period
+              type: integer
+          schema:
+            properties:
+              data:
+                $ref: '#/definitions/transformedAliasAccount'
+        401:
+          $ref: '#/responses/401'
+        422:
+          $ref: '#/responses/422'
+        429:
+          $ref: '#/responses/429'
+
+    get:
+      tags:
+        - Alias Accounts
+      summary: List alias accounts in a paginated format.
+      description: Return a paginated list of alias accounts.
+      parameters:
+        - $ref: '#/parameters/pages'
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A list of alias accounts
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds left in the current period
+              type: integer
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/transformedAliasAccount'
+              meta:
+                $ref: '#/definitions/meta'
+        401:
+          $ref: '#/responses/401'
+        429:
+          $ref: '#/responses/429'
+
+    delete:
+      tags:
+        - Alias Accounts
+      summary: Delete an alias account.
+      description: Delete an alias account based on `id`, `identifier`, or `username`. At least one of those parameters must be supplied.
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: id
+          in: formData
+          required: false
+          type: integer
+          description: Unique primary key for alias account.
+        - name: identifier
+          in: formData
+          required: false
+          type: string
+          description: Unique identifier for alias account.
+        - name: username
+          in: formData
+          required: false
+          type: string
+          description: Unique username for alias account.
+      responses:
+        204:
+          $ref: '#/responses/204'
+        401:
+          $ref: '#/responses/401'
+        422:
+          $ref: '#/responses/422'
+        429:
+          $ref: '#/responses/429'
+
+  /alias-accounts/{id}:
+    get:
+      tags:
+        - Alias Accounts
+      summary: Show an alias account by ID
+      description: Retrieve a specific alias account based on it's primary key id value.
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+          description: Unique primary key for alias account.
+      responses:
+        200:
+          description: Account Found
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds left in the current period
+              type: integer
+          schema:
+            properties:
+              data:
+                $ref: '#/definitions/transformedAliasAccount'
+        401:
+          $ref: '#/responses/401'
+        429:
+          $ref: '#/responses/429'
+
+  /alias-accounts/identifier/{identifier}:
+    get:
+      tags:
+        - Alias Accounts
+      summary: Show an alias account by Identifier
+      description: Retrieve a specific alias account based on it's `identifier` value.
+      produces:
+        - application/json
+      parameters:
+        - name: identifier
+          in: path
+          required: true
+          type: string
+          description: Unique identifier for alias account.
+      responses:
+        200:
+          description: Account Found
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds left in the current period
+              type: integer
+          schema:
+            properties:
+              data:
+                $ref: '#/definitions/transformedAliasAccount'
+        401:
+          $ref: '#/responses/401'
+        429:
+          $ref: '#/responses/429'
+
+  /alias-accounts/username/{username}:
+    get:
+      tags:
+        - Alias Accounts
+      summary: Show an alias account by Username
+      description: Retrieve a specific alias account based on it's `username` value.
+      produces:
+        - application/json
+      parameters:
+        - name: username
+          in: path
+          required: true
+          type: string
+          description: Unique username for alias account.
+      responses:
+        200:
+          description: Account Found
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds left in the current period
+              type: integer
+          schema:
+            properties:
+              data:
+                $ref: '#/definitions/transformedAliasAccount'
+        401:
+          $ref: '#/responses/401'
+        429:
+          $ref: '#/responses/429'
+
   #############
   # Addresses #
   #############
@@ -3848,6 +4113,28 @@ definitions:
       disabled:
         type: boolean
         format: int32
+
+  AliasAccount:
+    type: object
+    required:
+      - identifier
+      - username
+      - account_id
+    properties:
+      account_id:
+        type: integer
+      identifier:
+        type: string
+      username:
+        type: string
+      password:
+        type: string
+      expires_at:
+        type: string
+      disabled:
+        type: boolean
+        format: int32
+
   Address:
     type: object
     required:
@@ -4323,6 +4610,32 @@ definitions:
       created:
         type: string
 
+  transformedAliasAccount:
+    type: object
+    properties:
+      id:
+        type: integer
+      account_id:
+        type: integer
+      identifier:
+        type: string
+      username:
+        type: string
+      password:
+        type: string
+      disabled:
+        type: boolean
+        format: int32
+      expired:
+        type: boolean
+        format: int32
+      expires:
+        type: string
+      updated:
+        type: string
+      created:
+        type: string
+
   transformedAccount:
     type: object
     properties:
@@ -4348,14 +4661,6 @@ definitions:
         $ref: '#/definitions/transformedDuty'
       ssn:
         type: string
-      expires_at:
-        type: string
-      expired:
-        type: boolean
-        format: int32
-      disabled:
-        type: boolean
-        format: int32
       password:
         type: string
       birth_date:
@@ -4384,6 +4689,14 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/transformedAddress'
+      disabled:
+        type: boolean
+        format: int32
+      expired:
+        type: boolean
+        format: int32
+      expires:
+        type: string
       updated:
         type: string
       created:

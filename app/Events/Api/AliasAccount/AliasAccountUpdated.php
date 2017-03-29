@@ -1,36 +1,34 @@
 <?php
 
-namespace App\Events\Api\Account;
+namespace App\Events\Api\AliasAccount;
 
 use App\Events\Event;
 use Illuminate\Support\Facades\Log;
-use App\Http\Models\API\Account;
+use App\Http\Models\API\AliasAccount;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
 
-class AccountUpdated extends Event
+class AliasAccountUpdated extends Event
 {
     /**
-     * AccountUpdated constructor.
-     * @param Account $account
+     * AliasAccountUpdated constructor.
+     * @param AliasAccount $account
      */
-    public function __construct(Account $account)
+    public function __construct(AliasAccount $account)
     {
-        Log::info('Account Updated:', [
+        Log::info('Alias Account Updated:', [
             'id' => $account->id,
             'identifier' => $account->identifier,
             'username' => $account->username,
-            'name' => $account->format_full_name(true)
+            'owner' => $account->account->format_full_name(true),
+            'owner_username' => $account->account->username
         ]);
 
         if (auth()->user()) {
 
             if (Settings::get('broadcast-events', false)) {
 
-                $account->primary_duty = $account->primaryDuty;
-
                 $trans = $account->toArray();
-                $trans['name_full'] = $account->format_full_name(true);
                 if (array_key_exists('password', $trans)) {
                     $trans['password'] = decrypt($trans['password']);
                 }
@@ -48,7 +46,7 @@ class AccountUpdated extends Event
 
                 $message = [
                     'event' => 'updated',
-                    'type' => 'account',
+                    'type' => 'alias-account',
                     'encrypted' => $secure_data
                 ];
 
@@ -56,10 +54,10 @@ class AccountUpdated extends Event
             }
 
             history()->log(
-                'Account',
-                'updated an account for ' . $account->format_full_name() . ' [' . $account->identifier . ']',
+                'AliasAccount',
+                'updated an alias account for ' . $account->account->format_full_name() . ' ' . $account->account->username . ' --> ' . $account->username,
                 $account->id,
-                'user-circle',
+                'fa-id-card-o',
                 'bg-lime'
             );
         }

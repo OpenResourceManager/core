@@ -131,6 +131,12 @@ class HistoryTypeTableSeeder extends Seeder {
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
+            [
+                'id' => 19,
+                'name' => 'AliasAccount',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
 		];
 
 		DB::table('history_types')->insert($types);

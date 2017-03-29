@@ -1,26 +1,28 @@
 <?php
 
-namespace App\Events\Api\Account;
+namespace App\Events\Api\AliasAccount;
 
-use App\Events\Event;
-use Illuminate\Support\Facades\Log;
-use App\Http\Models\API\Account;
-use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
+use App\Events\Event;
+use Illuminate\Support\Facades\Redis;
+use App\Http\Models\API\AliasAccount;
+use Illuminate\Support\Facades\Log;
 
-class AccountUpdated extends Event
+class AliasAccountRestored extends Event
 {
+
     /**
-     * AccountUpdated constructor.
-     * @param Account $account
+     * AliasAccountRestored constructor.
+     * @param AliasAccount $account
      */
-    public function __construct(Account $account)
+    public function __construct(AliasAccount $account)
     {
-        Log::info('Account Updated:', [
+        Log::info('Alias Account Restored:', [
             'id' => $account->id,
             'identifier' => $account->identifier,
             'username' => $account->username,
-            'name' => $account->format_full_name(true)
+            'owner' => $account->account->format_full_name(true),
+            'owner_username' => $account->account->username
         ]);
 
         if (auth()->user()) {
@@ -28,14 +30,13 @@ class AccountUpdated extends Event
             if (Settings::get('broadcast-events', false)) {
 
                 $account->primary_duty = $account->primaryDuty;
-
                 $trans = $account->toArray();
                 $trans['name_full'] = $account->format_full_name(true);
                 if (array_key_exists('password', $trans)) {
                     $trans['password'] = decrypt($trans['password']);
                 }
                 $trans['username'] = strtolower($trans['username']);
-                $trans['expired'] = $account->expired();
+                if (empty($trans['name_middle'])) unset($trans['name_middle']);
 
                 $data_to_secure = json_encode([
                     'data' => $trans,
@@ -47,8 +48,8 @@ class AccountUpdated extends Event
                 $secure_data = encrypt_broadcast_data($data_to_secure);
 
                 $message = [
-                    'event' => 'updated',
-                    'type' => 'account',
+                    'event' => 'restored',
+                    'type' => 'alias-account',
                     'encrypted' => $secure_data
                 ];
 
@@ -56,10 +57,10 @@ class AccountUpdated extends Event
             }
 
             history()->log(
-                'Account',
-                'updated an account for ' . $account->format_full_name() . ' [' . $account->identifier . ']',
+                'AliasAccount',
+                'restored an alias account for ' . $account->account->format_full_name() . ' ' . $account->account->username  . ' --> ' . $account->username,
                 $account->id,
-                'user-circle',
+                'fa-id-card-o',
                 'bg-lime'
             );
         }

@@ -101,7 +101,21 @@ class RoleTableSeeder extends Seeder
                 'sort' => 10,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
-            ]
+            ],
+            [
+                'name' => 'Alias Manager',
+                'all' => false,
+                'sort' => 11,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'name' => 'Alias Viewer',
+                'all' => false,
+                'sort' => 12,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
 
         ];
 
