@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Access\Permission\Permission;
 use App\Http\Models\API\Account;
 use Dingo\Api\Exception\DeleteResourceFailedException;
+use App\Events\Api\AliasAccount\AliasAccountViewed;
+use App\Events\Api\AliasAccount\AliasAccountsViewed;
 
 class AliasAccountController extends ApiController
 {
@@ -35,6 +37,7 @@ class AliasAccountController extends ApiController
     public function index()
     {
         $alias_accounts = AliasAccount::paginate($this->resultLimit);
+        event(new AliasAccountsViewed($alias_accounts->pluck('id')->toArray()));
         return $this->response->paginator($alias_accounts, new AliasAccountTransformer);
     }
 
@@ -49,7 +52,7 @@ class AliasAccountController extends ApiController
     public function show($id)
     {
         $alias_account = AliasAccount::findOrFail($id);
-        //event(new AccountViewed($alias_account));
+        event(new AliasAccountViewed($alias_account));
         return $this->response->item($alias_account, new AliasAccountTransformer);
     }
 
@@ -63,9 +66,9 @@ class AliasAccountController extends ApiController
      */
     public function showFromUsername($username)
     {
-        $account = AliasAccount::where('username', $username)->firstOrFail();
-        //event(new AccountViewed($account));
-        return $this->response->item($account, new AliasAccountTransformer);
+        $alias_account = AliasAccount::where('username', $username)->firstOrFail();
+        event(new AliasAccountViewed($alias_account));
+        return $this->response->item($alias_account, new AliasAccountTransformer);
     }
 
     /**
@@ -78,9 +81,9 @@ class AliasAccountController extends ApiController
      */
     public function showFromIdentifier($identifier)
     {
-        $account = AliasAccount::where('identifier', $identifier)->firstOrFail();
-        //event(new AccountViewed($account));
-        return $this->response->item($account, new AliasAccountTransformer);
+        $alias_account = AliasAccount::where('identifier', $identifier)->firstOrFail();
+        event(new AliasAccountViewed($alias_account));
+        return $this->response->item($alias_account, new AliasAccountTransformer);
     }
 
     /**
