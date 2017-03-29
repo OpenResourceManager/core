@@ -84,7 +84,7 @@ class BuildingController extends ApiController
         $validator = Validator::make($data, [
             'campus_id' => 'integer|required_without:campus_code|exists:campuses,id,deleted_at,NULL',
             'campus_code' => 'string|required_without:campus_id|exists:campuses,code,deleted_at,NULL',
-            'code' => 'string|required|max:15|min:3',
+            'code' => 'alpha_dash|required|max:15|min:3',
             'label' => 'string|required|max:50|min:3'
         ]);
 

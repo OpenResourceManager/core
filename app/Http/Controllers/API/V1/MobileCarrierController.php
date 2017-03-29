@@ -77,8 +77,8 @@ class MobileCarrierController extends ApiController
 
         $validator = Validator::make($data, [
             'country_id' => 'integer|required_without:country_code|exists:countries,id,deleted_at,NULL',
-            'country_code' => 'string|required_without:country_id|exists:countries,code,deleted_at,NULL',
-            'code' => 'string|required|min:3|max:15',
+            'country_code' => 'alpha|required_without:country_id|exists:countries,code,deleted_at,NULL',
+            'code' => 'alpha_dash|required|min:3|max:15',
             'label' => 'string|required|max:50|min:3',
         ]);
 

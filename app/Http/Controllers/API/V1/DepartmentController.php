@@ -81,7 +81,7 @@ class DepartmentController extends ApiController
 
         $validator = Validator::make($data, [
             'academic' => 'boolean|required',
-            'code' => 'string|required|min:3|max:15',
+            'code' => 'alpha_dash|required|min:3|max:15',
             'label' => 'string|required|max:50|min:3',
         ]);
 

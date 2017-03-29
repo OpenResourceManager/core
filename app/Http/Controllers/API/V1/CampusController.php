@@ -107,7 +107,7 @@ class CampusController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'code' => 'string|required_without:id|exists:campuses,code,deleted_at,NULL',
+            'code' => 'alpha_dash|required_without:id|exists:campuses,code,deleted_at,NULL',
             'id' => 'integer|required_without:code|exists:campuses,id,deleted_at,NULL'
         ]);
 

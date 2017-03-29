@@ -83,7 +83,7 @@ class CourseController extends ApiController
         $validator = Validator::make($data, [
             'department_id' => 'integer|min:1|required_without:department_code|exists:departments,id,deleted_at,NULL',
             'department_code' => 'string|min:3|max:15|required_without:department_id|exists:departments,code,deleted_at,NULL',
-            'code' => 'string|required|min:3|max:15',
+            'code' => 'alpha_dash|required|min:3|max:15',
             'course_level' => 'integer|required',
             'label' => 'string|required|min:3|max:50',
         ]);
