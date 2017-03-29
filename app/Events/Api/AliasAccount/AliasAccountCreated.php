@@ -21,8 +21,8 @@ class AliasAccountCreated extends Event
             'id' => $account->id,
             'identifier' => $account->identifier,
             'username' => $account->username,
-            'owner' => $account->owner->format_full_name(true),
-            'owner_username' => $account->owner->username
+            'owner' => $account->account->format_full_name(true),
+            'owner_username' => $account->account->username
         ]);
 
         if (auth()->user()) {
@@ -57,7 +57,7 @@ class AliasAccountCreated extends Event
 
             history()->log(
                 'AliasAccount',
-                'created a new alias account for ' . $account->owner->format_full_name() . ' - ' . $account->owner->username . ' --> ' . $account->username,
+                'created a new alias account for ' . $account->account->format_full_name() . ' - ' . $account->account->username . ' --> ' . $account->username,
                 $account->id,
                 'fa-id-card-o',
                 'bg-green'

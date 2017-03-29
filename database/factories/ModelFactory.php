@@ -7,6 +7,7 @@ use App\Http\Models\API\State;
 use App\Http\Models\API\MobileCarrier;
 use App\Http\Models\API\Duty;
 use App\Http\Models\API\Account;
+use App\Http\Models\API\AliasAccount;
 use App\Http\Models\API\Email;
 use App\Http\Models\API\MobilePhone;
 use App\Http\Models\API\Address;
@@ -96,6 +97,30 @@ $factory->define(Account::class, function (Faker\Generator $faker) {
         'primary_duty_id' => $faker->randomElement($dutyIds)
     ];
 });
+
+$factory->define(AliasAccount::class, function (Faker\Generator $faker) {
+    $accountIds = Account::pluck('id')->all();
+    $pass = $faker->optional()->password(6);
+    $expires_at = null;
+
+    if ($faker->boolean) {
+        $expires_at = $faker->dateTimeBetween('+1 days', '+2 years');
+    }
+
+    $disabled = $faker->boolean;
+    $should_propagate_password = false;
+
+    return [
+        'account_id' => $faker->randomElement($accountIds),
+        'identifier' => strval($faker->unique()->randomNumber($nbDigits = 7, $strict = true)),
+        'username' => $faker->unique()->userName,
+        'password' => $pass,
+        'should_propagate_password' => $should_propagate_password,
+        'expires_at' => $expires_at,
+        'disabled' => $disabled
+    ];
+});
+
 
 $factory->define(Email::class, function (Faker\Generator $faker) {
 

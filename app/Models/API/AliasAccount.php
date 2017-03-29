@@ -30,7 +30,7 @@ class AliasAccount extends BaseApiModel
         if ($user = auth()->user()) {
             try {
                 $readClassified = Permission::where('name', 'read-alias-classified')->firstOrFail();
-                $writeClassified = Permission::where('name', 'write--alias-classified')->firstOrFail();
+                $writeClassified = Permission::where('name', 'write-alias-classified')->firstOrFail();
                 $permitted = $user->hasPermissions([$readClassified, $writeClassified]);
             } catch (Exception $e) {
                 $permitted = false;
@@ -71,14 +71,6 @@ class AliasAccount extends BaseApiModel
                 return true;
             }
         }
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function owner()
-    {
-        return $this->belongsTo(Account::class);
     }
 
     /**

@@ -21,8 +21,8 @@ class AliasAccountDestroyed extends Event
             'id' => $account->id,
             'identifier' => $account->identifier,
             'username' => $account->username,
-            'owner' => $account->owner->format_full_name(true),
-            'owner_username' => $account->owner->username
+            'owner' => $account->account->format_full_name(true),
+            'owner_username' => $account->account->username
         ]);
 
         if (auth()->user()) {
@@ -53,7 +53,7 @@ class AliasAccountDestroyed extends Event
 
             history()->log(
                 'AliasAccount',
-                'deleted an alias account for ' . $account->owner->format_full_name() . ' [' . $account->username . ']',
+                'deleted an alias account for ' . $account->account->format_full_name() . ' [' . $account->username . ']',
                 $account->id,
                 'fa-id-card-o',
                 'bg-red'

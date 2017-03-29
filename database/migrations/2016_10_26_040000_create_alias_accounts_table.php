@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAliasAccounts extends Migration
+class CreateAliasAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,6 +15,7 @@ class CreateAliasAccounts extends Migration
     {
         Schema::create('alias_accounts', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('account_id')->unsigned();
             $table->string('identifier')->unique();
             $table->string('username')->unique();
             $table->string('password')->nullable();

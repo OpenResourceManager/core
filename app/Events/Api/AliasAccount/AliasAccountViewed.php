@@ -28,14 +28,14 @@ class AliasAccountViewed extends Event
 
             history()->log(
                 'AliasAccount',
-                'viewed ' . $account->owner->format_full_name() . '\'s alias account [' . $account->username . ']',
+                'viewed ' . $account->account->format_full_name() . '\'s alias account [' . $account->username . ']',
                 $account->id,
                 'fa-id-card-o',
                 'bg-aqua'
             );
         }
 
-        Log::info($user_name . ' viewed ' . $account->owner->format_full_name() . '\'s alias account [' . $account->username . ']');
+        Log::info($user_name . ' viewed ' . $account->account->format_full_name() . '\'s alias account [' . $account->username . ']');
 
     }
 }

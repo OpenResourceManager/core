@@ -100,6 +100,14 @@ class AccountTransformer extends TransformerAbstract
             }
         }
 
+        if ($user->hasPermission(Permission::where('name', 'read-alias-account')->firstOrFail())) {
+            $transformed['alias_accounts'] = array();
+            $aliasTrasnsformer = new AliasAccountTransformer();
+            foreach ($item->aliasAccounts as $alias) {
+                $transformed['alias_accounts'][] = $aliasTrasnsformer->transform($alias);
+            }
+        }
+
         $transformed['disabled'] = $item->disabled;
         $transformed['expired'] = $item->expired();
         if (!is_null($item->expires_at) && !empty($item->expires_at)) {
