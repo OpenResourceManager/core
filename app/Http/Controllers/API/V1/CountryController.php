@@ -100,7 +100,7 @@ class CountryController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'alpha' => 'string|required_without:id|exists:countries,code,deleted_at,NULL',
+            'code' => 'alpha|required_without:id|exists:countries,code,deleted_at,NULL',
             'id' => 'integer|required_without:code|exists:countries,id,deleted_at,NULL'
         ]);
 
