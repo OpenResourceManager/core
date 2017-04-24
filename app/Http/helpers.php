@@ -566,7 +566,6 @@ function lukeSkywalkerAccount()
 function larsDunestriderAlias()
 {
     return [
-        'identifier' => '9999998',
         'username' => 'dunesl',
         'account_id' => \App\Http\Models\API\Account::where('identifier', '9999999')->firstOrFail()->id,
     ];

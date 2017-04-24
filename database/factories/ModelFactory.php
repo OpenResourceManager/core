@@ -113,7 +113,6 @@ $factory->define(AliasAccount::class, function (Faker\Generator $faker) {
 
     return [
         'account_id' => $faker->randomElement($accountIds),
-        'identifier' => strval($faker->unique()->randomNumber($nbDigits = 7, $strict = true)),
         'username' => $faker->unique()->userName,
         'password' => $pass,
         'should_propagate_password' => $should_propagate_password,

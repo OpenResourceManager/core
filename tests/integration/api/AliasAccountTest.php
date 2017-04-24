@@ -15,7 +15,6 @@ class AliasAccountTest extends TestCase
         'data' => [
             'id',
             'account_id',
-            'identifier',
             'username',
             'password',
             'disabled',
@@ -30,7 +29,6 @@ class AliasAccountTest extends TestCase
         'data' => [
             'id',
             'account_id',
-            'identifier',
             'username',
             'password',
             'disabled',
@@ -78,17 +76,6 @@ class AliasAccountTest extends TestCase
     }
 
     /** @test */
-    public function can_get_alias_account_by_identifier()
-    {
-        Account::create(lukeSkywalkerAccount());
-        $alias = AliasAccount::create(larsDunestriderAlias());
-
-        $this->get('/api/v1/alias-accounts/identifier/' . $alias->identifier, ['Authorization' => 'Bearer ' . $this->bearer])
-            ->seeStatusCode(200)
-            ->seeJsonStructure($this->itemStructureResponse);
-    }
-
-    /** @test */
     public function can_get_alias_account_by_username()
     {
         Account::create(lukeSkywalkerAccount());
@@ -114,17 +101,6 @@ class AliasAccountTest extends TestCase
         $alias = AliasAccount::create(larsDunestriderAlias());
 
         $this->get('/api/v1/alias-accounts/' . $alias->id)
-            ->seeStatusCode(401)
-            ->seeJsonStructure($this->errorStructure);
-    }
-
-    /** @test */
-    public function fails_to_get_alias_account_by_identifier_without_auth()
-    {
-        Account::create(lukeSkywalkerAccount());
-        $alias = AliasAccount::create(larsDunestriderAlias());
-
-        $this->get('/api/v1/alias-accounts/identifier/' . $alias->identifier)
             ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }
@@ -167,16 +143,6 @@ class AliasAccountTest extends TestCase
         $alias = AliasAccount::create(larsDunestriderAlias());
 
         $this->delete('/api/v1/alias-accounts', ['id' => $alias->id], ['Authorization' => 'Bearer ' . $this->bearer])
-            ->assertResponseStatus(204);
-    }
-
-    /** @test */
-    public function can_destroy_alias_account_by_identifier()
-    {
-        Account::create(lukeSkywalkerAccount());
-        $alias = AliasAccount::create(larsDunestriderAlias());
-
-        $this->delete('/api/v1/alias-accounts', ['identifier' => $alias->identifier], ['Authorization' => 'Bearer ' . $this->bearer])
             ->assertResponseStatus(204);
     }
 

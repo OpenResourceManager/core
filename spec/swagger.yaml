@@ -889,11 +889,6 @@ paths:
       consumes:
         - application/x-www-form-urlencoded
       parameters:
-        - name: identifier
-          in: formData
-          required: true
-          type: string
-          description: Unique identifier for alias account.
         - name: username
           in: formData
           required: true
@@ -1012,11 +1007,6 @@ paths:
           required: false
           type: integer
           description: Unique primary key for alias account.
-        - name: identifier
-          in: formData
-          required: false
-          type: string
-          description: Unique identifier for alias account.
         - name: username
           in: formData
           required: false
@@ -1046,42 +1036,6 @@ paths:
           required: true
           type: integer
           description: Unique primary key for alias account.
-      responses:
-        200:
-          description: Account Found
-          headers:
-            X-RateLimit-Limit:
-              description: The number of allowed requests in the current period
-              type: integer
-            X-RateLimit-Remaining:
-              description: The number of remaining requests in the current period
-              type: integer
-            X-RateLimit-Reset:
-              description: The number of seconds left in the current period
-              type: integer
-          schema:
-            properties:
-              data:
-                $ref: '#/definitions/transformedAliasAccount'
-        401:
-          $ref: '#/responses/401'
-        429:
-          $ref: '#/responses/429'
-
-  /alias-accounts/identifier/{identifier}:
-    get:
-      tags:
-        - Alias Accounts
-      summary: Show an alias account by Identifier
-      description: Retrieve a specific alias account based on it's `identifier` value.
-      produces:
-        - application/json
-      parameters:
-        - name: identifier
-          in: path
-          required: true
-          type: string
-          description: Unique identifier for alias account.
       responses:
         200:
           description: Account Found
@@ -4123,8 +4077,6 @@ definitions:
     properties:
       account_id:
         type: integer
-      identifier:
-        type: string
       username:
         type: string
       password:
@@ -4617,8 +4569,6 @@ definitions:
         type: integer
       account_id:
         type: integer
-      identifier:
-        type: string
       username:
         type: string
       password:
