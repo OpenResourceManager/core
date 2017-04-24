@@ -135,7 +135,7 @@ class AccountController extends ApiController
         }
 
         $validator = Validator::make($data, [
-            'identifier' => 'alpha_num|required|max:7|min:6|unique:alias_accounts,identifier',
+            'identifier' => 'alpha_num|required|max:7|min:6',
             'name_prefix' => 'string|max:20',
             'name_first' => 'string|required|min:1',
             'name_middle' => 'string',
