@@ -25,7 +25,6 @@ class AliasAccountTransformer extends TransformerAbstract
         $transformed = [
             'id' => $item->id,
             'account_id' => $item->account_id,
-            'identifier' => $item->identifier,
             'username' => $item->username
         ];
 

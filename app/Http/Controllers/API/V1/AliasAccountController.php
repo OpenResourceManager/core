@@ -115,7 +115,6 @@ class AliasAccountController extends ApiController
         }
 
         $validator = Validator::make($data, [
-            'identifier' => 'alpha_num|required|max:12|min:3|unique:accounts,identifier',
             'username' => 'string|required|min:3|unique:accounts,username',
             'account_identifier' => 'alpha_num|required_without_all:account_id,account_username|max:7|min:6|exists:accounts,identifier,deleted_at,NULL',
             'account_username' => 'string|required_without_all:account_identifier,account_id|min:3|exists:accounts,username,deleted_at,NULL',
@@ -144,9 +143,9 @@ class AliasAccountController extends ApiController
         }
 
         // If the account is trashed restore them first.
-        if ($accountToRestore = AliasAccount::onlyTrashed()->where('identifier', $data['identifier'])->first()) $accountToRestore->restore();
+        if ($accountToRestore = AliasAccount::onlyTrashed()->where('username', $data['username'])->first()) $accountToRestore->restore();
 
-        $item = AliasAccount::updateOrCreate(['identifier' => $data['identifier']], $data);
+        $item = AliasAccount::updateOrCreate(['username' => $data['username']], $data);
 
         $trans = new AliasAccountTransformer();
         $item = $trans->transform($item);
@@ -165,9 +164,8 @@ class AliasAccountController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'identifier' => 'alpha_num|required_without_all:id,username|exists:alias_accounts,identifier,deleted_at,NULL',
-            'username' => 'string|required_without_all:identifier,id|exists:alias_accounts,username,deleted_at,NULL',
-            'id' => 'integer|required_without_all:identifier,username|exists:alias_accounts,id,deleted_at,NULL'
+            'username' => 'string|required_without:id|exists:alias_accounts,username,deleted_at,NULL',
+            'id' => 'integer|required_without:username|exists:alias_accounts,id,deleted_at,NULL'
         ]);
 
         if ($validator->fails())
@@ -175,8 +173,6 @@ class AliasAccountController extends ApiController
 
         if (array_key_exists('id', $data)) {
             $deleted = AliasAccount::destroy($data['id']);
-        } elseif (array_key_exists('identifier', $data)) {
-            $deleted = AliasAccount::where('identifier', $data['identifier'])->firstOrFail()->delete();
         } elseif (array_key_exists('username', $data)) {
             $deleted = AliasAccount::where('username', $data['username'])->firstOrFail()->delete();
         } else {

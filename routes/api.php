@@ -136,7 +136,6 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
                     $api->get('/', ['uses' => 'AliasAccountController@index', 'as' => 'api.alias-accounts.index']);
                     $api->get('/{id}', ['uses' => 'AliasAccountController@show', 'as' => 'api.alias-accounts.show']);
                     $api->get('/username/{username}', ['uses' => 'AliasAccountController@showFromUsername', 'as' => 'api.alias-accounts.show_from_username']);
-                    $api->get('/identifier/{identifier}', ['uses' => 'AliasAccountController@showFromIdentifier', 'as' => 'api.alias-accounts.show_from_identifier']);
                 });
 
                 $api->group(['middleware' => 'access.routeNeedsPermission:write-alias-account'], function ($api) {

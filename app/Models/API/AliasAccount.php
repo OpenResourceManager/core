@@ -13,7 +13,6 @@ class AliasAccount extends BaseApiModel
     protected $table = 'alias_accounts';
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'identifier',
         'username',
         'password',
         'should_propagate_password',

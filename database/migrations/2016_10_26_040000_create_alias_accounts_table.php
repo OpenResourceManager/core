@@ -16,7 +16,6 @@ class CreateAliasAccountsTable extends Migration
         Schema::create('alias_accounts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('account_id')->unsigned();
-            $table->string('identifier')->unique();
             $table->string('username')->unique();
             $table->string('password')->nullable();
             $table->boolean('should_propagate_password')->default(false);
