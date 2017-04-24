@@ -157,6 +157,16 @@ class ServiceAccountTest extends TestCase
     }
 
     /** @test */
+    public function can_destroy_service_account_by_identifier()
+    {
+        Account::create(lukeSkywalkerAccount());
+        $alias = ServiceAccount::create(deathStartServiceAccount());
+
+        $this->delete('/api/v1/service-accounts', ['identifier' => $alias->identifier], ['Authorization' => 'Bearer ' . $this->bearer])
+            ->assertResponseStatus(204);
+    }
+
+    /** @test */
     public function fails_to_destroy_service_account_by_id_without_auth()
     {
         Account::create(lukeSkywalkerAccount());

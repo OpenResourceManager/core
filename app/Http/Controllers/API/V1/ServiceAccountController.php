@@ -167,8 +167,8 @@ class ServiceAccountController extends ApiController
 
         $validator = Validator::make($data, [
             'username' => 'string|required_without_all:id,identifier|exists:service_accounts,username,deleted_at,NULL',
-            'identifier' => 'string|required_without:id,username|exists:service_accounts,identifier,deleted_at,NULL',
-            'id' => 'integer|required_without:username,identifier|exists:service_accounts,id,deleted_at,NULL'
+            'identifier' => 'string|required_without_all:id,username|exists:service_accounts,identifier,deleted_at,NULL',
+            'id' => 'integer|required_without_all:username,identifier|exists:service_accounts,id,deleted_at,NULL'
         ]);
 
         if ($validator->fails())

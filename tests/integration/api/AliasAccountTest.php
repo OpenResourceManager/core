@@ -168,17 +168,6 @@ class AliasAccountTest extends TestCase
     }
 
     /** @test */
-    public function fails_to_destroy_alias_account_by_identifier_without_auth()
-    {
-        Account::create(lukeSkywalkerAccount());
-        $alias = AliasAccount::create(larsDunestriderAlias());
-
-        $this->delete('/api/v1/alias-accounts', ['identifier' => $alias->identifier])
-            ->assertResponseStatus(401)
-            ->seeJsonStructure($this->errorStructure);
-    }
-
-    /** @test */
     public function fails_to_destroy_alias_account_by_username_without_auth()
     {
         Account::create(lukeSkywalkerAccount());
