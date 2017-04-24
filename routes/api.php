@@ -145,6 +145,23 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
             });
 
             /**
+             * Service Accounts
+             */
+            $api->group(['prefix' => 'service-accounts'], function ($api) {
+                $api->group(['middleware' => 'access.routeNeedsPermission:read-service-account'], function ($api) {
+                    $api->get('/', ['uses' => 'ServiceAccountController@index', 'as' => 'api.service-accounts.index']);
+                    $api->get('/{id}', ['uses' => 'ServiceAccountController@show', 'as' => 'api.service-accounts.show']);
+                    $api->get('/username/{username}', ['uses' => 'ServiceAccountController@showFromUsername', 'as' => 'api.service-accounts.show_from_username']);
+                    $api->get('/identifier/{identifier}', ['uses' => 'ServiceAccountController@showFromIdentifier', 'as' => 'api.service-accounts.show_from_identifier']);
+                });
+
+                $api->group(['middleware' => 'access.routeNeedsPermission:write-service-account'], function ($api) {
+                    $api->post('/', ['uses' => 'ServiceAccountController@store', 'as' => 'api.service-accounts.store']);
+                    $api->delete('/', ['uses' => 'ServiceAccountController@destroy', 'as' => 'api.service-accounts.destroy']);
+                });
+            });
+
+            /**
              * Emails
              */
             $api->group(['prefix' => 'emails'], function ($api) {

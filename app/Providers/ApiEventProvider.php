@@ -25,6 +25,10 @@ use App\Events\Api\Room\RoomCreated;
 use App\Events\Api\Room\RoomDestroyed;
 use App\Events\Api\Room\RoomRestored;
 use App\Events\Api\Room\RoomUpdated;
+use App\Events\Api\ServiceAccount\ServiceAccountCreated;
+use App\Events\Api\ServiceAccount\ServiceAccountDestroyed;
+use App\Events\Api\ServiceAccount\ServiceAccountRestored;
+use App\Events\Api\ServiceAccount\ServiceAccountUpdated;
 use App\Http\Models\API\AliasAccount;
 use App\Http\Models\API\Building;
 use App\Http\Models\API\Campus;
@@ -43,6 +47,7 @@ use App\Events\Api\AliasAccount\AliasAccountCreated;
 use App\Events\Api\AliasAccount\AliasAccountUpdated;
 use App\Events\Api\AliasAccount\AliasAccountRestored;
 use App\Events\Api\AliasAccount\AliasAccountDestroyed;
+use App\Http\Models\API\ServiceAccount;
 
 class ApiEventProvider extends ServiceProvider
 {
@@ -89,6 +94,25 @@ class ApiEventProvider extends ServiceProvider
 
         AliasAccount::restored(function (AliasAccount $account) {
             event(new AliasAccountRestored($account));
+        });
+
+        /**
+         * Service Account Events
+         */
+        ServiceAccount::created(function (ServiceAccount $account) {
+            event(new ServiceAccountCreated($account));
+        });
+
+        ServiceAccount::updated(function (ServiceAccount $account) {
+            event(new ServiceAccountUpdated($account));
+        });
+
+        ServiceAccount::deleted(function (ServiceAccount $account) {
+            event(new ServiceAccountDestroyed($account));
+        });
+
+        ServiceAccount::restored(function (ServiceAccount $account) {
+            event(new ServiceAccountRestored($account));
         });
 
         /**

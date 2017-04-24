@@ -16,6 +16,7 @@ use App\Http\Models\API\Building;
 use App\Http\Models\API\Room;
 use App\Http\Models\API\Department;
 use App\Http\Models\API\Course;
+use App\Http\Models\API\ServiceAccount;
 
 /*
 |--------------------------------------------------------------------------
@@ -121,6 +122,31 @@ $factory->define(AliasAccount::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(ServiceAccount::class, function (Faker\Generator $faker) {
+    $accountIds = Account::pluck('id')->all();
+    $pass = $faker->optional()->password(6);
+    $expires_at = null;
+    if (!empty($pass)) $pass = encrypt($pass);
+
+    if ($faker->boolean) {
+        $expires_at = $faker->dateTimeBetween('+1 days', '+2 years');
+    }
+
+    $disabled = $faker->boolean;
+    $should_propagate_password = false;
+
+    return [
+        'account_id' => $faker->randomElement($accountIds),
+        'identifier' => strval($faker->unique()->randomNumber($nbDigits = 7, $strict = true)),
+        'username' => $faker->unique()->userName,
+        'name_first' => $faker->firstName,
+        'name_last' => $faker->lastName,
+        'password' => $pass,
+        'should_propagate_password' => $should_propagate_password,
+        'expires_at' => $expires_at,
+        'disabled' => $disabled
+    ];
+});
 
 $factory->define(Email::class, function (Faker\Generator $faker) {
 

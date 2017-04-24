@@ -2,79 +2,93 @@
 
 namespace App\Http\Controllers\API\V1;
 
-use App\Http\Models\API\AliasAccount;
-use App\Http\Transformers\AliasAccountTransformer;
+use App\Http\Models\API\ServiceAccount;
+use App\Http\Transformers\ServiceAccountTransformer;
 use Illuminate\Http\Request;
-use Dingo\Api\Exception\StoreResourceFailedException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Access\Permission\Permission;
 use App\Http\Models\API\Account;
 use Dingo\Api\Exception\DeleteResourceFailedException;
-use App\Events\Api\AliasAccount\AliasAccountViewed;
-use App\Events\Api\AliasAccount\AliasAccountsViewed;
+use Dingo\Api\Exception\StoreResourceFailedException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use App\Events\Api\ServiceAccount\ServiceAccountsViewed;
+use App\Events\Api\ServiceAccount\ServiceAccountViewed;
 
-class AliasAccountController extends ApiController
+class ServiceAccountController extends ApiController
 {
-
     /**
-     * AliasAccountController constructor.
+     * ServiceAccountController constructor.
      * @param Request $request
      */
     public function __construct(Request $request)
     {
         parent::__construct($request);
-        $this->noun = 'alias account';
+        $this->noun = 'service account';
     }
 
     /**
-     * Show all Alias Accounts
+     * Show all Service Accounts
      *
-     * Get a paginated array of Alias Accounts.
+     * Get a paginated array of Service Accounts.
      *
      * @return \Dingo\Api\Http\Response
      */
     public function index()
     {
-        $alias_accounts = AliasAccount::paginate($this->resultLimit);
-        event(new AliasAccountsViewed($alias_accounts->pluck('id')->toArray()));
-        return $this->response->paginator($alias_accounts, new AliasAccountTransformer);
+        $service_accounts = ServiceAccount::paginate($this->resultLimit);
+        event(new ServiceAccountsViewed($service_accounts->pluck('id')->toArray()));
+        return $this->response->paginator($service_accounts, new ServiceAccountTransformer);
     }
 
     /**
-     * Select Alias Account by ID
+     * Select Service Account by ID
      *
-     * View a single Alias Account by providing it's ID attribute.
+     * View a single Service Account by providing it's ID attribute.
      *
      * @param $id
      * @return \Dingo\Api\Http\Response
      */
     public function show($id)
     {
-        $alias_account = AliasAccount::findOrFail($id);
-        event(new AliasAccountViewed($alias_account));
-        return $this->response->item($alias_account, new AliasAccountTransformer);
+        $account = ServiceAccount::findOrFail($id);
+        event(new ServiceAccountViewed($account));
+        return $this->response->item($account, new ServiceAccountTransformer);
     }
 
     /**
-     * Select Alias Account by Username
+     * Select Service Account by Username
      *
-     * View a single Alias Account by providing it's Username attribute.
+     * View a single Service Account by providing it's Username attribute.
      *
      * @param $username
      * @return \Dingo\Api\Http\Response
      */
     public function showFromUsername($username)
     {
-        $alias_account = AliasAccount::where('username', $username)->firstOrFail();
-        event(new AliasAccountViewed($alias_account));
-        return $this->response->item($alias_account, new AliasAccountTransformer);
+        $service_account = ServiceAccount::where('username', $username)->firstOrFail();
+        event(new ServiceAccountViewed($service_account));
+        return $this->response->item($service_account, new ServiceAccountTransformer);
     }
 
     /**
-     * Store/Save/Restore Alias Account
+     * Select Service Account by Identifier
      *
-     * Create or update Alias Account information.
+     * View a single Service Account by providing it's Identifier attribute.
+     *
+     * @param $identifier
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showFromIdentifier($identifier)
+    {
+        $service_account = ServiceAccount::where('identifier', $identifier)->firstOrFail();
+        event(new ServiceAccountViewed($service_account));
+        return $this->response->item($service_account, new ServiceAccountTransformer);
+    }
+
+    /**
+     * Store/Save/Restore Service Account
+     *
+     * Create or update Service Account information.
      *
      * @param Request $request
      * @return \Dingo\Api\Http\Response
@@ -85,7 +99,7 @@ class AliasAccountController extends ApiController
 
         if (array_key_exists('password', $data)) {
             $user = auth()->user();
-            if ($user->hasPermission(Permission::where('name', 'write-alias-classified')->firstOrFail())) {
+            if ($user->hasPermission(Permission::where('name', 'write-service-classified')->firstOrFail())) {
                 $classifiedValidator = Validator::make($data, [
                     'password' => 'string|min:6|nullable',
                     'should_propagate_password' => 'boolean|nullable',
@@ -100,7 +114,10 @@ class AliasAccountController extends ApiController
         }
 
         $validator = Validator::make($data, [
-            'username' => 'string|required|min:3|unique:accounts,username|unique:service_accounts,username|unique:alias_accounts,username',
+            'username' => 'string|required|min:3|unique:accounts,username|unique:alias_accounts,username|unique:service_accounts,username',
+            'identifier' => 'alpha_num|required|max:7|min:6|unique:accounts,identifier|unique:service_accounts,identifier',
+            'name_first' => 'string|required|min:1',
+            'name_last' => 'string|required|min:1',
             'account_identifier' => 'alpha_num|required_without_all:account_id,account_username|max:7|min:6|exists:accounts,identifier,deleted_at,NULL',
             'account_username' => 'string|required_without_all:account_identifier,account_id|min:3|exists:accounts,username,deleted_at,NULL',
             'account_id' => 'integer|required_without_all:account_identifier,account_username|min:1|exists:accounts,id,deleted_at,NULL',
@@ -128,19 +145,19 @@ class AliasAccountController extends ApiController
         }
 
         // If the account is trashed restore them first.
-        if ($accountToRestore = AliasAccount::onlyTrashed()->where('username', $data['username'])->first()) $accountToRestore->restore();
+        if ($accountToRestore = ServiceAccount::onlyTrashed()->where('username', $data['username'])->first()) $accountToRestore->restore();
 
-        $item = AliasAccount::updateOrCreate(['username' => $data['username']], $data);
+        $item = ServiceAccount::updateOrCreate(['identifier' => $data['identifier']], $data);
 
-        $trans = new AliasAccountTransformer();
+        $trans = new ServiceAccountTransformer();
         $item = $trans->transform($item);
-        return $this->response->created(route('api.alias-accounts.show', ['id' => $item['id']]), ['data' => $item]);
+        return $this->response->created(route('api.service-accounts.show', ['id' => $item['id']]), ['data' => $item]);
     }
 
     /**
-     * Destroy Alias Account
+     * Destroy Service Account
      *
-     * Deletes the specified Alias Account by it's ID or Username attribute.
+     * Deletes the specified Service Account by it's ID, Identifier, or Username attribute.
      *
      * @return mixed
      */
@@ -149,22 +166,25 @@ class AliasAccountController extends ApiController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'username' => 'string|required_without:id|exists:alias_accounts,username,deleted_at,NULL',
-            'id' => 'integer|required_without:username|exists:alias_accounts,id,deleted_at,NULL'
+            'username' => 'string|required_without_all:id,identifier|exists:service_accounts,username,deleted_at,NULL',
+            'identifier' => 'string|required_without:id,username|exists:service_accounts,identifier,deleted_at,NULL',
+            'id' => 'integer|required_without:username,identifier|exists:service_accounts,id,deleted_at,NULL'
         ]);
 
         if ($validator->fails())
             throw new DeleteResourceFailedException('Could not destroy alias account.', $validator->errors()->all());
 
         if (array_key_exists('id', $data)) {
-            $deleted = AliasAccount::destroy($data['id']);
+            $deleted = ServiceAccount::destroy($data['id']);
         } elseif (array_key_exists('username', $data)) {
-            $deleted = AliasAccount::where('username', $data['username'])->firstOrFail()->delete();
+            $deleted = ServiceAccount::where('username', $data['username'])->firstOrFail()->delete();
+        } elseif (array_key_exists('identifier', $data)) {
+            $deleted = ServiceAccount::where('identifier', $data['identifier'])->firstOrFail()->delete();
         } else {
             // The validator should throw something like this, but it's here just in case.
-            throw new DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', ['You must supply one of the following fields "id" or "username".']);
+            throw new DeleteResourceFailedException('Could not destroy ' . $this->noun . '.', ['You must supply one of the following fields "id", "identifier", or "username".']);
         }
 
-        return ($deleted) ? $this->destroySuccessResponse() : $this->destroyFailure('alias account');
+        return ($deleted) ? $this->destroySuccessResponse() : $this->destroyFailure('service account');
     }
 }

@@ -572,6 +572,22 @@ function larsDunestriderAlias()
 }
 
 /**
+ * Dummy service account data
+ *
+ * @return array
+ */
+function deathStartServiceAccount()
+{
+    return [
+        'username' => 'death_star',
+        'name_first' => 'Death',
+        'name_last' => 'Star',
+        'identifier' => '9999998',
+        'account_id' => \App\Http\Models\API\Account::where('identifier', '9999999')->firstOrFail()->id,
+    ];
+}
+
+/**
  * Dummy Duty data
  *
  * @return array

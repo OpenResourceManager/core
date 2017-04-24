@@ -1,24 +1,25 @@
 <?php
 
-namespace App\Events\Api\AliasAccount;
+namespace App\Events\Api\ServiceAccount;
 
 use Krucas\Settings\Facades\Settings;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
-use App\Http\Models\API\AliasAccount;
+use App\Http\Models\API\ServiceAccount;
 use Illuminate\Support\Facades\Log;
 
-class AliasAccountDestroyed extends Event
+class ServiceAccountDestroyed extends Event
 {
 
     /**
      * AliasAccountDestroyed constructor.
-     * @param AliasAccount $account
+     * @param ServiceAccount $account
      */
-    public function __construct(AliasAccount $account)
+    public function __construct(ServiceAccount $account)
     {
         Log::info('Alias Account Deleted:', [
             'id' => $account->id,
+            'identifier' => $account->identifier,
             'username' => $account->username,
             'owner' => $account->account->format_full_name(true),
             'owner_username' => $account->account->username
@@ -42,7 +43,7 @@ class AliasAccountDestroyed extends Event
 
                 $message = [
                     'event' => 'deleted',
-                    'type' => 'alias-account',
+                    'type' => 'service-account',
                     'encrypted' => $secure_data
                 ];
 
@@ -50,10 +51,10 @@ class AliasAccountDestroyed extends Event
             }
 
             history()->log(
-                'AliasAccount',
-                'deleted an alias account for ' . $account->account->format_full_name() . ' [' . $account->username . ']',
+                'ServiceAccount',
+                'deleted a service account for ' . $account->account->format_full_name() . ' - ' . $account->username,
                 $account->id,
-                'fa-id-card-o',
+                'fa-magic',
                 'bg-red'
             );
         }

@@ -1,24 +1,25 @@
 <?php
 
-namespace App\Events\Api\AliasAccount;
+namespace App\Events\Api\ServiceAccount;
 
-use Krucas\Settings\Facades\Settings;
+use App\Http\Models\API\ServiceAccount;
+use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
-use App\Http\Models\API\AliasAccount;
-use Illuminate\Support\Facades\Log;
+use Krucas\Settings\Facades\Settings;
 
-class AliasAccountDestroyed extends Event
+
+class ServiceAccountCreated extends Event
 {
-
     /**
-     * AliasAccountDestroyed constructor.
-     * @param AliasAccount $account
+     * AliasAccountCreated constructor.
+     * @param ServiceAccount $account
      */
-    public function __construct(AliasAccount $account)
+    public function __construct(ServiceAccount $account)
     {
-        Log::info('Alias Account Deleted:', [
+        Log::info('Alias Account Created:', [
             'id' => $account->id,
+            'identifier' => $account->identifier,
             'username' => $account->username,
             'owner' => $account->account->format_full_name(true),
             'owner_username' => $account->account->username
@@ -29,7 +30,12 @@ class AliasAccountDestroyed extends Event
             if (Settings::get('broadcast-events', false)) {
 
                 $trans = $account->toArray();
+
+                if (array_key_exists('password', $trans)) {
+                    $trans['password'] = decrypt($trans['password']);
+                }
                 $trans['username'] = strtolower($trans['username']);
+                $trans['expired'] = $account->expired();
 
                 $data_to_secure = json_encode([
                     'data' => $trans,
@@ -41,8 +47,8 @@ class AliasAccountDestroyed extends Event
                 $secure_data = encrypt_broadcast_data($data_to_secure);
 
                 $message = [
-                    'event' => 'deleted',
-                    'type' => 'alias-account',
+                    'event' => 'created',
+                    'type' => 'service-account',
                     'encrypted' => $secure_data
                 ];
 
@@ -50,11 +56,11 @@ class AliasAccountDestroyed extends Event
             }
 
             history()->log(
-                'AliasAccount',
-                'deleted an alias account for ' . $account->account->format_full_name() . ' [' . $account->username . ']',
+                'ServiceAccount',
+                'created a new service account for ' . $account->account->format_full_name() . ' - ' . $account->username,
                 $account->id,
-                'fa-id-card-o',
-                'bg-red'
+                'fa-magic',
+                'bg-green'
             );
         }
     }
