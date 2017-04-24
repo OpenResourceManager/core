@@ -1,7 +1,7 @@
 {
-    "name": "rappasoft/laravel-5-boilerplate",
-    "description": "The Laravel Framework Boilerplate Project.",
-    "keywords": ["framework", "laravel", "boilerplate"],
+    "name": "ORM Core",
+    "description": "Core API backing the Open Resource Manager ecosystem.",
+    "keywords": ["orm", "laravel", "erp"],
     "license": "MIT",
     "type": "project",
     "require": {

@@ -177,3 +177,14 @@ php artisan route:cache;
 php artisan api:cache;
 ```
 
+# Related Software
+
+Some cool projects that this software relies on.
+
+* [Laravel](https://laravel.com)
+* [rappasoft/laravel-5-boilerplate](https://github.com/rappasoft/laravel-5-boilerplate)
+* [dingo/api](https://github.com/dingo/api)
+* [tymon/jwt-auth](https://github.com/tymon/jwt-auth)
+* [simplesoftwareio/simple-sms](https://github.com/simplesoftwareio/simple-sms)
+* [snowfire/beautymail](https://github.com/snowfire/beautymail)
+* [edvinaskrucas/settings](https://github.com/edvinaskrucas/settings)
