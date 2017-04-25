@@ -5,7 +5,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.6.4",
+        "php": ">=7.0.0",
         "laravel/framework": "5.3.*",
         "laravelcollective/html": "5.3.*",
         "laravel/socialite": "^2.0",
@@ -21,7 +21,7 @@
         "edvinaskrucas/settings": "2.0.0",
         "darkaonline/l5-swagger": "~3.0",
         "barryvdh/laravel-ide-helper": "^2.2",
-        "simplesoftwareio/simple-sms": "3.0.*",
+        "simplesoftwareio/simple-sms": "3.1.*",
         "snowfire/beautymail": "dev-master"
     },
     "require-dev": {

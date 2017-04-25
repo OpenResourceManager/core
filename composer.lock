@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4723bd34630a87af0b130261ec9ca3bb",
-    "content-hash": "435372545aad2e39fe9c7e936944b9f3",
+    "hash": "0f331e1d39169a58430c3412cf01be57",
+    "content-hash": "c9b78e5a4918de4990866d80ed39c4cf",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -2827,16 +2827,16 @@
         },
         {
             "name": "simplesoftwareio/simple-sms",
-            "version": "3.0.1",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SimpleSoftwareIO/simple-sms.git",
-                "reference": "c98ac8662ad98bfc05460b7cbca205d67d0e320a"
+                "reference": "93e7feb7a1f76634b49247bb5849f06a879a3fb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SimpleSoftwareIO/simple-sms/zipball/c98ac8662ad98bfc05460b7cbca205d67d0e320a",
-                "reference": "c98ac8662ad98bfc05460b7cbca205d67d0e320a",
+                "url": "https://api.github.com/repos/SimpleSoftwareIO/simple-sms/zipball/93e7feb7a1f76634b49247bb5849f06a879a3fb4",
+                "reference": "93e7feb7a1f76634b49247bb5849f06a879a3fb4",
                 "shasum": ""
             },
             "require": {
@@ -2846,7 +2846,7 @@
                 "illuminate/queue": ">=5.0.0",
                 "illuminate/support": ">=5.0.0",
                 "illuminate/view": ">=5.0.0",
-                "php": ">=5.5.0",
+                "php": ">=7.0.0",
                 "plivo/plivo-php": "^1.0",
                 "twilio/sdk": "~4"
             },
@@ -2889,7 +2889,7 @@
                 "twilio",
                 "zenvia"
             ],
-            "time": "2016-07-04 14:52:38"
+            "time": "2017-03-19 22:12:45"
         },
         {
             "name": "snowfire/beautymail",
@@ -4532,12 +4532,12 @@
             "version": "0.9.9",
             "source": {
                 "type": "git",
-                "url": "https://github.com/padraic/mockery.git",
+                "url": "https://github.com/mockery/mockery.git",
                 "reference": "6fdb61243844dc924071d3404bb23994ea0b6856"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/6fdb61243844dc924071d3404bb23994ea0b6856",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/6fdb61243844dc924071d3404bb23994ea0b6856",
                 "reference": "6fdb61243844dc924071d3404bb23994ea0b6856",
                 "shasum": ""
             },
@@ -5721,7 +5721,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6.4"
+        "php": ">=7.0.0"
     },
     "platform-dev": []
 }
