@@ -7,13 +7,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Carbon\Carbon;
 
-class AliasAccount extends BaseApiModel
+class ServiceAccount extends BaseApiModel
 {
     use SoftDeletes;
-    protected $table = 'alias_accounts';
+    protected $table = 'service_accounts';
     protected $dates = ['deleted_at'];
     protected $fillable = [
+        'identifier',
         'username',
+        'name_first',
+        'name_last',
         'password',
         'should_propagate_password',
         'expires_at',
@@ -29,8 +32,8 @@ class AliasAccount extends BaseApiModel
     {
         if ($user = auth()->user()) {
             try {
-                $readClassified = Permission::where('name', 'read-alias-classified')->firstOrFail();
-                $writeClassified = Permission::where('name', 'write-alias-classified')->firstOrFail();
+                $readClassified = Permission::where('name', 'read-service-classified')->firstOrFail();
+                $writeClassified = Permission::where('name', 'write-service-classified')->firstOrFail();
                 $permitted = $user->hasPermissions([$readClassified, $writeClassified]);
             } catch (Exception $e) {
                 $permitted = false;
@@ -41,7 +44,7 @@ class AliasAccount extends BaseApiModel
     }
 
     /**
-     * AliasAccount constructor.
+     * ServiceAccount constructor.
      * @param array $attributes
      * @param bool $permitted
      */

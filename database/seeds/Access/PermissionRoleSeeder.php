@@ -39,6 +39,10 @@ class PermissionRoleSeeder extends Seeder
         $writeAliasAccount = Permission::where('name', 'write-alias-account')->firstOrFail();
         $readAliasClassified = Permission::where('name', 'read-alias-classified')->firstOrFail();
         $writeAliasClassified = Permission::where('name', 'write-alias-classified')->firstOrFail();
+        $readServiceAccount = Permission::where('name', 'read-service-account')->firstOrFail();
+        $writeServiceAccount = Permission::where('name', 'write-service-account')->firstOrFail();
+        $readServiceClassified = Permission::where('name', 'read-service-classified')->firstOrFail();
+        $writeServiceClassified = Permission::where('name', 'write-service-classified')->firstOrFail();
         $readAddress = Permission::where('name', 'read-address')->firstOrFail();
         $writeAddress = Permission::where('name', 'write-address')->firstOrFail();
         $readBuilding = Permission::where('name', 'read-building')->firstOrFail();
@@ -68,9 +72,11 @@ class PermissionRoleSeeder extends Seeder
         Role::where('name', 'Service Viewer')->firstOrFail()->permissions()->sync([
             $readAccount->id,
             $readAliasAccount->id,
+            $readServiceAccount->id,
             $readAddress->id,
             $readClassified->id,
             $readAliasClassified->id,
+            $readServiceClassified->id,
             $readBuilding->id,
             $readCampus->id,
             $readCountry->id,
@@ -88,6 +94,8 @@ class PermissionRoleSeeder extends Seeder
             $writeAccount->id,
             $readAliasAccount->id,
             $writeAliasAccount->id,
+            $readServiceAccount->id,
+            $writeServiceAccount->id,
             $readMobilePhone->id,
             $writeMobilePhone->id,
             $readAddress->id,
@@ -98,6 +106,8 @@ class PermissionRoleSeeder extends Seeder
             $writeClassified->id,
             $readAliasClassified->id,
             $writeAliasClassified->id,
+            $readServiceClassified->id,
+            $writeServiceClassified->id,
             $readDuty->id,
         ]);
         Role::where('name', 'Account Manager')->firstOrFail()->permissions()->sync([
@@ -112,7 +122,7 @@ class PermissionRoleSeeder extends Seeder
             $readClassified->id,
             $readDuty->id,
         ]);
-        Role::where('name', 'Alias Manager')->firstOrFail()->permissions()->sync([
+        Role::where('name', 'Alias Account Manager')->firstOrFail()->permissions()->sync([
             $readAccount->id,
             $writeAccount->id,
             $readAliasAccount->id,
@@ -127,7 +137,22 @@ class PermissionRoleSeeder extends Seeder
             $writeAliasClassified->id,
             $readDuty->id,
         ]);
-        Role::where('name', 'Alias Viewer')->firstOrFail()->permissions()->sync([
+        Role::where('name', 'Service Account Manager')->firstOrFail()->permissions()->sync([
+            $readAccount->id,
+            $writeAccount->id,
+            $readServiceAccount->id,
+            $writeServiceAccount->id,
+            $readMobilePhone->id,
+            $writeMobilePhone->id,
+            $readAddress->id,
+            $writeAddress->id,
+            $readEmail->id,
+            $writeEmail->id,
+            $readServiceClassified->id,
+            $writeServiceClassified->id,
+            $readDuty->id,
+        ]);
+        Role::where('name', 'Alias Account Viewer')->firstOrFail()->permissions()->sync([
             $readAccount->id,
             $readAliasAccount->id,
             $readMobilePhone->id,
@@ -135,6 +160,16 @@ class PermissionRoleSeeder extends Seeder
             $readEmail->id,
             $readClassified->id,
             $readAliasClassified->id,
+            $readDuty->id,
+        ]);
+        Role::where('name', 'Service Account Viewer')->firstOrFail()->permissions()->sync([
+            $readAccount->id,
+            $readServiceAccount->id,
+            $readMobilePhone->id,
+            $readAddress->id,
+            $readEmail->id,
+            $readClassified->id,
+            $readServiceClassified->id,
             $readDuty->id,
         ]);
         Role::where('name', 'Account Viewer')->firstOrFail()->permissions()->sync([

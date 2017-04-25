@@ -200,6 +200,14 @@ class Account extends BaseApiModel
     }
 
     /**
+     * @return HasMany
+     */
+    public function serviceAccounts()
+    {
+        return $this->hasMany(AliasAccount::class);
+    }
+
+    /**
      * @return BelongsToMany
      */
     public function rooms()

@@ -19,7 +19,6 @@ class AliasAccountRestored extends Event
     {
         Log::info('Alias Account Restored:', [
             'id' => $account->id,
-            'identifier' => $account->identifier,
             'username' => $account->username,
             'owner' => $account->account->format_full_name(true),
             'owner_username' => $account->account->username
@@ -31,7 +30,7 @@ class AliasAccountRestored extends Event
 
                 $account->primary_duty = $account->primaryDuty;
                 $trans = $account->toArray();
-                $trans['name_full'] = $account->format_full_name(true);
+
                 if (array_key_exists('password', $trans)) {
                     $trans['password'] = decrypt($trans['password']);
                 }

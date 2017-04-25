@@ -103,16 +103,30 @@ class RoleTableSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'name' => 'Alias Manager',
+                'name' => 'Alias Account Manager',
                 'all' => false,
                 'sort' => 11,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
-                'name' => 'Alias Viewer',
+                'name' => 'Alias Account Viewer',
                 'all' => false,
                 'sort' => 12,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'name' => 'Service Account Manager',
+                'all' => false,
+                'sort' => 13,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'name' => 'Service Account Viewer',
+                'all' => false,
+                'sort' => 14,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],

@@ -18,7 +18,6 @@ class AliasAccountUpdated extends Event
     {
         Log::info('Alias Account Updated:', [
             'id' => $account->id,
-            'identifier' => $account->identifier,
             'username' => $account->username,
             'owner' => $account->account->format_full_name(true),
             'owner_username' => $account->account->username
