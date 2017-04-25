@@ -42,12 +42,12 @@ ORM Core is a REST API designed to house institutional data and act as an interm
 
 ## Requirements:
 
-* php >= 5.6
+* php >= 7.0.0
 * Redis
 * MariaDB/MySQL (tested on MariaDB 10.1)
 * [Yarn](https://yarnpkg.com/)
 * [composer](https://getcomposer.org/)
-* Nginx or Apache (tested on Nginx)
+* NGINX or Apache (tested on NGINX)
 
 PHP Packages:
 
