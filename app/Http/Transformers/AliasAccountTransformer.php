@@ -10,7 +10,6 @@ namespace App\Http\Transformers;
 
 use League\Fractal\TransformerAbstract;
 use App\Http\Models\API\AliasAccount;
-use App\Models\Access\Permission\Permission;
 
 class AliasAccountTransformer extends TransformerAbstract
 {
@@ -28,10 +27,17 @@ class AliasAccountTransformer extends TransformerAbstract
             'username' => $item->username
         ];
 
-        $readAliasClassified = Permission::where('name', 'read-alias-classified')->firstOrFail();
-        $writeAliasClassified = Permission::where('name', 'write-alias-classified')->firstOrFail();
+        $permissions = [];
+        foreach ($user->roles as $role) {
+            foreach ($role->permissions as $permission) {
+                $name = $permission->name;
+                if (!in_array($name, $permissions)) {
+                    $permissions[] = $name;
+                }
+            }
+        }
 
-        if ($user->hasPermissions([$readAliasClassified, $writeAliasClassified])) {
+        if (in_array('read-alias-classified', $permissions)) {
             $transformed['password'] = (!empty($item->password)) ? decrypt($item->password) : null;
         }
 

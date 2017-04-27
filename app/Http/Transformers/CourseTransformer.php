@@ -17,7 +17,17 @@ class CourseTransformer extends TransformerAbstract
     {
         $user = auth()->user();
 
-        if ($user->hasPermission(Permission::where('name', 'read-department')->firstOrFail())) {
+        $permissions = [];
+        foreach ($user->roles as $role) {
+            foreach ($role->permissions as $permission) {
+                $name = $permission->name;
+                if (!in_array($name, $permissions)) {
+                    $permissions[] = $name;
+                }
+            }
+        }
+
+        if (in_array('read-department', $permissions)) {
 
             $deptTrans = new DepartmentTransformer();
 
