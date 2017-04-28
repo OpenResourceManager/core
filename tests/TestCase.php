@@ -74,9 +74,9 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     }
 
     /**
-     * @param string $username
+     * @param string $email
      * @param string $password
-     * @return string $token
+     * @return mixed
      */
     public function logIn($email = 'admin@example.com', $password = 'Cascade')
     {

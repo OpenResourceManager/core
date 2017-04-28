@@ -10,6 +10,7 @@ namespace App\Http\Transformers;
 
 use League\Fractal\TransformerAbstract;
 use App\Http\Models\API\ServiceAccount;
+use App\Models\Access\Permission\Permission;
 
 class ServiceAccountTransformer extends TransformerAbstract
 {
@@ -40,7 +41,8 @@ class ServiceAccountTransformer extends TransformerAbstract
             }
         }
 
-        if (in_array('read-service-classified', $permissions)) {
+        $readClassified = Permission::where('name', 'read-service-classified')->first();
+        if (in_array('read-service-classified', $permissions) || $user->hasPermission($readClassified)) {
             $transformed['password'] = (!empty($item->password)) ? decrypt($item->password) : null;
         }
 

@@ -27,7 +27,9 @@ class CourseTransformer extends TransformerAbstract
             }
         }
 
-        if (in_array('read-department', $permissions)) {
+        $readDepartment = Permission::where('name', 'read-department')->first();
+
+        if (in_array('read-department', $permissions) || $user->hasPermission($readDepartment)) {
 
             $deptTrans = new DepartmentTransformer();
 

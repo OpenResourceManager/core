@@ -10,6 +10,7 @@ namespace App\Http\Transformers;
 
 use League\Fractal\TransformerAbstract;
 use App\Http\Models\API\Account;
+use App\Models\Access\Permission\Permission;
 
 class AccountTransformer extends TransformerAbstract
 {
@@ -43,7 +44,8 @@ class AccountTransformer extends TransformerAbstract
             }
         }
 
-        if (in_array('read-duty', $permissions)) {
+        $readDuty = Permission::where('name', 'read-duty')->first();
+        if (in_array('read-duty', $permissions) || $user->hasPermission($readDuty)) {
             $dutyTrans = new DutyTransformer();
             $transformed['primary_duty'] = $dutyTrans->transform($item->primaryDuty);
             $transformed['duties'] = array($dutyTrans->transform($item->primaryDuty));
@@ -52,22 +54,15 @@ class AccountTransformer extends TransformerAbstract
             }
         }
 
-        if (in_array('read-classified', $permissions)) {
+        $readClassified = Permission::where('name', 'read-classified')->first();
+        if (in_array('read-classified', $permissions) || $user->hasPermission($readClassified)) {
             $transformed['ssn'] = (!empty($item->ssn)) ? strval(decrypt($item->ssn)) : null;
             $transformed['password'] = (!empty($item->password)) ? decrypt($item->password) : null;
             $transformed['birth_date'] = (!empty($item->birth_date)) ? decrypt($item->birth_date) : null;
         }
 
-
-        if (in_array('read-email', $permissions)) {
-            $transformed['emails'] = array();
-            $emailTrans = new EmailTransformer();
-            foreach ($item->emails as $email) {
-                $transformed['emails'][] = $emailTrans->transform($email);
-            }
-        }
-
-        if (in_array('read-department', $permissions)) {
+        $readDepartment = Permission::where('name', 'read-department')->first();
+        if (in_array('read-department', $permissions) || $user->hasPermission($readDepartment)) {
             $transformed['departments'] = array();
             $departmentTrans = new DepartmentTransformer();
             foreach ($item->departments as $department) {
@@ -75,7 +70,8 @@ class AccountTransformer extends TransformerAbstract
             }
         }
 
-        if (in_array('read-course', $permissions)) {
+        $readCourse = Permission::where('name', 'read-course')->first();
+        if (in_array('read-course', $permissions) || $user->hasPermission($readCourse)) {
             $transformed['courses'] = array();
             $courseTrans = new CourseTransformer();
             foreach ($item->courses as $course) {
@@ -83,7 +79,8 @@ class AccountTransformer extends TransformerAbstract
             }
         }
 
-        if (in_array('read-email', $permissions)) {
+        $readEmail = Permission::where('name', 'read-email')->first();
+        if (in_array('read-email', $permissions) || $user->hasPermission($readEmail)) {
             $transformed['emails'] = array();
             $emailTrans = new EmailTransformer();
             foreach ($item->emails as $email) {
@@ -91,7 +88,8 @@ class AccountTransformer extends TransformerAbstract
             }
         }
 
-        if (in_array('read-mobile-phone', $permissions)) {
+        $readMobilePhone = Permission::where('name', 'read-mobile-phone')->first();
+        if (in_array('read-mobile-phone', $permissions) || $user->hasPermission($readMobilePhone)) {
             $transformed['mobile_phones'] = array();
             $phoneTrans = new MobilePhoneTransformer();
             foreach ($item->mobilePhones as $mobilePhone) {
@@ -99,7 +97,8 @@ class AccountTransformer extends TransformerAbstract
             }
         }
 
-        if (in_array('read-address', $permissions)) {
+        $readAddress = Permission::where('name', 'read-address')->first();
+        if (in_array('read-address', $permissions) || $user->hasPermission($readAddress)) {
             $transformed['addresses'] = array();
             $addressTrans = new AddressTransformer();
             foreach ($item->addresses as $address) {
@@ -107,7 +106,8 @@ class AccountTransformer extends TransformerAbstract
             }
         }
 
-        if (in_array('read-alias-account', $permissions)) {
+        $readAliasAccount = Permission::where('name', 'read-alias-account')->first();
+        if (in_array('read-alias-account', $permissions) || $user->hasPermission($readAliasAccount)) {
             $transformed['alias_accounts'] = array();
             $aliasTrasnsformer = new AliasAccountTransformer();
             foreach ($item->aliasAccounts as $alias) {
