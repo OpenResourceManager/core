@@ -1118,6 +1118,16 @@ paths:
           required: true
           type: string
           description: Unqiue username for service account. Must be unique across all service accounts, alias accounts, and regular accounts.
+        - name: name_first
+          in: formData
+          required: true
+          type: string
+          description: The first name of the service.
+        - name: name_last
+          in: formData
+          required: true
+          type: string
+          description: The last name of the service.
         - name: password
           in: formData
           required: false
@@ -3414,20 +3424,15 @@ paths:
       tags:
         - Mobile Phones
       summary: Delete an Mobile Phone.
-      description: Delete a mobile phone based on `id` or `address`. At least one of those parameters must be supplied.
+      description: Delete a mobile phone based on it's `id`.
       consumes:
         - application/x-www-form-urlencoded
       parameters:
         - name: id
           in: formData
-          required: false
+          required: true
           type: integer
-          description: Unique primary key for mobile phone. This is required without the `address` parameter.
-        - name: address
-          in: formData
-          required: false
-          type: string
-          description: The mobile phone address to delete. This is required without the `id` parameter.
+          description: Unique primary key for mobile phone.
       responses:
         204:
           $ref: '#/responses/204'
