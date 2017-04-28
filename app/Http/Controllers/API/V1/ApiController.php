@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Dingo\Api\Routing\Helpers;
 use App\Events\Api\ApiRequestEvent;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @SWG\Swagger(
@@ -158,6 +159,14 @@ class ApiController extends Controller
     }
 
     /**
+     *
+     */
+    public function notFound()
+    {
+        throw new NotFoundHttpException("Unable to find the requested resource: " . $this->noun);
+    }
+
+    /**
      * @param string $resource1
      * @param string $resource2
      */
@@ -181,7 +190,7 @@ class ApiController extends Controller
      */
     public function recordApiRequestEvent(Request $request)
     {
-        if(auth()->user()) {
+        if (auth()->user()) {
             return event(new ApiRequestEvent(auth()->user(), $request->url(), $request->method()));
         }
     }
