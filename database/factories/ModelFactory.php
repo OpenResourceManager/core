@@ -57,7 +57,7 @@ $factory->define(Duty::class, function (Faker\Generator $faker) {
     $word = $faker->unique()->word;
 
     return [
-        'code' => strtoupper($word),
+        'code' => str_replace(' ', '-', strtoupper($word)),
         'label' => ucfirst($word)
     ];
 });
@@ -208,7 +208,7 @@ $factory->define(Campus::class, function (Faker\Generator $faker) {
     $num = $faker->unique()->numberBetween(1, 99999999);
 
     return [
-        'code' => strtoupper(trim($city)) . $num,
+        'code' => str_replace(' ', '-', strtoupper(trim($city))) . $num,
         'label' => $city
     ];
 });
@@ -224,7 +224,7 @@ $factory->define(Building::class, function (Faker\Generator $faker) {
     ]));
 
     $num = $faker->unique()->numberBetween(1, 99999999);
-    $code = strtoupper(trim($label) . $num);
+    $code = str_replace(' ', '-', strtoupper(trim($label) . $num));
 
     return [
         'campus_id' => $faker->randomElement($campusIds),
@@ -257,10 +257,10 @@ $factory->define(Room::class, function (Faker\Generator $faker) {
     }
 
     $codes = array(
-        $faker->word,
-        $faker->word . (String)$faker->numberBetween(1, 999),
-        $faker->word . (String)$faker->numberBetween(1, 999),
-        $faker->word . (String)$faker->numberBetween(1, 999)
+        str_replace(' ', '-', $faker->word),
+        str_replace(' ', '-', $faker->word . (String)$faker->numberBetween(1, 999)),
+        str_replace(' ', '-', $faker->word . (String)$faker->numberBetween(1, 999)),
+        str_replace(' ', '-', $faker->word . (String)$faker->numberBetween(1, 999))
     );
 
     return [
@@ -284,7 +284,7 @@ $factory->define(Department::class, function (Faker\Generator $faker) {
 
     return [
         'academic' => $faker->boolean(40),
-        'code' => $faker->unique()->text(7),
+        'code' => str_replace(' ', '-', $faker->unique()->text(7)),
         'label' => $faker->unique()->randomElement($labels),
     ];
 
@@ -302,7 +302,7 @@ $factory->define(Course::class, function (Faker\Generator $faker) {
 
     $label = $faker->unique()->randomElement($labels);
     $level = $faker->randomElement([100, 200, 300, 400, 500]);
-    $code = $label . $level;
+    $code = str_replace(' ', '-', $label . $level);
 
     return [
         'department_id' => $faker->randomElement($deptIds),
