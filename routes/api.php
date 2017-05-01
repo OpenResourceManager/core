@@ -91,6 +91,9 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
                     $api->get('/', ['uses' => 'DutyController@index', 'as' => 'api.duties.index']);
                     $api->get('/{id}', ['uses' => 'DutyController@show', 'as' => 'api.duties.show']);
                     $api->get('/code/{code}', ['uses' => 'DutyController@showFromCode', 'as' => 'api.duties.show_from_code']);
+                    $api->get('/account/{id}', ['uses' => 'DutyController@showForAccount', 'as' => 'api.duties.account']);
+                    $api->get('/username/{username}', ['uses' => 'DutyController@showForUsername', 'as' => 'api.duties.username']);
+                    $api->get('/identifier/{identifier}', ['uses' => 'DutyController@showForIdentifier', 'as' => 'api.duties.identifier']);
                 });
 
                 $api->group(['middleware' => 'access.routeNeedsPermission:write-duty'], function ($api) {

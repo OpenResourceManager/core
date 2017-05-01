@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1;
 use App\Events\Api\Duty\DutiesViewed;
 use App\Events\Api\Duty\DutyRestored;
 use App\Events\Api\Duty\DutyViewed;
+use App\Http\Models\API\Account;
 use App\Http\Models\API\Duty;
 use App\Http\Transformers\DutyTransformer;
 use Illuminate\Http\Request;
@@ -65,6 +66,51 @@ class DutyController extends ApiController
         $item = Duty::where('code', $code)->firstOrFail();
         event(new DutyViewed($item));
         return $this->response->item($item, new DutyTransformer);
+    }
+
+    /**
+     * Get Duties for an Account
+     *
+     * Shows a list of duties owned by an account.
+     *
+     * @param int $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showForAccount($id)
+    {
+        $duties = Account::findOrFail($id)->duties()->paginate($this->resultLimit);
+        event(new DutiesViewed($duties->pluck('id')->toArray()));
+        return $this->response->paginator($duties, new DutyTransformer);
+    }
+
+    /**
+     * Get Duties for an Account by Username
+     *
+     * Shows a list of duties owned by an account from it's username.
+     *
+     * @param string $username
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showForUsername($username)
+    {
+        $duties = Account::where('username', $username)->firstOrFail()->duties()->paginate($this->resultLimit);
+        event(new DutiesViewed($duties->pluck('id')->toArray()));
+        return $this->response->paginator($duties, new DutyTransformer);
+    }
+
+    /**
+     * Get Duties for an Account by Identifier
+     *
+     * Shows a list of duties owned by an account from it's identifier.
+     *
+     * @param string $identifier
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showForIdentifier($identifier)
+    {
+        $duties = Account::where('identifier', $identifier)->firstOrFail()->duties()->paginate($this->resultLimit);
+        event(new DutiesViewed($duties->pluck('id')->toArray()));
+        return $this->response->paginator($duties, new DutyTransformer);
     }
 
     /**
