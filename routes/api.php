@@ -169,7 +169,9 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
                     $api->get('/', ['uses' => 'EmailController@index', 'as' => 'api.emails.index']);
 
                     $api->get('/verified', ['uses' => 'EmailController@showVerified', 'as' => 'api.emails.show.verified']);
+                    $api->get('/verified/account/{id}', ['uses' => 'EmailController@showVerifiedForAccount', 'as' => 'api.emails.show.verified.account']);
                     $api->get('/unverified', ['uses' => 'EmailController@showUnverified', 'as' => 'api.emails.show.unverified']);
+                    $api->get('/unverified/account/{id}', ['uses' => 'EmailController@showUnverifiedForAccount', 'as' => 'api.emails.show.unverified.account']);
 
                     $api->get('/address/{address}', ['uses' => 'EmailController@showFromAddress', 'as' => 'api.emails.show_from_address']);
                     $api->get('/account/id/{id}', ['uses' => 'EmailController@showFromAccountId', 'as' => 'api.emails.show_from_account_id']);
@@ -193,7 +195,9 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
                     $api->get('/', ['uses' => 'MobilePhoneController@index', 'as' => 'api.mobile-phones.index']);
 
                     $api->get('/verified', ['uses' => 'MobilePhoneController@showVerified', 'as' => 'api.mobile-phones.show.verified']);
+                    $api->get('/verified/account/$id', ['uses' => 'MobilePhoneController@showVerifiedForAccount', 'as' => 'api.mobile-phones.show.verified.account']);
                     $api->get('/unverified', ['uses' => 'MobilePhoneController@showUnverified', 'as' => 'api.mobile-phones.show.unverified']);
+                    $api->get('/unverified/account/$id', ['uses' => 'MobilePhoneController@showUnverifiedForAccount', 'as' => 'api.mobile-phones.show.unverified.account']);
 
                     $api->get('/account/id/{id}', ['uses' => 'MobilePhoneController@showFromAccountId', 'as' => 'api.mobile-phones.show_from_account_id']);
                     $api->get('/account/identifier/{identifier}', ['uses' => 'MobilePhoneController@showFromAccountIdentifier', 'as' => 'api.mobile-phones.show_from_account_identifier']);

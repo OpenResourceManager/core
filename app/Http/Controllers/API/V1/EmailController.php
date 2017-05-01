@@ -51,6 +51,21 @@ class EmailController extends ApiController
     }
 
     /**
+     * Show verified Emails for an Account
+     *
+     * Show a paginated array of Emails that are verified and owned by the specified account.
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showVerifiedForAccount($id)
+    {
+        $emails = Email::where('verified', true)->where('account_id', $id)->paginate($this->resultLimit);
+        return $this->response->paginator($emails, new EmailTransformer);
+
+    }
+
+    /**
      * Show unverified Emails
      *
      * Show a paginated array of Emails that are not verified.
@@ -60,6 +75,20 @@ class EmailController extends ApiController
     public function showUnverified()
     {
         $emails = Email::where('verified', false)->paginate($this->resultLimit);
+        return $this->response->paginator($emails, new EmailTransformer);
+    }
+
+    /**
+     * Show unverified Emails for an Account
+     *
+     * Show a paginated array of Emails that are not verified and owned by the specified account.
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showUnverifiedForAccount($id)
+    {
+        $emails = Email::where('verified', false)->where('account_id', $id)->paginate($this->resultLimit);
         return $this->response->paginator($emails, new EmailTransformer);
     }
 

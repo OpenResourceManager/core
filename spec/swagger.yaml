@@ -2146,7 +2146,7 @@ paths:
           $ref: '#/responses/429'
 
   #############
-  # Courses #
+  #  Courses  #
   #############
   /courses:
     get:
@@ -2348,7 +2348,7 @@ paths:
 
   ###############
   # Departments #
-  ##############
+  ###############
   /departments:
     get:
       tags:
@@ -3088,6 +3088,47 @@ paths:
         429:
           $ref: '#/responses/429'
 
+  /emails/verified/account/{id}:
+    get:
+      tags:
+        - Emails
+      summary: List of verified Emails in a paginated format that are owned by the specified account.
+      description: Return a paginated list of emails that have been verified and are owned by the specified account.
+      parameters:
+        - $ref: '#/parameters/pages'
+        - name: id
+          in: path
+          required: true
+          type: integer
+          description: An account ID.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A list of verified emails owned by the specified account.
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds left in the current period
+              type: integer
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/transformedEmail'
+              meta:
+                $ref: '#/definitions/meta'
+        401:
+          $ref: '#/responses/401'
+        429:
+          $ref: '#/responses/429'
+
   /emails/unverified:
     get:
       tags:
@@ -3124,9 +3165,50 @@ paths:
         429:
           $ref: '#/responses/429'
 
-  ##################
+  /emails/unverified/account/{id}:
+    get:
+      tags:
+        - Emails
+      summary: List of unverified Emails in a paginated format that are owned by the specified account.
+      description: Return a paginated list of emails that are not yet verified and are owned by the specified account.
+      parameters:
+        - $ref: '#/parameters/pages'
+        - name: id
+          in: path
+          required: true
+          type: integer
+          description: An account ID.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A list of unverified emails owned by the specified account.
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds left in the current period
+              type: integer
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/transformedEmail'
+              meta:
+                $ref: '#/definitions/meta'
+        401:
+          $ref: '#/responses/401'
+        429:
+          $ref: '#/responses/429'
+
+  ###################
   # Mobile Carriers #
-  ##################
+  ###################
   /mobile-carriers:
     get:
       tags:
@@ -3303,7 +3385,7 @@ paths:
 
   #################
   # Mobile Phones #
-  ################
+  #################
   /mobile-phones:
     get:
       tags:
@@ -3638,6 +3720,47 @@ paths:
         429:
           $ref: '#/responses/429'
 
+  /mobile-phones/verified/account/{id}:
+    get:
+      tags:
+        - Mobile Phones
+      summary: List of verified Mobile Phones that an account owns in a paginated format.
+      description: Return a paginated list of mobile phones that have been verified and are owned by the specified account.
+      parameters:
+        - $ref: '#/parameters/pages'
+        - name: id
+          in: path
+          required: true
+          type: integer
+          description: An account ID.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A list of verified mobile phones owned by the specified account.
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds left in the current period
+              type: integer
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/transformedMobilePhone'
+              meta:
+                $ref: '#/definitions/meta'
+        401:
+          $ref: '#/responses/401'
+        429:
+          $ref: '#/responses/429'
+
   /mobile-phones/unverified:
     get:
       tags:
@@ -3651,6 +3774,47 @@ paths:
       responses:
         200:
           description: A list of unverified mobile phones.
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds left in the current period
+              type: integer
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/transformedMobilePhone'
+              meta:
+                $ref: '#/definitions/meta'
+        401:
+          $ref: '#/responses/401'
+        429:
+          $ref: '#/responses/429'
+
+  /mobile-phones/unverified/account/{id}:
+    get:
+      tags:
+        - Mobile Phones
+      summary: List of unverified Mobile Phones in a paginated format owned by an account.
+      description: Return a paginated list of mobile phones that are not yet verified and are owned by the specified account.
+      parameters:
+        - $ref: '#/parameters/pages'
+        - name: id
+          in: path
+          required: true
+          type: integer
+          description: An account ID.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A list of unverified mobile phones owned by the specified account.
           headers:
             X-RateLimit-Limit:
               description: The number of allowed requests in the current period

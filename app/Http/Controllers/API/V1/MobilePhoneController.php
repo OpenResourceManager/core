@@ -48,6 +48,20 @@ class MobilePhoneController extends ApiController
     }
 
     /**
+     * Show verified Mobile Phones for an Account
+     *
+     * Show a paginated array of Mobile Phones that are verified and owned by the specified account.
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showVerifiedForAccount($id)
+    {
+        $mobilePhones = MobilePhone::where('verified', true)->where('account_id', $id)->paginate($this->resultLimit);
+        return $this->response->paginator($mobilePhones, new MobilePhoneTransformer);
+    }
+
+    /**
      * Show unverified Mobile Phones
      *
      * Show a paginated array of Mobile Phones that are not verified.
@@ -57,6 +71,20 @@ class MobilePhoneController extends ApiController
     public function showUnverified()
     {
         $mobilePhones = MobilePhone::where('verified', false)->paginate($this->resultLimit);
+        return $this->response->paginator($mobilePhones, new MobilePhoneTransformer);
+    }
+
+    /**
+     * Show unverified Mobile Phones for an Account
+     *
+     * Show a paginated array of Mobile Phones that are not verified and owned by the specified account.
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showUnverifiedForAccount($id)
+    {
+        $mobilePhones = MobilePhone::where('verified', false)->where('account_id', $id)->paginate($this->resultLimit);
         return $this->response->paginator($mobilePhones, new MobilePhoneTransformer);
     }
 
