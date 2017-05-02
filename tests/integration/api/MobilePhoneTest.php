@@ -99,7 +99,7 @@ class MobilePhoneTest extends TestCase
         MobileCarrier::create(jediMasterMobileCarrier());
         MobilePhone::create(jediMasterMobilePhone());
 
-        $this->get('/api/v1/mobile-phones/account/id/' . $account->id, ['Authorization' => 'Bearer ' . $this->bearer])
+        $this->get('/api/v1/mobile-phones/account/' . $account->id, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200);
         #->seeJsonStructure($this->paginatedStructure); # @todo define this structure
     }
@@ -111,7 +111,7 @@ class MobilePhoneTest extends TestCase
         MobileCarrier::create(jediMasterMobileCarrier());
         MobilePhone::create(jediMasterMobilePhone());
 
-        $this->get('/api/v1/mobile-phones/account/id/' . $account->id)
+        $this->get('/api/v1/mobile-phones/account/' . $account->id)
             ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }
@@ -123,7 +123,7 @@ class MobilePhoneTest extends TestCase
         MobileCarrier::create(jediMasterMobileCarrier());
         MobilePhone::create(jediMasterMobilePhone());
 
-        $this->get('/api/v1/mobile-phones/account/identifier/' . $account->identifier, ['Authorization' => 'Bearer ' . $this->bearer])
+        $this->get('/api/v1/mobile-phones/identifier/' . $account->identifier, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200);
         #->seeJsonStructure($this->paginatedStructure); # @todo define this structure
     }
@@ -135,7 +135,7 @@ class MobilePhoneTest extends TestCase
         MobileCarrier::create(jediMasterMobileCarrier());
         MobilePhone::create(jediMasterMobilePhone());
 
-        $this->get('/api/v1/mobile-phones/account/identifier/' . $account->identifier)
+        $this->get('/api/v1/mobile-phones/identifier/' . $account->identifier)
             ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }
@@ -147,7 +147,7 @@ class MobilePhoneTest extends TestCase
         MobileCarrier::create(jediMasterMobileCarrier());
         MobilePhone::create(jediMasterMobilePhone());
 
-        $this->get('/api/v1/mobile-phones/account/username/' . $account->username, ['Authorization' => 'Bearer ' . $this->bearer])
+        $this->get('/api/v1/mobile-phones/username/' . $account->username, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200);
         #->seeJsonStructure($this->paginatedStructure); # @todo define this structure
     }
@@ -159,7 +159,7 @@ class MobilePhoneTest extends TestCase
         MobileCarrier::create(jediMasterMobileCarrier());
         MobilePhone::create(jediMasterMobilePhone());
 
-        $this->get('/api/v1/mobile-phones/account/username/' . $account->username)
+        $this->get('/api/v1/mobile-phones/username/' . $account->username)
             ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }

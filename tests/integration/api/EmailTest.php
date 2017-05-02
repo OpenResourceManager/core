@@ -130,7 +130,7 @@ class EmailTest extends TestCase
     {
         $account = Account::create(lukeSkywalkerAccount());
         Email::create(jediMasterEmail());
-        $this->get('/api/v1/emails/account/id/' . $account->id, ['Authorization' => 'Bearer ' . $this->bearer])
+        $this->get('/api/v1/emails/account/' . $account->id, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200);
         #->seeJsonStructure($this->paginatedStructure); # @todo define this structure
     }
@@ -140,7 +140,7 @@ class EmailTest extends TestCase
     {
         $account = Account::create(lukeSkywalkerAccount());
         Email::create(jediMasterEmail());
-        $this->get('/api/v1/emails/account/id/' . $account->id)
+        $this->get('/api/v1/emails/account/' . $account->id)
             ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }
@@ -150,7 +150,7 @@ class EmailTest extends TestCase
     {
         $account = Account::create(lukeSkywalkerAccount());
         Email::create(jediMasterEmail());
-        $this->get('/api/v1/emails/account/identifier/' . $account->identifier, ['Authorization' => 'Bearer ' . $this->bearer])
+        $this->get('/api/v1/emails/identifier/' . $account->identifier, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200);
         #->seeJsonStructure($this->paginatedStructure); # @todo define this structure
     }
@@ -160,7 +160,7 @@ class EmailTest extends TestCase
     {
         $account = Account::create(lukeSkywalkerAccount());
         Email::create(jediMasterEmail());
-        $this->get('/api/v1/emails/account/identifier/' . $account->identifier)
+        $this->get('/api/v1/emails/identifier/' . $account->identifier)
             ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }
@@ -170,7 +170,7 @@ class EmailTest extends TestCase
     {
         $account = Account::create(lukeSkywalkerAccount());
         Email::create(jediMasterEmail());
-        $this->get('/api/v1/emails/account/username/' . $account->username, ['Authorization' => 'Bearer ' . $this->bearer])
+        $this->get('/api/v1/emails/username/' . $account->username, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200);
         #->seeJsonStructure($this->paginatedStructure); # @todo define this structure
     }
@@ -180,7 +180,7 @@ class EmailTest extends TestCase
     {
         $account = Account::create(lukeSkywalkerAccount());
         Email::create(jediMasterEmail());
-        $this->get('/api/v1/emails/account/username/' . $account->username)
+        $this->get('/api/v1/emails/username/' . $account->username)
             ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }
