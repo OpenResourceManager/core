@@ -130,7 +130,7 @@ class EmailController extends ApiController
      */
     public function showFromAccountId($id)
     {
-        $emails = Account::findOrFail($id)->emails()->paginate($this->resultLimit);
+        $emails = Email::where('account_id', $id)->paginate($this->resultLimit);
         return $this->response->paginator($emails, new EmailTransformer);
     }
 

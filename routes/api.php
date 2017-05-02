@@ -177,9 +177,9 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
                     $api->get('/unverified/account/{id}', ['uses' => 'EmailController@showUnverifiedForAccount', 'as' => 'api.emails.show.unverified.account']);
 
                     $api->get('/address/{address}', ['uses' => 'EmailController@showFromAddress', 'as' => 'api.emails.show_from_address']);
-                    $api->get('/account/id/{id}', ['uses' => 'EmailController@showFromAccountId', 'as' => 'api.emails.show_from_account_id']);
-                    $api->get('/account/identifier/{identifier}', ['uses' => 'EmailController@showFromAccountIdentifier', 'as' => 'api.emails.show_from_account_identifier']);
-                    $api->get('/account/username/{username}', ['uses' => 'EmailController@showFromAccountUsername', 'as' => 'api.emails.show_from_account_username']);
+                    $api->get('/account/{id}', ['uses' => 'EmailController@showFromAccountId', 'as' => 'api.emails.show_from_account_id']);
+                    $api->get('/identifier/{identifier}', ['uses' => 'EmailController@showFromAccountIdentifier', 'as' => 'api.emails.show_from_account_identifier']);
+                    $api->get('/username/{username}', ['uses' => 'EmailController@showFromAccountUsername', 'as' => 'api.emails.show_from_account_username']);
 
                     $api->get('/{id}', ['uses' => 'EmailController@show', 'as' => 'api.emails.show']);
 
@@ -202,9 +202,9 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
                     $api->get('/unverified', ['uses' => 'MobilePhoneController@showUnverified', 'as' => 'api.mobile-phones.show.unverified']);
                     $api->get('/unverified/account/$id', ['uses' => 'MobilePhoneController@showUnverifiedForAccount', 'as' => 'api.mobile-phones.show.unverified.account']);
 
-                    $api->get('/account/id/{id}', ['uses' => 'MobilePhoneController@showFromAccountId', 'as' => 'api.mobile-phones.show_from_account_id']);
-                    $api->get('/account/identifier/{identifier}', ['uses' => 'MobilePhoneController@showFromAccountIdentifier', 'as' => 'api.mobile-phones.show_from_account_identifier']);
-                    $api->get('/account/username/{username}', ['uses' => 'MobilePhoneController@showFromAccountUsername', 'as' => 'api.mobile-phones.show_from_account_username']);
+                    $api->get('/account/{id}', ['uses' => 'MobilePhoneController@showFromAccountId', 'as' => 'api.mobile-phones.show_from_account_id']);
+                    $api->get('/identifier/{identifier}', ['uses' => 'MobilePhoneController@showFromAccountIdentifier', 'as' => 'api.mobile-phones.show_from_account_identifier']);
+                    $api->get('/username/{username}', ['uses' => 'MobilePhoneController@showFromAccountUsername', 'as' => 'api.mobile-phones.show_from_account_username']);
                     $api->get('/mobile-carrier/id/{id}', ['uses' => 'MobilePhoneController@showFromMobileCarrierId', 'as' => 'api.mobile-phones.show_from_mobile-carrier_id']);
                     $api->get('/mobile-carrier/code/{code}', ['uses' => 'MobilePhoneController@showFromMobileCarrierCode', 'as' => 'api.mobile-phones.show_from_mobile-carrier_code']);
 

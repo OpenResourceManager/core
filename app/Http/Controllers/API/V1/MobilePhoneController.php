@@ -112,7 +112,7 @@ class MobilePhoneController extends ApiController
      */
     public function showFromAccountId($id)
     {
-        $phones = Account::findOrFail($id)->mobilePhones()->paginate($this->resultLimit);
+        $phones = MobilePhone::where('account_id', $id)->paginate($this->resultLimit);
         return $this->response->paginator($phones, new MobilePhoneTransformer);
     }
 
