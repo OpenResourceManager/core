@@ -198,9 +198,9 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
                     $api->get('/', ['uses' => 'MobilePhoneController@index', 'as' => 'api.mobile-phones.index']);
 
                     $api->get('/verified', ['uses' => 'MobilePhoneController@showVerified', 'as' => 'api.mobile-phones.show.verified']);
-                    $api->get('/verified/account/$id', ['uses' => 'MobilePhoneController@showVerifiedForAccount', 'as' => 'api.mobile-phones.show.verified.account']);
+                    $api->get('/verified/account/{id}', ['uses' => 'MobilePhoneController@showVerifiedForAccount', 'as' => 'api.mobile-phones.show.verified.account']);
                     $api->get('/unverified', ['uses' => 'MobilePhoneController@showUnverified', 'as' => 'api.mobile-phones.show.unverified']);
-                    $api->get('/unverified/account/$id', ['uses' => 'MobilePhoneController@showUnverifiedForAccount', 'as' => 'api.mobile-phones.show.unverified.account']);
+                    $api->get('/unverified/account/{id}', ['uses' => 'MobilePhoneController@showUnverifiedForAccount', 'as' => 'api.mobile-phones.show.unverified.account']);
 
                     $api->get('/account/{id}', ['uses' => 'MobilePhoneController@showFromAccountId', 'as' => 'api.mobile-phones.show_from_account_id']);
                     $api->get('/identifier/{identifier}', ['uses' => 'MobilePhoneController@showFromAccountIdentifier', 'as' => 'api.mobile-phones.show_from_account_identifier']);

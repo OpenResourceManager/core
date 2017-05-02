@@ -226,7 +226,10 @@ class MobilePhoneController extends ApiController
         }
 
         $trans = new MobilePhoneTransformer();
-        $item = MobilePhone::create($data);
+
+        if ($toRestore = MobilePhone::onlyTrashed()->where('number', $data['number'])->first()) $toRestore->restore();
+
+        $item = MobilePhone::updateOrCreate(['number' => $data['number']], $data);
         $item->verification_token = ($item->verified) ? null : generateVerificationToken();
         $item->save();
 
