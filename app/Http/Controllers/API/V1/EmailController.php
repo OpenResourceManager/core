@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Dingo\Api\Exception\StoreResourceFailedException;
 use Krucas\Settings\Facades\Settings;
-use Snowfire\Beautymail\Beautymail;
 
 class EmailController extends ApiController
 {
@@ -179,7 +178,9 @@ class EmailController extends ApiController
             'username' => 'string|required_without_all:identifier,account_id|min:3|exists:accounts,username,deleted_at,NULL',
             'account_id' => 'integer|required_without_all:identifier,username|min:1|exists:accounts,id,deleted_at,NULL',
             'address' => 'email|required',
-            'verified' => 'boolean'
+            'verified' => 'boolean',
+            'confirmation_from' => 'email',
+            'upstream_app_name' => 'string'
         ]);
         if ($validator->fails())
             throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
@@ -213,29 +214,27 @@ class EmailController extends ApiController
         $item->verification_token = ($item->verified) ? null : generateVerificationToken();
         $item->save();
 
-        // If the email is not verified
+        // Start verification if we can and if it's needed
         if (!$item->verified) {
             // Are we set up to verify emails?
             $verification_url = Settings::get('asset-verification-server-url', '');
-            $confirmation_from_address = Settings::get('confirmation-from-address', '');
-            $logo = ['path' => Settings::get('logo-url', ''), 'width' => 400, 'height' => ''];
-
+            $confirmation_from_address = (empty($data['confirmation_from'])) ? Settings::get('confirmation-from-address', '') : empty($data['confirmation_from']);
+            // If we are integrated with the asset verification server
             if (!empty($verification_url) && !empty($confirmation_from_address)) {
+                // Build the logo
+                $logo = ['path' => Settings::get('logo-url', ''), 'width' => 400, 'height' => ''];
                 // Build the verification url
                 $verification_url = fixPath(fixPath($verification_url) . 'verify/' . $item->verification_token);
-                // Build the mail class
-                $beautymail = app()->make(Beautymail::class);
-                // Send the message
-                $beautymail->send('emails.confirm', ['logo' => $logo, 'url' => $verification_url, 'token' => $item->verification_token],
-                    function ($message) use ($item, $confirmation_from_address) {
-                        $message
-                            ->from($confirmation_from_address)
-                            ->to($item->address, $item->account->format_full_name())
-                            ->subject('Welcome! Verify your email.');
-                    });
+                // Build HTML parts
+                $html_parts = ['logo' => $logo, 'url' => $verification_url, 'token' => $item->verification_token];
+                // Form the subject of the email
+                $subject = (empty($data['upstream_app_name'])) ? 'Email address verification.' : $data['upstream_app_name'] . ' email address verification.';
+                // Send the email
+                sendEmail($html_parts, $subject, $item->account->format_full_name(), $confirmation_from_address, $item->address, 'emails.confirm');
             }
         }
 
+        // Return the transformed item
         $item = $trans->transform($item);
         return $this->response->created(route('api.emails.show', ['id' => $item['id']]), ['data' => $item]);
     }

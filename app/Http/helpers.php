@@ -1,6 +1,8 @@
 <?php
 
 use Krucas\Settings\Facades\Settings;
+use SimpleSoftwareIO\SMS\Facades\SMS;
+use Snowfire\Beautymail\Beautymail;
 
 /**
  * Formats a phone number
@@ -792,4 +794,45 @@ function fixPath($path = '')
 {
     $path = str_replace('\\', '/', trim($path));
     return (substr($path, -1) != '/') ? $path .= '/' : $path;
+}
+
+/**
+ * @param string $message
+ * @param string $number
+ * @param string $carrier_code
+ */
+function sendSMS($message, $number, $carrier_code)
+{
+    // Queue the message for delivery
+    SMS::queue($message, [], function ($sms) use ($number, $carrier_code) {
+        if (env('SMS_DRIVER', 'email') === 'email') {
+            $sms->to('+1' . $number, $carrier_code);
+        } else {
+            $sms->to('+1' . $number);
+        }
+    });
+}
+
+/**
+ * @param array $html_parts
+ * @param string $subject
+ * @param string $full_name
+ * @param string $from_address
+ * @param string $to_address
+ * @param string $template
+ */
+function sendEmail($html_parts = [], $subject, $full_name, $from_address, $to_address, $template = 'emails.alert')
+{
+    // Build the array of html parts to be used in the template
+    $html_parts['subject'] = $subject;
+    // Build the mail class
+    $beautymail = app()->make(Beautymail::class);
+    // Queue the message for delivery
+    $beautymail->queue($template, $html_parts,
+        function ($message) use ($full_name, $from_address, $to_address, $subject) {
+            $message
+                ->from($from_address)
+                ->to($to_address, $full_name)
+                ->subject($subject);
+        });
 }

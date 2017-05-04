@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Models\API\Account;
 use Dingo\Api\Exception\StoreResourceFailedException;
-use SimpleSoftwareIO\SMS\Facades\SMS;
 use Krucas\Settings\Facades\Settings;
 
 class MobilePhoneController extends ApiController
@@ -192,7 +191,9 @@ class MobilePhoneController extends ApiController
             'country_code' => 'string|max:4',
             'mobile_carrier_id' => 'integer|min:1|required_without:mobile_carrier_code|exists:mobile_carriers,id,deleted_at,NULL',
             'mobile_carrier_code' => 'string|min:3|required_without:mobile_carrier_id|exists:mobile_carriers,code,deleted_at,NULL',
-            'verified' => 'boolean'
+            'verified' => 'boolean',
+            'confirmation_from' => 'email',
+            'upstream_app_name' => 'string'
         ]);
 
         if ($validator->fails())
@@ -233,22 +234,17 @@ class MobilePhoneController extends ApiController
         $item->verification_token = ($item->verified) ? null : generateVerificationToken();
         $item->save();
 
+        // Start verification if we can and if it's needed
         $verification_url = Settings::get('asset-verification-server-url', '');
-
         if (!$item->verified && !empty($item->verification_token) && !empty($verification_url)) {
-
-            $message = "Welcome!\nYour code is: " . $item->verification_token . "\nTo verify this number visit:\n" . fixPath(fixPath($verification_url) . 'verify/' . $item->verification_token);
-
-            // @todo this should be queued at some point
-            SMS::send($message, [], function ($sms) use ($item) {
-                if (env('SMS_DRIVER', 'email') === 'email') {
-                    $sms->to('+1' . $item->number, $item->carrier->code);
-                } else {
-                    $sms->to('+1' . $item->number);
-                }
-            });
+            // Build the message string with some context if available
+            $message = (empty($data['upstream_app_name'])) ? $data['upstream_app_name'] . " mobile phone verification:\n" : "Mobile phone verification:\n";
+            $message = $message . "Your verification code is: " . $item->verification_token . "\nTo verify this phone number visit:\n" . fixPath(fixPath($verification_url) . 'verify/' . $item->verification_token);
+            // Send the SMS message
+            sendSMS($message,$item->number, $item->carrier->code);
         }
 
+        // Return the transformed item
         $item = $trans->transform($item);
         return $this->response->created(route('api.mobile-phones.show', ['id' => $item['id']]), ['data' => $item]);
     }
