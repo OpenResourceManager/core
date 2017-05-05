@@ -192,7 +192,6 @@ class MobilePhoneController extends ApiController
             'mobile_carrier_id' => 'integer|min:1|required_without:mobile_carrier_code|exists:mobile_carriers,id,deleted_at,NULL',
             'mobile_carrier_code' => 'string|min:3|required_without:mobile_carrier_id|exists:mobile_carriers,code,deleted_at,NULL',
             'verified' => 'boolean',
-            'confirmation_from' => 'email',
             'upstream_app_name' => 'string'
         ]);
 
@@ -238,7 +237,7 @@ class MobilePhoneController extends ApiController
         $verification_url = Settings::get('asset-verification-server-url', '');
         if (!$item->verified && !empty($item->verification_token) && !empty($verification_url)) {
             // Build the message string with some context if available
-            $message = (empty($data['upstream_app_name'])) ? $data['upstream_app_name'] . " mobile phone verification:\n" : "Mobile phone verification:\n";
+            $message = (empty($data['upstream_app_name'])) ?  "Mobile phone verification:\n" : $data['upstream_app_name'] . " mobile phone verification:\n";
             $message = $message . "Your verification code is: " . $item->verification_token . "\nTo verify this phone number visit:\n" . fixPath(fixPath($verification_url) . 'verify/' . $item->verification_token);
             // Send the SMS message
             sendSMS($message,$item->number, $item->carrier->code);
