@@ -2905,6 +2905,16 @@ paths:
           required: true
           type: string
           description: The email address for this email object.
+        - name: confirmation_from
+          in: formData
+          required: false
+          type: string
+          description: A friendly email address to send the verification email from. This allows for contextual verification messages.
+        - name: upstream_app_name
+          in: formData
+          required: false
+          type: string
+          description: Name of the upstream app posting the email. This allows for contextual verification messages.
         - name: verified
           in: formData
           required: false
@@ -3578,6 +3588,11 @@ paths:
           required: false
           type: integer
           description: The mobile caerier Code that this phone belongs to. This is required without the `mobile_carrier_id` parameter.
+        - name: upstream_app_name
+          in: formData
+          required: false
+          type: string
+          description: Name of the upstream app posting the mobile number. This allows for contextual verification messages.
         - name: verified
           in: formData
           required: false
