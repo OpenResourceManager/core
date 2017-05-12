@@ -45,7 +45,7 @@ ORM Core is a REST API designed to house institutional data and act as an interm
 * php >= 7.0.0
 * Redis
 * MariaDB/MySQL (tested on MariaDB 10.1)
-* [Yarn](https://yarnpkg.com/)
+* [Yarn](https://yarnpkg.com/) -- For development*
 * [composer](https://getcomposer.org/)
 * NGINX or Apache (tested on NGINX)
 
@@ -58,7 +58,7 @@ PHP Packages:
 * php-mbstring
 * php-gd
 * php-xml
-* php-fpm (Nginx only)
+* php-fpm (NGINX only)
 
 ## Install
 
@@ -68,17 +68,13 @@ PHP Packages:
 
 * Step 3: Install Redis
 
-* Step 4: Install NPM
-
-* Step 5: Install Yarn
-
 ```
 npm -g install yarn
 ```
 
-* Step 6: Install PHP and extensions
+* Step 4: Install PHP and extensions
 
-* Step 7: Initialize the DB
+* Step 5: Initialize the DB
 
 ```mysql
 create database orm;
@@ -87,7 +83,7 @@ GRANT ALL PRIVILEGES ON orm.* To 'orm'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
-* Step 8: Initialize ORM
+* Step 6: Initialize ORM
 
 ```shell
 # change dir the NGINX web root
@@ -107,9 +103,6 @@ cp .env.example .env;
 
 # Install composer dependancies
 composer install --no-interaction --no-scripts --no-dev;
-
-# Install node dependancies
-yarn install --prod;
 
 # Generate optimaized class loader
 composer dump-autoload -o;
@@ -142,7 +135,7 @@ php artisan route:cache;
 php artisan api:cache;
 ```
 
-* Step 9: Open the `.env` file in your favorite editor and configure it.
+* Step 7: Open the `.env` file in your favorite editor and configure it.
 
  ---
  
@@ -155,11 +148,8 @@ git pull;
 # Check out to the latest tag
 git checkout $(git describe --tags $(git rev-list --tags --max-count=1));
 
-# Update composer dependancies
-composer update;
-
-# Install/Update node dependancies
-yarn install --prod;
+# Install composer dependancies
+composer install --no-interaction --no-dev;
 
 # Run DB Migrations
 php artisan migrate --force;
