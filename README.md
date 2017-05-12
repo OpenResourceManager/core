@@ -68,10 +68,6 @@ PHP Packages:
 
 * Step 3: Install Redis
 
-```
-npm -g install yarn
-```
-
 * Step 4: Install PHP and extensions
 
 * Step 5: Initialize the DB
