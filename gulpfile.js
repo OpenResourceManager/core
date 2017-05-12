@@ -1,7 +1,7 @@
-const elixir = require('laravel-elixir');
+const elixir = require('laravel-elixir')
 
-require('laravel-elixir-vue-2');
-require('./elixir-extensions');
+require('laravel-elixir-vue-2')
+require('./elixir-extensions')
 
 /*
  |--------------------------------------------------------------------------
@@ -15,36 +15,36 @@ require('./elixir-extensions');
  */
 
 elixir((mix) => {
-    /**
-     * Copy needed files from /node directories
-     * to /public directory.
-     */
-    mix.copy(
-        'node_modules/font-awesome/fonts',
-        'public/build/fonts/font-awesome'
+  /**
+   * Copy needed files from /node directories
+   * to /public directory.
+   */
+  mix.copy(
+    'node_modules/font-awesome/fonts',
+    'public/build/fonts/font-awesome'
+  )
+    .copy(
+      'node_modules/bootstrap-sass/assets/fonts/bootstrap',
+      'public/build/fonts/bootstrap'
     )
     .copy(
-        'node_modules/bootstrap-sass/assets/fonts/bootstrap',
-        'public/build/fonts/bootstrap'
-    )
-    .copy(
-        'node_modules/bootstrap-show-password/bootstrap-show-password.min.js',
-        'resources/assets/js/plugin/bsshowhidepassword/'
+      'node_modules/bootstrap-show-password/bootstrap-show-password.min.js',
+      'resources/assets/js/plugin/bsshowhidepassword/'
     )
 
     /**
      * Process frontend SCSS stylesheets
      */
     .sass([
-        'frontend/app.scss',
-        'plugin/sweetalert/sweetalert.scss'
+      'frontend/app.scss',
+      'plugin/sweetalert/sweetalert.scss'
     ], 'resources/assets/css/frontend/app.css')
 
     /**
      * Combine pre-processed frontend CSS files
      */
     .styles([
-        'frontend/app.css'
+      'frontend/app.css'
     ], 'public/css/frontend.css')
 
     /**
@@ -57,27 +57,27 @@ elixir((mix) => {
      * Combine frontend scripts
      */
     .scripts([
-        'dist/frontend.js',
-        'plugin/sweetalert/sweetalert.min.js',
-        'plugins.js',
-        'plugin/bsshowhidepassword/bootstrap-show-password.min.js',
-        'plugin/animatenumber/jquery.animateNumber.min.js'
+      'dist/frontend.js',
+      'plugin/sweetalert/sweetalert.min.js',
+      'plugins.js',
+      'plugin/bsshowhidepassword/bootstrap-show-password.min.js',
+      'plugin/animatenumber/jquery.animateNumber.min.js'
     ], 'public/js/frontend.js')
 
     /**
      * Process backend SCSS stylesheets
      */
     .sass([
-        'backend/app.scss',
-        'plugin/toastr/toastr.scss',
-        'plugin/sweetalert/sweetalert.scss'
+      'backend/app.scss',
+      'plugin/toastr/toastr.scss',
+      'plugin/sweetalert/sweetalert.scss'
     ], 'resources/assets/css/backend/app.css')
 
     /**
      * Combine pre-processed backend CSS files
      */
     .styles([
-        'backend/app.css'
+      'backend/app.css'
     ], 'public/css/backend.css')
 
     /**
@@ -95,34 +95,33 @@ elixir((mix) => {
      * Combine backend scripts
      */
     .scripts([
-        'dist/backend.js',
-        'plugin/sweetalert/sweetalert.min.js',
-        'plugin/toastr/toastr.min.js',
-        'plugins.js',
-        'backend/custom.js'
+      'dist/backend.js',
+      'plugin/sweetalert/sweetalert.min.js',
+      'plugin/toastr/toastr.min.js',
+      'plugins.js',
+      'backend/custom.js'
     ], 'public/js/backend.js')
 
     /**
      * Combine pre-processed rtl CSS files
      */
     .styles([
-        'rtl/bootstrap-rtl.css'
+      'rtl/bootstrap-rtl.css'
     ], 'public/css/rtl.css')
 
     /**
      * Apply version control
      */
     .version([
-        "public/css/frontend.css",
-        "public/js/frontend.js",
-        "public/css/backend.css",
-        "public/css/backend-rtl.css",
-        "public/js/backend.js",
-        "public/css/rtl.css"
-    ]);
-
-    /**
-     * Run tests
-     */
-    //.phpUnit();
-});
+      "public/css/frontend.css",
+      "public/js/frontend.js",
+      "public/css/backend.css",
+      "public/css/backend-rtl.css",
+      "public/js/backend.js",
+      "public/css/rtl.css"
+    ])
+  /**
+   * Run tests
+   */
+  //.phpUnit();
+})
