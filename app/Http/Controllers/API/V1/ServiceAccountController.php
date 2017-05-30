@@ -114,8 +114,8 @@ class ServiceAccountController extends ApiController
         }
 
         $validator = Validator::make($data, [
-            'username' => 'string|required|min:3|unique:accounts,username|unique:alias_accounts,username|unique:service_accounts,username',
-            'identifier' => 'alpha_num|required|max:7|min:6|unique:accounts,identifier|unique:service_accounts,identifier',
+            'username' => 'string|required|min:3|unique:accounts,username|unique:alias_accounts,username',
+            'identifier' => 'alpha_num|required|max:7|min:6|unique:accounts,identifier',
             'name_first' => 'string|required|min:1',
             'name_last' => 'string|required|min:1',
             'account_identifier' => 'alpha_num|required_without_all:account_id,account_username|max:7|min:6|exists:accounts,identifier,deleted_at,NULL',
@@ -145,7 +145,9 @@ class ServiceAccountController extends ApiController
         }
 
         // If the account is trashed restore them first.
-        if ($accountToRestore = ServiceAccount::onlyTrashed()->where('username', $data['username'])->first()) $accountToRestore->restore();
+        if ($accountToRestore = ServiceAccount::onlyTrashed()->where('identifier', $data['identifier'])->first()) {
+            $accountToRestore->restore();
+        }
 
         $item = ServiceAccount::updateOrCreate(['identifier' => $data['identifier']], $data);
 

@@ -100,7 +100,7 @@ class AliasAccountController extends ApiController
         }
 
         $validator = Validator::make($data, [
-            'username' => 'string|required|min:3|unique:accounts,username|unique:service_accounts,username|unique:alias_accounts,username',
+            'username' => 'string|required|min:3|unique:accounts,username|unique:service_accounts,username',
             'account_identifier' => 'alpha_num|required_without_all:account_id,account_username|max:7|min:6|exists:accounts,identifier,deleted_at,NULL',
             'account_username' => 'string|required_without_all:account_identifier,account_id|min:3|exists:accounts,username,deleted_at,NULL',
             'account_id' => 'integer|required_without_all:account_identifier,account_username|min:1|exists:accounts,id,deleted_at,NULL',
