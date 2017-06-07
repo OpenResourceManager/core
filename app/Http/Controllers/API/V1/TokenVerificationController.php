@@ -20,7 +20,7 @@ class TokenVerificationController extends ApiController
 
     /**
      * @param Request $request
-     * @param String $token
+     * @param string $token
      * @return \Dingo\Api\Http\Response|void
      */
     public function verify(Request $request, $token = null)

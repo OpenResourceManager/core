@@ -311,6 +311,22 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
                 });
             });
 
+            /**
+             * Load Statuses
+             */
+            $api->group(['prefix' => 'load-statuses'], function ($api) {
+                $api->group(['middleware' => 'access.routeNeedsPermission:read-load-statuses'], function ($api) {
+                    $api->get('/', ['uses' => 'LoadStatusController@index', 'as' => 'api.load-statuses.index']);
+                    $api->get('/{id}', ['uses' => 'LoadStatusController@show', 'as' => 'api.load-statuses.show']);
+                    $api->get('/code/{code}', ['uses' => 'LoadStatusController@showFromCode', 'as' => 'api.load-statuses.show_from_code']);
+
+                });
+                $api->group(['middleware' => 'access.routeNeedsPermission:write-load-statuses'], function ($api) {
+                    $api->post('/', ['uses' => 'LoadStatusController@store', 'as' => 'api.load-statuses.store']);
+                    $api->delete('/', ['uses' => 'LoadStatusController@destroy', 'as' => 'api.load-statuses.destroy']);
+                });
+            });
+
         });
     });
 });

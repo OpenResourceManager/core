@@ -90,6 +90,7 @@ class DepartmentController extends ApiController
 
         if ($toRestore = Department::onlyTrashed()->where('code', $data['code'])->first()) {
             $toRestore->restore();
+            event(new DepartmentRestored($toRestore));
         }
         $trans = new DepartmentTransformer();
         $item = Department::updateOrCreate(['code' => $data['code']], $data);
@@ -102,7 +103,7 @@ class DepartmentController extends ApiController
      *
      * Deletes the specified Department by it's ID or Code attribute.
      *
-     * @return mixed|void
+     * @return mixed
      */
     public function destroy(Request $request)
     {
