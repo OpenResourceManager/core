@@ -48,10 +48,17 @@ class AccountTransformer extends TransformerAbstract
         if (in_array('read-duty', $permissions) || $user->hasPermission($readDuty)) {
             $dutyTrans = new DutyTransformer();
             $transformed['primary_duty'] = $dutyTrans->transform($item->primaryDuty);
-            $transformed['duties'] = array($dutyTrans->transform($item->primaryDuty));
+            $transformed['duties'] = [];
+            $duties = [];
+            $primary_in_duties = false;
             foreach ($item->duties as $duty) {
-                $transformed['duties'][] = $dutyTrans->transform($duty);
+                if ($duty->id == $item->primaryDuty->id) $primary_in_duties = true;
+                $duties[] = $dutyTrans->transform($duty);
             }
+            if (!$primary_in_duties) {
+                $transformed['duties'][] = $dutyTrans->transform($item->primaryDuty);
+            }
+            $transformed['duties'] = array_merge($transformed['duties'], $duties);
         }
 
         $readClassified = Permission::where('name', 'read-classified')->first();
