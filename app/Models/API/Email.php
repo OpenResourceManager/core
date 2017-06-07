@@ -10,7 +10,7 @@ class Email extends BaseApiModel
     use SoftDeletes;
     protected $table = 'emails';
     protected $dates = ['deleted_at'];
-    protected $fillable = ['account_id', 'address', 'verified'];
+    protected $fillable = ['account_id', 'address', 'verified', 'verification_callback'];
     protected $touches = ['account'];
 
     /**

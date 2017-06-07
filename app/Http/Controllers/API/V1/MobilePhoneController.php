@@ -191,6 +191,7 @@ class MobilePhoneController extends ApiController
             'country_code' => 'string|max:4',
             'mobile_carrier_id' => 'integer|min:1|required_without:mobile_carrier_code|exists:mobile_carriers,id,deleted_at,NULL',
             'mobile_carrier_code' => 'string|min:3|required_without:mobile_carrier_id|exists:mobile_carriers,code,deleted_at,NULL',
+            'verification_callback' => 'url',
             'verified' => 'boolean',
             'upstream_app_name' => 'string'
         ]);

@@ -179,6 +179,7 @@ class EmailController extends ApiController
             'account_id' => 'integer|required_without_all:identifier,username|min:1|exists:accounts,id,deleted_at,NULL',
             'address' => 'email|required',
             'verified' => 'boolean',
+            'verification_callback' => 'url',
             'confirmation_from' => 'email',
             'upstream_app_name' => 'string'
         ]);

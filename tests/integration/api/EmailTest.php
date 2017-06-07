@@ -21,6 +21,7 @@ class EmailTest extends TestCase
             'address',
             'verified',
             'verification_token',
+            'verification_callback',
             'updated',
             'created',
 
