@@ -81,7 +81,7 @@ FLUSH PRIVILEGES;
 
 * Step 6: Initialize ORM
 
-```shell
+```bash
 # change dir the NGINX web root
 cd /usr/share/nginx/html/
 
@@ -137,7 +137,7 @@ php artisan api:cache;
  
 ## Update
 
-```shell
+```bash
 # Pull the latest code
 git pull;
 
