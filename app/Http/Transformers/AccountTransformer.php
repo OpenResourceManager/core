@@ -34,13 +34,21 @@ class AccountTransformer extends TransformerAbstract
 
         $user = auth()->user();
         $permissions = [];
-
         foreach ($user->roles as $role) {
             foreach ($role->permissions as $permission) {
                 $name = $permission->name;
                 if (!in_array($name, $permissions)) {
                     $permissions[] = $name;
                 }
+            }
+        }
+
+        $readLoadStatus = Permission::where('name', 'read-load-status')->first();
+        if (in_array('read-load-status', $permissions) || $user->hasPermission($readLoadStatus)) {
+            $transformed['load_status'] = null;
+            $loadStatusTransformer = new LoadStatusTransformer();
+            if (!empty($item->loadStatus)) {
+                $transformed['load_status'] = $loadStatusTransformer->transform($item->loadStatus);
             }
         }
 

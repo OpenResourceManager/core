@@ -107,10 +107,16 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
              */
             $api->group(['prefix' => 'accounts'], function ($api) {
                 $api->group(['middleware' => 'access.routeNeedsPermission:read-account'], function ($api) {
+
                     $api->get('/', ['uses' => 'AccountController@index', 'as' => 'api.accounts.index']);
                     $api->get('/{id}', ['uses' => 'AccountController@show', 'as' => 'api.accounts.show']);
                     $api->get('/username/{username}', ['uses' => 'AccountController@showFromUsername', 'as' => 'api.accounts.show_from_username']);
                     $api->get('/identifier/{identifier}', ['uses' => 'AccountController@showFromIdentifier', 'as' => 'api.accounts.show_from_identifier']);
+
+                    $api->group(['prefix' => 'load-status', 'middleware' => 'access.routeNeedsPermission:read-load-statuses'], function ($api) {
+                        $api->get('/{id}', ['uses' => 'AccountController@showByLoadStatus', 'as' => 'api.accounts.by.load-status']);
+                        $api->get('/code/{code}', ['uses' => 'AccountController@showByLoadStatusCode', 'as' => 'api.accounts.by.load-status.code']);
+                    });
                 });
 
                 $api->group(['middleware' => 'access.routeNeedsPermission:write-account'], function ($api) {
@@ -319,7 +325,6 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
                     $api->get('/', ['uses' => 'LoadStatusController@index', 'as' => 'api.load-statuses.index']);
                     $api->get('/{id}', ['uses' => 'LoadStatusController@show', 'as' => 'api.load-statuses.show']);
                     $api->get('/code/{code}', ['uses' => 'LoadStatusController@showFromCode', 'as' => 'api.load-statuses.show_from_code']);
-
                 });
                 $api->group(['middleware' => 'access.routeNeedsPermission:write-load-statuses'], function ($api) {
                     $api->post('/', ['uses' => 'LoadStatusController@store', 'as' => 'api.load-statuses.store']);

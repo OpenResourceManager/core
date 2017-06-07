@@ -487,6 +487,22 @@ function defaultDuties()
 }
 
 /**
+ * Returns an array of Load Statuses
+ *
+ * This is used to pre-seed the database with production data.
+ *
+ * @return array
+ */
+function defaultLoadStatuses()
+{
+    $now = Carbon\Carbon::now('utc')->toDateTimeString();
+    return [
+        ['code' => 'FULL_TIME', 'label' => 'Full Time', 'created_at' => $now, 'updated_at' => $now],
+        ['code' => 'PART_TIME', 'label' => 'Part Time', 'created_at' => $now, 'updated_at' => $now]
+    ];
+}
+
+/**
  * Array of building name endings
  *
  * Returns an array of building name postfixes used for generating dummy data.

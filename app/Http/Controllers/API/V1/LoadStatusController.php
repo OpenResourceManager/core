@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API\V1;
 
 
 use App\Http\Models\API\LoadStatus;
-use App\Http\Transformers\DepartmentTransformer;
+use App\Http\Transformers\LoadStatusTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Dingo\Api\Exception\DeleteResourceFailedException;
@@ -33,7 +33,7 @@ class LoadStatusController extends ApiController
     {
         $load_statuses = LoadStatus::paginate($this->resultLimit);
         //event(new LoadStatusesViewed($load_statuses->pluck('id')->toArray()));
-        return $this->response->paginator($load_statuses, new DepartmentTransformer);
+        return $this->response->paginator($load_statuses, new LoadStatusTransformer);
     }
 
     /**
@@ -48,7 +48,7 @@ class LoadStatusController extends ApiController
     {
         $item = LoadStatus::findOrFail($id);
         //event(new LoadStatusViewed($item));
-        return $this->response->item($item, new DepartmentTransformer);
+        return $this->response->item($item, new LoadStatusTransformer);
     }
 
     /**
@@ -63,7 +63,7 @@ class LoadStatusController extends ApiController
     {
         $item = LoadStatus::where('code', $code)->firstOrFail();
         //event(new LoadStatusViewed($item));
-        return $this->response->item($item, new DepartmentTransformer);
+        return $this->response->item($item, new LoadStatusTransformer);
     }
 
     /**
@@ -88,7 +88,7 @@ class LoadStatusController extends ApiController
             $toRestore->restore();
             //event(new LoadStatusRestored($toRestore));
         }
-        $trans = new DepartmentTransformer();
+        $trans = new LoadStatusTransformer();
         $item = LoadStatus::updateOrCreate(['code' => $data['code']], $data);
         $item = $trans->transform($item);
         return $this->response->created(route('api.load-statuses.show', ['id' => $item['id']]), ['data' => $item]);

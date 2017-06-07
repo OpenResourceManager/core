@@ -220,7 +220,7 @@ class PermissionTableSeeder extends Seeder
             [
                 'name' => 'write-state',
                 'display_name' => 'API: Write State',
-            ],
+            ]
         ];
 
         $count = 4;
