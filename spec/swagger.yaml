@@ -2905,6 +2905,11 @@ paths:
           required: true
           type: string
           description: The email address for this email object.
+        - name: verification_callback
+          in: formData
+          required: false
+          type: string
+          description: A url to redirect verified users to after they verify their email.
         - name: confirmation_from
           in: formData
           required: false
@@ -3588,6 +3593,11 @@ paths:
           required: false
           type: integer
           description: The mobile caerier Code that this phone belongs to. This is required without the `mobile_carrier_id` parameter.
+        - name: verification_callback
+          in: formData
+          required: false
+          type: string
+          description: A url to redirect verified users to after they verify their mobile phone.
         - name: upstream_app_name
           in: formData
           required: false
@@ -4799,6 +4809,8 @@ definitions:
       verified:
         type: boolean
         format: int32
+      verification_callback:
+        type: string
       verification_token:
         type: string
 
@@ -4834,6 +4846,8 @@ definitions:
       verified:
         type: boolean
         format: int32
+      verification_callback:
+        type: string
       verification_token:
         type: string
 
@@ -5101,6 +5115,8 @@ definitions:
       verified:
         type: boolean
         format: int32
+      verification_callback:
+        type: string
       verification_token:
         type: string
       mobile_carrier:
@@ -5122,6 +5138,8 @@ definitions:
       verified:
         type: boolean
         format: int32
+      verification_callback:
+        type: string
       verification_token:
         type: string
       updated:
