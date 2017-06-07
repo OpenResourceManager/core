@@ -127,21 +127,15 @@ class AccountTest extends TestCase
     /** @test */
     public function can_get_accounts_by_load_status()
     {
-
-
         $this->get('/api/v1/accounts/load-status/' . LoadStatus::get()->random()->id, ['Authorization' => 'Bearer ' . $this->bearer])
-            ->seeStatusCode(200)
-            ->seeJsonStructure($this->itemStructureResponse);
+            ->seeStatusCode(200);
     }
 
     /** @test */
     public function can_get_accounts_by_load_status_code()
     {
-
-
         $this->get('/api/v1/accounts/load-status/code/' . LoadStatus::get()->random()->code, ['Authorization' => 'Bearer ' . $this->bearer])
-            ->seeStatusCode(200)
-            ->seeJsonStructure($this->itemStructureResponse);
+            ->seeStatusCode(200);
     }
 
     /** @test */
