@@ -27,6 +27,7 @@ class MobilePhoneTransformer extends TransformerAbstract
             'country_code' => $item->country_code,
             'verified' => (bool)$item->verified,
             'verification_token' => $item->verification_token,
+            'verification_callback' => $item->verification_callback,
             'created' => date('Y-m-d - H:i:s', strtotime($item->created_at)),
             'updated' => date('Y-m-d - H:i:s', strtotime($item->updated_at)),
             'mobile_carrier' => $carrier

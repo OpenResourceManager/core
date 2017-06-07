@@ -154,12 +154,14 @@ $factory->define(Email::class, function (Faker\Generator $faker) {
 
     $verified = $faker->boolean(95);
     $verificationToken = ($verified) ? null : generateVerificationToken();
+    $verification_callback = $faker->randomElement([$faker->url, null]);
 
     return [
         'account_id' => $faker->randomElement($accountIDs),
         'address' => $faker->unique()->email,
         'verified' => $verified,
-        'verification_token' => $verificationToken
+        'verification_token' => $verificationToken,
+        'verification_callback' => $verification_callback
     ];
 });
 
@@ -170,6 +172,7 @@ $factory->define(MobilePhone::class, function (Faker\Generator $faker) {
     $verified = $faker->boolean(90);
     $verificationToken = ($verified) ? null : generateVerificationToken();
     $countryCode = ($faker->boolean()) ? 1 : null;
+    $verification_callback = $faker->randomElement([$faker->url, null]);
 
     return [
         'account_id' => $faker->randomElement($accountIDs),
@@ -177,7 +180,8 @@ $factory->define(MobilePhone::class, function (Faker\Generator $faker) {
         'mobile_carrier_id' => $faker->randomElement($carrierIDs),
         'country_code' => $countryCode,
         'verified' => $verified,
-        'verification_token' => $verificationToken
+        'verification_token' => $verificationToken,
+        'verification_callback' => $verification_callback
     ];
 
 });

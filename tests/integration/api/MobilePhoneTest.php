@@ -22,6 +22,7 @@ class MobilePhoneTest extends TestCase
             'country_code',
             'verified',
             'verification_token',
+            'verification_callback',
             'mobile_carrier',
             'updated',
             'created',
