@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Http\Models\API\LoadStatus;
 use App\Models\Access\Permission\Permission;
 use Carbon\Carbon;
+use App\Models\History\HistoryType;
 
 class CreateLoadStatusesEntities extends Seeder
 {
@@ -24,6 +25,9 @@ class CreateLoadStatusesEntities extends Seeder
                 'display_name' => 'API: Write Load Statuses'
             ]
         ];
+
+        $historyTypes = ['LoadStatus'];
+
         $count = Permission::count();
         $count += 1;
         foreach ($permissions as $permission) {
@@ -37,8 +41,13 @@ class CreateLoadStatusesEntities extends Seeder
             $p->save();
             $count++;
         }
+
         foreach (defaultLoadStatuses() as $ls) {
             LoadStatus::create($ls);
+        }
+
+        foreach ($historyTypes as $type) {
+            HistoryType::create(['name' => $type]);
         }
     }
 }

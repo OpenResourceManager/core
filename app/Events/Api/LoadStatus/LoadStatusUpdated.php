@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Events\Api\Course;
+namespace App\Events\Api\LoadStatus;
 
 use App\Events\Event;
-use App\Http\Models\API\Course;
+use App\Http\Models\API\LoadStatus;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
 
-class CourseUpdated extends Event
+class LoadStatusUpdated extends Event
 {
     /**
-     * CourseUpdated constructor.
-     * @param Course $course
+     * LoadStatusUpdated constructor.
+     * @param LoadStatus $loadStatus
      */
-    public function __construct(Course $course)
+    public function __construct(LoadStatus $loadStatus)
     {
-        Log::info('Course Updated:', [
-            'id' => $course->id,
-            'code' => $course->code,
-            'label' => $course->label
+        Log::info('Load Status Updated:', [
+            'id' => $loadStatus->id,
+            'code' => $loadStatus->code,
+            'label' => $loadStatus->label
         ]);
 
         if ($user = auth()->user()) {
@@ -27,7 +27,7 @@ class CourseUpdated extends Event
             if (Settings::get('broadcast-events', false)) {
 
                 $data_to_secure = json_encode([
-                    'data' => $course->toArray(),
+                    'data' => $loadStatus->toArray(),
                     'conf' => [
                         'ldap' => ldap_config()
                     ]
@@ -37,7 +37,7 @@ class CourseUpdated extends Event
 
                 $message = [
                     'event' => 'updated',
-                    'type' => 'course',
+                    'type' => 'load-status',
                     'encrypted' => $secure_data
                 ];
 
@@ -45,10 +45,10 @@ class CourseUpdated extends Event
             }
 
             history()->log(
-                'Course',
-                'updated the course: ' . $course->label() . '.',
-                $course->id,
-                'graduation-cap',
+                'LoadStatus',
+                'updated the load status: ' . $loadStatus->label() . '.',
+                $loadStatus->id,
+                'fa-university',
                 'bg-lime'
             );
         }

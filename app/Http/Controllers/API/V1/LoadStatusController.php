@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Dingo\Api\Exception\DeleteResourceFailedException;
 use Dingo\Api\Exception\StoreResourceFailedException;
+use App\Events\Api\LoadStatus\LoadStatusesViewed;
+use App\Events\Api\LoadStatus\LoadStatusViewed;
 
 class LoadStatusController extends ApiController
 {
@@ -32,7 +34,7 @@ class LoadStatusController extends ApiController
     public function index()
     {
         $load_statuses = LoadStatus::paginate($this->resultLimit);
-        //event(new LoadStatusesViewed($load_statuses->pluck('id')->toArray()));
+        event(new LoadStatusesViewed($load_statuses->pluck('id')->toArray()));
         return $this->response->paginator($load_statuses, new LoadStatusTransformer);
     }
 
@@ -47,7 +49,7 @@ class LoadStatusController extends ApiController
     public function show($id)
     {
         $item = LoadStatus::findOrFail($id);
-        //event(new LoadStatusViewed($item));
+        event(new LoadStatusViewed($item));
         return $this->response->item($item, new LoadStatusTransformer);
     }
 
@@ -62,7 +64,7 @@ class LoadStatusController extends ApiController
     public function showFromCode($code)
     {
         $item = LoadStatus::where('code', $code)->firstOrFail();
-        //event(new LoadStatusViewed($item));
+        event(new LoadStatusViewed($item));
         return $this->response->item($item, new LoadStatusTransformer);
     }
 
@@ -86,7 +88,6 @@ class LoadStatusController extends ApiController
         }
         if ($toRestore = LoadStatus::onlyTrashed()->where('code', $data['code'])->first()) {
             $toRestore->restore();
-            //event(new LoadStatusRestored($toRestore));
         }
         $trans = new LoadStatusTransformer();
         $item = LoadStatus::updateOrCreate(['code' => $data['code']], $data);

@@ -36,6 +36,7 @@ use App\Http\Models\API\Course;
 use App\Http\Models\API\Department;
 use App\Http\Models\API\Duty;
 use App\Http\Models\API\Room;
+use function foo\func;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Models\API\Account;
 use App\Events\Api\Account\AccountCreated;
@@ -48,6 +49,11 @@ use App\Events\Api\AliasAccount\AliasAccountUpdated;
 use App\Events\Api\AliasAccount\AliasAccountRestored;
 use App\Events\Api\AliasAccount\AliasAccountDestroyed;
 use App\Http\Models\API\ServiceAccount;
+use App\Http\Models\API\LoadStatus;
+use App\Events\Api\LoadStatus\LoadStatusCreated;
+use App\Events\Api\LoadStatus\LoadStatusDestroyed;
+use App\Events\Api\LoadStatus\LoadStatusRestored;
+use App\Events\Api\LoadStatus\LoadStatusUpdated;
 
 class ApiEventProvider extends ServiceProvider
 {
@@ -227,6 +233,25 @@ class ApiEventProvider extends ServiceProvider
 
         Room::restored(function (Room $room) {
             event(new RoomRestored($room));
+        });
+
+        /**
+         * LoadStatus Events
+         */
+        LoadStatus::created(function (LoadStatus $ls) {
+            event(new LoadStatusCreated($ls));
+        });
+
+        LoadStatus::deleted(function (LoadStatus $ls) {
+            event(new LoadStatusDestroyed($ls));
+        });
+
+        LoadStatus::updated(function (LoadStatus $ls) {
+            event(new LoadStatusUpdated($ls));
+        });
+
+        LoadStatus::restored(function (LoadStatus $ls) {
+            event(new LoadStatusRestored($ls));
         });
     }
 

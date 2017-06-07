@@ -31,6 +31,7 @@ class SystemEntitiesSeeder extends Seeder
         }
 
         $this->call(CreateLoadStatusesEntities::class);
+        $this->call(CreateServiceAccountHistoryTypes::class);
 
         Settings::set('enable-registration', false);
         Settings::set('excluded-email-domains', []);

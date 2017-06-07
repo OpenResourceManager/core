@@ -5,6 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Http\Models\API\Account;
 use App\Http\Models\API\Duty;
+use App\Http\Models\API\LoadStatus;
 
 class AccountTest extends TestCase
 {
@@ -119,6 +120,26 @@ class AccountTest extends TestCase
         $account = Account::create(lukeSkywalkerAccount());
 
         $this->get('/api/v1/accounts/username/' . $account->username, ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(200)
+            ->seeJsonStructure($this->itemStructureResponse);
+    }
+
+    /** @test */
+    public function can_get_accounts_by_load_status()
+    {
+
+
+        $this->get('/api/v1/accounts/load-status/' . LoadStatus::get()->random()->id, ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(200)
+            ->seeJsonStructure($this->itemStructureResponse);
+    }
+
+    /** @test */
+    public function can_get_accounts_by_load_status_code()
+    {
+
+
+        $this->get('/api/v1/accounts/load-status/code/' . LoadStatus::get()->random()->code, ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(200)
             ->seeJsonStructure($this->itemStructureResponse);
     }
