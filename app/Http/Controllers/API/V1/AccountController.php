@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Events\Api\Account\AccountsViewed;
 use App\Events\Api\Account\AccountViewed;
 use App\Models\Access\Permission\Permission;
+use App\Http\Models\API\LoadStatus;
 
 class AccountController extends ApiController
 {
@@ -47,7 +48,7 @@ class AccountController extends ApiController
      */
     public function index()
     {
-        $accounts = Account::with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments', 'aliasAccounts'])->paginate($this->resultLimit);
+        $accounts = Account::with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments', 'aliasAccounts', 'loadStatus'])->paginate($this->resultLimit);
         event(new AccountsViewed($accounts->pluck('id')->toArray()));
         return $this->response->paginator($accounts, new AccountTransformer);
     }
@@ -62,7 +63,7 @@ class AccountController extends ApiController
      */
     public function show($id)
     {
-        $account = Account::with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments'])->findOrFail($id);
+        $account = Account::with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments', 'aliasAccounts', 'loadStatus'])->findOrFail($id);
         event(new AccountViewed($account));
         return $this->response->item($account, new AccountTransformer);
     }
@@ -77,7 +78,7 @@ class AccountController extends ApiController
      */
     public function showFromUsername($username)
     {
-        $account = Account::where('username', $username)->with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments'])->firstOrFail();
+        $account = Account::where('username', $username)->with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments', 'aliasAccounts', 'loadStatus'])->firstOrFail();
         event(new AccountViewed($account));
         return $this->response->item($account, new AccountTransformer);
     }
@@ -92,9 +93,40 @@ class AccountController extends ApiController
      */
     public function showFromIdentifier($identifier)
     {
-        $account = Account::where('identifier', $identifier)->with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments'])->firstOrFail();
+        $account = Account::where('identifier', $identifier)->with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments', 'aliasAccounts', 'loadStatus'])->firstOrFail();
         event(new AccountViewed($account));
         return $this->response->item($account, new AccountTransformer);
+    }
+
+    /**
+     * Show Accounts with Load Status
+     *
+     * Show Accounts with the specified Load Status
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showByLoadStatus(Request $request, $id)
+    {
+        $accounts = Account::where('load_status_id', $id)->paginate($this->resultLimit);
+        event(new AccountsViewed($accounts->pluck('id')->toArray()));
+        return $this->response->paginator($accounts, new AccountTransformer);
+    }
+
+    /**
+     * Show Accounts with Load Status code
+     *
+     * Show Accounts with the specified Load Status code
+     *
+     * @param $code
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showByLoadStatusCode(Request $request, $code)
+    {
+        $ls = LoadStatus::where('code', $code)->firstOrFail();
+        $accounts = Account::where('load_status_id', $ls->id)->paginate($this->resultLimit);
+        event(new AccountsViewed($accounts->pluck('id')->toArray()));
+        return $this->response->paginator($accounts, new AccountTransformer);
     }
 
     /**
@@ -146,7 +178,9 @@ class AccountController extends ApiController
             'expires_at' => 'date|after:now|nullable',
             'disabled' => 'boolean|nullable',
             'primary_duty_id' => 'integer|required_without:primary_duty_code|exists:duties,id,deleted_at,NULL',
-            'primary_duty_code' => 'string|required_without:primary_duty_id|exists:duties,code,deleted_at,NULL'
+            'primary_duty_code' => 'string|required_without:primary_duty_id|exists:duties,code,deleted_at,NULL',
+            'load_status_id' => 'integer|exists:load_statuses,id,deleted_at,NULL',
+            'load_status_code' => 'string|exists:load_statuses,code,deleted_at,NULL'
         ]);
 
         if ($validator->fails()) {
@@ -160,6 +194,16 @@ class AccountController extends ApiController
             } else {
                 throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', ['Neither a "primary_duty_code" or "primary_duty_id" value was provided.']);
             }
+        }
+
+        // Convert the load_status_code to an id if needed
+        if (array_key_exists('load_status_code', $data)) {
+            $data['load_status_id'] = LoadStatus::where('code', $data['load_status_code'])->firstOrFail()->id;
+        }
+
+        // If the load status ID is not here at this point null it out.
+        if (!array_key_exists('load_status_id', $data)) {
+            $data['load_status_id'] = null;
         }
 
         // If the account is trashed restore them first.
@@ -193,10 +237,56 @@ class AccountController extends ApiController
     }
 
     /**
+     * @param Request $request
+     * @return \Dingo\Api\Http\Response
+     */
+    public function patch(Request $request)
+    {
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'identifier' => 'alpha_num|required|max:7|min:6|unique:service_accounts,identifier',
+            'name_prefix' => 'string|max:20',
+            'name_first' => 'string|min:1',
+            'name_middle' => 'string',
+            'name_last' => 'string|min:1',
+            'name_postfix' => 'string|max:20',
+            'name_phonetic' => 'string',
+            'username' => 'string|min:3|unique:alias_accounts,username|unique:service_accounts,username',
+            'expires_at' => 'date|after:now|nullable',
+            'disabled' => 'boolean|nullable',
+            'primary_duty_id' => 'integer|exists:duties,id,deleted_at,NULL',
+            'primary_duty_code' => 'string|exists:duties,code,deleted_at,NULL',
+            'load_status_id' => 'integer|exists:load_statuses,id,deleted_at,NULL',
+            'load_status_code' => 'string|exists:load_statuses,code,deleted_at,NULL'
+        ]);
+
+        if ($validator->fails()) {
+            throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+        }
+
+        // Convert the load_status_code to an id if needed
+        if (array_key_exists('primary_duty_code', $data)) {
+            $data['primary_duty_id'] = Duty::where('code', $data['primary_duty_code'])->firstOrFail()->id;
+        }
+
+        // Convert the load_status_code to an id if needed
+        if (array_key_exists('load_status_code', $data)) {
+            $data['load_status_id'] = LoadStatus::where('code', $data['load_status_code'])->firstOrFail()->id;
+        }
+
+        $item = Account::where(['identifier' => $data['identifier']]);
+        $item->update($data);
+        $trans = new AccountTransformer();
+        $item = $trans->transform($item->firstOrFail());
+        return $this->response->created(route('api.accounts.show', ['id' => $item['id']]), ['data' => $item]);
+    }
+
+    /**
      * Destroy Account
      *
      * Deletes the specified Account by it's ID, Identifier, or Username attribute.
      *
+     * @param Request $request
      * @return mixed
      */
     public function destroy(Request $request)

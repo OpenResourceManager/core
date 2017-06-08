@@ -11,7 +11,7 @@ use Krucas\Settings\Facades\Settings;
 class CourseUpdated extends Event
 {
     /**
-     * RoomUpdated constructor.
+     * CourseUpdated constructor.
      * @param Course $course
      */
     public function __construct(Course $course)

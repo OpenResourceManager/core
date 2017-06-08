@@ -102,7 +102,7 @@ class DepartmentController extends ApiController
      *
      * Deletes the specified Department by it's ID or Code attribute.
      *
-     * @return mixed|void
+     * @return mixed
      */
     public function destroy(Request $request)
     {

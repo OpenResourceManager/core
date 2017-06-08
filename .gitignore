@@ -54,7 +54,7 @@ bh_unicode_properties.cache
 # https://packagecontrol.io/packages/sublime-github
 GitHub.sublime-settings
 ### Laravel template
-vendor/
+/vendor/
 node_modules/
 
 # Laravel 4 specific
@@ -99,7 +99,6 @@ coverage
 build/Release
 
 # Dependency directories
-node_modules
 jspm_packages
 
 # Optional npm cache directory

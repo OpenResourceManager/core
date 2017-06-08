@@ -17,6 +17,7 @@ use App\Http\Models\API\Room;
 use App\Http\Models\API\Department;
 use App\Http\Models\API\Course;
 use App\Http\Models\API\ServiceAccount;
+use App\Http\Models\API\LoadStatus;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,9 +54,15 @@ $factory->define(MobileCarrier::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(Duty::class, function (Faker\Generator $faker) {
-
     $word = $faker->unique()->word;
+    return [
+        'code' => str_replace(' ', '-', strtoupper($word)),
+        'label' => ucfirst($word)
+    ];
+});
 
+$factory->define(LoadStatus::class, function (Faker\Generator $faker) {
+    $word = $faker->unique()->word;
     return [
         'code' => str_replace(' ', '-', strtoupper($word)),
         'label' => ucfirst($word)
@@ -63,9 +70,9 @@ $factory->define(Duty::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(Account::class, function (Faker\Generator $faker) {
-
-
     $dutyIds = Duty::pluck('id')->all();
+    $loadStatusIds = LoadStatus::pluck('id')->all();
+    $loadStatusIds[] = null;
     $ssn = $faker->optional()->numberBetween(1000, 9999);
     $pass = $faker->optional()->password(6);
     $birth_date = $faker->optional()->date('Y-m-d');
@@ -95,7 +102,8 @@ $factory->define(Account::class, function (Faker\Generator $faker) {
         'birth_date' => $birth_date,
         'expires_at' => $expires_at,
         'disabled' => $disabled,
-        'primary_duty_id' => $faker->randomElement($dutyIds)
+        'primary_duty_id' => $faker->randomElement($dutyIds),
+        'load_status_id' => $faker->randomElement($loadStatusIds)
     ];
 });
 

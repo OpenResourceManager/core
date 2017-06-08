@@ -26,6 +26,7 @@ class Account extends BaseApiModel
         'name_phonetic',
         'username',
         'primary_duty_id',
+        'load_status_id',
         'ssn',
         'password',
         'should_propagate_password',
@@ -165,6 +166,14 @@ class Account extends BaseApiModel
     public function primaryDuty()
     {
         return $this->belongsTo(Duty::class, 'primary_duty_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function loadStatus()
+    {
+        return $this->belongsTo(LoadStatus::class, 'load_status_id');
     }
 
     /**
