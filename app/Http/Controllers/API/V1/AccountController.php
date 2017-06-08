@@ -242,7 +242,12 @@ class AccountController extends ApiController
      */
     public function patch(Request $request)
     {
+        // Valid null strings
+        $nulls = ['none', 'null', 'nil'];
+        // Get the data as an array
         $data = $request->all();
+
+        // Initial validator
         $validator = Validator::make($data, [
             'identifier' => 'alpha_num|required|max:7|min:6|unique:service_accounts,identifier',
             'name_prefix' => 'string|max:20',
@@ -256,36 +261,70 @@ class AccountController extends ApiController
             'disabled' => 'boolean|nullable',
             'primary_duty_id' => 'integer|exists:duties,id,deleted_at,NULL',
             'primary_duty_code' => 'string|exists:duties,code,deleted_at,NULL',
-            'load_status_id' => 'integer|exists:load_statuses,id,deleted_at,NULL',
-            'load_status_code' => 'string|exists:load_statuses,code,deleted_at,NULL'
+            'load_status_id' => 'integer',
+            'load_status_code' => 'string'
         ]);
 
+        // Run an initial validation
         if ($validator->fails()) {
             throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
         }
 
+        // If we have the load_status_code
+        if (array_key_exists('load_status_code', $data)) {
+            // If the load status code 'none' or 'null' or 'nil'?
+            if (in_array(strtolower($data['load_status_code']), $nulls, true)) {
+                // Set the id to 0
+                $data['primary_duty_id'] = 0;
+                // Unset the code
+                unset($data['primary_duty_code']);
+            } else { // If the load status is not 'null' or 'none', or 'nil'
+                // Create a validator
+                $validator = Validator::make($data, ['load_status_code' => 'string|exists:load_statuses,code,deleted_at,NULL']);
+                // Run validation
+                if ($validator->fails()) {
+                    throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+                }
+                // Se the load status id to the id of the object
+                $data['load_status_id'] = LoadStatus::where('code', $data['load_status_code'])->firstOrFail()->id;
+                // Unset the code
+                unset($data['load_status_code']);
+            }
+        }
+
+        // Do we have a load status ID?
+        if (array_key_exists('load_status_id', $data)) {
+            // Is it 0
+            if ($data['load_status_id'] === 0) {
+                // If so set it to null
+                $data['load_status_id'] = null;
+            } else { // If it is not 0
+                // Create a validator
+                $validator = Validator::make($data, ['load_status_id' => 'integer|exists:load_statuses,id,deleted_at,NULL']);
+                // Run validation
+                if ($validator->fails()) {
+                    throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+                }
+            }
+        }
+
         // Convert the load_status_code to an id if needed
         if (array_key_exists('primary_duty_code', $data)) {
+            // Convert the duty code to an ID
             $data['primary_duty_id'] = Duty::where('code', $data['primary_duty_code'])->firstOrFail()->id;
+            // Unset the code
             unset($data['primary_duty_code']);
         }
 
-        // Convert the load_status_code to an id if needed
-        if (array_key_exists('load_status_code', $data)) {
-            $data['load_status_id'] = LoadStatus::where('code', $data['load_status_code'])->firstOrFail()->id;
-            unset($data['load_status_code']);
-        }
-
-        // If we have a load status ID
-        if (array_key_exists('load_status_id', $data)) {
-            // If the load status is 0 set it to null
-            if ($data['load_status_id'] === 0) $data['load_status_id'] = null;
-        }
-
+        // Get the account
         $item = Account::where(['identifier' => $data['identifier']]);
-        $item->update($data);
+        // Create a new transformer
         $trans = new AccountTransformer();
+        // Update the account
+        $item->update($data);
+        // Get the updated account
         $item = $trans->transform($item->firstOrFail());
+        // Return a response
         return $this->response->created(route('api.accounts.show', ['id' => $item['id']]), ['data' => $item]);
     }
 
@@ -297,7 +336,8 @@ class AccountController extends ApiController
      * @param Request $request
      * @return mixed
      */
-    public function destroy(Request $request)
+    public
+    function destroy(Request $request)
     {
         $data = $request->all();
 
@@ -333,7 +373,8 @@ class AccountController extends ApiController
      * @param Request $request
      * @return \Dingo\Api\Http\Response
      */
-    public function assignDuty(Request $request)
+    public
+    function assignDuty(Request $request)
     {
         $data = $request->all();
         $validator = Validator::make($data, [
@@ -385,7 +426,8 @@ class AccountController extends ApiController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function detachDuty(Request $request)
+    public
+    function detachDuty(Request $request)
     {
 
         $data = $request->all();
@@ -441,7 +483,8 @@ class AccountController extends ApiController
      * @param Request $request
      * @return \Dingo\Api\Http\Response
      */
-    public function assignCourse(Request $request)
+    public
+    function assignCourse(Request $request)
     {
         $data = $request->all();
         $validator = Validator::make($data, [
@@ -492,7 +535,8 @@ class AccountController extends ApiController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function detachCourse(Request $request)
+    public
+    function detachCourse(Request $request)
     {
 
         $data = $request->all();
@@ -546,7 +590,8 @@ class AccountController extends ApiController
      * @param Request $request
      * @return \Dingo\Api\Http\Response|void
      */
-    public function assignDepartment(Request $request)
+    public
+    function assignDepartment(Request $request)
     {
         $data = $request->all();
         $validator = Validator::make($data, [
@@ -597,7 +642,8 @@ class AccountController extends ApiController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function detachDepartment(Request $request)
+    public
+    function detachDepartment(Request $request)
     {
 
         $data = $request->all();
@@ -650,7 +696,8 @@ class AccountController extends ApiController
      * @param Request $request
      * @return \Dingo\Api\Http\Response|void
      */
-    public function assignRoom(Request $request)
+    public
+    function assignRoom(Request $request)
     {
         $data = $request->all();
         $validator = Validator::make($data, [
@@ -701,7 +748,8 @@ class AccountController extends ApiController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function detachRoom(Request $request)
+    public
+    function detachRoom(Request $request)
     {
 
         $data = $request->all();
