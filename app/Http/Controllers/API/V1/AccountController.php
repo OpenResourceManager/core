@@ -275,9 +275,9 @@ class AccountController extends ApiController
             // If the load status code 'none' or 'null' or 'nil'?
             if (in_array(strtolower($data['load_status_code']), $nulls, true)) {
                 // Set the id to 0
-                $data['primary_duty_id'] = 0;
+                $data['load_status_id'] = 0;
                 // Unset the code
-                unset($data['primary_duty_code']);
+                unset($data['load_status_code']);
             } else { // If the load status is not 'null' or 'none', or 'nil'
                 // Create a validator
                 $validator = Validator::make($data, ['load_status_code' => 'string|exists:load_statuses,code,deleted_at,NULL']);
