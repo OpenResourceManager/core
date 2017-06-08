@@ -6,15 +6,18 @@ use App\Events\Api\Account\AssignedCourse;
 use App\Events\Api\Account\AssignedDepartment;
 use App\Events\Api\Account\AssignedDuty;
 use App\Events\Api\Account\AssignedRoom;
+use App\Events\Api\Account\AssignedSchool;
 use App\Events\Api\Account\UnassignedCourse;
 use App\Events\Api\Account\UnassignedDepartment;
 use App\Events\Api\Account\UnassignedDuty;
 use App\Events\Api\Account\UnassignedRoom;
+use App\Events\Api\Account\UnassignedSchool;
 use App\Http\Models\API\Account;
 use App\Http\Models\API\Course;
 use App\Http\Models\API\Department;
 use App\Http\Models\API\Duty;
 use App\Http\Models\API\Room;
+use App\Http\Models\API\School;
 use App\Http\Transformers\AccountTransformer;
 use Dingo\Api\Exception\DeleteResourceFailedException;
 use Dingo\Api\Exception\StoreResourceFailedException;
@@ -48,7 +51,7 @@ class AccountController extends ApiController
      */
     public function index()
     {
-        $accounts = Account::with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments', 'aliasAccounts', 'loadStatus'])->paginate($this->resultLimit);
+        $accounts = Account::with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments', 'aliasAccounts', 'loadStatus', 'schools'])->paginate($this->resultLimit);
         event(new AccountsViewed($accounts->pluck('id')->toArray()));
         return $this->response->paginator($accounts, new AccountTransformer);
     }
@@ -63,7 +66,7 @@ class AccountController extends ApiController
      */
     public function show($id)
     {
-        $account = Account::with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments', 'aliasAccounts', 'loadStatus'])->findOrFail($id);
+        $account = Account::with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments', 'aliasAccounts', 'loadStatus', 'schools'])->findOrFail($id);
         event(new AccountViewed($account));
         return $this->response->item($account, new AccountTransformer);
     }
@@ -78,7 +81,7 @@ class AccountController extends ApiController
      */
     public function showFromUsername($username)
     {
-        $account = Account::where('username', $username)->with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments', 'aliasAccounts', 'loadStatus'])->firstOrFail();
+        $account = Account::where('username', $username)->with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments', 'aliasAccounts', 'loadStatus', 'schools'])->firstOrFail();
         event(new AccountViewed($account));
         return $this->response->item($account, new AccountTransformer);
     }
@@ -93,7 +96,7 @@ class AccountController extends ApiController
      */
     public function showFromIdentifier($identifier)
     {
-        $account = Account::where('identifier', $identifier)->with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments', 'aliasAccounts', 'loadStatus'])->firstOrFail();
+        $account = Account::where('identifier', $identifier)->with(['emails', 'mobilePhones', 'addresses', 'duties', 'courses.department', 'departments', 'aliasAccounts', 'loadStatus', 'schools'])->firstOrFail();
         event(new AccountViewed($account));
         return $this->response->item($account, new AccountTransformer);
     }
@@ -474,6 +477,111 @@ class AccountController extends ApiController
         return $this->destroySuccessResponse();
     }
 
+    /**
+     * Assign Account to School
+     *
+     * Creates the relationship between an Account and School.
+     *
+     * @param Request $request
+     * @return \Dingo\Api\Http\Response
+     */
+    public
+    function assignSchool(Request $request)
+    {
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'identifier' => 'alpha_num|required_without_all:account_id,username|exists:accounts,identifier,deleted_at,NULL',
+            'username' => 'string|required_without_all:identifier,account_id|exists:accounts,username,deleted_at,NULL',
+            'account_id' => 'integer|required_without_all:identifier,username|exists:accounts,id,deleted_at,NULL',
+            'code' => 'string|required_without:school_id|exists:schools,code,deleted_at,NULL',
+            'school_id' => 'integer|required_without:code|exists:schools,id,deleted_at,NULL'
+        ]);
+
+
+        if ($validator->fails())
+            throw new StoreResourceFailedException('Could not assign account to school.', $validator->errors());
+
+        if (array_key_exists('account_id', $data)) {
+            $account = Account::findOrFail($data['account_id']);
+        } elseif (array_key_exists('identifier', $data)) {
+            $account = Account::where('identifier', $data['identifier'])->firstOrFail();
+        } elseif (array_key_exists('username', $data)) {
+            $account = Account::where('username', $data['username'])->firstOrFail();
+        } else {
+            // The validator should throw something like this, but it's here just in case.
+            throw new StoreResourceFailedException('Could not assign school to ' . $this->noun . '.', ['You must supply one of the following parameters "account_id", "identifier", or "username".']);
+        }
+
+        if (!array_key_exists('school_id', $data)) {
+            if (array_key_exists('code', $data)) {
+                $data['school_id'] = School::where('code', $data['code'])->firstOrFail()->id;
+            } else {
+                // The validator should throw something like this, but it's here just in case.
+                throw new StoreResourceFailedException('Could not assign school to ' . $this->noun . '.', ['You must supply a "school_id" or "code" parameter.']);
+            }
+        }
+
+        $account->schools()->attach($data['school_id']);
+
+        //if ($account->courses()->attach($data['course_id'])) {
+        event(new AssignedSchool($account, School::find($data['school_id'])));
+        //}
+        return $this->response->created();
+    }
+
+    /**
+     * Detach School from Account
+     *
+     * Destroys the relationship between an Account and School.
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public
+    function detachSchool(Request $request)
+    {
+
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'identifier' => 'alpha_num|required_without_all:account_id,username|exists:accounts,identifier,deleted_at,NULL',
+            'username' => 'string|required_without_all:identifier,account_id|exists:accounts,username,deleted_at,NULL',
+            'account_id' => 'integer|required_without_all:identifier,username|exists:accounts,id,deleted_at,NULL',
+            'code' => 'string|required_without:school_id|exists:schools,code,deleted_at,NULL',
+            'school_id' => 'integer|required_without:code|exists:schools,id,deleted_at,NULL'
+        ]);
+
+        if ($validator->fails())
+            throw new DeleteResourceFailedException('Could not detach ' . $this->noun . ' from school.', $validator->errors());
+
+
+        if (array_key_exists('account_id', $data)) {
+            $account = Account::findOrFail($data['account_id']);
+        } elseif (array_key_exists('identifier', $data)) {
+            $account = Account::where('identifier', $data['identifier'])->firstOrFail();
+        } elseif (array_key_exists('username', $data)) {
+            $account = Account::where('username', $data['username'])->firstOrFail();
+        } else {
+            // The validator should throw something like this, but it's here just in case.
+            throw new DeleteResourceFailedException('Could not detach ' . $this->noun . ' from school.', ['You must supply one of the following parameters "account_id", "identifier", or "username".']);
+        }
+
+        if (!array_key_exists('school_id', $data)) {
+            if (array_key_exists('code', $data)) {
+                $data['school_id'] = School::where('code', $data['code'])->firstOrFail()->id;
+            } else {
+                // The validator should throw something like this, but it's here just in case.
+                throw new StoreResourceFailedException('Could not detach ' . $this->noun . ' from school.', ['You must supply a "school_id" or "code" parameter.']);
+            }
+        }
+
+        $account->schools()->detach($data['school_id']);
+
+        //if ($account->courses()->detach($data['course_id'])) {
+        event(new UnassignedSchool($account, School::find($data['school_id'])));
+        //}
+        return $this->destroySuccessResponse();
+    }
 
     /**
      * Assign Account to Course

@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Events\Api\LoadStatus;
+namespace App\Events\Api\School;
 
 use App\Events\Event;
-use App\Http\Models\API\LoadStatus;
+use App\Http\Models\API\School;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
 
-class LoadStatusUpdated extends Event
+class SchoolUpdated extends Event
 {
     /**
-     * LoadStatusUpdated constructor.
-     * @param LoadStatus $loadStatus
+     * SchoolUpdated constructor.
+     * @param School $school
      */
-    public function __construct(LoadStatus $loadStatus)
+    public function __construct(School $school)
     {
-        Log::info('Load Status Updated:', [
-            'id' => $loadStatus->id,
-            'code' => $loadStatus->code,
-            'label' => $loadStatus->label
+        Log::info('School Updated:', [
+            'id' => $school->id,
+            'code' => $school->code,
+            'label' => $school->label
         ]);
 
         if ($user = auth()->user()) {
@@ -27,7 +27,7 @@ class LoadStatusUpdated extends Event
             if (Settings::get('broadcast-events', false)) {
 
                 $data_to_secure = json_encode([
-                    'data' => $loadStatus->toArray(),
+                    'data' => $school->toArray(),
                     'conf' => [
                         'ldap' => ldap_config()
                     ]
@@ -37,7 +37,7 @@ class LoadStatusUpdated extends Event
 
                 $message = [
                     'event' => 'updated',
-                    'type' => 'load-status',
+                    'type' => 'school',
                     'encrypted' => $secure_data
                 ];
 
@@ -45,10 +45,10 @@ class LoadStatusUpdated extends Event
             }
 
             history()->log(
-                'LoadStatus',
-                'updated the load status: ' . $loadStatus->label() . '.',
-                $loadStatus->id,
-                'cubes',
+                'School',
+                'updated the school: ' . $school->label() . '.',
+                $school->id,
+                'university',
                 'bg-lime'
             );
         }

@@ -2,7 +2,7 @@
 
 namespace App\Events\Api\LoadStatus;
 
-use App\Http\Models\API\Course;
+use App\Http\Models\API\LoadStatus;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Log;
@@ -12,7 +12,7 @@ class LoadStatusRestored extends Event
 {
 
     /**
-     * CourseRestored constructor.
+     * LoadStatusRestored constructor.
      * @param LoadStatus $loadStatus
      */
     public function __construct(LoadStatus $loadStatus)
@@ -51,7 +51,7 @@ class LoadStatusRestored extends Event
                 'LoadStatus',
                 'restored a load status: ' . $loadStatus->label() . '.',
                 $loadStatus->id,
-                'fa-university',
+                'cubes',
                 'bg-lime'
             );
         }

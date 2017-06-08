@@ -712,6 +712,19 @@ function jediMasterCourse()
 }
 
 /**
+ * Dummy School
+ *
+ * @return array
+ */
+function jediMasterSchool()
+{
+    return [
+        'code' => 'Jedi_Academy',
+        'label' => 'Jedi Academy'
+    ];
+}
+
+/**
  * Dummy Room
  *
  * @return array

@@ -18,6 +18,7 @@ use App\Http\Models\API\Department;
 use App\Http\Models\API\Course;
 use App\Http\Models\API\ServiceAccount;
 use App\Http\Models\API\LoadStatus;
+use App\Http\Models\API\School;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +67,14 @@ $factory->define(LoadStatus::class, function (Faker\Generator $faker) {
     return [
         'code' => str_replace(' ', '-', strtoupper($word)),
         'label' => ucfirst($word)
+    ];
+});
+
+$factory->define(School::class, function (Faker\Generator $faker) {
+    $words = implode('_', $faker->unique()->words);
+    return [
+        'code' => str_replace(' ', '-', strtoupper($words)),
+        'label' => ucfirst($words)
     ];
 });
 

@@ -54,6 +54,11 @@ use App\Events\Api\LoadStatus\LoadStatusCreated;
 use App\Events\Api\LoadStatus\LoadStatusDestroyed;
 use App\Events\Api\LoadStatus\LoadStatusRestored;
 use App\Events\Api\LoadStatus\LoadStatusUpdated;
+use App\Http\Models\API\School;
+use App\Events\Api\School\SchoolCreated;
+use App\Events\Api\School\SchoolDestroyed;
+use App\Events\Api\School\SchoolRestored;
+use App\Events\Api\School\SchoolUpdated;
 
 class ApiEventProvider extends ServiceProvider
 {
@@ -252,6 +257,25 @@ class ApiEventProvider extends ServiceProvider
 
         LoadStatus::restored(function (LoadStatus $ls) {
             event(new LoadStatusRestored($ls));
+        });
+
+        /**
+         * School Events
+         */
+        School::created(function (School $school) {
+            event(new SchoolCreated($school));
+        });
+
+        School::deleted(function (School $school) {
+            event(new SchoolDestroyed($school));
+        });
+
+        School::updated(function (School $school) {
+            event(new SchoolUpdated($school));
+        });
+
+        School::restored(function (School $school) {
+            event(new SchoolRestored($school));
         });
     }
 

@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Events\Api\LoadStatus;
+namespace App\Events\Api\School;
 
-use App\Http\Models\API\LoadStatus;
+use App\Http\Models\API\School;
 use Krucas\Settings\Facades\Settings;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 
-class LoadStatusDestroyed extends Event
+class SchoolDestroyed extends Event
 {
     /**
-     * LoadStatusDestroyed constructor.
-     * @param LoadStatus $loadStatus
+     * SchoolDestroyed constructor.
+     * @param School $school
      */
-    public function __construct(LoadStatus $loadStatus)
+    public function __construct(School $school)
     {
-        Log::info('Load Status Destroyed:', [
-            'id' => $loadStatus->id,
-            'code' => $loadStatus->code,
-            'label' => $loadStatus->label
+        Log::info('School Destroyed:', [
+            'id' => $school->id,
+            'code' => $school->code,
+            'label' => $school->label
         ]);
 
         if ($user = auth()->user()) {
@@ -27,7 +27,7 @@ class LoadStatusDestroyed extends Event
             if (Settings::get('broadcast-events', false)) {
 
                 $data_to_secure = json_encode([
-                    'data' => $loadStatus->toArray(),
+                    'data' => $school->toArray(),
                     'conf' => [
                         'ldap' => ldap_config()
                     ]
@@ -37,7 +37,7 @@ class LoadStatusDestroyed extends Event
 
                 $message = [
                     'event' => 'deleted',
-                    'type' => 'load-status',
+                    'type' => 'school',
                     'encrypted' => $secure_data
                 ];
 
@@ -45,10 +45,10 @@ class LoadStatusDestroyed extends Event
             }
 
             history()->log(
-                'LoadStatus',
-                'destroyed a load status: ' . $loadStatus->label,
-                $loadStatus->id,
-                'cubes',
+                'School',
+                'destroyed a school: ' . $school->label,
+                $school->id,
+                'university',
                 'bg-red'
             );
         }
