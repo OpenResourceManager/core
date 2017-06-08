@@ -412,12 +412,12 @@ paths:
           in: formData
           required: false
           type: integer
-          description: The load status ID for this account.
+          description: The load status ID for this account. Set to `0` to clear the load status to `null`.
         - name: load_status_code
           in: formData
           required: false
           type: string
-          description: The load status Code for this account.
+          description: The load status Code for this account. Set to `null`, `nil`, or `none` to clear the load status to `null`.
         - name: ssn
           in: formData
           required: false
