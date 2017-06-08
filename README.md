@@ -1,6 +1,7 @@
 # ORM Core API
 
 [![Build Status](https://travis-ci.org/OpenResourceManager/Core.svg?branch=master)](https://travis-ci.org/OpenResourceManager/Core)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ## About
 

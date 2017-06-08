@@ -30,25 +30,4 @@ before_script:
   - php artisan api:cache
   - cat .env
 script:
-  - vendor/bin/phpunit
-#  - vendor/bin/phpunit --filter {AuthenticationTest}
-#  - vendor/bin/phpunit --filter {AccountTest}
-#  - vendor/bin/phpunit --filter {AliasAccountTest}
-#  - vendor/bin/phpunit --filter {ServiceAccountTest}
-#  - vendor/bin/phpunit --filter {AddressTest}
-#  - vendor/bin/phpunit --filter {BuildingTest}
-#  - vendor/bin/phpunit --filter {CampusTest}
-#  - vendor/bin/phpunit --filter {CountryTest}
-#  - vendor/bin/phpunit --filter {CourseTest}
-#  - vendor/bin/phpunit --filter {DepartmentTest}
-#  - vendor/bin/phpunit --filter {DutyTest}
-#  - vendor/bin/phpunit --filter {EmailTest}dev
-#  - vendor/bin/phpunit --filter {MobileCarrierTest}
-#  - vendor/bin/phpunit --filter {MobilePhoneTest}
-#  - vendor/bin/phpunit --filter {RoomTest}
-#  - vendor/bin/phpunit --filter {StateTest}
-#  - vendor/bin/phpunit --filter {DutyAccountAssignmentTest}
-#  - vendor/bin/phpunit --filter {RoomAccountAssignmentTest}
-#  - vendor/bin/phpunit --filter {CourseAccountAssignmentTest}
-#  - vendor/bin/phpunit --filter {DepartmentAccountAssignmentTest}
-
+  - composer test
