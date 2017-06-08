@@ -30,4 +30,4 @@ before_script:
   - php artisan api:cache
   - cat .env
 script:
-  - composer test
+  - composer run test --timeout=0

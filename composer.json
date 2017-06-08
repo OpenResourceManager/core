@@ -50,7 +50,6 @@
         ]
     },
     "scripts": {
-        "test": "vendor/bin/phpunit",
         "post-root-package-install": [
             "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
@@ -67,6 +66,9 @@
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "composer dump-autoload -o",
             "php artisan optimize"
+        ],
+        "test": [
+            "vendor/bin/phpunit"
         ],
         "docs": [
             "npm run spec",
