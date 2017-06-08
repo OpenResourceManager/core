@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/OpenResourceManager/Core.svg?branch=master)](https://travis-ci.org/OpenResourceManager/Core)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+---
+
 ## About
 
 ORM Core is a REST API designed to house institutional data and act as an intermediate between an existing ERP and an array of applications and systems.
@@ -35,22 +37,36 @@ ORM Core is a REST API designed to house institutional data and act as an interm
 * Mobile Phone and Email verification
 * API metrics and statistics
 * API Event broadcast to event manager for 3rd party applications
-* Interactive documentation using OpenAPI fka(Swagger)
+* [Interactive documentation](https://demo-orm.sage.edu/api/documentation) using OpenAPI fka(Swagger)
 
-# Documentation
+## Requirements:
 
-For installation, update, and API spec documentation:
+* php >= 7.0.0
+* Redis
+* MariaDB/MySQL (tested on MariaDB 10.1)
+* [Yarn](https://yarnpkg.com/) -- For development*
+* [composer](https://getcomposer.org/)
+* NGINX or Apache (tested on NGINX)
 
-* [Read the docs here](https://openresourcemanagercore.readthedocs.io/en/latest/)
+PHP Packages:
 
-# Related Software
+* php-pecl-redis
+* php-pdo
+* php-mysqlnd
+* php-mcrypt
+* php-mbstring
+* php-gd
+* php-xml
+* php-fpm (NGINX only)
 
-Some cool projects that this software relies on.
+### Installation
 
-* [Laravel](https://laravel.com)
-* [rappasoft/laravel-5-boilerplate](https://github.com/rappasoft/laravel-5-boilerplate)
-* [dingo/api](https://github.com/dingo/api)
-* [tymon/jwt-auth](https://github.com/tymon/jwt-auth)
-* [simplesoftwareio/simple-sms](https://github.com/simplesoftwareio/simple-sms)
-* [snowfire/beautymail](https://github.com/snowfire/beautymail)
-* [edvinaskrucas/settings](https://github.com/edvinaskrucas/settings)
+See the [installation docs](INSTALL.md)
+
+### Update
+
+See the [update docs](UPDATE.md)
+
+### API Specification
+
+See the [API spec](API_Specification.md)
