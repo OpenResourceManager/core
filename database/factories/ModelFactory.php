@@ -71,7 +71,7 @@ $factory->define(LoadStatus::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(School::class, function (Faker\Generator $faker) {
-    $words = $faker->unique()->words;
+    $words = implode('_', $faker->unique()->words);
     return [
         'code' => str_replace(' ', '-', strtoupper($words)),
         'label' => ucfirst($words)
