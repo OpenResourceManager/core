@@ -227,6 +227,14 @@ class Account extends BaseApiModel
     /**
      * @return BelongsToMany
      */
+    public function schools()
+    {
+        return $this->belongsToMany(School::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
     public function courses()
     {
         return $this->belongsToMany(Course::class);

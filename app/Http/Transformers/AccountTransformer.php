@@ -94,6 +94,15 @@ class AccountTransformer extends TransformerAbstract
             }
         }
 
+        $readSchool = Permission::where('name', 'read-school')->first();
+        if (in_array('read-school', $permissions) || $user->hasPermission($readSchool)) {
+            $transformed['schools'] = array();
+            $schoolTrans = new SchoolTransformer();
+            foreach ($item->schools as $school) {
+                $transformed['schools'][] = $schoolTrans->transform($school);
+            }
+        }
+
         $readEmail = Permission::where('name', 'read-email')->first();
         if (in_array('read-email', $permissions) || $user->hasPermission($readEmail)) {
             $transformed['emails'] = array();

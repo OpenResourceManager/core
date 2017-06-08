@@ -918,6 +918,96 @@ paths:
         429:
           $ref: '#/responses/429'
 
+  /accounts/school:
+    post:
+      tags:
+        - Accounts
+      summary: Assign Account to School.
+      description: Assigns a school to the specified account based on the `school_id` or `code`, one of those must be supplied. At least one of the following account attributes must be supplied; `identifer`, `account_id`, or `username`.
+      produces:
+        - application/json
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: account_id
+          in: formData
+          required: false
+          type: integer
+          description: Unique primary key for account.
+        - name: identifier
+          in: formData
+          required: false
+          type: string
+          description: Unique identifier for account.
+        - name: username
+          in: formData
+          required: false
+          type: string
+          description: Unique username for account.
+        - name: school_id
+          in: formData
+          required: false
+          type: integer
+          description: The school's primary key id. This is required without a `code`.
+        - name: code
+          in: formData
+          required: false
+          type: string
+          description: The schools unique code. This is required without a `school_id`.
+      responses:
+        201:
+          $ref: '#/responses/201_assigned'
+        401:
+          $ref: '#/responses/401'
+        422:
+          $ref: '#/responses/422'
+        429:
+          $ref: '#/responses/429'
+    delete:
+      tags:
+        - Accounts
+      summary: Detach Account from School.
+      description: Detaches a school from the specified account based on the `school_id` or `code`, one of those must be supplied. At least one of the following account attributes must be supplied; `identifer`, `account_id`, or `username`.
+      produces:
+        - application/json
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: account_id
+          in: formData
+          required: false
+          type: integer
+          description: Unique primary key for account.
+        - name: identifier
+          in: formData
+          required: false
+          type: string
+          description: Unique identifier for account.
+        - name: username
+          in: formData
+          required: false
+          type: string
+          description: Unique username for account.
+        - name: school_id
+          in: formData
+          required: false
+          type: integer
+          description: The school's primary key id. This is required without a `code`.
+        - name: code
+          in: formData
+          required: false
+          type: string
+          description: The school's unique code. This is required without a `school_id`.
+      responses:
+        204:
+          $ref: '#/responses/204'
+        401:
+          $ref: '#/responses/401'
+        422:
+          $ref: '#/responses/422'
+        429:
+          $ref: '#/responses/429'
+
   /accounts/department:
     post:
       tags:
@@ -2751,6 +2841,192 @@ paths:
             properties:
               data:
                 $ref: '#/definitions/transformedCourse'
+        401:
+          $ref: '#/responses/401'
+        429:
+          $ref: '#/responses/429'
+
+  #############
+  #  Schools  #
+  #############
+  /schools:
+    get:
+      tags:
+        - Schools
+      summary: List Schools in a paginated format.
+      description: Return a paginated list of schools.
+      parameters:
+        - $ref: '#/parameters/pages'
+      produces:
+        - application/json
+      responses:
+        200:
+          description: A list of schools.
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds left in the current period
+              type: integer
+          schema:
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/transformedSchool'
+              meta:
+                $ref: '#/definitions/meta'
+        401:
+          $ref: '#/responses/401'
+        429:
+          $ref: '#/responses/429'
+
+    post:
+      tags:
+        - Schools
+      summary: Create/Update/Restore School.
+      description: Store school information. Creates, updates, restores, a school based on it's current status.
+      produces:
+        - application/json
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: code
+          in: formData
+          required: true
+          type: string
+          description: Unique code that identifies a school.
+        - name: label
+          in: formData
+          required: true
+          type: string
+          description: A human readable label.
+      responses:
+        201:
+          description: School Created. The school information has been stored and the school was either created, updated, or restored based on the information that was provided.
+          headers:
+            location:
+              description: A URL to the new object.
+              type: string
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds left in the current period
+              type: integer
+          schema:
+            properties:
+              data:
+                $ref: '#/definitions/transformedSchool'
+        401:
+          $ref: '#/responses/401'
+        422:
+          $ref: '#/responses/422'
+        429:
+          $ref: '#/responses/429'
+
+    delete:
+      tags:
+        - Schools
+      summary: Delete a School.
+      description: Delete a school based on `id` or `code`. At least one of those parameters must be supplied.
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: id
+          in: formData
+          required: false
+          type: integer
+          description: Unique primary key for school. This is required without the `code` parameter.
+        - name: code
+          in: formData
+          required: false
+          type: string
+          description: Unique code that identifies a school. This is required without the `id` parameter.
+      responses:
+        204:
+          $ref: '#/responses/204'
+        401:
+          $ref: '#/responses/401'
+        422:
+          $ref: '#/responses/422'
+        429:
+          $ref: '#/responses/429'
+
+  /schools/{id}:
+    get:
+      tags:
+        - Schools
+      summary: Show a School by ID.
+      description: Retrieve a specific school based on it's primary key id value.
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+          description: Unique primary key for the school.
+      responses:
+        200:
+          description: School Found
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds left in the current period
+              type: integer
+          schema:
+            properties:
+              data:
+                $ref: '#/definitions/transformedSchool'
+        401:
+          $ref: '#/responses/401'
+        429:
+          $ref: '#/responses/429'
+
+  /school/code/{code}:
+    get:
+      tags:
+        - Schools
+      summary: Show a School by Code.
+      description: Retrieve a specific school based on it's code value.
+      produces:
+        - application/json
+      parameters:
+        - name: code
+          in: path
+          required: true
+          type: string
+          description: Unique code value for the school.
+      responses:
+        200:
+          description: School Found
+          headers:
+            X-RateLimit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-RateLimit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-RateLimit-Reset:
+              description: The number of seconds left in the current period
+              type: integer
+          schema:
+            properties:
+              data:
+                $ref: '#/definitions/transformedSchool'
         401:
           $ref: '#/responses/401'
         429:
@@ -5001,7 +5277,7 @@ responses:
 
 
 #################
-#     Modles    #
+#     Models    #
 #################
 definitions:
   Account:
@@ -5207,6 +5483,17 @@ definitions:
         type: string
 
   LoadStatus:
+    type: object
+    required:
+      - code
+      - label
+    properties:
+      code:
+        type: string
+      label:
+        type: string
+
+  School:
     type: object
     required:
       - code
@@ -5596,6 +5883,20 @@ definitions:
       created:
         type: string
 
+  transformedSchool:
+    type: object
+    properties:
+      id:
+        type: integer
+      code:
+        type: string
+      label:
+        type: string
+      updated:
+        type: string
+      created:
+        type: string
+
   transformedAliasAccount:
     type: object
     properties:
@@ -5693,6 +5994,10 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/transformedCourse'
+      schools:
+        type: array
+        items:
+          $ref: '#/definitions/transformedSchool'
       duties:
         type: array
         items:

@@ -6,19 +6,19 @@
  * Time: 4:37 PM
  */
 
-namespace App\Events\Api\LoadStatus;
+namespace App\Events\Api\School;
 
 use Krucas\Settings\Facades\Settings;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 
-class LoadStatusesViewed extends Event
+class SchoolsViewed extends Event
 {
     /**
-     * LoadStatusesViewed constructor.
-     * @param array $loadStatusIds
+     * SchoolsViewed constructor.
+     * @param array $schoolIds
      */
-    public function __construct($loadStatusIds = [])
+    public function __construct($schoolIds = [])
     {
         $user_name = 'System';
 
@@ -31,15 +31,15 @@ class LoadStatusesViewed extends Event
             }
 
             history()->log(
-                'LoadStatus',
-                'viewed ' . count($loadStatusIds) . ' load statuses',
+                'School',
+                'viewed ' . count($schoolIds) . ' schools',
                 $user->id,
-                'cubes',
+                'university',
                 'bg-aqua'
             );
 
         }
 
-        Log::info($user_name . ' viewed ' . count($loadStatusIds) . ' schools', $loadStatusIds);
+        Log::info($user_name . ' viewed ' . count($schoolIds) . ' schools', $schoolIds);
     }
 }

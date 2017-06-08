@@ -30,7 +30,7 @@ class LoadStatusViewed extends Event
                 'LoadStatus',
                 'viewed ' . $loadStatus->label . '.',
                 $loadStatus->id,
-                'fa-university',
+                'cubes',
                 'bg-aqua'
             );
         }

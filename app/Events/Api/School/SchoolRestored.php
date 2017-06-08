@@ -1,22 +1,23 @@
 <?php
 
-namespace App\Events\Api\LoadStatus;
+namespace App\Events\Api\School;
 
+use App\Http\Models\API\School;
 use App\Events\Event;
-use App\Http\Models\API\LoadStatus;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Log;
 use Krucas\Settings\Facades\Settings;
 
-class LoadStatusUpdated extends Event
+class SchoolRestored extends Event
 {
+
     /**
-     * LoadStatusUpdated constructor.
-     * @param LoadStatus $loadStatus
+     * SchoolRestored constructor.
+     * @param School $loadStatus
      */
-    public function __construct(LoadStatus $loadStatus)
+    public function __construct(School $loadStatus)
     {
-        Log::info('Load Status Updated:', [
+        Log::info('School Restored:', [
             'id' => $loadStatus->id,
             'code' => $loadStatus->code,
             'label' => $loadStatus->label
@@ -25,6 +26,8 @@ class LoadStatusUpdated extends Event
         if ($user = auth()->user()) {
 
             if (Settings::get('broadcast-events', false)) {
+
+                $loadStatus->campus;
 
                 $data_to_secure = json_encode([
                     'data' => $loadStatus->toArray(),
@@ -36,8 +39,8 @@ class LoadStatusUpdated extends Event
                 $secure_data = encrypt_broadcast_data($data_to_secure);
 
                 $message = [
-                    'event' => 'updated',
-                    'type' => 'load-status',
+                    'event' => 'restored',
+                    'type' => 'school',
                     'encrypted' => $secure_data
                 ];
 
@@ -45,10 +48,10 @@ class LoadStatusUpdated extends Event
             }
 
             history()->log(
-                'LoadStatus',
-                'updated the load status: ' . $loadStatus->label() . '.',
+                'School',
+                'restored a school: ' . $loadStatus->label() . '.',
                 $loadStatus->id,
-                'cubes',
+                'university',
                 'bg-lime'
             );
         }

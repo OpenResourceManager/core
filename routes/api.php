@@ -127,6 +127,9 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
                     $api->post('/duty', ['uses' => 'AccountController@assignDuty', 'as' => 'api.account.assign.duty']);
                     $api->delete('/duty', ['uses' => 'AccountController@detachDuty', 'as' => 'api.account.detach.duty']);
 
+                    $api->post('/school', ['uses' => 'AccountController@assignSchool', 'as' => 'api.account.assign.school']);
+                    $api->delete('/school', ['uses' => 'AccountController@detachSchool', 'as' => 'api.account.detach.school']);
+
                     $api->post('/course', ['uses' => 'AccountController@assignCourse', 'as' => 'api.account.assign.course']);
                     $api->delete('/course', ['uses' => 'AccountController@detachCourse', 'as' => 'api.account.detach.course']);
 
@@ -330,6 +333,21 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
                 $api->group(['middleware' => 'access.routeNeedsPermission:write-load-statuses'], function ($api) {
                     $api->post('/', ['uses' => 'LoadStatusController@store', 'as' => 'api.load-statuses.store']);
                     $api->delete('/', ['uses' => 'LoadStatusController@destroy', 'as' => 'api.load-statuses.destroy']);
+                });
+            });
+
+            /**
+             * Schools
+             */
+            $api->group(['prefix' => 'schools'], function ($api) {
+                $api->group(['middleware' => 'access.routeNeedsPermission:read-schools'], function ($api) {
+                    $api->get('/', ['uses' => 'SchoolController@index', 'as' => 'api.schools.index']);
+                    $api->get('/{id}', ['uses' => 'SchoolController@show', 'as' => 'api.schools.show']);
+                    $api->get('/code/{code}', ['uses' => 'SchoolController@showFromCode', 'as' => 'api.schools.show_from_code']);
+                });
+                $api->group(['middleware' => 'access.routeNeedsPermission:write-schools'], function ($api) {
+                    $api->post('/', ['uses' => 'SchoolController@store', 'as' => 'api.schools.store']);
+                    $api->delete('/', ['uses' => 'SchoolController@destroy', 'as' => 'api.schools.destroy']);
                 });
             });
 
