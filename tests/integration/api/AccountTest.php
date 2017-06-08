@@ -184,36 +184,33 @@ class AccountTest extends TestCase
             ->seeJsonStructure($this->itemStructureResponse);
     }
 
-    /** @todo make this work */
+    /** @test */
     public function can_update_account()
     {
         $luke = lukeSkywalkerAccount();
         $jedi = Duty::create(jediMasterDuty());
 
-        $response1 = $this->post('/api/v1/accounts', $luke, ['Authorization' => 'Bearer ' . $this->bearer])
-            ->seeStatusCode(201)
-            ->seeJsonStructure($this->itemStructureResponse);
+        $response1 = $this->post('/api/v1/accounts', $luke, ['Authorization' => 'Bearer ' . $this->bearer]);
+        $response1->seeStatusCode(201)->seeJsonStructure($this->itemStructureResponse);
 
-        /*
-         * @todo Verify that time stamps prove model has been updated
-         $decoded1 = $response1->decodeResponseJson();
-         $originalCreated = $decoded1['data']['created'];
-         $originalUpdated = $decoded1['data']['updated'];
+        $decoded1 = $response1->decodeResponseJson();
+        $originalCreated = $decoded1['data']['created'];
+        $originalUpdated = $decoded1['data']['updated'];
 
-         $luke['name_postfix'] = '';
+        sleep(1);
+        $luke['name_postfix'] = '';
 
-         $response2 = $this->post('/api/v1/accounts', $luke, ['Authorization' => 'Bearer ' . $this->bearer])
-             ->seeStatusCode(201)
-             ->seeJsonStructure($this->itemStructureResponse);
+        $response2 = $this->post('/api/v1/accounts', $luke, ['Authorization' => 'Bearer ' . $this->bearer]);
+        $response2->seeStatusCode(201)->seeJsonStructure($this->itemStructureResponse);
 
-         $decoded2 = $response2->decodeResponseJson();
-         $secondCreated = $decoded2['data']['created'];
-         $secondUpdated = $decoded2['data']['updated'];
+        $decoded2 = $response2->decodeResponseJson();
+        $secondCreated = $decoded2['data']['created'];
+        $secondUpdated = $decoded2['data']['updated'];
 
-         $this->assertEquals($originalCreated, $originalUpdated);
-         $this->assertNotEquals($secondCreated, $secondUpdated);
-         $this->assertEquals($originalCreated, $secondCreated);
-         $this->assertNotEquals($originalUpdated, $secondUpdated);*/
+        $this->assertEquals($originalCreated, $originalUpdated);
+        $this->assertNotEquals($secondCreated, $secondUpdated);
+        $this->assertEquals($originalCreated, $secondCreated);
+        $this->assertNotEquals($originalUpdated, $secondUpdated);
     }
 
     /** @test */
@@ -222,6 +219,38 @@ class AccountTest extends TestCase
         $this->post('/api/v1/accounts', lukeSkywalkerAccount())
             ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
+    }
+
+    /** @test */
+    public function can_patch_account()
+    {
+        $luke = lukeSkywalkerAccount();
+        $jedi = Duty::create(jediMasterDuty());
+
+        $response1 = $this->post('/api/v1/accounts', $luke, ['Authorization' => 'Bearer ' . $this->bearer]);
+        $response1->seeStatusCode(201)->seeJsonStructure($this->itemStructureResponse);
+
+        $decoded1 = $response1->decodeResponseJson();
+        $originalCreated = $decoded1['data']['created'];
+        $originalUpdated = $decoded1['data']['updated'];
+
+        sleep(1);
+        $patch = [
+            'identifier' => $luke['identifier'],
+            'name_postfix' => ''
+        ];
+
+        $response2 = $this->patch('/api/v1/accounts', $patch, ['Authorization' => 'Bearer ' . $this->bearer]);
+        $response2->seeStatusCode(201)->seeJsonStructure($this->itemStructureResponse);
+
+        $decoded2 = $response2->decodeResponseJson();
+        $secondCreated = $decoded2['data']['created'];
+        $secondUpdated = $decoded2['data']['updated'];
+
+        $this->assertEquals($originalCreated, $originalUpdated);
+        $this->assertNotEquals($secondCreated, $secondUpdated);
+        $this->assertEquals($originalCreated, $secondCreated);
+        $this->assertNotEquals($originalUpdated, $secondUpdated);
     }
 
     /** @test */

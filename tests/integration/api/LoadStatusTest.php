@@ -27,7 +27,7 @@ class LoadStatusTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        factory(LoadStatus::class, 250)->create();
+        factory(LoadStatus::class, 110)->create();
         $this->logIn();
     }
 

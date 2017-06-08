@@ -202,9 +202,9 @@ class AccountController extends ApiController
         }
 
         // If the load status ID is not here at this point null it out.
-        /*if (!array_key_exists('load_status_id', $data)) {
+        if (!array_key_exists('load_status_id', $data)) {
             $data['load_status_id'] = null;
-        }*/
+        }
 
         // If the account is trashed restore them first.
         if ($accountToRestore = Account::onlyTrashed()->where('identifier', $data['identifier'])->first()) {
@@ -237,10 +237,56 @@ class AccountController extends ApiController
     }
 
     /**
+     * @param Request $request
+     * @return \Dingo\Api\Http\Response
+     */
+    public function patch(Request $request)
+    {
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'identifier' => 'alpha_num|required|max:7|min:6|unique:service_accounts,identifier',
+            'name_prefix' => 'string|max:20',
+            'name_first' => 'string|min:1',
+            'name_middle' => 'string',
+            'name_last' => 'string|min:1',
+            'name_postfix' => 'string|max:20',
+            'name_phonetic' => 'string',
+            'username' => 'string|min:3|unique:alias_accounts,username|unique:service_accounts,username',
+            'expires_at' => 'date|after:now|nullable',
+            'disabled' => 'boolean|nullable',
+            'primary_duty_id' => 'integer|exists:duties,id,deleted_at,NULL',
+            'primary_duty_code' => 'string|exists:duties,code,deleted_at,NULL',
+            'load_status_id' => 'integer|exists:load_statuses,id,deleted_at,NULL',
+            'load_status_code' => 'string|exists:load_statuses,code,deleted_at,NULL'
+        ]);
+
+        if ($validator->fails()) {
+            throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+        }
+
+        // Convert the load_status_code to an id if needed
+        if (array_key_exists('primary_duty_code', $data)) {
+            $data['primary_duty_id'] = Duty::where('code', $data['primary_duty_code'])->firstOrFail()->id;
+        }
+
+        // Convert the load_status_code to an id if needed
+        if (array_key_exists('load_status_code', $data)) {
+            $data['load_status_id'] = LoadStatus::where('code', $data['load_status_code'])->firstOrFail()->id;
+        }
+
+        $item = Account::where(['identifier' => $data['identifier']]);
+        $item->update($data);
+        $trans = new AccountTransformer();
+        $item = $trans->transform($item->firstOrFail());
+        return $this->response->created(route('api.accounts.show', ['id' => $item['id']]), ['data' => $item]);
+    }
+
+    /**
      * Destroy Account
      *
      * Deletes the specified Account by it's ID, Identifier, or Username attribute.
      *
+     * @param Request $request
      * @return mixed
      */
     public function destroy(Request $request)

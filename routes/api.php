@@ -121,6 +121,7 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
 
                 $api->group(['middleware' => 'access.routeNeedsPermission:write-account'], function ($api) {
                     $api->post('/', ['uses' => 'AccountController@store', 'as' => 'api.accounts.store']);
+                    $api->patch('/', ['uses' => 'AccountController@patch', 'as' => 'api.accounts.patch']);
                     $api->delete('/', ['uses' => 'AccountController@destroy', 'as' => 'api.accounts.destroy']);
 
                     $api->post('/duty', ['uses' => 'AccountController@assignDuty', 'as' => 'api.account.assign.duty']);
