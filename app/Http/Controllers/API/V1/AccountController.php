@@ -272,8 +272,19 @@ class AccountController extends ApiController
 
         // Convert the load_status_code to an id if needed
         if (array_key_exists('load_status_code', $data)) {
-            $data['load_status_id'] = LoadStatus::where('code', $data['load_status_code'])->firstOrFail()->id;
+            // Are we trying to clear the load status?
+            if ($data['load_status_code'] === 'null' or $data['load_status_code'] === 'none') {
+                $data['load_status_id'] = 0;
+            } else {
+                $data['load_status_id'] = LoadStatus::where('code', $data['load_status_code'])->firstOrFail()->id;
+            }
             unset($data['load_status_code']);
+        }
+
+        // If we have a load status ID
+        if (array_key_exists('load_status_id', $data)) {
+            // If the load status is 0 set it to null
+            if ($data['load_status_id'] === 0) $data['load_status_id'] = null;
         }
 
         $item = Account::where(['identifier' => $data['identifier']]);
