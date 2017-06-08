@@ -267,11 +267,13 @@ class AccountController extends ApiController
         // Convert the load_status_code to an id if needed
         if (array_key_exists('primary_duty_code', $data)) {
             $data['primary_duty_id'] = Duty::where('code', $data['primary_duty_code'])->firstOrFail()->id;
+            unset($data['primary_duty_code']);
         }
 
         // Convert the load_status_code to an id if needed
         if (array_key_exists('load_status_code', $data)) {
             $data['load_status_id'] = LoadStatus::where('code', $data['load_status_code'])->firstOrFail()->id;
+            unset($data['load_status_code']);
         }
 
         $item = Account::where(['identifier' => $data['identifier']]);
