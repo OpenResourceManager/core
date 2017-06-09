@@ -1,7 +1,8 @@
 # ORM Core API
 
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/OpenResourceManager/Core/master/LICENSE)
 [![Build Status](https://travis-ci.org/OpenResourceManager/Core.svg?branch=master)](https://travis-ci.org/OpenResourceManager/Core)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/OpenResourceManager/core.svg)](https://github.com/OpenResourceManager/core/issues)
 [![Documentation Status](https://readthedocs.org/projects/openresourcemanagercore/badge/?version=latest)](http://openresourcemanagercore.readthedocs.io/en/latest/?badge=latest)
 
 ## About
