@@ -1,9 +1,15 @@
 {
-    "name": "ORM Core",
+    "name": "open-resource-manager/core",
     "description": "Core API backing the Open Resource Manager ecosystem.",
-    "keywords": ["orm", "laravel", "erp"],
+    "keywords": ["orm", "open resource manager", "laravel", "api"],
     "license": "MIT",
     "type": "project",
+    "authors": [
+        {
+            "name": "Alex Markessinis",
+            "email": "markea125@gmail.com"
+        }
+    ],
     "require": {
         "php": ">=7.0.0",
         "laravel/framework": "5.3.*",
