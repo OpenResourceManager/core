@@ -14,13 +14,4 @@ sudo -u nginx composer install;
 
 # Run DB Migrations
 sudo -u nginx php artisan migrate --force;
-
-# Compile and optimize
-sudo -u nginx php artisan optimize;
-
-# Cache normal routes
-sudo -u nginx php artisan route:cache;
-
-# Cache API routes
-sudo -u nginx php artisan api:cache;
 ```
