@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/OpenResourceManager/Core.svg?branch=master)](https://travis-ci.org/OpenResourceManager/Core)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Documentation Status](https://readthedocs.org/projects/openresourcemanagercore/badge/?version=latest)](http://openresourcemanagercore.readthedocs.io/en/latest/?badge=latest)
 
 ---
 
