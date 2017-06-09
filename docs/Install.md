@@ -1,5 +1,27 @@
 # Install
 
+### Requirements:
+
+- php >= 7.0.0
+- Redis
+- MariaDB/MySQL (tested on MariaDB 10.1)
+- [Yarn](https://yarnpkg.com/) -- For development*
+- [composer](https://getcomposer.org/)
+- NGINX or Apache (tested on NGINX)
+
+PHP Packages:
+
+- php-pecl-redis
+- php-pdo
+- php-mysqlnd
+- php-mcrypt
+- php-mbstring
+- php-gd
+- php-xml
+- php-fpm (NGINX only)
+
+---
+
 * Step 1: [Install NGINX](https://github.com/MelonSmasher/NginxInstaller)
 
 * Step 2: Install MariaDB
