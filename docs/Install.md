@@ -1,4 +1,4 @@
-# Install
+# ORM Core Install
 
 ### Requirements:
 
@@ -20,7 +20,7 @@ PHP Packages:
 - php-xml
 - php-fpm (NGINX only)
 
----
+### Install:
 
 * Step 1: [Install NGINX](https://github.com/MelonSmasher/NginxInstaller)
 
