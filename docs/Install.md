@@ -52,7 +52,7 @@ sudo chown -R nginx:nginx /home/nginx;
 cd /usr/share/nginx/html/;
 
 # Clone Repo with composer
-sudo -u nginx composer create-project open-resource-manager/core OpenResourceManager/Core dev-master --keep-vcs --no-dev; 
+sudo -u nginx composer create-project open-resource-manager/core OpenResourceManager/Core dev-master --keep-vcs; 
 
 # Get into the project
 cd OpenResourceManager/Core;
