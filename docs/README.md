@@ -62,12 +62,12 @@ PHP Packages:
 
 ### Installation
 
-See the [installation docs](INSTALL.md)
+See the [installation docs](Install.md)
 
 ### Update
 
-See the [update docs](UPDATE.md)
+See the [update docs](Update.md)
 
 ### API Specification
 
-See the [API spec](API_Specification.md)
+See the [API spec](Specification.md)

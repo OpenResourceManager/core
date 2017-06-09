@@ -4,7 +4,7 @@
     "prod": "gulp --production",
     "dev": "gulp watch",
     "spec": "yaml2json -p spec/swagger.yaml > storage/api-docs/api-docs.json",
-    "spec2md": "cp spec/header.md  docs/API_Specification.md && swagger-to-md -y spec/swagger.yaml >> docs/API_Specification.md"
+    "spec2md": "cp spec/header.md  docs/Specification.md && swagger-to-md -y spec/swagger.yaml >> docs/Specification.md"
   },
   "devDependencies": {
     "bootstrap-sass": "^3.3.7",
