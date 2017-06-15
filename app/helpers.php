@@ -161,12 +161,10 @@ function verifyToken($token)
     if (!empty($email) && !empty($phone)) {
         abort(500, 'Duplicate Token Exception!');
     } elseif (!empty($email)) {
-        $email->verification_token = null;
         $email->verified = true;
         $email->save();
         return $email;
     } elseif (!empty($phone)) {
-        $phone->verification_token = null;
         $phone->verified = true;
         $phone->save();
         return $phone;

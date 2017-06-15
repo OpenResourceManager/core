@@ -38,10 +38,13 @@ class TokenVerificationController extends ApiController
             $type = strtolower($reflection->getShortName());
 
             $response['id'] = $verified->id;
+            $response['verification_callback'] = $verified->verification_callback;
+            $response['upstream_app_name'] = $verified->upstream_app_name;
 
             switch ($type) {
                 case 'email':
                     $route = route('api.emails.show', ['id' => $verified->id]);
+                    $response['confirmation_from'] = $verified->confirmation_from;
                     $response['type'] = 'email';
                     $response['message'] = 'Email has been verified successfully.';
                     break;
