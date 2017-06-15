@@ -219,7 +219,7 @@ class EmailController extends ApiController
         if (!$item->verified) {
             // Are we set up to verify emails?
             $verification_url = Settings::get('asset-verification-server-url', '');
-            $confirmation_from_address = (empty($data['confirmation_from'])) ? Settings::get('confirmation-from-address', '') : empty($data['confirmation_from']);
+            $confirmation_from_address = (empty($data['confirmation_from'])) ? Settings::get('confirmation-from-address', '') : $data['confirmation_from'];
             // If we are integrated with the asset verification server
             if (!empty($verification_url) && !empty($confirmation_from_address)) {
                 // Build the logo
