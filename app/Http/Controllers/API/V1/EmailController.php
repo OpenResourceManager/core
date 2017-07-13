@@ -212,7 +212,11 @@ class EmailController extends ApiController
         if ($toRestore = Email::onlyTrashed()->where('address', $data['address'])->first()) $toRestore->restore();
         $trans = new EmailTransformer();
         $item = Email::updateOrCreate(['address' => $data['address']], $data);
-        $item->verification_token = ($item->verified) ? null : generateVerificationToken();
+
+        if (!$item->verified || empty($item->verification_token)) {
+            $item->verification_token = generateVerificationToken();
+        }
+
         $item->save();
 
         // Start verification if we can and if it's needed
