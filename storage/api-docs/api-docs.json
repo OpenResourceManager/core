@@ -2679,6 +2679,192 @@
         }
       }
     },
+    "/addresses/account/{id}": {
+      "get": {
+        "tags": [
+          "Addresses"
+        ],
+        "summary": "Show all Addresses owned by Account.",
+        "description": "Retrieve a lits of addresses by it's owner's ID.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/pages"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "An account ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "AddressesAddresses Found",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "The number of allowed requests in the current period",
+                "type": "integer"
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests in the current period",
+                "type": "integer"
+              },
+              "X-RateLimit-Reset": {
+                "description": "The number of seconds left in the current period",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/transformedAddress"
+                  }
+                },
+                "meta": {
+                  "$ref": "#/definitions/meta"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/responses/401"
+          },
+          "429": {
+            "$ref": "#/responses/429"
+          }
+        }
+      }
+    },
+    "/addresses/identifier/{identifier}": {
+      "get": {
+        "tags": [
+          "Addresses"
+        ],
+        "summary": "Show all Addresses owned by Account by Identifier.",
+        "description": "Retrieve a lits of addresses by it's owner's Identifier.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/pages"
+          },
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "An account identifier."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Addresses Found",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "The number of allowed requests in the current period",
+                "type": "integer"
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests in the current period",
+                "type": "integer"
+              },
+              "X-RateLimit-Reset": {
+                "description": "The number of seconds left in the current period",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/transformedAddress"
+                  }
+                },
+                "meta": {
+                  "$ref": "#/definitions/meta"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/responses/401"
+          },
+          "429": {
+            "$ref": "#/responses/429"
+          }
+        }
+      }
+    },
+    "/addresses/username/{username}": {
+      "get": {
+        "tags": [
+          "Addresses"
+        ],
+        "summary": "Show all Addresses owned by Account by Username.",
+        "description": "Retrieve a lits of addresses by it's owner's Username.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/pages"
+          },
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "An account username."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Addresses Found",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "The number of allowed requests in the current period",
+                "type": "integer"
+              },
+              "X-RateLimit-Remaining": {
+                "description": "The number of remaining requests in the current period",
+                "type": "integer"
+              },
+              "X-RateLimit-Reset": {
+                "description": "The number of seconds left in the current period",
+                "type": "integer"
+              }
+            },
+            "schema": {
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/transformedAddress"
+                  }
+                },
+                "meta": {
+                  "$ref": "#/definitions/meta"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/responses/401"
+          },
+          "429": {
+            "$ref": "#/responses/429"
+          }
+        }
+      }
+    },
     "/buildings": {
       "get": {
         "tags": [

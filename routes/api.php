@@ -233,7 +233,9 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
                 $api->group(['middleware' => 'access.routeNeedsPermission:read-address'], function ($api) {
                     $api->get('/', ['uses' => 'AddressController@index', 'as' => 'api.addresses.index']);
                     $api->get('/{id}', ['uses' => 'AddressController@show', 'as' => 'api.addresses.show']);
-
+                    $api->get('/account/{id}', ['uses' => 'AddressController@showFromAccountId', 'as' => 'api.addresses.show_from_account_id']);
+                    $api->get('/identifier/{identifier}', ['uses' => 'AddressController@showFromAccountIdentifier', 'as' => 'api.addresses.show_from_account_identifier']);
+                    $api->get('/username/{username}', ['uses' => 'AddressController@showFromAccountUsername', 'as' => 'api.addresses.show_from_account_username']);
                 });
                 $api->group(['middleware' => 'access.routeNeedsPermission:write-address'], function ($api) {
                     $api->post('/', ['uses' => 'AddressController@store', 'as' => 'api.addresses.store']);

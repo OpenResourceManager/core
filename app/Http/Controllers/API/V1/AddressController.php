@@ -52,6 +52,48 @@ class AddressController extends ApiController
     }
 
     /**
+     * Show Addresses by Account ID
+     *
+     * Display Addresses by providing an Account ID attribute.
+     *
+     * @param $id
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showFromAccountId($id)
+    {
+        $addresses = Address::where('account_id', $id)->paginate($this->resultLimit);
+        return $this->response->paginator($addresses, new AddressTransformer);
+    }
+
+    /**
+     * Show Addresses by Account Identifier
+     *
+     * Display Addresses by providing an Account Identifier attribute.
+     *
+     * @param $identifier
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showFromAccountIdentifier($identifier)
+    {
+        $addresses = Account::where('identifier', $identifier)->firstOrFail()->addresses()->paginate($this->resultLimit);
+        return $this->response->paginator($addresses, new AddressTransformer());
+    }
+
+    /**
+     * Show Addresses by Account Username
+     *
+     * Display Addresses by providing an Account Username attribute.
+     *
+     * @param $username
+     * @return \Dingo\Api\Http\Response
+     */
+    public function showFromAccountUsername($username)
+    {
+        $addresses = Account::where('username', $username)->firstOrFail()->addresses()->paginate($this->resultLimit);
+        return $this->response->paginator($addresses, new AddressTransformer());
+    }
+
+    /**
      * Store Address
      *
      * Store an Account's Address.
