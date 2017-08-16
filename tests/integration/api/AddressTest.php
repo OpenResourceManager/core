@@ -75,6 +75,65 @@ class AddressTest extends TestCase
             ->seeJsonStructure($this->errorStructure);
     }
 
+    /** @test */
+    public function can_get_addresses_by_account_id()
+    {
+        $account = Account::create(lukeSkywalkerAccount());
+        Address::create(jediMasterAddress());
+        $this->get('/api/v1/addresses/account/' . $account->id, ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(200);
+        #->seeJsonStructure($this->paginatedStructure); # @todo define this structure
+    }
+
+    /** @test */
+    public function fails_to_get_addresses_by_account_id_without_auth()
+    {
+        $account = Account::create(lukeSkywalkerAccount());
+        Address::create(jediMasterAddress());
+        $this->get('/api/v1/addresses/account/' . $account->id)
+            ->seeStatusCode(401)
+            ->seeJsonStructure($this->errorStructure);
+    }
+
+    /** @test */
+    public function can_get_addresses_by_account_identifier()
+    {
+        $account = Account::create(lukeSkywalkerAccount());
+        Address::create(jediMasterAddress());
+        $this->get('/api/v1/addresses/identifier/' . $account->identifier, ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(200);
+        #->seeJsonStructure($this->paginatedStructure); # @todo define this structure
+    }
+
+    /** @test */
+    public function fails_to_get_addresses_by_account_identifier_without_auth()
+    {
+        $account = Account::create(lukeSkywalkerAccount());
+        Address::create(jediMasterAddress());
+        $this->get('/api/v1/addresses/identifier/' . $account->identifier)
+            ->seeStatusCode(401)
+            ->seeJsonStructure($this->errorStructure);
+    }
+
+    /** @test */
+    public function can_get_addresses_by_account_username()
+    {
+        $account = Account::create(lukeSkywalkerAccount());
+        Address::create(jediMasterAddress());
+        $this->get('/api/v1/addresses/username/' . $account->username, ['Authorization' => 'Bearer ' . $this->bearer])
+            ->seeStatusCode(200);
+        #->seeJsonStructure($this->paginatedStructure); # @todo define this structure
+    }
+
+    /** @test */
+    public function fails_to_get_addresses_by_account_username_without_auth()
+    {
+        $account = Account::create(lukeSkywalkerAccount());
+        Address::create(jediMasterAddress());
+        $this->get('/api/v1/addresses/username/' . $account->username)
+            ->seeStatusCode(401)
+            ->seeJsonStructure($this->errorStructure);
+    }
 
     /** @test */
     public function can_create_address()

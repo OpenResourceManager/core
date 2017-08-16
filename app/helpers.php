@@ -823,6 +823,27 @@ function jediMasterRoom()
 }
 
 /**
+ * Dummy Address
+ *
+ * @return array
+ */
+function jediMasterAddress()
+{
+    $state = \App\Http\Models\API\State::where('code', 'NY')->firstOrFail();
+    return [
+        'account_id' => \App\Http\Models\API\Account::where('identifier', '9999999')->where('username', 'skwall')->firstOrFail()->id,
+        'addressee' => \App\Http\Models\API\Account::where('identifier', '9999999')->where('username', 'skwall')->firstOrFail()->format_full_name(true),
+        'organization' => 'Jedi Academy',
+        'line_1' => '309 X-Wing Drive',
+        'line_2' => 'Earth',
+        'city' => 'Troy',
+        'state_id' => $state->id,
+        'zip' => 12180,
+        'country_id' => $state->country->id
+    ];
+}
+
+/**
  * Returns the LDAP configuration
  *
  * @return array
