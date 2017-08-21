@@ -44,7 +44,7 @@ class AccountTransformer extends TransformerAbstract
         }
 
         $readLoadStatus = Permission::where('name', 'read-load-statuses')->first();
-        if (in_array('read-load-status', $permissions, true) || $user->hasPermission($readLoadStatus)) {
+        if (in_array('read-load-statuses', $permissions, true) || $user->hasPermission($readLoadStatus)) {
             $transformed['load_status'] = null;
             $loadStatusTransformer = new LoadStatusTransformer();
             if (!empty($item->loadStatus)) {
@@ -95,7 +95,7 @@ class AccountTransformer extends TransformerAbstract
         }
 
         $readSchool = Permission::where('name', 'read-schools')->first();
-        if (in_array('read-school', $permissions, true) || $user->hasPermission($readSchool)) {
+        if (in_array('read-schools', $permissions, true) || $user->hasPermission($readSchool)) {
             $transformed['schools'] = array();
             $schoolTrans = new SchoolTransformer();
             foreach ($item->schools as $school) {
