@@ -863,6 +863,7 @@ function ldap_config()
         'home_drive_letter' => Settings::get('ldap-home-drive-letter', ''),
         'home_drive_path_pattern' => Settings::get('ldap-home-drive-path-pattern', ''),
         'email_domain' => Settings::get('ldap-email-domain', ''),
+        'use_trash_ou' => Settings::get('ldap-use-trash-ou', true)
     ];
 }
 

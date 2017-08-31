@@ -35,6 +35,7 @@ class SettingsController extends Controller
         $ldap_delete_users = Settings::get('ldap-delete-users', false);
         $checked_delete_users = ($ldap_delete_users) ? 'checked' : '';
         $ldap_duties_map_to_ou = Settings::get('ldap-duties-map-to-ou', true);
+        $ldap_use_trash_ou = Settings::get('ldap-use-trash-ou', true);
         $checked_duties_map_to_ou = ($ldap_duties_map_to_ou) ? 'checked' : '';
         $ldap_home_drive_letter = Settings::get('ldap-home-drive-letter', '');
         $ldap_home_drive_path = Settings::get('ldap-home-drive-path-pattern', '');
@@ -64,6 +65,7 @@ class SettingsController extends Controller
             'ldap_home_drive_letter' => $ldap_home_drive_letter,
             'ldap_home_drive_path' => $ldap_home_drive_path,
             'ldap_email_domain' => $ldap_email_domain,
+            'ldap_use_trash_ou' => $ldap_use_trash_ou
         ]);
     }
 
@@ -95,6 +97,7 @@ class SettingsController extends Controller
             'ldap_home_drive_path' => 'required_with:ldap_enabled',
             'ldap_email_domain' => 'required_with:ldap_enabled',
             'ldap_base_group_dn' => 'required_with:ldap_enabled',
+            'ldap_use_trash_ou' => 'nullable|integer|min:0|max:1'
         ]);
 
         if ($validator->fails()) {
@@ -113,6 +116,10 @@ class SettingsController extends Controller
          * If this is set to false, the LDAP bridge service is disabled.
          */
         Settings::set('ldap-enabled', array_key_exists('ldap_enabled', $data));
+        /**
+         * If this is true, disabled users will be placed in a trash OU
+         */
+        Settings::set('ldap-use-trash-ou', array_key_exists('ldap_use_trash_ou', $data));
         /**
          * This is an array of ldap hosts
          */

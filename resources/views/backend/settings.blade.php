@@ -183,6 +183,20 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Use trash OU</label>
+                        <div class="col-md-6">
+                            <div class="material-switch pull-left">
+                                <input type="checkbox" id="ldap_use_trash_ou" name="ldap_use_trash_ou"
+                                       value="{{$ldap_use_trash_ou}}" {{$ldap_use_trash_ou}}>
+                                <label for="ldap_use_trash_ou" class="label-primary"></label>
+                            </div>
+                            <div class="text-center">
+                                <p>If turned on, disabled accounts will be moved to a trash OU.</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group{{ $errors->has('ldap_hosts') ? ' has-error' : '' }}">
                         <label class="col-md-4 control-label">Servers</label>
 

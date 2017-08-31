@@ -112,6 +112,8 @@ class SystemEntitiesSeeder extends Seeder
          * Example: OU=Groups,DC=DOMAIN,DC=TLD
          */
         Settings::set('ldap-base-group-dn', '');
+
+        $this->call(TrashOUSetting::class);
         Model::reguard();
     }
 }
