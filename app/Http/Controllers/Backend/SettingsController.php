@@ -65,7 +65,7 @@ class SettingsController extends Controller
             'ldap_home_drive_letter' => $ldap_home_drive_letter,
             'ldap_home_drive_path' => $ldap_home_drive_path,
             'ldap_email_domain' => $ldap_email_domain,
-            'ldap_use_trash_ou' => $ldap_use_trash_ou
+            'ldap_use_trash_ou' => (int)$ldap_use_trash_ou
         ]);
     }
 
