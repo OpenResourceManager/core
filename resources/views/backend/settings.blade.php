@@ -188,7 +188,7 @@
                         <div class="col-md-6">
                             <div class="material-switch pull-left">
                                 <input type="checkbox" id="ldap_use_trash_ou" name="ldap_use_trash_ou"
-                                       value="{{$ldap_use_trash_ou}}" {{$ldap_use_trash_ou}}>
+                                       value="{{$ldap_use_trash_ou}}" {{$checked_ldap_use_trash_ou}}>
                                 <label for="ldap_use_trash_ou" class="label-primary"></label>
                             </div>
                             <div class="text-center">

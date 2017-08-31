@@ -36,6 +36,7 @@ class SettingsController extends Controller
         $checked_delete_users = ($ldap_delete_users) ? 'checked' : '';
         $ldap_duties_map_to_ou = Settings::get('ldap-duties-map-to-ou', true);
         $ldap_use_trash_ou = Settings::get('ldap-use-trash-ou', true);
+        $checked_ldap_use_trash_ou = ($ldap_use_trash_ou) ? 'checked' : '';
         $checked_duties_map_to_ou = ($ldap_duties_map_to_ou) ? 'checked' : '';
         $ldap_home_drive_letter = Settings::get('ldap-home-drive-letter', '');
         $ldap_home_drive_path = Settings::get('ldap-home-drive-path-pattern', '');
@@ -65,7 +66,8 @@ class SettingsController extends Controller
             'ldap_home_drive_letter' => $ldap_home_drive_letter,
             'ldap_home_drive_path' => $ldap_home_drive_path,
             'ldap_email_domain' => $ldap_email_domain,
-            'ldap_use_trash_ou' => (int)$ldap_use_trash_ou
+            'ldap_use_trash_ou' => (int)$ldap_use_trash_ou,
+            'checked_ldap_use_trash_ou' => $checked_ldap_use_trash_ou
         ]);
     }
 
