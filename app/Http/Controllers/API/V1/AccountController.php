@@ -324,6 +324,11 @@ class AccountController extends ApiController
             unset($data['page']);
         }
 
+        // Encrypt any sensitive information
+        if (array_key_exists('ssn', $data)) $data['ssn'] = encrypt($data['ssn']);
+        if (array_key_exists('password', $data)) $data['password'] = encrypt($data['password']);
+        if (array_key_exists('birth_date', $data)) $data['birth_date'] = encrypt($data['birth_date']);
+
         // Get the account
         $item = Account::where(['identifier' => $data['identifier']]);
         // Create a new transformer
