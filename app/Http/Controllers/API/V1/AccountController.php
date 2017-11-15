@@ -21,6 +21,7 @@ use App\Http\Models\API\School;
 use App\Http\Transformers\AccountTransformer;
 use Dingo\Api\Exception\DeleteResourceFailedException;
 use Dingo\Api\Exception\StoreResourceFailedException;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -28,6 +29,7 @@ use App\Events\Api\Account\AccountsViewed;
 use App\Events\Api\Account\AccountViewed;
 use App\Models\Access\Permission\Permission;
 use App\Http\Models\API\LoadStatus;
+use PDOException;
 
 class AccountController extends ApiController
 {
@@ -422,7 +424,12 @@ class AccountController extends ApiController
             }
         }
 
-        $account->duties()->attach($data['duty_id']);
+
+        try {
+            $account->duties()->attach($data['duty_id']);
+        } catch (PDOException $exception) {
+            Log::warning('Failed to attach Account:' . $account->id . ' to Duty: ' . $data['duty_id'] . ' -- ' . $exception->getMessage() . ' -- ' . $exception->getTraceAsString());
+        }
 
         //if ($account->duties()->attach($data['duty_id'])) {
         event(new AssignedDuty($account, Duty::find($data['duty_id'])));
@@ -531,7 +538,11 @@ class AccountController extends ApiController
             }
         }
 
-        $account->schools()->attach($data['school_id']);
+        try {
+            $account->schools()->attach($data['school_id']);
+        } catch (PDOException $exception) {
+            Log::warning('Failed to attach Account:' . $account->id . ' to School: ' . $data['school_id'] . ' -- ' . $exception->getMessage() . ' -- ' . $exception->getTraceAsString());
+        }
 
         //if ($account->courses()->attach($data['course_id'])) {
         event(new AssignedSchool($account, School::find($data['school_id'])));
@@ -637,7 +648,11 @@ class AccountController extends ApiController
             }
         }
 
-        $account->courses()->attach($data['course_id']);
+        try {
+            $account->courses()->attach($data['course_id']);
+        } catch (PDOException $exception) {
+            Log::warning('Failed to attach Account:' . $account->id . ' to Course: ' . $data['course_id'] . ' -- ' . $exception->getMessage() . ' -- ' . $exception->getTraceAsString());
+        }
 
         //if ($account->courses()->attach($data['course_id'])) {
         event(new AssignedCourse($account, Course::find($data['course_id'])));
@@ -744,7 +759,11 @@ class AccountController extends ApiController
             }
         }
 
-        $account->departments()->attach($data['department_id']);
+        try {
+            $account->departments()->attach($data['department_id']);
+        } catch (PDOException $exception) {
+            Log::warning('Failed to attach Department:' . $account->id . ' to Department: ' . $data['department_id'] . ' -- ' . $exception->getMessage() . ' -- ' . $exception->getTraceAsString());
+        }
 
         //if ($account->departments()->attach($data['department_id'])) {
         event($account, new AssignedDepartment($account, Department::find($data['department_id'])));
@@ -850,7 +869,11 @@ class AccountController extends ApiController
             }
         }
 
-        $account->rooms()->attach($data['room_id']);
+        try {
+            $account->rooms()->attach($data['room_id']);
+        } catch (PDOException $exception) {
+            Log::warning('Failed to attach Account:' . $account->id . ' to Room: ' . $data['room_id'] . ' -- ' . $exception->getMessage() . ' -- ' . $exception->getTraceAsString());
+        }
 
         //if ($account->rooms()->attach($data['room_id'])) {
         event($account, new AssignedRoom($account, Room::find($data['room_id'])));
