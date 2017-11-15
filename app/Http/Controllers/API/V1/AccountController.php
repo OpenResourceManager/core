@@ -223,15 +223,26 @@ class AccountController extends ApiController
         // If it's a new account just attach it to it's primary duty
         if (!empty($restore_account) && !$item->wasRecentlyCreated) {
             if ($data['primary_duty_id'] !== $restore_account->primary_duty_id) {
+
                 if ($item->duties()->detach($restore_account->primary_duty_id)) {
                     event(new UnassignedDuty($item, Duty::find($restore_account->primary_duty_id)));
                 }
-                if ($item->duties()->attach($data['primary_duty_id'])) {
+                try {
+                    if ($item->duties()->attach($data['primary_duty_id'])) {
+                        event(new AssignedDuty($item, Duty::find($data['primary_duty_id'])));
+                    }
+                } catch (PDOException $exception) {
                     event(new AssignedDuty($item, Duty::find($data['primary_duty_id'])));
+                    Log::notice('Failed to attach Account:' . $item->id . ' to Primary Duty: ' . $data['primary_duty_id'] . ' -- ' . $exception->getMessage() . ' -- ' . $exception->getTraceAsString());
                 }
             } elseif ($item->wasRecentlyCreated) {
-                if ($item->duties()->attach($data['primary_duty_id'])) {
+                try {
+                    if ($item->duties()->attach($data['primary_duty_id'])) {
+                        event(new AssignedDuty($item, Duty::find($data['primary_duty_id'])));
+                    }
+                } catch (PDOException $exception) {
                     event(new AssignedDuty($item, Duty::find($data['primary_duty_id'])));
+                    Log::notice('Failed to attach Account:' . $item->id . ' to Primary Duty: ' . $data['primary_duty_id'] . ' -- ' . $exception->getMessage() . ' -- ' . $exception->getTraceAsString());
                 }
             }
         }
@@ -424,16 +435,14 @@ class AccountController extends ApiController
             }
         }
 
-
         try {
             $account->duties()->attach($data['duty_id']);
+            event(new AssignedDuty($account, Duty::find($data['duty_id'])));
         } catch (PDOException $exception) {
-            Log::warning('Failed to attach Account:' . $account->id . ' to Duty: ' . $data['duty_id'] . ' -- ' . $exception->getMessage() . ' -- ' . $exception->getTraceAsString());
+            event(new AssignedDuty($account, Duty::find($data['duty_id'])));
+            Log::notice('Failed to attach Account:' . $account->id . ' to Duty: ' . $data['duty_id'] . ' -- ' . $exception->getMessage() . ' -- ' . $exception->getTraceAsString());
         }
 
-        //if ($account->duties()->attach($data['duty_id'])) {
-        event(new AssignedDuty($account, Duty::find($data['duty_id'])));
-        //}
         return $this->response->created();
     }
 
@@ -540,13 +549,12 @@ class AccountController extends ApiController
 
         try {
             $account->schools()->attach($data['school_id']);
+            event(new AssignedSchool($account, School::find($data['school_id'])));
         } catch (PDOException $exception) {
-            Log::warning('Failed to attach Account:' . $account->id . ' to School: ' . $data['school_id'] . ' -- ' . $exception->getMessage() . ' -- ' . $exception->getTraceAsString());
+            event(new AssignedSchool($account, School::find($data['school_id'])));
+            Log::notice('Failed to attach Account:' . $account->id . ' to School: ' . $data['school_id'] . ' -- ' . $exception->getMessage() . ' -- ' . $exception->getTraceAsString());
         }
 
-        //if ($account->courses()->attach($data['course_id'])) {
-        event(new AssignedSchool($account, School::find($data['school_id'])));
-        //}
         return $this->response->created();
     }
 
@@ -650,13 +658,12 @@ class AccountController extends ApiController
 
         try {
             $account->courses()->attach($data['course_id']);
+            event(new AssignedCourse($account, Course::find($data['course_id'])));
         } catch (PDOException $exception) {
-            Log::warning('Failed to attach Account:' . $account->id . ' to Course: ' . $data['course_id'] . ' -- ' . $exception->getMessage() . ' -- ' . $exception->getTraceAsString());
+            event(new AssignedCourse($account, Course::find($data['course_id'])));
+            Log::notice('Failed to attach Account:' . $account->id . ' to Course: ' . $data['course_id'] . ' -- ' . $exception->getMessage() . ' -- ' . $exception->getTraceAsString());
         }
 
-        //if ($account->courses()->attach($data['course_id'])) {
-        event(new AssignedCourse($account, Course::find($data['course_id'])));
-        //}
         return $this->response->created();
     }
 
@@ -721,7 +728,7 @@ class AccountController extends ApiController
      * Creates the relationship between an Account and Department.
      *
      * @param Request $request
-     * @return \Dingo\Api\Http\Response|void
+     * @return \Dingo\Api\Http\Response
      */
     public
     function assignDepartment(Request $request)
@@ -761,13 +768,12 @@ class AccountController extends ApiController
 
         try {
             $account->departments()->attach($data['department_id']);
+            event($account, new AssignedDepartment($account, Department::find($data['department_id'])));
         } catch (PDOException $exception) {
-            Log::warning('Failed to attach Department:' . $account->id . ' to Department: ' . $data['department_id'] . ' -- ' . $exception->getMessage() . ' -- ' . $exception->getTraceAsString());
+            event($account, new AssignedDepartment($account, Department::find($data['department_id'])));
+            Log::notice('Failed to attach Department:' . $account->id . ' to Department: ' . $data['department_id'] . ' -- ' . $exception->getMessage() . ' -- ' . $exception->getTraceAsString());
         }
 
-        //if ($account->departments()->attach($data['department_id'])) {
-        event($account, new AssignedDepartment($account, Department::find($data['department_id'])));
-        //}
         return $this->response->created();
     }
 
@@ -831,7 +837,7 @@ class AccountController extends ApiController
      * Creates the relationship between an Account and Room.
      *
      * @param Request $request
-     * @return \Dingo\Api\Http\Response|void
+     * @return \Dingo\Api\Http\Response
      */
     public
     function assignRoom(Request $request)
@@ -871,13 +877,12 @@ class AccountController extends ApiController
 
         try {
             $account->rooms()->attach($data['room_id']);
+            event($account, new AssignedRoom($account, Room::find($data['room_id'])));
         } catch (PDOException $exception) {
-            Log::warning('Failed to attach Account:' . $account->id . ' to Room: ' . $data['room_id'] . ' -- ' . $exception->getMessage() . ' -- ' . $exception->getTraceAsString());
+            event($account, new AssignedRoom($account, Room::find($data['room_id'])));
+            Log::notice('Failed to attach Account:' . $account->id . ' to Room: ' . $data['room_id'] . ' -- ' . $exception->getMessage() . ' -- ' . $exception->getTraceAsString());
         }
 
-        //if ($account->rooms()->attach($data['room_id'])) {
-        event($account, new AssignedRoom($account, Room::find($data['room_id'])));
-        //}
         return $this->response->created();
     }
 
