@@ -319,6 +319,11 @@ class AccountController extends ApiController
             unset($data['primary_duty_code']);
         }
 
+        // Don't pass the page param to the model
+        if (array_key_exists('page', $data)) {
+            unset($data['page']);
+        }
+
         // Get the account
         $item = Account::where(['identifier' => $data['identifier']]);
         // Create a new transformer
