@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Events\Api\Account\AccountUpdated;
 use App\Events\Api\Account\AssignedCourse;
 use App\Events\Api\Account\AssignedDepartment;
 use App\Events\Api\Account\AssignedDuty;
@@ -348,6 +349,8 @@ class AccountController extends ApiController
         $trans = new AccountTransformer();
         // Update the account
         $item->update($data);
+        // Fire the update event
+        event(new AccountUpdated($item));
         // Get the updated account
         $item = $trans->transform($item->firstOrFail());
         // Return a response
