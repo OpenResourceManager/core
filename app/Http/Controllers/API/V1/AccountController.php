@@ -350,7 +350,8 @@ class AccountController extends ApiController
         // Update the account
         $item->update($data);
         // Fire the update event
-        event(new AccountUpdated(Account::where('identifier', $data['identifier'])->first()));
+        $account = Account::where('identifier', $data['identifier'])->firstOrFail();
+        event(new AccountUpdated($account));
         // Get the updated account
         $item = $trans->transform($item->firstOrFail());
         // Return a response
