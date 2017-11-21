@@ -349,11 +349,11 @@ class AccountController extends ApiController
         $trans = new AccountTransformer();
         // Update the account
         $item->update($data);
+        $item = $item->firstOrFail();
         // Fire the update event
-        $account = Account::where('identifier', $data['identifier'])->firstOrFail();
-        event(new AccountUpdated($account));
+        event(new AccountUpdated($item));
         // Get the updated account
-        $item = $trans->transform($item->firstOrFail());
+        $item = $trans->transform($item);
         // Return a response
         return $this->response->created(route('api.accounts.show', ['id' => $item['id']]), ['data' => $item]);
     }
