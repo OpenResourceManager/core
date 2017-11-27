@@ -45,8 +45,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             'throttle:60,1',
-            'bindings',
-            \App\Http\Middleware\ShowSessionTTLHeader::class,
+            'bindings'
         ],
     ];
 
@@ -65,6 +64,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'timeout' => \App\Http\Middleware\SessionTimeout::class,
+        'ttl.header' => \App\Http\Middleware\ShowSessionTTLHeader::class,
 
         /**
          * Access Middleware

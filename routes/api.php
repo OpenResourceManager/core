@@ -17,7 +17,7 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
      * https://stackoverflow.com/questions/38664222/dingo-api-how-to-add-version-number-in-url/
      * https://github.com/dingo/api/issues/1221
      */
-    $api->group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], function ($api) {
+    $api->group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1', 'middleware' => 'ttl.header'], function ($api) {
 
         $api->get('/', ['uses' => 'ApiController@index', 'as' => 'api.index']);
 
