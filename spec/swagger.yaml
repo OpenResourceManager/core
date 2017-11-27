@@ -98,14 +98,17 @@ paths:
         200:
           description: A list of accounts
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -150,14 +153,17 @@ paths:
         200:
           description: A list of accounts
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -187,14 +193,17 @@ paths:
         202:
           description: Token is valid.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -328,14 +337,17 @@ paths:
             location:
               description: A URL to the new object.
               type: string
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -459,14 +471,17 @@ paths:
             location:
               description: A URL to the new object.
               type: string
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -492,14 +507,17 @@ paths:
         200:
           description: A list of accounts
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -565,14 +583,17 @@ paths:
         200:
           description: Account Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -601,14 +622,17 @@ paths:
         200:
           description: Account Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -637,14 +661,17 @@ paths:
         200:
           description: Account Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -674,14 +701,17 @@ paths:
         200:
           description: A list of accounts with the specified load status
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -715,14 +745,17 @@ paths:
         200:
           description: A list of accounts with the specified load status code
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -1253,14 +1286,17 @@ paths:
             location:
               description: A URL to the new object.
               type: string
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -1286,14 +1322,17 @@ paths:
         200:
           description: A list of alias accounts
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -1354,14 +1393,17 @@ paths:
         200:
           description: Account Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -1487,14 +1529,17 @@ paths:
             location:
               description: A URL to the new object.
               type: string
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -1520,14 +1565,17 @@ paths:
         200:
           description: A list of service accounts
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -1588,14 +1636,17 @@ paths:
         200:
           description: Account Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -1624,14 +1675,17 @@ paths:
         200:
           description: Account Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -1660,14 +1714,17 @@ paths:
         200:
           description: Account Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -1695,14 +1752,17 @@ paths:
         200:
           description: A list of addresses
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -1811,14 +1871,17 @@ paths:
             location:
               description: A URL to the new object.
               type: string
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -1872,14 +1935,17 @@ paths:
         200:
           description: Address Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -1909,14 +1975,17 @@ paths:
         200:
           description: AddressesAddresses Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -1950,14 +2019,17 @@ paths:
         200:
           description: Addresses Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -1991,14 +2063,17 @@ paths:
         200:
           description: Addresses Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2030,14 +2105,17 @@ paths:
         200:
           description: A list of buildings
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2089,14 +2167,17 @@ paths:
             location:
               description: A URL to the new object.
               type: string
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2155,14 +2236,17 @@ paths:
         200:
           description: Building Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2191,14 +2275,17 @@ paths:
         200:
           description: Building Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2227,14 +2314,17 @@ paths:
         200:
           description: A list of campuses
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2276,14 +2366,17 @@ paths:
             location:
               description: A URL to the new object.
               type: string
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2342,14 +2435,17 @@ paths:
         200:
           description: Campus Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2378,14 +2474,17 @@ paths:
         200:
           description: Campus Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2413,14 +2512,17 @@ paths:
         200:
           description: A list of countries.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2462,14 +2564,17 @@ paths:
             location:
               description: A URL to the new object.
               type: string
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2528,14 +2633,17 @@ paths:
         200:
           description: Country Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2564,14 +2672,17 @@ paths:
         200:
           description: Country Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2648,14 +2759,17 @@ paths:
             location:
               description: A URL to the new object.
               type: string
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2714,14 +2828,17 @@ paths:
         200:
           description: Load Status Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2750,14 +2867,17 @@ paths:
         200:
           description: Course Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2785,14 +2905,17 @@ paths:
         200:
           description: A list of courses.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2849,14 +2972,17 @@ paths:
             location:
               description: A URL to the new object.
               type: string
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2915,14 +3041,17 @@ paths:
         200:
           description: Course Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2951,14 +3080,17 @@ paths:
         200:
           description: Course Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -2986,14 +3118,17 @@ paths:
         200:
           description: A list of schools.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3035,14 +3170,17 @@ paths:
             location:
               description: A URL to the new object.
               type: string
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3101,14 +3239,17 @@ paths:
         200:
           description: School Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3137,14 +3278,17 @@ paths:
         200:
           description: School Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3172,14 +3316,17 @@ paths:
         200:
           description: A list of departments.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3228,14 +3375,17 @@ paths:
             location:
               description: A URL to the new object.
               type: string
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3294,14 +3444,17 @@ paths:
         200:
           description: Department Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3330,14 +3483,17 @@ paths:
         200:
           description: Department Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3365,14 +3521,17 @@ paths:
         200:
           description: A list of duties.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3414,14 +3573,17 @@ paths:
             location:
               description: A URL to the new object.
               type: string
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3480,14 +3642,17 @@ paths:
         200:
           description: Duty Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3516,14 +3681,17 @@ paths:
         200:
           description: Duty Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3553,14 +3721,17 @@ paths:
         200:
           description: A list of duties.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3590,14 +3761,17 @@ paths:
         200:
           description: A list of duties.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3627,14 +3801,17 @@ paths:
         200:
           description: A list of duties.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3662,14 +3839,17 @@ paths:
         200:
           description: A list of emails.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3744,14 +3924,17 @@ paths:
             location:
               description: A URL to the new object.
               type: string
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3810,14 +3993,17 @@ paths:
         200:
           description: Department Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3846,14 +4032,17 @@ paths:
         200:
           description: Email Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3883,14 +4072,17 @@ paths:
         200:
           description: Email's Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3924,14 +4116,17 @@ paths:
         200:
           description: Email's Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -3965,14 +4160,17 @@ paths:
         200:
           description: Email's Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4001,14 +4199,17 @@ paths:
         200:
           description: A list of verified emails.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4042,14 +4243,17 @@ paths:
         200:
           description: A list of verified emails owned by the specified account.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4078,14 +4282,17 @@ paths:
         200:
           description: A list of unverified emails.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4119,14 +4326,17 @@ paths:
         200:
           description: A list of unverified emails owned by the specified account.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4158,14 +4368,17 @@ paths:
         200:
           description: A list of mobile carriers.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4217,14 +4430,17 @@ paths:
             location:
               description: A URL to the new object.
               type: string
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4335,14 +4551,17 @@ paths:
         200:
           description: A list of mobile phones.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4427,14 +4646,17 @@ paths:
             location:
               description: A URL to the new object.
               type: string
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4488,14 +4710,17 @@ paths:
         200:
           description: Department Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4525,14 +4750,17 @@ paths:
         200:
           description: Mobile Phone's Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4566,14 +4794,17 @@ paths:
         200:
           description: Mobile Phone's Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4607,14 +4838,17 @@ paths:
         200:
           description: Mobile Phone's Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4643,14 +4877,17 @@ paths:
         200:
           description: A list of verified mobile phones.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4684,14 +4921,17 @@ paths:
         200:
           description: A list of verified mobile phones owned by the specified account.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4720,14 +4960,17 @@ paths:
         200:
           description: A list of unverified mobile phones.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4761,14 +5004,17 @@ paths:
         200:
           description: A list of unverified mobile phones owned by the specified account.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4802,14 +5048,17 @@ paths:
         200:
           description: List of Mobile Phones.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4844,14 +5093,17 @@ paths:
         200:
           description: List of Mobile Phones.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4884,14 +5136,17 @@ paths:
         200:
           description: A list of rooms.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -4958,14 +5213,17 @@ paths:
             location:
               description: A URL to the new object.
               type: string
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -5024,14 +5282,17 @@ paths:
         200:
           description: Room Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -5060,14 +5321,17 @@ paths:
         200:
           description: Room Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -5096,14 +5360,17 @@ paths:
         200:
           description: A list of states.
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -5155,14 +5422,17 @@ paths:
             location:
               description: A URL to the new object.
               type: string
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -5221,14 +5491,17 @@ paths:
         200:
           description: State Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -5257,14 +5530,17 @@ paths:
         200:
           description: State Found
           headers:
-            X-RateLimit-Limit:
+            x-ratelimit-limit:
               description: The number of allowed requests in the current period
               type: integer
-            X-RateLimit-Remaining:
+            x-ratelimit-remaining:
               description: The number of remaining requests in the current period
               type: integer
-            X-RateLimit-Reset:
+            x-ratelimit-reset:
               description: The number of seconds left in the current period
+              type: integer
+            x-jwt-ttl:
+              description: The length in minutes a JWT session is valid
               type: integer
           schema:
             properties:
@@ -5307,14 +5583,17 @@ responses:
   201_assigned:
     description: Assigned
     headers:
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
         description: The number of allowed requests in the current period
         type: integer
-      X-RateLimit-Remaining:
+      x-ratelimit-remaining:
         description: The number of remaining requests in the current period
         type: integer
-      X-RateLimit-Reset:
+      x-ratelimit-reset:
         description: The number of seconds left in the current period
+        type: integer
+      x-jwt-ttl:
+        description: The length in minutes a JWT session is valid
         type: integer
 
   202_verified:
@@ -5323,14 +5602,17 @@ responses:
       location:
         description: URL to the verified object.
         type: string
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
         description: The number of allowed requests in the current period
         type: integer
-      X-RateLimit-Remaining:
+      x-ratelimit-remaining:
         description: The number of remaining requests in the current period
         type: integer
-      X-RateLimit-Reset:
+      x-ratelimit-reset:
         description: The number of seconds left in the current period
+        type: integer
+      x-jwt-ttl:
+        description: The length in minutes a JWT session is valid
         type: integer
     schema:
       type: object
@@ -5345,14 +5627,17 @@ responses:
   204:
     description: Deleted/Detached
     headers:
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
         description: The number of allowed requests in the current period
         type: integer
-      X-RateLimit-Remaining:
+      x-ratelimit-remaining:
         description: The number of remaining requests in the current period
         type: integer
-      X-RateLimit-Reset:
+      x-ratelimit-reset:
         description: The number of seconds left in the current period
+        type: integer
+      x-jwt-ttl:
+        description: The length in minutes a JWT session is valid
         type: integer
     examples:
           'No Content':
@@ -5360,14 +5645,17 @@ responses:
   401:
     description: Unauthorized
     headers:
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
         description: The number of allowed requests in the current period
         type: integer
-      X-RateLimit-Remaining:
+      x-ratelimit-remaining:
         description: The number of remaining requests in the current period
         type: integer
-      X-RateLimit-Reset:
+      x-ratelimit-reset:
         description: The number of seconds left in the current period
+        type: integer
+      x-jwt-ttl:
+        description: The length in minutes a JWT session is valid
         type: integer
     schema:
       $ref: '#/definitions/error'
@@ -5386,14 +5674,17 @@ responses:
   429:
     description: Too Many Requests
     headers:
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
         description: The number of allowed requests in the current period
         type: integer
-      X-RateLimit-Remaining:
+      x-ratelimit-remaining:
         description: The number of remaining requests in the current period
         type: integer
-      X-RateLimit-Reset:
+      x-ratelimit-reset:
         description: The number of seconds left in the current period
+        type: integer
+      x-jwt-ttl:
+        description: The length in minutes a JWT session is valid
         type: integer
     schema:
       $ref: '#/definitions/error'

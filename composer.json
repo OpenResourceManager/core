@@ -1,94 +1,100 @@
 {
-    "name": "open-resource-manager/core",
-    "description": "Core API backing the Open Resource Manager ecosystem.",
-    "keywords": ["orm", "open resource manager", "laravel", "api"],
-    "license": "MIT",
-    "type": "project",
-    "authors": [
-        {
-            "name": "Alex Markessinis",
-            "email": "markea125@gmail.com"
-        }
-    ],
-    "require": {
-        "php": ">=7.1.0",
-        "arcanedev/log-viewer": "~4.0",
-        "arcanedev/no-captcha": "~3.0",
-        "barryvdh/laravel-ide-helper": "^2.2",
-        "creativeorange/gravatar": "~1.0",
-        "darkaonline/l5-swagger": "~3.0",
-        "davejamesmiller/laravel-breadcrumbs": "^3.0",
-        "dingo/api": "1.0.x@dev",
-        "edvinaskrucas/settings": "2.0.0",
-        "hieu-le/active": "~2.0",
-        "laravel/framework": "5.3.*",
-        "laravel/socialite": "^2.0",
-        "laravelcollective/html": "5.3.*",
-        "predis/predis": "^1.1",
-        "simplesoftwareio/simple-sms": "3.1.*",
-        "snowfire/beautymail": "dev-master",
-        "tymon/jwt-auth": "0.5.*",
-        "yajra/laravel-datatables-oracle": "~6.0"
-    },
-    "require-dev": {
-        "fzaninotto/faker": "~1.4",
-        "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~5.0",
-        "symfony/css-selector": "3.1.*",
-        "symfony/dom-crawler": "3.1.*",
-        "barryvdh/laravel-debugbar": "^2.1"
-    },
-    "suggest": {
-        "open-resource-manager/asset-verification-server": "Asset verification server used to verify mobile phones and emails registered in ORM core."
-    },
-    "autoload": {
-        "classmap": [
-            "database"
-        ],
-        "psr-4": {
-            "App\\": "app/"
-        },
-        "files": [
-            "app/helpers.php"
-        ]
-    },
-    "autoload-dev": {
-        "classmap": [
-            "tests/TestCase.php"
-        ]
-    },
-    "scripts": {
-        "post-root-package-install": [
-            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "php artisan key:generate",
-            "php artisan orm:bckey",
-            "bash generate_jwt_key.sh"
-        ],
-        "post-install-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "composer dump-autoload -o",
-            "php artisan optimize",
-            "php artisan route:cache",
-            "php artisan api:cache"
-        ],
-        "post-update-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "composer dump-autoload -o",
-            "php artisan optimize"
-        ],
-        "test": [
-            "vendor/bin/phpunit"
-        ],
-        "docs": [
-            "npm run spec",
-            "npm run spec2md"
-        ]
-    },
-    "config": {
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "optimize-autoloader": true
+  "name": "open-resource-manager/core",
+  "description": "Core API backing the Open Resource Manager ecosystem.",
+  "keywords": [
+    "orm",
+    "open resource manager",
+    "laravel",
+    "api"
+  ],
+  "license": "MIT",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Alex Markessinis",
+      "email": "markea125@gmail.com"
     }
+  ],
+  "require": {
+    "php": ">=7.1.0",
+    "arcanedev/log-viewer": "~4.0",
+    "arcanedev/no-captcha": "~3.0",
+    "barryvdh/laravel-ide-helper": "^2.2",
+    "creativeorange/gravatar": "~1.0",
+    "darkaonline/l5-swagger": "~3.0",
+    "davejamesmiller/laravel-breadcrumbs": "^3.0",
+    "dingo/api": "1.0.x@dev",
+    "edvinaskrucas/settings": "2.0.0",
+    "hieu-le/active": "~2.0",
+    "laravel/framework": "5.3.*",
+    "laravel/socialite": "^2.0",
+    "laravelcollective/html": "5.3.*",
+    "predis/predis": "^1.1",
+    "simplesoftwareio/simple-sms": "3.1.*",
+    "snowfire/beautymail": "dev-master",
+    "tymon/jwt-auth": "0.5.*",
+    "yajra/laravel-datatables-oracle": "~6.0"
+  },
+  "require-dev": {
+    "fzaninotto/faker": "~1.4",
+    "mockery/mockery": "0.9.*",
+    "phpunit/phpunit": "~5.0",
+    "symfony/css-selector": "3.1.*",
+    "symfony/dom-crawler": "3.1.*",
+    "barryvdh/laravel-debugbar": "^2.1"
+  },
+  "suggest": {
+    "open-resource-manager/asset-verification-server": "Asset verification server used to verify mobile phones and emails registered in ORM core.",
+    "open-resource-manager/client-laravel": "ORM Client library with enhancements for the Laravel backbone of ORM."
+  },
+  "autoload": {
+    "classmap": [
+      "database"
+    ],
+    "psr-4": {
+      "App\\": "app/"
+    },
+    "files": [
+      "app/helpers.php"
+    ]
+  },
+  "autoload-dev": {
+    "classmap": [
+      "tests/TestCase.php"
+    ]
+  },
+  "scripts": {
+    "post-root-package-install": [
+      "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "post-create-project-cmd": [
+      "php artisan key:generate",
+      "php artisan orm:bckey",
+      "bash generate_jwt_key.sh"
+    ],
+    "post-install-cmd": [
+      "Illuminate\\Foundation\\ComposerScripts::postInstall",
+      "composer dump-autoload -o",
+      "php artisan optimize",
+      "php artisan route:cache",
+      "php artisan api:cache"
+    ],
+    "post-update-cmd": [
+      "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+      "composer dump-autoload -o",
+      "php artisan optimize"
+    ],
+    "test": [
+      "vendor/bin/phpunit"
+    ],
+    "docs": [
+      "npm run spec",
+      "npm run spec2md"
+    ]
+  },
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "optimize-autoloader": true
+  }
 }

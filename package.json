@@ -3,7 +3,7 @@
   "scripts": {
     "prod": "gulp --production",
     "dev": "gulp watch",
-    "spec": "yaml2json -p spec/swagger.yaml > storage/api-docs/api-docs.json",
+    "spec": "yaml2json < spec/swagger.yaml > storage/api-docs/api-docs.json",
     "spec2md": "cp spec/header.md  docs/Specification.md && swagger-to-md -y spec/swagger.yaml >> docs/Specification.md"
   },
   "devDependencies": {
