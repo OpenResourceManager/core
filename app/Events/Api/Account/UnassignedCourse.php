@@ -36,7 +36,9 @@ class UnassignedCourse extends Event
             'course_code' => $course->code,
             'course_label' => $course->label,
             'requester_id' => 0,
-            'requester_name' => 'System'
+            'requester_name' => 'System',
+            'requester_ip' => getRequestIP(),
+            'proxy_ip' => getRequestIP(true)
         ];
 
         if ($user = auth()->user()) {

@@ -24,7 +24,9 @@ class AuthenticationSuccess extends Event
         $logMessage = $user->name . ' authenticated with the API - ';
         $logContext = [
             'requester_id' => $user->id,
-            'requester_name' => $user->name
+            'requester_name' => $user->name,
+            'requester_ip' => getRequestIP(),
+            'proxy_ip' => getRequestIP(true)
         ];
 
         Log::info($logMessage, $logContext);

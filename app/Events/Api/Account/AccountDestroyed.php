@@ -30,7 +30,9 @@ class AccountDestroyed extends Event
             'account_created' => $account->created_at,
             'account_updated' => $account->updated_at,
             'requester_id' => 0,
-            'requester_name' => 'System'
+            'requester_name' => 'System',
+            'requester_ip' => getRequestIP(),
+            'proxy_ip' => getRequestIP(true)
         ];
 
         if (auth()->user()) {

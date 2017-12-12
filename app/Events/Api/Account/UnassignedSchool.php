@@ -36,7 +36,9 @@ class UnassignedSchool extends Event
             'school_code' => $school->code,
             'school_label' => $school->label,
             'requester_id' => 0,
-            'requester_name' => 'System'
+            'requester_name' => 'System',
+            'requester_ip' => getRequestIP(),
+            'proxy_ip' => getRequestIP(true)
         ];
 
         if ($user = auth()->user()) {

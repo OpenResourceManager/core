@@ -37,7 +37,9 @@ class AssignedDuty extends Event
             'duty_code' => $duty->code,
             'duty_label' => $duty->label,
             'requester_id' => 0,
-            'requester_name' => 'System'
+            'requester_name' => 'System',
+            'requester_ip' => getRequestIP(),
+            'proxy_ip' => getRequestIP(true)
         ];
 
         if ($user = auth()->user()) {

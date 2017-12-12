@@ -38,7 +38,9 @@ class AssignedDepartment extends Event
             'department_code' => $department->code,
             'department_label' => $department->label,
             'requester_id' => 0,
-            'requester_name' => 'System'
+            'requester_name' => 'System',
+            'requester_ip' => getRequestIP(),
+            'proxy_ip' => getRequestIP(true)
         ];
 
 

@@ -36,7 +36,9 @@ class AssignedRoom extends Event
             'room_number' => $room->room_number,
             'room_building_label' => $room->building->label,
             'requester_id' => 0,
-            'requester_name' => 'System'
+            'requester_name' => 'System',
+            'requester_ip' => getRequestIP(),
+            'proxy_ip' => getRequestIP(true)
         ];
 
         if ($user = auth()->user()) {

@@ -21,7 +21,9 @@ class AccountsViewed extends Event
             'account_ids' => $accountIds,
             'account_id_count' => count($accountIds),
             'requester_id' => 0,
-            'requester_name' => 'System'
+            'requester_name' => 'System',
+            'requester_ip' => getRequestIP(),
+            'proxy_ip' => getRequestIP(true)
         ];
 
         if ($user = auth()->user()) {
