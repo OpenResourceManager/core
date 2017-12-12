@@ -17,14 +17,27 @@ class AccountCreated extends Event
      */
     public function __construct(Account $account)
     {
-        Log::info('Account Created:', [
-            'id' => $account->id,
-            'identifier' => $account->identifier,
-            'username' => $account->username,
-            'name' => $account->format_full_name(true)
-        ]);
+        $logMessage = 'created account - ';
+        $logContext = [
+            'action' => 'create',
+            'model' => 'account',
+            'account_id' => $account->id,
+            'account_identifier' => $account->identifier,
+            'account_username' => $account->username,
+            'account_name_first' => $account->name_first,
+            'account_name_last' => $account->name_last,
+            'account_name' => $account->format_full_name(true),
+            'account_created' => $account->created_at,
+            'account_updated' => $account->updated_at,
+            'requester_id' => 0,
+            'requester_name' => 'System'
+        ];
 
         if (auth()->user()) {
+
+            $logMessage = auth()->user()->name . ' ' . $logMessage;
+            $logContext['requester_id'] = auth()->user()->id;
+            $logContext['requester_name'] = auth()->user()->name;
 
             if (Settings::get('broadcast-events', false)) {
 
@@ -64,5 +77,7 @@ class AccountCreated extends Event
                 'bg-green'
             );
         }
+
+        Log::info($logMessage, $logContext);
     }
 }

@@ -19,19 +19,31 @@ class UnassignedRoom extends Event
      */
     public function __construct(Account $account, Room $room)
     {
-        $info = [
+        $logMessage = 'unassigned account from room - ';
+        $logContext = [
+            'action' => 'unassignment',
+            'model' => 'account',
+            'pivot' => 'room',
             'account_id' => $account->id,
-            'identifier' => $account->identifier,
-            'username' => $account->username,
-            'name' => $account->format_full_name(true),
-            '$room_id' => $room->id,
-            'room_number' => $room->room_number,
-            'building_label' => $room->building->label
+            'account_identifier' => $account->identifier,
+            'account_username' => $account->username,
+            'account_name_first' => $account->name_first,
+            'account_name_last' => $account->name_last,
+            'account_name' => $account->format_full_name(true),
+            'account_created' => $account->created_at,
+            'account_updated' => $account->updated_at,
+            'room_id' => $room->id,
+            'room_code' => $room->code,
+            'room_label' => $room->label,
+            'requester_id' => 0,
+            'requester_name' => 'System'
         ];
 
-        Log::info('Account unassigned Room:', $info);
-
         if ($user = auth()->user()) {
+
+            $logMessage = auth()->user()->name . ' ' . $logMessage;
+            $logContext['requester_id'] = auth()->user()->id;
+            $logContext['requester_name'] = auth()->user()->name;
 
             if (Settings::get('broadcast-events', false)) {
 
@@ -71,5 +83,7 @@ class UnassignedRoom extends Event
                 'bg-yellow'
             );
         }
+
+        Log::info($logMessage, $logContext);
     }
 }

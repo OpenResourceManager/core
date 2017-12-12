@@ -14,11 +14,21 @@ class AccountsViewed extends Event
      */
     public function __construct($accountIds = [])
     {
-        $user_name = 'System';
+        $logMessage = 'viewed accounts - ';
+        $logContext = [
+            'action' => 'restore',
+            'model' => 'account',
+            'account_ids' => $accountIds,
+            'account_id_count' => count($accountIds),
+            'requester_id' => 0,
+            'requester_name' => 'System'
+        ];
 
         if ($user = auth()->user()) {
 
-            $user_name = $user->name;
+            $logMessage = auth()->user()->name . ' ' . $logMessage;
+            $logContext['requester_id'] = auth()->user()->id;
+            $logContext['requester_name'] = auth()->user()->name;
 
             if (Settings::get('broadcast-events', false)) {
                 //@todo broadcast view event
@@ -34,6 +44,6 @@ class AccountsViewed extends Event
 
         }
 
-        Log::info($user_name . ' viewed ' . count($accountIds) . ' accounts', $accountIds);
+        Log::info($logMessage, $logContext);
     }
 }

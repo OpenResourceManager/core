@@ -18,19 +18,32 @@ class AssignedRoom extends Event
      */
     public function __construct(Account $account, Room $room)
     {
-        $info = [
+
+        $logMessage = 'assigned account to room - ';
+        $logContext = [
+            'action' => 'assignment',
+            'model' => 'account',
+            'pivot' => 'room',
             'account_id' => $account->id,
-            'identifier' => $account->identifier,
-            'username' => $account->username,
-            'name' => $account->format_full_name(true),
-            '$room_id' => $room->id,
+            'account_identifier' => $account->identifier,
+            'account_username' => $account->username,
+            'account_name_first' => $account->name_first,
+            'account_name_last' => $account->name_last,
+            'account_name' => $account->format_full_name(true),
+            'account_created' => $account->created_at,
+            'account_updated' => $account->updated_at,
+            'room_id' => $room->id,
             'room_number' => $room->room_number,
-            'building_label' => $room->building->label
+            'room_building_label' => $room->building->label,
+            'requester_id' => 0,
+            'requester_name' => 'System'
         ];
 
-        Log::info('Account assigned Room:', $info);
-
         if ($user = auth()->user()) {
+
+            $logMessage = auth()->user()->name . ' ' . $logMessage;
+            $logContext['requester_id'] = auth()->user()->id;
+            $logContext['requester_name'] = auth()->user()->name;
 
             if (Settings::get('broadcast-events', false)) {
 
@@ -70,5 +83,7 @@ class AssignedRoom extends Event
                 'bg-olive'
             );
         }
+
+        Log::info($logMessage, $logContext);
     }
 }

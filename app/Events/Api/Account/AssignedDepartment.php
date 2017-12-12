@@ -20,19 +20,33 @@ class AssignedDepartment extends Event
      */
     public function __construct(Account $account, Department $department)
     {
-        $info = [
+
+        $logMessage = 'assigned account to department - ';
+        $logContext = [
+            'action' => 'assignment',
+            'model' => 'account',
+            'pivot' => 'department',
             'account_id' => $account->id,
-            'identifier' => $account->identifier,
-            'username' => $account->username,
-            'name' => $account->format_full_name(true),
+            'account_identifier' => $account->identifier,
+            'account_username' => $account->username,
+            'account_name_first' => $account->name_first,
+            'account_name_last' => $account->name_last,
+            'account_name' => $account->format_full_name(true),
+            'account_created' => $account->created_at,
+            'account_updated' => $account->updated_at,
             'department_id' => $department->id,
             'department_code' => $department->code,
-            'department_label' => $department->label
+            'department_label' => $department->label,
+            'requester_id' => 0,
+            'requester_name' => 'System'
         ];
 
-        Log::info('Account assigned Department:', $info);
 
         if ($user = auth()->user()) {
+
+            $logMessage = auth()->user()->name . ' ' . $logMessage;
+            $logContext['requester_id'] = auth()->user()->id;
+            $logContext['requester_name'] = auth()->user()->name;
 
             if (Settings::get('broadcast-events', false)) {
 
@@ -72,5 +86,7 @@ class AssignedDepartment extends Event
                 'bg-olive'
             );
         }
+
+        Log::info($logMessage, $logContext);
     }
 }

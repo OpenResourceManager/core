@@ -21,19 +21,31 @@ class UnassignedDepartment extends Event
      */
     public function __construct(Account $account, Department $department)
     {
-        $info = [
+        $logMessage = 'unassigned account from department - ';
+        $logContext = [
+            'action' => 'unassignment',
+            'model' => 'account',
+            'pivot' => 'department',
             'account_id' => $account->id,
-            'identifier' => $account->identifier,
-            'username' => $account->username,
-            'name' => $account->format_full_name(true),
-            'department_id' => $department->id,
-            'department_code' => $department->code,
-            'department_label' => $department->label
+            'account_identifier' => $account->identifier,
+            'account_username' => $account->username,
+            'account_name_first' => $account->name_first,
+            'account_name_last' => $account->name_last,
+            'account_name' => $account->format_full_name(true),
+            'account_created' => $account->created_at,
+            'account_updated' => $account->updated_at,
+            'course_id' => $department->id,
+            'course_code' => $department->code,
+            'course_label' => $department->label,
+            'requester_id' => 0,
+            'requester_name' => 'System'
         ];
 
-        Log::info('Account unassigned Department:', $info);
-
         if ($user = auth()->user()) {
+
+            $logMessage = auth()->user()->name . ' ' . $logMessage;
+            $logContext['requester_id'] = auth()->user()->id;
+            $logContext['requester_name'] = auth()->user()->name;
 
             if (Settings::get('broadcast-events', false)) {
 
@@ -73,5 +85,7 @@ class UnassignedDepartment extends Event
                 'bg-yellow'
             );
         }
+
+        Log::info($logMessage, $logContext);
     }
 }
