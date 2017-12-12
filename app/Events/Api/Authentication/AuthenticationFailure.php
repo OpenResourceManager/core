@@ -3,16 +3,11 @@
 namespace App\Events\Api\Authentication;
 
 use Dingo\Api\Http\Request;
-use App\Models\Access\User\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Events\Event;
 use Illuminate\Support\Facades\Log;
-use App\Http\Models\API\Account;
 
 class AuthenticationFailure extends Event
 {
@@ -25,7 +20,14 @@ class AuthenticationFailure extends Event
      */
     public function __construct(Request $request)
     {
-        Log::warning($request->ip . 'failed to authenticated with the API', $request->toArray());
+
+        $logMessage = $request->ip . ' failed to authenticated with the API - ';
+        $logContext = [
+            'requester_ip' => $request->ip,
+            'request' => $request->toArray()
+        ];
+
+        Log::warning($logMessage, $logContext);
     }
 
     /**
