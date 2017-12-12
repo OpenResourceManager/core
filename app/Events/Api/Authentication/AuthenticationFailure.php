@@ -21,9 +21,17 @@ class AuthenticationFailure extends Event
     public function __construct(Request $request)
     {
 
-        $logMessage = \Request::ip() . ' failed to authenticated with the API - ';
+        $ip = \Request::ip();
+        $proxyIP = null;
+        if (!empty($_SERVER['HTTP_X_REAL_IP'])) {
+            $proxyIP = $ip;
+            $ip = $_SERVER['HTTP_X_REAL_IP'];
+        }
+
+        $logMessage = $ip . ' failed to authenticated with the API - ';
         $logContext = [
-            'requester_ip' => \Request::ip(),
+            'proxy_ip' => $proxyIP,
+            'requester_ip' => $ip,
             'request' => $request->toArray()
         ];
 
