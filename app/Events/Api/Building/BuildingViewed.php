@@ -18,11 +18,32 @@ class BuildingViewed extends ApiRequestEvent
 
         parent::__construct();
 
-        $user_name = 'System';
+        $logMessage = 'viewed building - ';
+        $logContext = [
+            'action' => 'view',
+            'model' => 'building',
+            'building_id' => $building->id,
+            'building_identifier' => $building->code,
+            'building_username' => $building->label,
+            'building_created' => $building->created_at,
+            'building_updated' => $building->updated_at,
+            'requester_id' => 0,
+            'requester_name' => 'System',
+            'requester_ip' => getRequestIP(),
+            'request_proxy_ip' => getRequestIP(true),
+            'request_method' => \Request::getMethod(),
+            'request_url' => \Request::fullUrl(),
+            'request_uri' => \Request::getRequestUri(),
+            'request_scheme' => \Request::getScheme(),
+            'request_host' => \Request::getHost()
+        ];
 
         if ($user = auth()->user()) {
 
-            $user_name = $user->name;
+            $logMessage = auth()->user()->name . ' ' . $logMessage;
+            $logContext['requester_id'] = auth()->user()->id;
+            $logContext['requester_name'] = auth()->user()->name;
+
 
             if (Settings::get('broadcast-events', false)) {
                 // @todo bc view event
@@ -37,6 +58,6 @@ class BuildingViewed extends ApiRequestEvent
             );
         }
 
-        Log::info($user_name . ' viewed ' . $building->label . '.');
+        Log::info($logMessage, $logContext);
     }
 }

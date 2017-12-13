@@ -18,13 +18,31 @@ class BuildingRestored extends ApiRequestEvent
     {
         parent::__construct();
 
-        Log::info('Building Restored:', [
-            'id' => $building->id,
-            'code' => $building->code,
-            'label' => $building->label
-        ]);
+        $logMessage = 'restored building - ';
+        $logContext = [
+            'action' => 'restore',
+            'model' => 'building',
+            'building_id' => $building->id,
+            'building_identifier' => $building->code,
+            'building_username' => $building->label,
+            'building_created' => $building->created_at,
+            'building_updated' => $building->updated_at,
+            'requester_id' => 0,
+            'requester_name' => 'System',
+            'requester_ip' => getRequestIP(),
+            'request_proxy_ip' => getRequestIP(true),
+            'request_method' => \Request::getMethod(),
+            'request_url' => \Request::fullUrl(),
+            'request_uri' => \Request::getRequestUri(),
+            'request_scheme' => \Request::getScheme(),
+            'request_host' => \Request::getHost()
+        ];
 
         if ($user = auth()->user()) {
+
+            $logMessage = auth()->user()->name . ' ' . $logMessage;
+            $logContext['requester_id'] = auth()->user()->id;
+            $logContext['requester_name'] = auth()->user()->name;
 
             if (Settings::get('broadcast-events', false)) {
 
@@ -56,5 +74,7 @@ class BuildingRestored extends ApiRequestEvent
                 'bg-lime'
             );
         }
+
+        Log::info($logMessage, $logContext);
     }
 }

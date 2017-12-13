@@ -21,18 +21,35 @@ class UnassignedCampus extends ApiRequestEvent
     {
         parent::__construct();
 
-        $info = [
+        $logMessage = 'unassigned building from campus - ';
+        $logContext = [
+            'action' => 'unassignment',
+            'model' => 'building',
+            'pivot' => 'campus',
             'building_id' => $building->id,
             'building_code' => $building->code,
             'building_label' => $building->label,
+            'building_created' => $building->created_at,
+            'building_updated' => $building->updated_at,
             'campus_id' => $campus->id,
             'campus_code' => $campus->code,
-            'campus_label' => $campus->label
+            'campus_label' => $campus->label,
+            'requester_id' => 0,
+            'requester_name' => 'System',
+            'requester_ip' => getRequestIP(),
+            'request_proxy_ip' => getRequestIP(true),
+            'request_method' => \Request::getMethod(),
+            'request_url' => \Request::fullUrl(),
+            'request_uri' => \Request::getRequestUri(),
+            'request_scheme' => \Request::getScheme(),
+            'request_host' => \Request::getHost()
         ];
 
-        Log::info('Building unassigned Campus:', $info);
-
         if ($user = auth()->user()) {
+
+            $logMessage = auth()->user()->name . ' ' . $logMessage;
+            $logContext['requester_id'] = auth()->user()->id;
+            $logContext['requester_name'] = auth()->user()->name;
 
             if (Settings::get('broadcast-events', false)) {
 
@@ -66,5 +83,7 @@ class UnassignedCampus extends ApiRequestEvent
                 'bg-yellow'
             );
         }
+
+        Log::info($logMessage, $logContext);
     }
 }

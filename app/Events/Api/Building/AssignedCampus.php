@@ -22,18 +22,35 @@ class AssignedCampus extends ApiRequestEvent
     {
         parent::__construct();
 
-        $info = [
+        $logMessage = 'assigned building to campus - ';
+        $logContext = [
+            'action' => 'assignment',
+            'model' => 'building',
+            'pivot' => 'campus',
             'building_id' => $building->id,
             'building_code' => $building->code,
             'building_label' => $building->label,
+            'building_created' => $building->created_at,
+            'building_updated' => $building->updated_at,
             'campus_id' => $campus->id,
             'campus_code' => $campus->code,
-            'campus_label' => $campus->label
+            'campus_label' => $campus->label,
+            'requester_id' => 0,
+            'requester_name' => 'System',
+            'requester_ip' => getRequestIP(),
+            'request_proxy_ip' => getRequestIP(true),
+            'request_method' => \Request::getMethod(),
+            'request_url' => \Request::fullUrl(),
+            'request_uri' => \Request::getRequestUri(),
+            'request_scheme' => \Request::getScheme(),
+            'request_host' => \Request::getHost()
         ];
 
-        Log::info('Building assigned Campus:', $info);
-
         if ($user = auth()->user()) {
+
+            $logMessage = auth()->user()->name . ' ' . $logMessage;
+            $logContext['requester_id'] = auth()->user()->id;
+            $logContext['requester_name'] = auth()->user()->name;
 
             if (Settings::get('broadcast-events', false)) {
 
@@ -67,5 +84,7 @@ class AssignedCampus extends ApiRequestEvent
                 'bg-olive'
             );
         }
+
+        Log::info($logMessage, $logContext);
     }
 }
