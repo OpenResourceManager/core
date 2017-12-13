@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use Dingo\Api\Routing\Helpers;
-use App\Events\Api\ApiRequestEvent;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -39,7 +38,7 @@ class ApiController extends Controller
      */
     public function __construct(Request $request)
     {
-        $this->recordApiRequestEvent($request);
+
     }
 
     use Helpers;
