@@ -8,11 +8,11 @@
 
 namespace App\Events\Api\Building;
 
+use App\Events\Api\ApiRequestEvent;
 use Illuminate\Support\Facades\Log;
-use App\Events\Event;
 use Krucas\Settings\Facades\Settings;
 
-class BuildingsViewed extends Event
+class BuildingsViewed extends ApiRequestEvent
 {
     /**
      * BuildingsViewed constructor.
@@ -20,6 +20,8 @@ class BuildingsViewed extends Event
      */
     public function __construct($buildingIds = [])
     {
+        parent::__construct();
+
         $user_name = 'System';
 
         if ($user = auth()->user()) {

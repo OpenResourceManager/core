@@ -2,11 +2,11 @@
 
 namespace App\Events\Api\AliasAccount;
 
+use App\Events\Api\ApiRequestEvent;
 use Krucas\Settings\Facades\Settings;
 use Illuminate\Support\Facades\Log;
-use App\Events\Event;
 
-class AliasAccountsViewed extends Event
+class AliasAccountsViewed extends ApiRequestEvent
 {
     /**
      * AliasAccountsViewed constructor.
@@ -14,6 +14,8 @@ class AliasAccountsViewed extends Event
      */
     public function __construct($accountIds = [])
     {
+        parent::__construct();
+
         $user_name = 'System';
 
         if ($user = auth()->user()) {

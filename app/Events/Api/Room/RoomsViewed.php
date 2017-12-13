@@ -8,11 +8,11 @@
 
 namespace App\Events\Api\Room;
 
+use App\Events\Api\ApiRequestEvent;
 use Illuminate\Support\Facades\Log;
-use App\Events\Event;
 use Krucas\Settings\Facades\Settings;
 
-class RoomsViewed extends Event
+class RoomsViewed extends ApiRequestEvent
 {
     /**
      * RoomViewed constructor.
@@ -20,6 +20,8 @@ class RoomsViewed extends Event
      */
     public function __construct($roomIds = [])
     {
+        parent::__construct();
+
         $user_name = 'System';
 
         if ($user = auth()->user()) {

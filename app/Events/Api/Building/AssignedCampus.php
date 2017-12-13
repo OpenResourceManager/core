@@ -2,15 +2,15 @@
 
 namespace App\Events\Api\Building;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\Building;
 use App\Http\Models\API\Campus;
 use Illuminate\Support\Facades\Log;
-use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
 
 
-class AssignedCampus extends Event
+class AssignedCampus extends ApiRequestEvent
 {
 
     /**
@@ -20,6 +20,8 @@ class AssignedCampus extends Event
      */
     public function __construct(Building $building, Campus $campus)
     {
+        parent::__construct();
+
         $info = [
             'building_id' => $building->id,
             'building_code' => $building->code,

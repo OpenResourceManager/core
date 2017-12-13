@@ -2,15 +2,15 @@
 
 namespace App\Events\Api\Account;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\Account;
 use App\Http\Models\API\Duty;
 use Illuminate\Support\Facades\Log;
-use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
 
 
-class AssignedDuty extends Event
+class AssignedDuty extends ApiRequestEvent
 {
     /**
      * AssignedDuty constructor.
@@ -19,6 +19,8 @@ class AssignedDuty extends Event
      */
     public function __construct(Account $account, Duty $duty)
     {
+
+        parent::__construct();
 
         $logMessage = 'assigned account to duty - ';
         $logContext = [
@@ -39,7 +41,12 @@ class AssignedDuty extends Event
             'requester_id' => 0,
             'requester_name' => 'System',
             'requester_ip' => getRequestIP(),
-            'proxy_ip' => getRequestIP(true)
+            'request_proxy_ip' => getRequestIP(true),
+            'request_method' => \Request::getMethod(),
+            'request_url' => \Request::fullUrl(),
+            'request_uri' => \Request::getUri(),
+            'request_scheme' => \Request::getScheme(),
+            'request_host' => \Request::getHost()
         ];
 
         if ($user = auth()->user()) {

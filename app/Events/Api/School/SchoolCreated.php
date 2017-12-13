@@ -2,13 +2,13 @@
 
 namespace App\Events\Api\School;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\School;
 use Illuminate\Support\Facades\Log;
-use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
 
-class SchoolCreated extends Event
+class SchoolCreated extends ApiRequestEvent
 {
     /**
      * SchoolCreated constructor.
@@ -16,6 +16,8 @@ class SchoolCreated extends Event
      */
     public function __construct(School $school)
     {
+        parent::__construct();
+
         Log::info('School Created:', [
             'id' => $school->id,
             'code' => $school->code,

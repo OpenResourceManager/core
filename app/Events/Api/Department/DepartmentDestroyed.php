@@ -2,13 +2,13 @@
 
 namespace App\Events\Api\Department;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\Department;
 use Illuminate\Support\Facades\Log;
-use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
 
-class DepartmentDestroyed extends Event
+class DepartmentDestroyed extends ApiRequestEvent
 {
     /**
      * DepartmentDestroyed constructor.
@@ -16,6 +16,8 @@ class DepartmentDestroyed extends Event
      */
     public function __construct(Department $department)
     {
+        parent::__construct();
+
         Log::info('Department Destroyed:', [
             'id' => $department->id,
             'code' => $department->code,

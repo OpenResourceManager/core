@@ -2,15 +2,15 @@
 
 namespace App\Events\Api\Account;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\Account;
 use App\Http\Models\API\Department;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
-use App\Events\Event;
 use Krucas\Settings\Facades\Settings;
 
 
-class UnassignedDepartment extends Event
+class UnassignedDepartment extends ApiRequestEvent
 {
 
 
@@ -21,6 +21,8 @@ class UnassignedDepartment extends Event
      */
     public function __construct(Account $account, Department $department)
     {
+        parent::__construct();
+
         $logMessage = 'unassigned account from department - ';
         $logContext = [
             'action' => 'unassignment',
@@ -40,7 +42,12 @@ class UnassignedDepartment extends Event
             'requester_id' => 0,
             'requester_name' => 'System',
             'requester_ip' => getRequestIP(),
-            'proxy_ip' => getRequestIP(true)
+            'request_proxy_ip' => getRequestIP(true),
+            'request_method' => \Request::getMethod(),
+            'request_url' => \Request::fullUrl(),
+            'request_uri' => \Request::getUri(),
+            'request_scheme' => \Request::getScheme(),
+            'request_host' => \Request::getHost()
         ];
 
         if ($user = auth()->user()) {

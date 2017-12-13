@@ -2,13 +2,13 @@
 
 namespace App\Events\Api\Room;
 
-use App\Events\Event;
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\Room;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
 
-class RoomUpdated extends Event
+class RoomUpdated extends ApiRequestEvent
 {
 
     /**
@@ -17,6 +17,8 @@ class RoomUpdated extends Event
      */
     public function __construct(Room $room)
     {
+        parent::__construct();
+
         Log::info('Room Updated:', [
             'id' => $room->id,
             'code' => $room->code,

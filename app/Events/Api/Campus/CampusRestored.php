@@ -2,13 +2,13 @@
 
 namespace App\Events\Api\Campus;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\Campus;
-use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Log;
 use Krucas\Settings\Facades\Settings;
 
-class CampusRestored extends Event
+class CampusRestored extends ApiRequestEvent
 {
     /**
      * CampusRestored constructor.
@@ -16,6 +16,8 @@ class CampusRestored extends Event
      */
     public function __construct(Campus $campus)
     {
+        parent::__construct();
+
         Log::info('Campus Restored:', [
             'id' => $campus->id,
             'code' => $campus->code,

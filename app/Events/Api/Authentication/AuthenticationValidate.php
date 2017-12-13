@@ -3,13 +3,13 @@
 namespace App\Events\Api\Authentication;
 
 use App\Events\Api\ApiRequestEvent;
-use Dingo\Api\Http\Request;
+use App\Models\Access\User\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Support\Facades\Log;
 
-class AuthenticationFailure extends ApiRequestEvent
+class AuthenticationValidate extends ApiRequestEvent
 {
     use InteractsWithSockets, SerializesModels;
 
@@ -18,26 +18,35 @@ class AuthenticationFailure extends ApiRequestEvent
      *
      * @return void
      */
-    public function __construct(Request $request)
+    public function __construct(User $user)
     {
 
         parent::__construct();
 
-        $ip = getRequestIP();
-
-        $logMessage = $ip . ' failed to authenticated with the API - ';
+        $logMessage = $user->name . ' validated a session with the API - ';
         $logContext = [
+            'requester_id' => $user->id,
+            'requester_name' => $user->name,
             'requester_ip' => getRequestIP(),
             'request_proxy_ip' => getRequestIP(true),
             'request_method' => \Request::getMethod(),
             'request_url' => \Request::fullUrl(),
             'request_uri' => \Request::getUri(),
             'request_scheme' => \Request::getScheme(),
-            'request_host' => \Request::getHost(),
-            'request' => $request->toArray()
+            'request_host' => \Request::getHost()
         ];
 
-        Log::warning($logMessage, $logContext);
+        Log::info($logMessage, $logContext);
+
+        auth()->login($user);
+        history()->log(
+            'Authentication',
+            'validated a sessions with the API',
+            $user->id,
+            'key',
+            'bg-green'
+        );
+        auth()->logout();
     }
 
     /**

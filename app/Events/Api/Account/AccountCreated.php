@@ -4,12 +4,12 @@ namespace App\Events\Api\Account;
 
 use App\Http\Models\API\Account;
 use Illuminate\Support\Facades\Log;
-use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
+use App\Events\Api\ApiRequestEvent;
 
 
-class AccountCreated extends Event
+class AccountCreated extends ApiRequestEvent
 {
     /**
      * AddressCreated constructor.
@@ -17,6 +17,8 @@ class AccountCreated extends Event
      */
     public function __construct(Account $account)
     {
+        parent::__construct();
+
         $logMessage = 'created account - ';
         $logContext = [
             'action' => 'create',
@@ -32,7 +34,12 @@ class AccountCreated extends Event
             'requester_id' => 0,
             'requester_name' => 'System',
             'requester_ip' => getRequestIP(),
-            'proxy_ip' => getRequestIP(true)
+            'request_proxy_ip' => getRequestIP(true),
+            'request_method' => \Request::getMethod(),
+            'request_url' => \Request::fullUrl(),
+            'request_uri' => \Request::getUri(),
+            'request_scheme' => \Request::getScheme(),
+            'request_host' => \Request::getHost()
         ];
 
         if (auth()->user()) {

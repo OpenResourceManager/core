@@ -12,25 +12,15 @@ class ApiRequestEvent extends Event
 {
     /**
      * ApiRequestEvent constructor.
-     * @param User $user
-     * @param string $uri
-     * @param string $method
      */
-    public function __construct(User $user, $uri = '', $method = '')
+    public function __construct()
     {
-        $request = ApiRequest::create([
-            'user_id' => $user->id,
-            'url' => $uri,
-            'method' => $method
-        ]);
-
-        Log::info('API Request From: ', [
-            'id' => $user->id,
-            'email' => $user->email,
-            'name' => $user->name,
-            'request_id' => $request->id,
-            'url' => $uri,
-            'method' => $method
-        ]);
+        if(auth()->user()) {
+            ApiRequest::create([
+                'user_id' => auth()->user()->id,
+                'url' => \Request::fullUrl(),
+                'method' => \Request::method()
+            ]);
+        }
     }
 }

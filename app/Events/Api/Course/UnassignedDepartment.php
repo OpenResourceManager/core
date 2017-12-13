@@ -2,15 +2,15 @@
 
 namespace App\Events\Api\Course;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\Department;
 use App\Http\Models\API\Course;
 use Illuminate\Support\Facades\Log;
-use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
 
 
-class UnassignedDepartment extends Event
+class UnassignedDepartment extends ApiRequestEvent
 {
 
     /**
@@ -20,6 +20,8 @@ class UnassignedDepartment extends Event
      */
     public function __construct(Course $course, Department $department)
     {
+        parent::__construct();
+
         $info = [
             'course_id' => $course->id,
             'course_code' => $course->code,

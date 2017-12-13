@@ -2,13 +2,13 @@
 
 namespace App\Events\Api\School;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\School;
-use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Log;
 use Krucas\Settings\Facades\Settings;
 
-class SchoolRestored extends Event
+class SchoolRestored extends ApiRequestEvent
 {
 
     /**
@@ -17,6 +17,8 @@ class SchoolRestored extends Event
      */
     public function __construct(School $loadStatus)
     {
+        parent::__construct();
+
         Log::info('School Restored:', [
             'id' => $loadStatus->id,
             'code' => $loadStatus->code,

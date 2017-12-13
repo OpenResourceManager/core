@@ -2,15 +2,15 @@
 
 namespace App\Events\Api\Account;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\Account;
 use App\Http\Models\API\Room;
 use Illuminate\Support\Facades\Log;
-use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
 
 
-class AssignedRoom extends Event
+class AssignedRoom extends ApiRequestEvent
 {
     /**
      * AddressCreated constructor.
@@ -18,6 +18,8 @@ class AssignedRoom extends Event
      */
     public function __construct(Account $account, Room $room)
     {
+
+        parent::__construct();
 
         $logMessage = 'assigned account to room - ';
         $logContext = [
@@ -38,7 +40,12 @@ class AssignedRoom extends Event
             'requester_id' => 0,
             'requester_name' => 'System',
             'requester_ip' => getRequestIP(),
-            'proxy_ip' => getRequestIP(true)
+            'request_proxy_ip' => getRequestIP(true),
+            'request_method' => \Request::getMethod(),
+            'request_url' => \Request::fullUrl(),
+            'request_uri' => \Request::getUri(),
+            'request_scheme' => \Request::getScheme(),
+            'request_host' => \Request::getHost()
         ];
 
         if ($user = auth()->user()) {

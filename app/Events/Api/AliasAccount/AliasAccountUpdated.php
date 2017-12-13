@@ -2,13 +2,13 @@
 
 namespace App\Events\Api\AliasAccount;
 
-use App\Events\Event;
+use App\Events\Api\ApiRequestEvent;
 use Illuminate\Support\Facades\Log;
 use App\Http\Models\API\AliasAccount;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
 
-class AliasAccountUpdated extends Event
+class AliasAccountUpdated extends ApiRequestEvent
 {
     /**
      * AliasAccountUpdated constructor.
@@ -16,6 +16,8 @@ class AliasAccountUpdated extends Event
      */
     public function __construct(AliasAccount $account)
     {
+        parent::__construct();
+
         Log::info('Alias Account Updated:', [
             'id' => $account->id,
             'username' => $account->username,

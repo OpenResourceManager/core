@@ -2,12 +2,12 @@
 
 namespace App\Events\Api\Building;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\Building;
-use App\Events\Event;
 use Illuminate\Support\Facades\Log;
 use Krucas\Settings\Facades\Settings;
 
-class BuildingViewed extends Event
+class BuildingViewed extends ApiRequestEvent
 {
     /**
      * BuildingViewed constructor.
@@ -15,6 +15,8 @@ class BuildingViewed extends Event
      */
     public function __construct(Building $building)
     {
+
+        parent::__construct();
 
         $user_name = 'System';
 

@@ -2,12 +2,12 @@
 
 namespace App\Events\Api\Department;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\Department;
-use App\Events\Event;
 use Illuminate\Support\Facades\Log;
 use Krucas\Settings\Facades\Settings;
 
-class DepartmentViewed extends Event
+class DepartmentViewed extends ApiRequestEvent
 {
 
     /**
@@ -16,6 +16,8 @@ class DepartmentViewed extends Event
      */
     public function __construct(Department $department)
     {
+
+        parent::__construct();
 
         $user_name = 'System';
 

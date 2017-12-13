@@ -2,17 +2,19 @@
 
 namespace App\Events\Api\Room;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\Room;
-use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Log;
 use Krucas\Settings\Facades\Settings;
 
-class RoomRestored extends Event
+class RoomRestored extends ApiRequestEvent
 {
 
     public function __construct(Room $room)
     {
+        parent::__construct();
+
         Log::info('Room Restored:', [
             'id' => $room->id,
             'code' => $room->code,

@@ -2,13 +2,13 @@
 
 namespace App\Events\Api\LoadStatus;
 
-use App\Events\Event;
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\LoadStatus;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
 
-class LoadStatusUpdated extends Event
+class LoadStatusUpdated extends ApiRequestEvent
 {
     /**
      * LoadStatusUpdated constructor.
@@ -16,6 +16,8 @@ class LoadStatusUpdated extends Event
      */
     public function __construct(LoadStatus $loadStatus)
     {
+        parent::__construct();
+
         Log::info('Load Status Updated:', [
             'id' => $loadStatus->id,
             'code' => $loadStatus->code,

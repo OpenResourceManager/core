@@ -4,9 +4,9 @@ namespace App\Events\Api\Account;
 
 use Krucas\Settings\Facades\Settings;
 use Illuminate\Support\Facades\Log;
-use App\Events\Event;
+use App\Events\Api\ApiRequestEvent;
 
-class AccountsViewed extends Event
+class AccountsViewed extends ApiRequestEvent
 {
     /**
      * AccountsViewed constructor.
@@ -14,6 +14,8 @@ class AccountsViewed extends Event
      */
     public function __construct($accountIds = [])
     {
+        parent::__construct();
+
         $logMessage = 'viewed accounts - ';
         $logContext = [
             'action' => 'restore',
@@ -23,7 +25,12 @@ class AccountsViewed extends Event
             'requester_id' => 0,
             'requester_name' => 'System',
             'requester_ip' => getRequestIP(),
-            'proxy_ip' => getRequestIP(true)
+            'request_proxy_ip' => getRequestIP(true),
+            'request_method' => \Request::getMethod(),
+            'request_url' => \Request::fullUrl(),
+            'request_uri' => \Request::getUri(),
+            'request_scheme' => \Request::getScheme(),
+            'request_host' => \Request::getHost()
         ];
 
         if ($user = auth()->user()) {

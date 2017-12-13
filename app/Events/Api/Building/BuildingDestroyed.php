@@ -2,13 +2,14 @@
 
 namespace App\Events\Api\Building;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\Building;
 use Illuminate\Support\Facades\Log;
 use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
 
-class BuildingDestroyed extends Event
+class BuildingDestroyed extends ApiRequestEvent
 {
     /**
      * BuildingDestroyed constructor.
@@ -16,6 +17,8 @@ class BuildingDestroyed extends Event
      */
     public function __construct(Building $building)
     {
+        parent::__construct();
+
         Log::info('Building Deleted:', [
             'id' => $building->id,
             'code' => $building->code,

@@ -2,14 +2,14 @@
 
 namespace App\Events\Api\AliasAccount;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\AliasAccount;
 use Illuminate\Support\Facades\Log;
-use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
 
 
-class AliasAccountCreated extends Event
+class AliasAccountCreated extends ApiRequestEvent
 {
     /**
      * AliasAccountCreated constructor.
@@ -17,6 +17,8 @@ class AliasAccountCreated extends Event
      */
     public function __construct(AliasAccount $account)
     {
+        parent::__construct();
+
         Log::info('Alias Account Created:', [
             'id' => $account->id,
             'username' => $account->username,

@@ -2,13 +2,13 @@
 
 namespace App\Events\Api\Course;
 
-use App\Events\Event;
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\Course;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
 
-class CourseUpdated extends Event
+class CourseUpdated extends ApiRequestEvent
 {
     /**
      * CourseUpdated constructor.
@@ -16,6 +16,8 @@ class CourseUpdated extends Event
      */
     public function __construct(Course $course)
     {
+        parent::__construct();
+
         Log::info('Course Updated:', [
             'id' => $course->id,
             'code' => $course->code,

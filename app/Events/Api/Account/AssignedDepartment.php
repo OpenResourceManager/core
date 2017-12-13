@@ -2,15 +2,15 @@
 
 namespace App\Events\Api\Account;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\Account;
 use App\Http\Models\API\Department;
 use Illuminate\Support\Facades\Log;
-use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
 
 
-class AssignedDepartment extends Event
+class AssignedDepartment extends ApiRequestEvent
 {
 
     /**
@@ -20,6 +20,8 @@ class AssignedDepartment extends Event
      */
     public function __construct(Account $account, Department $department)
     {
+
+        parent::__construct();
 
         $logMessage = 'assigned account to department - ';
         $logContext = [
@@ -40,7 +42,12 @@ class AssignedDepartment extends Event
             'requester_id' => 0,
             'requester_name' => 'System',
             'requester_ip' => getRequestIP(),
-            'proxy_ip' => getRequestIP(true)
+            'request_proxy_ip' => getRequestIP(true),
+            'request_method' => \Request::getMethod(),
+            'request_url' => \Request::fullUrl(),
+            'request_uri' => \Request::getUri(),
+            'request_scheme' => \Request::getScheme(),
+            'request_host' => \Request::getHost()
         ];
 
 

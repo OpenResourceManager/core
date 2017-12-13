@@ -183,15 +183,4 @@ class ApiController extends Controller
     {
         throw new \Dingo\Api\Exception\StoreResourceFailedException('Could not assign ' . $resource1 . ' to ' . $resource2 . '.');
     }
-
-    /**
-     * @param Request $request
-     * @return array|null
-     */
-    public function recordApiRequestEvent(Request $request)
-    {
-        if (auth()->user()) {
-            return event(new ApiRequestEvent(auth()->user(), $request->url(), $request->method()));
-        }
-    }
 }

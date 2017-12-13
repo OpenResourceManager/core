@@ -2,12 +2,12 @@
 
 namespace App\Events\Api\Account;
 
-use App\Events\Event;
+use App\Events\Api\ApiRequestEvent;
 use Illuminate\Support\Facades\Log;
 use App\Http\Models\API\Account;
 use Krucas\Settings\Facades\Settings;
 
-class AccountViewed extends Event
+class AccountViewed extends ApiRequestEvent
 {
 
     /**
@@ -16,6 +16,8 @@ class AccountViewed extends Event
      */
     public function __construct(Account $account)
     {
+        parent::__construct();
+
         $logMessage = 'viewed account - ';
         $logContext = [
             'action' => 'update',
@@ -31,7 +33,12 @@ class AccountViewed extends Event
             'requester_id' => 0,
             'requester_name' => 'System',
             'requester_ip' => getRequestIP(),
-            'proxy_ip' => getRequestIP(true)
+            'request_proxy_ip' => getRequestIP(true),
+            'request_method' => \Request::getMethod(),
+            'request_url' => \Request::fullUrl(),
+            'request_uri' => \Request::getUri(),
+            'request_scheme' => \Request::getScheme(),
+            'request_host' => \Request::getHost()
         ];
 
         if ($user = auth()->user()) {

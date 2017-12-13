@@ -2,12 +2,12 @@
 
 namespace App\Events\Api\School;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\School;
-use App\Events\Event;
 use Illuminate\Support\Facades\Log;
 use Krucas\Settings\Facades\Settings;
 
-class SchoolViewed extends Event
+class SchoolViewed extends ApiRequestEvent
 {
     /**
      * SchoolViewed constructor.
@@ -15,6 +15,8 @@ class SchoolViewed extends Event
      */
     public function __construct(School $school)
     {
+
+        parent::__construct();
 
         $user_name = 'System';
 

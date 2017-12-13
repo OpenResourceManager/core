@@ -2,13 +2,13 @@
 
 namespace App\Events\Api\AliasAccount;
 
+use App\Events\Api\ApiRequestEvent;
 use Krucas\Settings\Facades\Settings;
-use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use App\Http\Models\API\AliasAccount;
 use Illuminate\Support\Facades\Log;
 
-class AliasAccountRestored extends Event
+class AliasAccountRestored extends ApiRequestEvent
 {
 
     /**
@@ -17,6 +17,8 @@ class AliasAccountRestored extends Event
      */
     public function __construct(AliasAccount $account)
     {
+        parent::__construct();
+
         Log::info('Alias Account Restored:', [
             'id' => $account->id,
             'username' => $account->username,
@@ -57,7 +59,7 @@ class AliasAccountRestored extends Event
 
             history()->log(
                 'AliasAccount',
-                'restored an alias account for ' . $account->account->format_full_name() . ' ' . $account->account->username  . ' --> ' . $account->username,
+                'restored an alias account for ' . $account->account->format_full_name() . ' ' . $account->account->username . ' --> ' . $account->username,
                 $account->id,
                 'fa-id-card-o',
                 'bg-lime'

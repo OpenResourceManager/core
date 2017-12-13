@@ -2,12 +2,12 @@
 
 namespace App\Events\Api\Course;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\Course;
-use App\Events\Event;
 use Illuminate\Support\Facades\Log;
 use Krucas\Settings\Facades\Settings;
 
-class CourseViewed extends Event
+class CourseViewed extends ApiRequestEvent
 {
     /**
      * DepartmentViewed constructor.
@@ -15,6 +15,7 @@ class CourseViewed extends Event
      */
     public function __construct(Course $course)
     {
+        parent::__construct();
 
         $user_name = 'System';
 

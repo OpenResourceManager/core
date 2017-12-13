@@ -2,13 +2,13 @@
 
 namespace App\Events\Api\Building;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\Building;
-use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Log;
 use Krucas\Settings\Facades\Settings;
 
-class BuildingRestored extends Event
+class BuildingRestored extends ApiRequestEvent
 {
     /**
      * BuildingRestored constructor.
@@ -16,6 +16,8 @@ class BuildingRestored extends Event
      */
     public function __construct(Building $building)
     {
+        parent::__construct();
+
         Log::info('Building Restored:', [
             'id' => $building->id,
             'code' => $building->code,

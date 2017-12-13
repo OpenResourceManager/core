@@ -8,11 +8,11 @@
 
 namespace App\Events\Api\Campus;
 
+use App\Events\Api\ApiRequestEvent;
 use Illuminate\Support\Facades\Log;
-use App\Events\Event;
 use Krucas\Settings\Facades\Settings;
 
-class CampusesViewed extends Event
+class CampusesViewed extends ApiRequestEvent
 {
     /**
      * CampusesViewed constructor.
@@ -20,6 +20,8 @@ class CampusesViewed extends Event
      */
     public function __construct($campusIds = [])
     {
+        parent::__construct();
+
         $user_name = 'System';
 
         if ($user = auth()->user()) {

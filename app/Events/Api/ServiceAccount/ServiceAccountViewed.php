@@ -2,12 +2,12 @@
 
 namespace App\Events\Api\ServiceAccount;
 
-use App\Events\Event;
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\ServiceAccount;
 use Illuminate\Support\Facades\Log;
 use Krucas\Settings\Facades\Settings;
 
-class ServiceAccountViewed extends Event
+class ServiceAccountViewed extends ApiRequestEvent
 {
 
     /**
@@ -16,6 +16,8 @@ class ServiceAccountViewed extends Event
      */
     public function __construct(ServiceAccount $account)
     {
+        parent::__construct();
+
         $user_name = 'System';
 
         if ($user = auth()->user()) {

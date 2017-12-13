@@ -8,11 +8,11 @@
 
 namespace App\Events\Api\Duty;
 
+use App\Events\Api\ApiRequestEvent;
 use Illuminate\Support\Facades\Log;
-use App\Events\Event;
 use Krucas\Settings\Facades\Settings;
 
-class DutiesViewed extends Event
+class DutiesViewed extends ApiRequestEvent
 {
     /**
      * DutiesViewed constructor.
@@ -20,6 +20,8 @@ class DutiesViewed extends Event
      */
     public function __construct($dutyIds = [])
     {
+        parent::__construct();
+
         $user_name = 'System';
 
         if ($user = auth()->user()) {

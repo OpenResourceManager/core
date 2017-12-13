@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\API\V1;
 
-use App\Events\Api\ApiRequestEvent;
+
 use App\Events\Api\Authentication\AuthenticationFailure;
 use App\Events\Api\Authentication\AuthenticationSuccess;
+use App\Events\Api\Authentication\AuthenticationValidate;
 use Dingo\Api\Http\Request;
 use App\Models\Access\User\User;
 use Illuminate\Support\Facades\Input;
@@ -47,7 +48,6 @@ class ApiAuthenticationController extends ApiController
             event(new AuthenticationFailure($request));
             throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('Invalid credentials were supplied.');
         }
-        event(new ApiRequestEvent($user, $request->url()));
         event(new AuthenticationSuccess($user));
         // Return success.
         return compact('token');
@@ -77,7 +77,6 @@ class ApiAuthenticationController extends ApiController
             event(new AuthenticationFailure($request));
             throw new \Symfony\Component\HttpKernel\Exception\HttpException('Could not create new token.', $e);
         }
-        event(new ApiRequestEvent($user, $request->url()));
         event(new AuthenticationSuccess($user));
         // Return success.
         return compact('token');
@@ -98,7 +97,7 @@ class ApiAuthenticationController extends ApiController
 
         if (!$user) throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('You are not authorized.');
 
-        event(new ApiRequestEvent($user, $request->url()));
+        event(new AuthenticationValidate($user));
 
         return $this->response->array([
             'user' => $user->email,

@@ -2,13 +2,13 @@
 
 namespace App\Events\Api\Building;
 
-use App\Events\Event;
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\Building;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
 
-class BuildingUpdated extends Event
+class BuildingUpdated extends ApiRequestEvent
 {
 
     /**
@@ -17,6 +17,8 @@ class BuildingUpdated extends Event
      */
     public function __construct(Building $building)
     {
+        parent::__construct();
+
         Log::info('Building Updated:', [
             'id' => $building->id,
             'code' => $building->code,

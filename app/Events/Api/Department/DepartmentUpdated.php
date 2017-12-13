@@ -2,13 +2,13 @@
 
 namespace App\Events\Api\Department;
 
-use App\Events\Event;
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\Department;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
 
-class DepartmentUpdated extends Event
+class DepartmentUpdated extends ApiRequestEvent
 {
 
     /**
@@ -17,6 +17,8 @@ class DepartmentUpdated extends Event
      */
     public function __construct(Department $department)
     {
+        parent::__construct();
+
         Log::info('Department Updated:', [
             'id' => $department->id,
             'code' => $department->code,

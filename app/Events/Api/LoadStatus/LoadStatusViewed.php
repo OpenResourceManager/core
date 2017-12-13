@@ -2,12 +2,12 @@
 
 namespace App\Events\Api\LoadStatus;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\LoadStatus;
-use App\Events\Event;
 use Illuminate\Support\Facades\Log;
 use Krucas\Settings\Facades\Settings;
 
-class LoadStatusViewed extends Event
+class LoadStatusViewed extends ApiRequestEvent
 {
     /**
      * LoadStatusViewed constructor.
@@ -15,6 +15,8 @@ class LoadStatusViewed extends Event
      */
     public function __construct(LoadStatus $loadStatus)
     {
+
+        parent::__construct();
 
         $user_name = 'System';
 

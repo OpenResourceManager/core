@@ -2,13 +2,13 @@
 
 namespace App\Events\Api\AliasAccount;
 
+use App\Events\Api\ApiRequestEvent;
 use Krucas\Settings\Facades\Settings;
-use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use App\Http\Models\API\AliasAccount;
 use Illuminate\Support\Facades\Log;
 
-class AliasAccountDestroyed extends Event
+class AliasAccountDestroyed extends ApiRequestEvent
 {
 
     /**
@@ -17,6 +17,8 @@ class AliasAccountDestroyed extends Event
      */
     public function __construct(AliasAccount $account)
     {
+        parent::__construct();
+
         Log::info('Alias Account Deleted:', [
             'id' => $account->id,
             'username' => $account->username,

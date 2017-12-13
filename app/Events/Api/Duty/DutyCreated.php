@@ -2,13 +2,13 @@
 
 namespace App\Events\Api\Duty;
 
+use App\Events\Api\ApiRequestEvent;
 use App\Http\Models\API\Duty;
 use Illuminate\Support\Facades\Log;
-use App\Events\Event;
 use Illuminate\Support\Facades\Redis;
 use Krucas\Settings\Facades\Settings;
 
-class DutyCreated extends Event
+class DutyCreated extends ApiRequestEvent
 {
     /**
      * DutyCreated constructor.
@@ -16,6 +16,8 @@ class DutyCreated extends Event
      */
     public function __construct(Duty $duty)
     {
+        parent::__construct();
+
         Log::info('Duty Created:', [
             'id' => $duty->id,
             'code' => $duty->code,
