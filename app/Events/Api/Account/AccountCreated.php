@@ -37,7 +37,7 @@ class AccountCreated extends ApiRequestEvent
             'request_proxy_ip' => getRequestIP(true),
             'request_method' => \Request::getMethod(),
             'request_url' => \Request::fullUrl(),
-            'request_uri' => \Request::getUri(),
+            'request_uri' => \Request::getRequestUri(),
             'request_scheme' => \Request::getScheme(),
             'request_host' => \Request::getHost()
         ];
