@@ -18,7 +18,7 @@ class AccountsViewed extends ApiRequestEvent
 
         $logMessage = 'viewed accounts - ';
         $logContext = [
-            'action' => 'restore',
+            'action' => 'view',
             'model' => 'account',
             'account_ids' => $accountIds,
             'account_id_count' => count($accountIds),

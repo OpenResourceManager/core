@@ -20,7 +20,7 @@ class AccountViewed extends ApiRequestEvent
 
         $logMessage = 'viewed account - ';
         $logContext = [
-            'action' => 'update',
+            'action' => 'view',
             'model' => 'account',
             'account_id' => $account->id,
             'account_identifier' => $account->identifier,
