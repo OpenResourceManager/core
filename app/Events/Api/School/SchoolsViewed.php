@@ -22,11 +22,28 @@ class SchoolsViewed extends ApiRequestEvent
     {
         parent::__construct();
 
-        $user_name = 'System';
+        $logMessage = 'viewed schools - ';
+        $logContext = [
+            'action' => 'view',
+            'model' => 'school',
+            'school_id' => $schoolIds,
+            'school_code' => count($schoolIds),
+            'requester_id' => 0,
+            'requester_name' => 'System',
+            'requester_ip' => getRequestIP(),
+            'request_proxy_ip' => getRequestIP(true),
+            'request_method' => \Request::getMethod(),
+            'request_url' => \Request::fullUrl(),
+            'request_uri' => \Request::getRequestUri(),
+            'request_scheme' => \Request::getScheme(),
+            'request_host' => \Request::getHost()
+        ];
 
         if ($user = auth()->user()) {
 
-            $user_name = $user->name;
+            $logMessage = auth()->user()->name . ' ' . $logMessage;
+            $logContext['requester_id'] = auth()->user()->id;
+            $logContext['requester_name'] = auth()->user()->name;
 
             if (Settings::get('broadcast-events', false)) {
                 // @todo bc view event
@@ -42,6 +59,6 @@ class SchoolsViewed extends ApiRequestEvent
 
         }
 
-        Log::info($user_name . ' viewed ' . count($schoolIds) . ' schools', $schoolIds);
+        Log::info($logMessage, $logContext);
     }
 }

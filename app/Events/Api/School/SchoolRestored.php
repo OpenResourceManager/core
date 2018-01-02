@@ -13,26 +13,44 @@ class SchoolRestored extends ApiRequestEvent
 
     /**
      * SchoolRestored constructor.
-     * @param School $loadStatus
+     * @param School $school
      */
-    public function __construct(School $loadStatus)
+    public function __construct(School $school)
     {
         parent::__construct();
 
-        Log::info('School Restored:', [
-            'id' => $loadStatus->id,
-            'code' => $loadStatus->code,
-            'label' => $loadStatus->label
-        ]);
+        $logMessage = 'restored school - ';
+        $logContext = [
+            'action' => 'restore',
+            'model' => 'school',
+            'school_id' => $school->id,
+            'school_code' => $school->code,
+            'school_label' => $school->label,
+            'school_created' => $school->created_at,
+            'school_updated' => $school->updated_at,
+            'requester_id' => 0,
+            'requester_name' => 'System',
+            'requester_ip' => getRequestIP(),
+            'request_proxy_ip' => getRequestIP(true),
+            'request_method' => \Request::getMethod(),
+            'request_url' => \Request::fullUrl(),
+            'request_uri' => \Request::getRequestUri(),
+            'request_scheme' => \Request::getScheme(),
+            'request_host' => \Request::getHost()
+        ];
 
         if ($user = auth()->user()) {
 
+            $logMessage = auth()->user()->name . ' ' . $logMessage;
+            $logContext['requester_id'] = auth()->user()->id;
+            $logContext['requester_name'] = auth()->user()->name;
+
             if (Settings::get('broadcast-events', false)) {
 
-                $loadStatus->campus;
+                $school->campus;
 
                 $data_to_secure = json_encode([
-                    'data' => $loadStatus->toArray(),
+                    'data' => $school->toArray(),
                     'conf' => [
                         'ldap' => ldap_config()
                     ]
@@ -51,11 +69,13 @@ class SchoolRestored extends ApiRequestEvent
 
             history()->log(
                 'School',
-                'restored a school: ' . $loadStatus->label() . '.',
-                $loadStatus->id,
+                'restored a school: ' . $school->label . '.',
+                $school->id,
                 'university',
                 'bg-lime'
             );
         }
+
+        Log::info($logMessage, $logContext);
     }
 }
