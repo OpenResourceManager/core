@@ -16,9 +16,9 @@ class LoadStatusesViewed extends ApiRequestEvent
 {
     /**
      * LoadStatusesViewed constructor.
-     * @param array $loadStatusIds
+     * @param array $schoolIds
      */
-    public function __construct($loadStatusIds = [])
+    public function __construct($schoolIds = [])
     {
         parent::__construct();
 
@@ -26,8 +26,8 @@ class LoadStatusesViewed extends ApiRequestEvent
         $logContext = [
             'action' => 'view',
             'model' => 'load_status',
-            'load_status_ids' => $loadStatusIds,
-            'load_status_id_count' => count($loadStatusIds),
+            'load_status_ids' => $schoolIds,
+            'load_status_id_count' => count($schoolIds),
             'requester_id' => 0,
             'requester_name' => 'System',
             'requester_ip' => getRequestIP(),
@@ -51,7 +51,7 @@ class LoadStatusesViewed extends ApiRequestEvent
 
             history()->log(
                 'LoadStatus',
-                'viewed ' . count($loadStatusIds) . ' load statuses',
+                'viewed ' . count($schoolIds) . ' load statuses',
                 $user->id,
                 'cubes',
                 'bg-aqua'

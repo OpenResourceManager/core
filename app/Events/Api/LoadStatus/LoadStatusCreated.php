@@ -12,9 +12,9 @@ class LoadStatusCreated extends ApiRequestEvent
 {
     /**
      * LoadStatusCreated constructor.
-     * @param LoadStatus $loadStatus
+     * @param LoadStatus $school
      */
-    public function __construct(LoadStatus $loadStatus)
+    public function __construct(LoadStatus $school)
     {
         parent::__construct();
 
@@ -22,11 +22,11 @@ class LoadStatusCreated extends ApiRequestEvent
         $logContext = [
             'action' => 'create',
             'model' => 'load_status',
-            'load_status_id' => $loadStatus->id,
-            'load_status_code' => $loadStatus->code,
-            'load_status_label' => $loadStatus->label,
-            'load_status_created' => $loadStatus->created_at,
-            'load_status_updated' => $loadStatus->updated_at,
+            'load_status_id' => $school->id,
+            'load_status_code' => $school->code,
+            'load_status_label' => $school->label,
+            'load_status_created' => $school->created_at,
+            'load_status_updated' => $school->updated_at,
             'requester_id' => 0,
             'requester_name' => 'System',
             'requester_ip' => getRequestIP(),
@@ -47,7 +47,7 @@ class LoadStatusCreated extends ApiRequestEvent
             if (Settings::get('broadcast-events', false)) {
 
                 $data_to_secure = json_encode([
-                    'data' => $loadStatus->toArray(),
+                    'data' => $school->toArray(),
                     'conf' => [
                         'ldap' => ldap_config()
                     ]
@@ -66,8 +66,8 @@ class LoadStatusCreated extends ApiRequestEvent
 
             history()->log(
                 'LoadStatus',
-                'created a new load status: ' . $loadStatus->label,
-                $loadStatus->id,
+                'created a new load status: ' . $school->label,
+                $school->id,
                 'cubes',
                 'bg-green'
             );

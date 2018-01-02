@@ -13,9 +13,9 @@ class LoadStatusRestored extends ApiRequestEvent
 
     /**
      * LoadStatusRestored constructor.
-     * @param LoadStatus $loadStatus
+     * @param LoadStatus $school
      */
-    public function __construct(LoadStatus $loadStatus)
+    public function __construct(LoadStatus $school)
     {
         parent::__construct();
 
@@ -23,11 +23,11 @@ class LoadStatusRestored extends ApiRequestEvent
         $logContext = [
             'action' => 'restore',
             'model' => 'load_status',
-            'load_status_id' => $loadStatus->id,
-            'load_status_code' => $loadStatus->code,
-            'load_status_label' => $loadStatus->label,
-            'load_status_created' => $loadStatus->created_at,
-            'load_status_updated' => $loadStatus->updated_at,
+            'load_status_id' => $school->id,
+            'load_status_code' => $school->code,
+            'load_status_label' => $school->label,
+            'load_status_created' => $school->created_at,
+            'load_status_updated' => $school->updated_at,
             'requester_id' => 0,
             'requester_name' => 'System',
             'requester_ip' => getRequestIP(),
@@ -47,10 +47,10 @@ class LoadStatusRestored extends ApiRequestEvent
 
             if (Settings::get('broadcast-events', false)) {
 
-                $loadStatus->campus;
+                $school->campus;
 
                 $data_to_secure = json_encode([
-                    'data' => $loadStatus->toArray(),
+                    'data' => $school->toArray(),
                     'conf' => [
                         'ldap' => ldap_config()
                     ]
@@ -69,8 +69,8 @@ class LoadStatusRestored extends ApiRequestEvent
 
             history()->log(
                 'LoadStatus',
-                'restored a load status: ' . $loadStatus->label() . '.',
-                $loadStatus->id,
+                'restored a load status: ' . $school->label() . '.',
+                $school->id,
                 'cubes',
                 'bg-lime'
             );
