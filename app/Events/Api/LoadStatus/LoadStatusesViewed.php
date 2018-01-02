@@ -22,11 +22,28 @@ class LoadStatusesViewed extends ApiRequestEvent
     {
         parent::__construct();
 
-        $user_name = 'System';
+        $logMessage = 'viewed load statuses - ';
+        $logContext = [
+            'action' => 'view',
+            'model' => 'load_status',
+            'load_status_ids' => $loadStatusIds,
+            'load_status_id_count' => count($loadStatusIds),
+            'requester_id' => 0,
+            'requester_name' => 'System',
+            'requester_ip' => getRequestIP(),
+            'request_proxy_ip' => getRequestIP(true),
+            'request_method' => \Request::getMethod(),
+            'request_url' => \Request::fullUrl(),
+            'request_uri' => \Request::getRequestUri(),
+            'request_scheme' => \Request::getScheme(),
+            'request_host' => \Request::getHost()
+        ];
 
         if ($user = auth()->user()) {
 
-            $user_name = $user->name;
+            $logMessage = auth()->user()->name . ' ' . $logMessage;
+            $logContext['requester_id'] = auth()->user()->id;
+            $logContext['requester_name'] = auth()->user()->name;
 
             if (Settings::get('broadcast-events', false)) {
                 // @todo bc view event
@@ -42,6 +59,6 @@ class LoadStatusesViewed extends ApiRequestEvent
 
         }
 
-        Log::info($user_name . ' viewed ' . count($loadStatusIds) . ' schools', $loadStatusIds);
+        Log::info($logMessage, $logContext);
     }
 }

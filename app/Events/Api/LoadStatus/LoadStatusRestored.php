@@ -19,13 +19,31 @@ class LoadStatusRestored extends ApiRequestEvent
     {
         parent::__construct();
 
-        Log::info('Load Status Restored:', [
-            'id' => $loadStatus->id,
-            'code' => $loadStatus->code,
-            'label' => $loadStatus->label
-        ]);
+        $logMessage = 'restored load status - ';
+        $logContext = [
+            'action' => 'restore',
+            'model' => 'load_status',
+            'load_status_id' => $loadStatus->id,
+            'load_status_code' => $loadStatus->code,
+            'load_status_label' => $loadStatus->label,
+            'load_status_created' => $loadStatus->created_at,
+            'load_status_updated' => $loadStatus->updated_at,
+            'requester_id' => 0,
+            'requester_name' => 'System',
+            'requester_ip' => getRequestIP(),
+            'request_proxy_ip' => getRequestIP(true),
+            'request_method' => \Request::getMethod(),
+            'request_url' => \Request::fullUrl(),
+            'request_uri' => \Request::getRequestUri(),
+            'request_scheme' => \Request::getScheme(),
+            'request_host' => \Request::getHost()
+        ];
 
         if ($user = auth()->user()) {
+
+            $logMessage = auth()->user()->name . ' ' . $logMessage;
+            $logContext['requester_id'] = auth()->user()->id;
+            $logContext['requester_name'] = auth()->user()->name;
 
             if (Settings::get('broadcast-events', false)) {
 
@@ -57,5 +75,7 @@ class LoadStatusRestored extends ApiRequestEvent
                 'bg-lime'
             );
         }
+
+        Log::info($logMessage, $logContext);
     }
 }
