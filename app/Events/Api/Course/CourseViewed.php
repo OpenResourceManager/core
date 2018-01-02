@@ -17,11 +17,34 @@ class CourseViewed extends ApiRequestEvent
     {
         parent::__construct();
 
-        $user_name = 'System';
+        $logMessage = 'viewed course - ';
+        $logContext = [
+            'action' => 'view',
+            'model' => 'course',
+            'course_id' => $course->id,
+            'course_code' => $course->code,
+            'course_label' => $course->label,
+            'course_department_id' => $course->department->id,
+            'course_department_code' => $course->department->code,
+            'course_department_label' => $course->department->label,
+            'course_created' => $course->created_at,
+            'course_updated' => $course->updated_at,
+            'requester_id' => 0,
+            'requester_name' => 'System',
+            'requester_ip' => getRequestIP(),
+            'request_proxy_ip' => getRequestIP(true),
+            'request_method' => \Request::getMethod(),
+            'request_url' => \Request::fullUrl(),
+            'request_uri' => \Request::getRequestUri(),
+            'request_scheme' => \Request::getScheme(),
+            'request_host' => \Request::getHost()
+        ];
 
         if ($user = auth()->user()) {
 
-            $user_name = $user->name;
+            $logMessage = auth()->user()->name . ' ' . $logMessage;
+            $logContext['requester_id'] = auth()->user()->id;
+            $logContext['requester_name'] = auth()->user()->name;
 
             if (Settings::get('broadcast-events', false)) {
                 // @todo bc view event
@@ -36,6 +59,6 @@ class CourseViewed extends ApiRequestEvent
             );
         }
 
-        Log::info($user_name . ' viewed ' . $course->label . '.');
+        Log::info($logMessage, $logContext);
     }
 }

@@ -22,16 +22,29 @@ class AssignedDepartment extends ApiRequestEvent
     {
         parent::__construct();
 
-        $info = [
+        $logMessage = 'assigned course to department - ';
+        $logContext = [
+            'action' => 'assignment',
+            'model' => 'course',
+            'pivot' => 'department',
             'course_id' => $course->id,
             'course_code' => $course->code,
             'course_label' => $course->label,
             'department_id' => $department->id,
             'department_code' => $department->code,
-            'department_label' => $department->label
+            'department_label' => $department->label,
+            'course_created' => $course->created_at,
+            'course_updated' => $course->updated_at,
+            'requester_id' => 0,
+            'requester_name' => 'System',
+            'requester_ip' => getRequestIP(),
+            'request_proxy_ip' => getRequestIP(true),
+            'request_method' => \Request::getMethod(),
+            'request_url' => \Request::fullUrl(),
+            'request_uri' => \Request::getRequestUri(),
+            'request_scheme' => \Request::getScheme(),
+            'request_host' => \Request::getHost()
         ];
-
-        Log::info('Course assigned to Department:', $info);
 
         if ($user = auth()->user()) {
 
@@ -67,5 +80,6 @@ class AssignedDepartment extends ApiRequestEvent
                 'bg-olive'
             );
         }
+        Log::info($logMessage, $logContext);
     }
 }
