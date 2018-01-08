@@ -39,7 +39,7 @@ class ApiController extends Controller
      */
     public function __construct(Request $request)
     {
-        if(config('app.APP_DEBUG')) {
+        if(config('api.debug')) {
             $logMessage = 'received API request  - ';
             $logContext = [
                 'action' => 'request',
