@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Support\Facades\Log;
 
 /**
  * @SWG\Swagger(
@@ -38,7 +39,30 @@ class ApiController extends Controller
      */
     public function __construct(Request $request)
     {
-
+        if(config('app.APP_DEBUG')) {
+            $logMessage = 'received API request  - ';
+            $logContext = [
+                'action' => 'request',
+                'model' => 'request',
+                'requester_id' => 0,
+                'requester_name' => 'System',
+                'requester_ip' => getRequestIP(),
+                'request_proxy_ip' => getRequestIP(true),
+                'request_method' => \Request::getMethod(),
+                'request_url' => \Request::fullUrl(),
+                'request_uri' => \Request::getRequestUri(),
+                'request_scheme' => \Request::getScheme(),
+                'request_host' => \Request::getHost(),
+                'request_input' => $request->input(),
+                'request_all' => $request->all()
+            ];
+            if (auth()->user()) {
+                $logMessage = auth()->user()->name . ' ' . $logMessage;
+                $logContext['requester_id'] = auth()->user()->id;
+                $logContext['requester_name'] = auth()->user()->name;
+            }
+            Log::debug($logMessage, $logContext);
+        }
     }
 
     use Helpers;
