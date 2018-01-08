@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Helpers\Auth\Auth;
 use App\Http\Controllers\Controller;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
@@ -39,6 +40,9 @@ class ApiController extends Controller
      */
     public function __construct(Request $request)
     {
+
+        $user = auth()->user();
+
         if (config('api.debug', false)) {
             $logMessage = 'received API request  - ';
             $logContext = [
@@ -56,10 +60,10 @@ class ApiController extends Controller
                 'request_input' => $request->input(),
                 'request_all' => $request->all()
             ];
-            if (auth()->user()) {
+            if ($user) {
                 $logMessage = auth()->user()->name . ' ' . $logMessage;
-                $logContext['requester_id'] = auth()->user()->id;
-                $logContext['requester_name'] = auth()->user()->name;
+                $logContext['requester_id'] = $user->id;
+                $logContext['requester_name'] = $user->name;
             }
             Log::debug($logMessage, $logContext);
         }
