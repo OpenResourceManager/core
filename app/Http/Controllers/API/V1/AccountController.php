@@ -248,6 +248,12 @@ class AccountController extends ApiController
             }
         }
 
+        /**
+         * Ugly but will prevent passwords from being set in future requests
+         */
+        $item->should_propagate_password = false;
+        $item->save();
+
         $trans = new AccountTransformer();
         $item = $trans->transform($item);
         return $this->response->created(route('api.accounts.show', ['id' => $item['id']]), ['data' => $item]);
@@ -352,6 +358,11 @@ class AccountController extends ApiController
         $item = $item->firstOrFail();
         // Fire the update event
         event(new AccountUpdated($item));
+        /**
+         * Ugly but will prevent passwords from being set in future requests
+         */
+        $item->should_propagate_password = false;
+        $item->save();
         // Get the updated account
         $item = $trans->transform($item);
         // Return a response
@@ -366,8 +377,7 @@ class AccountController extends ApiController
      * @param Request $request
      * @return mixed
      */
-    public
-    function destroy(Request $request)
+    public function destroy(Request $request)
     {
         $data = $request->all();
 
@@ -403,8 +413,7 @@ class AccountController extends ApiController
      * @param Request $request
      * @return \Dingo\Api\Http\Response
      */
-    public
-    function assignDuty(Request $request)
+    public function assignDuty(Request $request)
     {
         $data = $request->all();
         $validator = Validator::make($data, [
@@ -459,8 +468,7 @@ class AccountController extends ApiController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public
-    function detachDuty(Request $request)
+    public function detachDuty(Request $request)
     {
 
         $data = $request->all();
@@ -515,8 +523,7 @@ class AccountController extends ApiController
      * @param Request $request
      * @return \Dingo\Api\Http\Response
      */
-    public
-    function assignSchool(Request $request)
+    public function assignSchool(Request $request)
     {
         $data = $request->all();
         $validator = Validator::make($data, [
@@ -570,8 +577,7 @@ class AccountController extends ApiController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public
-    function detachSchool(Request $request)
+    public function detachSchool(Request $request)
     {
 
         $data = $request->all();
@@ -624,8 +630,7 @@ class AccountController extends ApiController
      * @param Request $request
      * @return \Dingo\Api\Http\Response
      */
-    public
-    function assignCourse(Request $request)
+    public function assignCourse(Request $request)
     {
         $data = $request->all();
         $validator = Validator::make($data, [
@@ -679,8 +684,7 @@ class AccountController extends ApiController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public
-    function detachCourse(Request $request)
+    public function detachCourse(Request $request)
     {
 
         $data = $request->all();
@@ -734,8 +738,7 @@ class AccountController extends ApiController
      * @param Request $request
      * @return \Dingo\Api\Http\Response
      */
-    public
-    function assignDepartment(Request $request)
+    public function assignDepartment(Request $request)
     {
         $data = $request->all();
         $validator = Validator::make($data, [
@@ -789,8 +792,7 @@ class AccountController extends ApiController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public
-    function detachDepartment(Request $request)
+    public function detachDepartment(Request $request)
     {
 
         $data = $request->all();
@@ -843,8 +845,7 @@ class AccountController extends ApiController
      * @param Request $request
      * @return \Dingo\Api\Http\Response
      */
-    public
-    function assignRoom(Request $request)
+    public function assignRoom(Request $request)
     {
         $data = $request->all();
         $validator = Validator::make($data, [
@@ -898,8 +899,7 @@ class AccountController extends ApiController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public
-    function detachRoom(Request $request)
+    public function detachRoom(Request $request)
     {
 
         $data = $request->all();

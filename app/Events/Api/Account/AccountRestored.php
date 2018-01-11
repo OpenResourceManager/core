@@ -87,5 +87,11 @@ class AccountRestored extends ApiRequestEvent
         }
 
         Log::info($logMessage, $logContext);
+
+        /**
+         * Ugly but will prevent passwords from being set in future requests
+         */
+        $account->should_propagate_password = false;
+        $account->save();
     }
 }
