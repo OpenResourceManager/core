@@ -251,8 +251,7 @@ class AccountController extends ApiController
         /**
          * Ugly but will prevent passwords from being set in future requests
          */
-        $item->should_propagate_password = false;
-        $item->save();
+        $item->set_propagate_password();
 
         $trans = new AccountTransformer();
         $item = $trans->transform($item);
@@ -361,8 +360,7 @@ class AccountController extends ApiController
         /**
          * Ugly but will prevent passwords from being set in future requests
          */
-        $item->should_propagate_password = false;
-        $item->save();
+        $item->set_propagate_password();
         // Get the updated account
         $item = $trans->transform($item);
         // Return a response

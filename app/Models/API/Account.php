@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class Account extends BaseApiModel
 {
@@ -146,6 +147,15 @@ class Account extends BaseApiModel
     }
 
     /**
+     * @param bool $value
+     * @return mixed
+     */
+    public function set_propagate_password(bool $value = false)
+    {
+        return DB::update('update accounts set should_propagate_password = ? where id = ?', [intval($value), $this->id]);
+    }
+
+    /**
      *
      *
      * Relationships
@@ -247,6 +257,4 @@ class Account extends BaseApiModel
     {
         return $this->belongsToMany(Department::class);
     }
-
-
 }

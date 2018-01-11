@@ -91,7 +91,6 @@ class AccountUpdated extends ApiRequestEvent
         /**
          * Ugly but will prevent passwords from being set in future requests
          */
-        $account->should_propagate_password = false;
-        $account->save();
+        $account->set_propagate_password();
     }
 }
