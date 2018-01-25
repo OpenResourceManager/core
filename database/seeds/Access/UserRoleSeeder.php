@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Access\Role\Role;
+use App\Models\Access\User\User;
 
 /**
  * Class UserRoleSeeder
@@ -30,9 +31,8 @@ class UserRoleSeeder extends Seeder
         }
 
         //Attach admin role to admin user
-        $user_model = config('auth.providers.users.model');
-        $user_model = new $user_model;
-        $user_model::first()->attachRole(Role::first()->id);
+        $admin = User::where('name', 'The Admin')->get()->first();
+        $admin->attachRole(Role::first()->id);
 
         if (DB::connection()->getDriverName() == 'mysql') {
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
