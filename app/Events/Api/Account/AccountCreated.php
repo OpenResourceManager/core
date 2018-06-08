@@ -59,6 +59,7 @@ class AccountCreated extends ApiRequestEvent
                 }
                 if (array_key_exists('birth_date', $trans)) {
                     $trans['birth_date'] = decrypt($trans['birth_date']);
+                    $logContext['account_birth_date'] = $trans['birth_date'];
                 }
                 $trans['username'] = strtolower($trans['username']);
                 $trans['expired'] = $account->expired();
