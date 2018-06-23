@@ -16,6 +16,8 @@ class BuildingTest extends TestCase
             'id',
             'code',
             'label',
+            'latitude',
+            'longitude',
             'updated',
             'created',
             'campus',
@@ -81,7 +83,7 @@ class BuildingTest extends TestCase
     /** @test */
     public function can_create_building()
     {
-        $this->post('/api/v1/buildings', ['label' => 'The Building', 'campus_id' => Campus::get()->random()->id, 'code' => 'CODZE1234'], ['Authorization' => 'Bearer ' . $this->bearer])
+        $this->post('/api/v1/buildings', ['label' => 'The Building', 'campus_id' => Campus::get()->random()->id, 'code' => 'CODZE1234', 'latitude' => 42.1865369, 'longitude' => -73.6237051], ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(201)
             ->seeJsonStructure($this->itemStructureResponse);
     }
@@ -89,7 +91,7 @@ class BuildingTest extends TestCase
     /** @test */
     public function fails_to_create_building_without_auth()
     {
-        $this->post('/api/v1/buildings', ['label' => 'The Building', 'campus_id' => Campus::get()->random()->id, 'code' => 'CODZE1234'])
+        $this->post('/api/v1/buildings', ['label' => 'The Building', 'campus_id' => Campus::get()->random()->id, 'code' => 'CODZE1234', 'latitude' => 42.1865369, 'longitude' => -73.6237051])
             ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }
@@ -97,7 +99,7 @@ class BuildingTest extends TestCase
     /** @test */
     public function can_create_building_with_campus_code()
     {
-        $this->post('/api/v1/buildings', ['label' => 'The Building', 'campus_code' => Campus::get()->random()->code, 'code' => 'CODZE1234'], ['Authorization' => 'Bearer ' . $this->bearer])
+        $this->post('/api/v1/buildings', ['label' => 'The Building', 'campus_code' => Campus::get()->random()->code, 'code' => 'CODZE1234', 'latitude' => 42.1865369, 'longitude' => -73.6237051], ['Authorization' => 'Bearer ' . $this->bearer])
             ->seeStatusCode(201)
             ->seeJsonStructure($this->itemStructureResponse);
     }
@@ -105,7 +107,7 @@ class BuildingTest extends TestCase
     /** @test */
     public function fails_to_create_building_with_campus_code_without_auth()
     {
-        $this->post('/api/v1/buildings', ['label' => 'The Building', 'campus_code' => Campus::get()->random()->code, 'code' => 'CODZE1234'])
+        $this->post('/api/v1/buildings', ['label' => 'The Building', 'campus_code' => Campus::get()->random()->code, 'code' => 'CODZE1234', 'latitude' => 42.1865369, 'longitude' => -73.6237051])
             ->seeStatusCode(401)
             ->seeJsonStructure($this->errorStructure);
     }

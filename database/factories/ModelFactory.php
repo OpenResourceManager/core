@@ -250,7 +250,9 @@ $factory->define(Building::class, function (Faker\Generator $faker) {
     return [
         'campus_id' => $faker->randomElement($campusIds),
         'code' => $code,
-        'label' => $label
+        'label' => $label,
+        'latitude' => $faker->latitude,
+        'longitude' => $faker->longitude
     ];
 
 });

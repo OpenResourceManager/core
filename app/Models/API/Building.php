@@ -13,7 +13,7 @@ class Building extends BaseApiModel
     use SoftDeletes;
     protected $table = 'buildings';
     protected $dates = ['deleted_at'];
-    protected $fillable = ['campus_id', 'code', 'label'];
+    protected $fillable = ['campus_id', 'code', 'label', 'latitude', 'longitude'];
     protected $touches = ['campus'];
 
     /**

@@ -85,7 +85,9 @@ class BuildingController extends ApiController
             'campus_id' => 'integer|required_without:campus_code|exists:campuses,id,deleted_at,NULL',
             'campus_code' => 'string|required_without:campus_id|exists:campuses,code,deleted_at,NULL',
             'code' => 'alpha_dash|required|max:15|min:3',
-            'label' => 'string|required|max:50|min:3'
+            'label' => 'string|required|max:50|min:3',
+            'latitude' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'longitude' => ['required', 'regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/']
         ]);
 
         if ($validator->fails())

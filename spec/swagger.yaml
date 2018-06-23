@@ -2150,6 +2150,16 @@ paths:
           required: true
           type: string
           description: A human readable label.
+        - name: latitude
+          in: formData
+          required: true
+          type: float
+          description: The geo latitude of the building.
+        - name: longitude
+          in: formData
+          required: true
+          type: float
+          description: The geo longitude of the building.
         - name: campus_id
           in: formData
           required: false
@@ -6112,6 +6122,10 @@ definitions:
         type: string
       label:
         type: string
+      latitude:
+        type: float
+      longitude:
+        type: float
       updated:
         type: string
       created:

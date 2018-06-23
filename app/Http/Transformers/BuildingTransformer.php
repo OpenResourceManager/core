@@ -20,6 +20,8 @@ class BuildingTransformer extends TransformerAbstract
             'id' => (int)$item->id,
             'code' => $item->code,
             'label' => $item->label,
+            'latitude' => $item->latitude,
+            'longitude' => $item->longitude,
             'created' => date('Y-m-d - H:i:s', strtotime($item->created_at)),
             'updated' => date('Y-m-d - H:i:s', strtotime($item->updated_at)),
             'campus' => $campusTrans->transform($item->campus),
