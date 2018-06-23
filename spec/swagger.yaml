@@ -2153,12 +2153,14 @@ paths:
         - name: latitude
           in: formData
           required: true
-          type: float
+          type: number
+          format: float
           description: The geo latitude of the building.
         - name: longitude
           in: formData
           required: true
-          type: float
+          type: number
+          format: float
           description: The geo longitude of the building.
         - name: campus_id
           in: formData
@@ -6123,9 +6125,11 @@ definitions:
       label:
         type: string
       latitude:
-        type: float
+        type: number
+        format: float
       longitude:
-        type: float
+        type: number
+        format: float
       updated:
         type: string
       created:
