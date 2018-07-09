@@ -57,7 +57,7 @@ class AccountCreated extends ApiRequestEvent
                 if (array_key_exists('password', $trans)) {
                     $trans['password'] = decrypt($trans['password']);
                 }
-                if (array_key_exists('birth_date', $trans)) {
+                if (array_key_exists('birth_date', $trans) && !empty($trans['birth_date'])) {
                     $trans['birth_date'] = decrypt($trans['birth_date']);
                     $logContext['account_birth_date'] = $trans['birth_date'];
                 }
