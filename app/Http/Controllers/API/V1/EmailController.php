@@ -191,7 +191,10 @@ class EmailController extends ApiController
         $email_domain = explode('@', $data['address'])[1];
         if (!empty($excluded_domains)) {
             if (in_array($email_domain, $excluded_domains))
-                throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', ['The email address entered is a member of a forbidden domain: ' . $email_domain]);
+                throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', [
+                    'The email address entered is a member of a forbidden domain: ' . $email_domain . '.',
+                    'Please use an email address that does not belong to these domains: ' . implode(', ', $excluded_domains)
+                ]);
         }
 
         /**
