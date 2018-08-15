@@ -68,7 +68,7 @@ class BuildingRestored extends ApiRequestEvent
 
             history()->log(
                 'Building',
-                'restored a building: ' . $building->label() . '.',
+                'restored a building: ' . $building->label . '.',
                 $building->id,
                 'building',
                 'bg-lime'

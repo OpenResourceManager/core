@@ -69,7 +69,7 @@ class BuildingUpdated extends ApiRequestEvent
 
             history()->log(
                 'Building',
-                'updated the building: ' . $building->label() . '.',
+                'updated the building: ' . $building->label . '.',
                 $building->id,
                 'building',
                 'bg-lime'
