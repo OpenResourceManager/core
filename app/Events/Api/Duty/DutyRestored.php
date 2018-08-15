@@ -69,7 +69,7 @@ class DutyRestored extends ApiRequestEvent
 
             history()->log(
                 'Duty',
-                'restored a duty: ' . $duty->label() . '.',
+                'restored a duty: ' . $duty->label . '.',
                 $duty->id,
                 'cube',
                 'bg-lime'

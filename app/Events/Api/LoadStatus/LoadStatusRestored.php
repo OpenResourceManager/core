@@ -69,7 +69,7 @@ class LoadStatusRestored extends ApiRequestEvent
 
             history()->log(
                 'LoadStatus',
-                'restored a load status: ' . $school->label() . '.',
+                'restored a load status: ' . $school->label . '.',
                 $school->id,
                 'cubes',
                 'bg-lime'

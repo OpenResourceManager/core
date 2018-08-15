@@ -66,7 +66,7 @@ class SchoolUpdated extends ApiRequestEvent
 
             history()->log(
                 'School',
-                'updated the school: ' . $school->label() . '.',
+                'updated the school: ' . $school->label . '.',
                 $school->id,
                 'university',
                 'bg-lime'

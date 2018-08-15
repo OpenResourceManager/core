@@ -70,7 +70,7 @@ class DepartmentRestored extends ApiRequestEvent
 
             history()->log(
                 'Department',
-                'restored a department: ' . $department->label() . '.',
+                'restored a department: ' . $department->label . '.',
                 $department->id,
                 'cubes',
                 'bg-lime'

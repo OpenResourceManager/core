@@ -72,7 +72,7 @@ class CourseRestored extends ApiRequestEvent
 
             history()->log(
                 'Course',
-                'restored a course: ' . $course->label() . '.',
+                'restored a course: ' . $course->label . '.',
                 $course->id,
                 'graduation-cap',
                 'bg-lime'

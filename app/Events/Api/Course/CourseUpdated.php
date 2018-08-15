@@ -69,7 +69,7 @@ class CourseUpdated extends ApiRequestEvent
 
             history()->log(
                 'Course',
-                'updated the course: ' . $course->label() . '.',
+                'updated the course: ' . $course->label . '.',
                 $course->id,
                 'graduation-cap',
                 'bg-lime'

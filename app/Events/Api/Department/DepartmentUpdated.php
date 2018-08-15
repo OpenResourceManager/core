@@ -67,7 +67,7 @@ class DepartmentUpdated extends ApiRequestEvent
 
             history()->log(
                 'Department',
-                'updated the course: ' . $department->label() . '.',
+                'updated the course: ' . $department->label . '.',
                 $department->id,
                 'cubes',
                 'bg-lime'

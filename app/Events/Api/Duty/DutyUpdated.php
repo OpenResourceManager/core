@@ -67,7 +67,7 @@ class DutyUpdated extends ApiRequestEvent
 
             history()->log(
                 'Duty',
-                'updated the duty: ' . $duty->label() . '.',
+                'updated the duty: ' . $duty->label . '.',
                 $duty->id,
                 'cube',
                 'bg-lime'

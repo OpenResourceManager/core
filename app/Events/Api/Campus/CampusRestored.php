@@ -69,7 +69,7 @@ class CampusRestored extends ApiRequestEvent
 
             history()->log(
                 'Campus',
-                'restored a campus: ' . $campus->label() . '.',
+                'restored a campus: ' . $campus->label . '.',
                 $campus->id,
                 'university',
                 'bg-lime'

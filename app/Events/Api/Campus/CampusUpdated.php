@@ -67,7 +67,7 @@ class CampusUpdated extends ApiRequestEvent
 
             history()->log(
                 'Campus',
-                'updated the campus: ' . $campus->label() . '.',
+                'updated the campus: ' . $campus->label . '.',
                 $campus->id,
                 'university',
                 'bg-lime'

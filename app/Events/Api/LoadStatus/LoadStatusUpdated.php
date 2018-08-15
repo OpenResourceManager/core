@@ -66,7 +66,7 @@ class LoadStatusUpdated extends ApiRequestEvent
 
             history()->log(
                 'LoadStatus',
-                'updated the load status: ' . $school->label() . '.',
+                'updated the load status: ' . $school->label . '.',
                 $school->id,
                 'cubes',
                 'bg-lime'
