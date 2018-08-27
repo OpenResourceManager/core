@@ -176,7 +176,7 @@ class AccountController extends ApiController
             'identifier' => 'alpha_num|required|max:7|min:6|unique:service_accounts,identifier',
             'name_prefix' => 'string|max:20',
             'name_first' => 'string|required|min:1',
-            'name_middle' => 'string',
+            'name_middle' => 'string|nullable',
             'name_last' => 'string|required|min:1',
             'name_postfix' => 'string|max:20',
             'name_phonetic' => 'string',
@@ -274,7 +274,7 @@ class AccountController extends ApiController
             'identifier' => 'alpha_num|required|max:7|min:6|unique:service_accounts,identifier',
             'name_prefix' => 'string|max:20',
             'name_first' => 'string|min:1',
-            'name_middle' => 'string',
+            'name_middle' => 'string|nullable',
             'name_last' => 'string|min:1',
             'name_postfix' => 'string|max:20',
             'name_phonetic' => 'string',
@@ -290,6 +290,15 @@ class AccountController extends ApiController
         // Run an initial validation
         if ($validator->fails()) {
             throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
+        }
+
+
+        // If we have the load_status_code
+        if (array_key_exists('name_middle', $data)) {
+            // If the load status code 'none' or 'null' or 'nil'?
+            if (in_array(strtolower($data['name_middle']), $nulls, true)) {
+                $data['name_middle'] = null;
+            }
         }
 
         // If we have the load_status_code
