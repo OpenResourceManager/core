@@ -308,6 +308,13 @@ class AccountController extends ApiController
             }
         }
 
+        // Uppercase any last names separated by spaces tabs or dashes
+        if (array_key_exists('name_last', $data)) {
+            if (strpos($data['name_last'], '-') !== false || strpos($data['name_last'], ' ') !== false) {
+                $data['name_last'] = ucwords($data['name_last'], " \t-");
+            }
+        }
+
         // If we have the load_status_code
         if (array_key_exists('load_status_code', $data)) {
             // If the load status code 'none' or 'null' or 'nil'?
