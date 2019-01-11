@@ -218,6 +218,13 @@ class AccountController extends ApiController
             $restore_account = Account::where('identifier', $data['identifier'])->first();
         }
 
+        // Uppercase any last names separated by spaces tabs or dashes
+        if (array_key_exists('name_last', $data)) {
+            if (strpos($data['name_last'], '-') !== false || strpos($data['name_last'], ' ') !== false) {
+                $data['name_last'] = ucwords($data['name_last'], " \t-");
+            }
+        }
+
         $item = Account::updateOrCreate(['identifier' => $data['identifier']], $data);
 
         // If the item was restored detach it's old duty and attach it to it's new duty

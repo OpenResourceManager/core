@@ -96,7 +96,7 @@ class Account extends BaseApiModel
      */
     public function format_last_name()
     {
-        $this->name_last = ucwords(strtolower($this->name_last), ' ');
+        $this->name_last = ucwords(strtolower($this->name_last), " \t-");
         return $this->name_last;
     }
 
