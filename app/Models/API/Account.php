@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Tamtamchik\NameCase\Formatter as NameCase;
 
 class Account extends BaseApiModel
 {
@@ -71,7 +72,8 @@ class Account extends BaseApiModel
      */
     public function format_first_name()
     {
-        $this->name_first = ucwords(strtolower($this->name_first), ' ');
+        $nameCase = new NameCase();
+        $this->name_first = $nameCase->nameCase($this->name_first);
         return $this->name_first;
     }
 
@@ -85,7 +87,8 @@ class Account extends BaseApiModel
             if (strlen($this->name_middle) === 1) {
                 $this->name_middle = $this->name_middle . '.';
             }
-            $this->name_middle = ucwords(strtolower($this->name_middle), ' ');
+            $nameCase = new NameCase();
+            $this->name_middle = $nameCase->nameCase($this->name_middle);
             return $this->name_middle;
         }
         return null;
@@ -96,8 +99,8 @@ class Account extends BaseApiModel
      */
     public function format_last_name()
     {
-        $this->name_last = ucwords(strtolower($this->name_last), " \t-");
-        return $this->name_last;
+        $nameCase = new NameCase();
+        return $nameCase->nameCase($this->name_last);
     }
 
     /**
@@ -117,10 +120,8 @@ class Account extends BaseApiModel
             if (!empty($this->name_prefix)) $full_name = $this->name_prefix . ' ' . $full_name;
             if (!empty($this->name_postfix)) $full_name = $full_name . ' ' . $this->name_postfix;
         }
-
-        // Return the name
-        // Make sure that the first letter of the first and last name are capital
-        $this->full_name = ucwords(strtolower($full_name), ' ');
+        $nameCase = new NameCase();
+        $this->full_name = $nameCase->nameCase($full_name);
         return $this->full_name;
     }
 

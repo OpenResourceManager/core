@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "29ceaa06e0e9699b97b3106f162d80d0",
+    "content-hash": "861ccb0eaeef58604ead4fd6d353bbab",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -4120,6 +4120,63 @@
                 "dump"
             ],
             "time": "2017-01-24T13:02:38+00:00"
+        },
+        {
+            "name": "tamtamchik/namecase",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tamtamchik/namecase.git",
+                "reference": "a0d83e8c39141fc27898993c9339cfc4cf4680de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tamtamchik/namecase/zipball/a0d83e8c39141fc27898993c9339cfc4cf4680de",
+                "reference": "a0d83e8c39141fc27898993c9339cfc4cf4680de",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "scrutinizer/ocular": "1.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Tamtamchik\\NameCase\\": "src"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yuri Tkachenko",
+                    "email": "yuri.tam.tkachenko@gmail.com",
+                    "homepage": "http://tamtamchika.net"
+                }
+            ],
+            "description": "This package allows you to convert names into the correct case where possible.",
+            "homepage": "https://github.com/tamtamchik/namecase",
+            "keywords": [
+                "cased",
+                "namecase",
+                "properly",
+                "strings",
+                "tamtamchik"
+            ],
+            "time": "2018-09-12T10:40:55+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

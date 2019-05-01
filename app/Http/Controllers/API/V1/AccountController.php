@@ -30,6 +30,7 @@ use App\Events\Api\Account\AccountsViewed;
 use App\Events\Api\Account\AccountViewed;
 use App\Models\Access\Permission\Permission;
 use App\Http\Models\API\LoadStatus;
+use Tamtamchik\NameCase\Formatter as NameCase;
 use PDOException;
 
 class AccountController extends ApiController
@@ -147,6 +148,8 @@ class AccountController extends ApiController
     {
         $data = $request->all();
         $restore_account = null;
+        // Valid null strings
+        $nulls = ['none', 'null', 'nil'];
 
         if (array_key_exists('ssn', $data)
             || array_key_exists('password', $data)
@@ -188,6 +191,26 @@ class AccountController extends ApiController
             'load_status_id' => 'integer|exists:load_statuses,id,deleted_at,NULL',
             'load_status_code' => 'string|exists:load_statuses,code,deleted_at,NULL'
         ]);
+
+        $nameCase = new NameCase();
+
+        if (array_key_exists('name_first', $data)) {
+            $data['name_first'] = $nameCase->nameCase($data['name_first']);
+        }
+
+        // If we have the middle name
+        if (array_key_exists('name_middle', $data)) {
+            // If the middle name is'none' or 'null' or 'nil'?
+            if (in_array(strtolower($data['name_middle']), $nulls, true)) {
+                $data['name_middle'] = null;
+            } else {
+                $data['name_middle'] = $nameCase->nameCase($data['name_middle']);
+            }
+        }
+
+        if (array_key_exists('name_last', $data)) {
+            $data['name_last'] = $nameCase->nameCase($data['name_last']);
+        }
 
         if ($validator->fails()) {
             throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
@@ -299,20 +322,24 @@ class AccountController extends ApiController
             throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $validator->errors());
         }
 
+        $nameCase = new NameCase();
 
-        // If we have the load_status_code
+        if (array_key_exists('name_first', $data)) {
+            $data['name_first'] = $nameCase->nameCase($data['name_first']);
+        }
+
+        // If we have the middle name
         if (array_key_exists('name_middle', $data)) {
-            // If the load status code 'none' or 'null' or 'nil'?
+            // If the middle name is'none' or 'null' or 'nil'?
             if (in_array(strtolower($data['name_middle']), $nulls, true)) {
                 $data['name_middle'] = null;
+            } else {
+                $data['name_middle'] = $nameCase->nameCase($data['name_middle']);
             }
         }
 
-        // Uppercase any last names separated by spaces tabs or dashes
         if (array_key_exists('name_last', $data)) {
-            if (strpos($data['name_last'], '-') !== false || strpos($data['name_last'], ' ') !== false) {
-                $data['name_last'] = ucwords($data['name_last'], " \t-");
-            }
+            $data['name_last'] = $nameCase->nameCase($data['name_last']);
         }
 
         // If we have the load_status_code
