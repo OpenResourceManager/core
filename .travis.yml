@@ -14,11 +14,8 @@ services:
 addons:
   mariadb: "10.1"
 before_install:
-  - sudo service mysql status;
-  - sleep 10;
-  - sudo service mysql status;
   - sudo mysql -e "create database IF NOT EXISTS orm_core;" -uroot
-  - sudo mysql -e "grant all on orm_core.* to 'travis'@'localhost';" -uroot
+  - sudo mysql -e "grant all on orm_core.* to 'travis'@'localhost' identified by 'secret';" -uroot
   - sudo mysql -e "FLUSH PRIVILEGES;" -uroot
   - cp .env.travis .env
 install:
