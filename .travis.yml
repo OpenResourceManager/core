@@ -5,17 +5,18 @@ language: php
 sudo: required
 os:
   - linux
+dist: bionic
 php:
   - 7.1
 services:
   - mysql
   - redis-server
 addons:
-  mariadb: 10.1
+  mariadb: "10.1"
 before_install:
-  - mysql -e "create database IF NOT EXISTS orm_core;" -uroot
-  - mysql -e "grant all on orm_core.* to 'travis'@'localhost';" -uroot
-  - mysql -e "FLUSH PRIVILEGES;" -uroot
+  - sudo mysql -e "create database IF NOT EXISTS orm_core;" -uroot
+  - sudo mysql -e "grant all on orm_core.* to 'travis'@'localhost' identified by 'secret';" -uroot
+  - sudo mysql -e "FLUSH PRIVILEGES;" -uroot
   - cp .env.travis .env
 install:
   - composer self-update

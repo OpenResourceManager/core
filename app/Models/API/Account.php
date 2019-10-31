@@ -29,14 +29,13 @@ class Account extends BaseApiModel
         'username',
         'primary_duty_id',
         'load_status_id',
-        'ssn',
         'password',
         'should_propagate_password',
         'birth_date',
         'expires_at',
         'disabled'
     ];
-    protected $classified = ['password', 'ssn', 'birth_date'];
+    protected $classified = ['password', 'birth_date'];
 
     /**
      * If the current user cannot read or write classified attributes then hide them
