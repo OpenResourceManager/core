@@ -71,7 +71,6 @@ class AccountTransformer extends TransformerAbstract
 
         $readClassified = Permission::where('name', 'read-classified')->first();
         if (in_array('read-classified', $permissions, true) || $user->hasPermission($readClassified)) {
-            $transformed['ssn'] = (!empty($item->ssn)) ? strval(decrypt($item->ssn)) : null;
             $transformed['password'] = (!empty($item->password)) ? decrypt($item->password) : null;
             $transformed['birth_date'] = (!empty($item->birth_date)) ? decrypt($item->birth_date) : null;
         }

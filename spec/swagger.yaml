@@ -296,11 +296,6 @@ paths:
           required: false
           type: string
           description: The load status Code for this account.
-        - name: ssn
-          in: formData
-          required: false
-          type: string
-          description: The last four digits of the account owner's social security number. This is only availble to API consumers who have classified permissions.
         - name: password
           in: formData
           required: false
@@ -430,11 +425,6 @@ paths:
           required: false
           type: string
           description: The load status Code for this account. Set to `null`, `nil`, or `none` to clear the load status to `null`.
-        - name: ssn
-          in: formData
-          required: false
-          type: string
-          description: The last four digits of the account owner's social security number. This is only availble to API consumers who have classified permissions.
         - name: password
           in: formData
           required: false
@@ -5733,8 +5723,6 @@ definitions:
         type: string
       primary_duty:
         type: integer
-      ssn:
-        type: string
       password:
         type: string
       birth_date:
@@ -6408,8 +6396,6 @@ definitions:
         $ref: '#/definitions/transformedDuty'
       load_status:
         $ref: '#/definitions/transformedLoadStatus'
-      ssn:
-        type: string
       password:
         type: string
       birth_date:
