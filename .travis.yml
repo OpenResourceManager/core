@@ -32,12 +32,12 @@ before_install:
   - sudo apt-get install -y nodejs
 
 install:
+  - cp .env.travis .env
   - composer self-update
   - composer install --no-interaction
   - yarn install
 
 before_script:
-  - cp .env.travis .env
   - php artisan key:generate
   - php artisan orm:bckey
   - bash generate_jwt_key.sh
