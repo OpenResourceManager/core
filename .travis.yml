@@ -13,11 +13,11 @@ services:
 addons:
   mariadb: 10.1
 before_install:
-  - service mysql status;
-  - service mysql start;
-  - service mysql status;
+  - sudo service mysql status;
+  - sudo service mysql start;
+  - sudo service mysql status;
   - sleep 10;
-  - service mysql status;
+  - sudo service mysql status;
   - mysql -e "create database IF NOT EXISTS orm_core;" -uroot
   - mysql -e "grant all on orm_core.* to 'travis'@'localhost';" -uroot
   - mysql -e "FLUSH PRIVILEGES;" -uroot
