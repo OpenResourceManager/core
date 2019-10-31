@@ -7,7 +7,7 @@
     "spec2md": "cp spec/header.md  docs/Specification.md && swagger-to-md -y spec/swagger.yaml >> docs/Specification.md"
   },
   "devDependencies": {
-    "bootstrap-sass": "^3.3.7",
+    "bootstrap-sass": "^3.4.1",
     "font-awesome": "^4.6.3",
     "gulp": "^3.9.1",
     "gulp-rename": "^1.2.2",
