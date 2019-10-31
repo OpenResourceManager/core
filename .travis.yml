@@ -1,26 +1,38 @@
 notifications:
   slack:
     secure: n+iMNg8JMaKKrrylXm6o/plV7jKc9aprfd9mFGdZSwvvcTLGeetGmUnR29UYLL5gX6kITQW5QdAE67mI/aTiUOuCmgWcPVyPzbLQg7fCFyeFfC2zAwm2ku9xLjsyzAKCSA0DQ9DGgND1FyN5S/Zuy9k8W1ISpt6ZHeMaj4Go3n4n+sf8QvpDYGkr06i3qm8lo42SPIgIpV41CjZC16KHuKZz7BbQZz1z8fCJ0SBy8J8S/opYNKsnrFMPNlJgs6TlwEZEG7xMkxfiMg9fjDBQ+44vrEofWLexjSFXrbhQxX7deoSg3HvfPnBNH+aT2PpYHdKVSRAikbWYmuxxnYWCyXf4VfLAi46dhmPVzRHZOC+CkO1Cj7qAcH6itXB/Qg3P1abX5zJzViskheb/ZQ9ZsqqaXvRWwgyxIh86ORK87jP5UxeaHFjuCViOwJVnxiCZ9k6a1iJSXuJNslTZhiE3UMwMd6838IyGLQdD/l3RxR48O9zvoLo7RcMYgodX4b4GaquXe9RLcIR8Tx8FRDvbkmHQg1075Dm1T+DFVa56KnALkUKfpGsQjBzgYcfaa4spQJlhpIpxuIUJMUHeUI46Jww47OKrO+9CvN4dYCX0ImR4glsAQS/SWIRnjabvn5XvW3T+X97pdRqzUhlv4K6JGah1tUk5JITIqGusbvIP1Yw=
-language: php
+
 sudo: required
-os:
-  - linux
 dist: bionic
+
+language: php
 php:
   - 7.1
+  - hhvm
+
+matrix:
+  allow_failures:
+    - php: hhvm
+
 services:
   - mysql
   - redis-server
+
 addons:
   mariadb: "10.1"
+
 before_install:
+  - nvm install 8.16
   - sudo mysql -e "create database IF NOT EXISTS orm_core;" -uroot
   - sudo mysql -e "grant all on orm_core.* to 'travis'@'localhost' identified by 'secret';" -uroot
   - sudo mysql -e "FLUSH PRIVILEGES;" -uroot
-  - cp .env.travis .env
+
 install:
+  - cp .env.travis .env
   - composer self-update
   - composer install --no-interaction
+  - yarn install
+
 before_script:
   - php artisan key:generate
   - php artisan orm:bckey
@@ -29,5 +41,10 @@ before_script:
   - php artisan route:cache
   - php artisan api:cache
   - cat .env
-script:
-  - composer run test --timeout=0
+
+jobs:
+  include:
+    - stage: build
+    - script: npm run prod
+    - stage: test
+    - script: composer run test --timeout=0
