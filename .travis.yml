@@ -8,6 +8,8 @@ os:
 dist: bionic
 php:
   - 7.1
+node_js:
+  - 8
 services:
   - mysql
   - redis-server
@@ -21,6 +23,7 @@ before_install:
 install:
   - composer self-update
   - composer install --no-interaction
+  - yarn install
 before_script:
   - php artisan key:generate
   - php artisan orm:bckey
@@ -29,5 +32,10 @@ before_script:
   - php artisan route:cache
   - php artisan api:cache
   - cat .env
-script:
-  - composer run test --timeout=0
+
+jobs:
+  include:
+    - stage: build
+    - script: npm run prod
+    - stage: test
+    - script: composer run test --timeout=0
