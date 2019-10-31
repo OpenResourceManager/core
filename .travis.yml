@@ -13,6 +13,7 @@ services:
 addons:
   mariadb: 10.1
 before_install:
+  - which mysql && until mysql -u root -e "show status" &>/dev/null; do sleep 1; done
   - mysql -e "create database IF NOT EXISTS orm_core;" -uroot
   - mysql -e "grant all on orm_core.* to 'travis'@'localhost';" -uroot
   - mysql -e "FLUSH PRIVILEGES;" -uroot
