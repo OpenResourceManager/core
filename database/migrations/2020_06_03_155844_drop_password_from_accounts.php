@@ -13,9 +13,11 @@ class DropPasswordFromAccounts extends Migration
      */
     public function up()
     {
-        Schema::table('accounts', function (Blueprint $table) {
-            $table->dropColumn('ssn');
-        });
+        if (Schema::hasColumn('accounts', 'password')) {
+            Schema::table('accounts', function (Blueprint $table) {
+                $table->dropColumn('password');
+            });
+        }
     }
 
     /**
