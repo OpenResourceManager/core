@@ -82,7 +82,6 @@ $factory->define(Account::class, function (Faker\Generator $faker) {
     $dutyIds = Duty::pluck('id')->all();
     $loadStatusIds = LoadStatus::pluck('id')->all();
     $loadStatusIds[] = null;
-    $pass = $faker->optional()->password(6);
     $birth_date = $faker->optional()->date('Y-m-d');
     $expires_at = null;
     if ($faker->boolean) {
@@ -90,8 +89,6 @@ $factory->define(Account::class, function (Faker\Generator $faker) {
     }
     $disabled = $faker->boolean;
     $should_propagate_password = false;
-    if (!empty($pass)) $pass = encrypt($pass);
-    if (!empty($pass)) $should_propagate_password = $faker->boolean;
     if (!empty($birth_date)) $birth_date = encrypt($birth_date);
 
     return [
@@ -103,7 +100,6 @@ $factory->define(Account::class, function (Faker\Generator $faker) {
         'name_postfix' => $faker->optional()->title,
         'name_phonetic' => $faker->optional()->firstName,
         'username' => $faker->unique()->userName,
-        'password' => $pass,
         'should_propagate_password' => $should_propagate_password,
         'birth_date' => $birth_date,
         'expires_at' => $expires_at,
