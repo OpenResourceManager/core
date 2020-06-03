@@ -296,18 +296,13 @@ paths:
           required: false
           type: string
           description: The load status Code for this account.
-        - name: password
-          in: formData
-          required: false
-          type: string
-          description: The inital password assigned to this account when it is created. This is only availble to API consumers who have classified permissions.
         - name: should_propagate_password
           in: formData
           required: false
           type: integer
           minimum: 0
           maximum: 1
-          description: "If this is set to true and a `password` parameter is supplied third party integrations such as Active Directory will use this password for the account within their systems."
+          description: "If this is set to true a password will be generated and sent to delegates."
         - name: expires_at
           in: formData
           required: false
@@ -425,18 +420,13 @@ paths:
           required: false
           type: string
           description: The load status Code for this account. Set to `null`, `nil`, or `none` to clear the load status to `null`.
-        - name: password
-          in: formData
-          required: false
-          type: string
-          description: The inital password assigned to this account when it is created. This is only availble to API consumers who have classified permissions.
         - name: should_propagate_password
           in: formData
           required: false
           type: integer
           minimum: 0
           maximum: 1
-          description: "If this is set to true and a `password` parameter is supplied third party integrations such as Active Directory will use this password for the account within their systems."
+          description: "If this is set to true a password will be generated and sent to delegates."
         - name: expires_at
           in: formData
           required: false
@@ -1231,18 +1221,13 @@ paths:
           required: true
           type: string
           description: Unqiue username for alias account. Must be unique across all alias accounts, service accounts, and regular accounts.
-        - name: password
-          in: formData
-          required: false
-          type: string
-          description: The inital password assigned to this alias account when it is created. This is only availble to API consumers who have classified permissions.
         - name: should_propagate_password
           in: formData
           required: false
           type: integer
           minimum: 0
           maximum: 1
-          description: "If this is set to true and a `password` parameter is supplied third party integrations such as Google Apps will use this password for the alias account within their systems."
+          description: "If this is set to true a password will be generated and sent to delegates."
         - name: account_id
           in: formData
           required: false
@@ -1474,18 +1459,13 @@ paths:
           required: true
           type: string
           description: The last name of the service.
-        - name: password
-          in: formData
-          required: false
-          type: string
-          description: The inital password assigned to this service account when it is created. This is only availble to API consumers who have classified permissions.
         - name: should_propagate_password
           in: formData
           required: false
           type: integer
           minimum: 0
           maximum: 1
-          description: "If this is set to true and a `password` parameter is supplied third party integrations such as Google Apps will use this password for the alias account within their systems."
+          description: "If this is set to true a password will be generated and sent to delegates."
         - name: account_id
           in: formData
           required: false
@@ -5723,8 +5703,6 @@ definitions:
         type: string
       primary_duty:
         type: integer
-      password:
-        type: string
       birth_date:
         type: string
       expires_at:
@@ -5742,8 +5720,6 @@ definitions:
       account_id:
         type: integer
       username:
-        type: string
-      password:
         type: string
       expires_at:
         type: string
@@ -5769,8 +5745,6 @@ definitions:
       name_first:
         type: string
       name_last:
-        type: string
-      password:
         type: string
       expires_at:
         type: string
@@ -6326,8 +6300,6 @@ definitions:
         type: integer
       username:
         type: string
-      password:
-        type: string
       disabled:
         type: boolean
         format: int32
@@ -6355,8 +6327,6 @@ definitions:
       name_first:
         type: string
       name_last:
-        type: string
-      password:
         type: string
       disabled:
         type: boolean
@@ -6396,8 +6366,6 @@ definitions:
         $ref: '#/definitions/transformedDuty'
       load_status:
         $ref: '#/definitions/transformedLoadStatus'
-      password:
-        type: string
       birth_date:
         type: string
       emails:

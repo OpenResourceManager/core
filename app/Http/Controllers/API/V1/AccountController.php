@@ -151,12 +151,11 @@ class AccountController extends ApiController
         // Valid null strings
         $nulls = ['none', 'null', 'nil'];
 
-        if (array_key_exists('password', $data) || array_key_exists('birth_date', $data)
+        if (array_key_exists('should_propagate_password', $data) || array_key_exists('birth_date', $data)
         ) {
             $user = auth()->user();
             if ($user->hasPermission(Permission::where('name', 'write-classified')->firstOrFail())) {
                 $classifiedValidator = Validator::make($data, [
-                    'password' => 'string|min:6|nullable',
                     'should_propagate_password' => 'boolean|nullable',
                     'birth_date' => 'date|nullable'
                 ]);
@@ -164,10 +163,9 @@ class AccountController extends ApiController
                     throw new StoreResourceFailedException('Could not store ' . $this->noun . '.', $classifiedValidator->errors());
                 }
             } else {
-                throw new UnauthorizedHttpException('You are not authorized to write classified information. Hint: request greater access or remove any `password` or `birth_date` references in your post data.');
+                throw new UnauthorizedHttpException('You are not authorized to write classified information. Hint: request greater access or remove any `should_propagate_password` or `birth_date` references in your post data.');
             }
-            // Encrypt any passwords or birth dates.
-            if (array_key_exists('password', $data)) $data['password'] = encrypt($data['password']);
+            // Encrypt any birth dates.
             if (array_key_exists('birth_date', $data)) $data['birth_date'] = encrypt($data['birth_date']);
         }
 
@@ -390,7 +388,6 @@ class AccountController extends ApiController
         }
 
         // Encrypt any sensitive information
-        if (array_key_exists('password', $data)) $data['password'] = encrypt($data['password']);
         if (array_key_exists('birth_date', $data)) $data['birth_date'] = encrypt($data['birth_date']);
 
         // Get the account

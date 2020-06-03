@@ -97,11 +97,10 @@ class ServiceAccountController extends ApiController
     {
         $data = $request->all();
 
-        if (array_key_exists('password', $data)) {
+        if (array_key_exists('should_propagate_password', $data)) {
             $user = auth()->user();
             if ($user->hasPermission(Permission::where('name', 'write-service-classified')->firstOrFail())) {
                 $classifiedValidator = Validator::make($data, [
-                    'password' => 'string|min:6|nullable',
                     'should_propagate_password' => 'boolean|nullable',
                 ]);
                 if ($classifiedValidator->fails()) {

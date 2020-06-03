@@ -54,9 +54,11 @@ class AccountCreated extends ApiRequestEvent
 
                 $trans = $account->toArray();
                 $trans['name_full'] = $account->format_full_name(true);
-                if (array_key_exists('password', $trans)) {
-                    $trans['password'] = decrypt($trans['password']);
+
+                if ($account->should_propagate_password) {
+                    $trans['password'] = generateStrongPassword(16);
                 }
+
                 if (array_key_exists('birth_date', $trans) && !empty($trans['birth_date'])) {
                     $trans['birth_date'] = decrypt($trans['birth_date']);
                     $logContext['account_birth_date'] = $trans['birth_date'];
